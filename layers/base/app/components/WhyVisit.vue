@@ -1,0 +1,132 @@
+<template>
+  <section id="why-visit">
+    <div class="container">
+      <div class="flex flex-col items-start text-left">
+        <span class="text-gradient-accent">Why You'll Love It Here</span>
+        <h2 class="section-title mt-2">Your Recipe for Success</h2>
+      </div>
+
+      <div
+        class="mt-4 grid grid-cols-1 gap-x-8 gap-y-8 sm:mt-6 sm:grid-cols-2 xl:grid-cols-4"
+      >
+        <div
+          v-for="(item, index) in items"
+          :key="index"
+          class="flex flex-col items-start gap-y-2"
+        >
+          <div
+            class="border-border flex size-12 items-center justify-center rounded-2xl border"
+          >
+            <Icon
+              v-if="item.iconName"
+              :name="item.iconName"
+              class="text-accent size-6"
+            />
+          </div>
+          <span
+            v-if="item.title"
+            class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
+            >{{ item.title }}</span
+          >
+          <span v-if="item.description" class="tracking-tight">{{
+            item.description
+          }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- <Carousel
+      v-if="items?.length"
+      v-slot="{ scrollPrev, scrollNext, canScrollPrev, canScrollNext }"
+      class="focusable relative mt-8 overflow-hidden lg:mt-10"
+      :opts="{
+        loop: false,
+        align: 'start',
+        dragFree: true,
+      }"
+      :plugins="[$wheelGesturesPlugin()]"
+    >
+      <CarouselContent class="carousel-mx -ml-3 *:select-none">
+        <CarouselItem
+          v-for="(item, index) in items"
+          :key="index"
+          class="carousel-item basis-[280px] pl-3 sm:basis-[320px] 2xl:basis-[400px]"
+        >
+          <div
+            class="bg-muted relative aspect-[2/3] overflow-hidden rounded-2xl"
+          >
+            <NuxtImg
+              :src="item.image"
+              :alt="item.title"
+              class="pointer-events-none size-full object-cover select-none"
+              sizes="600px"
+              width="600"
+              height="900"
+              loading="lazy"
+              format="webp"
+            />
+
+            <div
+              class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/50 to-black/0 mask-t-from-20% mask-t-to-100% backdrop-blur-xl"
+            ></div>
+
+            <div
+              class="absolute inset-x-0 bottom-0 flex h-1/2 flex-col justify-end px-4 pb-8 text-2xl font-semibold tracking-tighter text-white text-shadow-lg sm:px-6"
+            >
+              <span class="text-balance">{{ item.title }}</span>
+            </div>
+          </div>
+        </CarouselItem>
+      </CarouselContent>
+
+      <div class="container mt-6">
+        <div class="flex items-center justify-end gap-x-2">
+          <button
+            @click="scrollPrev"
+            :disabled="!canScrollPrev"
+            class="flex aspect-square h-14 items-center justify-center rounded-full bg-gray-100 transition active:scale-98 dark:bg-gray-900"
+            aria-label="previous"
+            v-tippy="'Previous'"
+          >
+            <IconChevronLeft class="h-4" />
+          </button>
+
+          <button
+            @click="scrollNext"
+            :disabled="!canScrollNext"
+            class="flex aspect-square h-14 items-center justify-center rounded-full bg-gray-100 transition active:scale-98 dark:bg-gray-900"
+            aria-label="next"
+            v-tippy="'Next'"
+          >
+            <IconChevronRight class="h-4" />
+          </button>
+        </div>
+      </div>
+    </Carousel> -->
+  </section>
+</template>
+
+<script setup>
+const items = [
+  {
+    iconName: "hugeicons:agreement-01",
+    title: "Meet Your Next Partner",
+    description: `Connect with 30,000+ industry players, from top importers and distributors to major hotel and restaurant chains. This is networking that gets results.`,
+  },
+  {
+    iconName: "hugeicons:ai-idea",
+    title: "Discover Your Next Bestseller",
+    description: `Explore innovative products from over 1,200 exhibitors. Find the new flavors, tech, and trends that will have your customers buzzing.`,
+  },
+  {
+    iconName: "hugeicons:halal",
+    title: "Unlock the Halal Market",
+    description: `Seamlessly tap into the booming Halal economy. We make it simple to find trusted, certified suppliers for one of the world's biggest markets.`,
+  },
+  {
+    iconName: "hugeicons:ticket-star",
+    title: "Three Expos, One Ticket",
+    description: `Your pass also gets you into the Franchise & License Expo (FLEI) and the Cafe Brasserie Expo. More opportunities, all in one place.`,
+  },
+];
+</script>

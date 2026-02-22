@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "dev:megabuild": "pnpm --filter @events/megabuild dev",
+    "dev:keramika": "pnpm --filter @events/keramika dev",
+    "dev:renex": "pnpm --filter @events/renex dev",
+    "dev:flei": "pnpm --filter @events/flei dev",
+    "dev:cafeexpo": "pnpm --filter @events/cafeexpo dev",
+    "dev:icf": "pnpm --filter @events/icf dev",
+    "dev:cokelatexpo": "pnpm --filter @events/cokelatexpo dev",
+    "dev:morefood": "pnpm --filter @events/morefood dev",
+    "dev:outingexpo": "pnpm --filter @events/outingexpo dev",
+    "dev:icc": "pnpm --filter @events/icc dev",
+    "dev:inacon": "pnpm --filter @events/inacon dev",
+    "build:megabuild": "pnpm --filter @events/megabuild build",
+    "build:keramika": "pnpm --filter @events/keramika build",
+    "build:renex": "pnpm --filter @events/renex build",
+    "build:flei": "pnpm --filter @events/flei build",
+    "build:cafeexpo": "pnpm --filter @events/cafeexpo build",
+    "build:icf": "pnpm --filter @events/icf build",
+    "build:cokelatexpo": "pnpm --filter @events/cokelatexpo build",
+    "build:morefood": "pnpm --filter @events/morefood build",
+    "build:outingexpo": "pnpm --filter @events/outingexpo build",
+    "build:icc": "pnpm --filter @events/icc build",
+    "build:inacon": "pnpm --filter @events/inacon build",
+    "build:all": "pnpm -r --filter './apps/*' build"
+  }
+}

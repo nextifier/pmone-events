@@ -1,0 +1,364 @@
+<template>
+  <div id="ticket-page" class="pb-16 lg:pt-6 lg:pb-20">
+    <div
+      class="grid grid-cols-1 gap-4 sm:container sm:max-w-6xl lg:grid-cols-12 lg:gap-10"
+    >
+      <div class="px-1 sm:px-0 lg:col-span-5">
+        <div
+          class="bg-muted relative isolate aspect-4/5 w-full overflow-hidden rounded-xl sm:rounded-2xl"
+        >
+          <NuxtImg
+            :src="event.poster"
+            :alt="event.title"
+            class="relative z-10 size-full object-cover select-none"
+            sizes="100vw sm:800px"
+            width="1080"
+            height="1350"
+            loading="lazy"
+            format="webp"
+          />
+
+          <div
+            v-if="event.teaserVideoId"
+            class="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-blur-sm transition delay-1000 duration-800 ease-out starting:scale-0 starting:opacity-0"
+          >
+            <button
+              class="flex size-16 items-center justify-center rounded-full bg-white/30 text-white shadow-xl outline -outline-offset-6 outline-white transition hover:bg-white/60 active:scale-98"
+              @click="
+                uiStore.openEmbedVideoDialog(
+                  `https://www.youtube.com/embed/${event.teaserVideoId}`,
+                )
+              "
+              v-ripple
+            >
+              <Icon
+                name="material-symbols:play-arrow-rounded"
+                class="size-8 shrink-0"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 sm:px-0 lg:col-span-7 lg:pt-6">
+        <div class="flex flex-col">
+          <div class="flex items-center justify-between">
+            <EventStatus
+              class="h-10"
+              :startTime="new Date(event.startTime)"
+              :endTime="new Date(event.endTime)"
+            />
+
+            <DialogShare :pageTitle="title" />
+          </div>
+
+          <h1
+            class="text-primary mt-1 text-3xl leading-[1.25] font-semibold tracking-tighter sm:mt-2 sm:text-4xl xl:text-5xl"
+          >
+            {{ event.title }}
+          </h1>
+
+          <div class="mt-2.5 flex flex-col gap-y-2.5">
+            <div v-if="event.edition" class="flex">
+              <span
+                class="text-primary bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
+                >{{ event.edition.value
+                }}<span class="align-super text-[10px]">{{
+                  event.edition.ordinal
+                }}</span>
+                edition</span
+              >
+            </div>
+
+            <SponsoredBy />
+
+            <InConjunction />
+          </div>
+
+          <WhenAndWhere
+            class="mt-6"
+            :date="event.date"
+            :time="event.time"
+            :location="event.location"
+            :locationLink="event.locationLink"
+            :hall="event.hall"
+          />
+        </div>
+      </div>
+    </div>
+
+    <TabsRoot
+      ref="tabsRootRef"
+      v-model="activeTab"
+      default-value="tickets"
+      class="scroll-mt-navbar mt-8 flex w-full flex-col"
+    >
+      <div
+        class="bg-background/95 supports-backdrop-filter:bg-background/90 sticky inset-x-0 top-(--navbar-height-mobile) isolate z-40 lg:top-(--navbar-height-desktop)"
+      >
+        <TabsList
+          class="scroll-fade-x no-scrollbar border-border/30 flex h-(--navbar-height-mobile) w-full items-center justify-center-safe overflow-x-auto border-b px-4 text-sm backdrop-blur-sm sm:px-0 lg:h-(--navbar-height-desktop)"
+        >
+          <TabsIndicator
+            class="absolute bottom-0 left-0 z-0 w-(--reka-tabs-indicator-size) translate-x-(--reka-tabs-indicator-position) transition-all duration-300 ease-in-out"
+          >
+            <div class="bg-primary h-px w-full" />
+          </TabsIndicator>
+
+          <TabsTrigger
+            v-for="tab in tabList"
+            :key="tab.value"
+            :value="tab.value"
+            @click="scrollToTabsRootTop"
+            class="text-muted-foreground/80 ring-offset-background hover:text-muted-foreground focus-visible:ring-ring data-[state=active]:text-foreground relative z-10 flex shrink-0 items-center justify-center gap-1 truncate rounded-lg px-3 py-1.5 whitespace-nowrap outline-hidden transition-all select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+          >
+            <Icon :name="tab.iconName" class="size-4 shrink-0" />
+            <span class="text-sm font-medium tracking-tight">{{
+              tab.name
+            }}</span>
+          </TabsTrigger>
+        </TabsList>
+      </div>
+
+      <div ref="swipeContainerRef">
+        <TabsContent
+          v-for="tab in tabList"
+          :key="tab.value"
+          :ref="(el) => (tabContentRefs[tab.value] = el)"
+          :value="tab.value"
+          :forceMount="tab.forceMount"
+          tabindex="-1"
+          class="min-h-[calc(100dvh-var(--navbar-height-mobile)*2)] outline-hidden data-[state=inactive]:hidden"
+          :class="{
+            'pt-6 sm:pt-8': tab.withPadding,
+          }"
+        >
+          <component
+            v-if="activatedTabs[tab.value]"
+            :is="tab.component"
+            v-bind="tab.props"
+          />
+        </TabsContent>
+      </div>
+    </TabsRoot>
+
+    <div
+      class="xs:right-[calc(var(--spacing)*4+var(--scrollbar-width,0px))] fixed right-[calc(var(--spacing)*3+var(--scrollbar-width,0px))] bottom-8 z-50 sm:right-[calc(var(--spacing)*6+var(--scrollbar-width,0px))] sm:bottom-5 lg:bottom-12 xl:right-[calc(var(--spacing)*12+var(--scrollbar-width,0px))]"
+    >
+      <Transition
+        enter-active-class="transition duration-300 ease-out"
+        leave-active-class="transition duration-300 ease-in"
+        enter-from-class="translate-y-full opacity-0"
+        leave-to-class="translate-y-full opacity-0"
+      >
+        <button
+          v-if="!isTabTicketsVisible"
+          @click="scrollToTabsRootTop(_, 'tickets')"
+          class="text-primary border-primary/20 bg-background/50 pointer-fine:hover:bg-primary pointer-fine:hover:text-primary-foreground flex items-center justify-center gap-x-1.5 rounded-full border p-3.5 text-sm font-semibold tracking-tighter backdrop-blur-md transition-all duration-300"
+          v-ripple
+        >
+          <Icon
+            v-if="activeTab !== 'tickets'"
+            name="lucide:chevrons-left"
+            class="size-4.5 shrink-0"
+          />
+          <span>Choose ticket</span>
+          <Icon
+            v-if="activeTab === 'tickets'"
+            name="lucide:chevrons-down"
+            class="size-4.5 shrink-0"
+          />
+        </button>
+      </Transition>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useIntersectionObserver, useSwipe } from "@vueuse/core";
+import {
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRoot,
+  TabsTrigger,
+} from "reka-ui";
+
+const { title, description } = usePageMeta("ticket");
+defineOptions({
+  name: "ticket",
+});
+
+const event = useAppConfig().event;
+const uiStore = useUiStore();
+const tickets = useTicketStore();
+const allTickets = tickets.categories;
+
+const tabsRootRef = ref(null);
+const isTabTicketsVisible = ref(true);
+const activeTab = ref("tickets");
+
+const tabContentRefs = ref({});
+const tabTicketsRef = computed(() => tabContentRefs.value["tickets"]);
+
+const activatedTabs = ref({
+  tickets: true,
+});
+
+watch(activeTab, (newTabValue) => {
+  if (newTabValue && !activatedTabs.value[newTabValue]) {
+    activatedTabs.value[newTabValue] = true;
+  }
+});
+
+useIntersectionObserver(
+  tabTicketsRef,
+  ([{ isIntersecting }]) => {
+    isTabTicketsVisible.value = isIntersecting;
+  },
+  {
+    rootMargin: "0px 0px -420px 0px",
+    threshold: 0,
+  },
+);
+
+const swipeContainerRef = ref(null);
+const isSwipeOnExcludedElement = ref(false);
+
+const activeTabIndex = computed(() =>
+  tabList.value.findIndex((tab) => tab.value === activeTab.value),
+);
+
+useSwipe(swipeContainerRef, {
+  onSwipeStart: (e) => {
+    if (e.target.closest("[aria-roledescription='carousel'], .pswp")) {
+      isSwipeOnExcludedElement.value = true;
+      return;
+    }
+  },
+  onSwipeEnd: (e, direction) => {
+    if (["left", "right"].includes(direction)) {
+      if (isSwipeOnExcludedElement.value) {
+        isSwipeOnExcludedElement.value = false;
+        return;
+      }
+
+      const newIndex =
+        direction === "left"
+          ? activeTabIndex.value + 1
+          : activeTabIndex.value - 1;
+      if (newIndex >= 0 && newIndex < tabList.value.length) {
+        activeTab.value = tabList.value[newIndex].value;
+        scrollToTabsRootTop();
+      }
+    }
+  },
+});
+
+const Tickets = defineAsyncComponent(() => import("@/components/Tickets.vue"));
+const LazyGuestList = defineAsyncComponent(
+  () => import("@/components/GuestList.vue"),
+);
+const LazyBrandList = defineAsyncComponent(
+  () => import("@/components/BrandList.vue"),
+);
+const LazyRundown = defineAsyncComponent(
+  () => import("@/components/Rundown.vue"),
+);
+const AboutEvent = defineAsyncComponent(
+  () => import("@/components/AboutEvent.vue"),
+);
+const LazyGallery = defineAsyncComponent(
+  () => import("@/components/Gallery.vue"),
+);
+
+const tabSettings = useAppConfig().settings.ticket.tabs;
+
+const tabList = computed(() => {
+  const tabs = [];
+
+  if (tabSettings.showTickets) {
+    tabs.push({
+      name: "Tickets",
+      value: "tickets",
+      iconName: "hugeicons:ticket-01",
+      forceMount: true,
+      withPadding: true,
+      component: Tickets,
+      props: { tickets: allTickets },
+    });
+  }
+  if (tabSettings.showGuests) {
+    tabs.push({
+      name: "Guests",
+      value: "guests",
+      iconName: "hugeicons:star",
+      forceMount: true,
+      withPadding: true,
+      component: LazyGuestList,
+      props: {},
+    });
+  }
+  if (tabSettings.showBrands) {
+    tabs.push({
+      name: "Brands",
+      value: "brands",
+      iconName: "hugeicons:grid-view",
+      forceMount: true,
+      withPadding: true,
+      component: LazyBrandList,
+      props: {},
+    });
+  }
+  if (tabSettings.showRundown) {
+    tabs.push({
+      name: "Rundown",
+      value: "rundown",
+      iconName: "hugeicons:check-list",
+      forceMount: true,
+      withPadding: true,
+      component: LazyRundown,
+      props: {},
+    });
+  }
+  if (tabSettings.showAbout) {
+    tabs.push({
+      name: "About",
+      value: "about",
+      iconName: "hugeicons:information-circle",
+      forceMount: false,
+      withPadding: false,
+      component: AboutEvent,
+      props: {},
+    });
+  }
+  if (tabSettings.showPhotos) {
+    tabs.push({
+      name: "Photos",
+      value: "photos",
+      iconName: "hugeicons:image-01",
+      forceMount: false,
+      withPadding: false,
+      component: LazyGallery,
+      props: {},
+    });
+  }
+
+  return tabs;
+});
+
+const scrollToTabsRootTop = async (event, newActiveTabValue) => {
+  if (newActiveTabValue) {
+    activeTab.value = newActiveTabValue;
+  }
+
+  await nextTick();
+
+  if (tabsRootRef.value) {
+    tabsRootRef.value.$el.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
+</script>

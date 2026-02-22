@@ -1,0 +1,99 @@
+<template>
+  <section id="mega-property-intro">
+    <div class="container">
+      <div
+        class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12"
+      >
+        <!-- Left: Image -->
+        <div class="relative">
+          <div
+            class="relative isolate mx-auto grid max-w-md grid-cols-3 items-center lg:max-w-none"
+          >
+            <NuxtImg
+              src="/img/mp-hero-2.jpg"
+              class="relative z-10 aspect-4/3 translate-y-[10%] -rotate-6 rounded-xl ring-2 ring-white transition-transform duration-300 ease-out hover:z-30 hover:scale-110 hover:rotate-0"
+              sizes="150px sm:200px lg:250px"
+              width="1080"
+              height="810"
+              loading="lazy"
+              format="webp"
+            />
+            <NuxtImg
+              src="/img/mp-hero-1.jpg"
+              class="relative z-20 aspect-4/3 scale-110 rounded-xl shadow-2xl ring-2 ring-white transition-transform duration-300 ease-out hover:z-30 hover:scale-125"
+              sizes="150px sm:200px lg:250px"
+              width="1080"
+              height="810"
+              loading="lazy"
+              format="webp"
+            />
+            <NuxtImg
+              src="/img/mp-hero-3.jpg"
+              class="relative z-10 aspect-4/3 translate-y-[10%] rotate-6 rounded-xl ring-2 ring-white transition-transform duration-300 ease-out hover:z-30 hover:scale-110 hover:rotate-0"
+              sizes="150px sm:200px lg:250px"
+              width="1080"
+              height="810"
+              loading="lazy"
+              format="webp"
+            />
+          </div>
+        </div>
+
+        <!-- Right: Content -->
+        <div class="flex flex-col items-start">
+          <span class="text-gradient-accent font-medium tracking-tight"
+            >Co-located Event</span
+          >
+
+          <h2
+            class="text-foreground mt-2.5 text-3xl font-semibold tracking-tighter text-balance lg:text-4xl"
+          >
+            Introducing
+            <span class="text-gradient-accent">Mega Property Expo</span>
+          </h2>
+
+          <p class="mt-3 text-base leading-normal tracking-tight lg:text-lg">
+            Indonesia's premier real estate exhibition, co-located with
+            Megabuild Indonesia. Discover exclusive property showcases, connect
+            with leading developers, and explore investment opportunities.
+          </p>
+
+          <!-- Highlights -->
+          <div class="mt-6 grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-6">
+            <div
+              v-for="(item, index) in highlights"
+              :key="index"
+              class="flex items-start gap-2"
+            >
+              <Icon
+                :name="item.icon"
+                class="text-primary size-[1lh] shrink-0"
+              />
+              <span
+                class="text-foreground text-sm font-medium tracking-tight"
+                >{{ item.label }}</span
+              >
+            </div>
+          </div>
+
+          <NuxtLink
+            to="/megaproperty"
+            class="bg-primary text-primary-foreground hover:bg-primary/80 mt-8 flex items-center gap-x-1 rounded-lg px-4 py-2 font-medium tracking-tight transition active:scale-98"
+          >
+            Explore Mega Property
+            <Icon name="hugeicons:arrow-right-02" class="size-4" />
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+const highlights = [
+  { icon: "hugeicons:home-01", label: "Premium Property Showcases" },
+  { icon: "hugeicons:user-multiple-02", label: "Industry Networking" },
+  { icon: "hugeicons:mic-01", label: "Expert Conferences" },
+  { icon: "hugeicons:bank", label: "Investment Solutions" },
+];
+</script>
