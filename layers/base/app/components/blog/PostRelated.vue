@@ -16,19 +16,16 @@
           <div
             class="bg-muted border-border size-16 shrink-0 overflow-hidden rounded-lg border"
           >
-            <NuxtImg
+            <img
               v-if="post.featured_image"
               :src="
                 post.featured_image?.thumb ||
-                post.featured_image?.medium ||
-                post.featured_image?.original ||
-                post.featured_image
+                post.featured_image?.sm ||
+                post.featured_image?.original
               "
               :alt="post.title"
               class="size-full object-cover"
               loading="lazy"
-              sizes="64px"
-              format="webp"
             />
           </div>
 
@@ -78,15 +75,13 @@
             <NuxtImg
               v-if="post.featured_image"
               :src="
-                post.featured_image?.medium ||
+                post.featured_image?.sm ||
                 post.featured_image?.original ||
                 post.featured_image
               "
               :alt="post.title"
               class="size-full object-cover"
               loading="lazy"
-              sizes="200px lg:400px"
-              format="webp"
             />
           </div>
 

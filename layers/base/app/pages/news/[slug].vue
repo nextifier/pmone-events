@@ -76,19 +76,16 @@
                     <div
                       class="border-background bg-muted flex size-10 items-center justify-center overflow-hidden rounded-full border-2"
                     >
-                      <NuxtImg
+                      <img
                         v-if="author.profile_image"
                         :src="
                           author.profile_image?.sm ||
-                          author.profile_image?.original ||
-                          author.profile_image
+                          author.profile_image?.original
                         "
                         class="size-full object-cover"
                         width="56"
                         height="56"
-                        sizes="120px"
                         loading="lazy"
-                        format="webp"
                       />
                     </div>
                   </div>
@@ -147,12 +144,11 @@
           </div>
 
           <div v-if="post.featured_image" class="bg-muted mx-auto mt-10 block overflow-hidden">
-            <NuxtImg
+            <img
               :src="
                 post.featured_image?.lg ||
                 post.featured_image?.md ||
-                post.featured_image?.original ||
-                post.featured_image
+                post.featured_image?.original
               "
               :alt="post.title"
               class="size-full rounded-xl object-cover"
@@ -160,10 +156,6 @@
                 'view-transition-name': `post-feature-img-${post.slug}`,
               }"
               loading="lazy"
-              sizes="100vw lg:1024px"
-              width="1000"
-              height="auto"
-              format="webp"
             />
           </div>
 

@@ -5,22 +5,17 @@
       class="border-border relative flex aspect-16/10 items-center justify-center overflow-hidden rounded-lg border"
       @click="active = post.slug"
     >
-      <NuxtImg
+      <img
         v-if="post.featured_image"
         :src="
           post.featured_image?.md ||
           post.featured_image?.sm ||
-          post.featured_image?.original ||
-          post.featured_image
+          post.featured_image?.original
         "
         :alt="post.title"
-        class="h-full w-full object-cover"
+        class="size-full object-cover"
         :style="imageStyle"
         loading="lazy"
-        sizes="100vw sm:600px"
-        width="479"
-        height="269"
-        format="webp"
       />
 
       <div
@@ -88,19 +83,16 @@
               <div
                 class="border-border bg-muted flex size-8 items-center justify-center overflow-hidden rounded-full border"
               >
-                <NuxtImg
+                <img
                   v-if="author.profile_image"
                   :src="
                     author.profile_image?.sm ||
-                    author.profile_image?.original ||
-                    author.profile_image
+                    author.profile_image?.original
                   "
                   class="size-full object-cover"
-                  width="36"
-                  height="36"
-                  sizes="36px"
+                  width="40"
+                  height="40"
                   loading="lazy"
-                  format="webp"
                 />
               </div>
             </component>
