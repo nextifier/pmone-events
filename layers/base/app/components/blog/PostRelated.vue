@@ -72,12 +72,11 @@
           <div
             class="bg-muted aspect-[20/19] w-full shrink-0 overflow-hidden rounded-lg lg:aspect-[16/9]"
           >
-            <NuxtImg
+            <img
               v-if="post.featured_image"
               :src="
                 post.featured_image?.sm ||
-                post.featured_image?.original ||
-                post.featured_image
+                post.featured_image?.original
               "
               :alt="post.title"
               class="size-full object-cover"
