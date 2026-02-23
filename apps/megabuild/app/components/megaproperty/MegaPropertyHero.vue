@@ -44,7 +44,7 @@
             >Accelerating Transformation</span
           >
           <span
-            class="gradient-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-8xl"
+            class="gradient-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent! sm:text-8xl"
             >Dream it! Live it!</span
           >
         </h1>

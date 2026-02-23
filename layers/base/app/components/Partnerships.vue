@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex flex-col items-center text-center">
         <h2
-          class="section-title !leading-[1] font-semibold tracking-tighter text-balance"
+          class="section-title-large !leading-[1] font-semibold tracking-tighter text-balance"
           v-html="content.title"
         ></h2>
 

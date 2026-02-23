@@ -1,12 +1,9 @@
 export default defineNuxtConfig({
-  extends: [
-    "../../layers/base",
-    "../../layers/guests",
-    "../../layers/cosplay-events",
-  ],
+  extends: ["../../layers/base"],
+
+  css: ["~/assets/css/app.css"],
 
   runtimeConfig: {
-    pmOneApiKey: "pk_rDg3wEcjpRLHRJlzrS8SwxSDj3jXRX7ykr2X9Aof",
     public: {
       siteUrl: "https://indonesiaanimecon.com",
       blogUsernames: "inacon.blog",

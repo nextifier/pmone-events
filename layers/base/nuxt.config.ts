@@ -136,5 +136,6 @@ export default defineNuxtConfig({
 
   experimental: {
     viewTransition: true,
+    appManifest: false,
   },
 });

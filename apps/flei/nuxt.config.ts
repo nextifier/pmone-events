@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
+  css: ["~/assets/css/app.css"],
+
   runtimeConfig: {
-    pmOneApiKey: "pk_a8BEbNarHPPNP0b2dRcxogg3HREBzgXXjY58j90Q",
     public: {
       siteUrl: "https://franchise-expo.co.id",
       blogUsernames: "flei.blog",

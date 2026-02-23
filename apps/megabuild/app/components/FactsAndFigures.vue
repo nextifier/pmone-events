@@ -5,7 +5,7 @@
         <span class="text-gradient-accent font-medium tracking-tight">{{
           content.subtitle
         }}</span>
-        <h2 class="section-title mt-2.5">
+        <h2 class="section-title-large mt-2.5">
           {{ content.title }}
         </h2>
 

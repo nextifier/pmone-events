@@ -7,7 +7,7 @@
     <div class="container">
       <div ref="containerRef" class="flex flex-col items-center text-center">
         <h2
-          class="section-title text-primary relative isolate !leading-[1] font-semibold tracking-tighter text-balance"
+          class="section-title-large text-primary relative isolate !leading-[1] font-semibold tracking-tighter text-balance"
           v-html="content.title"
         ></h2>
 

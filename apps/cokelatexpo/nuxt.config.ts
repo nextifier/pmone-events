@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
+  css: ["~/assets/css/app.css"],
+
   runtimeConfig: {
-    pmOneApiKey: "pk_KWZiXyn9XosjVBFzXF3ANbpvuN4cJfV2Q6rTMN1l",
     public: {
       siteUrl: "https://cokelatexpo.id",
       blogUsernames: "cafe.blog",

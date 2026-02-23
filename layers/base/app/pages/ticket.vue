@@ -59,7 +59,7 @@
           </h1>
 
           <div class="mt-2.5 flex flex-col gap-y-2.5">
-            <div v-if="event.edition" class="flex">
+            <div v-if="event.edition?.value" class="flex">
               <span
                 class="text-primary bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
                 >{{ event.edition.value
@@ -255,22 +255,14 @@ useSwipe(swipeContainerRef, {
   },
 });
 
-const Tickets = defineAsyncComponent(() => import("@/components/Tickets.vue"));
-const LazyGuestList = defineAsyncComponent(
-  () => import("@/components/GuestList.vue"),
-);
-const LazyBrandList = defineAsyncComponent(
-  () => import("@/components/BrandList.vue"),
-);
-const LazyRundown = defineAsyncComponent(
-  () => import("@/components/Rundown.vue"),
-);
-const AboutEvent = defineAsyncComponent(
-  () => import("@/components/AboutEvent.vue"),
-);
-const LazyGallery = defineAsyncComponent(
-  () => import("@/components/Gallery.vue"),
-);
+import {
+  LazyTickets as Tickets,
+  LazyGuestList,
+  LazyBrandList,
+  LazyRundown,
+  LazyAboutEvent as AboutEvent,
+  LazyGallery,
+} from "#components";
 
 const tabSettings = useAppConfig().settings.ticket.tabs;
 

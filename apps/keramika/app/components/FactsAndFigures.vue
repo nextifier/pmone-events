@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex flex-col items-center text-center">
         <span class="mb-3 font-medium uppercase">Facts & Figures</span>
-        <h2 class="section-title">Why Keramika Indonesia Leads the Industry</h2>
+        <h2 class="section-title-large">Why Keramika Indonesia Leads the Industry</h2>
 
         <p
           class="text-foreground/80 mx-auto mt-2 max-w-3xl text-center text-base tracking-tight text-balance sm:text-lg"

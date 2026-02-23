@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
+  css: ["~/assets/css/app.css"],
+
   runtimeConfig: {
-    pmOneApiKey: "pk_vR1IOzEAHY8xa8ZJqgRk9z2zrBSYcVNCVEuZHl7A",
     public: {
       siteUrl: "https://megabuild.co.id",
       blogUsernames: "megabuild.blog",

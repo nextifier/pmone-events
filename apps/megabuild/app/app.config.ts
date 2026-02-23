@@ -57,7 +57,7 @@ const event = {
 
 const settings = {
   header: {
-    logoClass: "h-6 text-primary",
+    logoClass: "h-5 text-primary",
   },
   footer: {
     logoClass: "h-8 text-primary",

@@ -11,7 +11,7 @@ export const useTicketStore = defineStore("tickets", {
           {
             title: "Regular Entry Ticket",
             slug: "regular-ticket",
-            image: "/img/tickets/entry-tickets/regular.jpg",
+            image: "/img/tickets/entry-tickets/regular-ticket.jpg",
             // starts_in: "Oct 1, 2025 12:00:00",
             // ends_in: "Nov 16, 2025 21:00:00",
             showStartCountdownLabel: false,
@@ -31,7 +31,7 @@ export const useTicketStore = defineStore("tickets", {
           // {
           //   title: "VIP Entry Ticket",
           //   slug: "vip-ticket",
-          //   image: "/img/tickets/entry-tickets/vip.jpg",
+          //   image: "/img/tickets/entry-tickets/vip-ticket.jpg",
           //   starts_in: "Oct 1, 2025 12:00:00",
           //   ends_in: "Nov 16, 2025 21:00:00",
           //   showStartCountdownLabel: false,

@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
     return new Uint8Array(imageBuffer);
   } catch (error) {
-    console.error("[Image Proxy] Error:", error);
+    console.error("[Image Proxy] Error:", error.message);
     throw createError({
       statusCode: 500,
       statusMessage: `Failed to proxy image: ${error.message}`,

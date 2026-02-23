@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
+  css: ["~/assets/css/app.css"],
+
   runtimeConfig: {
-    pmOneApiKey: "pk_C9q0ssBdubNPOCgIQIT6ECxWDBFIZgUF69voytlm",
     public: {
       siteUrl: "https://morefoodexpo.com",
       blogUsernames: "morefood.blog",

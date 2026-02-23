@@ -1,0 +1,73 @@
+@reference "../../../../../layers/base/app/assets/css/main.css";
+
+/* Stone gray palette */
+:root {
+  --color-gray-50: oklch(0.985 0.001 106.423);
+  --color-gray-100: oklch(0.97 0.001 106.424);
+  --color-gray-200: oklch(0.923 0.003 48.717);
+  --color-gray-300: oklch(0.869 0.005 56.366);
+  --color-gray-400: oklch(0.709 0.01 56.259);
+  --color-gray-500: oklch(0.553 0.013 58.071);
+  --color-gray-600: oklch(0.444 0.011 73.639);
+  --color-gray-700: oklch(0.374 0.01 67.558);
+  --color-gray-800: oklch(0.268 0.007 34.298);
+  --color-gray-900: oklch(0.216 0.006 56.043);
+  --color-gray-950: oklch(0.147 0.004 49.25);
+}
+
+.section-subtitle {
+  @apply inline-block bg-linear-to-r from-red-500 via-orange-600 to-orange-500 bg-clip-text font-semibold tracking-tight text-balance text-transparent dark:from-red-500 dark:via-orange-500 dark:to-yellow-500;
+}
+
+.gradient-accent,
+.before\:gradient-accent::before {
+  background-image:
+    linear-gradient(
+      0deg,
+      #815121 -6.84%,
+      #875926 -5.56%,
+      #996f33 -1.71%,
+      #b6924a 3.43%,
+      #dec368 8.56%,
+      #f1db77 9.85%,
+      #edd470 23.97%,
+      #e1bf5c 44.52%,
+      #cf9e3b 68.91%,
+      #c68e2b 79.19%,
+      #c1892b 90.74%,
+      #b8802b 120.28%
+    ),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}
+
+.text-gradient-accent {
+  @apply bg-linear-to-r from-orange-400 via-orange-600 to-red-600 bg-clip-text text-transparent;
+}
+
+.gradient-gold {
+  background-image:
+    linear-gradient(0deg, #c1a875, #c1a875),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}

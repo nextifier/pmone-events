@@ -85,7 +85,7 @@
               :text="content.title"
             /> -->
             <h2
-              class="text-primary section-title relative isolate font-semibold tracking-tighter text-balance"
+              class="text-primary section-title-large relative isolate font-semibold tracking-tighter text-balance"
               v-html="content.title"
             />
             <p

@@ -62,10 +62,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.days"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-semibold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-primary text-2xl !leading-none font-semibold tracking-tighter  tabular-nums "
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-primary/70 text-sm !leading-none tracking-tight "
             >Day<span v-if="timeParts.days > 1">s</span></span
           >
         </div>
@@ -73,10 +73,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.hours"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-semibold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-primary text-2xl !leading-none font-semibold tracking-tighter  tabular-nums "
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-primary/70 text-sm !leading-none tracking-tight "
             >Hour<span v-if="timeParts.hours > 1">s</span></span
           >
         </div>
@@ -84,10 +84,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.minutes"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-semibold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-primary text-2xl !leading-none font-semibold tracking-tighter  tabular-nums "
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-primary/70 text-sm !leading-none tracking-tight "
             >Min<span v-if="timeParts.minutes > 1">s</span></span
           >
         </div>
@@ -95,10 +95,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.seconds"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-semibold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-primary text-2xl !leading-none font-semibold tracking-tighter  tabular-nums "
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-primary/70 text-sm !leading-none tracking-tight "
             >Sec</span
           >
         </div>
@@ -108,7 +108,7 @@
 </template>
 
 <script setup>
-import { useNow } from "@/composables/useNow";
+import { useCurrentTime } from "@/composables/useCurrentTime";
 
 const props = defineProps({
   countdownDate: {
@@ -122,7 +122,7 @@ const props = defineProps({
   textBeforeCountdown: String,
 });
 
-const { now } = useNow();
+const { now } = useCurrentTime();
 
 const distance = computed(
   () => props.countdownDate.getTime() - now.value.getTime(),

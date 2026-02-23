@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
+  css: ["~/assets/css/app.css"],
+
   runtimeConfig: {
-    pmOneApiKey: "pk_62Oei84gOAxBc4kvmLy2z7TBShMbX0IAN4nbyx6D",
     public: {
       siteUrl: "https://indocoffeefestival.com",
       blogUsernames: "cafe.blog",

@@ -1,0 +1,66 @@
+@reference "../../../../../layers/base/app/assets/css/main.css";
+
+/* Stone gray palette */
+:root {
+  --color-gray-50: oklch(0.985 0.001 106.423);
+  --color-gray-100: oklch(0.97 0.001 106.424);
+  --color-gray-200: oklch(0.923 0.003 48.717);
+  --color-gray-300: oklch(0.869 0.005 56.366);
+  --color-gray-400: oklch(0.709 0.01 56.259);
+  --color-gray-500: oklch(0.553 0.013 58.071);
+  --color-gray-600: oklch(0.444 0.011 73.639);
+  --color-gray-700: oklch(0.374 0.01 67.558);
+  --color-gray-800: oklch(0.268 0.007 34.298);
+  --color-gray-900: oklch(0.216 0.006 56.043);
+  --color-gray-950: oklch(0.147 0.004 49.25);
+
+  --font-display:
+    Sink, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --accent: var(--color-kv-brown-900);
+  --accent-foreground: var(--color-white);
+}
+
+.dark {
+  --accent: var(--color-kv-brown-300);
+  --accent-foreground: var(--color-kv-brown-950);
+}
+
+.font-display {
+  @apply leading-none! tracking-[-0.02em] uppercase;
+}
+
+.section-title-large {
+  @apply xs:text-6xl xs:leading-[1.1] 3xl:text-8xl 3xl:leading-[1.1] text-foreground pb-2 text-[12vw] leading-[1.1] font-semibold tracking-tighter text-balance md:text-7xl md:leading-[1.1] lg:text-[5.5rem] lg:leading-[1.1];
+}
+
+.section-subtitle {
+  @apply text-kv-brown-700 dark:text-kv-brown-300 font-semibold tracking-tighter text-balance;
+}
+
+.gradient-accent,
+.before\:gradient-accent::before {
+  @apply from-kv-brown-500 to-kv-brown-600;
+}
+
+.text-gradient-accent {
+  @apply bg-linear-to-r from-orange-400 via-orange-600 to-red-600 bg-clip-text text-transparent;
+}
+
+.gradient-gold {
+  background-image:
+    linear-gradient(0deg, #c1a875, #c1a875),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}

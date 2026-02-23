@@ -9,9 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@events/base": "workspace:*",
-    "@events/guests": "workspace:*",
-    "@events/cosplay-events": "workspace:*"
+    "@events/base": "workspace:*"
   },
   "devDependencies": {
     "nuxt": "^4.2.2"

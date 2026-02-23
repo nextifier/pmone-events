@@ -1,12 +1,9 @@
 export default defineNuxtConfig({
-  extends: [
-    "../../layers/base",
-    "../../layers/guests",
-    "../../layers/cosplay-events",
-  ],
+  extends: ["../../layers/base"],
+
+  css: ["~/assets/css/app.css"],
 
   runtimeConfig: {
-    pmOneApiKey: "pk_CA6oi4LcRSJeCZG0zGVq6qvt1JZUf1YG42cTQnch",
     public: {
       siteUrl: "https://indonesiacomiccon.com",
       blogUsernames: "icc.blog",

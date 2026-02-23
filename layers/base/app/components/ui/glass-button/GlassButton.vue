@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
-import type { PrimitiveProps } from "reka-ui";
 import { Primitive } from "reka-ui";
-import type { HTMLAttributes } from "vue";
+import type { HTMLAttributes, Component } from "vue";
 import type { RouteLocationRaw } from "vue-router";
 import { buttonVariants, type ButtonVariants } from ".";
 
-interface Props extends /* @vue-ignore */ PrimitiveProps {
+interface Props {
+  as?: string | Component;
+  asChild?: boolean;
   variant?: ButtonVariants["variant"];
   size?: ButtonVariants["size"];
   rounded?: ButtonVariants["rounded"];

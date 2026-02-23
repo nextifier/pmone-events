@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
+  css: ["~/assets/css/app.css"],
+
   runtimeConfig: {
-    pmOneApiKey: "pk_TKZ6RAtQstvoWsnA5OFzQ3KCIY3LPF8nET2A84Mj",
     public: {
       siteUrl: "https://indooutingexpo.co.id",
       blogUsernames: "ioe.blog",

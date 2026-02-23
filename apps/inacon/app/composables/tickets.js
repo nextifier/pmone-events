@@ -1,0 +1,161 @@
+import { defineStore } from "pinia";
+
+export const useTicketStore = defineStore("tickets", {
+  state: () => ({
+    categories: [
+      {
+        title: "Entry Tickets",
+        slug: "entry-tickets",
+        description:
+          "An entry ticket is required to access ICC X INACON 2025.",
+        notes: [
+          "Berlaku pembayaran menggunakan Virtual Account BCA, Debit BCA Mastercard, dan semua jenis Kartu Kredit BCA berlogo Mastercard/JCB/Union Pay/Visa & Kartu BCA American Express Platinum.",
+          "Maksimum pembelian 4 tiket/transaksi.",
+          "Harga yang ditampilkan belum termasuk pajak dan biaya tambahan.",
+        ],
+        tickets: [
+          {
+            title: "General One-Day Pass · Day 1 (25 Oct)",
+            slug: "general-one-day-pass-day-1",
+            image: "/img/tickets/entry-tickets/general-day-1.jpg",
+            starts_in: "Oct 7, 2025 12:00:00",
+            ends_in: "Oct 25, 2025 23:59:59",
+            showStartCountdownLabel: false,
+            showEndCountdownLabel: false,
+            status: "", // empty string, Coming Soon, Available, Sold out
+            disableLink: true,
+            button_label: "Get ticket",
+            button_url: "https://www.loket.com/event/iccxinacon2025",
+            price: "Rp130,000",
+            is_vip: false,
+            day_pass: "One-day pass",
+            entrance: "Regular entrance",
+            benefits: [],
+          },
+          {
+            title: "General One-Day Pass · Day 2 (26 Oct)",
+            slug: "general-one-day-pass-day-2",
+            image: "/img/tickets/entry-tickets/general-day-2.jpg",
+            starts_in: "Oct 7, 2025 12:00:00",
+            ends_in: "Oct 26, 2025 23:59:59",
+            showStartCountdownLabel: false,
+            showEndCountdownLabel: false,
+            status: "", // empty string, Coming Soon, Available, Sold out
+            disableLink: true,
+            button_label: "Get ticket",
+            button_url: "https://www.loket.com/event/iccxinacon2025",
+            price: "Rp130,000",
+            is_vip: false,
+            day_pass: "One-day pass",
+            entrance: "Regular entrance",
+            benefits: [],
+          },
+          {
+            title: "General Two-Day Pass",
+            slug: "general-two-day-pass",
+            image: "/img/tickets/entry-tickets/general-two-day-pass.jpg",
+            starts_in: "Oct 7, 2025 12:00:00",
+            ends_in: "Oct 26, 2025 23:59:59",
+            showStartCountdownLabel: false,
+            showEndCountdownLabel: false,
+            status: "", // empty string, Coming Soon, Available, Sold out
+            disableLink: true,
+            button_label: "Get ticket",
+            button_url: "https://www.loket.com/event/iccxinacon2025",
+            price: "Rp225,000",
+            is_vip: false,
+            day_pass: "Two-day pass",
+            entrance: "Regular entrance",
+            benefits: [],
+          },
+          {
+            title: "Cosplayer One-Day Pass · Day 1 (25 Oct)",
+            slug: "cosplayer-one-day-pass-day-1",
+            image: "/img/tickets/entry-tickets/cosplayer-day-1.jpg",
+            starts_in: "Oct 7, 2025 12:00:00",
+            ends_in: "Oct 25, 2025 23:59:59",
+            showStartCountdownLabel: false,
+            showEndCountdownLabel: false,
+            status: "", // empty string, Coming Soon, Available, Sold out
+            disableLink: true,
+            button_label: "Get ticket",
+            button_url: "https://www.loket.com/event/iccxinacon2025",
+            price: "Rp110,000",
+            is_vip: false,
+            day_pass: "One-day pass",
+            entrance: "Cosplayer entrance",
+            benefits: [],
+          },
+          {
+            title: "Cosplayer One-Day Pass · Day 2 (26 Oct)",
+            slug: "cosplayer-one-day-pass-day-2",
+            image: "/img/tickets/entry-tickets/cosplayer-day-2.jpg",
+            starts_in: "Oct 7, 2025 12:00:00",
+            ends_in: "Oct 25, 2025 23:59:59",
+            showStartCountdownLabel: false,
+            showEndCountdownLabel: false,
+            status: "", // empty string, Coming Soon, Available, Sold out
+            disableLink: true,
+            button_label: "Get ticket",
+            button_url: "https://www.loket.com/event/iccxinacon2025",
+            price: "Rp110,000",
+            is_vip: false,
+            day_pass: "One-day pass",
+            entrance: "Cosplayer entrance",
+            benefits: [],
+          },
+          {
+            title: "VIP Cosplayer",
+            slug: "vip-cosplayer",
+            image: "/img/tickets/entry-tickets/vip-cosplayer.jpg",
+            starts_in: "Oct 7, 2025 12:00:00",
+            ends_in: "Oct 25, 2025 23:59:59",
+            showStartCountdownLabel: false,
+            showEndCountdownLabel: false,
+            status: "", // empty string, Coming Soon, Available, Sold out
+            disableLink: true,
+            button_label: "Get ticket",
+            button_url: "https://www.loket.com/event/iccxinacon2025",
+            price: "Rp500,000",
+            is_vip: true,
+            day_pass: "Two-day pass",
+            entrance: "VIP entrance",
+            benefits: [
+              "Fast track entrance.",
+              "Access to cosplay lounge, changing room, and storage room.",
+            ],
+          },
+          {
+            title: "VIP General",
+            slug: "vip-general",
+            image: "/img/tickets/entry-tickets/vip-general.jpg",
+            starts_in: "Oct 7, 2025 12:00:00",
+            ends_in: "Oct 25, 2025 23:59:59",
+            showStartCountdownLabel: false,
+            showEndCountdownLabel: false,
+            status: "", // empty string, Coming Soon, Available, Sold out
+            disableLink: true,
+            button_label: "Get ticket",
+            button_url: "https://www.loket.com/event/iccxinacon2025",
+            price: "Rp1,000,000",
+            is_vip: true,
+            day_pass: "Two-day pass",
+            entrance: "VIP entrance",
+            benefits: [
+              "Fast track entrance.",
+              "Access to VIP lounge.",
+              "Merchandise from ICC X INACON.",
+            ],
+          },
+        ],
+      },
+    ],
+  }),
+
+  getters: {
+    getTicketCategoryBySlug: (state) => (slug) => {
+      const category = state.categories.find((item) => item.slug === slug);
+      return category ? { category } : {};
+    },
+  },
+});

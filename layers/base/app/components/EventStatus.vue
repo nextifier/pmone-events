@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { useNow } from "@/composables/useNow";
+import { useCurrentTime } from "@/composables/useCurrentTime";
 
 const props = defineProps({
   countdownVariant: {
@@ -45,7 +45,7 @@ const props = defineProps({
   },
 });
 
-const { now } = useNow();
+const { now } = useCurrentTime();
 const isMounted = ref(false);
 
 onMounted(() => {

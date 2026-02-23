@@ -1,10 +1,11 @@
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
+  css: ["~/assets/css/app.css"],
+
   runtimeConfig: {
-    pmOneApiKey: "pk_w5W2IfMPgnQCOjn1UvqYBJNo0UDFstFRQxhyg2Ji",
     public: {
-      siteUrl: "https://keramika.id",
+      siteUrl: "https://keramika.co.id",
       blogUsernames: "keramika.blog",
     },
   },
@@ -23,7 +24,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "https://keramika.id",
+    url: "https://keramika.co.id",
     name: "Keramika Indonesia",
   },
 

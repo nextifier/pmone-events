@@ -1,0 +1,54 @@
+@reference "../../../../../layers/base/app/assets/css/main.css";
+
+:root {
+  --accent: var(--color-cyan-600);
+  --accent-foreground: var(--color-white);
+}
+
+.dark {
+  --accent: var(--color-cyan-400);
+  --accent-foreground: var(--color-black);
+}
+
+.section-subtitle {
+  @apply text-kv-brown-700 dark:text-kv-brown-300 font-semibold tracking-tighter text-balance;
+}
+
+.gradient-accent,
+.before\:gradient-accent::before {
+  background-image:
+    linear-gradient(0deg, var(--color-accent), var(--color-accent)),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}
+
+.text-gradient-accent {
+  @apply bg-linear-to-r from-orange-400 via-orange-600 to-red-600 bg-clip-text text-transparent;
+}
+
+.gradient-gold {
+  background-image:
+    linear-gradient(0deg, #c1a875, #c1a875),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}
