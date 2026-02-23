@@ -29,9 +29,7 @@ export default defineNuxtConfig({
     ],
   },
 
-  image: {
-    cloudflare: { baseURL: "https://indonesiacomiccon.com" },
-  },
+  image: {},
 
   site: {
     url: "https://indonesiacomiccon.com",

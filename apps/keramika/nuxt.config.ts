@@ -19,9 +19,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  image: {
-    cloudflare: { baseURL: "https://keramika.co.id" },
-  },
+  image: {},
 
   site: {
     url: "https://keramika.co.id",

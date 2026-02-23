@@ -18,9 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  image: {
-    cloudflare: { baseURL: "https://indooutingexpo.co.id" },
-  },
+  image: {},
 
   site: {
     url: "https://indooutingexpo.co.id",

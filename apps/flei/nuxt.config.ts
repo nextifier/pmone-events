@@ -18,9 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  image: {
-    cloudflare: { baseURL: "https://franchise-expo.co.id" },
-  },
+  image: {},
 
   site: {
     url: "https://franchise-expo.co.id",

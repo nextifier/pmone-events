@@ -29,9 +29,7 @@ export default defineNuxtConfig({
     ],
   },
 
-  image: {
-    cloudflare: { baseURL: "https://cokelatexpo.id" },
-  },
+  image: {},
 
   site: {
     url: "https://cokelatexpo.id",

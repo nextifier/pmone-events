@@ -18,9 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  image: {
-    cloudflare: { baseURL: "https://megabuild.co.id" },
-  },
+  image: {},
 
   site: {
     url: "https://renex.megabuild.co.id",

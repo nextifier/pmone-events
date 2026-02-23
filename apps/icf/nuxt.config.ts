@@ -29,9 +29,7 @@ export default defineNuxtConfig({
     ],
   },
 
-  image: {
-    cloudflare: { baseURL: "https://indocoffeefestival.com" },
-  },
+  image: {},
 
   site: {
     url: "https://indocoffeefestival.com",

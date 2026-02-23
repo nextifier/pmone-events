@@ -18,9 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  image: {
-    cloudflare: { baseURL: "https://morefoodexpo.com" },
-  },
+  image: {},
 
   site: {
     url: "https://morefoodexpo.com",
