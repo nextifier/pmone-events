@@ -10,8 +10,6 @@ export default defineNuxtConfig({
     componentInspector: false,
   },
 
-  debug: true,
-
   runtimeConfig: {
     pmOneApiKey: process.env.NUXT_PM_ONE_API_KEY || "",
 

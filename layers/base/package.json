@@ -1,7 +1,7 @@
 {
   "name": "@events/base",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "@formkit/auto-animate": "^0.9.0",
     "@iconify-json/hugeicons": "^1.2.20",
     "@iconify-json/lucide": "^1.2.79",

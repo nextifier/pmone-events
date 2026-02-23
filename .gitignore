@@ -15,10 +15,28 @@ logs
 
 # Misc
 .DS_Store
+Thumbs.db
 .fleet
 .idea
+.vscode
+.cursor
 
 # Local env files
 .env
 .env.*
 !.env.example
+
+# Cloudflare
+.wrangler
+
+# TypeScript
+*.tsbuildinfo
+
+# Test
+coverage
+
+# AI tools
+.claude
+
+# Deployment
+.vercel
