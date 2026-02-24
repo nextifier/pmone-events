@@ -1,4 +1,7 @@
-@reference "../../../../../layers/base/app/assets/css/main.css";
+@import "../../../../../layers/base/app/assets/css/main.css";
+
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
 
 /* Stone gray palette */
 :root {
@@ -19,8 +22,21 @@
   @apply inline-block bg-linear-to-r from-red-500 via-orange-600 to-orange-500 bg-clip-text font-semibold tracking-tight text-balance text-transparent dark:from-red-500 dark:via-orange-500 dark:to-yellow-500;
 }
 
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
+.section-title-large {
+  @apply xs:text-6xl xs:leading-[1.1] 3xl:text-8xl 3xl:leading-[1.1] pb-2 text-[12vw] leading-[1.1] font-semibold tracking-tighter text-balance text-black md:text-7xl md:leading-[1.1] lg:text-[5.5rem] lg:leading-[1.1] dark:bg-linear-to-r dark:from-white dark:to-gray-500 dark:bg-clip-text dark:text-transparent;
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
+}
+
 .gradient-accent,
-.before\:gradient-accent::before {
+.before\:gradient-accent::before,
+.text-gradient-accent {
   background-image:
     linear-gradient(
       0deg,
@@ -52,7 +68,7 @@
 }
 
 .text-gradient-accent {
-  @apply bg-linear-to-r from-orange-400 via-orange-600 to-red-600 bg-clip-text text-transparent;
+  @apply bg-clip-text text-transparent;
 }
 
 .gradient-gold {

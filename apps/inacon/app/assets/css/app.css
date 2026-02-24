@@ -1,19 +1,24 @@
-@reference "../../../../../layers/base/app/assets/css/main.css";
+@import "../../../../../layers/base/app/assets/css/main.css";
 
-/* Zinc gray palette */
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
+
+@theme {
+  /* Yellow (custom) */
+  --color-yellow-50: oklch(0.99 0.0287 109.03);
+  --color-yellow-100: oklch(0.98 0.078 110.87);
+  --color-yellow-200: oklch(0.97 0.1424 110.91);
+  --color-yellow-300: oklch(0.97 0.193 109.52);
+  --color-yellow-400: oklch(0.94 0.2 105.99);
+  --color-yellow-500: oklch(0.88 0.183 102.35);
+  --color-yellow-600: oklch(0.75 0.153 94.01);
+  --color-yellow-700: oklch(0.6 0.1231 84.12);
+  --color-yellow-800: oklch(0.52 0.1031 79.63);
+  --color-yellow-900: oklch(0.45 0.0886 74.58);
+  --color-yellow-950: oklch(0.31 0.0616 69.71);
+}
+
 :root {
-  --color-gray-50: oklch(0.985 0 0);
-  --color-gray-100: oklch(0.967 0.001 286.375);
-  --color-gray-200: oklch(0.92 0.004 286.32);
-  --color-gray-300: oklch(0.871 0.006 286.286);
-  --color-gray-400: oklch(0.705 0.015 286.067);
-  --color-gray-500: oklch(0.552 0.016 285.938);
-  --color-gray-600: oklch(0.442 0.017 285.786);
-  --color-gray-700: oklch(0.37 0.013 285.805);
-  --color-gray-800: oklch(0.274 0.006 286.033);
-  --color-gray-900: oklch(0.21 0.006 285.885);
-  --color-gray-950: oklch(0.141 0.005 285.823);
-
   --font-display:
     DisplayGF, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -31,8 +36,16 @@
   --accent-foreground: var(--color-black);
 }
 
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
 .section-title-large {
   @apply xs:text-6xl 3xl:text-8xl font-display bg-linear-to-r from-black to-black/80 bg-clip-text text-5xl !leading-[1] tracking-tight text-balance text-transparent md:text-7xl lg:text-[5.5rem] dark:from-white dark:to-white/40;
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
 }
 
 .section-title-heading {
@@ -40,12 +53,13 @@
 }
 
 .gradient-accent,
-.before\:gradient-accent::before {
+.before\:gradient-accent::before,
+.text-gradient-accent {
   @apply from-yellow-400 to-yellow-500 text-black;
 }
 
 .text-gradient-accent {
-  @apply bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-transparent;
+  @apply bg-clip-text text-transparent;
 }
 
 .gradient-rainbow {

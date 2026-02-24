@@ -1,4 +1,22 @@
-@reference "../../../../../layers/base/app/assets/css/main.css";
+@import "../../../../../layers/base/app/assets/css/main.css";
+
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
+
+/* Gray palette */
+:root {
+  --color-gray-50: oklch(0.985 0.002 247.839);
+  --color-gray-100: oklch(0.967 0.003 264.542);
+  --color-gray-200: oklch(0.928 0.006 264.531);
+  --color-gray-300: oklch(0.872 0.01 258.338);
+  --color-gray-400: oklch(0.707 0.022 261.325);
+  --color-gray-500: oklch(0.551 0.027 264.364);
+  --color-gray-600: oklch(0.446 0.03 256.802);
+  --color-gray-700: oklch(0.373 0.034 259.733);
+  --color-gray-800: oklch(0.278 0.033 256.848);
+  --color-gray-900: oklch(0.21 0.034 264.665);
+  --color-gray-950: oklch(0.13 0.028 261.692);
+}
 
 :root {
   --accent: var(--color-sky-500);
@@ -10,8 +28,16 @@
   --accent-foreground: var(--color-white);
 }
 
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
 .section-title-large {
   @apply text-primary text-[clamp(2.5rem,12vw,6rem)] !leading-[1.1] font-extrabold tracking-tighter text-balance;
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
 }
 
 .section-subtitle {
@@ -19,7 +45,8 @@
 }
 
 .gradient-accent,
-.before\:gradient-accent::before {
+.before\:gradient-accent::before,
+.text-gradient-accent {
   background-image:
     linear-gradient(0deg, var(--color-accent), var(--color-accent)),
     linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
@@ -37,7 +64,7 @@
 }
 
 .text-gradient-accent {
-  @apply bg-linear-to-r from-orange-400 via-orange-600 to-red-600 bg-clip-text text-transparent;
+  @apply bg-clip-text text-transparent;
 }
 
 .gradient-gold {

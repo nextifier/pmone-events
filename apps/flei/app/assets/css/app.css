@@ -1,6 +1,22 @@
-@reference "../../../../../layers/base/app/assets/css/main.css";
+@import "../../../../../layers/base/app/assets/css/main.css";
+
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
 
 :root {
+  /* Gray palette */
+  --color-gray-50: oklch(0.985 0.002 247.839);
+  --color-gray-100: oklch(0.967 0.003 264.542);
+  --color-gray-200: oklch(0.928 0.006 264.531);
+  --color-gray-300: oklch(0.872 0.01 258.338);
+  --color-gray-400: oklch(0.707 0.022 261.325);
+  --color-gray-500: oklch(0.551 0.027 264.364);
+  --color-gray-600: oklch(0.446 0.03 256.802);
+  --color-gray-700: oklch(0.373 0.034 259.733);
+  --color-gray-800: oklch(0.278 0.033 256.848);
+  --color-gray-900: oklch(0.21 0.034 264.665);
+  --color-gray-950: oklch(0.13 0.028 261.692);
+
   --accent: var(--color-cyan-600);
   --accent-foreground: var(--color-white);
 }
@@ -10,12 +26,21 @@
   --accent-foreground: var(--color-black);
 }
 
-.section-subtitle {
-  @apply text-kv-brown-700 dark:text-kv-brown-300 font-semibold tracking-tighter text-balance;
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
+.section-title-large {
+  @apply xs:text-6xl xs:leading-[1.1] 3xl:text-8xl 3xl:leading-[1.1] pb-2 text-[12vw] leading-[1.1] font-semibold tracking-tighter text-balance text-black md:text-7xl md:leading-[1.1] lg:text-[5.5rem] lg:leading-[1.1] dark:bg-linear-to-r dark:from-white dark:to-gray-500 dark:bg-clip-text dark:text-transparent;
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
 }
 
 .gradient-accent,
-.before\:gradient-accent::before {
+.before\:gradient-accent::before,
+.text-gradient-accent {
   background-image:
     linear-gradient(0deg, var(--color-accent), var(--color-accent)),
     linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
@@ -33,22 +58,5 @@
 }
 
 .text-gradient-accent {
-  @apply bg-linear-to-r from-orange-400 via-orange-600 to-red-600 bg-clip-text text-transparent;
-}
-
-.gradient-gold {
-  background-image:
-    linear-gradient(0deg, #c1a875, #c1a875),
-    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
-    linear-gradient(
-      76.82deg,
-      #576265 11.6%,
-      #9ea1a1 25.31%,
-      #848b8a 48.06%,
-      #576265 55.72%,
-      #576265 77.23%,
-      #757a7b 85.34%,
-      #576265 91.31%
-    );
-  background-blend-mode: color, overlay, normal;
+  @apply bg-clip-text text-transparent;
 }

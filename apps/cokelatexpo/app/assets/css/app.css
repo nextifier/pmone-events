@@ -1,4 +1,55 @@
-@reference "../../../../../layers/base/app/assets/css/main.css";
+@import "../../../../../layers/base/app/assets/css/main.css";
+
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
+
+@theme {
+  /* KV-Brown */
+  --color-kv-brown-50: oklch(0.9681 0.0074 80.72);
+  --color-kv-brown-100: oklch(0.9306 0.0202 84.59);
+  --color-kv-brown-200: oklch(0.9056 0.0391 85.34);
+  --color-kv-brown-300: oklch(0.7469 0.0603 78.65);
+  --color-kv-brown-400: oklch(0.6654 0.0753 73.53);
+  --color-kv-brown-500: oklch(0.6082 0.0746 67.05);
+  --color-kv-brown-600: oklch(0.5327 0.0676 59.13);
+  --color-kv-brown-700: oklch(0.4502 0.0562 49.34);
+  --color-kv-brown-800: oklch(0.4057 0.0465 42.68);
+  --color-kv-brown-900: oklch(0.2807 0.0384 38.49);
+  --color-kv-brown-950: oklch(0.2104 0.0207 34.52);
+
+  /* KV-Green */
+  --color-kv-green-50: oklch(0.9741 0.0182 127.14);
+  --color-kv-green-100: oklch(0.9423 0.0415 129.62);
+  --color-kv-green-200: oklch(0.8908 0.0777 130.17);
+  --color-kv-green-300: oklch(0.8192 0.1184 131.54);
+  --color-kv-green-400: oklch(0.7488 0.1475 132.91);
+  --color-kv-green-500: oklch(0.6615 0.1519 133.95);
+  --color-kv-green-600: oklch(0.579 0.1366 134.66);
+  --color-kv-green-700: oklch(0.4631 0.1017 134.76);
+  --color-kv-green-800: oklch(0.4006 0.0788 134.55);
+  --color-kv-green-900: oklch(0.3649 0.066 134.71);
+  --color-kv-green-950: oklch(0.2439 0.0457 135.66);
+
+  /* KV-Purple */
+  --color-kv-purple-50: oklch(0.9776 0.0146 312.25);
+  --color-kv-purple-100: oklch(0.9453 0.0348 309.76);
+  --color-kv-purple-200: oklch(0.903 0.0632 310.13);
+  --color-kv-purple-300: oklch(0.8263 0.1162 309.73);
+  --color-kv-purple-400: oklch(0.7252 0.1887 308.59);
+  --color-kv-purple-500: oklch(0.6366 0.2484 306.93);
+  --color-kv-purple-600: oklch(0.5722 0.2652 305.48);
+  --color-kv-purple-700: oklch(0.5107 0.2482 304.97);
+  --color-kv-purple-800: oklch(0.4503 0.2093 306.74);
+  --color-kv-purple-900: oklch(0.4202 0.1902 308.04);
+  --color-kv-purple-950: oklch(0.3 0.1499 305.94);
+}
+
+@theme inline {
+  --color-accent-brown: var(--accent-brown);
+  --color-accent-green: var(--accent-green);
+  --color-accent-red: var(--accent-red);
+  --color-accent-purple: var(--accent-purple);
+}
 
 /* Stone gray palette */
 :root {
@@ -20,19 +71,51 @@
 
   --accent: var(--color-kv-brown-900);
   --accent-foreground: var(--color-white);
+
+  --accent-brown: var(--color-kv-brown-800);
+  --accent-green: var(--color-kv-green-600);
+  --accent-red: var(--color-red-700);
+  --accent-purple: var(--color-kv-purple-800);
 }
 
 .dark {
   --accent: var(--color-kv-brown-300);
   --accent-foreground: var(--color-kv-brown-950);
+
+  --accent-brown: var(--color-kv-brown-300);
+  --accent-green: var(--color-kv-green-400);
+  --accent-red: var(--color-red-400);
+  --accent-purple: var(--color-kv-purple-400);
+}
+
+.theme-brown {
+  --background: var(--color-kv-brown-50);
+  --border: var(--color-gray-300);
+  --muted: var(--color-kv-brown-100);
+  --popover: var(--color-kv-brown-50);
+}
+
+.dark.theme-brown {
+  --background: var(--color-kv-brown-950);
+  --border: var(--color-gray-700);
+  --muted: var(--color-kv-brown-900);
+  --popover: var(--color-kv-brown-950);
 }
 
 .font-display {
   @apply leading-none! tracking-[-0.02em] uppercase;
 }
 
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
 .section-title-large {
   @apply xs:text-6xl xs:leading-[1.1] 3xl:text-8xl 3xl:leading-[1.1] text-foreground pb-2 text-[12vw] leading-[1.1] font-semibold tracking-tighter text-balance md:text-7xl md:leading-[1.1] lg:text-[5.5rem] lg:leading-[1.1];
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
 }
 
 .section-subtitle {
@@ -40,12 +123,13 @@
 }
 
 .gradient-accent,
-.before\:gradient-accent::before {
+.before\:gradient-accent::before,
+.text-gradient-accent {
   @apply from-kv-brown-500 to-kv-brown-600;
 }
 
 .text-gradient-accent {
-  @apply bg-linear-to-r from-orange-400 via-orange-600 to-red-600 bg-clip-text text-transparent;
+  @apply bg-clip-text text-transparent;
 }
 
 .gradient-gold {
