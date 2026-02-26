@@ -4,6 +4,14 @@
  * ID yang unik, dan mengembalikannya sebagai computed property.
  * @param {import('vue').Ref<string>} htmlContent - Ref yang berisi string HTML mentah.
  */
+const wrapCaptionedImages = (html) => {
+  if (!html) return "";
+  return html.replace(
+    /<img([^>]*?)data-caption="([^"]+)"([^>]*?)>/g,
+    '<figure><img$1data-caption="$2"$3><figcaption>$2</figcaption></figure>'
+  );
+};
+
 export const useProcessedContent = (htmlContent) => {
   const createUniqueId = (text, index) => {
     const slug = text
@@ -23,7 +31,7 @@ export const useProcessedContent = (htmlContent) => {
 
       let index = 0;
       // Regex untuk menemukan semua tag h2-h6
-      return rawHtml.replace(
+      const headingsProcessed = rawHtml.replace(
         /<h([2-6])(.*?)>(.*?)<\/h\1>/gi,
         (match, level, attrs, innerText) => {
           const text = innerText.replace(/<[^>]+>/g, "").trim(); // Ambil teks bersih
@@ -36,6 +44,7 @@ export const useProcessedContent = (htmlContent) => {
           return `<h${level} id="${newId}"${cleanAttrs}>${innerText}</h${level}>`;
         },
       );
+      return wrapCaptionedImages(headingsProcessed);
     }
 
     // Pendekatan sisi klien (setelah hydration) tetap lebih andal dengan DOMParser
@@ -48,7 +57,7 @@ export const useProcessedContent = (htmlContent) => {
       node.id = id;
     });
 
-    return doc.body.innerHTML;
+    return wrapCaptionedImages(doc.body.innerHTML);
   });
 
   return { processedHtml };
