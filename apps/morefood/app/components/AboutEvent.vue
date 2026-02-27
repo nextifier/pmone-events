@@ -60,7 +60,7 @@
             />
           </span>
           <div
-            class="text-primary space-y-4 text-3xl !leading-[1.3] font-semibold tracking-tighter sm:text-4xl"
+            class="text-primary space-y-4 text-xl !leading-[1.3] font-semibold tracking-tighter sm:text-2xl"
           >
             <p>
               MoreFood Expo Indonesia brings together global suppliers and Asian
