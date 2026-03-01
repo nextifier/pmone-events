@@ -48,7 +48,7 @@
     "showingPostsFor": "共 {total} 篇相关文章",
     "showingPosts": "共 {total} 篇文章",
     "noResultsFor": "没有找到相关结果",
-    "noResultsHint": "换个关键词试试，或者看看其他话题吧。",
+    "noResultsHint": "换个关键词试试，或者看看其他话题。",
     "noPostsYet": "暂时还没有文章",
     "comeBackLater": "过段时间再来看看"
   },
@@ -59,7 +59,7 @@
     "title": "Rundown",
     "description": "查看 {appName} 的完整活动日程和节目安排。",
     "comingSoon": "Rundown 即将公布，过段时间再来看看！",
-    "nothingYet": "这里还什么都没有……敬请期待！"
+    "nothingYet": "还没有日程安排，敬请期待！"
   },
   "ticket": {
     "agreementPrefix": "继续购票即表示你同意",
@@ -83,7 +83,7 @@
     "successMessage": "我们的团队会尽快通过 Email 或 WhatsApp 联系你。",
     "successButton": "好的，回到首页",
     "disclaimerDefault": "请确保你填写的 Email 和手机号是正确且可用的，方便我们尽快联系你。",
-    "disclaimerExhibitor": "放心，提交表单不代表你已经注册成为参展商。我们只是需要你的联系方式，方便销售团队给你发送 Booth 价格、可选方案等详细信息。",
+    "disclaimerExhibitor": "放心，提交表单不代表你已注册为参展商。我们只是需要联系方式，方便销售团队给你发 Booth 价格和方案。",
     "errorSend": "发送失败，请重试。",
     "errorNetwork": "网络出错，请稍后重试。"
   },
@@ -144,114 +144,134 @@
     "Supported by": "支持方"
   },
   "hero": {
-    "countdownLabel": "距离打开梦想家居的大门还有：",
-    "title": "你的理想装修，从这张蓝图开始。",
-    "description": "亲手触摸最新的建材，面对面听取设计师的建议，带着十足的信心开始你的装修项目。一切尽在 Megabuild。",
+    "countdownLabel": "距开展还有：",
+    "title": "装修要用的，这里都有。",
+    "description": "亲手摸到最新建材，跟设计师当面聊，带着十足的把握开始你的装修。",
     "announcement": "参展 Booth 仍有空位",
     "banners": {
       "0": {
         "subHeadline": "来 Megabuild Indonesia 展示你的品牌！",
-        "content": "<p>把你的品牌直接呈现在数千位房主、建筑师和设计师面前。一起打造成功。</p>",
+        "content": "<p>数千位业主、建筑师和设计师到场参观。把你的品牌直接展示给他们。</p>",
         "cta": "立即预订展位"
       },
       "1": {
-        "subHeadline": "灵感不断，资讯不停！",
-        "content": "<p>关注我们的 Instagram，获取每日建材灵感、参展品牌精选和活动前的独家福利。一条都别错过！</p>",
+        "subHeadline": "别错过任何动态！",
+        "content": "<p>关注我们的 Instagram，每天获取建材灵感、参展品牌精选和活动前的独家福利。</p>",
         "cta": "关注 {'@'}megabuildindo"
       }
-    }
+    },
+    "ctaTicket": "领取门票",
+    "ctaExhibit": "参展报名",
+    "playRecap": "看精彩回顾",
+    "edition": "第{n}届"
   },
   "trustedBy": {
-    "title": "Megabuild Indonesia 的行业领先品牌信赖之选"
+    "title": "Megabuild Indonesia 参展品牌"
   },
   "brandPreview": {
     "title": "看看 {appName} 都有哪些品牌"
   },
   "brandList": {
     "title": "Brand",
-    "description": "浏览各类建材、建筑与室内设计品牌，发现最新产品和创新方案。"
+    "description": "浏览建材、建筑与室内设计领域的参展品牌和最新产品。"
   },
   "mainPrograms": {
     "title": "<span class=''>核心</span> <span class='text-accent'>项目</span>",
-    "description": "{appName} 不只是展览。这里有行业大会、深度培训、精准对接——帮你拿到真正有用的行业资源和人脉。",
+    "description": "展览、行业大会、深度培训、精准对接——{appName} 帮你拿到有用的行业资源和人脉。",
     "items": {
       "0": {
         "title": "Exhibition",
-        "description": "汇集印尼领先制造商和国际品牌，展示建材、建筑、施工和室内设计领域的最新创新成果。"
+        "description": "印尼头部制造商和国际品牌齐聚一堂。建材、建筑、施工和室内设计的最新产品都在这里。"
       },
       "1": {
         "title": "Opening Ceremony",
-        "description": "Megabuild Indonesia 的盛大开幕式，由政府官员剪彩，各大机构、协会、社区和媒体的重量级嘉宾到场见证。"
+        "description": "Megabuild Indonesia 开幕式，由政府官员剪彩，各大机构、协会、社区和媒体的重要嘉宾到场见证。"
       },
       "2": {
         "title": "Megabuild Conference",
-        "description": "深入探讨建筑和施工行业的核心话题。汇聚行业专家和领军人物，在展会前两天呈现高质量的行业对话。"
+        "description": "聚焦建筑和施工行业的核心话题。行业专家和领军人物在展会前两天带来高质量对话。"
       },
       "3": {
         "title": "Seminar, Forum, Talkshow",
-        "description": "携手媒体合作伙伴和行业专家，为建筑师、设计师、承包商和开发商带来实用的行业洞察和深度讨论。"
+        "description": "媒体伙伴和行业专家联合出场，给建筑师、设计师、承包商和开发商带来实用的行业洞察。"
       },
       "4": {
         "title": "1O1 - Business Matching",
-        "description": "帮建材制造商对接进口商、分销商和项目业主。为材料、技术和设备供应商精准匹配区域买家。"
+        "description": "帮建材厂商对接进口商、分销商和项目方。精准匹配材料、技术和设备的供需双方。"
       },
       "5": {
         "title": "Power Networking Night",
-        "description": "为企业负责人、高管、协会领导和行业人士准备的晚宴社交夜。在这里建立的连接，将促成未来的深度合作。"
+        "description": "企业负责人、高管、协会领导的晚宴社交。在这里认识的人，可能就是你下一个合作伙伴。"
       },
       "6": {
         "title": "Hosted Buyer Program",
-        "description": "我们从东盟各地邀请精准买家和合作伙伴，与参展商直接对接。符合条件的行业买家住宿全额由主办方承担。"
+        "description": "从东盟各地邀请精准买家和合作伙伴，跟参展商面对面。符合条件的买家住宿由主办方全包。"
       },
       "7": {
         "title": "建筑承包商与房产开发商联谊会",
-        "description": "联合印尼房地产协会和承包商协会，在展会期间组织会员交流、知识分享和行业合作。"
+        "description": "联合印尼房地产协会和承包商协会，在展会期间组织会员交流和行业合作。"
       },
       "8": {
         "title": "印尼陶瓷之美展示",
-        "description": "精心策划的展陈，呈现印尼陶瓷的最佳设计——从地砖、卫浴到屋顶产品和餐具。在一个地方看遍本土匠心之作。"
+        "description": "精心策划的陶瓷展——地砖、卫浴、屋顶产品到餐具，看遍印尼本土匠心之作。"
       },
       "9": {
         "title": "专业人士与学生参观",
-        "description": "邀请建筑师、室内设计师、顾问、承包商、设计专业学生和讲师来逛展，发现建材和设计创新的最新动向。"
+        "description": "邀请建筑师、室内设计师、承包商、设计专业学生和讲师来逛展，了解建材和设计的最新动向。"
       },
       "10": {
         "title": "Brand Talks",
-        "description": "播客风格的品牌分享会，讨论参展品牌的最新产品、设计理念、技术和创新。每个品牌都有专属时段讲述自己的故事。"
+        "description": "播客风格的品牌分享，讨论参展品牌的最新产品、设计、技术。每个品牌都有专属时段讲自己的故事。"
       },
       "11": {
         "title": "Designer Workshops",
-        "description": "携手印尼建筑师协会（IAI）和印尼室内设计师协会（HDII），为到场会员提供实用的工作坊、培训和教育项目。"
+        "description": "携手印尼建筑师协会（IAI）和室内设计师协会（HDII），为到场会员提供实用工作坊和培训。"
       },
       "12": {
         "title": "Jakarta Design Week 2026",
-        "description": "与 IAI 和雅加达省政府合作，举办论坛和大会，聚焦建筑领域的挑战与创新，探讨城市未来的设计方向。"
+        "description": "与 IAI 和雅加达省政府合办论坛和大会，聚焦建筑挑战与城市未来的设计方向。"
       },
       "13": {
         "title": "地砖墙砖铺贴大赛",
-        "description": "瓷砖铺贴师傅使用参展商提供的产品同台竞技。展示你的手艺，赢取现金奖励和行业认可。"
+        "description": "瓷砖师傅用参展商的产品同台竞技。亮出手艺，赢现金和行业认可。"
       },
       "14": {
         "title": "Megabuild Awards 2026",
-        "description": "表彰印尼建材和设计行业的卓越成就。联合 HDII、IAI 和 GBCI，在最佳设计、创新、可持续发展等多个类别颁发奖项。"
+        "description": "表彰印尼建材和设计行业的优秀成就。联合 HDII、IAI 和 GBCI，在设计、创新、可持续发展等多个类别颁奖。"
       },
       "15": {
         "title": "Megabuild 最佳展位",
-        "description": "评选四个类别的创意展位：大型展位（>108 m²）、中型展位（50-108 m²）、小型展位（<50 m²），以及大众投票选出的人气展位。"
+        "description": "评选四个类别的创意展位：大型（>108 m²）、中型（50-108 m²）、小型（<50 m²）和大众投票人气展位。"
       }
     }
   },
   "factsAndFigures": {
     "subtitle": "数据与事实",
-    "title": "Megabuild Indonesia 为什么是行业领跑者",
-    "description": "21 届办下来，数据说话——数千家企业在 Megabuild Indonesia 找到了增长机会。"
+    "title": "21 届 Megabuild Indonesia，用数据说话",
+    "description": "21 届积累的数据和成果，见证了 Megabuild Indonesia 帮助数千家企业找到增长机会。",
+    "stats": {
+      "visitors": {
+        "label": "参观人数",
+        "description": "来自45个国家"
+      },
+      "exhibitors": {
+        "label": "参展商数量",
+        "description": "来自25个国家"
+      },
+      "transaction": {
+        "label": "交易额"
+      },
+      "leads": {
+        "label": "商业对接数"
+      }
+    }
   },
   "partnerships": {
-    "title": "<span class=''>加入 </span><span class='text-primary'>我们的故事</span>",
-    "description": "通过参与 {appName}，让你的品牌被更多人看到。结识潜在合作伙伴，拓展你的商业网络。",
+    "title": "<span class=''>加入 </span><span class='text-primary'>Megabuild</span>",
+    "description": "参与 {appName}，打开新的商业机会。结识潜在合作伙伴，展示品牌，拓展人脉。",
     "exhibitor": {
       "title": "成为参展商",
-      "description": "品牌方、企业主注意了！把你的产品展示给上万名潜在客户。",
+      "description": "品牌方、企业主注意了——把你的产品展示给上万名潜在客户。",
       "cta": "预订展位"
     },
     "sponsor": {
@@ -261,26 +281,26 @@
     },
     "mediaPartner": {
       "title": "成为媒体合作伙伴",
-      "description": "与我们合作，获取独家内容和行业深度报道资源。",
+      "description": "获取建材与设计行业的独家内容和深度报道资源。",
       "cta": "媒体合作"
     },
     "reservedSpace": {
-      "title": "这个位置留给优秀的合作伙伴。会是你吗？",
+      "title": "这个位置留给好的合作伙伴。有兴趣吗？",
       "cta": "成为合作伙伴"
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">准备装修了？</span><br /><span class=\"\">你的必备指南就在这里。</span>",
-    "description": "别在网上无止境地搜了。建材供应商、设计灵感、专业建议——这里全都有。免费入场，让你的装修少走弯路。",
-    "cta": "领取免费门票"
+    "title": "<span class=\"text-primary\">准备装修了？</span><br /><span class=\"\">从这里开始。</span>",
+    "description": "别在网上来回搜了。建材供应商、设计灵感、专业建议——全在一个地方。",
+    "cta": "领取门票"
   },
   "mediaCoverage": {
-    "title": "行业媒体报道",
+    "title": "媒体报道",
     "description": "看看各大媒体怎么报道 {appName}。"
   },
   "credits": {
-    "title": "活动背后的社区力量",
-    "description": "感谢所有合作伙伴、赞助商和媒体的鼎力支持，让这场活动成为可能。"
+    "title": "活动背后的力量",
+    "description": "感谢所有合作伙伴、赞助商和媒体的支持。"
   },
   "postSlider": {
     "title": "最新动态",
@@ -288,12 +308,12 @@
   },
   "bookSpace": {
     "title": "参展商报名",
-    "description": "在 {appName} 预订你的展位，向上万名潜在客户展示品牌实力。和行业领先品牌一起亮相。"
+    "description": "在 {appName} 预订展位，向上万名潜在客户展示你的品牌。"
   },
   "faq": {
     "title": "常见问题",
-    "description": "关于活动、门票、参展商等常见问题，都在这里。",
-    "emptyState": "常见问题正在整理中，请稍后再来查看。",
+    "description": "关于活动、门票、参展等常见问题，都在这里。",
+    "emptyState": "常见问题正在整理中，请稍后查看。",
     "contactTitle": "还有其他问题？直接发给我们！",
     "items": {
       "0": {
@@ -302,70 +322,70 @@
       },
       "1": {
         "q": "怎么买票？",
-        "a": "<p>通过我们的官方网站就可以。点击 <a href=\"/ticket\">Get Ticket</a> 按钮，按流程完成注册。电子门票会发送到你的 Email 和 WhatsApp。</p>"
+        "a": "<p>在官方网站就可以。点 <a href=\"/ticket\">Get Ticket</a> 按钮，按流程注册。电子门票会发到你的 Email 和 WhatsApp。</p>"
       },
       "2": {
         "q": "门票多少钱？",
-        "a": "<p>票价根据票种和购买时间有所不同。最新价格请查看 <a href=\"/ticket\">门票页面</a>。早鸟票和预售票有优惠，别错过！</p>"
+        "a": "<p>票价根据票种和购买时间有所不同。最新价格看 <a href=\"/ticket\">门票页面</a>。早鸟票和预售有优惠，别错过。</p>"
       },
       "3": {
         "q": "买了票不能去，可以退吗？",
-        "a": "<p>门票售出后不退不换。详情请查看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
+        "a": "<p>门票售出后不退不换。详情看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
       },
       "4": {
         "q": "去现场需要带什么？",
-        "a": "<p>带上你的电子门票（手机出示或打印均可），在签到台换取入场证。如果你想和参展商交流，建议带上名片。</p>"
+        "a": "<p>带上电子门票（手机出示或打印都行），到签到台换入场证。想跟参展商交流的话，建议带名片。</p>"
       },
       "5": {
         "q": "谁可以参加？",
-        "a": "<p>活动对所有人开放。不管你是准备装修的业主、建筑师、承包商、开发商，还是设计行业从业者，都欢迎来逛。</p>"
+        "a": "<p>所有人都可以。准备装修的业主、建筑师、承包商、开发商、设计从业者，都欢迎来。</p>"
       },
       "6": {
         "q": "有哪些品牌参展？",
-        "a": "<p>我们汇集了建材、建筑、施工和室内设计领域的众多品牌。完整参展商名单请查看 <a href=\"/brands\">Brands 页面</a>，名单会持续更新。</p>"
+        "a": "<p>建材、建筑、施工和室内设计领域的众多品牌都会来。完整名单看 <a href=\"/brands\">Brands 页面</a>，持续更新中。</p>"
       },
       "7": {
-        "q": "怎么报名成为参展商？",
-        "a": "<p>请访问 <a href=\"/book-space\">参展商报名页面</a>，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们，了解展位方案和价格。</p>"
+        "q": "怎么报名参展？",
+        "a": "<p>去 <a href=\"/book-space\">参展商报名页面</a>，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们了解展位方案和价格。</p>"
       },
       "8": {
-        "q": "现场有讲座或工作坊吗？",
-        "a": "<p>有的！展会期间安排了多场研讨会、大会、工作坊和社交活动。完整日程请查看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
+        "q": "有讲座或工作坊吗？",
+        "a": "<p>有。展会期间有多场研讨会、大会、工作坊和社交活动。完整日程看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
       },
       "9": {
         "q": "怎么成为赞助商或媒体合作伙伴？",
-        "a": "<p>欢迎合作！请通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们，聊聊合作方案。</p>"
+        "a": "<p>欢迎合作。通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们聊聊。</p>"
       },
       "10": {
         "q": "展馆有停车位吗？",
-        "a": "<p>有的，展馆提供停车设施。不过高峰时段车位可能紧张，建议提早到达或考虑打车。</p>"
+        "a": "<p>有。不过高峰时段可能紧张，建议早到或打车过来。</p>"
       },
       "11": {
         "q": "现场可以拍照录像吗？",
-        "a": "<p>个人用途的拍照录像没问题。商业用途的专业拍摄需要提前获得主办方书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "a": "<p>个人用途的拍照录像没问题。商业用途需要提前拿到主办方书面许可。详情看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "12": {
         "q": "有什么需要注意的规定？",
-        "a": "<p>所有参与者需遵守活动规定，配合现场工作人员和安保人员的指引。入场前请先阅读 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "a": "<p>请配合现场工作人员和安保的指引。入场前先看看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "13": {
         "q": "怎么获取最新活动信息？",
-        "a": "<p>关注我们的 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展品牌、活动动态和优惠信息。也可以访问 <a href=\"/news\">资讯页面</a> 查看最新文章。</p>"
+        "a": "<p>关注 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展品牌、活动动态和优惠信息。也可以看 <a href=\"/news\">资讯页面</a> 的最新文章。</p>"
       },
       "14": {
         "q": "怎么联系主办方？",
-        "a": "<p>你可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式和快捷入口请访问 <a href=\"/help-center\">Help Center</a>。</p>"
+        "a": "<p>可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式和快捷入口在 <a href=\"/help-center\">Help Center</a>。</p>"
       }
     }
   },
   "pages": {
     "home": {
       "title": "Megabuild Indonesia：建材、建筑、施工与室内设计展",
-      "description": "在 MEGABUILD Indonesia 发现建材、建筑和室内设计领域的最新趋势与创新。"
+      "description": "在 MEGABUILD Indonesia 发现建材、建筑和室内设计的最新趋势。"
     },
     "brands": {
       "title": "Brand",
-      "description": "浏览各类建材、建筑与室内设计品牌，发现最新产品和创新方案。"
+      "description": "浏览建材、建筑与室内设计领域的参展品牌和最新产品。"
     },
     "rundown": {
       "title": "Rundown",
@@ -373,7 +393,7 @@
     },
     "programs": {
       "title": "核心项目",
-      "description": "了解 {appName} 的核心项目——展览、行业大会、研讨会和精准对接。获取行业洞察，拓展人脉。"
+      "description": "展览、行业大会、研讨会和精准对接——了解 {appName} 的核心项目。"
     },
     "contact": {
       "title": "联系我们",
@@ -381,11 +401,11 @@
     },
     "bookSpace": {
       "title": "预订展位",
-      "description": "在 {appName} 预订展位，向上万名潜在客户展示品牌实力。"
+      "description": "在 {appName} 预订展位，向上万名潜在客户展示你的品牌。"
     },
     "ticket": {
       "title": "领取门票",
-      "description": "获取 {appName} 入场门票。日期、地点、票种信息一目了然。"
+      "description": "获取 {appName} 入场门票。日期、地点、票种一目了然。"
     },
     "gallery": {
       "title": "活动相册",
@@ -393,7 +413,7 @@
     },
     "faq": {
       "title": "FAQ",
-      "description": "关于 {appName} 的常见问题解答。门票、活动详情、合作等信息都在这里。"
+      "description": "关于 {appName} 的常见问题解答。门票、活动、合作等信息都在这里。"
     },
     "links": {
       "title": "Links",
@@ -401,11 +421,11 @@
     },
     "news": {
       "title": "资讯",
-      "description": "关注建筑和施工行业的最新动态、趋势和深度文章。"
+      "description": "关注建筑和施工行业的最新动态和深度文章。"
     },
     "ticketPolicy": {
       "title": "购票政策",
-      "description": "了解 {appName} 的购票政策，包括票种、定价和退票规则。"
+      "description": "了解 {appName} 的票种、定价和退票规则。"
     },
     "eventPolicy": {
       "title": "活动政策",
@@ -413,7 +433,7 @@
     },
     "partners": {
       "title": "合作伙伴",
-      "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场活动成为可能。"
+      "description": "感谢所有合作伙伴、赞助商和媒体的支持。"
     },
     "terms": {
       "title": "服务条款",
@@ -425,7 +445,19 @@
     },
     "winner": {
       "title": "随机抽奖器",
-      "description": "在线随机抽取幸运获奖者。粘贴名单，转动抽奖机，公平选出获奖人。适用于比赛、抽奖和各类活动！"
+      "description": "粘贴名单，转动抽奖机，公平选出获奖人。适用于比赛、抽奖和各类活动。"
     }
+  },
+  "megaProperty": {
+    "subtitle": "Co-located Event",
+    "title": "<span class=\"text-gradient-accent\">Mega Property Expo</span> 简介",
+    "description": "与 Megabuild Indonesia 同期举办的印尼房地产展。精品楼盘、头部开发商、投资机会，都在这里。",
+    "cta": "探索 Mega Property",
+    "highlights": [
+      "精品楼盘展示",
+      "行业交流",
+      "专家峰会",
+      "投资方案"
+    ]
   }
 }

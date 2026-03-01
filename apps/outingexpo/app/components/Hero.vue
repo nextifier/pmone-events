@@ -52,14 +52,14 @@
                 to="/ticket"
                 class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
                 v-ripple
-                >Get free ticket</nuxt-link
+                >{{ $t("hero.ctaTicket") }}</nuxt-link
               >
 
               <nuxt-link
                 to="/book-space"
                 class="bg-primary/5 hover:bg-primary/10 dark:bg-primary/8 text-primary dark:border-primary/8 dark:hover:bg-primary/16 flex items-center justify-center rounded-xl border border-transparent px-4 py-3 font-semibold tracking-tight backdrop-blur-lg transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
                 v-ripple
-                >I want to exhibit</nuxt-link
+                >{{ $t("hero.ctaExhibit") }}</nuxt-link
               >
             </div>
           </div>
@@ -97,11 +97,12 @@
               <div v-if="event.edition?.value" class="flex">
                 <span
                   class="text-primary bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
-                  >{{ event.edition.value
-                  }}<span class="align-super text-[10px]">{{
-                    event.edition.ordinal
-                  }}</span>
-                  edition</span
+                  >{{
+                    $t("hero.edition", {
+                      n: event.edition.value,
+                      ordinal: event.edition.ordinal,
+                    })
+                  }}</span
                 >
               </div>
 

@@ -54,7 +54,7 @@
                 to="/ticket"
                 class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
                 v-ripple
-                >Get free ticket</nuxt-link
+                >Get ticket</nuxt-link
               >
 
               <nuxt-link

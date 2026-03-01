@@ -2,13 +2,10 @@
   <section id="past-exhibitors">
     <div class="container">
       <div class="flex flex-col items-center text-center">
-        <h2 class="section-title">
-          Trusted by <span class="text-primary">Leading Brands</span>
-        </h2>
+        <h2 class="section-title" v-html="$t('pastExhibitors.title')"></h2>
 
         <p class="section-description mt-3 max-w-2xl">
-          Join pioneering brands who have showcased at Indonesia Outing Expo
-          2025 and connected with thousands of potential partners.
+          {{ $t("pastExhibitors.description") }}
         </p>
       </div>
     </div>

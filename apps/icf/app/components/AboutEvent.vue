@@ -32,7 +32,7 @@
             >.
           </p>
           <p>
-            This means your free pass doesn't just get you into the best coffee
+            This means your pass doesn't just get you into the best coffee
             party of the year. It also gives you full access to three other
             flavor zones:
           </p>
@@ -180,7 +180,7 @@
             in Hall 10.
           </p>
           <p>
-            So yes, one free ticket gets you into all of it for three days. It's
+            So yes, one ticket gets you into all of it for three days. It's
             a pretty great deal.
           </p>
         </div>

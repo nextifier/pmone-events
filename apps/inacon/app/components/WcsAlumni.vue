@@ -1,12 +1,12 @@
 <template>
   <section class="container">
     <div class="flex flex-col items-center text-center">
-      <h1 class="section-title">ICGP Wall of Fame</h1>
+      <h1 class="section-title">{{ $t("icgp.wallOfFame") }}</h1>
 
       <p
         class="mt-2 text-lg tracking-tight text-black sm:text-xl dark:text-white"
       >
-        World Cosplay Summit (WCS) Indonesia's Alumni 2012-2025
+        {{ $t("icgp.wallOfFameSubtitle") }}
       </p>
     </div>
 
@@ -123,8 +123,7 @@
       <LogoIcgp class="h-32 w-auto text-black dark:text-white" />
 
       <h2 class="section-title mt-6 text-center">
-        Become the ICGP Champion and have your name featured on this Wall of
-        Fame!
+        {{ $t("icgp.wallOfFameCta") }}
       </h2>
     </div>
   </section>

@@ -25,6 +25,10 @@ export default defineNuxtConfig({
     name: "More Food Expo Indonesia",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-4STNHTGXQQ" }],
   },

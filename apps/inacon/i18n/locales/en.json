@@ -174,24 +174,52 @@
         "content": "<p>Connect your brand with thousands of pop culture fans and collectors at Indonesia's largest crossover event!</p>",
         "cta": "Book Space"
       }
-    }
+    },
+    "ctaTicket": "Get Ticket",
+    "ctaExhibit": "Book Space",
+    "playRecap": "Play Recap",
+    "edition": "{n}{ordinal} edition"
   },
   "mainPrograms": {
     "title": "Main Programs",
     "description": "Immerse yourself in the heart of {appName} with our main programs, featuring world-class exhibitions, thrilling competitions, and exclusive panels that bring the world of pop culture to life.",
     "items": {
-      "0": { "title": "Exhibition" },
-      "1": { "title": "Main Guest Talkshow" },
-      "2": { "title": "Meet & Greet" },
-      "3": { "title": "Cosplay Parade" },
-      "4": { "title": "Cosplay Competition" },
-      "5": { "title": "Gaming Competition" },
-      "6": { "title": "Movie Panel" },
-      "7": { "title": "Portfolio Review" },
-      "8": { "title": "Creator Workshop" },
-      "9": { "title": "Toys Auction" },
-      "10": { "title": "Stamp Rally" },
-      "11": { "title": "Live Performance" }
+      "0": {
+        "title": "Exhibition"
+      },
+      "1": {
+        "title": "Main Guest Talkshow"
+      },
+      "2": {
+        "title": "Meet & Greet"
+      },
+      "3": {
+        "title": "Cosplay Parade"
+      },
+      "4": {
+        "title": "Cosplay Competition"
+      },
+      "5": {
+        "title": "Gaming Competition"
+      },
+      "6": {
+        "title": "Movie Panel"
+      },
+      "7": {
+        "title": "Portfolio Review"
+      },
+      "8": {
+        "title": "Creator Workshop"
+      },
+      "9": {
+        "title": "Toys Auction"
+      },
+      "10": {
+        "title": "Stamp Rally"
+      },
+      "11": {
+        "title": "Live Performance"
+      }
     }
   },
   "partnerships": {
@@ -451,5 +479,91 @@
       "title": "Random Winner Generator",
       "description": "Generate random winners instantly with our Random Winner Generator. Paste names, spin the slot machine, and pick a winner fairly. Perfect for contests, giveaways, and events!"
     }
+  },
+  "guests": {
+    "comingSoon": "Coming Soon",
+    "revealSoon": "The next guest will be revealed soon on Instagram",
+    "sectionTitle": "Meet Your Special Guests",
+    "sectionDescription": "Meet the stars of {eventTitle}"
+  },
+  "meetAndGreet": {
+    "readTerms": "Read Terms & Conditions",
+    "termsTitle": "Terms & Conditions"
+  },
+  "portfolioReview": {
+    "title": "Portfolio Review",
+    "description": "Calling all artists, content creators, and art enthusiasts! Get your art portfolio reviewed by industry professionals who are passionate about supporting and nurturing artistic talent.",
+    "openFor": "Open for:",
+    "notes": "Notes:",
+    "noteVenue": "Portfolio Review will be held on {appName}, {eventDate} at {eventLocation}.",
+    "noteContact": "The chosen participants will be contacted by the Indonesia Anime Con and get a free entry ticket to Indonesia Anime Con (no need to buy the ticket)."
+  },
+  "icgp": {
+    "heroSubtitle": "✨ Unleash Your Cosplay Creativity at",
+    "heroTitle": "Indonesia Cosplay Grand Prix (ICGP) 2026!",
+    "citiesTitle": "Countdown Begins! 5 Cities, 1 Goal—Who Will Be the Next ICGP Champion?",
+    "citiesDescription": "ICGP is kicking off in 5 cities! Check out the list and get ready to join the most exciting cosplay journey of the year!",
+    "judge": "Judge",
+    "judges": "Judges",
+    "organizedBy": "Organized by",
+    "introduction": "Introduction",
+    "introductionText": "The Indonesia Cosplay Grand Prix (ICGP) is the premier national cosplay competition, where talented cosplayers showcase their creativity and passion on stage. Each team, consisting of two members, will perform a cosplay act, judged on costume craftsmanship and stage performance, supported by background audio and video.",
+    "competitionDetails": "Competition Details",
+    "competitionDetailsText": "The ICGP will be held in multiple regions throughout Indonesia. Regional winners will advance to the ICGP Finals at Indonesia Anime Con in Jakarta. The champion team from the ICGP Finals will represent Indonesia at the World Cosplay Summit in Japan, the world's largest cosplay event!",
+    "basicRules": "Basic Rules for ICGP",
+    "downloadRules": "Download Rules",
+    "rules": {
+      "0": {
+        "title": "Team Composition",
+        "description": "Each team must consist of 2 Indonesian nationals, both at least 18 years old."
+      },
+      "1": {
+        "title": "Costume Creation",
+        "description": "Costumes must be made by both team members. Costumes created by a single team member or by a third party are not allowed. Participants must provide photographic documentation of the costume-making process."
+      },
+      "2": {
+        "title": "Cosplay Character Origin",
+        "description": "Both team members must wear costumes from the same source, which must originate from Japanese manga, anime, video games, or tokusatsu."
+      },
+      "3": {
+        "title": "Performance Duration",
+        "description": "Each cosplay performance must not exceed 2 minutes and 30 seconds."
+      },
+      "4": {
+        "title": "Audio and Background Video (BGV)",
+        "description": "Teams must use audio and BGV to enhance their stage performance."
+      },
+      "5": {
+        "title": "Registration",
+        "description": "All participants must register before the deadline for their respective regional selection."
+      }
+    },
+    "timelineTitle": "ICGP Timeline",
+    "timeline": {
+      "0": {
+        "title": "Registration for ICGP Regional by Event Organizers",
+        "description": "Regional event organizers can register with Indonesia Anime Con to host the ICGP Preliminary Selection in their city."
+      },
+      "1": {
+        "title": "Preliminary Selection",
+        "description": "Participants compete in the Preliminary Selection held in different cities by affiliated event organizers. Cities and dates will be announced on our website and social media as soon as they are available."
+      },
+      "2": {
+        "title": "ICGP Grand Final",
+        "description": "Winners from the Preliminary Selection will advance to the ICGP Grand Final at Indonesia Anime Con in Jakarta."
+      },
+      "3": {
+        "title": "World Cosplay Summit (WCS) Japan",
+        "description": "The team that wins the ICGP Grand Final will represent Indonesia at the World Cosplay Summit (WCS) in Japan."
+      }
+    },
+    "joinTitle": "Bring ICGP 2026 to Your City—Sign Up as a Regional Organizer!",
+    "joinDescription": "Are you an Event Organizer passionate about cosplay and ready to take part in the biggest national competition? Indonesia Anime Con is now accepting proposals from Event Organizers to conduct the ICGP 2026 Regional Preliminary Selection!",
+    "joinDeadline": "Deadline: November 21, 2025",
+    "joinApply": "Apply",
+    "joinOrSend": "or send your proposal to icc{'@'}panoramamedia.co.id",
+    "wallOfFame": "ICGP Wall of Fame",
+    "wallOfFameSubtitle": "World Cosplay Summit (WCS) Indonesia's Alumni 2012-2025",
+    "wallOfFameCta": "Become the ICGP Champion and have your name featured on this Wall of Fame!"
   }
 }

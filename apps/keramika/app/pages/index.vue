@@ -12,10 +12,12 @@
     <LazyBlogPostSlider
       :headline="useContentStore().components.postSlider.title.default"
     />
+    <FAQ />
     <FAB />
   </div>
 </template>
 
 <script setup>
 usePageMeta("home");
+useEventSchema();
 </script>

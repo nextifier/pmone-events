@@ -1,7 +1,7 @@
 {
   "ui": {
     "viewAll": "查看全部",
-    "viewAllBrands": "查看全部 Brand",
+    "viewAllBrands": "查看全部品牌",
     "contactUs": "联系我们",
     "back": "返回",
     "comingSoon": "即将推出",
@@ -20,8 +20,8 @@
     "failedToGetData": "数据加载失败。",
     "search": "搜索",
     "searchPosts": "搜索文章",
-    "brands": "Brand",
-    "booth": "Booth",
+    "brands": "品牌",
+    "booth": "展位",
     "categories": "分类",
     "description": "简介",
     "created": "创建于",
@@ -34,13 +34,13 @@
     "endsIn": "结束于",
     "ticketsSoldOut": "门票已售罄",
     "ticketsComingSoon": "门票即将开售",
-    "presentedBy": "Presented by",
+    "presentedBy": "主办",
     "allLocations": "全部地点",
     "selectAProduct": "选择产品",
     "selectAnOption": "选择一项",
-    "enterYourProductType": "输入你的产品类型",
+    "enterYourProductType": "输入产品类型",
     "sendMessage": "发送",
-    "leaveAMessage": "写下你的留言..",
+    "leaveAMessage": "写下留言..",
     "youMightAlsoLike": "你可能还想看"
   },
   "news": {
@@ -48,18 +48,18 @@
     "showingPostsFor": "共 {total} 篇相关文章",
     "showingPosts": "共 {total} 篇文章",
     "noResultsFor": "没有找到相关结果",
-    "noResultsHint": "换个关键词试试，或者看看其他话题吧。",
+    "noResultsHint": "换个关键词试试吧。",
     "noPostsYet": "暂时还没有文章",
     "comeBackLater": "过段时间再来看看"
   },
   "brands": {
-    "comingSoon": "Brand 名单即将公布，过段时间再来看看！"
+    "comingSoon": "品牌名单即将公布，过段时间再来看看！"
   },
   "rundown": {
     "title": "Rundown",
     "description": "查看 {appName} 的完整活动日程和节目安排。",
     "comingSoon": "Rundown 即将公布，过段时间再来看看！",
-    "nothingYet": "这里还什么都没有……敬请期待！"
+    "nothingYet": "这里还什么都没有，敬请期待！"
   },
   "ticket": {
     "agreementPrefix": "继续购票即表示你同意",
@@ -70,10 +70,10 @@
   "contact": {
     "title": "联系我们",
     "formTitle": "联系表单",
-    "description": "有问题或需要帮助？随时联系我们，了解门票、合作和活动详情。",
+    "description": "有问题或需要帮助？关于门票、参展、合作等，随时联系我们。",
     "name": "姓名",
     "jobTitle": "职位",
-    "brandName": "Brand 名称",
+    "brandName": "品牌名称",
     "products": "产品",
     "email": "Email",
     "phone": "手机号 (WhatsApp)",
@@ -82,8 +82,8 @@
     "successTitle": "提交成功！感谢你联系我们。",
     "successMessage": "我们的团队会尽快通过 Email 或 WhatsApp 联系你。",
     "successButton": "好的，回到首页",
-    "disclaimerDefault": "请确保你填写的 Email 和手机号是正确且可用的，方便我们尽快联系你。",
-    "disclaimerExhibitor": "放心，提交表单不代表你已经注册成为参展商。我们只是需要你的联系方式，方便销售团队给你发送 Booth 价格、可选方案等详细信息。",
+    "disclaimerDefault": "请确保填写正确的 Email 和手机号，方便我们尽快联系你。",
+    "disclaimerExhibitor": "放心，提交表单不代表你已经注册为参展商。我们需要你的联系方式，方便团队给你发送展位价格和方案。",
     "errorSend": "发送失败，请重试。",
     "errorNetwork": "网络出错，请稍后重试。"
   },
@@ -143,39 +143,43 @@
     "Supported by": "支持方"
   },
   "hero": {
-    "countdownLabel": "距离你的家居焕新之旅还有：",
-    "title": "你的梦想装修，从这里开始规划。",
-    "description": "别再只看图片了。亲手触摸最新材料、面对面咨询设计师、带着十足信心启动你的装修项目。",
-    "announcement": "参展 Booth 仍有空位",
+    "countdownLabel": "Renovation Expo 开幕倒计时：",
+    "title": "<span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">装修</span></span>这件事，<span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">从这里开始。</span>",
+    "description": "亲手触摸最新材料、面对面咨询设计师。装修需要的一切，一站搞定。",
+    "announcement": "参展展位仍有空位 — 立即报名！",
     "banners": {
       "0": {
-        "subHeadline": "免费入场，升级你的家！",
-        "content": "<p>免费获取装修全攻略：数百个品牌、专业设计咨询、以及最前沿的家居改善趋势，全都在这里。</p>",
-        "cta": "领取免费门票"
+        "subHeadline": "一次看够装修好物！",
+        "content": "<p>数百个品牌、设计咨询、最新家居趋势 — 全部体验。</p>",
+        "cta": "领取门票"
       },
       "1": {
         "subHeadline": "来 Renovation Expo 参展吧！",
-        "content": "<p>让你的品牌直接出现在数千名正在找材料的业主、建筑师和设计师面前。一起打造成功。</p>",
+        "content": "<p>数千名正在找材料的业主、建筑师和设计师现场看展。直接展示你的品牌和产品。</p>",
         "cta": "立即预订展位"
       },
       "2": {
         "subHeadline": "免费设计 & 风水咨询！",
-        "content": "<p>带上你的户型图！由专业室内设计师和风水大师为你提供个性化建议，打造和谐又实用的居住空间。</p>",
-        "cta": "查看全部活动亮点"
+        "content": "<p>带上户型图！专业设计师和风水师现场为你量身定制方案。</p>",
+        "cta": "查看全部活动"
       },
       "3": {
-        "subHeadline": "灵感不断，动态不停！",
-        "content": "<p>关注我们的 Instagram，每天获取装修灵感、参展品牌特写和活动前的专属福利。别错过任何更新！</p>",
+        "subHeadline": "别错过最新消息！",
+        "content": "<p>关注我们的 Instagram，每天获取装修灵感、参展品牌介绍和专属福利。</p>",
         "cta": "关注 {'@'}megabuildindo"
       }
-    }
+    },
+    "ctaTicket": "领取门票",
+    "ctaExhibit": "参展报名",
+    "playRecap": "看精彩回顾",
+    "edition": "第{n}届"
   },
   "trustedBy": {
-    "title": "受到 Megabuild Indonesia 头部品牌的信赖"
+    "title": "Megabuild Indonesia 参展品牌实绩"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>核心</span> <span class='text-accent'>项目</span>",
-    "description": "看看 {appName} 都有哪些精彩项目——展览、品牌分享、工作坊、设计咨询，帮你获取实用行业知识和人脉资源。",
+    "description": "不只是展览。{appName} 还有工作坊、品牌分享、设计咨询等丰富活动，全部可以参加。",
     "items": {
       "0": {
         "title": "Exhibition",
@@ -221,136 +225,152 @@
   },
   "factsAndFigures": {
     "subtitle": "数据与成果",
-    "title": "Megabuild Indonesia 为何引领行业",
-    "description": "21 届办下来，数据说话——数千家企业在 Megabuild Indonesia 找到了增长机会。"
+    "title": "21 届办展，数千企业在此成长",
+    "description": "21 届的积累说明一切 — 数千家企业在 Megabuild Indonesia 找到了新的商业机会。",
+    "stats": {
+      "visitors": {
+        "label": "总访客数",
+        "description": "来自45个国家"
+      },
+      "exhibitors": {
+        "label": "总展商数",
+        "description": "来自25个国家"
+      },
+      "transaction": {
+        "label": "交易总额"
+      },
+      "leads": {
+        "label": "总商机数"
+      }
+    }
   },
   "partnerships": {
     "title": "<span class='text-outline'>加入 </span><span class='text-primary'>我们的故事</span>",
-    "description": "通过参与 {appName}，让你的品牌被更多人看到。结识潜在合作伙伴，拓展你的商业网络。",
+    "description": "参与 {appName}，打开新的商业可能。结识潜在合作伙伴，提升品牌曝光，拓展商业网络。",
     "exhibitor": {
       "title": "成为参展商",
-      "description": "品牌方、创业者注意了！把你的产品展示给上万名潜在客户。",
+      "description": "有装修或家居产品？直接展示给上万名有购买意向的观众。",
       "cta": "预订展位"
     },
     "sponsor": {
       "title": "成为赞助商",
-      "description": "赞助行业头部展会，直接触达核心决策者。",
+      "description": "赞助建材·家居行业头部展会，直接触达核心决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
       "title": "成为媒体合作伙伴",
-      "description": "与我们合作，获取独家内容和行业深度报道资源。",
+      "description": "独家报道印尼最大装修展。现成内容，拿来就用。",
       "cta": "媒体合作"
     },
     "reservedSpace": {
-      "title": "这个位置留给优秀的合作伙伴。会是你吗？",
+      "title": "这个位置留给下一位合作伙伴。会是你吗？",
       "cta": "成为合作伙伴"
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">准备装修？</span><br /><span class=\"text-outline\">你需要的装修指南就在这里。</span>",
-    "description": "别再漫无目的地搜索了。所有材料供应商、设计灵感和专业建议，一站搞定。免费入场，开启更聪明的装修方案。",
-    "cta": "领取免费门票"
+    "title": "<span class=\"text-primary\">准备装修？</span><br /><span class=\"text-outline\">你需要的，这里全都有。</span>",
+    "description": "别再一个个搜了。材料商、设计灵感、专业建议，一站搞定。",
+    "cta": "领取门票"
   },
   "mediaCoverage": {
-    "title": "行业媒体报道",
-    "description": "看看各大媒体怎么报道 {appName}。"
+    "title": "媒体报道实绩",
+    "description": "各大媒体对 {appName} 的报道。"
   },
   "credits": {
-    "title": "活动背后的社区力量",
-    "description": "感谢所有合作伙伴、赞助商和媒体的鼎力支持，让这场活动成为可能。"
+    "title": "活动背后的力量",
+    "description": "感谢合作伙伴、赞助商和媒体的支持，让这场活动成为可能。"
   },
   "postSlider": {
     "title": "最新动态",
     "titleMorePosts": "你可能还想看"
   },
   "brandPreview": {
-    "title": "看看 {appName} 都有哪些品牌"
+    "title": "{appName} 参展品牌"
   },
   "brandList": {
-    "title": "Brand",
-    "description": "浏览建材、建筑和室内设计领域的优质品牌和最新产品。"
+    "title": "品牌",
+    "description": "浏览建材、建筑和室内设计领域的参展品牌。"
   },
   "bookSpace": {
     "title": "参展商报名",
-    "description": "在 {appName} 预订你的展位，向上万名潜在客户展示品牌实力。和行业领先品牌一起亮相。"
+    "description": "在 {appName} 预订展位，向上万名观众展示品牌。名额有限，尽早报名。"
   },
   "faq": {
     "title": "常见问题",
-    "description": "关于装修展的门票、参展、活动详情等常见问题，都在这里。",
-    "emptyState": "常见问题正在整理中，请稍后再来查看。",
-    "contactTitle": "还有其他问题？直接发给我们！",
+    "description": "关于门票、参展、活动详情等常见问题，答案都在这里。",
+    "emptyState": "常见问题正在整理中，请稍后再来。",
+    "contactTitle": "还有疑问？直接发给我们！",
     "items": {
       "0": {
         "q": "{eventTitle} 什么时候、在哪里举办？",
         "a": "<p>{eventTitle} 将于 <strong>{eventDate}</strong>，<strong>{eventTime}</strong> 在 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a> 举办。</p>"
       },
       "1": {
-        "q": "怎么买票？",
-        "a": "<p>通过我们的官方网站就可以。点击 <a href=\"/ticket\">Get Ticket</a> 按钮，按流程完成注册。电子门票会发送到你的 Email 和 WhatsApp。</p>"
+        "q": "怎么获取门票？",
+        "a": "<p>在官网点击 <a href=\"/ticket\">领取门票</a> 按钮，完成注册即可。电子门票会发送到你的 Email 和 WhatsApp。</p>"
       },
       "2": {
         "q": "门票多少钱？",
-        "a": "<p>票价根据票种和购买时间有所不同。最新价格请查看 <a href=\"/ticket\">门票页面</a>。早鸟票和预售票有优惠，别错过！</p>"
+        "a": "<p>价格因票种和购买时间而异。最新价格请查看 <a href=\"/ticket\">门票页面</a>。早鸟票和预售票有折扣！</p>"
       },
       "3": {
-        "q": "买了票不能去，可以退吗？",
+        "q": "买了票去不了，能退吗？",
         "a": "<p>门票售出后不退不换。详情请查看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
       },
       "4": {
         "q": "去现场需要带什么？",
-        "a": "<p>带上你的电子门票（手机出示或打印均可），在签到台换取入场证。如果你想和参展商交流，建议带上名片。</p>"
+        "a": "<p>带上电子门票（手机出示或打印均可），在签到台换取入场证。想交流合作的话，带上名片更方便。</p>"
       },
       "5": {
-        "q": "谁可以参加？",
-        "a": "<p>活动对所有人开放。不管你是准备装修的业主、建筑师、室内设计师、承包商，还是想了解最新的家居趋势，都欢迎来。</p>"
+        "q": "谁都可以来吗？",
+        "a": "<p>当然！不管你是准备装修的业主、建筑师、设计师、施工方，还是对家居趋势感兴趣，都欢迎来。</p>"
       },
       "6": {
         "q": "有哪些品牌参展？",
-        "a": "<p>我们汇集了建材、室内设计、家居用品和装修服务等各领域的品牌。完整参展商名单请查看 <a href=\"/brands\">Brands 页面</a>，名单会持续更新。</p>"
+        "a": "<p>涵盖建材、室内设计、家居用品、装修服务等多个领域。完整名单请查看 <a href=\"/brands\">品牌页面</a>，持续更新中。</p>"
       },
       "7": {
-        "q": "怎么报名成为参展商？",
-        "a": "<p>请访问 <a href=\"/book-space\">参展商报名页面</a>，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们，了解展位方案和价格。</p>"
+        "q": "怎么报名参展？",
+        "a": "<p>访问 <a href=\"/book-space\">参展商报名页面</a>，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们了解展位方案和价格。</p>"
       },
       "8": {
-        "q": "现场有讲座或工作坊吗？",
-        "a": "<p>有的！我们安排了品牌分享、工作坊系列、设计和风水咨询等丰富内容。完整日程请查看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
+        "q": "有讲座或工作坊吗？",
+        "a": "<p>有的！品牌分享、工作坊、设计和风水咨询等内容丰富。完整日程请查看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
       },
       "9": {
         "q": "怎么成为赞助商或媒体合作伙伴？",
-        "a": "<p>欢迎合作！请通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们，聊聊合作方案。</p>"
+        "a": "<p>欢迎合作！通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们，聊聊合作方案。</p>"
       },
       "10": {
         "q": "展馆有停车位吗？",
-        "a": "<p>有的，展馆提供停车设施。不过高峰时段车位可能紧张，建议提早到达或考虑打车。</p>"
+        "a": "<p>有。不过高峰时段可能满位，建议提早到或者打车来。</p>"
       },
       "11": {
-        "q": "现场可以拍照录像吗？",
-        "a": "<p>个人用途的拍照录像没问题。商业用途的专业拍摄需要提前获得主办方书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "q": "可以拍照录像吗？",
+        "a": "<p>个人拍照录像没问题。商业拍摄需要主办方书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "12": {
-        "q": "有什么需要注意的规定？",
-        "a": "<p>所有参与者需遵守活动规定，配合现场工作人员和安保人员的指引。入场前请先阅读 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "q": "有什么规定要注意？",
+        "a": "<p>请配合现场工作人员和安保人员的指引。入场前建议先看看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "13": {
-        "q": "怎么获取最新活动信息？",
-        "a": "<p>关注我们的 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展品牌、活动亮点和优惠信息。也可以访问 <a href=\"/news\">资讯页面</a> 查看最新文章。</p>"
+        "q": "怎么获取最新消息？",
+        "a": "<p>关注 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展品牌、活动动态和专属福利。也可以看 <a href=\"/news\">资讯页面</a>。</p>"
       },
       "14": {
         "q": "怎么联系主办方？",
-        "a": "<p>你可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式和快捷入口请访问 <a href=\"/help-center\">Help Center</a>。</p>"
+        "a": "<p>通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式请访问 <a href=\"/help-center\">帮助中心</a>。</p>"
       }
     }
   },
   "pages": {
     "home": {
       "title": "Renovation Expo - Megabuild Indonesia 旗下展会：建材、建筑、施工与室内设计展",
-      "description": "在 MEGABUILD Indonesia 发现建材、建筑和室内设计领域的最新趋势与创新。"
+      "description": "MEGABUILD Indonesia — 建材、建筑和室内设计领域的印尼最大展会。"
     },
     "brands": {
-      "title": "Brand",
-      "description": "浏览建材、建筑和室内设计领域的优质品牌和最新产品。"
+      "title": "品牌",
+      "description": "浏览建材、建筑和室内设计领域的参展品牌。"
     },
     "rundown": {
       "title": "Rundown",
@@ -358,19 +378,19 @@
     },
     "programs": {
       "title": "核心项目",
-      "description": "了解 {appName} 的核心项目——展览、品牌分享、工作坊和设计咨询。获取行业洞察，拓展人脉。"
+      "description": "{appName} 的展览、品牌分享、工作坊、设计咨询等核心项目。"
     },
     "contact": {
       "title": "联系我们",
-      "description": "有问题或需要帮助？联系我们了解门票、合作和活动详情。"
+      "description": "门票、参展、合作等问题，随时联系我们。"
     },
     "bookSpace": {
       "title": "预订展位",
-      "description": "在 {appName} 预订展位，向上万名潜在客户展示品牌实力。"
+      "description": "在 {appName} 预订展位，向观众展示品牌实力。"
     },
     "ticket": {
       "title": "领取门票",
-      "description": "获取 {appName} 入场门票。日期、地点、票种信息一目了然。"
+      "description": "{appName} 入场门票。日期、地点、票种信息一目了然。"
     },
     "gallery": {
       "title": "活动相册",
@@ -378,27 +398,27 @@
     },
     "faq": {
       "title": "FAQ",
-      "description": "关于 {appName} 的常见问题解答。门票、活动详情、合作等信息都在这里。"
+      "description": "关于 {appName} 的常见问题。门票、活动、合作等信息都在这里。"
     },
     "links": {
       "title": "Links",
-      "description": "常用链接汇总，方便快速访问。"
+      "description": "常用链接汇总。"
     },
     "news": {
       "title": "资讯",
-      "description": "关注建材和室内设计行业的最新动态、趋势和深度文章。"
+      "description": "建材和室内设计行业的最新动态与深度文章。"
     },
     "ticketPolicy": {
       "title": "购票政策",
-      "description": "了解 {appName} 的购票政策，包括票种、定价和退票规则。"
+      "description": "{appName} 的票种、定价和退票规则。"
     },
     "eventPolicy": {
       "title": "活动政策",
-      "description": "查看 {appName} 的活动规定和参展须知。"
+      "description": "{appName} 的参展须知和活动规定。"
     },
     "partners": {
       "title": "合作伙伴",
-      "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场活动成为可能。"
+      "description": "感谢所有合作伙伴、赞助商和媒体的支持。"
     },
     "terms": {
       "title": "服务条款",
@@ -410,7 +430,7 @@
     },
     "winner": {
       "title": "随机抽奖器",
-      "description": "在线随机抽取幸运获奖者。粘贴名单，转动抽奖机，公平选出获奖人。适用于比赛、抽奖和各类活动！"
+      "description": "输入名单，转动抽奖机，公平选出获奖者。适用于比赛、抽奖和各类活动！"
     }
   }
 }

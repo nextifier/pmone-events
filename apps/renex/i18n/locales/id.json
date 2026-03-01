@@ -57,7 +57,7 @@
   },
   "rundown": {
     "title": "Rundown",
-    "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}.",
+    "description": "Jadwal lengkap acara dan program di {appName}.",
     "comingSoon": "Rundown segera hadir. Cek lagi nanti!",
     "nothingYet": "Belum ada jadwal nih!"
   },
@@ -70,7 +70,7 @@
   "contact": {
     "title": "Hubungi Kami",
     "formTitle": "Form Kontak",
-    "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara.",
+    "description": "Ada pertanyaan atau butuh bantuan? Hubungi kami soal tiket, partnership, atau detail acara.",
     "name": "Nama",
     "jobTitle": "Jabatan",
     "brandName": "Nama Brand",
@@ -143,39 +143,43 @@
     "Supported by": "Didukung oleh"
   },
   "hero": {
-    "countdownLabel": "Pintu menuju rumah impianmu terbuka dalam:",
-    "title": "Wujudkan Renovasi Impianmu di Sini.",
-    "description": "Ambil kendali renovasi kamu. Lihat dan rasakan langsung material terbaru, konsultasi langsung dengan desainer, dan bangun proyek kamu dengan percaya diri.",
-    "announcement": "Slot Exhibitor Masih Tersedia!",
+    "countdownLabel": "Renovation Expo dimulai dalam:",
+    "title": "Mulai <span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">Renovasi</span></span> Rumahmu, <span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">Tanpa Ragu.</span>",
+    "description": "Lihat langsung ratusan pilihan material, konsultasi sama desainer, dan rencanakan renovasi rumahmu di satu tempat.",
+    "announcement": "Booth masih tersedia — daftar sekarang!",
     "banners": {
       "0": {
-        "subHeadline": "Tiket Gratis untuk Rumah Lebih Baik!",
-        "content": "<p>Dapatkan akses gratis ke panduan lengkap renovasi: ratusan brand, konsultasi desain profesional, dan tren terbaru di dunia home improvement.</p>",
-        "cta": "Ambil Tiket Gratis"
+        "subHeadline": "Inspirasi Tanpa Batas!",
+        "content": "<p>Ratusan brand, konsultasi desain, tren home improvement terbaru — semuanya bisa kamu akses di sini.</p>",
+        "cta": "Dapatkan Tiket"
       },
       "1": {
         "subHeadline": "Pameran di Renovation Expo!",
-        "content": "<p>Posisikan brand kamu di depan ribuan pemilik rumah, arsitek, dan desainer yang sedang aktif mencari material untuk proyek renovasi mereka. Yuk, bangun kesuksesan bareng.</p>",
-        "cta": "Pesan Space Sekarang"
+        "content": "<p>Ribuan pemilik rumah, arsitek, dan desainer hadir mencari produk renovasi. Ini kesempatan kamu tampil langsung di depan mereka.</p>",
+        "cta": "Pesan Booth Sekarang"
       },
       "2": {
         "subHeadline": "Konsultasi Desain & Fengshui Gratis!",
-        "content": "<p>Bawa denah rumah kamu! Dapatkan saran personal dari desainer interior profesional dan ahli Fengshui untuk menciptakan ruang yang harmonis dan fungsional.</p>",
+        "content": "<p>Bawa denah rumahmu! Desainer interior dan ahli Fengshui siap kasih saran personal buat ruang yang nyaman dan fungsional.</p>",
         "cta": "Lihat Semua Program"
       },
       "3": {
-        "subHeadline": "Terus Terinspirasi, Terus Update!",
-        "content": "<p>Follow Instagram kami untuk inspirasi renovasi harian, brand spotlight, dan giveaway spesial menjelang acara. Jangan sampai ketinggalan!</p>",
+        "subHeadline": "Jangan Sampai Ketinggalan!",
+        "content": "<p>Follow Instagram kami untuk inspirasi renovasi harian, info brand peserta, dan giveaway spesial menjelang acara!</p>",
         "cta": "Follow {'@'}megabuildindo"
       }
-    }
+    },
+    "ctaTicket": "Dapatkan tiket",
+    "ctaExhibit": "Daftar Exhibitor",
+    "playRecap": "Tonton Highlight",
+    "edition": "Edisi ke-{n}"
   },
   "trustedBy": {
-    "title": "Dipercaya oleh Brand-Brand Terdepan di Megabuild Indonesia"
+    "title": "Mereka Sudah Pernah Ikut Megabuild Indonesia"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
-    "description": "Jelajahi berbagai program menarik di {appName}. Mulai dari pameran, seminar, workshop, hingga konsultasi desain. Dapatkan wawasan baru dan perluas jaringan dengan para ahli di industri ini.",
+    "description": "Selain pameran, ada workshop, brand talks, konsultasi desain, dan banyak lagi di {appName}. Semua bisa kamu ikuti.",
     "items": {
       "0": {
         "title": "Exhibition",
@@ -221,184 +225,200 @@
   },
   "factsAndFigures": {
     "subtitle": "Fakta & Angka",
-    "title": "Kenapa Megabuild Indonesia Memimpin Industri",
-    "description": "Fakta dan angka dari 21 edisi membuktikan bahwa Megabuild Indonesia adalah platform kuat yang sudah membantu ribuan bisnis untuk tumbuh."
+    "title": "21 Edisi, Ribuan Bisnis Bertumbuh",
+    "description": "Data dari 21 edisi bicara sendiri — Megabuild Indonesia konsisten jadi tempat ribuan bisnis ketemu peluang baru.",
+    "stats": {
+      "visitors": {
+        "label": "Total Pengunjung",
+        "description": "dari 45 negara"
+      },
+      "exhibitors": {
+        "label": "Total Exhibitor",
+        "description": "dari 25 negara"
+      },
+      "transaction": {
+        "label": "Nilai Transaksi"
+      },
+      "leads": {
+        "label": "Total Leads"
+      }
+    }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>Jadilah </span><span class='text-primary'>Bagian dari Cerita Kami</span>",
-    "description": "Bawa bisnis kamu ke level selanjutnya dengan ikut di {appName}. Ketemu calon partner, dapatkan eksposur, dan perluas network kamu.",
+    "title": "<span class='text-outline'>Gabung </span><span class='text-primary'>Bareng Kami</span>",
+    "description": "Ikut {appName} dan buka peluang bisnis baru. Ketemu partner potensial, tampil di depan ribuan pengunjung, dan perluas jaringan.",
     "exhibitor": {
-      "title": "Jadi Eksibitor",
-      "description": "Panggilan buat semua brand dan pengusaha! Tunjukin produkmu ke audiens yang beragam dan antusias.",
-      "cta": "Book Slot Kamu"
+      "title": "Jadi Exhibitor",
+      "description": "Punya produk renovasi atau interior? Pamerkan langsung ke ribuan pengunjung yang datang siap beli.",
+      "cta": "Pesan Booth"
     },
     "sponsor": {
       "title": "Jadi Sponsor",
-      "description": "Terhubung langsung dengan para decision-maker dengan jadi sponsor di event industri terkemuka ini.",
+      "description": "Sponsor event ini dan terhubung langsung dengan decision-maker di industri bangunan dan interior.",
       "cta": "Jadi Sponsor"
     },
     "mediaPartner": {
       "title": "Jadi Media Partner",
-      "description": "Partner dengan kami untuk liputan eksklusif dan akses ke cerita terbesar dari industri ini.",
+      "description": "Liputan eksklusif dari pameran renovasi terbesar. Konten siap tayang untuk media kamu.",
       "cta": "Gabung sebagai Media"
     },
     "reservedSpace": {
-      "title": "Space ini kami sediakan untuk mitra terbaik. Mau jadi salah satunya?",
+      "title": "Space ini kami siapin buat mitra terbaik. Mau jadi salah satunya?",
       "cta": "Jadi Partner"
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">Mau renovasi?</span><br /><span class=\"text-outline\">Panduan lengkap renovasi kamu ada di sini.</span>",
-    "description": "Nggak perlu lagi scrolling tanpa ujung. Supplier, ide desain, saran langsung dari ahlinya — semua ada di satu tempat. Gratis masuk, tinggal datang.",
-    "cta": "Ambil Tiket Gratis"
+    "title": "<span class=\"text-primary\">Mau renovasi?</span><br /><span class=\"text-outline\">Semua yang kamu butuhkan ada di sini.</span>",
+    "description": "Nggak perlu ribet cari satu-satu. Supplier, ide desain, konsultasi langsung dari ahlinya — semua di satu tempat.",
+    "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
     "title": "Liputan Media & Komunitas",
-    "description": "Lihat apa kata media-media ternama tentang {appName}."
+    "description": "Apa kata media tentang {appName}."
   },
   "credits": {
     "title": "Komunitas di Balik Event Ini",
-    "description": "Acara ini bisa terwujud berkat dukungan penuh dari para mitra, sponsor, dan media kami."
+    "description": "Acara ini terwujud berkat dukungan penuh dari para mitra, sponsor, dan media kami."
   },
   "postSlider": {
     "title": "Update Terbaru",
     "titleMorePosts": "Mungkin kamu juga suka"
   },
   "brandPreview": {
-    "title": "Temukan Brand-Brand Keren di {appName}"
+    "title": "Brand yang Ikut {appName}"
   },
   "brandList": {
     "title": "Brand",
-    "description": "Jelajahi beragam brand yang memamerkan inovasi dan produk terbaru di industri material bangunan, arsitektur, dan desain interior."
+    "description": "Ratusan brand material bangunan, arsitektur, dan desain interior siap kamu temui di sini."
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
-    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan dan kembangkan bisnis kamu."
+    "description": "Pesan booth di {appName} dan tampilkan produkmu ke ribuan pengunjung. Slot terbatas — hubungi tim kami sekarang."
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
-    "description": "Cari tahu jawaban pertanyaan-pertanyaan seputar pameran renovasi, tiket, exhibitor, dan info lainnya di sini.",
+    "description": "Jawaban soal pameran renovasi, tiket, exhibitor, dan info lainnya ada di sini.",
     "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Silakan kembali lagi nanti.",
     "contactTitle": "Punya pertanyaan? Langsung kirim ke kami!",
     "items": {
       "0": {
-        "q": "Kapan dan di mana {eventTitle} akan diselenggarakan?",
-        "a": "<p>{eventTitle} bakal diadakan tanggal <strong>{eventDate}</strong>, dari jam <strong>{eventTime}</strong>, lokasinya di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
+        "q": "Kapan dan di mana {eventTitle} diselenggarakan?",
+        "a": "<p>{eventTitle} diadakan tanggal <strong>{eventDate}</strong>, jam <strong>{eventTime}</strong>, di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
       },
       "1": {
-        "q": "Bagaimana cara mendapatkan tiket pameran?",
-        "a": "<p>Kamu bisa beli tiket lewat website resmi kami. Cukup klik tombol <a href=\"/ticket\">Get Ticket</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp kamu setelah pembayaran.</p>"
+        "q": "Gimana cara dapetin tiket?",
+        "a": "<p>Langsung lewat website ini. Klik tombol <a href=\"/ticket\">Get Ticket</a>, ikuti proses registrasinya, dan e-ticket langsung dikirim ke email dan WhatsApp kamu.</p>"
       },
       "2": {
-        "q": "Berapa harga tiket pameran renovasi?",
-        "a": "<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami aja. Jangan sampe kelewatan promo early bird dan pre-sale buat dapetin harga spesial!</p>"
+        "q": "Berapa harga tiketnya?",
+        "a": "<p>Tergantung jenis tiket dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> untuk harga terkini. Jangan sampai kelewatan promo early bird dan pre-sale!</p>"
       },
       "3": {
-        "q": "Apakah saya bisa mendapatkan refund jika tidak bisa hadir?",
-        "a": "<p>Semua penjualan tiket bersifat final. Tidak ada refund atau penukaran setelah pembelian. Untuk detail lebih lanjut, cek <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund dan Pengembalian Tiket</a> kami.</p>"
+        "q": "Bisa refund kalau nggak jadi datang?",
+        "a": "<p>Semua pembelian tiket bersifat final — tidak bisa di-refund atau ditukar. Detail lengkap ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
       },
       "4": {
-        "q": "Apa saja yang perlu saya bawa ke acara ini?",
-        "a": "<p>Jangan lupa bawa e-ticket kamu (versi digital atau print) untuk ditukar dengan badge atau wristband di meja registrasi. Kalau kamu mau networking dengan exhibitor dan peserta lainnya, ada baiknya bawa kartu nama juga.</p>"
+        "q": "Perlu bawa apa ke acara ini?",
+        "a": "<p>Bawa e-ticket kamu (di HP atau print) buat ditukar badge atau wristband di meja registrasi. Mau networking sama exhibitor? Bawa kartu nama juga.</p>"
       },
       "5": {
-        "q": "Siapa saja yang bisa menghadiri acara ini?",
-        "a": "<p>Pameran renovasi ini terbuka untuk siapa saja. Baik kamu pemilik rumah yang mau renovasi, arsitek, desainer interior, kontraktor, atau yang pengen cari inspirasi home improvement, kamu welcome untuk hadir!</p>"
+        "q": "Siapa aja yang boleh datang?",
+        "a": "<p>Siapa aja boleh! Mau pemilik rumah, arsitek, desainer interior, kontraktor, atau sekadar cari inspirasi renovasi — semua welcome.</p>"
       },
       "6": {
-        "q": "Brand apa saja yang akan pameran di acara ini?",
-        "a": "<p>Kami punya beragam brand dari material bangunan, desain interior, perabot rumah, hingga jasa renovasi. Kamu bisa lihat daftar exhibitor lengkapnya di halaman <a href=\"/brands\">Brands</a> kami. Listnya akan terus diupdate seiring mendekati tanggal acara.</p>"
+        "q": "Brand apa aja yang ikut pameran?",
+        "a": "<p>Ada banyak — mulai dari material bangunan, desain interior, perabot rumah, sampai jasa renovasi. Lihat daftar lengkapnya di halaman <a href=\"/brands\">Brands</a>. Terus di-update sampai hari H.</p>"
       },
       "7": {
-        "q": "Bagaimana cara ikut pameran sebagai exhibitor?",
-        "a": "<p>Untuk jadi exhibitor, silakan kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> kami atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info lebih lanjut tentang paket booth dan ketersediaannya.</p>"
+        "q": "Gimana cara ikut pameran sebagai exhibitor?",
+        "a": "<p>Langsung ke halaman <a href=\"/book-space\">Exhibitor Registration</a> atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> buat info paket booth dan ketersediaan.</p>"
       },
       "8": {
-        "q": "Apakah ada seminar atau workshop di acara ini?",
-        "a": "<p>Tentu! Ada brand talks, workshop series, dan konsultasi desain serta fengshui. Kunjungi halaman <a href=\"/rundown\">Rundown</a> kami untuk lihat jadwal lengkap aktivitasnya.</p>"
+        "q": "Ada seminar atau workshop nggak?",
+        "a": "<p>Ada! Brand talks, workshop series, konsultasi desain dan fengshui. Jadwal lengkapnya cek di halaman <a href=\"/rundown\">Rundown</a>.</p>"
       },
       "9": {
-        "q": "Bagaimana cara menjadi sponsor atau media partner?",
-        "a": "<p>Kami terbuka untuk sponsorship dan media partnership. Silakan hubungi kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
+        "q": "Gimana caranya jadi sponsor atau media partner?",
+        "a": "<p>Kami terbuka untuk sponsorship dan media partnership. Hubungi via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau email ke <a href=\"mailto:{email}\">{email}</a> buat diskusi paket kerjasama.</p>"
       },
       "10": {
-        "q": "Apakah ada parkir di venue?",
-        "a": "<p>Ya, venue menyediakan fasilitas parkir. Tapi kami sarankan untuk datang lebih pagi karena parkir bisa cepat penuh saat jam ramai. Kamu juga bisa pertimbangkan pakai transportasi umum atau ride-sharing.</p>"
+        "q": "Ada parkir di venue?",
+        "a": "<p>Ada. Tapi pas jam ramai bisa cepat penuh, jadi usahakan datang lebih awal. Bisa juga pakai transportasi umum atau ojol.</p>"
       },
       "11": {
-        "q": "Apakah saya boleh foto atau video di acara ini?",
-        "a": "<p>Kamu boleh foto atau video untuk keperluan pribadi. Namun, untuk rekaman profesional atau komersial, perlu izin tertulis dari penyelenggara. Untuk detailnya, silakan baca <a href=\"/event-policy\">Event Policy</a> kami.</p>"
+        "q": "Boleh foto atau video di acara?",
+        "a": "<p>Boleh, selama untuk keperluan pribadi. Kalau mau rekaman profesional atau komersial, perlu izin tertulis dari penyelenggara. Detail di <a href=\"/event-policy\">Event Policy</a>.</p>"
       },
       "12": {
-        "q": "Apa saja peraturan yang harus saya ikuti di acara ini?",
-        "a": "<p>Semua pengunjung wajib mematuhi peraturan dan ketentuan acara, termasuk mengikuti arahan dari staff acara dan petugas keamanan. Silakan baca <a href=\"/event-policy\">Event Policy</a> kami sebelum hadir.</p>"
+        "q": "Ada peraturan yang harus diikuti?",
+        "a": "<p>Semua pengunjung wajib ikuti aturan acara dan arahan dari staff serta petugas keamanan. Baca <a href=\"/event-policy\">Event Policy</a> sebelum datang.</p>"
       },
       "13": {
-        "q": "Gimana caranya dapetin info terbaru soal pameran renovasi?",
-        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat dapetin update terbaru, pengumuman, dan konten eksklusif lainnya. Kamu juga bisa kunjungi halaman <a href=\"/news\">News</a> untuk artikel dan info terkini.</p>"
+        "q": "Gimana caranya dapet info terbaru soal acara ini?",
+        "a": "<p>Follow Instagram kami di <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat update terbaru, pengumuman, dan konten eksklusif. Atau cek halaman <a href=\"/news\">News</a> untuk artikel terkini.</p>"
       },
       "14": {
-        "q": "Bagaimana cara menghubungi organizer?",
-        "a": "<p>Kamu bisa hubungi tim kami melalui:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini untuk chat</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Kunjungi <a href=\"/help-center\">Help Center</a> kami untuk opsi kontak lainnya dan akses cepat ke berbagai informasi.</p>"
+        "q": "Gimana cara hubungi panitia?",
+        "a": "<p>Bisa lewat:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Atau kunjungi <a href=\"/help-center\">Help Center</a> untuk opsi kontak lainnya.</p>"
       }
     }
   },
   "pages": {
     "home": {
       "title": "Renovation Expo - Bagian dari Megabuild Indonesia: Pameran Material Bangunan, Arsitektur, Konstruksi, dan Desain Interior",
-      "description": "Temukan tren dan inovasi terbaru di industri material bangunan, arsitektur, dan desain interior di MEGABUILD Indonesia."
+      "description": "Pameran material bangunan, arsitektur, dan desain interior terbesar di Indonesia. Bagian dari MEGABUILD Indonesia."
     },
     "brands": {
       "title": "Brand",
-      "description": "Jelajahi beragam brand yang memamerkan inovasi dan produk terbaru di industri material bangunan, arsitektur, dan desain interior."
+      "description": "Ratusan brand material bangunan, arsitektur, dan desain interior siap kamu temui di {appName}."
     },
     "rundown": {
       "title": "Rundown",
-      "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}."
+      "description": "Jadwal lengkap acara dan program di {appName}."
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Jelajahi program utama di {appName} — pameran, seminar, workshop, dan konsultasi desain. Dapatkan insight dan perluas jaringan."
+      "description": "Program utama di {appName} — pameran, seminar, workshop, dan konsultasi desain. Semua bisa kamu ikuti."
     },
     "contact": {
       "title": "Hubungi Kami",
-      "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara."
+      "description": "Ada pertanyaan atau butuh bantuan? Hubungi kami soal tiket, partnership, atau detail acara."
     },
     "bookSpace": {
       "title": "Book Space",
-      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan."
+      "description": "Pesan booth di {appName} dan tampilkan produkmu ke ribuan pengunjung."
     },
     "ticket": {
       "title": "Ambil Tiket",
-      "description": "Dapatkan tiket masuk {appName}. Temukan semua info yang kamu butuhkan — tanggal, venue, dan pilihan tiket."
+      "description": "Tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {
       "title": "Galeri Acara",
-      "description": "Lihat foto-foto highlights dari edisi sebelumnya di {appName}."
+      "description": "Foto-foto highlights dari edisi sebelumnya {appName}."
     },
     "faq": {
       "title": "FAQ",
-      "description": "Temukan jawaban untuk pertanyaan yang sering diajukan tentang {appName}. Info soal tiket, detail acara, partnership, dan lainnya."
+      "description": "Jawaban untuk pertanyaan seputar {appName}. Soal tiket, detail acara, partnership, dan lainnya."
     },
     "links": {
       "title": "Links",
-      "description": "Kumpulan link penting untuk navigasi yang lebih mudah."
+      "description": "Kumpulan link penting untuk akses cepat."
     },
     "news": {
       "title": "Berita",
-      "description": "Ikuti insight, berita, dan tren terbaru di industri material bangunan dan desain interior. Baca artikel dan update acara dari kami."
+      "description": "Berita dan artikel seputar material bangunan dan desain interior dari tim {appName}."
     },
     "ticketPolicy": {
       "title": "Kebijakan Tiket",
-      "description": "Pahami Kebijakan Tiket {appName}. Info tentang kategori tiket, harga, dan panduan refund."
+      "description": "Info kategori tiket, harga, dan panduan refund di {appName}."
     },
     "eventPolicy": {
       "title": "Kebijakan Acara",
-      "description": "Baca kebijakan acara {appName}. Detail aturan, regulasi, dan panduan penting untuk peserta dan exhibitor."
+      "description": "Aturan dan panduan penting untuk peserta dan exhibitor {appName}."
     },
     "partners": {
       "title": "Partner Kami",
-      "description": "Acara ini tidak akan terwujud tanpa dukungan luar biasa dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang membantu mewujudkan acara ini."
+      "description": "Acara ini nggak akan terwujud tanpa dukungan dari partner, sponsor, dan media kami. Terima kasih!"
     },
     "terms": {
       "title": "Syarat dan Ketentuan",
@@ -410,7 +430,7 @@
     },
     "winner": {
       "title": "Random Winner Generator",
-      "description": "Pilih pemenang secara acak dan instan. Masukkan nama, putar slot machine, dan tentukan pemenang dengan adil. Cocok untuk kontes, giveaway, dan acara!"
+      "description": "Pilih pemenang secara acak dan instan. Masukkan nama, putar slot machine, dan tentukan pemenang dengan adil."
     }
   }
 }

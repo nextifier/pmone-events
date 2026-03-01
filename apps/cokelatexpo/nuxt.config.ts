@@ -36,6 +36,10 @@ export default defineNuxtConfig({
     name: "Cokelat Expo Indonesia",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-9KLJTWG6QF" }],
   },

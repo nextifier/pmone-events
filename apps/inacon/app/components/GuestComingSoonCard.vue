@@ -25,7 +25,7 @@
       >
         <span
           class="text-center text-4xl !leading-[.8] font-extrabold tracking-tighter text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_60%)] @[300px]:text-5xl"
-          >Coming Soon</span
+          >{{ $t("guests.comingSoon") }}</span
         >
       </div>
     </div>
@@ -36,7 +36,7 @@
           <span
             class="!leading-tight font-semibold tracking-tight text-black dark:text-white"
           >
-            The next guest will be revealed soon on Instagram
+            {{ $t("guests.revealSoon") }}
           </span>
         </div>
 

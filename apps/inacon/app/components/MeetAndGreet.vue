@@ -62,7 +62,7 @@
             v-if="category.starts_in && category.showStartCountdownLabel"
             class="line-clamp-1 text-xs tracking-tight text-gray-500 sm:text-sm dark:text-gray-400"
           >
-            <span>Starts in</span>&nbsp;<Countdown
+            <span>{{ $t("ui.startsIn") }}</span>&nbsp;<Countdown
               :countdownDate="category.starts_in"
             />
           </span>
@@ -71,7 +71,7 @@
             v-if="category.ends_in && category.showEndCountdownLabel"
             class="text-xs tracking-tight text-gray-500 sm:text-sm dark:text-gray-400"
           >
-            <span>Ends in</span>&nbsp;<Countdown
+            <span>{{ $t("ui.endsIn") }}</span>&nbsp;<Countdown
               :countdownDate="category.ends_in"
             />
           </span>
@@ -193,7 +193,7 @@
             <h3
               class="text-xl font-semibold tracking-tight text-black sm:text-2xl dark:text-white"
             >
-              Syarat & Ketentuan {{ category.title }}:
+              {{ $t("meetAndGreet.termsTitle") }} {{ category.title }}:
             </h3>
             <ol class="mt-3 list-decimal space-y-1.5 pl-4 sm:space-y-2">
               <li
@@ -211,7 +211,7 @@
             :to="`/meet-and-greet#terms-${category.slug}`"
             class="flex items-center justify-center gap-1.5 rounded-full px-5 py-4 tracking-tight transition hover:bg-gray-100 active:scale-95 dark:hover:bg-gray-900"
           >
-            <span>Read Terms & Conditions</span>
+            <span>{{ $t("meetAndGreet.readTerms") }}</span>
             <IconChevronRight class="h-3.5 shrink-0" />
           </nuxt-link>
         </div>

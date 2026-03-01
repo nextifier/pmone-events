@@ -61,6 +61,10 @@ export default defineNuxtConfig({
     name: "Indonesia Comic Con",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-JCGZGZQZ56" }],
   },

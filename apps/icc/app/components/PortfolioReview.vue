@@ -1,14 +1,14 @@
 <template>
   <!-- <ComingSoon title="Portfolio Review" /> -->
   <div v-if="portfolioReviewList?.length" class="container">
-    <h1 class="section-title text-center font-semibold">Portfolio Review</h1>
+    <h1 class="section-title text-center font-semibold">
+      {{ $t("portfolioReview.title") }}
+    </h1>
 
     <p
       class="mx-auto mt-2 max-w-3xl text-center text-base tracking-tight text-balance sm:text-lg"
     >
-      Calling all artists, content creators, and art enthusiasts! Get your art
-      portfolio reviewed by industry professionals who are passionate about
-      supporting and nurturing artistic talent.
+      {{ $t("portfolioReview.description") }}
     </p>
 
     <div
@@ -108,7 +108,7 @@
                     class="text-xs tracking-tight"
                   >
                     <Countdown
-                      :textBeforeCountdown="`Starts in`"
+                      :textBeforeCountdown="$t('ui.startsIn')"
                       :countdownDate="new Date(item.starts_in)"
                       v-tippy="
                         $dayjs(item.starts_in).format(
@@ -125,7 +125,7 @@
                     "
                   >
                     <Countdown
-                      :textBeforeCountdown="`Ends in`"
+                      :textBeforeCountdown="$t('ui.endsIn')"
                       :countdownDate="new Date(item.ends_in)"
                   /></span>
                 </div>
@@ -134,7 +134,9 @@
           </div>
 
           <div class="mt-4 w-[calc(100%-64px)]">
-            <span class="!leading-normal tracking-tight"> Open for: </span>
+            <span class="!leading-normal tracking-tight">
+              {{ $t("portfolioReview.openFor") }}
+            </span>
             <ul class="mt-1 list-inside list-disc tracking-tight">
               <li v-for="(position, index) in item.openFor" :key="index">
                 {{ position }}
@@ -170,7 +172,7 @@
         <h3
           class="text-base font-semibold tracking-tight text-black sm:text-lg dark:text-white"
         >
-          Notes:
+          {{ $t("portfolioReview.notes") }}
         </h3>
         <ol class="mt-2 list-decimal space-y-1.5 pl-4 sm:space-y-2">
           <li
@@ -277,8 +279,9 @@ onMounted(() => {
   }, 1000);
 });
 
-const notes = [
-  `Portfolio Review will be held on ${useAppConfig().app.name}, ${event.date} at ${event.location}.`,
-  `The chosen participants will be contacted by the Indonesia Comic Con and get a free entry ticket to Indonesia Comic Con (no need to buy the ticket).`,
-];
+const { t } = useI18n();
+const notes = computed(() => [
+  t("portfolioReview.noteVenue", { appName: useAppConfig().app.name, eventDate: event.date, eventLocation: event.location }),
+  t("portfolioReview.noteContact"),
+]);
 </script>

@@ -2,15 +2,15 @@
   <section id="facts-and-figures">
     <div class="container">
       <div class="flex flex-col items-center text-center">
-        <span class="mb-3 font-medium uppercase">Facts & Figures</span>
-        <h2 class="section-title-large">Why Keramika Indonesia Leads the Industry</h2>
+        <span class="mb-3 font-medium uppercase">{{ content.subtitle }}</span>
+        <h2 class="section-title-large">
+          {{ content.title }}
+        </h2>
 
         <p
           class="text-foreground/80 mx-auto mt-2 max-w-3xl text-center text-base tracking-tight text-balance sm:text-lg"
         >
-          The facts & figures gathered from 21 editions are testament to the
-          powerful platform that Keramika Indonesia has provided for thousands
-          of businesses to grow.
+          {{ content.description }}
         </p>
       </div>
 
@@ -51,31 +51,34 @@
 </template>
 
 <script setup>
-const stats = ref([
+const content = computed(() => useContentStore().components.factsAndFigures);
+const { t } = useI18n();
+
+const stats = computed(() => [
   {
     prefix: "",
     value: 400000,
-    label: "Total Visitors",
-    description: "from 45 countries",
+    label: t("factsAndFigures.stats.visitors.label"),
+    description: t("factsAndFigures.stats.visitors.description"),
     icon: "lucide:users-round",
   },
   {
     prefix: "",
     value: 5000,
-    label: "Total Exhibitors",
-    description: "from 25 countries",
+    label: t("factsAndFigures.stats.exhibitors.label"),
+    description: t("factsAndFigures.stats.exhibitors.description"),
     icon: "lucide:layers-3",
   },
   {
     prefix: "$",
     value: 2200000000,
-    label: "Transaction Value",
+    label: t("factsAndFigures.stats.transaction.label"),
     icon: "lucide:circle-dollar-sign",
   },
   {
     prefix: "",
     value: 55000,
-    label: "Total Leads",
+    label: t("factsAndFigures.stats.leads.label"),
     icon: "lucide:handshake",
   },
 ]);

@@ -39,30 +39,30 @@
     "selectAProduct": "製品を選択してください",
     "selectAnOption": "オプションを選択してください",
     "enterYourProductType": "製品タイプを入力してください",
-    "sendMessage": "メッセージを送る",
+    "sendMessage": "送信する",
     "leaveAMessage": "メッセージをどうぞ..",
     "youMightAlsoLike": "こちらもおすすめ"
   },
   "news": {
     "latestUpdates": "最新情報",
-    "showingPostsFor": "{total}件の記事を表示中：",
-    "showingPosts": "{total}件の記事を表示中",
+    "showingPostsFor": "{total}件の記事：",
+    "showingPosts": "{total}件の記事",
     "noResultsFor": "該当する記事が見つかりませんでした：",
-    "noResultsHint": "別のキーワードで試してみてください。きっと気になる記事が見つかるはずです！",
+    "noResultsHint": "別のキーワードで検索してみてください。",
     "noPostsYet": "まだ記事がありません",
     "comeBackLater": "また後でご確認ください"
   },
   "brands": {
-    "comingSoon": "ブランド一覧は近日公開です。もう少しお待ちください！"
+    "comingSoon": "ブランド一覧は近日公開です。もう少しお待ちください。"
   },
   "rundown": {
-    "title": "Rundown",
-    "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。",
-    "comingSoon": "Rundownは近日公開です。もう少しお待ちください！",
-    "nothingYet": "まだ情報はありません！"
+    "title": "スケジュール",
+    "description": "{appName}のプログラムや各セッションのスケジュールをご確認いただけます。",
+    "comingSoon": "スケジュールは近日公開です。もう少しお待ちください。",
+    "nothingYet": "まだ情報がありません。"
   },
   "ticket": {
-    "agreementPrefix": "チケット購入を続けることで、以下に同意したものとみなされます：",
+    "agreementPrefix": "チケット購入を続けると、以下に同意したものとみなされます：",
     "agreementAnd": "および",
     "ticketTerms": "チケット利用規約",
     "eventPolicy": "イベントポリシー"
@@ -70,7 +70,7 @@
   "contact": {
     "title": "お問い合わせ",
     "formTitle": "お問い合わせフォーム",
-    "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。",
+    "description": "チケット・パートナーシップ・イベントの詳細など、お気軽にお問い合わせください。",
     "name": "お名前",
     "jobTitle": "役職",
     "brandName": "ブランド名",
@@ -79,13 +79,13 @@
     "phone": "電話番号 (WhatsApp)",
     "referralSource": "このイベントを何で知りましたか？",
     "message": "メッセージ",
-    "successTitle": "送信完了しました。ありがとうございます！",
+    "successTitle": "送信完了しました。ありがとうございます。",
     "successMessage": "担当者からEmailまたはWhatsAppでご連絡いたします。",
     "successButton": "ホームに戻る",
     "disclaimerDefault": "正しいEmailアドレスと電話番号をご記入ください。担当者から折り返しご連絡いたします。",
-    "disclaimerExhibitor": "このフォームを送信しても、出展が自動的に確定するわけではありません。営業チームがブースの空き状況や料金などの詳細をご案内するため、ご連絡先をお伺いしています。",
-    "errorSend": "メッセージの送信に失敗しました。もう一度お試しください。",
-    "errorNetwork": "ネットワークエラーが発生しました。しばらくしてから再度お試しください。"
+    "disclaimerExhibitor": "このフォームを送信しても出展が確定するわけではありません。ブースの空き状況や料金をご案内するために、連絡先をお伺いしています。",
+    "errorSend": "送信できませんでした。もう一度お試しください。",
+    "errorNetwork": "ネットワークエラーです。しばらくしてから再度お試しください。"
   },
   "countdown": {
     "day": "日",
@@ -94,7 +94,7 @@
     "sec": "秒"
   },
   "eventStatus": {
-    "startsIn": "イベント開始まで",
+    "startsIn": "開始まで",
     "live": "開催中",
     "completed": "終了"
   },
@@ -117,7 +117,7 @@
     "FAQ": "FAQ",
     "Links": "リンク",
     "Ticket Terms and Conditions": "チケット利用規約",
-    "Ticket Refund and Return Policy": "チケット返金・返品ポリシー",
+    "Ticket Refund and Return Policy": "チケット返金ポリシー",
     "Event Policy": "イベントポリシー",
     "Terms of Service": "利用規約",
     "Privacy Policy": "プライバシーポリシー",
@@ -129,7 +129,7 @@
     "Social": "ソーシャル",
     "Discover": "もっと見る",
     "For Businesses": "ビジネス向け",
-    "Terms and policies": "利用規約",
+    "Terms and policies": "利用規約・ポリシー",
     "Email": "Email",
     "WhatsApp": "WhatsApp",
     "Instagram": "Instagram",
@@ -143,238 +143,242 @@
     "Supported by": "後援"
   },
   "hero": {
-    "countdownLabel": "あなたの次の冒険まで：",
+    "countdownLabel": "開催まであと：",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
-    "description": "トップクラスのイベント企画会社とつながり、素敵な行き先を見つけ、限定トラベルディールをゲット。忘れられないアウティング体験のすべてがここに。",
-    "announcement": "出展スペースはまだ空きがあります",
+    "description": "イベント企画のプロに出会い、行き先を見つけ、限定の旅行プランを手に入れる。次のアウティングに必要なものが全部揃います。",
+    "announcement": "出展ブースにまだ空きがあります",
     "banners": {
       "0": {
-        "subHeadline": "ワクワクする冒険への入り口がここに！",
-        "content": "<p>インドネシア最大のアウティング展に無料で参加。何百もの行き先、プロのイベント企画チーム、限定トラベルディールが一堂に集結します。</p>",
-        "cta": "無料チケットを取得"
+        "subHeadline": "アウティングのすべてが、ここに集まります。",
+        "content": "<p>インドネシア最大のアウティング展示会に無料で参加できます。数百の行き先、プロの企画チーム、限定プランが一堂に。</p>",
+        "cta": "チケットを取得"
       },
       "1": {
-        "subHeadline": "Indonesia Outing & Incentive Travel Expo 2026 であなたのブランドをアピール！",
-        "content": "<p>アウトドア好き、企業の研修担当、旅行愛好家など、次のアウティング体験を探している何千人ものお客様とつながりましょう。一緒に素晴らしい冒険を作りましょう。</p>",
-        "cta": "今すぐブースを予約"
+        "subHeadline": "Indonesia Outing & Incentive Travel Expo 2026 に出展しませんか？",
+        "content": "<p>企業の研修担当、アウトドア好き、旅行愛好家が数千人規模で来場します。あなたのサービスを直接アピールできる場です。</p>",
+        "cta": "ブースを予約する"
       },
       "2": {
-        "subHeadline": "無料のアウティング計画相談会！",
-        "content": "<p>アイデアをお持ちください！プロのイベントプランナーとトラベルエキスパートが、あなたにぴったりのアウティングプランをご提案します。</p>",
+        "subHeadline": "アウティング計画の無料相談会",
+        "content": "<p>アイデアをお持ちください。プロのプランナーとトラベルエキスパートが、チームに合ったプランをご提案します。</p>",
         "cta": "プログラム一覧を見る"
       },
       "3": {
-        "subHeadline": "冒険心を忘れずに！",
-        "content": "<p>Instagramをフォローして、毎日のアウトドアインスピレーション、出展者ハイライト、限定プレゼント情報をチェックしましょう。あなたの次の冒険がここから始まります！</p>",
+        "subHeadline": "最新情報をお届けします。",
+        "content": "<p>Instagramをフォローして、アウトドアのヒント、出展者情報、限定プレゼント企画をチェックしてください。</p>",
         "cta": "{'@'}indooutingexpoをフォロー"
       }
-    }
+    },
+    "ctaTicket": "チケット取得",
+    "ctaExhibit": "出展登録",
+    "playRecap": "ハイライトを見る",
+    "edition": "第{n}回"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>メイン</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">プログラム</span>",
-    "description": "{appName}の主要プログラムをご紹介します。展示会、カンファレンス、セミナー、ビジネスマッチングなど、アウティング業界のトップから学び、つながる機会が満載です。",
+    "description": "展示会、セミナー、ライブデモ、ビジネスマッチングなど、{appName}で体験できる主要プログラムをご紹介します。",
     "items": {
       "0": {
         "title": "アウティング・インスピレーション・ステージ",
-        "description": "業界のプロフェッショナルが最新のアウティングアイデアをご紹介します。"
+        "description": "業界のプロが最新のアウティングアイデアをお届けします。"
       },
       "1": {
         "title": "ライブ・アクティビティ・デモ",
-        "description": "チームビルディングやアクティビティを実際にご体験いただけます。"
+        "description": "チームビルディングやアウトドア活動を会場で体験。"
       },
       "2": {
         "title": "フラッシュディール",
-        "description": "会場限定のアウティング特別プロモーションです。"
+        "description": "会場限定のアウティング特別価格。"
       },
       "3": {
         "title": "ビジネスマッチング",
-        "description": "バイヤーやパートナーと的確にマッチングします。"
+        "description": "バイヤーやパートナーと効率よくつながれます。"
       },
       "4": {
         "title": "コミュニティ・ミートアップ",
-        "description": "あなたらしいスタイルでネットワークを広げましょう。"
+        "description": "同じ業界の仲間とつながりを広げましょう。"
       }
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>一緒に </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITEの物語を作りませんか</span>",
-    "description": "{appName}に参加して、ビジネスを次のステージへ。パートナーとの出会い、ブランドの露出、ネットワークの拡大を実現しましょう。",
+    "title": "<span class='text-outline'>一緒に </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITEを盛り上げませんか</span>",
+    "description": "{appName}に参加して、パートナーとの出会い、ブランドの認知拡大、ネットワークの構築を実現しましょう。",
     "exhibitor": {
       "title": "出展者として参加する",
-      "description": "アウティングサービス事業者の皆さん、目的地運営の皆さん！熱心な来場者にあなたのサービスをアピールしましょう。",
+      "description": "アウティングサービスや目的地をお持ちですか？数千人の来場者に直接アピールできます。",
       "cta": "ブースを予約する"
     },
     "sponsor": {
       "title": "スポンサーとして参加する",
-      "description": "業界を代表するアウティング展のスポンサーとなり、企業の意思決定者とつながりましょう。",
+      "description": "スポンサーとして企業の意思決定者に直接リーチできます。",
       "cta": "スポンサーになる"
     },
     "mediaPartner": {
       "title": "メディアパートナーとして参加する",
-      "description": "アウティング業界のトップストーリーを発信する独占アクセスで、パートナーシップを組みませんか。",
+      "description": "アウティング業界の注目コンテンツを独占的に取材・配信できます。",
       "cta": "メディアとして参加"
     },
     "reservedSpace": {
-      "title": "このスペースは素敵なパートナーのために用意しています。あなたかもしれません。",
+      "title": "このスペースはパートナーのために空けています。あなたもいかがですか？",
       "cta": "パートナーになる"
     }
   },
   "visitorCta": {
-    "title": "あなたの冒険は一枚の<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">無料チケット</span>から始まります",
-    "description": "何百もの魅力的なアウティングプランを発見し、プロのイベントプランナーに相談し、会場限定のプロモーションを手に入れましょう。Indonesia Outing & Incentive Travel Expo 2026 にぜひお越しください！",
-    "cta": "無料チケットを取得"
+    "title": "<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">チケット</span>1枚から始めましょう",
+    "description": "数百のアウティングプラン、プロのイベントプランナー、会場限定プロモーション。Indonesia Outing & Incentive Travel Expo 2026 でお待ちしています。",
+    "cta": "チケットを取得"
   },
   "mediaCoverage": {
-    "title": "メディアでの紹介",
-    "description": "{appName}に関する主要メディアの掲載をご覧ください。"
+    "title": "メディア掲載",
+    "description": "各メディアで取り上げられた{appName}の記事をご紹介します。"
   },
   "credits": {
-    "title": "イベントを支えるコミュニティ",
-    "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援によって実現しています。"
+    "title": "イベントを支える皆さま",
+    "description": "パートナー、スポンサー、メディアの皆さまのご協力で実現しています。"
   },
   "postSlider": {
     "title": "最新情報",
     "titleMorePosts": "こちらもおすすめ"
   },
   "brandPreview": {
-    "title": "{appName}の注目ブランドをチェック"
+    "title": "{appName}の出展ブランドをチェック"
   },
   "brandList": {
     "title": "ブランド一覧",
-    "description": "チームビルディングサービスや旅行先など、多彩なアウティング関連ブランドをご覧ください。"
+    "description": "チームビルディングから旅行先まで、多彩なアウティング関連ブランドをご覧ください。"
   },
   "bookSpace": {
     "title": "出展者登録",
-    "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。トップブランドと並んで、ビジネスの成長を加速させてください。"
+    "description": "{appName}でブースを確保して、数千人の来場者にブランドをアピールしましょう。"
   },
   "faq": {
     "title": "よくある質問",
-    "description": "チケット、イベントの詳細、出展者情報など、よくあるご質問への回答をまとめました。",
+    "description": "チケット、出展、イベントの詳細など、よくある質問への回答をまとめました。",
     "emptyState": "よくある質問を準備中です。もう少しお待ちください。",
-    "contactTitle": "ご不明な点がありましたら、お気軽にどうぞ！",
+    "contactTitle": "他にご質問があれば、お気軽にどうぞ。",
     "items": {
       "0": {
         "q": "{eventTitle}はいつ、どこで開催されますか？",
         "a": "<p>{eventTitle}は<strong>{eventDate}</strong>、<strong>{eventTime}</strong>に<a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>で開催されます。</p>"
       },
       "1": {
-        "q": "チケットはどうやって入手できますか？",
-        "a": "<p>公式サイトからチケットをお求めいただけます。<a href=\"/ticket\">チケットを取得</a>ボタンをクリックして、登録手続きを行ってください。購入後、Eチケットがメールおよび WhatsApp に届きます。</p>"
+        "q": "チケットはどこで入手できますか？",
+        "a": "<p>公式サイトの<a href=\"/ticket\">チケット取得</a>ボタンから登録できます。購入後、EチケットがメールとWhatsAppに届きます。</p>"
       },
       "2": {
-        "q": "チケットの料金はいくらですか？",
-        "a": "<p>料金はチケットの種類やキャンペーン時期によって異なります。最新の料金情報は<a href=\"/ticket\">チケットページ</a>をご確認ください。早割もありますので、お見逃しなく！</p>"
+        "q": "チケットはいくらですか？",
+        "a": "<p>チケットの種類や時期によって異なります。最新の料金は<a href=\"/ticket\">チケットページ</a>をご確認ください。早割もあります。</p>"
       },
       "3": {
-        "q": "参加できなくなった場合、返金は可能ですか？",
-        "a": "<p>チケットの購入後の返金・交換は承っておりません。詳しくは<a href=\"/ticket-refund-and-return-policy\">チケット返金・返品ポリシー</a>をご確認ください。</p>"
+        "q": "参加できなくなった場合、返金できますか？",
+        "a": "<p>購入済みチケットの返金・交換はできません。詳しくは<a href=\"/ticket-refund-and-return-policy\">チケット返金ポリシー</a>をご覧ください。</p>"
       },
       "4": {
-        "q": "イベント当日は何を持参すればいいですか？",
-        "a": "<p>Eチケット（スマートフォン画面または印刷）を受付でバッジと交換してください。企業イベントやグループアクティビティの業者との交流をお考えの方は、名刺もお持ちいただくことをおすすめします。</p>"
+        "q": "当日は何を持っていけばいいですか？",
+        "a": "<p>Eチケット（スマホ画面または印刷）を受付でバッジと交換してください。企業向けサービスの商談をお考えの方は、名刺もお持ちください。</p>"
       },
       "5": {
         "q": "誰でも参加できますか？",
-        "a": "<p>はい、どなたでもご参加いただけます。HR担当者、イベントプランナー、チームビルディング活動をお探しの企業担当者、旅行愛好家、アウティングサービス事業者の方、皆さま歓迎です！</p>"
+        "a": "<p>はい、どなたでも参加できます。HR担当、イベントプランナー、チームビルディングを探している企業の方、旅行好きな方、アウティングサービス事業者の方、どなたでも歓迎です。</p>"
       },
       "6": {
         "q": "どんなサービスや行き先が展示されますか？",
-        "a": "<p>さまざまなアウティング先、チームビルディング活動、企業イベント会場、旅行パッケージ、アウトドアアドベンチャー、リゾート、ユニークなグループ体験が展示されます。<a href=\"/brands\">出展者ページ</a>で全リストをご覧ください。</p>"
+        "a": "<p>アウティング先、チームビルディング、企業イベント会場、旅行パッケージ、アウトドア体験、リゾートなどが展示されます。<a href=\"/brands\">出展者ページ</a>で全リストを確認できます。</p>"
       },
       "7": {
-        "q": "会場でサービスを直接予約できますか？",
-        "a": "<p>はい！多くの出展者が会場限定のプロモーションや当日予約を受け付けています。企業アウティング、チームビルディングパッケージ、グループ旅行のお得な情報を直接提供者から入手するチャンスです。</p>"
+        "q": "会場でサービスの予約はできますか？",
+        "a": "<p>はい。多くの出展者が会場限定の特別価格や当日予約を受け付けています。企業アウティングやチームビルディングのパッケージをその場で決められます。</p>"
       },
       "8": {
-        "q": "出展者になるにはどうすればいいですか？",
-        "a": "<p>アウティングサービス、会場、旅行パッケージを展示したい方は、<a href=\"/book-space\">出展者登録ページ</a>から申し込むか、<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>で担当チームにお問い合わせください。</p>"
+        "q": "出展するにはどうすればいいですか？",
+        "a": "<p><a href=\"/book-space\">出展者登録ページ</a>から申し込むか、<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>でお問い合わせください。</p>"
       },
       "9": {
-        "q": "セミナーやプレゼンテーションはありますか？",
-        "a": "<p>はい！効果的なチームビルディング、企業イベントの企画、人気のアウティング先、従業員エンゲージメント活動など、さまざまなテーマのセミナーやプレゼンテーションを開催します。スケジュールは<a href=\"/rundown\">Rundownページ</a>をご確認ください。</p>"
+        "q": "セミナーやプレゼンはありますか？",
+        "a": "<p>はい。チームビルディング、企業イベントの企画、人気のアウティング先などをテーマにしたセミナーを開催します。スケジュールは<a href=\"/rundown\">スケジュールページ</a>をご確認ください。</p>"
       },
       "10": {
-        "q": "チームビルディング活動を探すのに適していますか？",
-        "a": "<p>もちろんです！チームビルディングの提供者を見つけ、パッケージを比較し、会社のアウティングにぴったりのユニークな活動を探すのに最適な場所です。業者と直接お話しして、具体的なニーズをご相談いただけます。</p>"
+        "q": "チームビルディングの活動を探すのに向いていますか？",
+        "a": "<p>はい。チームビルディングの業者と直接話せるので、パッケージの比較や具体的な相談がその場でできます。</p>"
       },
       "11": {
         "q": "スポンサーやメディアパートナーになるには？",
-        "a": "<p>スポンサーシップやメディアパートナーシップのご相談を承っています。<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>または<a href=\"mailto:{email}\">{email}</a>までお気軽にご連絡ください。</p>"
+        "a": "<p><a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>または<a href=\"mailto:{email}\">{email}</a>にご連絡ください。</p>"
       },
       "12": {
         "q": "会場に駐車場はありますか？",
-        "a": "<p>はい、会場には駐車場が完備されています。ただしピーク時は満車になることもありますので、早めの来場をおすすめします。公共交通機関やライドシェアの利用もご検討ください。</p>"
+        "a": "<p>あります。ただしピーク時は満車になることもあるので、早めの来場をおすすめします。公共交通機関の利用もご検討ください。</p>"
       },
       "13": {
-        "q": "会場内で写真や動画を撮影してもいいですか？",
-        "a": "<p>個人利用の範囲での写真・動画撮影は可能です。ただし、商用目的の撮影には主催者の書面による許可が必要です。詳しくは<a href=\"/event-policy\">イベントポリシー</a>をご確認ください。</p>"
+        "q": "会場で写真や動画を撮ってもいいですか？",
+        "a": "<p>個人利用の撮影は可能です。商用撮影には主催者の書面許可が必要です。詳しくは<a href=\"/event-policy\">イベントポリシー</a>をご確認ください。</p>"
       },
       "14": {
-        "q": "イベントの最新情報はどこで確認できますか？",
-        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>で最新情報、出展者ハイライト、限定コンテンツをチェックしてください。<a href=\"/news\">Newsページ</a>でも記事や更新情報を配信しています。</p>"
+        "q": "最新情報はどこで確認できますか？",
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>で出展者情報や最新ニュースを配信しています。<a href=\"/news\">ニュースページ</a>もぜひご覧ください。</p>"
       },
       "15": {
         "q": "主催者への連絡方法は？",
-        "a": "<p>以下の方法でお問い合わせいただけます：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">こちらからチャット</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>その他の連絡手段については<a href=\"/help-center\">ヘルプセンター</a>をご覧ください。</p>"
+        "a": "<p>以下からお問い合わせいただけます：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">こちらからチャット</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>その他の連絡方法は<a href=\"/help-center\">ヘルプセンター</a>をご覧ください。</p>"
       }
     }
   },
   "pages": {
     "home": {
-      "title": "Indonesia Outing & Incentive Travel Expo: アウティングのすべてが揃うワンストップハブ！",
-      "description": "Indonesia Outing & Incentive Travel Expo で、社内旅行、修学旅行、グループアドベンチャーの無限のインスピレーションを見つけましょう！"
+      "title": "Indonesia Outing & Incentive Travel Expo: アウティングに必要なすべてが揃う場所",
+      "description": "社員旅行、修学旅行、グループアクティビティのプラン探しなら、Indonesia Outing & Incentive Travel Expo へ。"
     },
     "brands": {
       "title": "ブランド一覧",
-      "description": "チームビルディングサービスや旅行先など、多彩なアウティング関連ブランドをご覧ください。"
+      "description": "チームビルディングから旅行先まで、多彩なアウティング関連ブランドをご覧ください。"
     },
     "rundown": {
-      "title": "Rundown",
-      "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。"
+      "title": "スケジュール",
+      "description": "{appName}のプログラムや各セッションのスケジュールをご確認いただけます。"
     },
     "programs": {
       "title": "メインプログラム",
-      "description": "{appName}の主要プログラムをご紹介します。展示会、カンファレンス、セミナー、ビジネスマッチングなど、業界のトップから学び、つながる機会が満載です。"
+      "description": "{appName}の主要プログラムをご紹介。展示会、セミナー、ビジネスマッチングなど。"
     },
     "contact": {
       "title": "お問い合わせ",
-      "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。"
+      "description": "チケット・パートナーシップ・イベントの詳細など、お気軽にお問い合わせください。"
     },
     "bookSpace": {
       "title": "ブースを予約する",
-      "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。トップブランドと並んで、ビジネスの成長を加速させてください。"
+      "description": "{appName}でブースを確保して、数千人の来場者にブランドをアピールしましょう。"
     },
     "ticket": {
       "title": "チケットを取得",
-      "description": "{appName}の入場チケットはこちら。日程、会場、チケットの種類など、必要な情報をご確認いただけます。"
+      "description": "{appName}の入場チケットはこちら。日程、会場、チケットの種類をご確認ください。"
     },
     "gallery": {
-      "title": "Gallery",
-      "description": "{appName}の過去の開催の様子をGalleryでご覧ください。"
+      "title": "ギャラリー",
+      "description": "{appName}の過去の様子をギャラリーでご覧ください。"
     },
     "faq": {
       "title": "FAQ",
-      "description": "{appName}に関するよくある質問をまとめました。チケット、イベント詳細、パートナーシップなどの情報はこちらから。"
+      "description": "{appName}に関するよくある質問と回答をまとめました。"
     },
     "links": {
-      "title": "Links",
-      "description": "便利なリンク集です。必要な情報にすばやくアクセスできます。"
+      "title": "リンク",
+      "description": "便利なリンクをまとめています。"
     },
     "news": {
-      "title": "News",
-      "description": "アウティング・トラベル業界の最新トレンド、ニュース、インサイトをお届けします。専門家による記事やイベントの最新情報をご覧ください。"
+      "title": "ニュース",
+      "description": "アウティング・トラベル業界の最新ニュースやトレンドをお届けします。"
     },
     "ticketPolicy": {
       "title": "チケットポリシー",
-      "description": "{appName}のチケットポリシーをご確認ください。チケットの種類、料金、返金に関するガイドラインをご案内します。"
+      "description": "{appName}のチケットの種類、料金、返金ルールをご確認ください。"
     },
     "eventPolicy": {
       "title": "イベントポリシー",
-      "description": "{appName}のイベントポリシーです。参加者・出展者向けのルール、規約、注意事項をご確認ください。"
+      "description": "{appName}の参加ルールと出展者向けガイドラインです。"
     },
     "partners": {
-      "title": "パートナー一覧",
-      "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援なくしては実現しません。心から感謝いたします。"
+      "title": "パートナー",
+      "description": "パートナー、スポンサー、メディアの皆さまのご支援に感謝いたします。"
     },
     "terms": {
       "title": "利用規約",
@@ -386,7 +390,11 @@
     },
     "winner": {
       "title": "抽選ジェネレーター",
-      "description": "ランダムに当選者を選出するジェネレーターです。名前を入力してスロットを回すだけ。コンテスト、プレゼント企画、イベントに最適です！"
+      "description": "名前を入力してスロットを回すだけ。コンテストやプレゼント企画にお使いいただけます。"
     }
+  },
+  "pastExhibitors": {
+    "title": "<span class=\"text-primary\">有名ブランド</span>も出展しています",
+    "description": "Indonesia Outing Expo 2025に出展し、数千の見込みパートナーとつながったブランドに続きませんか。"
   }
 }

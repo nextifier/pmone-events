@@ -25,6 +25,10 @@ export default defineNuxtConfig({
     name: "Indonesia Outing & Incentive Travel Expo",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-RMZ65GCEJV" }],
   },

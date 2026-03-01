@@ -144,14 +144,14 @@
   },
   "hero": {
     "countdownLabel": "Doors to the future of your home open in:",
-    "title": "The Blueprint for Your Dream Renovation.",
+    "title": "The <span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">Blueprint</span></span> for Your <span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">Home Renovation.</span>",
     "description": "Take control of your renovation. Touch and feel the latest materials, get direct advice from designers, and build your project with total confidence.",
     "announcement": "Space is still available for exhibitors",
     "banners": {
       "0": {
-        "subHeadline": "Your Free Pass to a Better Home!",
-        "content": "<p>Get free access to the complete blueprint for your renovation: hundreds of brands, expert design consultations, and the latest trends in home improvement.</p>",
-        "cta": "Claim Your Free Pass"
+        "subHeadline": "Your Pass to a Better Home!",
+        "content": "<p>Get access to the complete blueprint for your renovation: hundreds of brands, expert design consultations, and the latest trends in home improvement.</p>",
+        "cta": "Claim Your Pass"
       },
       "1": {
         "subHeadline": "Exhibit at Renovation Expo!",
@@ -168,7 +168,11 @@
         "content": "<p>Follow our Instagram for daily renovation inspiration, exhibitor spotlights, and special giveaways leading up to the event. Don't miss a single update!</p>",
         "cta": "Follow {'@'}megabuildindo"
       }
-    }
+    },
+    "ctaTicket": "Get ticket",
+    "ctaExhibit": "I want to exhibit",
+    "playRecap": "Play Recap",
+    "edition": "{n}{ordinal} edition"
   },
   "trustedBy": {
     "title": "Trusted by Leading Brands at Megabuild Indonesia"
@@ -222,7 +226,23 @@
   "factsAndFigures": {
     "subtitle": "Facts & Figures",
     "title": "Why Megabuild Indonesia Leads the Industry",
-    "description": "The facts & figures gathered from 21 editions are testament to the powerful platform that Megabuild Indonesia has provided for thousands of businesses to grow."
+    "description": "The facts & figures gathered from 21 editions are testament to the powerful platform that Megabuild Indonesia has provided for thousands of businesses to grow.",
+    "stats": {
+      "visitors": {
+        "label": "Total Visitors",
+        "description": "from 45 countries"
+      },
+      "exhibitors": {
+        "label": "Total Exhibitors",
+        "description": "from 25 countries"
+      },
+      "transaction": {
+        "label": "Transaction Value"
+      },
+      "leads": {
+        "label": "Total Leads"
+      }
+    }
   },
   "partnerships": {
     "title": "<span class='text-outline'>Become a </span><span class='text-primary'>Part of our Story</span>",
@@ -249,8 +269,8 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">Planning a renovation?</span><br /><span class=\"text-outline\">Your essential guide awaits you here.</span>",
-    "description": "Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your free pass to smarter renovation solutions.",
-    "cta": "Get Free Ticket"
+    "description": "Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your pass to smarter renovation solutions.",
+    "cta": "Get Ticket"
   },
   "mediaCoverage": {
     "title": "Recognized by Industry Voices",

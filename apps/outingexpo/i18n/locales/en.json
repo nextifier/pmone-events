@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics\u2014we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -59,7 +59,7 @@
     "title": "Rundown",
     "description": "Stay updated with the detailed schedule of events and programs happening at {appName}.",
     "comingSoon": "Rundown is coming soon. Check back later!",
-    "nothingYet": "Nothing to see here\u2026 yet!"
+    "nothingYet": "Nothing to see here… yet!"
   },
   "ticket": {
     "agreementPrefix": "By continuing to purchase the ticket, you agree to",
@@ -151,7 +151,7 @@
       "0": {
         "subHeadline": "Your Gateway to Epic Adventures Awaits!",
         "content": "<p>Get free access to Indonesia's biggest outing showcase: hundreds of destinations, expert event organizers, and exclusive travel deals all in one place.</p>",
-        "cta": "Get Your Free Ticket"
+        "cta": "Get Your Ticket"
       },
       "1": {
         "subHeadline": "Showcase Your Brand at Indonesia Outing & Incentive Travel Expo 2026!",
@@ -168,7 +168,11 @@
         "content": "<p>Follow our Instagram for daily adventure inspiration, exhibitor highlights, and exclusive giveaways leading up to Indonesia Outing & Incentive Travel Expo. Your next adventure starts here!</p>",
         "cta": "Follow {'@'}indooutingexpo"
       }
-    }
+    },
+    "ctaTicket": "Get ticket",
+    "ctaExhibit": "I want to exhibit",
+    "playRecap": "Play Recap",
+    "edition": "{n}{ordinal} edition"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Main</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Programs</span>",
@@ -220,9 +224,9 @@
     }
   },
   "visitorCta": {
-    "title": "Your Adventure Starts with One <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Free Ticket</span>",
+    "title": "Your Adventure Starts with One <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Ticket</span>",
     "description": "Discover hundreds of exciting outing options, meet professional event planners, and grab special promotions. Reserve your spot at Indonesia Outing & Incentive Travel Expo 2026 today!",
-    "cta": "Get Free Ticket"
+    "cta": "Get Ticket"
   },
   "mediaCoverage": {
     "title": "Recognized by Industry Voices",
@@ -388,5 +392,9 @@
       "title": "Random Winner Generator",
       "description": "Generate random winners instantly with our Random Winner Generator. Paste names, spin the slot machine, and pick a winner fairly. Perfect for contests, giveaways, and events!"
     }
+  },
+  "pastExhibitors": {
+    "title": "Trusted by <span class=\"text-primary\">Leading Brands</span>",
+    "description": "Join pioneering brands who have showcased at Indonesia Outing Expo 2025 and connected with thousands of potential partners."
   }
 }

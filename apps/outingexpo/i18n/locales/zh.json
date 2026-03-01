@@ -1,7 +1,7 @@
 {
   "ui": {
     "viewAll": "查看全部",
-    "viewAllBrands": "查看全部 Brand",
+    "viewAllBrands": "查看全部品牌",
     "contactUs": "联系我们",
     "back": "返回",
     "comingSoon": "即将推出",
@@ -20,8 +20,8 @@
     "failedToGetData": "数据加载失败。",
     "search": "搜索",
     "searchPosts": "搜索文章",
-    "brands": "Brand",
-    "booth": "Booth",
+    "brands": "品牌",
+    "booth": "展位",
     "categories": "分类",
     "description": "简介",
     "created": "创建于",
@@ -30,15 +30,15 @@
     "shareThisPost": "分享这篇文章",
     "soldOut": "已售罄",
     "startsFrom": "起价",
-    "startsIn": "开始于",
-    "endsIn": "结束于",
+    "startsIn": "开始倒计时",
+    "endsIn": "结束倒计时",
     "ticketsSoldOut": "门票已售罄",
     "ticketsComingSoon": "门票即将开售",
-    "presentedBy": "Presented by",
+    "presentedBy": "主办",
     "allLocations": "全部地点",
     "selectAProduct": "选择产品",
     "selectAnOption": "选择一项",
-    "enterYourProductType": "输入你的产品类型",
+    "enterYourProductType": "输入产品类型",
     "sendMessage": "发送",
     "leaveAMessage": "写下你的留言..",
     "youMightAlsoLike": "你可能还想看"
@@ -48,18 +48,18 @@
     "showingPostsFor": "共 {total} 篇相关文章",
     "showingPosts": "共 {total} 篇文章",
     "noResultsFor": "没有找到相关结果",
-    "noResultsHint": "换个关键词试试，或者看看其他话题吧。",
-    "noPostsYet": "暂时还没有文章",
+    "noResultsHint": "换个关键词试试吧。",
+    "noPostsYet": "还没有文章",
     "comeBackLater": "过段时间再来看看"
   },
   "brands": {
-    "comingSoon": "Brand 名单即将公布，过段时间再来看看！"
+    "comingSoon": "品牌名单即将公布，过段时间再来看看！"
   },
   "rundown": {
-    "title": "Rundown",
-    "description": "查看 {appName} 的完整活动日程和节目安排。",
-    "comingSoon": "Rundown 即将公布，过段时间再来看看！",
-    "nothingYet": "这里还什么都没有……敬请期待！"
+    "title": "活动日程",
+    "description": "查看 {appName} 的完整日程和节目安排。",
+    "comingSoon": "日程即将公布，过段时间再来看看！",
+    "nothingYet": "还没有日程安排。"
   },
   "ticket": {
     "agreementPrefix": "继续购票即表示你同意",
@@ -70,20 +70,20 @@
   "contact": {
     "title": "联系我们",
     "formTitle": "联系表单",
-    "description": "有问题或需要帮助？随时联系我们，了解门票、合作和活动详情。",
+    "description": "门票、合作、活动详情，有任何问题都可以联系我们。",
     "name": "姓名",
     "jobTitle": "职位",
-    "brandName": "Brand 名称",
+    "brandName": "品牌名称",
     "products": "产品",
     "email": "Email",
     "phone": "手机号 (WhatsApp)",
     "referralSource": "你是怎么知道这个活动的？",
     "message": "留言",
-    "successTitle": "提交成功！感谢你联系我们。",
-    "successMessage": "我们的团队会尽快通过 Email 或 WhatsApp 联系你。",
+    "successTitle": "提交成功！感谢你的联系。",
+    "successMessage": "我们会尽快通过 Email 或 WhatsApp 回复你。",
     "successButton": "好的，回到首页",
-    "disclaimerDefault": "请确保你填写的 Email 和手机号是正确且可用的，方便我们尽快联系你。",
-    "disclaimerExhibitor": "放心，提交表单不代表你已经注册成为参展商。我们只是需要你的联系方式，方便销售团队给你发送 Booth 价格、可选方案等详细信息。",
+    "disclaimerDefault": "请填写正确的 Email 和手机号，方便我们尽快联系你。",
+    "disclaimerExhibitor": "放心，提交表单不等于确认参展。我们先收集联系方式，销售团队会把展位和价格等信息发给你。",
     "errorSend": "发送失败，请重试。",
     "errorNetwork": "网络出错，请稍后重试。"
   },
@@ -94,7 +94,7 @@
     "sec": "秒"
   },
   "eventStatus": {
-    "startsIn": "活动开始倒计时",
+    "startsIn": "距开幕还有",
     "live": "进行中",
     "completed": "已结束"
   },
@@ -143,40 +143,44 @@
     "Supported by": "支持方"
   },
   "hero": {
-    "countdownLabel": "距离你的下一场冒险还有：",
+    "countdownLabel": "距开幕：",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
-    "description": "对接顶尖活动策划公司，发现绝佳目的地，抢到独家旅行优惠——你的下一次难忘团建，从这里开始。",
-    "announcement": "参展 Booth 仍有空位",
+    "description": "对接专业活动策划、发现优质目的地、拿到独家旅行优惠。下一次团建，从这里开始找方案。",
+    "announcement": "参展展位仍有空位",
     "banners": {
       "0": {
-        "subHeadline": "精彩户外之旅，从这里出发！",
-        "content": "<p>免费参观印尼最大的团建活动展：数百个目的地、专业活动策划团队和独家旅行优惠，一站搞定。</p>",
-        "cta": "领取免费门票"
+        "subHeadline": "团建所需，这里都有。",
+        "content": "<p>免费参观印尼最大的团建活动展——数百个目的地、专业策划团队、独家优惠，一站搞定。</p>",
+        "cta": "领取门票"
       },
       "1": {
         "subHeadline": "在 Indonesia Outing & Incentive Travel Expo 2026 展示你的品牌！",
-        "content": "<p>与数千名户外爱好者、企业策划人和旅行达人面对面，他们正在寻找下一次团建体验。一起创造精彩冒险吧。</p>",
+        "content": "<p>数千名户外爱好者、企业活动负责人和旅行达人会到现场。直接和目标客户面对面。</p>",
         "cta": "立即预订展位"
       },
       "2": {
-        "subHeadline": "免费团建规划咨询！",
-        "content": "<p>带上你的想法！专业活动策划师和旅行专家为你量身定制完美的团建方案。</p>",
+        "subHeadline": "免费团建规划咨询",
+        "content": "<p>带上你的想法。专业策划师和旅行专家帮你量身定制团建方案。</p>",
         "cta": "查看全部项目"
       },
       "3": {
-        "subHeadline": "保持探索，保持连接！",
-        "content": "<p>关注我们的 Instagram，每天获取户外灵感、参展商亮点和独家福利。你的下一次冒险从这里开始！</p>",
+        "subHeadline": "别错过最新消息！",
+        "content": "<p>关注我们的 Instagram，获取户外灵感、参展商亮点和独家福利。</p>",
         "cta": "关注 {'@'}indooutingexpo"
       }
-    }
+    },
+    "ctaTicket": "领取门票",
+    "ctaExhibit": "参展报名",
+    "playRecap": "看精彩回顾",
+    "edition": "第{n}届"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>核心</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">项目</span>",
-    "description": "{appName} 不只是展览——这里有行业峰会、实操演示和精准对接，帮你找到最适合的团建方案和合作伙伴。",
+    "description": "展览、讲座、现场体验、精准对接——{appName} 的核心项目都在这里。",
     "items": {
       "0": {
         "title": "Outing Inspiration Stage",
-        "description": "行业大咖带来最前沿的团建创意。"
+        "description": "行业专家分享最新团建创意。"
       },
       "1": {
         "title": "Live Activity Demos",
@@ -184,7 +188,7 @@
       },
       "2": {
         "title": "Flash Deals",
-        "description": "现场专属团建优惠，即买即享。"
+        "description": "现场专属团建优惠，当场拿下。"
       },
       "3": {
         "title": "Business Matching",
@@ -192,66 +196,66 @@
       },
       "4": {
         "title": "Community Meet-Ups",
-        "description": "用你喜欢的方式拓展人脉。"
+        "description": "和同行交流，拓展人脉圈。"
       }
     }
   },
   "partnerships": {
     "title": "<span class='text-outline'>加入 </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITE 的故事</span>",
-    "description": "通过参与 {appName}，让你的品牌被更多人看到。结识潜在合作伙伴，拓展你的商业网络。",
+    "description": "参与 {appName}，认识潜在合作伙伴，提升品牌曝光，拓展商业网络。",
     "exhibitor": {
       "title": "成为参展商",
-      "description": "团建服务商、目的地运营方注意了！把你的产品展示给上万名潜在客户。",
+      "description": "做团建服务或运营目的地？把你的产品直接展示给上万名潜在客户。",
       "cta": "预订展位"
     },
     "sponsor": {
       "title": "成为赞助商",
-      "description": "赞助行业标杆展会，直接触达企业决策者和活动采购方。",
+      "description": "赞助行业标杆展会，直接触达企业决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
       "title": "成为媒体合作伙伴",
-      "description": "与我们合作，获取独家内容和行业深度报道资源。",
+      "description": "独家内容和行业深度报道，合作机会就在这里。",
       "cta": "媒体合作"
     },
     "reservedSpace": {
-      "title": "这个位置留给优秀的合作伙伴。会是你吗？",
+      "title": "这个位置留给对的合作伙伴。是你吗？",
       "cta": "成为合作伙伴"
     }
   },
   "visitorCta": {
-    "title": "你的冒险之旅，从一张<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">免费门票</span>开始",
-    "description": "发现上百种精彩团建方案，与专业活动策划师面对面，抢占现场专属优惠。立即预约 Indonesia Outing & Incentive Travel Expo 2026！",
-    "cta": "领取免费门票"
+    "title": "一张<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">门票</span>，开启你的下一次团建",
+    "description": "上百种团建方案、专业策划师、现场独家优惠。Indonesia Outing & Incentive Travel Expo 2026，等你来。",
+    "cta": "领取门票"
   },
   "mediaCoverage": {
-    "title": "行业媒体报道",
-    "description": "看看各大媒体怎么报道 {appName}。"
+    "title": "媒体报道",
+    "description": "看看各大媒体怎么说 {appName}。"
   },
   "credits": {
-    "title": "活动背后的社区力量",
-    "description": "感谢所有合作伙伴、赞助商和媒体的鼎力支持，让这场活动成为可能。"
+    "title": "活动背后的支持者",
+    "description": "感谢所有合作伙伴、赞助商和媒体的支持。"
   },
   "postSlider": {
     "title": "最新动态",
     "titleMorePosts": "你可能还想看"
   },
   "brandPreview": {
-    "title": "看看 {appName} 都有哪些品牌"
+    "title": "看看 {appName} 有哪些参展品牌"
   },
   "brandList": {
-    "title": "Brand",
-    "description": "浏览各类团建服务商和旅行目的地品牌，覆盖多个细分领域。"
+    "title": "品牌",
+    "description": "团建服务商、旅行目的地、户外装备……各类品牌都在这里。"
   },
   "bookSpace": {
     "title": "参展商报名",
-    "description": "在 {appName} 预订你的展位，向上万名潜在客户展示品牌实力。和行业领先品牌一起亮相。"
+    "description": "在 {appName} 预订展位，向上万名潜在客户展示你的品牌。"
   },
   "faq": {
     "title": "常见问题",
-    "description": "关于团建展的门票、参展、活动详情等常见问题，都在这里。",
-    "emptyState": "常见问题正在整理中，请稍后再来查看。",
-    "contactTitle": "还有其他问题？直接发给我们！",
+    "description": "门票、参展、活动详情——常见问题都在这里。",
+    "emptyState": "常见问题正在整理中，请稍后再来。",
+    "contactTitle": "还有问题？直接发给我们。",
     "items": {
       "0": {
         "q": "{eventTitle} 什么时候、在哪里举办？",
@@ -259,114 +263,114 @@
       },
       "1": {
         "q": "怎么买票？",
-        "a": "<p>通过我们的官方网站就可以。点击 <a href=\"/ticket\">Get Ticket</a> 按钮，按流程完成注册。电子门票会发送到你的 Email 和 WhatsApp。</p>"
+        "a": "<p>在官网点击 <a href=\"/ticket\">领取门票</a> 按钮，按流程注册就行。电子门票会发到你的 Email 和 WhatsApp。</p>"
       },
       "2": {
         "q": "门票多少钱？",
-        "a": "<p>票价根据票种和购买时间有所不同。最新价格请查看 <a href=\"/ticket\">门票页面</a>。早鸟票有优惠，别错过！</p>"
+        "a": "<p>价格因票种和购买时间而异。最新价格请看 <a href=\"/ticket\">门票页面</a>。有早鸟优惠，别错过。</p>"
       },
       "3": {
-        "q": "买了票不能去，可以退吗？",
-        "a": "<p>门票售出后不退不换。详情请查看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
+        "q": "买了票去不了，能退吗？",
+        "a": "<p>门票售出后不退不换。详情请看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
       },
       "4": {
-        "q": "去现场需要带什么？",
-        "a": "<p>带上你的电子门票（手机出示或打印均可），在签到台换取入场证。如果你想和企业活动服务商或团建供应商交流，建议带上名片。</p>"
+        "q": "去现场要带什么？",
+        "a": "<p>带上电子门票（手机出示或打印），在签到台换入场证。打算和团建服务商聊合作的话，建议带上名片。</p>"
       },
       "5": {
-        "q": "谁可以参加？",
-        "a": "<p>活动对所有人开放。不管你是 HR、活动策划、企业代表、旅行爱好者还是团建服务商，都欢迎来逛！</p>"
+        "q": "谁都能参加吗？",
+        "a": "<p>对，完全开放。HR、活动策划、找团建方案的企业代表、旅行爱好者、团建服务商，都欢迎。</p>"
       },
       "6": {
         "q": "有哪些服务和目的地展示？",
-        "a": "<p>你能发现各种团建目的地、团队活动、企业活动场地、旅行套餐、户外冒险、度假村和特色团体体验。完整名单请查看 <a href=\"/brands\">参展商页面</a>。</p>"
+        "a": "<p>团建目的地、团队活动、企业活动场地、旅行套餐、户外项目、度假村、特色团体体验——种类很多。完整名单请看 <a href=\"/brands\">参展商页面</a>。</p>"
       },
       "7": {
-        "q": "现场可以直接预订服务吗？",
-        "a": "<p>可以！很多参展商提供现场专属优惠和即时预订。这是直接从服务商那里拿到企业团建、团队活动和团体旅行优惠的好机会。</p>"
+        "q": "现场能直接预订服务吗？",
+        "a": "<p>可以。很多参展商提供现场专属优惠和即时预订。企业团建、团队活动、团体旅行的好价格，当场就能拿到。</p>"
       },
       "8": {
-        "q": "怎么报名成为参展商？",
-        "a": "<p>想展示你的团建服务、场地或旅行套餐？请访问 <a href=\"/book-space\">参展商报名页面</a>，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们了解展位信息。</p>"
+        "q": "怎么报名参展？",
+        "a": "<p>去 <a href=\"/book-space\">参展商报名页面</a> 提交申请，或者通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们了解展位信息。</p>"
       },
       "9": {
-        "q": "现场有讲座或分享会吗？",
-        "a": "<p>有的！我们安排了多场讲座和分享，主题涵盖高效团建、企业活动策划、热门团建目的地和员工激励活动。完整日程请查看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
+        "q": "有讲座或分享会吗？",
+        "a": "<p>有。主题包括高效团建、企业活动策划、热门团建目的地等。完整日程请看 <a href=\"/rundown\">日程页面</a>。</p>"
       },
       "10": {
-        "q": "这个展会适合找团建活动吗？",
-        "a": "<p>太适合了！这里是发现团建服务商、对比方案、为公司团建找到独特活动的最佳场所。直接和供应商面谈，沟通你的具体需求。</p>"
+        "q": "适合找团建活动吗？",
+        "a": "<p>非常适合。这里能直接和团建服务商面谈，比较不同方案，找到最合适你们公司的活动。</p>"
       },
       "11": {
         "q": "怎么成为赞助商或媒体合作伙伴？",
-        "a": "<p>欢迎合作！请通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们，聊聊合作方案。</p>"
+        "a": "<p>通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们聊合作方案。</p>"
       },
       "12": {
         "q": "展馆有停车位吗？",
-        "a": "<p>有的，展馆提供停车设施。不过高峰时段车位可能紧张，建议提早到达或考虑打车。</p>"
+        "a": "<p>有，但高峰时段车位可能紧张，建议早点到或者打车过来。</p>"
       },
       "13": {
-        "q": "现场可以拍照录像吗？",
-        "a": "<p>个人用途的拍照录像没问题。商业用途的专业拍摄需要提前获得主办方书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "q": "能拍照录像吗？",
+        "a": "<p>个人用途没问题。商业拍摄需要主办方书面许可。详情请看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "14": {
-        "q": "怎么获取最新活动信息？",
-        "a": "<p>关注我们的 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展商亮点、活动预告和独家福利。也可以访问 <a href=\"/news\">资讯页面</a> 查看最新文章。</p>"
+        "q": "怎么获取最新活动消息？",
+        "a": "<p>关注 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间看到参展商亮点、活动预告和独家福利。也可以看 <a href=\"/news\">资讯页面</a>。</p>"
       },
       "15": {
         "q": "怎么联系主办方？",
-        "a": "<p>你可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式和快捷入口请访问 <a href=\"/help-center\">Help Center</a>。</p>"
+        "a": "<p>可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式请看 <a href=\"/help-center\">帮助中心</a>。</p>"
       }
     }
   },
   "pages": {
     "home": {
-      "title": "Indonesia Outing & Incentive Travel Expo: 一站式团建灵感中心！",
-      "description": "在 Indonesia Outing & Incentive Travel Expo 发现无限灵感——企业团建、学校旅行、团体冒险，统统搞定！"
+      "title": "Indonesia Outing & Incentive Travel Expo: 团建方案一站搞定",
+      "description": "企业团建、学校旅行、团体活动——在 Indonesia Outing & Incentive Travel Expo 找到你需要的方案。"
     },
     "brands": {
-      "title": "Brand",
-      "description": "浏览各类团建服务商和旅行目的地品牌，覆盖多个细分领域。"
+      "title": "品牌",
+      "description": "团建服务商、旅行目的地、户外装备……各类品牌都在这里。"
     },
     "rundown": {
-      "title": "Rundown",
-      "description": "查看 {appName} 的完整活动日程和节目安排。"
+      "title": "活动日程",
+      "description": "查看 {appName} 的完整日程和节目安排。"
     },
     "programs": {
       "title": "核心项目",
-      "description": "了解 {appName} 的核心项目——展览、行业峰会、讲座和精准对接。获取行业洞察，拓展人脉。"
+      "description": "{appName} 的核心项目：展览、讲座、体验活动和精准对接。"
     },
     "contact": {
       "title": "联系我们",
-      "description": "有问题或需要帮助？联系我们了解门票、合作和活动详情。"
+      "description": "门票、合作、活动详情，有问题随时联系我们。"
     },
     "bookSpace": {
       "title": "预订展位",
-      "description": "在 {appName} 预订展位，向上万名潜在客户展示品牌实力。"
+      "description": "在 {appName} 预订展位，向上万名潜在客户展示你的品牌。"
     },
     "ticket": {
       "title": "领取门票",
-      "description": "获取 {appName} 入场门票。日期、地点、票种信息一目了然。"
+      "description": "获取 {appName} 入场门票。日期、地点、票种信息都在这里。"
     },
     "gallery": {
       "title": "活动相册",
       "description": "回顾 {appName} 往届精彩瞬间。"
     },
     "faq": {
-      "title": "FAQ",
-      "description": "关于 {appName} 的常见问题解答。门票、活动详情、合作等信息都在这里。"
+      "title": "常见问题",
+      "description": "关于 {appName} 的常见问题和解答。"
     },
     "links": {
-      "title": "Links",
+      "title": "快捷链接",
       "description": "常用链接汇总，方便快速访问。"
     },
     "news": {
       "title": "资讯",
-      "description": "关注团建和旅行行业的最新动态、趋势和深度文章。"
+      "description": "团建和旅行行业的最新动态、趋势和深度内容。"
     },
     "ticketPolicy": {
       "title": "购票政策",
-      "description": "了解 {appName} 的购票政策，包括票种、定价和退票规则。"
+      "description": "了解 {appName} 的票种、价格和退票规则。"
     },
     "eventPolicy": {
       "title": "活动政策",
@@ -374,7 +378,7 @@
     },
     "partners": {
       "title": "合作伙伴",
-      "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场活动成为可能。"
+      "description": "感谢所有合作伙伴、赞助商和媒体的支持。"
     },
     "terms": {
       "title": "服务条款",
@@ -386,7 +390,11 @@
     },
     "winner": {
       "title": "随机抽奖器",
-      "description": "在线随机抽取幸运获奖者。粘贴名单，转动抽奖机，公平选出获奖人。适用于比赛、抽奖和各类活动！"
+      "description": "输入名单，转动抽奖机，公平选出获奖者。适用于各类抽奖和活动。"
     }
+  },
+  "pastExhibitors": {
+    "title": "受<span class=\"text-primary\">知名品牌</span>信赖",
+    "description": "这些品牌已在 Indonesia Outing Expo 2025 参展，与数千潜在合作伙伴建立了联系。"
   }
 }

@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics\u2014we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -59,7 +59,7 @@
     "title": "Rundown",
     "description": "Stay updated with the detailed schedule of events and programs happening at {appName}.",
     "comingSoon": "Rundown is coming soon. Check back later!",
-    "nothingYet": "Nothing to see here\u2026 yet!"
+    "nothingYet": "Nothing to see here… yet!"
   },
   "ticket": {
     "agreementPrefix": "By continuing to purchase the ticket, you agree to",
@@ -173,7 +173,7 @@
       },
       "4": {
         "subHeadline": "Pro Tip for Visitors",
-        "content": "<p>Wear your most comfortable shoes! With over 20,000m\u00b2 of space and 1,200+ exhibitors to explore, you'll be doing a lot of walking (and even more tasting!).</p>",
+        "content": "<p>Wear your most comfortable shoes! With over 20,000m² of space and 1,200+ exhibitors to explore, you'll be doing a lot of walking (and even more tasting!).</p>",
         "cta": "See Who's Exhibiting"
       },
       "5": {
@@ -181,7 +181,8 @@
         "content": "<p>Want to get the best price for your ticket? Follow us on social media to be the first to know when our Early Bird promo launches. Don't miss out!</p>",
         "cta": "Follow Us on Instagram"
       }
-    }
+    },
+    "instagramTip": "Tip: All the spoilers and important info are on Instagram. Make sure you're following <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\" class=\"hover:text-primary transition\">{'@'}{instagram}</a>!"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Main</span> <span class='text-accent'>Programs</span>",
@@ -189,7 +190,7 @@
     "items": {
       "0": {
         "title": "The Global Marketplace",
-        "description": "This is the heart of the event. Explore 20,000m\u00b2 of space packed with over 1,200 exhibitors from around the world. Discover thousands of new products, ingredients, and technologies, all under one roof."
+        "description": "This is the heart of the event. Explore 20,000m² of space packed with over 1,200 exhibitors from around the world. Discover thousands of new products, ingredients, and technologies, all under one roof."
       },
       "1": {
         "title": "MoreFood Talks: Industry Summits",

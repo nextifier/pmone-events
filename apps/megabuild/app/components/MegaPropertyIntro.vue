@@ -41,21 +41,17 @@
 
         <!-- Right: Content -->
         <div class="flex flex-col items-start">
-          <span class="text-gradient-accent font-medium tracking-tight"
-            >Co-located Event</span
-          >
+          <span class="text-gradient-accent font-medium tracking-tight">{{
+            $t("megaProperty.subtitle")
+          }}</span>
 
           <h2
             class="text-foreground mt-2.5 text-3xl font-semibold tracking-tighter text-balance lg:text-4xl"
-          >
-            Introducing
-            <span class="text-gradient-accent">Mega Property Expo</span>
-          </h2>
+            v-html="$t('megaProperty.title')"
+          ></h2>
 
           <p class="mt-3 text-base leading-normal tracking-tight lg:text-lg">
-            Indonesia's premier real estate exhibition, co-located with
-            Megabuild Indonesia. Discover exclusive property showcases, connect
-            with leading developers, and explore investment opportunities.
+            {{ $t("megaProperty.description") }}
           </p>
 
           <!-- Highlights -->
@@ -80,7 +76,7 @@
             to="/megaproperty"
             class="bg-primary text-primary-foreground hover:bg-primary/80 mt-8 flex items-center gap-x-1 rounded-lg px-4 py-2 font-medium tracking-tight transition active:scale-98"
           >
-            Explore Mega Property
+            {{ $t("megaProperty.cta") }}
             <Icon name="hugeicons:arrow-right-02" class="size-4" />
           </NuxtLink>
         </div>
@@ -90,10 +86,12 @@
 </template>
 
 <script setup>
-const highlights = [
-  { icon: "hugeicons:home-01", label: "Premium Property Showcases" },
-  { icon: "hugeicons:user-multiple-02", label: "Industry Networking" },
-  { icon: "hugeicons:mic-01", label: "Expert Conferences" },
-  { icon: "hugeicons:bank", label: "Investment Solutions" },
-];
+const { t } = useI18n();
+
+const highlights = computed(() => [
+  { icon: "hugeicons:home-01", label: t("megaProperty.highlights[0]") },
+  { icon: "hugeicons:user-multiple-02", label: t("megaProperty.highlights[1]") },
+  { icon: "hugeicons:mic-01", label: t("megaProperty.highlights[2]") },
+  { icon: "hugeicons:bank", label: t("megaProperty.highlights[3]") },
+]);
 </script>

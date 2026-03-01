@@ -123,10 +123,10 @@
     "eventPolicy": "Kebijakan Acara"
   },
   "hero": {
-    "countdownLabel": "Petualangan kuliner kamu dimulai dalam:",
-    "subtitle": "Bukan sekadar pameran. Ini pabrik ide untuk menu dan toko kamu.",
-    "title": "Di Sini, Setiap Bahan Punya Cerita.",
-    "description": "Kami sajikan lebih dari sekadar makanan. Temukan ide segar, mitra baru, dan segudang cara untuk mengembangkan bisnis F&B kamu.",
+    "countdownLabel": "Event dimulai dalam:",
+    "subtitle": "Lebih dari pameran. Tempat cari ide baru buat menu dan bisnis F&B kamu.",
+    "title": "Satu Tempat, Ribuan Peluang F&B.",
+    "description": "Ketemu supplier baru, coba produk terbaru, dan dapetin insight langsung dari pelaku industri. Semua ada di sini.",
     "ctaTicket": "Ambil Tiket",
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
@@ -134,99 +134,100 @@
     "banners": {
       "0": {
         "subHeadline": "Pendaftaran Exhibitor Dibuka!",
-        "content": "<p>Pamerkan brand kamu ke 30.000+ buyer, distributor, dan profesional F&B. Ini kesempatan kamu bersinar di salah satu pasar makanan terbesar di Asia Tenggara.</p>",
+        "content": "<p>Pamerkan brand kamu ke 30.000+ buyer, distributor, dan profesional F&B. Kesempatan besar buat unjuk produk di salah satu pasar makanan terbesar di Asia Tenggara.</p>",
         "cta": "Pesan Space Sekarang"
       },
       "1": {
         "subHeadline": "Tiga Expo, Satu Tiket!",
-        "content": "<p>Tiket kamu juga berlaku untuk masuk ke <strong>Franchise & License Expo (FLEI)</strong>. Temukan lebih banyak model bisnis dan peluang, semuanya di satu tempat.</p>",
+        "content": "<p>Tiket kamu juga berlaku untuk <strong>Franchise & License Expo (FLEI)</strong>. Bisa sekalian explore peluang bisnis franchise di tempat yang sama.</p>",
         "cta": "Lihat FLEI"
       },
       "2": {
         "subHeadline": "Buat Pecinta Kopi",
-        "content": "<p>Tiket kamu termasuk akses penuh ke <strong>Cafe & Brasserie Expo</strong>. Jelajahi tren kopi, pastry, dan teknologi cafe terkini. Wajib dikunjungi buat pemilik cafe!</p>",
+        "content": "<p>Tiket kamu termasuk akses ke <strong>Cafe & Brasserie Expo</strong>. Langsung cek tren kopi, pastry, dan teknologi cafe terkini. Wajib mampir buat pemilik cafe!</p>",
         "cta": "Jelajahi Cafe & Brasserie Expo"
       },
       "3": {
         "subHeadline": "Tahukah Kamu?",
-        "content": "<p>Indonesia adalah pasar konsumsi makanan Halal terbesar di dunia! Ini peluang miliaran dolar yang menunggu produk yang tepat. Kamu siap?</p>"
+        "content": "<p>Indonesia adalah pasar konsumsi makanan Halal terbesar di dunia. Peluang miliaran dolar yang masih terbuka lebar. Sudah siap masuk?</p>"
       },
       "4": {
         "subHeadline": "Tips buat Pengunjung",
-        "content": "<p>Pakai sepatu yang paling nyaman! Dengan area 20.000m\u00b2 dan 1.200+ exhibitor, kamu bakal banyak jalan (dan lebih banyak lagi icip-icip!).</p>",
+        "content": "<p>Pakai sepatu yang nyaman! Area pamerannya 20.000m² dengan 1.200+ exhibitor. Siap-siap banyak jalan dan banyak icip-icip.</p>",
         "cta": "Lihat Siapa Aja yang Pameran"
       },
       "5": {
         "subHeadline": "Tiket Early Bird Segera Hadir!",
-        "content": "<p>Mau dapetin harga terbaik? Follow media sosial kami biar jadi yang pertama tahu waktu promo Early Bird diluncurkan. Jangan sampai kelewatan!</p>",
+        "content": "<p>Mau harga tiket paling murah? Follow media sosial kami supaya nggak kelewatan waktu promo Early Bird dibuka.</p>",
         "cta": "Follow Kami di Instagram"
       }
-    }
+    },
+    "instagramTip": "Tip: Semua bocoran dan info penting ada di Instagram. Pastikan kamu follow <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\" class=\"hover:text-primary transition\">{'@'}{instagram}</a>!"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
-    "description": "Setiap sudut expo adalah kesempatan untuk belajar, networking, dan dapat inspirasi. Kami sudah menyusun jadwal program lengkap supaya kamu bisa maksimalin kunjungan kamu.",
+    "description": "Setiap sudut expo punya sesuatu yang beda. Mulai dari seminar, demo masak, sampai business matching -- semuanya dirancang supaya kunjungan kamu nggak cuma jalan-jalan.",
     "items": {
       "0": {
         "title": "The Global Marketplace",
-        "description": "Ini jantung acaranya. Jelajahi 20.000m\u00b2 area yang diisi 1.200+ exhibitor dari seluruh dunia. Temukan ribuan produk baru, bahan baku, dan teknologi F&B, semuanya di bawah satu atap."
+        "description": "Ini pusatnya. Area 20.000m² diisi 1.200+ exhibitor dari berbagai negara. Ribuan produk, bahan baku, dan teknologi F&B bisa kamu temukan langsung di sini."
       },
       "1": {
         "title": "MoreFood Talks: Industry Summits",
-        "description": "Dapat keunggulan kompetitif lewat insight dari pemimpin industri, analis pasar, dan pengusaha sukses. Seri konferensi kami membahas masa depan F&B, tren pasar Halal, dan praktik bisnis berkelanjutan."
+        "description": "Dengerin langsung dari pemimpin industri, analis pasar, dan pengusaha sukses. Topiknya mulai dari masa depan F&B, tren pasar Halal, sampai strategi bisnis yang sustainable."
       },
       "2": {
         "title": "Launch Pad: The Innovation Stage",
-        "description": "Jadi yang pertama menyaksikan peluncuran produk baru. Panggung Launch Pad kami adalah tempat brand inovatif debut kreasi terbarunya, dari food tech hingga rasa-rasa baru yang exciting."
+        "description": "Panggung khusus buat brand yang mau launching produk baru. Dari food tech sampai rasa-rasa baru -- kamu bisa lihat duluan sebelum yang lain."
       },
       "3": {
         "title": "The Inspiration Zone",
-        "description": "Area hands-on dan interaktif yang dirancang buat memicu kreativitas kamu. Eksplorasi display sensorik, temukan food pairing unik, dan terinspirasi oleh konsep cafe dan layout retail yang inovatif."
+        "description": "Area interaktif yang bisa langsung kamu coba. Ada display sensorik, food pairing yang nggak biasa, dan konsep-konsep cafe dan retail yang bisa jadi referensi."
       },
       "4": {
         "title": "Business Matching Service",
-        "description": "Biarkan kami yang jodohkan. Kami akan menghubungkan kamu dengan buyer yang sudah terverifikasi untuk meeting yang fokus dan produktif."
+        "description": "Kamu nggak perlu cari sendiri. Kami bantu jodohkan kamu dengan buyer yang sudah terverifikasi. Meeting-nya fokus dan langsung ke inti."
       },
       "5": {
         "title": "Chef's Table: Live Cooking Demos",
-        "description": "Lihat, cium, dan rasakan masa depan F&B. Chef ternama naik panggung untuk mengolah produk exhibitor jadi mahakarya kuliner. Nikmati demo masak live, ide resep, dan sampel gratis yang lezat."
+        "description": "Chef ternama naik panggung, olah produk exhibitor jadi masakan yang bikin ngiler. Bisa nonton live, dapet ide resep, plus sampel gratis."
       },
       "6": {
         "title": "Creator's Hub: KOL Live Streams",
-        "description": "Rasakan antusiasmenya! Food influencer dan content creator top akan siaran langsung dari Creator's Hub kami. Saksikan mereka menemukan tren, wawancarai pemilik brand, dan bagikan keseruan ke jutaan penonton online."
+        "description": "Food influencer dan content creator top bakal siaran langsung dari Creator's Hub. Mereka eksplor tren, interview brand, dan share keseruan ke jutaan viewers online."
       },
       "7": {
         "title": "Halal Market Workshops",
-        "description": "Panduan praktis untuk sukses di pasar Halal. Ikuti workshop dari para ahli yang membahas mulai dari proses sertifikasi Halal di Indonesia hingga strategi marketing untuk menjangkau konsumen Muslim. Kursi terbatas."
+        "description": "Workshop praktis soal pasar Halal. Bahas mulai dari proses sertifikasi Halal di Indonesia sampai cara marketing ke konsumen Muslim. Tempat terbatas."
       }
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>Jadilah </span><span class='text-accent'>Bagian dari Cerita Kami</span>",
-    "description": "Sukses More Food Expo dibangun atas kemitraan yang kuat. Mau pamerkan produk, perkuat brand, atau liput acara? Kami punya kesempatan buat kamu. Temukan peran yang paling cocok di bawah ini.",
+    "title": "<span class='text-outline'>Gabung </span><span class='text-accent'>Bareng Kami</span>",
+    "description": "More Food Expo bisa sebesar ini karena dukungan banyak pihak. Mau pameran, jadi sponsor, atau liput acara? Ada tempat buat kamu.",
     "exhibitor": {
       "title": "Jadi Exhibitor",
-      "description": "Panggilan buat semua brand dan pengusaha F&B! Tunjukin produkmu ke audiens yang beragam dan antusias.",
+      "description": "Tunjukin produk F&B kamu ke ribuan pengunjung yang datang dengan niat beli dan cari supplier baru.",
       "cta": "Pesan Space Kamu"
     },
     "sponsor": {
       "title": "Jadi Sponsor",
-      "description": "Terhubung langsung dengan para decision-maker dengan jadi sponsor di event F&B terkemuka ini.",
+      "description": "Brand kamu langsung terlihat oleh decision-maker di industri F&B lewat sponsorship di event ini.",
       "cta": "Jadi Sponsor"
     },
     "mediaPartner": {
       "title": "Jadi Media Partner",
-      "description": "Partner dengan kami untuk liputan eksklusif dan akses ke cerita terbesar dari industri F&B.",
+      "description": "Dapetin akses eksklusif untuk meliput salah satu event F&B terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
     "reservedSpace": {
-      "title": "Space ini kami sediakan untuk mitra terbaik. Mau jadi salah satunya?",
+      "title": "Space ini kami sediakan untuk mitra yang tepat. Mungkin itu kamu?",
       "cta": "Jadi Partner"
     }
   },
   "visitorCta": {
-    "title": "<span class='text-outline'>Berhenti Scroll.</span> <span class='text-accent'>Mulai Icip-icip.</span>",
-    "description": "Layar kamu nggak bisa nangkep rasa peluang. Amankan tiket dan siap-siap merasakan masa depan industri F&B langsung.",
+    "title": "<span class='text-outline'>Stop Scrolling.</span> <span class='text-accent'>Langsung Datang.</span>",
+    "description": "Dari layar nggak bisa icip-icip. Ambil tiket kamu dan rasakan sendiri gimana serunya industri F&B Indonesia.",
     "cta": "Ambil Tiket"
   },
   "mediaCoverage": {
@@ -246,7 +247,7 @@
   },
   "brandList": {
     "title": "Brand",
-    "description": "Lihat daftar lengkap brand yang pameran di More Food Expo 2026. Temukan mitra baru dan produk dari berbagai brand makanan lokal dan internasional."
+    "description": "Daftar lengkap brand yang pameran di More Food Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional."
   },
   "contact": {
     "title": "Hubungi Kami",
@@ -270,11 +271,11 @@
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
-    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan dan kembangkan bisnis kamu."
+    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Gabung bareng brand-brand terdepan di industri F&B."
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
-    "description": "Cari tahu jawaban pertanyaan-pertanyaan seputar Food Expo, tiket, exhibitor, dan info lainnya di sini.",
+    "description": "Cari tahu jawaban pertanyaan-pertanyaan seputar More Food Expo, tiket, exhibitor, dan info lainnya di sini.",
     "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Silakan kembali lagi nanti.",
     "contactTitle": "Punya pertanyaan? Langsung kirim ke kami!",
     "items": {
@@ -288,7 +289,7 @@
       },
       "2": {
         "q": "Berapa harga tiketnya?",
-        "a": "<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami aja. Jangan sampe kelewatan promo early bird dan pre-sale buat dapetin harga spesial!</p>"
+        "a": "<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami. Jangan sampe kelewatan promo early bird dan pre-sale!</p>"
       },
       "3": {
         "q": "Apakah bisa refund kalau nggak bisa hadir?",
@@ -300,54 +301,54 @@
       },
       "5": {
         "q": "Siapa saja yang bisa hadir?",
-        "a": "<p>Acara ini terbuka untuk semua orang! Baik kamu pemilik cafe, pengusaha F&B, pecinta kopi, profesional industri makanan, atau yang sekadar suka eksplorasi tren kuliner, kamu welcome untuk hadir!</p>"
+        "a": "<p>Semua orang boleh datang! Pemilik cafe, pengusaha F&B, pecinta makanan, profesional industri, atau yang mau explore tren kuliner terbaru -- semuanya welcome.</p>"
       },
       "6": {
         "q": "Brand dan produk apa saja yang dipamerkan?",
-        "a": "<p>Kami menampilkan beragam brand F&B, supplier peralatan, penyedia bahan baku, dan perusahaan jasa. Mulai dari mesin kopi dan furniture cafe sampai bahan makanan dan solusi packaging. Kamu bisa lihat daftar exhibitor di halaman <a href=\"/brands\">Brands</a> kami.</p>"
+        "a": "<p>Ada beragam brand F&B, supplier peralatan, penyedia bahan baku, dan perusahaan jasa. Mulai dari mesin kopi, furniture cafe, bahan makanan, sampai solusi packaging. Lihat daftar exhibitor di halaman <a href=\"/brands\">Brands</a>.</p>"
       },
       "7": {
         "q": "Bagaimana cara jadi exhibitor?",
-        "a": "<p>Untuk jadi exhibitor dan pamerkan produk atau jasa F&B kamu, kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> kami atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info soal paket booth dan ketersediaannya.</p>"
+        "a": "<p>Kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info soal paket booth dan ketersediaannya.</p>"
       },
       "8": {
         "q": "Apakah ada sesi sampling atau tasting produk?",
-        "a": "<p>Tentu! Banyak exhibitor yang menawarkan sampling dan tasting produk di booth mereka. Ini kesempatan bagus untuk menemukan produk baru, bahan baku, dan rasa-rasa baru untuk bisnis atau kesenangan pribadi kamu.</p>"
+        "a": "<p>Banyak! Exhibitor biasanya sediakan sampling dan tasting di booth mereka. Kesempatan bagus buat nemu produk baru, bahan baku, dan rasa-rasa yang belum pernah kamu coba.</p>"
       },
       "9": {
         "q": "Apakah ada seminar atau workshop?",
-        "a": "<p>Ada! Kami mengadakan berbagai seminar, workshop, dan demo session yang membahas topik seperti teknik brewing, tren makanan, strategi bisnis, dan insight industri. Cek halaman <a href=\"/rundown\">Rundown</a> untuk jadwal lengkapnya.</p>"
+        "a": "<p>Ada! Kami mengadakan berbagai seminar, workshop, dan demo session soal teknik brewing, tren makanan, strategi bisnis, dan insight industri. Cek halaman <a href=\"/rundown\">Rundown</a> untuk jadwal lengkapnya.</p>"
       },
       "10": {
         "q": "Bagaimana cara menjadi sponsor atau media partner?",
-        "a": "<p>Kami terbuka untuk sponsorship dan media partnership. Silakan hubungi kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
+        "a": "<p>Kami terbuka untuk sponsorship dan media partnership. Hubungi kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
       },
       "11": {
         "q": "Apakah ada parkir di venue?",
-        "a": "<p>Ya, venue menyediakan fasilitas parkir. Tapi kami sarankan untuk datang lebih pagi karena parkir bisa cepat penuh saat jam ramai. Kamu juga bisa pertimbangkan pakai transportasi umum atau ride-sharing.</p>"
+        "a": "<p>Ada. Venue menyediakan fasilitas parkir, tapi kami sarankan datang lebih awal karena parkir bisa cepat penuh saat jam ramai. Bisa juga pakai transportasi umum atau ojek online.</p>"
       },
       "12": {
         "q": "Boleh foto atau video di acara?",
-        "a": "<p>Kamu boleh foto atau video untuk keperluan pribadi. Namun, untuk rekaman profesional atau komersial, perlu izin tertulis dari penyelenggara. Untuk detailnya, silakan baca <a href=\"/event-policy\">Event Policy</a> kami.</p>"
+        "a": "<p>Boleh untuk keperluan pribadi. Kalau untuk komersial atau profesional, harus minta izin tertulis dari penyelenggara dulu. Detailnya bisa dibaca di <a href=\"/event-policy\">Event Policy</a>.</p>"
       },
       "13": {
         "q": "Gimana caranya dapetin info terbaru soal acara?",
-        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat dapetin update terbaru, pengumuman, dan konten eksklusif lainnya. Kamu juga bisa kunjungi halaman <a href=\"/news\">News</a> untuk artikel dan info terkini.</p>"
+        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat dapetin update, pengumuman, dan konten eksklusif. Atau kunjungi halaman <a href=\"/news\">News</a> untuk artikel dan info terkini.</p>"
       },
       "14": {
         "q": "Bagaimana cara menghubungi organizer?",
-        "a": "<p>Kamu bisa hubungi kami melalui:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini untuk chat</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Kunjungi <a href=\"/help-center\">Help Center</a> kami untuk opsi kontak lainnya dan akses cepat ke berbagai informasi.</p>"
+        "a": "<p>Kamu bisa hubungi kami lewat:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini untuk chat</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Kunjungi <a href=\"/help-center\">Help Center</a> kami untuk opsi kontak lainnya.</p>"
       }
     }
   },
   "pages": {
     "home": {
-      "title": "More Food Expo Indonesia \u00b7 Pameran Makanan & Minuman Terbesar",
+      "title": "More Food Expo Indonesia · Pameran Makanan & Minuman Terbesar",
       "description": "More Food Expo Indonesia hadir 7-10 Mei 2026 di JIEXPO. Menghubungkan bisnis makanan dari seluruh dunia dengan pasar Halal Indonesia yang terus berkembang."
     },
     "brands": {
       "title": "Brand",
-      "description": "Lihat daftar lengkap brand yang pameran di More Food Expo 2026. Temukan mitra baru dan produk dari berbagai brand makanan lokal dan internasional."
+      "description": "Lihat daftar lengkap brand yang pameran di More Food Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional."
     },
     "rundown": {
       "title": "Rundown",
@@ -355,7 +356,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Kenali berbagai kegiatan di More Food Expo 2026. Mulai dari Business Matching sampai industry talks, temukan program yang dirancang untuk bantu kamu membangun koneksi."
+      "description": "Kenali program-program di More Food Expo 2026. Dari Business Matching sampai industry talks, semua dirancang buat bantu kamu bangun koneksi bisnis."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -363,11 +364,11 @@
     },
     "bookSpace": {
       "title": "Book Space",
-      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan."
+      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Gabung bareng brand-brand terdepan."
     },
     "ticket": {
       "title": "Ambil Tiket",
-      "description": "Dapatkan tiket masuk {appName}. Temukan semua info yang kamu butuhkan \u2014 tanggal, venue, dan pilihan tiket."
+      "description": "Dapatkan tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {
       "title": "Galeri Acara",
@@ -395,7 +396,7 @@
     },
     "partners": {
       "title": "Partner Kami",
-      "description": "Acara ini tidak akan terwujud tanpa dukungan luar biasa dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang membantu mewujudkan acara ini."
+      "description": "Acara ini nggak akan terwujud tanpa dukungan dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang ikut membangun acara ini."
     },
     "terms": {
       "title": "Syarat dan Ketentuan",

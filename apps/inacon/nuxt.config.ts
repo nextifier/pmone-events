@@ -67,6 +67,10 @@ export default defineNuxtConfig({
     name: "Indonesia Anime Con",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-QH16B87QEK" }],
   },

@@ -61,6 +61,10 @@ export default defineNuxtConfig({
     name: "Cafe & Brasserie Expo Jakarta",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-896FDXSRSL" }],
   },

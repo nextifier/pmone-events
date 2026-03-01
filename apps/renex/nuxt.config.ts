@@ -25,6 +25,10 @@ export default defineNuxtConfig({
     name: "Renovation Expo",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-2PJCW7S32V" }],
   },

@@ -39,17 +39,14 @@
         <h2
           class="text-[2.5rem] !leading-[1.25] font-semibold tracking-[-0.06em] text-balance text-white sm:text-6xl"
         >
-          Bring ICGP 2026 to Your City—Sign Up as a Regional Organizer!
+          {{ $t("icgp.joinTitle") }}
         </h2>
 
         <p class="mt-3 max-w-screen-md text-base tracking-tight sm:text-lg">
-          Are you an Event Organizer passionate about cosplay and ready to take
-          part in the biggest national competition? Indonesia Anime Con is now
-          accepting proposals from Event Organizers to conduct the ICGP 2026
-          Regional Preliminary Selection!
+          {{ $t("icgp.joinDescription") }}
         </p>
 
-        <p class="mt-3 tracking-tight">Deadline: November 21, 2025</p>
+        <p class="mt-3 tracking-tight">{{ $t("icgp.joinDeadline") }}</p>
 
         <div
           class="mt-6 flex flex-col items-center justify-center gap-y-6 lg:mt-8"
@@ -58,14 +55,14 @@
             to="mailto:icc@panoramamedia.co.id?subject=Apply for ICGP 2025 Regional Preliminary Selection"
             class="hover:bg-opacity-80 flex items-center justify-center rounded-full bg-white p-4 text-center font-medium tracking-tight text-black transition active:scale-95"
             v-ripple
-            >Apply</nuxt-link
+            >{{ $t("icgp.joinApply") }}</nuxt-link
           >
 
           <nuxt-link
             to="mailto:icc@panoramamedia.co.id?subject=Apply for ICGP 2025 Regional Preliminary Selection"
             class="text-center font-medium tracking-tight text-gray-300 transition hover:text-white"
             v-ripple
-            >or send your proposal to icc@panoramamedia.co.id</nuxt-link
+            >{{ $t("icgp.joinOrSend") }}</nuxt-link
           >
         </div>
       </div>

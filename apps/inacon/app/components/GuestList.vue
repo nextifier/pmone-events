@@ -22,13 +22,13 @@
                 !['index', 'guests'].includes(route.name),
             }"
           >
-            Meet Your Special Guests
+            {{ $t("guests.sectionTitle") }}
           </h2>
 
           <p
             class="text-foreground/80 mx-auto mt-2 max-w-3xl text-center text-base tracking-tight text-balance sm:text-lg"
           >
-            Meet the stars of {{ useAppConfig().event.title }}
+            {{ $t("guests.sectionDescription", { eventTitle: useAppConfig().event.title }) }}
           </p>
         </div>
         <div

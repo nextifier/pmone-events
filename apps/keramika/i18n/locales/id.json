@@ -143,137 +143,159 @@
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
   },
   "hero": {
-    "countdownLabel": "Pameran keramik terbesar dimulai dalam",
+    "countdownLabel": "Pameran dimulai dalam",
     "announcement": "Slot exhibitor masih tersedia!",
     "banners": {
       "0": {
         "subHeadline": "Pameran Industri Keramik Terbesar di ASEAN",
-        "content": "<p>Temukan teknologi, solusi, material, dan tren desain terbaru dari ratusan brand keramik unggulan. Dapatkan akses gratis ke konsultasi ahli dan insight eksklusif.</p>",
-        "cta": "Ambil Tiket Gratis"
+        "content": "<p>Ratusan brand keramik unggulan, semua di satu tempat. Lihat langsung teknologi, material, dan tren desain terbaru. Plus, konsultasi sama ahlinya.</p>",
+        "cta": "Dapatkan Tiket"
       },
       "1": {
-        "subHeadline": "Pamerkan Inovasi Kamu di Keramika!",
-        "content": "<p>Posisikan brand kamu di depan ribuan profesional industri, arsitek, dan decision-maker. Terhubung dengan pemain kunci dan perluas jaringan bisnis kamu.</p>",
+        "subHeadline": "Tampilkan Brand Kamu di Keramika!",
+        "content": "<p>Ribuan profesional industri, arsitek, dan buyer bakal hadir. Ini kesempatan buat perluas jaringan dan tunjukkan produk kamu langsung ke decision-maker.</p>",
         "cta": "Pesan Space Sekarang"
       },
       "2": {
         "subHeadline": "Konferensi & Seminar Keramik",
-        "content": "<p>Ikuti diskusi bersama para pemimpin industri dan ahli soal keramik berkelanjutan, teknologi terbaru, dan arah masa depan industri keramik.</p>",
+        "content": "<p>Dengerin langsung insight dari para ahli dan pemimpin industri soal keramik berkelanjutan, teknologi baru, dan arah masa depan industri.</p>",
         "cta": "Lihat Program Acara"
       },
       "3": {
         "subHeadline": "Jangan Ketinggalan Info!",
-        "content": "<p>Follow media sosial kami untuk info terbaru soal inovasi keramik, highlight exhibitor, dan update eksklusif menjelang acara. Ikut ramaikan percakapannya!</p>",
+        "content": "<p>Follow media sosial kami buat dapetin update soal inovasi keramik, highlight exhibitor, dan info eksklusif menjelang pameran.</p>",
         "cta": "Follow {'@'}keramikaid"
       }
-    }
+    },
+    "title": "Pameran Industri <span class=\"gradient-accent bg-clip-text font-semibold text-transparent\">Keramik</span> Terbesar di ASEAN",
+    "description": "Temukan teknologi, solusi, material, dan tren desain terbaru dari pameran industri keramik terbesar di ASEAN.",
+    "ctaTicket": "Dapatkan tiket",
+    "ctaExhibit": "Daftar Exhibitor",
+    "playRecap": "Tonton Highlight",
+    "edition": "Edisi ke-{n}"
   },
   "brandPreview": {
-    "title": "Temukan Brand-Brand Unggulan di {appName}"
+    "title": "Brand-Brand yang Hadir di {appName}"
   },
   "brandList": {
     "title": "Brand",
-    "description": "Jelajahi beragam brand yang memamerkan inovasi dan produk terbaru di industri keramik."
+    "description": "Jelajahi brand-brand dari industri keramik dan bahan bangunan yang pamerkan produk dan inovasi terbaru mereka."
   },
   "mainPrograms": {
     "title": "<span class=''>Program</span> <span class=''>Utama</span>",
-    "description": "Jelajahi program utama di {appName}, mulai dari pameran, konferensi bisnis, seminar, hingga business matching. Dapatkan insight dan perluas jaringan dengan para ahli industri.",
+    "description": "Pameran, konferensi, seminar, business matching — semua ada di {appName}. Dapetin insight dan kenalan langsung sama para pemain industri.",
     "items": {
       "0": {
         "title": "Exhibition",
-        "description": "Menampilkan produsen keramik terkemuka Indonesia dengan produk dan desain terbarunya, ditambah kebutuhan industri penting mulai dari bahan baku, mesin, hingga teknologi dan peralatan canggih."
+        "description": "Produsen keramik top Indonesia tampil dengan produk dan desain terbaru. Lengkap dengan kebutuhan industri: bahan baku, mesin, teknologi, dan peralatan."
       },
       "1": {
         "title": "Opening Ceremony",
-        "description": "Hadir di pembukaan besar bersama Megabuild Indonesia ke-23, diresmikan oleh Kementerian Perindustrian dan dihadiri tamu kehormatan dari berbagai institusi, asosiasi, komunitas, dan media."
+        "description": "Pembukaan besar bareng Megabuild Indonesia ke-23. Diresmikan Kementerian Perindustrian, dihadiri perwakilan dari berbagai institusi, asosiasi, komunitas, dan media."
       },
       "2": {
         "title": "Keramika Conference",
-        "description": "Bahas topik-topik industri keramik yang relevan untuk semester kedua 2026. Menghadirkan pembicara ahli dan pemimpin industri, konferensi ini berlangsung di hari pertama dan kedua pameran."
+        "description": "Konferensi yang bahas topik industri keramik buat semester kedua 2026. Pembicara ahli dan pemimpin industri tampil di hari pertama dan kedua pameran."
       },
       "3": {
         "title": "1O1 - Business Matching",
-        "description": "Menghubungkan produsen keramik Indonesia dengan importir ASEAN, distributor baru, dan pemilik proyek. Kami juga mempertemukan pemasok bahan baku, teknologi, dan mesin dengan produsen di seluruh kawasan."
+        "description": "Pertemukan produsen keramik Indonesia dengan importir ASEAN, distributor baru, dan pemilik proyek. Supplier bahan baku, teknologi, dan mesin juga kami hubungkan dengan produsen se-kawasan."
       },
       "4": {
         "title": "Power Networking Night",
-        "description": "Makan malam dan sesi networking untuk pemilik perusahaan, manajemen puncak, pemimpin asosiasi, dan seluruh pelaku industri. Kenalan di sini bisa jadi kerjasama jangka panjang."
+        "description": "Dinner dan networking buat pemilik perusahaan, top management, pemimpin asosiasi, dan seluruh pelaku industri. Koneksi yang dibangun di sini bisa jadi kolaborasi jangka panjang."
       },
       "5": {
         "title": "Hosted Buyer Program",
-        "description": "Kami mendatangkan buyer dan partner yang ditargetkan dari seluruh ASEAN untuk bertemu exhibitor. Akomodasi ditanggung penuh oleh penyelenggara untuk pelaku industri yang memenuhi syarat."
+        "description": "Kami undang buyer dan partner dari seluruh ASEAN untuk ketemu exhibitor. Akomodasi ditanggung penuh oleh panitia buat pelaku industri yang lolos seleksi."
       },
       "6": {
         "title": "The Beauty of Indonesia Ceramics Installation",
-        "description": "Showcase kurasi yang menampilkan desain terbaik dari keramik Indonesia, dari ubin lantai dan sanitaryware hingga produk atap dan peralatan makan. Lihat keahlian lokal terbaik di satu tempat."
+        "description": "Pameran kurasi yang tampilkan desain terbaik keramik Indonesia — dari ubin lantai, sanitaryware, produk atap, sampai peralatan makan. Semua karya lokal terbaik di satu tempat."
       },
       "7": {
         "title": "Professional & Student Visit",
-        "description": "Mengundang arsitek, desainer interior, konsultan, mahasiswa desain, dan dosen dari Singapura, Malaysia, dan Indonesia untuk menjelajahi pameran dan menemukan inovasi keramik terbaru."
+        "description": "Undangan khusus buat arsitek, desainer interior, konsultan, mahasiswa desain, dan dosen dari Singapura, Malaysia, dan Indonesia. Kesempatan lihat langsung inovasi keramik terkini."
       },
       "8": {
         "title": "Brand Talks",
-        "description": "Sesi bergaya podcast yang membahas produk, desain, teknologi, dan inovasi terbaru dari brand peserta. Setiap brand mendapat spotlight 30 menit untuk menceritakan kisah mereka."
+        "description": "Sesi podcast-style yang bahas produk, desain, teknologi, dan inovasi dari brand peserta. Tiap brand dapet spotlight 30 menit buat ceritain brand mereka."
       },
       "9": {
         "title": "Ceramics Artistic Showcase",
-        "description": "Saksikan seniman keramik mendemonstrasikan teknik pembuatan gerabah tradisional dan modern menggunakan tanah liat lokal. Demo langsung dengan berbagai alat dan material yang menginspirasi pengunjung."
+        "description": "Seniman keramik demo teknik bikin gerabah — tradisional dan modern — pakai tanah liat lokal. Live demo yang bikin pengunjung pengen ikut coba."
       },
       "10": {
         "title": "Designer Workshops",
-        "description": "Bekerja sama dengan Ikatan Arsitek Indonesia dan Himpunan Interior Desainer Indonesia untuk menyelenggarakan workshop, pelatihan, dan program edukasi yang bernilai bagi anggota mereka."
+        "description": "Kolaborasi dengan IAI dan HDII buat workshop, pelatihan, dan program edukasi yang beneran berguna buat anggota mereka yang dateng ke pameran."
       },
       "11": {
         "title": "Building Contractors & Property Developers Members Gathering",
-        "description": "Acara kolaborasi dengan Asosiasi Pengembang Real Estat Indonesia dan Asosiasi Kontraktor Indonesia, mempertemukan anggota untuk networking dan berbagi pengetahuan selama pameran."
+        "description": "Acara bareng REI dan AKI — ajang networking dan sharing antar anggota selama pameran berlangsung."
       },
       "12": {
         "title": "Seminars, Forum, Talkshows",
-        "description": "Menampilkan media partner seperti Tender Indonesia, Archinesia, dan Indonesia Design. Sesi-sesi ini menarik target audiens pameran keramik dengan insight berharga dan diskusi industri."
+        "description": "Bareng media partner seperti Tender Indonesia, Archinesia, dan Indonesia Design. Sesi-sesi yang bawa insight dan diskusi buat target audiens pameran keramik."
       },
       "13": {
         "title": "Jakarta Design Week 2026",
-        "description": "Kolaborasi dengan Ikatan Arsitek Indonesia dan Pemerintah Provinsi DKI Jakarta, menghadirkan forum dan konferensi yang membahas tantangan arsitektur dan inovasi yang membentuk masa depan kota."
+        "description": "Kolaborasi dengan IAI dan Pemprov DKI Jakarta. Forum dan konferensi yang angkat tantangan arsitektur dan inovasi buat masa depan kota."
       },
       "14": {
         "title": "Floor & Wall Tile Installation Competition",
-        "description": "Tukang pasang keramik berkompetisi menggunakan produk dari exhibitor Keramika. Tunjukkan keahlian dan craftsmanship kamu untuk meraih hadiah uang tunai 5 juta rupiah."
+        "description": "Tukang pasang keramik adu skill pakai produk dari exhibitor Keramika. Tunjukkan keahlianmu dan rebut hadiah Rp5 juta."
       },
       "15": {
         "title": "Keramika Charity",
-        "description": "Exhibitor mendonasikan produk pilihan untuk dijual ke pengunjung, dengan seluruh hasil penjualan disalurkan langsung ke yayasan amal. Belanja produk bagus sambil beramal."
+        "description": "Exhibitor donasikan produk pilihan buat dijual ke pengunjung. Semua hasilnya disalurkan langsung ke yayasan amal. Belanja bagus, sekalian beramal."
       },
       "16": {
         "title": "Keramika Awards 2026",
-        "description": "Mengapresiasi keunggulan di industri keramik Indonesia. Bekerja sama dengan HDII, IAI, dan GBCI, kami memberikan penghargaan untuk pencapaian luar biasa dalam kategori Best Design, Best Finishes, Color, dan lainnya."
+        "description": "Penghargaan buat yang terbaik di industri keramik Indonesia. Bareng HDII, IAI, dan GBCI, kami beri apresiasi di kategori Best Design, Best Finishes, Color, dan lainnya."
       },
       "17": {
         "title": "Keramika Best Booth",
-        "description": "Merayakan kreativitas booth di empat kategori: booth besar (>108 m\u00b2), booth sedang (50-108 m\u00b2), booth kecil (<50 m\u00b2), dan Booth Favorit yang dipilih lewat voting."
+        "description": "Apresiasi kreativitas booth di empat kategori: booth besar (>108 m²), sedang (50-108 m²), kecil (<50 m²), dan Booth Favorit pilihan pengunjung."
       }
     }
   },
   "factsAndFigures": {
     "subtitle": "Facts & Figures",
-    "title": "Kenapa Keramika Indonesia Jadi Pemimpin Industri",
-    "description": "Data dari 21 edisi bicara sendiri — Keramika Indonesia sudah jadi tempat ribuan bisnis keramik berkembang dan menemukan peluang baru."
+    "title": "21 Edisi, Buktinya Bicara",
+    "description": "Data dari 21 edisi Keramika Indonesia. Ribuan bisnis keramik sudah berkembang dan menemukan peluang baru lewat pameran ini.",
+    "stats": {
+      "visitors": {
+        "label": "Total Pengunjung",
+        "description": "dari 45 negara"
+      },
+      "exhibitors": {
+        "label": "Total Exhibitor",
+        "description": "dari 25 negara"
+      },
+      "transaction": {
+        "label": "Nilai Transaksi"
+      },
+      "leads": {
+        "label": "Total Leads"
+      }
+    }
   },
   "partnerships": {
-    "title": "<span class=''>Jadilah </span><span class='text-primary'>Bagian dari Cerita Kami</span>",
-    "description": "Bawa bisnis kamu ke level selanjutnya dengan ikut di {appName}. Ketemu calon partner, dapatkan eksposur, dan perluas network kamu.",
+    "title": "<span class=''>Jadilah </span><span class='text-primary'>Bagian dari Keramika</span>",
+    "description": "Ikut {appName} — ketemu calon partner, perluas network, dan buat brand kamu makin dikenal di industri keramik.",
     "exhibitor": {
       "title": "Jadi Exhibitor",
-      "description": "Panggilan buat semua brand dan pengusaha! Pamerkan produk kamu ke audiens yang beragam dan antusias.",
+      "description": "Buat semua brand dan pengusaha — ini kesempatan pamerkan produk kamu ke ribuan pengunjung dan buyer.",
       "cta": "Book Space Kamu"
     },
     "sponsor": {
       "title": "Jadi Sponsor",
-      "description": "Terhubung langsung dengan para decision-maker dengan jadi sponsor di pameran keramik terkemuka ini.",
+      "description": "Sponsori pameran keramik terbesar di ASEAN. Langsung terhubung dengan para decision-maker industri.",
       "cta": "Jadi Sponsor"
     },
     "mediaPartner": {
       "title": "Jadi Media Partner",
-      "description": "Partner dengan kami untuk liputan eksklusif dan akses ke cerita terbesar dari industri keramik.",
+      "description": "Akses eksklusif buat liputan dan cerita dari pameran keramik terbesar di kawasan.",
       "cta": "Gabung sebagai Media"
     },
     "reservedSpace": {
@@ -283,8 +305,8 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">Mau renovasi rumah?</span><br /><span class=\"\">Panduan lengkap kamu ada di sini.</span>",
-    "description": "Nggak perlu lagi browsing tanpa ujung. Supplier keramik, inspirasi desain, saran langsung dari ahlinya — semua ada di satu tempat. Gratis masuk, tinggal datang.",
-    "cta": "Ambil Tiket Gratis"
+    "description": "Nggak perlu lagi browsing tanpa ujung. Supplier keramik, inspirasi desain, saran langsung dari ahlinya — semua ada di satu tempat.",
+    "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
     "title": "Liputan Media & Komunitas",
@@ -300,7 +322,7 @@
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
-    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan dan kembangkan bisnis kamu."
+    "description": "Amankan booth kamu di {appName} dan tampilkan brand kamu ke ribuan pengunjung dan buyer industri."
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
@@ -373,11 +395,11 @@
   "pages": {
     "home": {
       "title": "Keramika Indonesia: Pameran Industri Keramik Terbesar di ASEAN",
-      "description": "Dapatkan inspirasi dari teknologi, solusi, material, dan tren desain terbaru di pameran industri keramik terdepan se-ASEAN."
+      "description": "Temukan teknologi, solusi, material, dan tren desain terbaru dari pameran industri keramik terbesar se-ASEAN."
     },
     "brands": {
       "title": "Brand",
-      "description": "Jelajahi beragam brand yang memamerkan inovasi dan produk terbaru di industri keramik."
+      "description": "Jelajahi brand-brand dari industri keramik dan bahan bangunan yang pamerkan produk dan inovasi terbaru mereka."
     },
     "rundown": {
       "title": "Rundown",
@@ -385,7 +407,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Jelajahi program utama di {appName} — pameran, konferensi bisnis, seminar, dan business matching. Dapatkan insight dan perluas jaringan."
+      "description": "Pameran, konferensi, seminar, dan business matching di {appName}. Dapetin insight dan perluas jaringan."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -393,7 +415,7 @@
     },
     "bookSpace": {
       "title": "Book Space",
-      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan."
+      "description": "Amankan booth kamu di {appName} dan tampilkan brand kamu ke ribuan pengunjung dan buyer industri."
     },
     "ticket": {
       "title": "Ambil Tiket",
@@ -425,7 +447,7 @@
     },
     "partners": {
       "title": "Partner Kami",
-      "description": "Acara ini tidak akan terwujud tanpa dukungan luar biasa dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang membantu mewujudkan acara ini."
+      "description": "Acara ini tidak akan terwujud tanpa dukungan dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang bantu wujudkan acara ini."
     },
     "terms": {
       "title": "Syarat dan Ketentuan",

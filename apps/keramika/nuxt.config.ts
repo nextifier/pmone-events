@@ -26,6 +26,10 @@ export default defineNuxtConfig({
     name: "Keramika Indonesia",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-1V56RJ2Q78" }],
   },

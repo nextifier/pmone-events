@@ -52,32 +52,33 @@
 
 <script setup>
 const content = computed(() => useContentStore().components.factsAndFigures);
+const { t } = useI18n();
 
-const stats = ref([
+const stats = computed(() => [
   {
     prefix: "",
     value: 450000,
-    label: "Total Visitors",
-    description: "from 45 countries",
+    label: t("factsAndFigures.stats.visitors.label"),
+    description: t("factsAndFigures.stats.visitors.description"),
     icon: "lucide:users-round",
   },
   {
     prefix: "",
     value: 5000,
-    label: "Total Exhibitors",
-    description: "from 25 countries",
+    label: t("factsAndFigures.stats.exhibitors.label"),
+    description: t("factsAndFigures.stats.exhibitors.description"),
     icon: "lucide:layers-3",
   },
   {
     prefix: "$",
     value: 7000000000,
-    label: "Transaction Value",
+    label: t("factsAndFigures.stats.transaction.label"),
     icon: "lucide:circle-dollar-sign",
   },
   {
     prefix: "",
     value: 60000,
-    label: "Total Leads",
+    label: t("factsAndFigures.stats.leads.label"),
     icon: "lucide:handshake",
   },
 ]);

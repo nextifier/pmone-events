@@ -33,14 +33,13 @@
         </div>
 
         <h2 class="section-title relative z-10">
-          <span class="3xl:text-6xl text-4xl lg:text-5xl"></span> Countdown
-          Begins! 5 Cities, 1 Goal—Who Will Be the Next ICGP Champion?
+          <span class="3xl:text-6xl text-4xl lg:text-5xl"></span>
+          {{ $t("icgp.citiesTitle") }}
           <span class="3xl:text-6xl text-4xl lg:text-5xl"></span>
         </h2>
 
         <p class="relative z-10 mt-3 text-base tracking-tight sm:text-lg">
-          ICGP is kicking off in 5 cities! Check out the list and get ready to
-          join the most exciting cosplay journey of the year!
+          {{ $t("icgp.citiesDescription") }}
         </p>
       </div>
 
@@ -80,7 +79,7 @@
 
           <div v-if="item.judges" class="mt-2">
             <span class="text-xs tracking-tight sm:text-sm"
-              >Judge<span v-if="item.judges.length > 1">s</span>:
+              >{{ item.judges.length > 1 ? $t("icgp.judges") : $t("icgp.judge") }}:
 
               <span v-for="(judge, index) in item.judges" :key="index">
                 <!-- Case for 2 items -->
@@ -129,7 +128,7 @@
               </div>
 
               <div class="flex flex-col items-start">
-                <span class="text-xs tracking-tight">Organized by</span>
+                <span class="text-xs tracking-tight">{{ $t("icgp.organizedBy") }}</span>
                 <span
                   class="text-foreground line-clamp-1 font-semibold tracking-tight"
                   >{{ item.organizer.name }}</span

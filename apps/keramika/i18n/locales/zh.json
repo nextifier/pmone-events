@@ -59,7 +59,7 @@
     "title": "Rundown",
     "description": "查看 {appName} 的完整活动日程和节目安排。",
     "comingSoon": "Rundown 即将公布，过段时间再来看看！",
-    "nothingYet": "这里还什么都没有……敬请期待！"
+    "nothingYet": "还没有内容，敬请期待！"
   },
   "ticket": {
     "agreementPrefix": "继续购票即表示你同意",
@@ -143,137 +143,159 @@
     "Supported by": "支持方"
   },
   "hero": {
-    "countdownLabel": "东盟最大陶瓷展即将开幕：",
+    "countdownLabel": "开展倒计时",
     "announcement": "参展 Booth 仍有空位",
     "banners": {
       "0": {
         "subHeadline": "东盟领先的陶瓷行业展览会",
-        "content": "<p>探索数百家陶瓷品牌带来的最新技术、解决方案、材料和设计趋势。免费获取专家咨询和行业独家洞察。</p>",
-        "cta": "领取免费门票"
+        "content": "<p>数百家陶瓷品牌齐聚一堂。最新技术、材料、设计趋势，现场一次看个够。还有专家咨询。</p>",
+        "cta": "领取门票"
       },
       "1": {
-        "subHeadline": "在 Keramika 展示你的创新！",
-        "content": "<p>让你的品牌站在数千名行业专家、建筑师和决策者面前。对接关键合作方，拓展你的商业网络。</p>",
+        "subHeadline": "在 Keramika 展示你的品牌",
+        "content": "<p>数千名行业专家、建筑师、采购决策者将到场。拓展商业网络，让你的品牌被更多人看到。</p>",
         "cta": "立即预订展位"
       },
       "2": {
         "subHeadline": "行业会议与研讨会",
-        "content": "<p>与行业领袖和专家一起，深入探讨可持续陶瓷、前沿技术和塑造陶瓷行业未来的趋势。</p>",
+        "content": "<p>和行业大咖面对面聊可持续陶瓷、前沿技术，以及行业接下来的走向。</p>",
         "cta": "查看活动项目"
       },
       "3": {
-        "subHeadline": "别错过任何行业动态！",
-        "content": "<p>关注我们的社交媒体，第一时间获取陶瓷创新、参展亮点和展会独家信息。加入讨论！</p>",
+        "subHeadline": "别错过行业动态",
+        "content": "<p>关注我们的社交媒体，第一时间获取参展品牌信息、活动亮点和独家内容。</p>",
         "cta": "关注 {'@'}keramikaid"
       }
-    }
+    },
+    "title": "东盟领先的<span class=\"gradient-accent bg-clip-text font-semibold text-transparent\">陶瓷</span>行业展览会",
+    "description": "在 ASEAN 领先的陶瓷产业展上，探索最新技术、材料和设计趋势。",
+    "ctaTicket": "领取门票",
+    "ctaExhibit": "参展报名",
+    "playRecap": "观看精彩回顾",
+    "edition": "第{n}届"
   },
   "brandPreview": {
     "title": "看看 {appName} 都有哪些品牌"
   },
   "brandList": {
     "title": "Brand",
-    "description": "浏览陶瓷行业各大品牌展示的最新创新产品和解决方案。"
+    "description": "浏览陶瓷及建材行业各大品牌展示的最新产品。"
   },
   "mainPrograms": {
     "title": "<span class=''>核心</span> <span class=''>项目</span>",
-    "description": "{appName} 不只是展览。这里有行业大会、深度培训、精准对接——帮你拿到真正有用的行业干货和人脉。",
+    "description": "展览、行业大会、深度培训、精准对接——在 {appName} 拿到真正有用的行业资源和人脉。",
     "items": {
       "0": {
         "title": "Exhibition",
-        "description": "汇聚印尼顶级陶瓷制造商的最新产品和设计，同时展示行业必需品——从原材料、机械到尖端技术和设备。"
+        "description": "印尼顶级陶瓷制造商携最新产品和设计亮相。原材料、机械、技术、设备——行业必需品一站齐全。"
       },
       "1": {
         "title": "Opening Ceremony",
-        "description": "与第23届 Megabuild Indonesia 联合举行的盛大开幕式，由工业部揭幕，来自各机构、协会、社区和媒体的重要嘉宾出席。"
+        "description": "与第23届 Megabuild Indonesia 联合举办的开幕式。工业部揭幕，各机构、协会、社区和媒体的重要嘉宾出席。"
       },
       "2": {
         "title": "Keramika Conference",
-        "description": "聚焦2026年下半年陶瓷行业热门话题。邀请行业专家和领军人物，会议在展览的第一和第二天举行。"
+        "description": "聚焦2026年下半年陶瓷行业的核心话题。行业专家和领军人物登台，展览第一天和第二天举行。"
       },
       "3": {
         "title": "1O1 - Business Matching",
-        "description": "将印尼陶瓷制造商与东盟进口商、新经销商和项目方对接。同时为原材料、技术和机械供应商搭建区域合作桥梁。"
+        "description": "把印尼陶瓷制造商和东盟进口商、新经销商、项目方对接起来。同时为原材料、技术和机械供应商搭建区域合作桥梁。"
       },
       "4": {
         "title": "Power Networking Night",
-        "description": "为企业主、高管、协会领袖和行业利益相关方举办的晚宴和交流活动。建立有价值的连接，促成未来合作。"
+        "description": "企业主、高管、协会领袖和行业相关方的晚宴交流活动。在这里建立的连接，可能就是下一个合作机会。"
       },
       "5": {
         "title": "Hosted Buyer Program",
-        "description": "我们从东盟各地邀请目标买家和合作伙伴与参展商对接。符合条件的行业人士，住宿由主办方全额承担。"
+        "description": "从东盟各地邀请目标买家和合作方，直接和参展商对接。符合条件的业内人士，住宿由主办方全额承担。"
       },
       "6": {
         "title": "The Beauty of Indonesia Ceramics Installation",
-        "description": "精选展示印尼陶瓷的顶级设计——从地砖、卫浴到屋顶产品和餐具。在一个地方看到本土匠心的精华。"
+        "description": "精选印尼陶瓷的顶级设计——地砖、卫浴、屋顶产品、餐具，本土匠心的精华都在这里。"
       },
       "7": {
         "title": "Professional & Student Visit",
-        "description": "邀请新加坡、马来西亚和印尼的建筑师、室内设计师、顾问、设计专业学生和讲师参观展览，发现陶瓷创新前沿。"
+        "description": "邀请新加坡、马来西亚和印尼的建筑师、室内设计师、顾问、设计专业学生和讲师参观展览，直接体验陶瓷领域的最新动态。"
       },
       "8": {
         "title": "Brand Talks",
-        "description": "播客式分享会，讨论参展品牌的最新产品、设计、技术和创新。每个品牌有30分钟专属时间讲述自己的故事。"
+        "description": "播客式分享会，参展品牌讲述最新产品、设计、技术背后的故事。每个品牌有30分钟专属时间。"
       },
       "9": {
         "title": "Ceramics Artistic Showcase",
-        "description": "观看陶艺师使用本地粘土演示传统和现代制陶技艺。现场表演使用各种工具和材料，激发观众动手尝试。"
+        "description": "陶艺师用本地粘土现场演示传统和现代制陶技艺。各种工具和材料轮番上阵，看完就想自己动手试试。"
       },
       "10": {
         "title": "Designer Workshops",
-        "description": "与印尼建筑师协会和印尼室内设计师协会合作，提供工作坊、培训和教育项目，为参展会员带来实际价值。"
+        "description": "与印尼建筑师协会（IAI）和印尼室内设计师协会（HDII）合作，为参展会员提供工作坊、培训和教育项目。"
       },
       "11": {
         "title": "Building Contractors & Property Developers Members Gathering",
-        "description": "与印尼房地产协会和印尼承包商协会联合举办，在展会期间为会员搭建交流和知识共享的平台。"
+        "description": "与印尼房地产协会（REI）和印尼承包商协会（AKI）联合举办。展会期间为会员搭建交流和分享的平台。"
       },
       "12": {
         "title": "Seminars, Forum, Talkshows",
-        "description": "联合 Tender Indonesia、Archinesia、Indonesia Design 等媒体合作伙伴，用有价值的行业洞察和讨论吸引陶瓷展的目标观众。"
+        "description": "联合 Tender Indonesia、Archinesia、Indonesia Design 等媒体伙伴，带来有干货的行业讨论和深度分享。"
       },
       "13": {
         "title": "Jakarta Design Week 2026",
-        "description": "与印尼建筑师协会和雅加达省政府合作，举办聚焦建筑挑战和城市未来创新的论坛和会议。"
+        "description": "与印尼建筑师协会（IAI）和雅加达省政府合作，围绕建筑挑战和城市创新举办论坛和会议。"
       },
       "14": {
         "title": "Floor & Wall Tile Installation Competition",
-        "description": "瓷砖安装工使用 Keramika 参展商的产品进行竞技。展示你的技艺，赢取500万印尼盾的现金大奖。"
+        "description": "瓷砖安装师傅用 Keramika 参展商的产品一决高下。秀出你的手艺，争夺500万印尼盾现金大奖。"
       },
       "15": {
         "title": "Keramika Charity",
-        "description": "参展商捐赠精选产品向观众出售，所有收益直接捐给慈善机构。买到好产品，同时也在做好事。"
+        "description": "参展商捐出精选产品向观众出售，全部收益直接捐给慈善机构。买好东西的同时做好事。"
       },
       "16": {
         "title": "Keramika Awards 2026",
-        "description": "表彰印尼陶瓷行业的卓越成就。与 HDII、IAI 和 GBCI 合作，在最佳设计、最佳表面处理、色彩等类别中颁发大奖。"
+        "description": "表彰印尼陶瓷行业的出色成就。与 HDII、IAI 和 GBCI 合作，设置最佳设计、最佳表面处理、色彩等奖项。"
       },
       "17": {
         "title": "Keramika Best Booth",
-        "description": "在四个类别中评选最佳展位创意：大型展位（>108平方米）、中型展位（50-108平方米）、小型展位（<50平方米），以及观众投票选出的最受欢迎展位。"
+        "description": "四个类别评选最佳展位：大型（>108平方米）、中型（50-108平方米）、小型（<50平方米），以及观众投票选出的最受欢迎展位。"
       }
     }
   },
   "factsAndFigures": {
     "subtitle": "数据与实力",
-    "title": "Keramika Indonesia 为什么是行业标杆",
-    "description": "21 届办下来，数据说话——上千家陶瓷企业在 Keramika Indonesia 找到了增长机会。"
+    "title": "21届办下来，数据说话",
+    "description": "Keramika Indonesia 举办了21届，上千家陶瓷企业在这里找到了增长机会和新合作。",
+    "stats": {
+      "visitors": {
+        "label": "总访客数",
+        "description": "来自45个国家"
+      },
+      "exhibitors": {
+        "label": "总展商数",
+        "description": "来自25个国家"
+      },
+      "transaction": {
+        "label": "交易总额"
+      },
+      "leads": {
+        "label": "总商机数"
+      }
+    }
   },
   "partnerships": {
-    "title": "<span class=''>加入 </span><span class='text-primary'>我们的故事</span>",
-    "description": "通过参与 {appName}，让你的品牌被更多人看到。结识潜在合作伙伴，拓展你的商业网络。",
+    "title": "<span class=''>加入 </span><span class='text-primary'>Keramika</span>",
+    "description": "参与 {appName}，结识潜在合作伙伴，让你的品牌被更多人看到，拓展商业网络。",
     "exhibitor": {
       "title": "成为参展商",
-      "description": "品牌方、企业主注意了！把你的产品展示给上万名潜在客户和行业买家。",
+      "description": "品牌方、企业主注意了——把你的产品展示给上万名观众和行业买家。",
       "cta": "预订展位"
     },
     "sponsor": {
       "title": "成为赞助商",
-      "description": "赞助陶瓷行业头部展会，直接触达核心决策者。",
+      "description": "赞助东盟陶瓷行业头部展会，直接触达核心决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
       "title": "成为媒体合作伙伴",
-      "description": "与我们合作，获取独家内容和陶瓷行业深度报道资源。",
+      "description": "与我们合作，获取陶瓷行业大展的独家报道资源。",
       "cta": "媒体合作"
     },
     "reservedSpace": {
@@ -283,8 +305,8 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">在规划装修？</span><br /><span class=\"\">你需要的一站式指南就在这里。</span>",
-    "description": "别再漫无目的地网上搜索了。所有供应商、灵感和专业建议都在一个地方。领取免费通行证，获取更聪明的装修方案。",
-    "cta": "领取免费门票"
+    "description": "别再漫无目的地搜索了。供应商、设计灵感、专业建议，一个地方全搞定。",
+    "cta": "领取门票"
   },
   "mediaCoverage": {
     "title": "行业媒体报道",
@@ -292,7 +314,7 @@
   },
   "credits": {
     "title": "活动背后的社区力量",
-    "description": "感谢所有合作伙伴、赞助商和媒体的鼎力支持，让这场活动成为可能。"
+    "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场活动成为可能。"
   },
   "postSlider": {
     "title": "最新动态",
@@ -300,7 +322,7 @@
   },
   "bookSpace": {
     "title": "参展商报名",
-    "description": "在 {appName} 预订你的展位，向上万名潜在客户展示品牌实力。和行业领先品牌一起亮相。"
+    "description": "在 {appName} 预订展位，向上万名观众和行业买家展示你的品牌。"
   },
   "faq": {
     "title": "常见问题",
@@ -313,7 +335,7 @@
         "a": "<p>{eventTitle} 将于 <strong>{eventDate}</strong>，<strong>{eventTime}</strong> 在 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a> 举办。</p>"
       },
       "1": {
-        "q": "怎么获取陶瓷展门票？",
+        "q": "怎么获取门票？",
         "a": "<p>通过我们的官方网站就可以。点击 <a href=\"/ticket\">Get Ticket</a> 按钮，按流程完成注册。电子门票会发送到你的 Email 和 WhatsApp。</p>"
       },
       "2": {
@@ -326,15 +348,15 @@
       },
       "4": {
         "q": "去现场需要带什么？",
-        "a": "<p>带上你的电子门票（手机出示或打印均可），在签到台换取入场证。如果你想和参展商交流，建议带上名片。</p>"
+        "a": "<p>带上你的电子门票（手机出示或打印均可），在签到台换取入场证。想和参展商交流的话，建议带上名片。</p>"
       },
       "5": {
         "q": "谁可以参加？",
-        "a": "<p>活动对所有人开放。不管你是建筑师、室内设计师、承包商、房产开发商，还是对陶瓷产品和装修感兴趣的朋友，都欢迎来。</p>"
+        "a": "<p>所有人都可以。建筑师、室内设计师、承包商、房产开发商，或者对陶瓷产品和装修感兴趣的朋友，都欢迎来。</p>"
       },
       "6": {
         "q": "有哪些品牌参展？",
-        "a": "<p>我们汇集了陶瓷和建材行业的各类品牌。完整参展商名单请查看 <a href=\"/brands\">Brands 页面</a>，名单会持续更新。</p>"
+        "a": "<p>陶瓷和建材行业的各类品牌都会参展。完整名单请查看 <a href=\"/brands\">Brands 页面</a>，会持续更新。</p>"
       },
       "7": {
         "q": "怎么报名成为参展商？",
@@ -342,27 +364,27 @@
       },
       "8": {
         "q": "现场有讲座或工作坊吗？",
-        "a": "<p>有的！我们安排了多场行业会议、研讨会、工作坊和社交活动。完整日程请查看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
+        "a": "<p>有的！我们安排了行业会议、研讨会、工作坊和社交活动。完整日程请查看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
       },
       "9": {
         "q": "怎么成为赞助商或媒体合作伙伴？",
-        "a": "<p>欢迎合作！请通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们，聊聊合作方案。</p>"
+        "a": "<p>欢迎合作！请通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们聊聊。</p>"
       },
       "10": {
         "q": "展馆有停车位吗？",
-        "a": "<p>有的，展馆提供停车设施。不过高峰时段车位可能紧张，建议提早到达或考虑打车。</p>"
+        "a": "<p>有的，展馆提供停车设施。高峰时段车位可能紧张，建议提早到达或打车来。</p>"
       },
       "11": {
         "q": "现场可以拍照录像吗？",
-        "a": "<p>个人用途的拍照录像没问题。商业用途的专业拍摄需要提前获得主办方书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "a": "<p>个人用途没问题。商业拍摄需要提前拿到主办方的书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "12": {
         "q": "有什么需要注意的规定？",
-        "a": "<p>所有参与者需遵守活动规定，配合现场工作人员和安保人员的指引。入场前请先阅读 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "a": "<p>所有参与者需遵守活动规定，配合现场工作人员和安保人员的指引。入场前请先看看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "13": {
         "q": "怎么获取最新活动信息？",
-        "a": "<p>关注我们的 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展品牌、活动亮点和优惠信息。也可以访问 <a href=\"/news\">资讯页面</a> 查看最新文章。</p>"
+        "a": "<p>关注我们的 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展品牌、活动亮点和独家信息。也可以访问 <a href=\"/news\">资讯页面</a> 查看最新文章。</p>"
       },
       "14": {
         "q": "怎么联系主办方？",
@@ -373,11 +395,11 @@
   "pages": {
     "home": {
       "title": "Keramika Indonesia：东盟领先的陶瓷行业展览会",
-      "description": "探索东盟顶级陶瓷展带来的最新技术、解决方案、材料和设计趋势。"
+      "description": "在东盟领先的陶瓷展上，探索最新技术、材料和设计趋势。"
     },
     "brands": {
       "title": "Brand",
-      "description": "浏览陶瓷行业各大品牌展示的最新创新产品和解决方案。"
+      "description": "浏览陶瓷及建材行业各大品牌展示的最新产品。"
     },
     "rundown": {
       "title": "Rundown",
@@ -385,7 +407,7 @@
     },
     "programs": {
       "title": "核心项目",
-      "description": "了解 {appName} 的核心项目——展览、行业大会、研讨会和精准对接。获取行业洞察，拓展人脉。"
+      "description": "展览、行业大会、研讨会和精准对接——在 {appName} 获取行业资源和人脉。"
     },
     "contact": {
       "title": "联系我们",
@@ -393,7 +415,7 @@
     },
     "bookSpace": {
       "title": "预订展位",
-      "description": "在 {appName} 预订展位，向上万名潜在客户展示品牌实力。"
+      "description": "在 {appName} 预订展位，向上万名观众和行业买家展示你的品牌。"
     },
     "ticket": {
       "title": "领取门票",

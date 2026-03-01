@@ -56,14 +56,14 @@
                 to="/ticket"
                 class="bg-primary text-primary-foreground hover:bg-primary/80 flex basis-1/2 items-center justify-center rounded-xl px-4 py-2.5 font-semibold tracking-tighter transition active:scale-95 md:basis-auto lg:px-8"
                 v-ripple
-                >Get Ticket</nuxt-link
+                >{{ $t("hero.ctaTicket") }}</nuxt-link
               >
 
               <nuxt-link
                 to="/book-space"
                 class="bg-primary/5 hover:bg-primary/10 dark:bg-primary/8 text-primary border-primary/8 dark:hover:bg-primary/16 flex basis-1/2 items-center justify-center rounded-xl px-4 py-2.5 font-semibold tracking-tighter backdrop-blur-lg transition active:scale-95 md:basis-auto lg:px-8 dark:border"
                 v-ripple
-                >Book Space</nuxt-link
+                >{{ $t("hero.ctaExhibit") }}</nuxt-link
               >
             </div>
           </div>
@@ -120,7 +120,7 @@
               >
                 <span
                   class="font-display line-clamp-1 text-lg tracking-tight text-[oklch(80%_0.2_var(--accent-hue))] dark:text-[oklch(40%_0.2_var(--accent-hue))]"
-                  >ICC x INACON 2025</span
+                  >{{ event.title }}</span
                 >
                 <div
                   class="font-heading mt-3 line-clamp-3 flex flex-col text-[4rem] !leading-[0.9] tracking-tighter text-balance uppercase"

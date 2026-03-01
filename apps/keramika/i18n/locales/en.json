@@ -148,8 +148,8 @@
     "banners": {
       "0": {
         "subHeadline": "ASEAN's Leading Ceramics Industry Exhibition",
-        "content": "<p>Discover the latest technology, solutions, materials and design trends from hundreds of leading ceramic brands. Get free access to expert consultations and exclusive insights.</p>",
-        "cta": "Get Your Free Ticket"
+        "content": "<p>Discover the latest technology, solutions, materials and design trends from hundreds of leading ceramic brands. Get access to expert consultations and exclusive insights.</p>",
+        "cta": "Get Your Ticket"
       },
       "1": {
         "subHeadline": "Showcase Your Innovation at Keramika!",
@@ -166,7 +166,13 @@
         "content": "<p>Follow our social media for the latest ceramic innovations, exhibitor highlights, and exclusive updates leading up to the event. Be part of the conversation!</p>",
         "cta": "Follow {'@'}keramikaid"
       }
-    }
+    },
+    "title": "ASEAN's Leading <span class=\"gradient-accent bg-clip-text font-semibold text-transparent\">Ceramics</span> Industry Exhibition",
+    "description": "Be inspired by the latest technology, solutions, materials and design trends from ASEAN's leading ceramics industry exhibition.",
+    "ctaTicket": "Get ticket",
+    "ctaExhibit": "I want to exhibit",
+    "playRecap": "Play Recap",
+    "edition": "{n}{ordinal} edition"
   },
   "brandPreview": {
     "title": "Discover the Amazing Brands at {appName}"
@@ -256,7 +262,23 @@
   "factsAndFigures": {
     "subtitle": "Facts & Figures",
     "title": "Why Keramika Indonesia Leads the Industry",
-    "description": "The facts & figures gathered from 21 editions are testament to the powerful platform that Keramika Indonesia has provided for thousands of businesses to grow."
+    "description": "The facts & figures gathered from 21 editions are testament to the powerful platform that Keramika Indonesia has provided for thousands of businesses to grow.",
+    "stats": {
+      "visitors": {
+        "label": "Total Visitors",
+        "description": "from 45 countries"
+      },
+      "exhibitors": {
+        "label": "Total Exhibitors",
+        "description": "from 25 countries"
+      },
+      "transaction": {
+        "label": "Transaction Value"
+      },
+      "leads": {
+        "label": "Total Leads"
+      }
+    }
   },
   "partnerships": {
     "title": "<span class=''>Become a </span><span class='text-primary'>Part of our Story</span>",
@@ -283,8 +305,8 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">Planning a renovation?</span><br /><span class=\"\">Your essential guide awaits you here.</span>",
-    "description": "Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your free pass to smarter renovation solutions.",
-    "cta": "Get Free Ticket"
+    "description": "Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your pass to smarter renovation solutions.",
+    "cta": "Get Ticket"
   },
   "mediaCoverage": {
     "title": "Recognized by Industry Voices",

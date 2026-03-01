@@ -1,10 +1,11 @@
 <template>
-  <span ref="rootRef">
+  <span ref="rootRef" :key="locale">
     <slot />
   </span>
 </template>
 
 <script setup>
+const { locale } = useI18n();
 const rootRef = ref(null);
 
 // Definisikan warna aksen yang akan digunakan

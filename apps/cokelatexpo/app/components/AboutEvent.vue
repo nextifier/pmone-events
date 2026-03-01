@@ -23,7 +23,7 @@
           class="text-primary mt-2 space-y-6 text-2xl !leading-[1.3] font-semibold tracking-tighter text-pretty sm:text-3xl"
         >
           <p>
-            While you're here for the chocolate, your free ticket unlocks a lot
+            While you're here for the chocolate, your ticket unlocks a lot
             more. Cokelat Expo is part of the bigger
             <nuxt-link
               to="https://cafebrasserieexpo.com/"
@@ -33,7 +33,7 @@
             >, which also features festivals for coffee, tea, and wine.
           </p>
           <p>
-            This means your free pass doesn't just get you into the best
+            This means your pass doesn't just get you into the best
             chocolate party of the year. It also gives you full access to three
             other flavor zones:
           </p>
@@ -174,7 +174,7 @@
             in Hall 10.
           </p>
           <p>
-            So yes, one free ticket gets you into all of it for three days. It's
+            So yes, one ticket gets you into all of it for three days. It's
             a pretty great deal.
           </p>
         </div>

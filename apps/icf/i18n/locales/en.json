@@ -163,7 +163,11 @@
         "content": "<p>Follow us on Instagram for sneak peeks of our coolest exhibitors, special giveaways, and all the behind-the-scenes action. You won't want to miss it.</p>",
         "cta": "Follow {'@'}indocoffeefest"
       }
-    }
+    },
+    "ctaTicket": "Get ticket",
+    "ctaExhibit": "I want to exhibit",
+    "playRecap": "Play Recap",
+    "edition": "{n}{ordinal} edition"
   },
   "mainPrograms": {
     "title": "<span>Main Programs</span>",
@@ -220,8 +224,8 @@
   },
   "visitorCta": {
     "title": "The <span class=\"text-accent\">biggest flavor party</span> of the year <span class=\"text-accent\">is free.</span>",
-    "description": "We're saving you a spot at the tastiest get-together of the year. Come to explore, indulge, and get inspired. All you need is your free pass.",
-    "cta": "Get Free Ticket"
+    "description": "We're saving you a spot at the tastiest get-together of the year. Come to explore, indulge, and get inspired. All you need is your pass.",
+    "cta": "Get Ticket"
   },
   "mediaCoverage": {
     "title": "Recognized by Industry Voices",

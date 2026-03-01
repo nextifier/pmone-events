@@ -33,15 +33,8 @@
 
             <span
               class="text-muted-foreground text-sm font-semibold tracking-tighter text-balance"
-              >Tip: All the spoilers and important info are on Instagram. Make
-              sure you're following
-              <nuxt-link
-                :to="`https://www.instagram.com/${useAppConfig().social.instagram}`"
-                target="_blank"
-                class="hover:text-primary transition"
-                >@morefoodexpo.id</nuxt-link
-              >!</span
-            >
+              v-html="$t('hero.instagramTip', { instagram: useAppConfig().social.instagram })"
+            ></span>
           </div>
 
           <div class="flex flex-col items-start">
@@ -63,14 +56,14 @@
                 to="/ticket"
                 class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
                 v-ripple
-                >Get my ticket</nuxt-link
+                >{{ $t("hero.ctaTicket") }}</nuxt-link
               >
 
               <nuxt-link
                 to="/book-space"
                 class="bg-primary/5 hover:bg-primary/10 dark:bg-primary/8 text-primary border-primary/8 dark:hover:bg-primary/16 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight backdrop-blur-lg transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3 dark:border"
                 v-ripple
-                >I want to exhibit</nuxt-link
+                >{{ $t("hero.ctaExhibit") }}</nuxt-link
               >
             </div>
           </div>
@@ -180,9 +173,9 @@
                       <span>2026</span>
                     `"
                   /> -->
-                  <span>7-10</span>
-                  <span class="font-bold text-red-600">May</span>
-                  <span>2026</span>
+                  <span>{{ event.dateOnly }}</span>
+                  <span class="font-bold text-red-600">{{ event.month }}</span>
+                  <span>{{ event.year }}</span>
                 </span>
                 <span
                   class="mt-4 line-clamp-1 text-xl font-semibold tracking-tighter"

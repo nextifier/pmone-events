@@ -88,8 +88,8 @@ export const useContentStore = defineStore("content", () => {
   const components = computed(() => ({
     hero: {
       countdownLabel: t("hero.countdownLabel"),
-      title: "",
-      description: "",
+      title: t("hero.title"),
+      description: t("hero.description"),
       cta: {},
       announcements: [
         {

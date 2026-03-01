@@ -160,7 +160,7 @@
       },
       "1": {
         "subHeadline": "One Pass, Three Massive Shows!",
-        "content": "<p>Your FREE pass also gets you into the <strong>Cafe & Brasserie Expo Indonesia</strong> and <strong>More Food Expo Indonesia</strong>.</p>",
+        "content": "<p>Your pass also gets you into the <strong>Cafe & Brasserie Expo Indonesia</strong> and <strong>More Food Expo Indonesia</strong>.</p>",
         "cta": "Discover Cafe & Brasserie Expo"
       },
       "2": {
@@ -254,9 +254,9 @@
     }
   },
   "visitorCta": {
-    "title": "The <span class=\"text-accent\">best investment</span> you'll make this year <span class=\"text-accent\">is free.</span>",
-    "description": "Join thousands of entrepreneurs and investors at Indonesia's most anticipated business show. Your ticket is free and registration only takes a minute.",
-    "cta": "Get Free Ticket"
+    "title": "The <span class=\"text-accent\">best investment</span> you'll make this year <span class=\"text-accent\">starts here.</span>",
+    "description": "Join thousands of entrepreneurs and investors at Indonesia's most anticipated business show. Registration only takes a minute.",
+    "cta": "Get Ticket"
   },
   "mediaCoverage": {
     "title": "Recognized by Industry Voices",

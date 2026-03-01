@@ -296,9 +296,9 @@ export const useContentStore = defineStore("content", {
             >Your essential guide awaits you here.</span
           >
         `,
-        description: `Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your free pass to smarter renovation solutions.`,
+        description: `Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your pass to smarter renovation solutions.`,
         cta: {
-          label: "Get Free Ticket",
+          label: "Get Ticket",
           iconName: "hugeicons:ticket-01",
           url: "/ticket",
         },

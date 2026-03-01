@@ -1,7 +1,7 @@
 {
   "ui": {
     "viewAll": "查看全部",
-    "viewAllBrands": "查看全部 Brand",
+    "viewAllBrands": "查看全部品牌",
     "contactUs": "联系我们",
     "back": "返回",
     "comingSoon": "即将推出",
@@ -20,8 +20,8 @@
     "failedToGetData": "数据加载失败。",
     "search": "搜索",
     "searchPosts": "搜索文章",
-    "brands": "Brand",
-    "booth": "Booth",
+    "brands": "品牌",
+    "booth": "展位",
     "categories": "分类",
     "description": "简介",
     "created": "创建于",
@@ -40,26 +40,26 @@
     "selectAnOption": "选择一项",
     "enterYourProductType": "输入你的产品类型",
     "sendMessage": "发送",
-    "leaveAMessage": "写下你的留言..",
+    "leaveAMessage": "写下留言..",
     "youMightAlsoLike": "你可能还想看"
   },
   "news": {
     "latestUpdates": "最新动态",
     "showingPostsFor": "共 {total} 篇相关文章",
     "showingPosts": "共 {total} 篇文章",
-    "noResultsFor": "没有找到相关结果",
+    "noResultsFor": "没有找到相关内容",
     "noResultsHint": "换个关键词试试，或者看看其他话题吧。",
-    "noPostsYet": "暂时还没有文章",
+    "noPostsYet": "还没有文章",
     "comeBackLater": "过段时间再来看看"
   },
   "brands": {
-    "comingSoon": "Brand 名单即将公布，过段时间再来看看！"
+    "comingSoon": "品牌名单即将公布，过段时间再来看看！"
   },
   "rundown": {
-    "title": "Rundown",
-    "description": "查看 {appName} 的完整活动日程和节目安排。",
-    "comingSoon": "Rundown 即将公布，过段时间再来看看！",
-    "nothingYet": "这里还什么都没有……敬请期待！"
+    "title": "活动日程",
+    "description": "查看 {appName} 的完整日程和节目安排。",
+    "comingSoon": "日程即将公布，过段时间再来看看！",
+    "nothingYet": "还在准备中，敬请期待！"
   },
   "ticket": {
     "agreementPrefix": "继续购票即表示你同意",
@@ -70,20 +70,20 @@
   "contact": {
     "title": "联系我们",
     "formTitle": "联系表单",
-    "description": "有问题或需要帮助？随时联系我们，了解门票、合作和活动详情。",
+    "description": "门票、合作、活动相关问题，随时联系我们。",
     "name": "姓名",
     "jobTitle": "职位",
-    "brandName": "Brand 名称",
+    "brandName": "品牌名称",
     "products": "产品",
     "email": "Email",
     "phone": "手机号 (WhatsApp)",
     "referralSource": "你是怎么知道这个活动的？",
     "message": "留言",
-    "successTitle": "提交成功！感谢你联系我们。",
-    "successMessage": "我们的团队会尽快通过 Email 或 WhatsApp 联系你。",
+    "successTitle": "已提交，感谢你联系我们！",
+    "successMessage": "我们会尽快通过 Email 或 WhatsApp 联系你。",
     "successButton": "好的，回到首页",
-    "disclaimerDefault": "请确保你填写的 Email 和手机号是正确且可用的，方便我们尽快联系你。",
-    "disclaimerExhibitor": "放心，提交表单不代表你已经注册成为参展商。我们只是需要你的联系方式，方便销售团队给你发送 Booth 价格、可选方案等详细信息。",
+    "disclaimerDefault": "请填写正确的 Email 和手机号，方便我们尽快联系你。",
+    "disclaimerExhibitor": "放心，提交表单不等于确认参展。我们需要你的联系方式，好安排销售团队跟你沟通展位方案和价格。",
     "errorSend": "发送失败，请重试。",
     "errorNetwork": "网络出错，请稍后重试。"
   },
@@ -143,93 +143,97 @@
     "Supported by": "支持方"
   },
   "hero": {
-    "countdownLabel": "咖啡盛宴开启倒计时：",
-    "title": "在这里，找到你的下一杯心头好。",
-    "description": "这么多优秀的烘焙师齐聚一堂，你的新宠咖啡就在这里等着被发现。过来逛逛、试试，找到属于你的那一杯。",
-    "announcement": "参展 Booth 仍有空位",
+    "countdownLabel": "咖啡节开幕倒计时：",
+    "title": "下一杯心头好，在这里等你。",
+    "description": "印尼顶尖的咖啡烘焙师都在这。来逛逛，一杯一杯试，找到属于你的那一杯。",
+    "announcement": "参展展位仍有空位",
     "banners": {
       "0": {
-        "subHeadline": "有好吃的产品？",
-        "content": "<p>直接对接 23,000+ F&B 专业人士、咖啡馆老板和美食爱好者。让你的品牌被品尝、被讨论。</p>",
+        "subHeadline": "有好产品？",
+        "content": "<p>23,000+ F&B 从业者、咖啡馆老板和美食爱好者都会来。让你的品牌被尝到、被记住。</p>",
         "cta": "展示你的品牌"
       },
       "1": {
-        "subHeadline": "热爱也能变现",
-        "content": "<p>你的入场券同时可以进入旁边的 <strong>Franchise & License Expo Indonesia (FLEI)</strong> 和 <strong>More Food Expo Indonesia</strong>。</p>",
+        "subHeadline": "爱好也能变生意",
+        "content": "<p>凭入场券还能进旁边的 <strong>Franchise & License Expo Indonesia (FLEI)</strong> 和 <strong>More Food Expo Indonesia</strong>。</p>",
         "cta": "了解 FLEI"
       },
       "2": {
-        "subHeadline": "一滴都别错过！",
-        "content": "<p>关注我们的 Instagram，抢先看最酷参展商、专属福利和幕后花絮。你肯定不想错过。</p>",
+        "subHeadline": "别错过任何动态",
+        "content": "<p>关注我们的 Instagram，提前了解参展品牌、专属福利和幕后花絮。</p>",
         "cta": "关注 {'@'}indocoffeefest"
       }
-    }
+    },
+    "ctaTicket": "领取门票",
+    "ctaExhibit": "参展报名",
+    "playRecap": "看精彩回顾",
+    "edition": "第{n}届"
   },
   "mainPrograms": {
     "title": "<span>核心项目</span>",
-    "description": "精彩就在这里。我们精心安排了现场比赛、沉浸式工作坊和无限试饮，让你每一刻都充满能量和灵感。",
+    "description": "现场比赛、动手工作坊、无限试饮。从进场到离场，每一刻都有新鲜体验。",
     "items": {
       "0": {
         "title": "现场比赛",
-        "description": "感受肾上腺素飙升！看全国顶尖咖啡师、冲煮师和厨师在主舞台上巅峰对决。那种气氛会让你全程投入，水准让人叫绝。"
+        "description": "印尼顶级咖啡师和冲煮师在主舞台上一决高下。现场氛围让人根本坐不住。"
       },
       "1": {
-        "title": "Tasting Bar",
-        "description": "这是你的游乐场。免费试饮来自咖啡、茶、红酒和巧克力参展商的上百种产品。你的新宠口味，就在这里。"
+        "title": "试饮吧台",
+        "description": "咖啡、茶、红酒、巧克力——参展商的得意之作，免费试。你的下一款心头好说不定就在这里。"
       },
       "2": {
         "title": "动手工作坊",
-        "description": "别光看，亲自上手！跟着专家学品酒、冲一杯完美咖啡、或者探索风味搭配的奥秘。名额有限，先到先得。"
+        "description": "跟专家学品鉴、学冲煮、学风味搭配。小班教学，名额有限，手慢无。"
       },
       "3": {
         "title": "Bean-to-Bar 演示",
-        "description": "在你面前见证巧克力诞生的全过程。手工匠人现场展示，一颗普通的可可豆是怎么变成让人欲罢不能的巧克力的。"
+        "description": "亲眼看可可豆怎么变成巧克力。手工匠人的每一步操作都值得驻足。"
       },
       "4": {
         "title": "行业对话",
-        "description": "听业内大咖聊干货。咖啡馆文化的未来、F&B 的可持续发展、当下必须知道的行业趋势——轻松氛围，硬核内容。"
+        "description": "咖啡馆文化的下一步、F&B 可持续发展、当下趋势。听业内人士聊真东西，氛围轻松。"
       },
       "5": {
         "title": "现场音乐 & DJ",
-        "description": "这是你风味之旅的背景音乐。全天都有乐队和 DJ 带来好听的音乐，让好氛围一直在线。"
+        "description": "乐队和 DJ 全天驻场。端杯咖啡，听着音乐逛展，这才是咖啡节该有的样子。"
       }
     }
   },
   "partnerships": {
     "title": "<span class='text-outline'>加入 </span><span class='text-primary'>我们的故事</span>",
-    "description": "通过参与 {appName}，让你的品牌被更多人看到。结识潜在合作伙伴，拓展你的商业网络。",
+    "description": "参与 {appName}，结识潜在合作伙伴，让更多人看到你的品牌。",
     "exhibitor": {
       "title": "成为参展商",
-      "description": "品牌方、创业者注意了！把你的产品展示给上万名热情的观众。",
+      "description": "把你的产品展示给上万名对咖啡和食饮充满热情的观众。",
       "cta": "预订展位"
     },
     "sponsor": {
       "title": "成为赞助商",
-      "description": "赞助行业头部展会，直接触达核心决策者。",
+      "description": "在咖啡·F&B 行业最受关注的展会上提升品牌影响力。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
       "title": "成为媒体合作伙伴",
-      "description": "与我们合作，获取独家内容和行业深度报道资源。",
+      "description": "独家内容和现场取材权，让你的报道有料有看点。",
       "cta": "媒体合作"
     },
     "reservedSpace": {
-      "title": "这个位置留给优秀的合作伙伴。会是你吗？",
+      "title": "这个位置留给合适的伙伴。会是你吗？",
       "cta": "成为合作伙伴"
     }
   },
   "visitorCta": {
-    "title": "今年<span class=\"text-accent\">最大的风味派对</span>，<span class=\"text-accent\">免费。</span>",
-    "description": "我们在今年最好吃的聚会上给你留了位置。来探索、来享受、来找灵感。你只需要一张免费入场券。",
-    "cta": "领取免费门票"
+    "title": "今年<span class=\"text-accent\">最大的咖啡节</span>，<span class=\"text-accent\">免费。</span>",
+    "description": "试饮、工作坊、现场音乐，全部免费体验。你只需要一张入场券。",
+    "cta": "领取门票"
   },
   "mediaCoverage": {
-    "title": "行业媒体报道",
+    "title": "媒体报道",
     "description": "看看各大媒体怎么报道 {appName}。"
   },
   "credits": {
-    "title": "活动背后的社区力量",
-    "description": "感谢所有合作伙伴、赞助商和媒体的鼎力支持，让这场活动成为可能。"
+    "title": "幕后支持",
+    "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场咖啡节成为现实。"
   },
   "postSlider": {
     "title": "最新动态",
@@ -239,109 +243,109 @@
     "title": "看看 {appName} 都有哪些品牌"
   },
   "brandList": {
-    "title": "Brand",
-    "description": "浏览各类咖啡馆品牌的产品和创新成果。从咖啡、茶、红酒到巧克力，看看每个品牌有什么好东西。"
+    "title": "品牌",
+    "description": "咖啡、茶、红酒、巧克力……看看各参展品牌带来了什么好东西。"
   },
   "bookSpace": {
     "title": "参展商报名",
-    "description": "在 {appName} 预订你的展位，向上万名潜在客户展示品牌实力。和行业领先品牌一起亮相。"
+    "description": "在 {appName} 预订展位，向上万名观众展示你的品牌。"
   },
   "faq": {
     "title": "常见问题",
-    "description": "关于咖啡节的门票、参展、活动详情等常见问题，都在这里。",
-    "emptyState": "常见问题正在整理中，请稍后再来查看。",
-    "contactTitle": "还有其他问题？直接发给我们！",
+    "description": "门票、参展、活动详情——常见问题都在这里。",
+    "emptyState": "常见问题正在整理中，请稍后查看。",
+    "contactTitle": "还有问题？直接发给我们。",
     "items": {
       "0": {
         "q": "{eventTitle} 什么时候、在哪里举办？",
         "a": "<p>{eventTitle} 将于 <strong>{eventDate}</strong>，<strong>{eventTime}</strong> 在 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a> 举办。</p>"
       },
       "1": {
-        "q": "怎么买票？",
-        "a": "<p>通过我们的官方网站就可以。点击 <a href=\"/ticket\">Get Ticket</a> 按钮，按流程完成注册。电子门票会发送到你的 Email 和 WhatsApp。</p>"
+        "q": "怎么拿票？",
+        "a": "<p>在官网点 <a href=\"/ticket\">领取门票</a>，完成注册就行。电子门票会发到你的 Email 和 WhatsApp。</p>"
       },
       "2": {
         "q": "门票多少钱？",
-        "a": "<p>票价根据票种和购买时间有所不同。最新价格请查看 <a href=\"/ticket\">门票页面</a>。早鸟票和预售票有优惠，别错过！</p>"
+        "a": "<p>看票种和购买时间，价格不一样。最新价格在 <a href=\"/ticket\">门票页面</a>。早鸟票和预售票有优惠，抓紧。</p>"
       },
       "3": {
-        "q": "买了票不能去，可以退吗？",
-        "a": "<p>门票售出后不退不换。详情请查看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
+        "q": "买了去不了，能退吗？",
+        "a": "<p>门票售出不退不换。详情看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
       },
       "4": {
-        "q": "去现场需要带什么？",
-        "a": "<p>带上你的电子门票（手机出示或打印均可），在签到台换取入场证。如果你想和参展商交流，建议带上名片。</p>"
+        "q": "去现场带什么？",
+        "a": "<p>带上电子门票（手机出示或打印都行），到签到台换入场证。想跟参展商聊聊的话，带上名片。</p>"
       },
       "5": {
-        "q": "谁可以参加？",
-        "a": "<p>所有人都可以！不管你是咖啡馆老板、F&B 创业者、咖啡爱好者、食品行业从业者，还是纯粹想来逛逛，都欢迎！</p>"
+        "q": "谁都能来吗？",
+        "a": "<p>谁都能来。咖啡馆老板、F&B 创业者、咖啡爱好者、行业从业者，或者纯粹想逛逛——都欢迎。</p>"
       },
       "6": {
         "q": "现场有哪些品牌和产品？",
-        "a": "<p>我们汇集了各类 F&B 品牌、设备供应商、原料提供商和服务公司。从咖啡机、咖啡馆家具到食材和包装方案，应有尽有。完整参展商名单请查看 <a href=\"/brands\">Brands 页面</a>。</p>"
+        "a": "<p>F&B 品牌、设备商、原料商、服务商都有。从咖啡机、咖啡馆家具到食材和包装，选择很多。完整名单在 <a href=\"/brands\">品牌页面</a>。</p>"
       },
       "7": {
-        "q": "怎么报名成为参展商？",
-        "a": "<p>请访问 <a href=\"/book-space\">参展商报名页面</a>，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们，了解展位方案和价格。</p>"
+        "q": "怎么报名参展？",
+        "a": "<p>去 <a href=\"/book-space\">参展商报名页面</a> 提交申请，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们了解展位和价格。</p>"
       },
       "8": {
-        "q": "现场有试吃试饮吗？",
-        "a": "<p>当然有！很多参展商都会在展位提供产品试吃和试饮。这是发现新产品、新食材、新口味的绝佳机会。</p>"
+        "q": "有试吃试饮吗？",
+        "a": "<p>当然有。很多参展商都会在展位提供免费品尝。发现新产品、新口味的好机会。</p>"
       },
       "9": {
-        "q": "现场有讲座或工作坊吗？",
-        "a": "<p>有的！我们安排了多场讲座、工作坊和演示环节，涵盖冲煮技术、美食趋势、商业策略和行业洞察等。完整日程请查看 <a href=\"/rundown\">Rundown 页面</a>。</p>"
+        "q": "有讲座或工作坊吗？",
+        "a": "<p>有。冲煮技术、美食趋势、商业策略、行业洞察——多场讲座和工作坊等你来。完整日程在 <a href=\"/rundown\">活动日程页面</a>。</p>"
       },
       "10": {
-        "q": "怎么成为赞助商或媒体合作伙伴？",
-        "a": "<p>欢迎合作！请通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们，聊聊合作方案。</p>"
+        "q": "怎么成为赞助商或媒体伙伴？",
+        "a": "<p>通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们，聊聊合作方案。</p>"
       },
       "11": {
-        "q": "展馆有停车位吗？",
-        "a": "<p>有的，展馆提供停车设施。不过高峰时段车位可能紧张，建议提早到达或考虑打车。</p>"
+        "q": "有停车位吗？",
+        "a": "<p>有。不过高峰时段容易满，建议早点来或者打车。</p>"
       },
       "12": {
-        "q": "现场可以拍照录像吗？",
-        "a": "<p>个人用途的拍照录像没问题。商业用途的专业拍摄需要提前获得主办方书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "q": "能拍照录像吗？",
+        "a": "<p>个人拍摄没问题。商业用途需要主办方书面许可。详情看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "13": {
-        "q": "怎么获取最新活动信息？",
-        "a": "<p>关注我们的 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取最新参展商、活动公告和独家内容。也可以访问 <a href=\"/news\">资讯页面</a> 查看最新文章。</p>"
+        "q": "怎么获取最新消息？",
+        "a": "<p>关注 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展品牌、活动公告和独家内容。也可以看 <a href=\"/news\">资讯页面</a>。</p>"
       },
       "14": {
         "q": "怎么联系主办方？",
-        "a": "<p>你可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式和快捷入口请访问 <a href=\"/help-center\">Help Center</a>。</p>"
+        "a": "<p>可以通过：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式在 <a href=\"/help-center\">帮助中心</a>。</p>"
       }
     }
   },
   "pages": {
     "home": {
       "title": "Indonesia Coffee Festival (ICF)",
-      "description": "来印尼咖啡节，沉浸式体验这个国家的咖啡文化。试饮、工作坊、比赛，精彩不断。"
+      "description": "来印尼咖啡节，试饮、看比赛、参加工作坊，沉浸式体验印尼咖啡文化。"
     },
     "brands": {
-      "title": "Brand",
-      "description": "浏览 {appName} 参展品牌的产品和创新。从咖啡、茶到烘焙和甜品，应有尽有。"
+      "title": "品牌",
+      "description": "{appName} 参展品牌一览。从咖啡、茶到烘焙和甜品。"
     },
     "rundown": {
-      "title": "Rundown",
-      "description": "查看 {appName} 的完整活动日程和节目安排。"
+      "title": "活动日程",
+      "description": "查看 {appName} 的完整日程和节目安排。"
     },
     "programs": {
       "title": "核心项目",
-      "description": "了解 {appName} 的核心项目。获取行业洞察，拓展人脉。"
+      "description": "{appName} 的比赛、工作坊、试饮等核心项目介绍。"
     },
     "contact": {
       "title": "联系我们",
-      "description": "有问题或需要帮助？联系我们了解门票、合作和活动详情。"
+      "description": "门票、合作、活动相关问题，随时联系我们。"
     },
     "bookSpace": {
       "title": "预订展位",
-      "description": "在 {appName} 预订展位，向上万名潜在客户展示品牌实力。"
+      "description": "在 {appName} 预订展位，向上万名观众展示你的品牌。"
     },
     "ticket": {
       "title": "领取门票",
-      "description": "获取 {appName} 入场门票。日期、地点、票种信息一目了然。"
+      "description": "{appName} 入场门票——日期、地点、票种信息一目了然。"
     },
     "gallery": {
       "title": "活动相册",
@@ -349,27 +353,27 @@
     },
     "faq": {
       "title": "FAQ",
-      "description": "关于 {appName} 的常见问题解答。门票、活动详情、合作等信息都在这里。"
+      "description": "{appName} 的门票、活动、合作等常见问题解答。"
     },
     "links": {
       "title": "Links",
-      "description": "常用链接汇总，方便快速访问。"
+      "description": "常用链接汇总，快速访问。"
     },
     "news": {
       "title": "资讯",
-      "description": "关注咖啡和 F&B 行业的最新动态、趋势和深度文章。"
+      "description": "咖啡和 F&B 行业的最新动态、趋势和深度内容。"
     },
     "ticketPolicy": {
       "title": "购票政策",
-      "description": "了解 {appName} 的购票政策，包括票种、定价和退票规则。"
+      "description": "{appName} 的票种、定价和退票规则。"
     },
     "eventPolicy": {
       "title": "活动政策",
-      "description": "查看 {appName} 的活动规定和参展须知。"
+      "description": "{appName} 参加者和参展商须知。"
     },
     "partners": {
       "title": "合作伙伴",
-      "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场活动成为可能。"
+      "description": "感谢所有合作伙伴、赞助商和媒体，让这场咖啡节得以实现。"
     },
     "terms": {
       "title": "服务条款",
@@ -381,7 +385,7 @@
     },
     "winner": {
       "title": "随机抽奖器",
-      "description": "在线随机抽取幸运获奖者。粘贴名单，转动抽奖机，公平选出获奖人。适用于比赛、抽奖和各类活动！"
+      "description": "输入名单，转一转，公平选出获奖者。适合各类抽奖和活动。"
     }
   }
 }

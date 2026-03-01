@@ -36,6 +36,10 @@ export default defineNuxtConfig({
     name: "Indonesia Coffee Festival",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-YFZVWEFRHF" }],
   },

@@ -13,10 +13,10 @@
       </div>
 
       <span class="mt-6 tracking-tight text-black lg:mt-10 dark:text-white">
-        ✨ Unleash Your Cosplay Creativity at
+        {{ $t("icgp.heroSubtitle") }}
       </span>
       <h1 class="section-title mt-3 text-center">
-        Indonesia Cosplay Grand Prix (ICGP) 2026!
+        {{ $t("icgp.heroTitle") }}
       </h1>
     </div>
   </section>

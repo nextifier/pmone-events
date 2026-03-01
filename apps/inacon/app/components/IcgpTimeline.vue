@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <h1 class="section-title text-center">ICGP Timeline</h1>
+    <h1 class="section-title text-center">{{ $t("icgp.timelineTitle") }}</h1>
 
     <Stepper
       orientation="vertical"
@@ -55,27 +55,24 @@
 
 <script setup>
 import { Dot } from "lucide-vue-next";
+const { t } = useI18n();
 
-const items = [
+const items = computed(() => [
   {
-    title: "Registration for ICGP Regional by Event Organizers",
-    description:
-      "Regional event organizers can register with Indonesia Anime Con to host the ICGP Preliminary Selection in their city.",
+    title: t("icgp.timeline.0.title"),
+    description: t("icgp.timeline.0.description"),
   },
   {
-    title: "Preliminary Selection",
-    description:
-      "Participants compete in the Preliminary Selection held in different cities by affiliated event organizers. Cities and dates will be announced on our website and social media as soon as they are available.",
+    title: t("icgp.timeline.1.title"),
+    description: t("icgp.timeline.1.description"),
   },
   {
-    title: "ICGP Grand Final",
-    description:
-      "Winners from the Preliminary Selection will advance to the ICGP Grand Final at Indonesia Anime Con in Jakarta.",
+    title: t("icgp.timeline.2.title"),
+    description: t("icgp.timeline.2.description"),
   },
   {
-    title: "World Cosplay Summit (WCS) Japan",
-    description:
-      "The team that wins the ICGP Grand Final will represent Indonesia at the World Cosplay Summit (WCS) in Japan.",
+    title: t("icgp.timeline.3.title"),
+    description: t("icgp.timeline.3.description"),
   },
-];
+]);
 </script>

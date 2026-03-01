@@ -113,7 +113,7 @@
   },
   "rundown": {
     "title": "Rundown",
-    "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}.",
+    "description": "Jadwal lengkap acara dan program di {appName}.",
     "comingSoon": "Rundown segera hadir. Cek lagi nanti!",
     "nothingYet": "Belum ada jadwal nih!"
   },
@@ -124,10 +124,10 @@
     "eventPolicy": "Kebijakan Acara"
   },
   "hero": {
-    "countdownLabel": "Peluang bisnis baru menanti dalam:",
-    "title": "Mulai Bisnismu di Pameran Franchise Terbesar di Indonesia.",
-    "description": "Temukan brand-brand unggulan dari sektor F&B, ritel, edukasi, dan banyak lagi di Franchise Expo ini. Kesempatan kamu untuk networking, belajar, dan membangun bisnis yang profitable.",
-    "ctaTicket": "Dapatkan Tiket",
+    "countdownLabel": "Pameran franchise terbesar dibuka dalam:",
+    "title": "Cari Franchise? Semua Ada di Sini.",
+    "description": "Ratusan brand franchise dari F&B, ritel, edukasi, dan sektor lainnya siap kamu jelajahi. Ketemu langsung, tanya-tanya, dan mulai bisnis kamu.",
+    "ctaTicket": "Ambil Tiket",
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
     "edition": "Edisi ke-{n}",
@@ -135,97 +135,97 @@
     "banners": {
       "0": {
         "subHeadline": "Pendaftaran Exhibitor Dibuka!",
-        "content": "<p>Pamerkan brand kamu di edisi ke-26 yang berlokasi di JIExpo Kemayoran. Terhubung langsung dengan 14.000+ pengunjung berkualitas.</p>",
+        "content": "<p>Pamerkan brand kamu di edisi ke-26, JIExpo Kemayoran. Langsung terhubung dengan 14.000+ pengunjung berkualitas.</p>",
         "cta": "Pesan Space Sekarang"
       },
       "1": {
         "subHeadline": "Satu Tiket, Tiga Pameran Besar!",
-        "content": "<p>Tiket GRATIS kamu juga berlaku untuk masuk ke <strong>Cafe & Brasserie Expo Indonesia</strong> dan <strong>More Food Expo Indonesia</strong>.</p>",
+        "content": "<p>Tiket kamu juga berlaku untuk <strong>Cafe & Brasserie Expo Indonesia</strong> dan <strong>More Food Expo Indonesia</strong>.</p>",
         "cta": "Lihat Cafe & Brasserie Expo"
       },
       "2": {
         "subHeadline": "Jangan Ketinggalan Info!",
-        "content": "<p>Follow Instagram kami untuk info terbaru soal exhibitor, pembicara, dan promo spesial. Jadi yang pertama tahu!</p>",
+        "content": "<p>Follow Instagram kami untuk info exhibitor, pembicara, dan promo spesial. Jadi yang pertama tahu!</p>",
         "cta": "Follow {'@'}fleiexpoid"
       }
     }
   },
   "about": {
-    "title": "<span class='text-accent'>Mulai Bangun</span> Kerajaan Bisnis Kamu.",
-    "description": "Bayangkan ratusan peluang menuju kesuksesan berada di bawah satu atap. Itulah FLEI, sebuah franchise fair yang menghadirkan peluang usaha terbaik. Kami mengkurasi berbagai usaha franchise terpercaya agar kamu tidak perlu menghabiskan waktu mencari lagi dan bisa langsung fokus membangun masa depan."
+    "title": "<span class='text-accent'>Ratusan Peluang Bisnis</span> dalam Satu Gedung.",
+    "description": "FLEI mengumpulkan brand franchise dan lisensi terbaik di satu tempat. Gak perlu riset sana-sini — datang, bandingkan langsung, dan pilih bisnis yang paling cocok buat kamu."
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
-    "description": "Jelajahi berbagai program menarik di Franchise event terbesar ini. Mulai dari pameran, konferensi bisnis, seminar, hingga pertemuan bisnis. Dapatkan wawasan baru dan perluas jaringan dengan para ahli di industri ini.",
+    "description": "Bukan cuma pameran. Ada konferensi bisnis, sesi coaching, hingga business matching yang bisa kamu ikuti di {appName}.",
     "items": {
       "0": {
         "title": "Business Conference",
-        "description": "Ini adalah panggung utama kami, tempat ide-ide besar dan tren industri terbaru dibahas secara mendalam. Ikuti sesi \"Grab-Run-Grow\" bersama CEO dan pendiri terkemuka yang akan membagikan rahasia kesuksesan mereka di pasar saat ini."
+        "description": "Panggung utama FLEI. Sesi \"Grab-Run-Grow\" menghadirkan CEO dan founder yang sharing strategi bisnis mereka secara terbuka. Bukan teori, tapi pengalaman langsung."
       },
       "1": {
         "title": "Business Coaching",
-        "description": "Punya pertanyaan spesifik tentang cara memiliki Bisnis Autopilot? Konsultasikan langsung dengan panel ahli kami secara gratis! Dapatkan saran personal dan solusi untuk tantangan nyata yang sedang dihadapi bisnismu."
+        "description": "Punya pertanyaan soal bisnis yang belum terjawab? Konsultasi gratis satu-satu dengan para praktisi. Bawa masalah spesifik kamu, pulang bawa solusi."
       },
       "2": {
         "title": "Business Matching",
-        "description": "Platform kami bantu kamu mencari dan menjadwalkan pertemuan dengan peserta pameran dan investor yang tepat bahkan sebelum kamu datang. Datang dengan rencana, pulang dengan calon mitra."
+        "description": "Jadwalkan meeting dengan exhibitor atau investor sebelum datang ke venue. Gak perlu buang waktu keliling tanpa arah — langsung ketemu orang yang tepat."
       },
       "3": {
         "title": "Practical Masterclasses",
-        "description": "Bukan cuma teori — di event ini kamu akan belajar berbagai skill langsung dari praktisinya. Mulai dari digital marketing, efisiensi operasional, hingga brand management. Kursi terbatas."
+        "description": "Workshop yang fokus ke skill praktis: digital marketing, efisiensi operasional, brand management. Langsung dari orang-orang yang tiap hari menjalankannya. Kursi terbatas."
       },
       "4": {
         "title": "Ecopreneur Challenge",
-        "description": "Punya ide bisnis yang inovatif? Ini panggung buat kamu. Tunjukkan visi kamu di hadapan investor, dapatkan masukan dari para ahli, dan menangkan hadiah untuk bantu meluncurkan bisnis ramah lingkungan kamu."
+        "description": "Punya ide bisnis sustainable? Presentasikan ke investor, dapat feedback dari expert, dan rebut hadiah untuk bantu wujudkan bisnis ramah lingkungan kamu."
       },
       "5": {
         "title": "Inspiration Stage",
-        "description": "Dengarkan kisah nyata, perjuangan, dan strategi dari para pendiri yang membangun bisnis mereka dari nol. Jadikan pengalaman mereka sebagai motivasi dan inspirasi buat ambisi kamu."
+        "description": "Dengar langsung dari founder yang bangun bisnis dari nol. Cerita gagal, strategi yang berhasil, dan pelajaran yang gak ada di buku mana pun."
       }
     }
   },
   "businessSegments": {
     "title": "<span class='text-outline'>Segmen</span> Bisnis",
-    "description": "Jelajahi berbagai peluang di Pameran Bisnis ini untuk meningkatkan skala usaha kamu dan memperluas pengetahuan bisnis kamu.",
+    "description": "Lima kategori bisnis yang bisa kamu eksplorasi di FLEI.",
     "items": {
       "0": {
         "title": "Franchise",
-        "description": "Mencari peluang usaha dari franchise makanan atau franchise minuman yang sudah teruji? Kami hadirkan brand lokal dan internasional pilihan yang siap kasih dukungan penuh ke mitranya."
+        "description": "Brand franchise yang sudah terbukti jalan — dari F&B sampai ritel. Lengkap dengan sistem support dan training untuk mitra baru."
       },
       "1": {
         "title": "Business Opportunity",
-        "description": "Cocok buat kamu yang baru mau mulai perjalanan bisnis. Temukan konsep bisnis menjanjikan dengan potensi besar untuk berkembang jadi franchise yang sukses."
+        "description": "Buat kamu yang baru mau mulai. Konsep bisnis baru dengan potensi besar yang bisa berkembang jadi franchise ke depannya."
       },
       "2": {
         "title": "Retail Tech Solution",
-        "description": "Jangan sampai tertinggal. Lihat teknologi terbaru yang bikin operasional makin lancar, pengalaman pelanggan makin optimal, dan bisnis kamu makin kompetitif di era digital."
+        "description": "Teknologi yang bikin operasional toko makin efisien dan customer experience makin bagus. Dari POS system sampai analytics."
       },
       "3": {
         "title": "Licensing & Co-Branding",
-        "description": "Tingkatkan penjualan dengan kekuatan karakter terkenal dan brand yang sudah dicintai banyak orang. Temukan partner lisensi untuk bikin produk kamu makin stand out."
+        "description": "Pakai kekuatan karakter populer dan brand ternama untuk dongkrak produk kamu. Temukan partner lisensi yang tepat di sini."
       },
       "4": {
         "title": "Distributor",
-        "description": "Manfaatkan jaringan distribusi masif di Indonesia. Terhubung langsung dengan brand-brand yang sedang cari agen, grosir, dan afiliasi online."
+        "description": "Masuk ke jaringan distribusi Indonesia. Ketemu brand yang lagi cari agen, reseller, dan partner distribusi online."
       }
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>Jadilah </span><span class='text-primary'>Bagian dari Cerita Kami</span>",
-    "description": "Bawa bisnis kamu ke level selanjutnya dengan ikut di {appName}. Ketemu calon partner, dapatkan eksposur, dan perluas network kamu.",
+    "title": "<span class='text-outline'>Gabung </span><span class='text-primary'>Bareng Kami</span>",
+    "description": "Ikut {appName} untuk ketemu calon partner, tampil di depan ribuan pengunjung, dan perluas jaringan bisnis kamu.",
     "exhibitor": {
-      "title": "Jadi Eksibitor",
-      "description": "Panggilan buat semua brand dan pengusaha! Tunjukin produkmu ke audiens yang beragam dan antusias.",
-      "cta": "Book Slot Kamu"
+      "title": "Jadi Exhibitor",
+      "description": "Pamerkan produk kamu ke ribuan pengunjung yang datang khusus cari peluang bisnis.",
+      "cta": "Book Space Kamu"
     },
     "sponsor": {
       "title": "Jadi Sponsor",
-      "description": "Terhubung langsung dengan para decision-maker dengan jadi sponsor di event industri terkemuka ini.",
+      "description": "Brand kamu tampil di depan ribuan pengusaha dan decision maker industri franchise.",
       "cta": "Jadi Sponsor"
     },
     "mediaPartner": {
       "title": "Jadi Media Partner",
-      "description": "Partner dengan kami untuk liputan eksklusif dan akses ke cerita terbesar dari industri ini.",
+      "description": "Dapatkan akses liputan eksklusif dari pameran franchise terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
     "reservedSpace": {
@@ -234,33 +234,33 @@
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-accent\">Investasi terbaik</span> yang bisa kamu buat tahun ini <span class=\"text-accent\">gratis.</span>",
-    "description": "Bergabung dengan ribuan pengusaha dan investor di business show paling ditunggu di Indonesia. Tiketnya gratis dan registrasi cuma butuh semenit.",
-    "cta": "Ambil Tiket Gratis"
+    "title": "Tiketnya <span class=\"text-accent\">sudah tersedia.</span> Peluang bisnisnya <span class=\"text-accent\">gak terbatas.</span>",
+    "description": "Ribuan pengusaha dan investor bakal ada di sini. Registrasi cuma butuh semenit.",
+    "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
-    "title": "Liputan Media & Komunitas",
-    "description": "Lihat apa kata media-media ternama tentang FLEI"
+    "title": "Liputan Media",
+    "description": "Apa kata media tentang {appName}."
   },
   "credits": {
     "title": "Komunitas di Balik Event Ini",
-    "description": "Acara ini bisa terwujud berkat dukungan penuh dari para mitra, sponsor, dan media kami."
+    "description": "Acara ini bisa terwujud berkat dukungan dari para mitra, sponsor, dan media kami."
   },
   "postSlider": {
     "title": "Update Terbaru",
-    "titleMorePosts": "Mungkin kamu juga suka"
+    "titleMorePosts": "Baca juga"
   },
   "brandPreview": {
-    "title": "Temukan Brand-Brand Keren di {appName}"
+    "title": "Brand-Brand yang Ada di {appName}"
   },
   "brandList": {
     "title": "Brand",
-    "description": "Jelajahi beragam brand franchise dan lisensi dari berbagai kategori bisnis."
+    "description": "Jelajahi brand franchise dan lisensi dari berbagai kategori bisnis."
   },
   "contact": {
     "title": "Hubungi Kami",
     "formTitle": "Form Kontak",
-    "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara.",
+    "description": "Ada pertanyaan soal tiket, partnership, atau detail acara? Langsung hubungi kami.",
     "name": "Nama",
     "jobTitle": "Jabatan",
     "brandName": "Nama Brand",
@@ -279,112 +279,112 @@
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
-    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan dan kembangkan bisnis kamu."
+    "description": "Amankan booth kamu di {appName}. Tampil di depan ribuan pengunjung yang siap jadi pelanggan baru kamu."
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
-    "description": "Cari tahu jawaban pertanyaan-pertanyaan seputar Franchise Expo, tiket, exhibitor, dan info lainnya di sini.",
-    "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Silakan kembali lagi nanti.",
+    "description": "Jawaban untuk pertanyaan seputar FLEI — tiket, exhibitor, program, dan lainnya.",
+    "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Cek lagi nanti ya.",
     "contactTitle": "Punya pertanyaan? Langsung kirim ke kami!",
     "items": {
       "0": {
-        "q": "Kapan dan di mana {eventTitle} akan diselenggarakan?",
-        "a": "<p>{eventTitle} bakal diadakan tanggal <strong>{eventDate}</strong>, dari jam <strong>{eventTime}</strong>, lokasinya di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
+        "q": "Kapan dan di mana {eventTitle} diadakan?",
+        "a": "<p>{eventTitle} diadakan tanggal <strong>{eventDate}</strong>, jam <strong>{eventTime}</strong>, di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
       },
       "1": {
-        "q": "Bagaimana cara mendapatkan tiket Franchise Expo?",
-        "a": "<p>Kamu bisa beli tiket Franchise Expo lewat website resmi kami. Cukup klik tombol <a href=\"/ticket\">Get Ticket</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp kamu setelah pembayaran.</p>"
+        "q": "Gimana cara dapat tiketnya?",
+        "a": "<p>Lewat website resmi kami. Klik tombol <a href=\"/ticket\">Get Ticket</a>, ikuti proses registrasi, dan e-ticket langsung dikirim ke email dan WhatsApp kamu.</p>"
       },
       "2": {
-        "q": "Berapa harga tiket Franchise Expo?",
-        "a": "<p>Harga tiket Pameran Franchise berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami aja. Jangan sampe kelewatan promo early bird dan pre-sale buat dapetin harga spesial!</p>"
+        "q": "Berapa harga tiketnya?",
+        "a": "<p>Tergantung jenis tiket dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> untuk harga terkini. Manfaatkan promo early bird dan pre-sale buat harga lebih murah!</p>"
       },
       "3": {
-        "q": "Apakah saya bisa mendapatkan refund jika tidak bisa hadir?",
-        "a": "<p>Semua penjualan tiket Franchise Expo bersifat final. Tidak ada refund atau penukaran setelah pembelian. Untuk detail lebih lanjut, cek <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund dan Pengembalian Tiket</a> kami.</p>"
+        "q": "Bisa refund kalau gak jadi datang?",
+        "a": "<p>Tiket yang sudah dibeli tidak bisa di-refund atau ditukar. Detail lengkapnya ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund dan Pengembalian Tiket</a>.</p>"
       },
       "4": {
-        "q": "Apa saja yang perlu saya bawa ke acara ini?",
-        "a": "<p>Jangan lupa bawa e-ticket kamu (versi digital atau print) untuk ditukar dengan badge atau wristband di meja registrasi. Kalau kamu mau networking dengan exhibitor dan peserta Franchise Expo lainnya, ada baiknya bawa kartu nama juga.</p>"
+        "q": "Apa yang perlu dibawa ke acara?",
+        "a": "<p>Bawa e-ticket kamu (di HP atau print) untuk ditukar badge di meja registrasi. Kalau mau networking, bawa kartu nama juga ya.</p>"
       },
       "5": {
-        "q": "Siapa saja yang bisa menghadiri acara ini?",
-        "a": "<p>Pameran Franchise ini terbuka untuk siapa saja. Baik kamu calon entrepreneur yang mau mulai Bisnis Autopilot, pemilik bisnis, investor, atau yang pengen cari peluang usaha franchise, kamu welcome untuk hadir!</p>"
+        "q": "Siapa aja yang boleh datang?",
+        "a": "<p>Siapa saja boleh hadir. Calon pengusaha, pemilik bisnis, investor, atau yang lagi cari peluang usaha — semuanya welcome.</p>"
       },
       "6": {
-        "q": "Brand apa saja yang akan pameran di acara ini?",
-        "a": "<p>Kami punya beragam brand dari berbagai kategori bisnis. Kamu bisa lihat daftar exhibitor lengkapnya di halaman <a href=\"/brands\">Brands</a> kami. Listnya akan terus diupdate seiring mendekati tanggal acara.</p>"
+        "q": "Brand apa aja yang ikut pameran?",
+        "a": "<p>Ada banyak brand dari berbagai kategori bisnis. Lihat daftar lengkapnya di halaman <a href=\"/brands\">Brands</a>. Daftarnya terus di-update menjelang hari H.</p>"
       },
       "7": {
-        "q": "Bagaimana cara ikut pameran sebagai exhibitor?",
-        "a": "<p>Untuk jadi exhibitor, silakan kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> kami atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info lebih lanjut tentang paket booth dan ketersediaannya.</p>"
+        "q": "Mau ikut pameran sebagai exhibitor, gimana caranya?",
+        "a": "<p>Kunjungi halaman <a href=\"/book-space\">Registrasi Exhibitor</a> atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info paket booth dan ketersediaannya.</p>"
       },
       "8": {
-        "q": "Apakah ada seminar atau workshop di acara ini?",
-        "a": "<p>Tentu! Di Franchise Expo ini ada banyak seminar, workshop tentang cara menjual franchise, dan sesi networking. Kunjungi halaman <a href=\"/rundown\">Rundown</a> kami untuk lihat jadwal lengkap aktivitas dan sesi speaker.</p>"
+        "q": "Ada seminar atau workshop gak?",
+        "a": "<p>Ada! Seminar, workshop, dan sesi networking lengkap tersedia. Cek halaman <a href=\"/rundown\">Rundown</a> untuk jadwal lengkapnya.</p>"
       },
       "9": {
-        "q": "Bagaimana cara menjadi sponsor atau media partner?",
-        "a": "<p>Kami terbuka untuk sponsorship dan media partnership. Silakan hubungi kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
+        "q": "Mau jadi sponsor atau media partner, hubungi siapa?",
+        "a": "<p>Hubungi kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau email ke <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
       },
       "10": {
-        "q": "Apakah ada parkir di venue?",
-        "a": "<p>Ya, venue menyediakan fasilitas parkir. Tapi kami sarankan untuk datang lebih pagi karena parkir bisa cepat penuh saat jam ramai. Kamu juga bisa pertimbangkan pakai transportasi umum atau ride-sharing.</p>"
+        "q": "Ada parkir di venue?",
+        "a": "<p>Ada. Tapi kami sarankan datang lebih awal karena parkir bisa cepat penuh saat jam ramai. Bisa juga pakai transportasi umum atau ojek online.</p>"
       },
       "11": {
-        "q": "Apakah saya boleh foto atau video di acara ini?",
-        "a": "<p>Kamu boleh foto atau video untuk keperluan pribadi di Franchise Expo ini. Namun, untuk rekaman profesional atau komersial, perlu izin tertulis dari penyelenggara Pameran Franchise. Untuk detailnya, silakan baca <a href=\"/event-policy\">Event Policy</a> kami.</p>"
+        "q": "Boleh foto atau video di acara?",
+        "a": "<p>Boleh, untuk keperluan pribadi. Untuk keperluan komersial atau profesional, perlu izin tertulis dari panitia. Baca selengkapnya di <a href=\"/event-policy\">Event Policy</a>.</p>"
       },
       "12": {
-        "q": "Apa saja peraturan yang harus saya ikuti di acara ini?",
-        "a": "<p>Semua pengunjung wajib mematuhi peraturan dan ketentuan acara, termasuk mengikuti arahan dari staff acara dan petugas keamanan. Silakan baca <a href=\"/event-policy\">Event Policy</a> kami sebelum hadir.</p>"
+        "q": "Peraturan apa aja yang harus diikuti?",
+        "a": "<p>Semua pengunjung wajib ikuti aturan acara dan arahan dari petugas. Baca <a href=\"/event-policy\">Event Policy</a> sebelum datang ya.</p>"
       },
       "13": {
-        "q": "Gimana caranya dapetin info terbaru soal Pameran Franchise?",
-        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat dapetin update terbaru seputar Franchise Expo, pengumuman, dan konten eksklusif lainnya. Kamu juga bisa kunjungi halaman <a href=\"/news\">News</a> untuk artikel dan info terkini tentang Pameran Franchise.</p>"
+        "q": "Gimana supaya gak ketinggalan info soal FLEI?",
+        "a": "<p>Follow Instagram kami di <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>. Atau cek halaman <a href=\"/news\">News</a> untuk artikel dan update terbaru.</p>"
       },
       "14": {
-        "q": "Bagaimana cara menghubungi organizer?",
-        "a": "<p>Kamu bisa hubungi tim Franchise Expo kami melalui:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini untuk chat</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Untuk info lebih lengkap soal Pameran Franchise atau cara menjual franchise, kunjungi <a href=\"/help-center\">Help Center</a> kami untuk opsi kontak lainnya dan akses cepat ke berbagai informasi.</p>"
+        "q": "Mau hubungi panitia, lewat mana?",
+        "a": "<p>Bisa lewat:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Atau kunjungi <a href=\"/help-center\">Help Center</a> untuk info lebih lengkap.</p>"
       }
     }
   },
   "pages": {
     "home": {
-      "title": "Franchise & License Expo Indonesia (FLEI) · Buka Peluang Bisnis Baru",
-      "description": "Hadir di FLEI Jakarta untuk menjelajahi brand franchise dan lisensi terbaik, ikuti seminar, dan perluas jaringan bisnis kamu."
+      "title": "Franchise & License Expo Indonesia (FLEI) · Pameran Franchise Terbesar",
+      "description": "Datang ke FLEI Jakarta untuk ketemu brand franchise dan lisensi terbaik, ikut seminar bisnis, dan perluas jaringan kamu."
     },
     "brands": {
       "title": "Brand",
-      "description": "Jelajahi beragam brand franchise dan lisensi dari berbagai kategori bisnis."
+      "description": "Jelajahi brand franchise dan lisensi dari berbagai kategori bisnis."
     },
     "rundown": {
       "title": "Rundown",
-      "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}."
+      "description": "Jadwal lengkap acara dan program di {appName}."
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Jelajahi program utama di {appName} — pameran, konferensi bisnis, seminar, dan business matching. Dapatkan insight dan perluas jaringan."
+      "description": "Program di {appName}: pameran, konferensi bisnis, seminar, dan business matching."
     },
     "contact": {
       "title": "Hubungi Kami",
-      "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara."
+      "description": "Ada pertanyaan soal tiket, partnership, atau detail acara? Langsung hubungi kami."
     },
     "bookSpace": {
       "title": "Book Space",
-      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan."
+      "description": "Amankan booth kamu di {appName}. Tampil di depan ribuan pengunjung yang siap jadi pelanggan baru kamu."
     },
     "ticket": {
       "title": "Ambil Tiket",
-      "description": "Dapatkan tiket masuk {appName}. Temukan semua info yang kamu butuhkan — tanggal, venue, dan pilihan tiket."
+      "description": "Tiket masuk {appName} — info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {
       "title": "Galeri Acara",
-      "description": "Lihat foto-foto highlights dari edisi sebelumnya di {appName}."
+      "description": "Foto-foto highlights dari edisi sebelumnya {appName}."
     },
     "faq": {
       "title": "FAQ",
-      "description": "Temukan jawaban untuk pertanyaan yang sering diajukan tentang {appName}. Info soal tiket, detail acara, partnership, dan lainnya."
+      "description": "Jawaban untuk pertanyaan yang sering ditanyakan tentang {appName}."
     },
     "links": {
       "title": "Links",
@@ -392,19 +392,19 @@
     },
     "news": {
       "title": "Berita",
-      "description": "Ikuti insight, berita, dan tren terbaru di dunia bisnis. Baca artikel dan update acara dari kami."
+      "description": "Insight, berita, dan tren terbaru di dunia bisnis dan franchise."
     },
     "ticketPolicy": {
       "title": "Kebijakan Tiket",
-      "description": "Pahami Kebijakan Tiket {appName}. Info tentang kategori tiket, harga, dan panduan refund."
+      "description": "Info kategori tiket, harga, dan panduan refund {appName}."
     },
     "eventPolicy": {
       "title": "Kebijakan Acara",
-      "description": "Baca kebijakan acara {appName}. Detail aturan, regulasi, dan panduan penting untuk peserta dan exhibitor."
+      "description": "Aturan dan panduan untuk peserta dan exhibitor {appName}."
     },
     "partners": {
       "title": "Partner Kami",
-      "description": "Acara ini tidak akan terwujud tanpa dukungan luar biasa dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang membantu mewujudkan acara ini."
+      "description": "Terima kasih untuk para partner, sponsor, dan media yang bantu wujudkan acara ini."
     },
     "terms": {
       "title": "Syarat dan Ketentuan",
@@ -416,7 +416,7 @@
     },
     "winner": {
       "title": "Random Winner Generator",
-      "description": "Pilih pemenang secara acak dan instan. Masukkan nama, putar slot machine, dan tentukan pemenang dengan adil. Cocok untuk kontes, giveaway, dan acara!"
+      "description": "Pilih pemenang secara acak dan instan. Cocok untuk kontes, giveaway, dan acara!"
     }
   }
 }

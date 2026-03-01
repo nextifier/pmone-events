@@ -145,7 +145,7 @@
   "hero": {
     "countdownLabel": "Let the flavor festival begin in:",
     "title": "All Your Cravings, All in One Place.",
-    "description": "Come taste everything from hundreds of coffee, tea, wine, and chocolate brands. Your free ticket is your all-access pass to three days of flavor.",
+    "description": "Come taste everything from hundreds of coffee, tea, wine, and chocolate brands. Your ticket is your all-access pass to three days of flavor.",
     "ctaTicket": "Get ticket",
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",
@@ -228,8 +228,8 @@
   },
   "visitorCta": {
     "title": "The <span class=\"text-accent\">biggest flavor party</span> of the year <span class=\"text-accent\">is free.</span>",
-    "description": "We're saving you a spot at the tastiest get-together of the year. Come to explore, indulge, and get inspired. All you need is your free pass.",
-    "cta": "Get Free Ticket"
+    "description": "We're saving you a spot at the tastiest get-together of the year. Come to explore, indulge, and get inspired. All you need is your pass.",
+    "cta": "Get Ticket"
   },
   "mediaCoverage": {
     "title": "Recognized by Industry Voices",

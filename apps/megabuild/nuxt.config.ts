@@ -26,6 +26,10 @@ export default defineNuxtConfig({
     name: "Megabuild Indonesia",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   gtag: {
     tags: [{ id: "G-2PJCW7S32V" }],
   },
