@@ -1,7 +1,7 @@
 <template>
   <div v-if="filteredPosts?.length" class="space-y-4 sm:space-y-6">
     <div class="container">
-      <h2 class="section-title">{{ headline }}</h2>
+      <h2 class="section-title">{{ headlineText }}</h2>
     </div>
 
     <Carousel
@@ -53,7 +53,7 @@
             to="/news"
             class="text-primary hover:bg-primary hover:text-primary-foreground flex h-full items-center justify-center rounded-md border px-4 text-sm font-semibold tracking-tight transition active:scale-98"
           >
-            <span>View all</span>
+            <span>{{ $t('ui.viewAll') }}</span>
           </nuxt-link>
         </div>
       </div>
@@ -62,12 +62,14 @@
 </template>
 
 <script setup>
+const { t } = useI18n();
 const props = defineProps({
   headline: {
     type: String,
-    default: "Latest updates",
+    default: null,
   },
 });
+const headlineText = computed(() => props.headline || t('news.latestUpdates'));
 const route = useRoute();
 
 // Use Pinia store - data is cached and shared across components

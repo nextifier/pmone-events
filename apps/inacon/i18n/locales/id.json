@@ -1,0 +1,455 @@
+{
+  "ui": {
+    "viewAll": "Lihat semua",
+    "viewAllBrands": "Lihat semua brand",
+    "contactUs": "Hubungi kami",
+    "back": "Kembali",
+    "comingSoon": "Coming soon",
+    "backToHome": "Ke beranda",
+    "bookSpace": "Book Space",
+    "getTicket": "Get Ticket",
+    "lightDarkMode": "Light / Dark Mode",
+    "toggleSidebar": "Toggle Sidebar",
+    "openMenu": "Menu",
+    "toggleFullscreen": "Toggle Fullscreen",
+    "switchLanguage": "Ganti Bahasa",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved.",
+    "readingTime": "{n} menit baca",
+    "loading": "Loading",
+    "failedToGetData": "Gagal memuat data.",
+    "search": "Cari",
+    "searchPosts": "Cari artikel",
+    "brands": "Brand",
+    "booth": "Booth",
+    "categories": "Kategori",
+    "description": "Deskripsi",
+    "created": "Dibuat",
+    "views": "{n}x dilihat",
+    "posted": "Diposting",
+    "shareThisPost": "Share artikel ini",
+    "soldOut": "Sold out",
+    "startsFrom": "Mulai dari",
+    "startsIn": "Mulai dalam",
+    "endsIn": "Berakhir dalam",
+    "ticketsSoldOut": "Tiket sudah habis",
+    "ticketsComingSoon": "Tiket belum tersedia",
+    "presentedBy": "Presented by",
+    "allLocations": "Semua Lokasi",
+    "selectAProduct": "Pilih produk",
+    "selectAnOption": "Pilih salah satu",
+    "enterYourProductType": "Ketik jenis produk",
+    "sendMessage": "Kirim",
+    "leaveAMessage": "Tulis pesan..",
+    "youMightAlsoLike": "Baca juga"
+  },
+  "news": {
+    "latestUpdates": "Update terbaru",
+    "showingPostsFor": "{total} artikel untuk",
+    "showingPosts": "{total} artikel",
+    "noResultsFor": "Tidak ada hasil untuk",
+    "noResultsHint": "Coba keyword lain atau jelajahi topik lainnya.",
+    "noPostsYet": "Belum ada artikel",
+    "comeBackLater": "Cek lagi nanti ya"
+  },
+  "brands": {
+    "comingSoon": "Daftar brand segera hadir. Cek lagi nanti!"
+  },
+  "rundown": {
+    "title": "Rundown",
+    "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}.",
+    "comingSoon": "Rundown segera hadir. Cek lagi nanti!",
+    "nothingYet": "Belum ada jadwal nih!"
+  },
+  "ticket": {
+    "agreementPrefix": "Dengan melanjutkan, kamu setuju dengan",
+    "agreementAnd": "dan",
+    "ticketTerms": "Syarat & Ketentuan Tiket",
+    "eventPolicy": "Kebijakan Acara"
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "formTitle": "Form Kontak",
+    "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara.",
+    "name": "Nama",
+    "jobTitle": "Jabatan",
+    "brandName": "Nama Brand",
+    "products": "Produk",
+    "email": "Email",
+    "phone": "No. HP (WhatsApp)",
+    "referralSource": "Dari mana kamu tahu acara ini?",
+    "message": "Pesan",
+    "successTitle": "Terkirim! Terima kasih sudah menghubungi kami.",
+    "successMessage": "Tim kami akan segera follow up lewat email atau WhatsApp.",
+    "successButton": "Oke, ke beranda",
+    "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
+    "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa kasih info soal booth, harga, dan detail lainnya.",
+    "errorSend": "Pesan gagal terkirim. Coba lagi ya.",
+    "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
+  },
+  "countdown": {
+    "day": "Hari",
+    "hour": "Jam",
+    "min": "Menit",
+    "sec": "Detik"
+  },
+  "eventStatus": {
+    "startsIn": "Event dimulai dalam",
+    "live": "Live",
+    "completed": "Selesai"
+  },
+  "conjunction": {
+    "label": "Bersamaan dengan",
+    "and": "dan"
+  },
+  "nav": {
+    "Home": "Home",
+    "Brands": "Brands",
+    "Rundown": "Rundown",
+    "Programs": "Programs",
+    "Resources": "Resources",
+    "Partners": "Partners",
+    "Contact": "Contact",
+    "News": "News",
+    "Ticket": "Ticket",
+    "Tenant Registration": "Registrasi Tenant",
+    "Gallery": "Gallery",
+    "FAQ": "FAQ",
+    "Links": "Links",
+    "Ticket Terms and Conditions": "Syarat & Ketentuan Tiket",
+    "Ticket Refund and Return Policy": "Kebijakan Refund Tiket",
+    "Event Policy": "Kebijakan Acara",
+    "Terms of Service": "Syarat Layanan",
+    "Privacy Policy": "Kebijakan Privasi",
+    "Help Center": "Help Center",
+    "Sponsorship Registration": "Daftar Sponsorship",
+    "Media Partner Registration": "Daftar Media Partner",
+    "Menu": "Menu",
+    "Get in touch": "Hubungi kami",
+    "Social": "Social",
+    "Discover": "Discover",
+    "For Businesses": "Untuk Bisnis",
+    "Terms and policies": "Syarat & kebijakan",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube",
+    "X": "X",
+    "Guests": "Guests",
+    "ICGP": "ICGP",
+    "Special Show": "Special Show",
+    "Meet & Greet": "Meet & Greet",
+    "Workshop": "Workshop",
+    "Raya Championship of Cosplay": "Raya Championship of Cosplay",
+    "Portfolio Review": "Portfolio Review",
+    "Event Guidelines": "Event Guidelines",
+    "Safety and Weapon Policy": "Kebijakan Keamanan & Senjata",
+    "Anti-Harassment Policy": "Kebijakan Anti-Pelecehan"
+  },
+  "partners": {
+    "Organized by": "Diselenggarakan oleh",
+    "Supported by": "Didukung oleh"
+  },
+  "hero": {
+    "countdownLabel": "Hype-nya dimulai dalam:",
+    "subHeadline": "Event Pop Culture Asia Terbesar di Indonesia",
+    "title": "Crossover Pop Culture Epic Kamu Ada di Sini!",
+    "description": "Siap-siap buat dua hari seru bareng guest internasional, exclusive drops, cosplay epic, dan ribuan fans lain yang sama kayak kamu. Ini pesta kamu!",
+    "announcement": "Slot Exhibitor Masih Tersedia!",
+    "banners": {
+      "0": {
+        "subHeadline": "Tahukah kamu?",
+        "content": "<p>Huruf \"X\" di \"ICC X INACON\" melambangkan crossover epic antara ICC dan INACON sekaligus ulang tahun legendaris ke-10 (X) ICC sejak perjalanannya dimulai di 2015!</p>"
+      },
+      "1": {
+        "subHeadline": "Kenalan sama Captain Sultan",
+        "content": "<p>Kaito Arjuna & Kirana Yumi bergabung dengan Captain Sultan dari ICC.</p>",
+        "cta": "Discover ICC"
+      },
+      "2": {
+        "subHeadline": "Registrasi Tenant",
+        "content": "<p>Hubungkan brand kamu dengan ribuan fans pop culture dan kolektor di crossover event terbesar Indonesia!</p>",
+        "cta": "Book Space"
+      }
+    }
+  },
+  "mainPrograms": {
+    "title": "Program Utama",
+    "description": "Rasakan serunya {appName} lewat program-program utama kami, mulai dari pameran kelas dunia, kompetisi seru, sampai panel eksklusif yang membawa dunia pop culture jadi nyata.",
+    "items": {
+      "0": { "title": "Exhibition" },
+      "1": { "title": "Main Guest Talkshow" },
+      "2": { "title": "Meet & Greet" },
+      "3": { "title": "Cosplay Parade" },
+      "4": { "title": "Cosplay Competition" },
+      "5": { "title": "Gaming Competition" },
+      "6": { "title": "Movie Panel" },
+      "7": { "title": "Portfolio Review" },
+      "8": { "title": "Creator Workshop" },
+      "9": { "title": "Toys Auction" },
+      "10": { "title": "Stamp Rally" },
+      "11": { "title": "Live Performance" }
+    }
+  },
+  "partnerships": {
+    "title": "Jadilah Bagian dari Cerita Kami",
+    "description": "Bawa bisnis kamu ke level selanjutnya dengan ikut di {appName}. Ketemu calon partner, dapatkan eksposur, dan perluas network kamu.",
+    "exhibitor": {
+      "title": "Jadi Eksibitor",
+      "description": "Panggilan buat semua brand dan pengusaha! Tunjukin produkmu ke audiens yang beragam dan antusias.",
+      "cta": "Book Slot Kamu"
+    },
+    "sponsor": {
+      "title": "Jadi Sponsor",
+      "description": "Terhubung langsung dengan para decision-maker dengan jadi sponsor di event pop culture terbesar ini.",
+      "cta": "Jadi Sponsor"
+    },
+    "mediaPartner": {
+      "title": "Jadi Media Partner",
+      "description": "Partner dengan kami untuk liputan eksklusif dan akses ke cerita terbesar dari dunia pop culture.",
+      "cta": "Gabung sebagai Media"
+    },
+    "reservedSpace": {
+      "title": "Space ini kami sediakan untuk mitra terbaik. Mau jadi salah satunya?",
+      "cta": "Jadi Partner"
+    }
+  },
+  "visitorCta": {
+    "title": "Rasakan Crossover Pop Culture Epic Tahun Ini",
+    "description": "{appName} kembali dan lebih besar dari sebelumnya! Jangan sampai kelewatan kesempatan ketemu guest legendaris, nonton pertunjukan panggung epic, dan bikin kenangan seru. Amankan tempatmu sekarang!",
+    "cta": "Get Ticket"
+  },
+  "mediaCoverage": {
+    "title": "Liputan Media & Komunitas",
+    "description": "Lihat apa kata media-media ternama tentang {appName}."
+  },
+  "credits": {
+    "title": "Komunitas di Balik Event Ini",
+    "description": "Acara ini bisa terwujud berkat dukungan penuh dari para mitra, sponsor, dan media kami."
+  },
+  "postSlider": {
+    "title": "Update Terbaru",
+    "titleMorePosts": "Mungkin kamu juga suka"
+  },
+  "brandPreview": {
+    "title": "Brands"
+  },
+  "brandList": {
+    "title": "Brand",
+    "description": "Temukan brand-brand keren yang pamerkan produk dan inovasi terbaru mereka di {appName}."
+  },
+  "bookSpace": {
+    "title": "Registrasi Tenant",
+    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan dan kembangkan bisnis kamu."
+  },
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "description": "Cari tahu jawaban pertanyaan seputar event, tiket, exhibitor, dan info lainnya di sini.",
+    "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Silakan kembali lagi nanti.",
+    "contactTitle": "Punya pertanyaan? Langsung kirim ke kami!",
+    "items": {
+      "0": {
+        "q": "Kapan dan di mana {eventTitle} akan diselenggarakan?",
+        "a": "<p>{eventTitle} bakal diadakan tanggal <strong>{eventDate}</strong>, dari jam <strong>{eventTime}</strong>, lokasinya di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
+      },
+      "1": {
+        "q": "Bagaimana cara mendapatkan tiket?",
+        "a": "<p>Kamu bisa beli tiket lewat website resmi kami. Cukup klik tombol <a href=\"/ticket\">Get Ticket</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp kamu setelah pembayaran.</p>"
+      },
+      "2": {
+        "q": "Berapa harga tiketnya?",
+        "a": "<p>Harga tiket berbeda-beda tergantung jenis tiket (one-day pass, full event pass, VIP, dll.) dan waktu pembelian. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami. Jangan sampai kelewatan promo early bird!</p>"
+      },
+      "3": {
+        "q": "Apakah bisa refund kalau nggak bisa hadir?",
+        "a": "<p>Semua penjualan tiket bersifat final. Tidak ada refund atau penukaran setelah pembelian. Untuk detail lebih lanjut, cek <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a> kami.</p>"
+      },
+      "4": {
+        "q": "Apa saja yang perlu dibawa ke event?",
+        "a": "<p>Jangan lupa bawa e-ticket kamu (versi digital atau print) untuk ditukar dengan badge atau wristband di meja registrasi. Bawa juga kamera buat foto bareng cosplayer dan di photo spots!</p>"
+      },
+      "5": {
+        "q": "Boleh cosplay di event ini?",
+        "a": "<p>Boleh banget! Cosplay sangat dianjurkan dan disambut hangat. Kami suka lihat kostum kreatif dari karakter favorit kamu. Perlu diingat, prop senjata harus di-peace bond dan disetujui oleh security. Cek <a href=\"/event-policy\">Event Policy</a> kami untuk panduan cosplay.</p>"
+      },
+      "6": {
+        "q": "Ada kompetisi cosplay nggak?",
+        "a": "<p>Ada dong! Kami mengadakan kompetisi cosplay dengan hadiah menarik. Cek halaman <a href=\"/rundown\">Rundown</a> kami untuk jadwal kompetisi, deadline registrasi, dan kategorinya.</p>"
+      },
+      "7": {
+        "q": "Siapa saja yang bisa datang ke event ini?",
+        "a": "<p>Semua orang boleh datang! Mau kamu hardcore fan, casual enthusiast, kolektor, artist, atau cuma penasaran soal pop culture, anime, komik, dan gaming, pasti ada yang seru buat kamu!</p>"
+      },
+      "8": {
+        "q": "Apa aja yang bisa ditemuin di event ini?",
+        "a": "<p>Ada booth merchandise, artist alley, gaming zone, photo spots, pertunjukan panggung, meet & greet sama guest spesial, kompetisi cosplay, dan masih banyak lagi! Cek halaman <a href=\"/brands\">Exhibitors</a> untuk daftar lengkapnya.</p>"
+      },
+      "9": {
+        "q": "Bakal ada guest spesial atau selebriti?",
+        "a": "<p>Iya dong! Kami undang guest spesial termasuk voice actor, artist, content creator, dan profesional di industri ini. Pengumuman guest bakal di-share di media sosial kami dan halaman <a href=\"/news\">News</a>. Stay tuned!</p>"
+      },
+      "10": {
+        "q": "Gimana caranya jadi exhibitor atau artist?",
+        "a": "<p>Untuk jadi exhibitor atau daftar di Artist Alley, silakan kunjungi halaman <a href=\"/book-space\">Registrasi</a> kami atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info lebih lanjut.</p>"
+      },
+      "11": {
+        "q": "Ada batasan umur nggak?",
+        "a": "<p>Event ini family-friendly dan terbuka untuk semua umur. Anak-anak di bawah umur tertentu bisa masuk gratis jika ditemani orang dewasa yang sudah beli tiket. Cek halaman <a href=\"/ticket\">Tiket</a> kami untuk kebijakan umur spesifik.</p>"
+      },
+      "12": {
+        "q": "Ada parkir nggak di venue?",
+        "a": "<p>Ada, venue menyediakan fasilitas parkir. Tapi kami sarankan datang lebih awal karena parkir bisa cepat penuh, terutama di akhir pekan. Bisa juga pertimbangkan pakai transportasi umum atau ride-sharing.</p>"
+      },
+      "13": {
+        "q": "Boleh foto atau video di event?",
+        "a": "<p>Boleh banget! Foto dan video pribadi sangat dianjurkan! Tolong tetap sopan saat memfoto cosplayer dan selalu minta izin dulu. Rekaman profesional atau komersial butuh izin tertulis dari penyelenggara.</p>"
+      },
+      "14": {
+        "q": "Gimana caranya dapetin info terbaru soal event ini?",
+        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat dapetin update terbaru, pengumuman guest, dan konten eksklusif. Kamu juga bisa kunjungi halaman <a href=\"/news\">News</a>.</p>"
+      },
+      "15": {
+        "q": "Bagaimana cara menghubungi organizer?",
+        "a": "<p>Kamu bisa hubungi kami melalui:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini untuk chat</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Kunjungi <a href=\"/help-center\">Help Center</a> kami untuk opsi kontak lainnya.</p>"
+      }
+    }
+  },
+  "eventGuidelines": {
+    "title": "Event Guidelines",
+    "items": {
+      "0": {
+        "title": "Dilarang kostum tidak sopan",
+        "description": "Pakailah pakaian yang pantas. Jangan mengenakan outfit yang menyinggung."
+      },
+      "1": {
+        "title": "Dilarang melakukan pelecehan",
+        "description": "Hormati pengunjung lain, bersikaplah sopan. Selalu minta izin. Kontak fisik atau mengambil foto harus dengan persetujuan. Kami tidak mentolerir pelecehan, diskriminasi, kekerasan, atau perilaku yang menyinggung terhadap siapa pun."
+      },
+      "2": {
+        "title": "Dilarang membawa props berbahaya",
+        "description": "Jangan gunakan benda berbahaya, benda tajam, senjata proyektil, atau senjata lebih dari 2m. Senjata realistis harus dinonaktifkan."
+      },
+      "3": {
+        "title": "Dilarang menghalangi lalu lintas",
+        "description": "Jangan menghalangi pintu masuk & jalur pejalan kaki."
+      },
+      "4": {
+        "title": "Dilarang membuang sampah sembarangan",
+        "description": "Buang sampah di tempat yang telah disediakan."
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Indonesia Anime Con (INACON)",
+      "description": "Gabung di Indonesia Anime Con untuk pengalaman tak terlupakan penuh dengan anime, manga, cosplay, games, dan lifestyle. Ketemu artis favorit, selebriti, dan sesama fans!"
+    },
+    "icgp": {
+      "title": "Indonesia Cosplay Grand Prix (ICGP)",
+      "description": "Ikuti kompetisi cosplay terbesar di Indonesia! Berkompetisi di Indonesia Cosplay Grand Prix (ICGP) untuk kesempatan mewakili Indonesia di World Cosplay Summit di Jepang. Daftar sekarang!"
+    },
+    "guests": {
+      "title": "Guests",
+      "description": "Ketemu bintang-bintang {appName}! Lihat lineup guest spesial kami, termasuk selebriti, artist, dan ikon industri yang hadir di Jakarta."
+    },
+    "brands": {
+      "title": "Brands",
+      "description": "Jelajahi ragam brand di {appName}, mulai dari komik, koleksi, gaming, tech, sampai produk pop culture terbaru."
+    },
+    "rundown": {
+      "title": "Rundown",
+      "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}."
+    },
+    "programs": {
+      "title": "Program Utama",
+      "description": "Rasakan serunya {appName} lewat program utama kami, mulai dari pameran kelas dunia, kompetisi seru, sampai panel eksklusif yang membawa dunia pop culture jadi nyata."
+    },
+    "contact": {
+      "title": "Hubungi Kami",
+      "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara."
+    },
+    "bookSpace": {
+      "title": "Book Space",
+      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan."
+    },
+    "ticket": {
+      "title": "Ambil Tiket",
+      "description": "Dapatkan tiket masuk {appName}. Temukan semua info yang kamu butuhkan — tanggal, venue, dan pilihan tiket."
+    },
+    "gallery": {
+      "title": "Galeri Acara",
+      "description": "Lihat foto-foto highlights dari edisi sebelumnya di {appName}."
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "Temukan jawaban untuk pertanyaan yang sering diajukan tentang {appName}. Info soal tiket, detail acara, partnership, dan lainnya."
+    },
+    "links": {
+      "title": "Links",
+      "description": "Kumpulan link penting untuk navigasi yang lebih mudah."
+    },
+    "news": {
+      "title": "Berita",
+      "description": "Ikuti insight, berita, dan tren terbaru di dunia pop culture. Baca artikel dan update acara dari kami."
+    },
+    "eventGuidelines": {
+      "title": "Event Guidelines",
+      "description": "Pastikan pengalaman seru di {appName} dengan memahami Event Guidelines kami. Pelajari aturan cosplay, ekspektasi perilaku, dan info penting lainnya."
+    },
+    "safetyAndWeaponPolicy": {
+      "title": "Kebijakan Keamanan & Senjata",
+      "description": "Keselamatan kamu prioritas utama kami di {appName}. Baca Kebijakan Keamanan dan Senjata kami untuk memahami panduan yang memastikan lingkungan aman untuk semua pengunjung."
+    },
+    "antiHarassmentPolicy": {
+      "title": "Kebijakan Anti-Pelecehan",
+      "description": "{appName} berkomitmen menciptakan ruang yang aman dan inklusif untuk semua orang. Pelajari Kebijakan Anti-Pelecehan kami yang bersifat zero-tolerance."
+    },
+    "meetAndGreet": {
+      "title": "Meet & Greet",
+      "description": "Ikuti Meet & Greet di {appName} untuk kesempatan eksklusif interaksi langsung dengan bintang dan kreator favorit kamu. Jangan lewatkan tanda tangan, foto, dan interaksi personal!"
+    },
+    "portfolioReview": {
+      "title": "Portfolio Review",
+      "description": "Dapatkan feedback dari ahli untuk karya kamu di Portfolio Review {appName}. Tingkatkan skill kamu dengan kritik personal dari profesional industri."
+    },
+    "raya": {
+      "title": "Raya Championship of Cosplay",
+      "description": "Tampil di sorotan Raya Championship of Cosplay dan tunjukkan kejeniusan kreatif kamu! Bergabunglah dengan cosplayer berbakat yang berkompetisi untuk ketenaran dan kejayaan."
+    },
+    "specialShow": {
+      "title": "Special Show",
+      "description": "Ikuti Special Show di {appName}."
+    },
+    "workshop": {
+      "title": "Workshop",
+      "description": "Ikuti Workshop di {appName}."
+    },
+    "ticketPolicy": {
+      "title": "Kebijakan Tiket",
+      "description": "Pahami Kebijakan Tiket {appName}. Info tentang kategori tiket, harga, dan panduan refund."
+    },
+    "eventPolicy": {
+      "title": "Kebijakan Acara",
+      "description": "Baca kebijakan acara {appName}. Detail aturan, regulasi, dan panduan penting untuk peserta dan exhibitor."
+    },
+    "partners": {
+      "title": "Partner Kami",
+      "description": "Acara ini tidak akan terwujud tanpa dukungan luar biasa dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang membantu mewujudkan perayaan ini."
+    },
+    "terms": {
+      "title": "Syarat dan Ketentuan",
+      "description": ""
+    },
+    "privacy": {
+      "title": "Kebijakan Privasi",
+      "description": ""
+    },
+    "winner": {
+      "title": "Random Winner Generator",
+      "description": "Pilih pemenang secara acak dan instan. Masukkan nama, putar slot machine, dan tentukan pemenang dengan adil. Cocok untuk kontes, giveaway, dan acara!"
+    }
+  }
+}

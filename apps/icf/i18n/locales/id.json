@@ -1,0 +1,387 @@
+{
+  "ui": {
+    "viewAll": "Lihat semua",
+    "viewAllBrands": "Lihat semua brand",
+    "contactUs": "Hubungi kami",
+    "back": "Kembali",
+    "comingSoon": "Coming soon",
+    "backToHome": "Ke beranda",
+    "bookSpace": "Book Space",
+    "getTicket": "Get Ticket",
+    "lightDarkMode": "Light / Dark Mode",
+    "toggleSidebar": "Toggle Sidebar",
+    "openMenu": "Menu",
+    "toggleFullscreen": "Toggle Fullscreen",
+    "switchLanguage": "Ganti Bahasa",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved.",
+    "readingTime": "{n} menit baca",
+    "loading": "Loading",
+    "failedToGetData": "Gagal memuat data.",
+    "search": "Cari",
+    "searchPosts": "Cari artikel",
+    "brands": "Brand",
+    "booth": "Booth",
+    "categories": "Kategori",
+    "description": "Deskripsi",
+    "created": "Dibuat",
+    "views": "{n}x dilihat",
+    "posted": "Diposting",
+    "shareThisPost": "Share artikel ini",
+    "soldOut": "Sold out",
+    "startsFrom": "Mulai dari",
+    "startsIn": "Mulai dalam",
+    "endsIn": "Berakhir dalam",
+    "ticketsSoldOut": "Tiket sudah habis",
+    "ticketsComingSoon": "Tiket belum tersedia",
+    "presentedBy": "Presented by",
+    "allLocations": "Semua Lokasi",
+    "selectAProduct": "Pilih produk",
+    "selectAnOption": "Pilih salah satu",
+    "enterYourProductType": "Ketik jenis produk",
+    "sendMessage": "Kirim",
+    "leaveAMessage": "Tulis pesan..",
+    "youMightAlsoLike": "Baca juga"
+  },
+  "countdown": {
+    "day": "Hari",
+    "hour": "Jam",
+    "min": "Menit",
+    "sec": "Detik"
+  },
+  "eventStatus": {
+    "startsIn": "Event dimulai dalam",
+    "live": "Live",
+    "completed": "Selesai"
+  },
+  "conjunction": {
+    "label": "Bersamaan dengan",
+    "and": "dan"
+  },
+  "nav": {
+    "Home": "Home",
+    "Brands": "Brands",
+    "Rundown": "Rundown",
+    "Programs": "Programs",
+    "Resources": "Resources",
+    "Partners": "Partners",
+    "Contact": "Contact",
+    "News": "News",
+    "Ticket": "Ticket",
+    "Exhibitor Registration": "Daftar Exhibitor",
+    "Gallery": "Gallery",
+    "FAQ": "FAQ",
+    "Links": "Links",
+    "Ticket Terms and Conditions": "Syarat & Ketentuan Tiket",
+    "Ticket Refund and Return Policy": "Kebijakan Refund Tiket",
+    "Event Policy": "Kebijakan Acara",
+    "Terms of Service": "Syarat Layanan",
+    "Privacy Policy": "Kebijakan Privasi",
+    "Help Center": "Help Center",
+    "Sponsorship Registration": "Daftar Sponsorship",
+    "Media Partner Registration": "Daftar Media Partner",
+    "Menu": "Menu",
+    "Get in touch": "Hubungi kami",
+    "Social": "Social",
+    "Discover": "Discover",
+    "For Businesses": "Untuk Bisnis",
+    "Terms and policies": "Syarat & kebijakan",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube"
+  },
+  "partners": {
+    "Organized by": "Diselenggarakan oleh",
+    "Supported by": "Didukung oleh"
+  },
+  "news": {
+    "latestUpdates": "Update terbaru",
+    "showingPostsFor": "{total} artikel untuk",
+    "showingPosts": "{total} artikel",
+    "noResultsFor": "Tidak ada hasil untuk",
+    "noResultsHint": "Coba keyword lain atau jelajahi topik lainnya.",
+    "noPostsYet": "Belum ada artikel",
+    "comeBackLater": "Cek lagi nanti ya"
+  },
+  "brands": {
+    "comingSoon": "Daftar brand segera hadir. Cek lagi nanti!"
+  },
+  "rundown": {
+    "title": "Rundown",
+    "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}.",
+    "comingSoon": "Rundown segera hadir. Cek lagi nanti!",
+    "nothingYet": "Belum ada jadwal nih!"
+  },
+  "ticket": {
+    "agreementPrefix": "Dengan melanjutkan, kamu setuju dengan",
+    "agreementAnd": "dan",
+    "ticketTerms": "Syarat & Ketentuan Tiket",
+    "eventPolicy": "Kebijakan Acara"
+  },
+  "hero": {
+    "countdownLabel": "Kopi favoritmu menanti dalam:",
+    "title": "Temukan Kopi Favorit Baru Kamu.",
+    "description": "Dengan begitu banyak roaster keren di sini, kopi andalan baru kamu tinggal selangkah lagi. Datang, coba satu per satu, dan temukan sendiri favoritmu.",
+    "announcement": "Slot Exhibitor Masih Tersedia!",
+    "banners": {
+      "0": {
+        "subHeadline": "Punya Produk yang Bikin Nagih?",
+        "content": "<p>Terhubung langsung dengan 23.000+ profesional F&B, pemilik kafe, dan pecinta kuliner. Panggung yang tepat buat brand kamu dicicipi dan dibicarakan banyak orang.</p>",
+        "cta": "Pamerkan Brand Kamu"
+      },
+      "1": {
+        "subHeadline": "Passion Ketemu Peluang",
+        "content": "<p>Pass kamu juga berlaku untuk masuk ke <strong>Franchise & License Expo Indonesia (FLEI)</strong> dan <strong>More Food Expo Indonesia</strong> yang ada di sebelah.</p>",
+        "cta": "Lihat FLEI"
+      },
+      "2": {
+        "subHeadline": "Jangan Sampe Ketinggalan!",
+        "content": "<p>Follow Instagram kami buat dapetin bocoran exhibitor keren, giveaway seru, dan behind-the-scenes yang nggak mau kamu lewatkan.</p>",
+        "cta": "Follow {'@'}indocoffeefest"
+      }
+    }
+  },
+  "mainPrograms": {
+    "title": "<span>Program Utama</span>",
+    "description": "Di sinilah serunya dimulai. Kami sudah siapkan jadwal penuh dengan kompetisi langsung, workshop hands-on, dan tasting sepuasnya supaya setiap momen kunjunganmu penuh energi dan inspirasi.",
+    "items": {
+      "0": {
+        "title": "Kompetisi Live",
+        "description": "Rasakan adrenalinnya! Saksikan barista, brewer, dan chef terbaik Indonesia adu skill di panggung utama. Energinya nular, talentanya luar biasa."
+      },
+      "1": {
+        "title": "Tasting Bar",
+        "description": "Ini playground kamu. Cobain ratusan produk dari exhibitor kopi, teh, wine, dan cokelat. Temukan rasa favorit baru kamu, semuanya gratis."
+      },
+      "2": {
+        "title": "Workshop Hands-On",
+        "description": "Jangan cuma nonton, ikutan! Belajar wine tasting ala profesional, brew kopi yang sempurna, atau padukan rasa di sesi intimate bareng para expert. Kursi terbatas."
+      },
+      "3": {
+        "title": "Bean-to-Bar Demo",
+        "description": "Lihat langsung keajaiban pembuatan cokelat di depan matamu. Para artisan maker kami akan tunjukkan gimana biji kakao sederhana berubah jadi cokelat batangan yang nikmat."
+      },
+      "4": {
+        "title": "Industry Talks",
+        "description": "Dapetin insight langsung dari para pro. Ikuti obrolan santai soal masa depan budaya kafe, sustainability di F&B, dan tren yang wajib kamu tahu sekarang."
+      },
+      "5": {
+        "title": "Live Music & DJ",
+        "description": "Soundtrack buat perjalanan rasa kamu. Band dan DJ bakal menemani sepanjang hari dengan alunan musik yang bikin suasana makin asyik."
+      }
+    }
+  },
+  "partnerships": {
+    "title": "<span class='text-outline'>Jadilah </span><span class='text-primary'>Bagian dari Cerita Kami</span>",
+    "description": "Bawa bisnis kamu ke level selanjutnya dengan ikut di {appName}. Ketemu calon partner, dapatkan eksposur, dan perluas network kamu.",
+    "exhibitor": {
+      "title": "Jadi Exhibitor",
+      "description": "Panggilan buat semua brand dan pengusaha! Pamerkan produk kamu ke audiens yang beragam dan antusias.",
+      "cta": "Book Slot Kamu"
+    },
+    "sponsor": {
+      "title": "Jadi Sponsor",
+      "description": "Terhubung langsung dengan para decision-maker dengan jadi sponsor di event industri terkemuka ini.",
+      "cta": "Jadi Sponsor"
+    },
+    "mediaPartner": {
+      "title": "Jadi Media Partner",
+      "description": "Partner dengan kami untuk liputan eksklusif dan akses ke cerita terbesar dari industri ini.",
+      "cta": "Gabung sebagai Media"
+    },
+    "reservedSpace": {
+      "title": "Space ini kami sediakan untuk mitra terbaik. Mau jadi salah satunya?",
+      "cta": "Jadi Partner"
+    }
+  },
+  "visitorCta": {
+    "title": "<span class=\"text-accent\">Pesta rasa terbesar</span> tahun ini <span class=\"text-accent\">gratis.</span>",
+    "description": "Kami sudah sediakan tempat buatmu di acara paling seru tahun ini. Datang buat eksplor, nikmatin, dan cari inspirasi. Yang kamu butuhkan cuma pass gratis.",
+    "cta": "Ambil Tiket Gratis"
+  },
+  "mediaCoverage": {
+    "title": "Liputan Media & Komunitas",
+    "description": "Lihat apa kata media-media ternama tentang {appName}."
+  },
+  "credits": {
+    "title": "Komunitas di Balik Event Ini",
+    "description": "Acara ini bisa terwujud berkat dukungan penuh dari para mitra, sponsor, dan media kami."
+  },
+  "postSlider": {
+    "title": "Update Terbaru",
+    "titleMorePosts": "Mungkin kamu juga suka"
+  },
+  "brandPreview": {
+    "title": "Temukan Brand-Brand Keren di {appName}"
+  },
+  "brandList": {
+    "title": "Brand",
+    "description": "Jelajahi beragam brand kafe yang memamerkan produk dan inovasinya. Dari kopi, teh, wine, hingga cokelat, lihat apa yang ditawarkan setiap brand."
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "formTitle": "Form Kontak",
+    "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara.",
+    "name": "Nama",
+    "jobTitle": "Jabatan",
+    "brandName": "Nama Brand",
+    "products": "Produk",
+    "email": "Email",
+    "phone": "No. HP (WhatsApp)",
+    "referralSource": "Dari mana kamu tahu acara ini?",
+    "message": "Pesan",
+    "successTitle": "Terkirim! Terima kasih sudah menghubungi kami.",
+    "successMessage": "Tim kami akan segera follow up lewat email atau WhatsApp.",
+    "successButton": "Oke, ke beranda",
+    "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
+    "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa kasih info soal booth, harga, dan detail lainnya.",
+    "errorSend": "Pesan gagal terkirim. Coba lagi ya.",
+    "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
+  },
+  "bookSpace": {
+    "title": "Registrasi Exhibitor",
+    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan dan kembangkan bisnis kamu."
+  },
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "description": "Cari tahu jawaban pertanyaan seputar festival kopi, tiket, exhibitor, dan info lainnya di sini.",
+    "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Silakan kembali lagi nanti.",
+    "contactTitle": "Punya pertanyaan? Langsung kirim ke kami!",
+    "items": {
+      "0": {
+        "q": "Kapan dan di mana {eventTitle} akan diselenggarakan?",
+        "a": "<p>{eventTitle} bakal diadakan tanggal <strong>{eventDate}</strong>, dari jam <strong>{eventTime}</strong>, lokasinya di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
+      },
+      "1": {
+        "q": "Bagaimana cara mendapatkan tiket festival kopi ini?",
+        "a": "<p>Kamu bisa beli tiket lewat website resmi kami. Cukup klik tombol <a href=\"/ticket\">Get Ticket</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp kamu setelah pembayaran.</p>"
+      },
+      "2": {
+        "q": "Berapa harga tiketnya?",
+        "a": "<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami aja. Jangan sampe kelewatan promo early bird dan pre-sale buat dapetin harga spesial!</p>"
+      },
+      "3": {
+        "q": "Apakah saya bisa mendapatkan refund jika tidak bisa hadir?",
+        "a": "<p>Semua penjualan tiket bersifat final. Tidak ada refund atau penukaran setelah pembelian. Untuk detail lebih lanjut, cek <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund dan Pengembalian Tiket</a> kami.</p>"
+      },
+      "4": {
+        "q": "Apa saja yang perlu saya bawa ke acara ini?",
+        "a": "<p>Jangan lupa bawa e-ticket kamu (versi digital atau print) untuk ditukar dengan badge atau wristband di meja registrasi. Kalau kamu mau networking dengan exhibitor dan peserta lainnya, ada baiknya bawa kartu nama juga.</p>"
+      },
+      "5": {
+        "q": "Siapa saja yang bisa menghadiri acara ini?",
+        "a": "<p>Acara ini terbuka untuk siapa saja! Kamu pemilik kafe, pengusaha F&B, pecinta kopi, profesional di industri makanan, atau sekadar suka eksplor tren kuliner — semuanya welcome!</p>"
+      },
+      "6": {
+        "q": "Brand dan produk apa saja yang dipamerkan di acara ini?",
+        "a": "<p>Kami menampilkan beragam brand F&B, supplier peralatan, penyedia bahan baku, dan perusahaan jasa. Mulai dari mesin kopi dan furnitur kafe sampai bahan makanan dan solusi packaging. Kamu bisa lihat daftar exhibitor di halaman <a href=\"/brands\">Brands</a> kami.</p>"
+      },
+      "7": {
+        "q": "Bagaimana cara ikut pameran sebagai exhibitor?",
+        "a": "<p>Untuk jadi exhibitor dan pamerkan produk atau layanan F&B kamu, silakan kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> kami atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info lebih lanjut tentang paket booth.</p>"
+      },
+      "8": {
+        "q": "Apakah ada sesi tasting atau sampling produk?",
+        "a": "<p>Tentu! Banyak exhibitor yang nawarin sampling dan tasting gratis di booth mereka. Ini kesempatan bagus buat discover produk, bahan baku, dan rasa-rasa baru — baik buat bisnis maupun kesenangan pribadi.</p>"
+      },
+      "9": {
+        "q": "Apakah ada seminar atau workshop di acara ini?",
+        "a": "<p>Ada dong! Kami mengadakan berbagai seminar, workshop, dan demo session yang bahas topik seperti teknik brewing, tren makanan, strategi bisnis, dan insight industri. Cek <a href=\"/rundown\">Rundown</a> kami untuk jadwal lengkapnya.</p>"
+      },
+      "10": {
+        "q": "Bagaimana cara menjadi sponsor atau media partner?",
+        "a": "<p>Kami terbuka untuk sponsorship dan media partnership. Silakan hubungi kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
+      },
+      "11": {
+        "q": "Apakah ada parkir di venue?",
+        "a": "<p>Ya, venue menyediakan fasilitas parkir. Tapi kami sarankan untuk datang lebih pagi karena parkir bisa cepat penuh saat jam ramai. Kamu juga bisa pertimbangkan pakai transportasi umum atau ride-sharing.</p>"
+      },
+      "12": {
+        "q": "Apakah saya boleh foto atau video di acara ini?",
+        "a": "<p>Kamu boleh foto atau video untuk keperluan pribadi. Namun, untuk rekaman profesional atau komersial, perlu izin tertulis dari penyelenggara. Untuk detailnya, silakan baca <a href=\"/event-policy\">Event Policy</a> kami.</p>"
+      },
+      "13": {
+        "q": "Gimana caranya dapetin info terbaru soal festival kopi ini?",
+        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat dapetin update terbaru, pengumuman, dan konten eksklusif. Kamu juga bisa kunjungi halaman <a href=\"/news\">News</a> untuk artikel dan info terkini.</p>"
+      },
+      "14": {
+        "q": "Bagaimana cara menghubungi organizer?",
+        "a": "<p>Kamu bisa hubungi kami melalui:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini untuk chat</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Kunjungi <a href=\"/help-center\">Help Center</a> kami untuk opsi kontak lainnya dan akses cepat ke berbagai informasi.</p>"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Indonesia Coffee Festival (ICF)",
+      "description": "Hadir di Indonesia Coffee Festival, perayaan budaya kopi nusantara yang seru. Jelajahi tasting, workshop, kompetisi, dan banyak lagi."
+    },
+    "brands": {
+      "title": "Brand",
+      "description": "Jelajahi beragam brand yang memamerkan produk dan inovasinya di {appName}. Dari kopi, teh, hingga bakery dan dessert."
+    },
+    "rundown": {
+      "title": "Rundown",
+      "description": "Ikuti jadwal lengkap acara dan program yang berlangsung di {appName}."
+    },
+    "programs": {
+      "title": "Program Utama",
+      "description": "Jelajahi program utama di {appName}. Dapatkan insight dan perluas jaringan dengan para ahli di industri ini."
+    },
+    "contact": {
+      "title": "Hubungi Kami",
+      "description": "Butuh bantuan atau punya pertanyaan? Hubungi kami untuk info soal tiket, partnership, dan detail acara."
+    },
+    "bookSpace": {
+      "title": "Book Space",
+      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Bergabung dengan brand-brand terdepan."
+    },
+    "ticket": {
+      "title": "Ambil Tiket",
+      "description": "Dapatkan tiket masuk {appName}. Temukan semua info yang kamu butuhkan — tanggal, venue, dan pilihan tiket."
+    },
+    "gallery": {
+      "title": "Galeri Acara",
+      "description": "Lihat foto-foto highlights dari edisi sebelumnya di {appName}."
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "Temukan jawaban untuk pertanyaan yang sering diajukan tentang {appName}. Info soal tiket, detail acara, partnership, dan lainnya."
+    },
+    "links": {
+      "title": "Links",
+      "description": "Kumpulan link penting untuk navigasi yang lebih mudah."
+    },
+    "news": {
+      "title": "Berita",
+      "description": "Ikuti insight, berita, dan tren terbaru di dunia kopi dan F&B. Baca artikel dan update acara dari kami."
+    },
+    "ticketPolicy": {
+      "title": "Kebijakan Tiket",
+      "description": "Pahami Kebijakan Tiket {appName}. Info tentang kategori tiket, harga, dan panduan refund."
+    },
+    "eventPolicy": {
+      "title": "Kebijakan Acara",
+      "description": "Baca kebijakan acara {appName}. Detail aturan, regulasi, dan panduan penting untuk peserta dan exhibitor."
+    },
+    "partners": {
+      "title": "Partner Kami",
+      "description": "Acara ini tidak akan terwujud tanpa dukungan luar biasa dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang membantu mewujudkan acara ini."
+    },
+    "terms": {
+      "title": "Syarat dan Ketentuan",
+      "description": ""
+    },
+    "privacy": {
+      "title": "Kebijakan Privasi",
+      "description": ""
+    },
+    "winner": {
+      "title": "Random Winner Generator",
+      "description": "Pilih pemenang secara acak dan instan. Masukkan nama, putar slot machine, dan tentukan pemenang dengan adil. Cocok untuk kontes, giveaway, dan acara!"
+    }
+  }
+}

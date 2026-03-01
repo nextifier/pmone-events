@@ -57,7 +57,7 @@
             external
             class="text-primary hover:bg-primary hover:text-primary-foreground flex h-full items-center justify-center rounded-md border px-4 text-sm font-semibold tracking-tight transition active:scale-98"
           >
-            <span>View all</span>
+            <span>{{ $t('ui.viewAll') }}</span>
           </nuxt-link>
         </div>
       </div>
@@ -67,5 +67,5 @@
 
 <script setup>
 const news = useNewsCoveragesStore().list;
-const content = useContentStore().components.mediaCoverage;
+const content = computed(() => useContentStore().components.mediaCoverage);
 </script>

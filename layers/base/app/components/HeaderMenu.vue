@@ -44,7 +44,7 @@
               <div class="col-span-7 flex flex-col gap-y-4 lg:col-span-6">
                 <span
                   class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
-                  >{{ useAppConfig().routes.dialog[0].label }}</span
+                  >{{ $t(`nav.${useAppConfig().routes.dialog[0].label}`) }}</span
                 >
 
                 <div class="flex flex-col gap-y-3">
@@ -72,7 +72,7 @@
                         }
                       "
                     >
-                      {{ link.label }}
+                      {{ $t(`nav.${link.label}`) }}
                     </NuxtLink>
                   </DialogClose>
                 </div>
@@ -90,7 +90,7 @@
                 >
                   <span
                     class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
-                    >{{ item.label }}</span
+                    >{{ $t(`nav.${item.label}`) }}</span
                   >
 
                   <div class="flex flex-col gap-y-2 sm:gap-y-1">
@@ -117,7 +117,7 @@
                           }
                         "
                       >
-                        {{ link.label }}</NuxtLink
+                        {{ $t(`nav.${link.label}`) }}</NuxtLink
                       >
                     </DialogClose>
                   </div>
@@ -136,7 +136,7 @@
               class="bg-muted text-primary hover:bg-border flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
               @click="$scrollToTopIfCurrentPageIs('/book-space')"
               v-ripple
-              >Book Space</NuxtLink
+              >{{ $t('ui.bookSpace') }}</NuxtLink
             ></DialogClose
           >
 
@@ -146,7 +146,7 @@
               class="bg-primary text-primary-foreground hover:bg-primary/80 flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
               @click="$scrollToTopIfCurrentPageIs('/ticket')"
               v-ripple
-              >Get Ticket</NuxtLink
+              >{{ $t('ui.getTicket') }}</NuxtLink
             >
           </DialogClose>
         </div>

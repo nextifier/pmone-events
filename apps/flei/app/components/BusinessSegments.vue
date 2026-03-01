@@ -4,13 +4,11 @@
       <div class="flex flex-col items-center text-center">
         <h2
           class="section-title-large relative isolate !leading-[1] font-extrabold tracking-tighter text-balance"
-        >
-          <span class="text-outline">Business</span> Segments
-        </h2>
+          v-html="$t('businessSegments.title')"
+        ></h2>
 
         <p class="section-description mt-4 sm:mt-8">
-          Explore a world of opportunities to enhance your business and expand
-          your horizons.
+          {{ $t('businessSegments.description') }}
         </p>
       </div>
 
@@ -28,13 +26,14 @@
             <Icon :name="item.icon" class="text-primary size-6" />
           </div>
           <div class="flex flex-col items-start gap-y-1">
-            <span
+            <h3
               class="text-primary text-base font-semibold tracking-tighter sm:text-xl"
-              >{{ item.title }}</span
             >
-            <span class="text-muted-foreground tracking-tight">{{
-              item.description
-            }}</span>
+              {{ item.title }}
+            </h3>
+            <p class="text-muted-foreground tracking-tight">
+              {{ item.description }}
+            </p>
           </div>
         </div>
 
@@ -47,35 +46,32 @@
 </template>
 
 <script setup>
-const items = ref([
+const { t } = useI18n();
+
+const items = computed(() => [
   {
-    title: "Franchise",
-    description:
-      "Find stability and profitability with proven business models. We feature top-tier local and international brands that offer strong support and guidance for their partners.",
+    title: t("businessSegments.items.0.title"),
+    description: t("businessSegments.items.0.description"),
     icon: "hugeicons:store-01",
   },
   {
-    title: "Business Opportunity",
-    description:
-      "Perfect for those starting their journey. Discover promising business concepts with high potential to grow and evolve into a successful franchise.",
+    title: t("businessSegments.items.1.title"),
+    description: t("businessSegments.items.1.description"),
     icon: "hugeicons:briefcase-dollar",
   },
   {
-    title: "Retail Tech Solution",
-    description:
-      "Stay ahead of the curve. Explore technologies that streamline operations, enhance customer experience, and keep your business competitive in the digital age.",
+    title: t("businessSegments.items.2.title"),
+    description: t("businessSegments.items.2.description"),
     icon: "hugeicons:ai-scan",
   },
   {
-    title: "Licensing & Co-Branding",
-    description:
-      "Boost your sales by leveraging the power of famous characters and well-loved brands. Find licensing partners to make your product stand out.",
+    title: t("businessSegments.items.3.title"),
+    description: t("businessSegments.items.3.description"),
     icon: "hugeicons:checkmark-badge-04",
   },
   {
-    title: "Distributor",
-    description:
-      "Tap into Indonesia's massive distribution network. Connect with brands looking for agents, wholesalers, and online affiliates to expand their reach.",
+    title: t("businessSegments.items.4.title"),
+    description: t("businessSegments.items.4.description"),
     icon: "hugeicons:shopping-cart-check-02",
   },
 ]);

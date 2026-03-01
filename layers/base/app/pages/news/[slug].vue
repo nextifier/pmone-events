@@ -38,7 +38,7 @@
     <div v-if="pending" class="min-h-screen-offset grid place-items-center">
       <div class="flex items-center gap-2">
         <LoadingSpinner class="border-primary size-4" />
-        <span class="tracking-tight">Loading</span>
+        <span class="tracking-tight">{{ $t('ui.loading') }}</span>
       </div>
     </div>
 
@@ -124,13 +124,13 @@
                 v-if="post.published_at"
                 v-tippy="$dayjs(post.published_at).format('MMM D, YYYY h:mm A')"
               >
-                Posted {{ $dayjs(post.published_at).fromNow() }}
+                {{ $t('ui.posted') }} {{ $dayjs(post.published_at).fromNow() }}
               </span>
 
               <span v-if="post.reading_time" class="flex items-center gap-x-1.5">
                 <Icon name="lucide:clock-fading" class="size-4 shrink-0" />
                 <span
-                  >{{ post.reading_time }} min<span v-if="post.reading_time > 1">s</span> read</span
+                  >{{ $t('ui.readingTime', post.reading_time, { n: post.reading_time }) }}</span
                 >
               </span>
             </div>
@@ -180,7 +180,7 @@
 
           <div class="mt-10 flex flex-col items-center gap-y-4">
             <span class="text-primary text-center text-lg font-semibold tracking-tighter sm:text-xl"
-              >Share this post</span
+              >{{ $t('ui.shareThisPost') }}</span
             >
             <SharePage
               model="post"

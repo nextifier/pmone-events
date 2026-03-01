@@ -8,7 +8,7 @@
     >
       <span
         class="rounded-2xl border border-gray-200 bg-white px-4 py-2 font-semibold tracking-tight text-black dark:border-gray-800 dark:bg-gray-950 dark:text-white"
-        >Brands</span
+        >{{ $t('ui.brands') }}</span
       >
     </div>
 
@@ -66,7 +66,7 @@
           class="flex items-center justify-center gap-1.5 rounded-full bg-gray-100 p-4 text-sm font-medium tracking-tight text-black transition hover:bg-gray-200 active:scale-98 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
         >
           <IconGrid class="h-4" />
-          <span>View all brands</span>
+          <span>{{ $t('ui.viewAllBrands') }}</span>
         </nuxt-link>
       </div>
     </div>
@@ -77,7 +77,7 @@
     >
       <span
         class="text-primary text-xl font-semibold tracking-tight text-balance"
-        >Brand list is coming soon 🤩 Check back later!
+        >{{ $t('brands.comingSoon') }}
       </span>
     </div>
   </div>

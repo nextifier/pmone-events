@@ -2,14 +2,14 @@ export const usePageMeta = (pageKey, overrides = {}) => {
   const pageStore = useContentStore();
   const route = useRoute();
 
-  const meta = pageKey ? pageStore.getMetaByKey(pageKey) : null;
+  const meta = computed(() => pageKey ? pageStore.getMetaByKey(pageKey) : null);
 
   // Support both plain values and computed/ref values
-  const title = computed(() => toValue(overrides.title) || meta?.title || "");
-  const description = computed(() => toValue(overrides.description) || meta?.description || "");
+  const title = computed(() => toValue(overrides.title) || meta.value?.title || "");
+  const description = computed(() => toValue(overrides.description) || meta.value?.description || "");
 
   useSeoMeta({
-    titleTemplate: meta?.withoutTitleTemplate ? "%s" : "%s · %siteName",
+    titleTemplate: computed(() => meta.value?.withoutTitleTemplate ? "%s" : "%s · %siteName"),
     title: title,
     ogTitle: title,
     description: description,
@@ -18,9 +18,9 @@ export const usePageMeta = (pageKey, overrides = {}) => {
     twitterCard: "summary_large_image",
   });
 
-  if (meta?.ogImage) {
+  if (meta.value?.ogImage) {
     defineOgImage({
-      url: meta.ogImage,
+      url: meta.value.ogImage,
     });
   } else {
     defineOgImageComponent("Page", {

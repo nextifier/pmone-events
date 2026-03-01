@@ -57,6 +57,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxtjs/color-mode",
+    "@nuxtjs/i18n",
     "shadcn-nuxt",
     "@vueuse/nuxt",
     "@pinia/nuxt",
@@ -130,6 +131,23 @@ export default defineNuxtConfig({
 
   gtag: {
     loadingStrategy: "defer",
+  },
+
+  i18n: {
+    locales: [
+      { code: "en", language: "en-US", name: "English", file: "en.json" },
+    ],
+    lazy: true,
+    langDir: "../i18n/locales",
+    defaultLocale: "en",
+    strategy: "no_prefix",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_locale",
+      redirectOn: "all",
+      alwaysRedirect: true,
+      fallbackLocale: "en",
+    },
   },
 
   compatibilityDate: "2025-05-01",

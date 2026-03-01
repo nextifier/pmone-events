@@ -135,5 +135,5 @@
 </template>
 
 <script setup>
-const content = useContentStore().components.partnerships;
+const content = computed(() => useContentStore().components.partnerships);
 </script>

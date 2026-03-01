@@ -64,6 +64,6 @@
 
 <script setup>
 import { NuxtLink } from "#components";
-const content = useContentStore().components.credits;
-const partners = new usePartnerStore().partnerCategories;
+const content = computed(() => useContentStore().components.credits);
+const partners = computed(() => usePartnerStore().partnerCategories);
 </script>

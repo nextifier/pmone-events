@@ -24,7 +24,7 @@
               }
             "
           >
-            <span>{{ item.label }}</span>
+            <span>{{ $t(`nav.${item.label}`) }}</span>
           </NuxtLink>
         </NavigationMenuLink>
 
@@ -32,7 +32,7 @@
           v-else
           class="text-muted-foreground hover:bg-muted relative flex h-full items-center justify-center gap-x-1 rounded-2xl py-2 pr-1.5 pl-3 tracking-tight transition select-none active:scale-98"
         >
-          <span>{{ item.label }}</span>
+          <span>{{ $t(`nav.${item.label}`) }}</span>
         </NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul class="flex flex-col gap-y-1">
@@ -56,7 +56,7 @@
                     }
                   "
                 >
-                  <span>{{ link.label }}</span>
+                  <span>{{ $t(`nav.${link.label}`) }}</span>
                 </NuxtLink>
               </NavigationMenuLink>
             </li>

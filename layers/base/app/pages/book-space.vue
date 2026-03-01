@@ -16,5 +16,5 @@
 
 <script setup>
 usePageMeta("bookSpace");
-const content = useContentStore().components.bookSpace;
+const content = computed(() => useContentStore().components.bookSpace);
 </script>

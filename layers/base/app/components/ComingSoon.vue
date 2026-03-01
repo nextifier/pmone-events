@@ -9,7 +9,7 @@
 
       <span
         class="3xl:text-9xl text-6xl font-semibold tracking-tighter text-black sm:text-7xl xl:text-8xl dark:text-white"
-        >Coming soon</span
+        >{{ $t('ui.comingSoon') }}</span
       >
 
       <p
@@ -25,7 +25,7 @@
         v-ripple
       >
         <Icon name="lucide:arrow-left" class="size-4 shrink-0" />
-        <span>Back to home</span>
+        <span>{{ $t('ui.backToHome') }}</span>
       </nuxt-link>
     </div>
   </div>

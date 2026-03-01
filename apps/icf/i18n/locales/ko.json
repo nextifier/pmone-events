@@ -1,0 +1,387 @@
+{
+  "ui": {
+    "viewAll": "전체 보기",
+    "viewAllBrands": "브랜드 전체 보기",
+    "contactUs": "문의하기",
+    "back": "뒤로",
+    "comingSoon": "곧 공개돼요",
+    "backToHome": "홈으로 돌아가기",
+    "bookSpace": "부스 예약",
+    "getTicket": "티켓 받기",
+    "lightDarkMode": "라이트 / 다크 모드",
+    "toggleSidebar": "사이드바 열기/닫기",
+    "openMenu": "메뉴 열기",
+    "toggleFullscreen": "전체 화면 전환",
+    "switchLanguage": "언어 변경",
+    "copyright": "저작권",
+    "allRightsReserved": "All rights reserved.",
+    "readingTime": "{n}분 읽기",
+    "loading": "로딩 중",
+    "failedToGetData": "데이터를 불러오지 못했어요.",
+    "search": "검색",
+    "searchPosts": "게시글 검색",
+    "brands": "브랜드",
+    "booth": "부스",
+    "categories": "카테고리",
+    "description": "설명",
+    "created": "작성일",
+    "views": "조회 {n}회",
+    "posted": "게시일",
+    "shareThisPost": "이 글 공유하기",
+    "soldOut": "매진",
+    "startsFrom": "시작가",
+    "startsIn": "시작까지",
+    "endsIn": "종료까지",
+    "ticketsSoldOut": "티켓이 매진됐어요",
+    "ticketsComingSoon": "티켓 곧 오픈해요",
+    "presentedBy": "주관",
+    "allLocations": "전체 장소",
+    "selectAProduct": "상품을 선택해 주세요",
+    "selectAnOption": "옵션을 선택해 주세요",
+    "enterYourProductType": "상품 유형을 입력해 주세요",
+    "sendMessage": "메시지 보내기",
+    "leaveAMessage": "메시지를 남겨 주세요..",
+    "youMightAlsoLike": "이런 글도 있어요"
+  },
+  "news": {
+    "latestUpdates": "최신 소식",
+    "showingPostsFor": "{total}개의 검색 결과",
+    "showingPosts": "총 {total}개의 게시글",
+    "noResultsFor": "검색 결과가 없어요",
+    "noResultsHint": "다른 키워드로 검색해 보세요. 다른 주제도 둘러보면 재미있는 글을 찾을 수 있을 거예요!",
+    "noPostsYet": "아직 게시글이 없어요",
+    "comeBackLater": "조금만 기다려 주세요"
+  },
+  "brands": {
+    "comingSoon": "브랜드 목록을 준비 중이에요. 조금만 기다려 주세요!"
+  },
+  "rundown": {
+    "title": "Rundown",
+    "description": "{appName}의 행사 일정과 프로그램을 확인해 보세요.",
+    "comingSoon": "Rundown을 준비 중이에요. 조금만 기다려 주세요!",
+    "nothingYet": "아직 준비 중이에요!"
+  },
+  "ticket": {
+    "agreementPrefix": "티켓을 구매하면 아래 내용에 동의하게 돼요:",
+    "agreementAnd": "&",
+    "ticketTerms": "티켓 이용약관",
+    "eventPolicy": "행사 정책"
+  },
+  "contact": {
+    "title": "문의하기",
+    "formTitle": "문의 양식",
+    "description": "궁금한 점이 있으세요? 티켓, 파트너십, 행사 관련 문의를 남겨 주세요.",
+    "name": "이름",
+    "jobTitle": "직책",
+    "brandName": "브랜드명",
+    "products": "상품",
+    "email": "Email",
+    "phone": "전화번호 (WhatsApp)",
+    "referralSource": "이 행사를 어떻게 알게 되셨나요?",
+    "message": "메시지",
+    "successTitle": "감사합니다! 문의가 정상적으로 접수됐어요.",
+    "successMessage": "담당자가 Email 또는 WhatsApp으로 빠르게 연락드릴게요.",
+    "successButton": "확인. 홈으로 돌아가기",
+    "disclaimerDefault": "정확하고 연락 가능한 Email 주소와 전화번호를 입력해 주세요. 담당자가 곧 연락드릴게요.",
+    "disclaimerExhibitor": "걱정 마세요. 이 양식을 제출한다고 바로 전시 참가가 확정되는 건 아니에요. 부스 옵션, 가격 등 자세한 안내를 위해 연락처가 필요해요.",
+    "errorSend": "메시지 전송에 실패했어요. 다시 시도해 주세요.",
+    "errorNetwork": "네트워크 오류가 발생했어요. 잠시 후 다시 시도해 주세요."
+  },
+  "countdown": {
+    "day": "일",
+    "hour": "시간",
+    "min": "분",
+    "sec": "초"
+  },
+  "eventStatus": {
+    "startsIn": "행사 시작까지 ",
+    "live": "진행 중",
+    "completed": "종료"
+  },
+  "conjunction": {
+    "label": "동시 개최",
+    "and": "및"
+  },
+  "nav": {
+    "Home": "홈",
+    "Brands": "브랜드",
+    "Rundown": "일정",
+    "Programs": "프로그램",
+    "Resources": "정보",
+    "Partners": "파트너",
+    "Contact": "문의",
+    "News": "뉴스",
+    "Ticket": "티켓",
+    "Exhibitor Registration": "전시 참가 신청",
+    "Gallery": "갤러리",
+    "FAQ": "FAQ",
+    "Links": "링크",
+    "Ticket Terms and Conditions": "티켓 이용약관",
+    "Ticket Refund and Return Policy": "티켓 환불 정책",
+    "Event Policy": "행사 정책",
+    "Terms of Service": "이용약관",
+    "Privacy Policy": "개인정보 처리방침",
+    "Help Center": "고객센터",
+    "Sponsorship Registration": "스폰서십 신청",
+    "Media Partner Registration": "미디어 파트너 신청",
+    "Menu": "메뉴",
+    "Get in touch": "연락하기",
+    "Social": "소셜",
+    "Discover": "둘러보기",
+    "For Businesses": "비즈니스",
+    "Terms and policies": "약관 및 정책",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube"
+  },
+  "partners": {
+    "Organized by": "주최",
+    "Supported by": "후원"
+  },
+  "hero": {
+    "countdownLabel": "나만의 커피를 만날 날까지:",
+    "title": "다음 최애 커피, 여기서 찾아보세요.",
+    "description": "이렇게 많은 훌륭한 로스터가 한자리에 모였어요. 새로운 단골 커피가 여기서 기다리고 있어요. 와서 둘러보고, 시음하고, 직접 찾아보세요.",
+    "announcement": "전시 부스 아직 자리 있어요",
+    "banners": {
+      "0": {
+        "subHeadline": "맛있는 제품이 있으세요?",
+        "content": "<p>23,000명 이상의 F&B 전문가, 카페 오너, 열정적인 미식가와 만나보세요. 브랜드를 직접 맛보게 하고, 화제를 만들 수 있는 최고의 무대예요.</p>",
+        "cta": "브랜드 출전하기"
+      },
+      "1": {
+        "subHeadline": "열정이 수익이 되는 곳",
+        "content": "<p>입장권으로 옆에서 열리는 <strong>Franchise & License Expo Indonesia (FLEI)</strong>와 <strong>More Food Expo Indonesia</strong>도 입장할 수 있어요.</p>",
+        "cta": "FLEI 보러 가기"
+      },
+      "2": {
+        "subHeadline": "한 방울도 놓치지 마세요!",
+        "content": "<p>Instagram을 팔로우하면 멋진 참가 브랜드 미리보기, 특별 경품, 비하인드 소식을 가장 먼저 받을 수 있어요.</p>",
+        "cta": "{'@'}indocoffeefest 팔로우하기"
+      }
+    }
+  },
+  "mainPrograms": {
+    "title": "<span>주요 프로그램</span>",
+    "description": "여기가 진짜 액션이 일어나는 곳이에요. 라이브 대회, 직접 체험하는 워크숍, 무한 시음까지 가득 채웠어요. 방문하는 매 순간이 에너지와 영감으로 넘칩니다.",
+    "items": {
+      "0": {
+        "title": "라이브 대회",
+        "description": "아드레날린을 느껴보세요! 인도네시아 최고의 바리스타, 브루어, 셰프들이 메인 무대에서 실력을 겨뤄요. 현장 분위기가 전염되고, 실력에 감탄하게 될 거예요."
+      },
+      "1": {
+        "title": "테이스팅 바",
+        "description": "여기는 여러분의 놀이터예요. 커피, 차, 와인, 초콜릿 참가사의 수백 가지 제품을 무료로 시음할 수 있어요. 다음 최애 맛을 찾아보세요."
+      },
+      "2": {
+        "title": "체험 워크숍",
+        "description": "보기만 하지 말고 직접 참여하세요! 와인 전문가처럼 테이스팅하고, 완벽한 커피를 내리고, 플레이버 페어링을 배워보세요. 좌석이 한정돼 있어요."
+      },
+      "3": {
+        "title": "Bean-to-Bar 데모",
+        "description": "눈앞에서 초콜릿이 만들어지는 마법을 경험하세요. 아티장 메이커가 평범한 카카오 빈이 맛있는 초콜릿 바로 변하는 과정을 보여드려요."
+      },
+      "4": {
+        "title": "인더스트리 토크",
+        "description": "프로들의 리얼한 이야기를 들어보세요. 카페 문화의 미래, F&B 지속가능성, 지금 꼭 알아야 할 트렌드에 대한 캐주얼 토크 세션이에요."
+      },
+      "5": {
+        "title": "라이브 뮤직 & DJ",
+        "description": "맛의 여정에 어울리는 사운드트랙이에요. 하루 종일 라이브 밴드와 DJ가 신나는 음악을 틀어서 좋은 분위기를 이어가요."
+      }
+    }
+  },
+  "partnerships": {
+    "title": "<span class='text-outline'>함께 </span><span class='text-primary'>성장해요</span>",
+    "description": "{appName}에 참여해서 비즈니스를 한 단계 키워보세요. 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓힐 수 있어요.",
+    "exhibitor": {
+      "title": "전시 참가사 되기",
+      "description": "브랜드와 사업가 여러분, 주목! 열정 가득한 관람객에게 여러분의 제품을 선보이세요.",
+      "cta": "부스 예약하기"
+    },
+    "sponsor": {
+      "title": "스폰서 되기",
+      "description": "업계 핵심 행사의 스폰서가 되어 의사결정권자들과 직접 연결되세요.",
+      "cta": "스폰서 문의"
+    },
+    "mediaPartner": {
+      "title": "미디어 파트너 되기",
+      "description": "업계 최대 이벤트를 독점 취재할 기회를 잡으세요.",
+      "cta": "미디어 파트너 신청"
+    },
+    "reservedSpace": {
+      "title": "멋진 파트너를 위해 이 자리를 남겨뒀어요. 혹시 여러분인가요?",
+      "cta": "파트너 되기"
+    }
+  },
+  "visitorCta": {
+    "title": "올해 <span class=\"text-accent\">가장 큰 맛의 축제</span>가 <span class=\"text-accent\">무료</span>예요.",
+    "description": "올해 가장 맛있는 모임에 여러분 자리를 마련해 뒀어요. 탐험하고, 즐기고, 영감을 찾으세요. 필요한 건 무료 입장권뿐이에요.",
+    "cta": "무료 티켓 받기"
+  },
+  "mediaCoverage": {
+    "title": "미디어가 주목한 행사",
+    "description": "주요 매체에서 다룬 {appName} 관련 보도를 확인해 보세요."
+  },
+  "credits": {
+    "title": "함께 만드는 사람들",
+    "description": "파트너, 스폰서, 미디어의 멋진 지원이 있어 이 행사가 가능해요."
+  },
+  "postSlider": {
+    "title": "최신 소식",
+    "titleMorePosts": "이런 글도 있어요"
+  },
+  "brandPreview": {
+    "title": "{appName}의 참가 브랜드를 만나보세요"
+  },
+  "brandList": {
+    "title": "브랜드",
+    "description": "커피, 차, 와인, 초콜릿 등 다양한 카페 브랜드의 제품과 혁신을 둘러보세요."
+  },
+  "bookSpace": {
+    "title": "전시 참가 신청",
+    "description": "{appName}에서 부스를 확보하고 수천 명의 잠재 고객에게 브랜드를 선보이세요. 선도 브랜드들과 함께 비즈니스를 성장시켜요."
+  },
+  "faq": {
+    "title": "자주 묻는 질문",
+    "description": "행사, 티켓, 전시 참가 등에 대해 자주 묻는 질문을 모았어요.",
+    "emptyState": "자주 묻는 질문을 정리하고 있어요. 조금만 기다려 주세요.",
+    "contactTitle": "더 궁금한 점이 있으면 편하게 보내주세요!",
+    "items": {
+      "0": {
+        "q": "{eventTitle}은(는) 언제, 어디서 열리나요?",
+        "a": "<p>{eventTitle}은(는) <strong>{eventDate}</strong>, <strong>{eventTime}</strong>에 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>에서 진행돼요.</p>"
+      },
+      "1": {
+        "q": "티켓은 어떻게 받나요?",
+        "a": "<p>공식 웹사이트에서 받을 수 있어요. <a href=\"/ticket\">티켓 받기</a> 버튼을 클릭하고 등록 절차를 따라가면 돼요. 전자 티켓은 Email과 WhatsApp으로 보내드려요.</p>"
+      },
+      "2": {
+        "q": "티켓 가격이 얼마예요?",
+        "a": "<p>티켓 종류와 판매 기간에 따라 가격이 달라요. 최신 가격은 <a href=\"/ticket\">티켓 페이지</a>에서 확인해 주세요. 얼리버드와 사전 판매 할인도 놓치지 마세요!</p>"
+      },
+      "3": {
+        "q": "참석 못 하면 환불 받을 수 있나요?",
+        "a": "<p>구매 완료된 티켓은 환불이나 교환이 안 돼요. 자세한 내용은 <a href=\"/ticket-refund-and-return-policy\">티켓 환불 정책</a>을 확인해 주세요.</p>"
+      },
+      "4": {
+        "q": "행사장에 뭘 가져가야 하나요?",
+        "a": "<p>전자 티켓(디지털 또는 출력본)을 가져오시면 등록 데스크에서 배지 또는 입장 밴드로 교환해 드려요. 참가사나 다른 관람객과 네트워킹할 계획이라면 명함도 챙겨오세요.</p>"
+      },
+      "5": {
+        "q": "누가 참관할 수 있나요?",
+        "a": "<p>누구나 참관할 수 있어요! 카페 오너, F&B 사업가, 커피 매니아, 식품업계 종사자, 혹은 그냥 먹는 트렌드가 궁금한 분이라면 모두 환영해요!</p>"
+      },
+      "6": {
+        "q": "어떤 브랜드와 제품이 전시되나요?",
+        "a": "<p>다양한 F&B 브랜드, 장비 공급사, 원료 업체, 서비스 회사가 참가해요. 커피 머신부터 카페 가구, 식재료, 포장 솔루션까지 다양해요. <a href=\"/brands\">브랜드 페이지</a>에서 참가사 목록을 확인해 보세요.</p>"
+      },
+      "7": {
+        "q": "전시 참가는 어떻게 하나요?",
+        "a": "<p>F&B 제품이나 서비스를 선보이려면 <a href=\"/book-space\">전시 참가 신청 페이지</a>를 방문하시거나, <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>으로 문의해 주세요. 부스 옵션과 가격을 안내해 드릴게요.</p>"
+      },
+      "8": {
+        "q": "시식이나 시음 행사가 있나요?",
+        "a": "<p>네! 많은 참가사가 부스에서 제품 시식과 시음을 제공해요. 새로운 제품, 식재료, 맛을 발견할 수 있는 좋은 기회예요.</p>"
+      },
+      "9": {
+        "q": "세미나나 워크숍도 있나요?",
+        "a": "<p>네! 브루잉 기술, 음식 트렌드, 비즈니스 전략, 업계 인사이트 등 다양한 주제의 세미나, 워크숍, 데모 세션을 진행해요. <a href=\"/rundown\">Rundown 페이지</a>에서 전체 일정을 확인해 보세요.</p>"
+      },
+      "10": {
+        "q": "스폰서나 미디어 파트너는 어떻게 되나요?",
+        "a": "<p>스폰서십과 미디어 파트너십 기회를 열어두고 있어요. <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 또는 <a href=\"mailto:{email}\">{email}</a>로 문의해 주세요.</p>"
+      },
+      "11": {
+        "q": "행사장에 주차할 수 있나요?",
+        "a": "<p>네, 행사장에 주차 시설이 있어요. 다만 피크 시간에는 자리가 빨리 찰 수 있으니 일찍 오시는 걸 추천해요. 대중교통이나 차량 호출 서비스를 이용하셔도 좋아요.</p>"
+      },
+      "12": {
+        "q": "행사장에서 사진이나 영상을 촬영해도 되나요?",
+        "a": "<p>비상업적 목적의 개인 촬영은 가능해요. 다만 전문 촬영이나 상업 목적의 촬영은 주최 측의 사전 허가가 필요해요. 자세한 내용은 <a href=\"/event-policy\">행사 정책</a>을 확인해 주세요.</p>"
+      },
+      "13": {
+        "q": "행사 소식은 어떻게 받을 수 있나요?",
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>을 팔로우하시면 최신 소식, 참가 브랜드 공개, 특별 이벤트를 가장 먼저 받아볼 수 있어요. <a href=\"/news\">News 페이지</a>에서도 소식을 확인할 수 있어요.</p>"
+      },
+      "14": {
+        "q": "주최 측에 어떻게 연락하나요?",
+        "a": "<p>아래 방법으로 연락해 주세요:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">여기를 클릭해서 채팅하기</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p><a href=\"/help-center\">고객센터</a>에서 더 많은 연락 방법과 유용한 정보를 찾을 수 있어요.</p>"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Indonesia Coffee Festival (ICF)",
+      "description": "인도네시아 커피 페스티벌에서 이 나라의 커피 문화를 생생하게 만나보세요. 시음, 워크숍, 대회 등 즐길 거리가 가득해요."
+    },
+    "brands": {
+      "title": "브랜드",
+      "description": "{appName} 참가 브랜드의 제품과 혁신을 확인해 보세요. 커피, 차부터 베이커리, 디저트까지."
+    },
+    "rundown": {
+      "title": "Rundown",
+      "description": "{appName}의 행사 일정과 프로그램을 확인해 보세요."
+    },
+    "programs": {
+      "title": "주요 프로그램",
+      "description": "{appName}의 주요 프로그램을 살펴보세요. 업계 전문가에게 배우고 네트워크를 넓힐 수 있어요."
+    },
+    "contact": {
+      "title": "문의하기",
+      "description": "궁금한 점이 있으세요? 티켓, 파트너십, 행사 관련 문의를 남겨 주세요."
+    },
+    "bookSpace": {
+      "title": "부스 예약하기",
+      "description": "{appName}에서 부스를 확보하고 수천 명의 잠재 고객에게 브랜드를 선보이세요."
+    },
+    "ticket": {
+      "title": "티켓 받기",
+      "description": "{appName} 입장 티켓을 받으세요. 일정, 장소, 티켓 옵션 등 필요한 정보를 한눈에 확인할 수 있어요."
+    },
+    "gallery": {
+      "title": "Gallery",
+      "description": "지난 {appName}의 하이라이트 사진을 구경해 보세요."
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "{appName}에 대해 자주 묻는 질문을 확인해 보세요. 티켓, 행사 정보, 파트너십 등에 관한 답변을 모았어요."
+    },
+    "links": {
+      "title": "Links",
+      "description": "필요한 주요 링크를 한곳에 모았어요."
+    },
+    "news": {
+      "title": "News",
+      "description": "커피와 F&B 업계의 최신 소식과 트렌드를 확인하세요."
+    },
+    "ticketPolicy": {
+      "title": "티켓 정책",
+      "description": "{appName} 티켓 종류, 가격, 환불 안내 등 티켓 정책을 확인해 보세요."
+    },
+    "eventPolicy": {
+      "title": "행사 정책",
+      "description": "{appName}의 행사 규정과 참가자 및 전시 참가사를 위한 주요 안내 사항을 확인해 보세요."
+    },
+    "partners": {
+      "title": "파트너",
+      "description": "파트너, 스폰서, 미디어의 든든한 지원 덕분에 이 행사를 만들 수 있어요. 함께해 주신 모든 분들께 감사드려요."
+    },
+    "terms": {
+      "title": "이용약관",
+      "description": ""
+    },
+    "privacy": {
+      "title": "개인정보 처리방침",
+      "description": ""
+    },
+    "winner": {
+      "title": "랜덤 추첨기",
+      "description": "랜덤 추첨기로 당첨자를 바로 뽑아보세요. 이름을 입력하고 슬롯을 돌려서 공정하게 추첨해요. 콘테스트, 경품 이벤트에 딱이에요!"
+    }
+  }
+}

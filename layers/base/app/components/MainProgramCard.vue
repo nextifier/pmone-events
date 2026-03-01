@@ -39,10 +39,11 @@
       <Icon :name="program.iconName" class="text-accent size-6" />
     </span>
 
-    <span
+    <h3
       class="text-primary mt-4 text-2xl font-semibold tracking-tighter text-balance"
-      >{{ program.title }}</span
     >
+      {{ program.title }}
+    </h3>
 
     <div
       v-if="program.description"
@@ -57,12 +58,12 @@
     class="bg-muted/50 @container relative isolate h-full overflow-hidden rounded-xl"
   >
     <div class="relative z-10 flex flex-col gap-y-1.5 px-6 py-8">
-      <h6
+      <h3
         v-if="program.title"
         class="text-foreground text-xl font-semibold tracking-tighter"
       >
         {{ program.title }}
-      </h6>
+      </h3>
       <p
         v-if="program.description"
         class="text-muted-foreground tracking-tight"

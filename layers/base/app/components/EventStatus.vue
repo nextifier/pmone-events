@@ -7,7 +7,7 @@
         <span class="inline tracking-tighter">
           <Countdown
             :variant="countdownVariant"
-            :textBeforeCountdown="withTextPrefix ? 'The event starts in ' : ''"
+            :textBeforeCountdown="withTextPrefix ? $t('eventStatus.startsIn') : ''"
             :countdownDate="startTime"
           />
         </span>
@@ -15,7 +15,7 @@
 
       <div v-else-if="status === 'live'" class="flex items-center gap-x-1.5">
         <LoaderBars />
-        <span class="font-semibold tracking-normal uppercase">Live</span>
+        <span class="font-semibold tracking-normal uppercase">{{ $t('eventStatus.live') }}</span>
       </div>
 
       <div
@@ -23,7 +23,7 @@
         class="flex items-center gap-x-1.5"
       >
         <IconCompleted class="size-5 shrink-0 text-green-500" />
-        <span class="text-sm tracking-tight">Completed </span>
+        <span class="text-sm tracking-tight">{{ $t('eventStatus.completed') }} </span>
       </div>
     </template>
   </div>

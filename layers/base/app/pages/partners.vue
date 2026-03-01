@@ -23,5 +23,5 @@
 <script setup>
 usePageMeta("partners");
 const news = useNewsCoveragesStore().list;
-const content = useContentStore().components.mediaCoverage;
+const content = computed(() => useContentStore().components.mediaCoverage);
 </script>

@@ -39,7 +39,7 @@
     </div>
 
     <span class="text-primary block text-sm tracking-tight text-balance">
-      {{ useAppConfig().event.inConjunction.label }}
+      {{ $t('conjunction.label') }}
 
       <template v-for="(item, index) in items" :key="item.name">
         <NuxtLink
@@ -51,7 +51,7 @@
         </NuxtLink>
         <span v-if="index < items.length - 1">
           <span v-if="index === items.length - 2">
-            {{ items.length > 2 ? ", and " : " and " }}
+            {{ items.length > 2 ? `, ${$t('conjunction.and')} ` : ` ${$t('conjunction.and')} ` }}
           </span>
 
           <span v-else>, </span>

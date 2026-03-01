@@ -90,7 +90,7 @@
           >
             <div class="flex items-center gap-x-1">
               <IconShop class="size-5 shrink-0" />
-              <span class="tracking-tight">Booth</span>
+              <span class="tracking-tight">{{ $t('ui.booth') }}</span>
             </div>
 
             <div class="text-2xl font-semibold tracking-tight">
@@ -103,7 +103,7 @@
           >
             <div class="flex items-center gap-x-1">
               <IconTag class="size-5 shrink-0" />
-              <span class="tracking-tight">Categories</span>
+              <span class="tracking-tight">{{ $t('ui.categories') }}</span>
             </div>
 
             <div class="text-base font-semibold tracking-tight">
@@ -120,7 +120,7 @@
           class="flex flex-col gap-y-2 rounded-3xl bg-gray-100 px-4 py-6 lg:px-6 lg:py-8 dark:bg-gray-900"
         >
           <span class="tracking-tight text-gray-500 dark:text-gray-400"
-            >Description</span
+            >{{ $t('ui.description') }}</span
           >
           <p class="text-base tracking-tight sm:text-lg">
             {{ brand.brand_description }}

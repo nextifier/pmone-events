@@ -15,7 +15,11 @@
         @click="$scrollToTopIfCurrentPageIs('/')"
         v-ripple
       >
-        <Logo :class="useAppConfig().settings?.header?.logoClass ?? 'h-6 text-primary'" />
+        <Logo
+          :class="
+            useAppConfig().settings?.header?.logoClass ?? 'text-primary h-6'
+          "
+        />
       </nuxt-link>
 
       <div class="ml-auto flex h-full items-center gap-x-6">
@@ -30,7 +34,7 @@
             @click="$scrollToTopIfCurrentPageIs('/book-space')"
             v-ripple
           >
-            <span>Book Space</span>
+            <span>{{ $t('ui.bookSpace') }}</span>
           </nuxt-link>
 
           <nuxt-link
@@ -38,8 +42,10 @@
             class="hover:bg-primary/80 bg-primary text-primary-foreground hidden items-center justify-center rounded-xl px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
             @click="$scrollToTopIfCurrentPageIs('/ticket')"
             v-ripple
-            >Get Ticket</nuxt-link
+            >{{ $t('ui.getTicket') }}</nuxt-link
           >
+
+          <LanguageSwitcher />
 
           <Tippy>
             <ColorModeToggle />

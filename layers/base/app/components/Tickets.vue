@@ -23,13 +23,13 @@
           <p
             class="text-xs tracking-tight text-balance sm:text-sm xl:text-pretty"
           >
-            By continuing to purchase the ticket, you agree to
+            {{ $t('ticket.agreementPrefix') }}
             <nuxt-link to="/ticket-terms-and-conditions" class="text-info hover:underline"
-              >Ticket Terms and Conditions</nuxt-link
+              >{{ $t('ticket.ticketTerms') }}</nuxt-link
             >
-            &
+            {{ $t('ticket.agreementAnd') }}
             <nuxt-link to="/event-policy" class="text-info hover:underline"
-              >Event Policy</nuxt-link
+              >{{ $t('ticket.eventPolicy') }}</nuxt-link
             >.
           </p>
 
@@ -118,7 +118,7 @@
                         >
                           <Countdown
                             variant="no-style"
-                            :textBeforeCountdown="`Starts in `"
+                            :textBeforeCountdown="`${$t('ui.startsIn')} `"
                             :countdownDate="new Date(ticket.starts_in)"
                         /></span>
 
@@ -132,7 +132,7 @@
                         >
                           <Countdown
                             variant="no-style"
-                            :textBeforeCountdown="`Ends in `"
+                            :textBeforeCountdown="`${$t('ui.endsIn')} `"
                             :countdownDate="new Date(ticket.ends_in)"
                         /></span>
                       </div>
@@ -223,7 +223,7 @@
                   <span
                     v-if="ticket.showPriceStartsFrom"
                     class="text-xs tracking-tight"
-                    >Starts from</span
+                    >{{ $t('ui.startsFrom') }}</span
                   >
                   <span
                     v-if="ticket.price_before_discounted"
@@ -252,13 +252,13 @@
                       v-else-if="ticket.status.toLowerCase() === 'coming soon'"
                       class="bg-yellow-500/10 text-yellow-700 dark:text-yellow-600"
                       v-ripple
-                      >Coming soon</span
+                      >{{ $t('ui.comingSoon') }}</span
                     >
                     <span
                       v-else-if="ticket.status.toLowerCase() === 'sold out'"
                       class="bg-red-500/10 text-red-700 dark:text-red-600"
                       v-ripple
-                      >Sold out</span
+                      >{{ $t('ui.soldOut') }}</span
                     >
                     <span v-else>
                       <LoadingChaoticOrbit class="size-4" />
@@ -283,6 +283,7 @@ const props = defineProps({
 });
 
 import { toast } from "vue-sonner";
+const { t } = useI18n();
 const { $dayjs } = useNuxtApp();
 
 const ticketCategories = ref(JSON.parse(JSON.stringify(props.tickets)));
@@ -291,8 +292,8 @@ const handleGetTicketButtonClick = (ticket) => {
   ticket.disableLink
     ? toast(
         ticket.status.toLowerCase() == "sold out"
-          ? "Tickets sold out"
-          : "Tickets coming soon",
+          ? t('ui.ticketsSoldOut')
+          : t('ui.ticketsComingSoon'),
       )
     : "";
 };

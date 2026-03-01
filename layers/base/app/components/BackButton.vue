@@ -13,7 +13,7 @@
       class="text-primary lg:hover:bg-muted flex items-center justify-center gap-x-1 rounded-full border p-3 transition active:scale-98 lg:border-0"
     >
       <Icon name="lucide:arrow-left" class="size-4 shrink-0" />
-      <span class="hidden text-sm tracking-tight lg:block">Back</span>
+      <span class="hidden text-sm tracking-tight lg:block">{{ $t('ui.back') }}</span>
     </button>
   </slot>
 </template>

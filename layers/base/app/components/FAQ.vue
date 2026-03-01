@@ -41,7 +41,7 @@
           to="/contact"
           class="bg-muted text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-1.5 rounded-full p-4 font-semibold tracking-tighter transition duration-200 active:scale-98"
         >
-          <span>Contact us</span>
+          <span>{{ $t('ui.contactUs') }}</span>
         </nuxt-link>
       </div>
     </div>
@@ -49,6 +49,6 @@
 </template>
 
 <script setup>
-const content = useContentStore().components.faq;
-const faq = new useFAQStore();
+const content = computed(() => useContentStore().components.faq);
+const faq = useFAQStore();
 </script>

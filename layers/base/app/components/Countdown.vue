@@ -6,10 +6,7 @@
     >
       <span v-if="textBeforeCountdown">{{ textBeforeCountdown }}</span>
       <span v-if="timeParts.days">
-        <NumberFlow :value="timeParts.days" /> Day<span
-          v-if="timeParts.days > 1"
-          >s
-        </span>
+        <NumberFlow :value="timeParts.days" /> {{ $t('countdown.day', timeParts.days) }}
       </span>
       <div class="inline-flex items-center gap-0.5">
         <span
@@ -37,10 +34,7 @@
     <span v-else-if="variant.toLocaleLowerCase() === 'no-style'" class="inline">
       <span v-if="textBeforeCountdown">{{ textBeforeCountdown }}</span>
       <span v-if="timeParts.days">
-        <NumberFlow :value="timeParts.days" /> day<span
-          v-if="timeParts.days > 1"
-          >s</span
-        > </span
+        <NumberFlow :value="timeParts.days" /> {{ $t('countdown.day', timeParts.days) }} </span
       >&nbsp;<span>
         <span v-show="timeParts.hours < 10">0</span
         ><NumberFlow :value="timeParts.hours" />
@@ -66,7 +60,7 @@
           />
           <span
             class="text-primary/70 text-sm !leading-none tracking-tight "
-            >Day<span v-if="timeParts.days > 1">s</span></span
+            >{{ $t('countdown.day', timeParts.days) }}</span
           >
         </div>
 
@@ -77,7 +71,7 @@
           />
           <span
             class="text-primary/70 text-sm !leading-none tracking-tight "
-            >Hour<span v-if="timeParts.hours > 1">s</span></span
+            >{{ $t('countdown.hour', timeParts.hours) }}</span
           >
         </div>
 
@@ -88,7 +82,7 @@
           />
           <span
             class="text-primary/70 text-sm !leading-none tracking-tight "
-            >Min<span v-if="timeParts.minutes > 1">s</span></span
+            >{{ $t('countdown.min', timeParts.minutes) }}</span
           >
         </div>
 
@@ -99,7 +93,7 @@
           />
           <span
             class="text-primary/70 text-sm !leading-none tracking-tight "
-            >Sec</span
+            >{{ $t('countdown.sec') }}</span
           >
         </div>
       </div>

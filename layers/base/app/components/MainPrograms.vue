@@ -36,5 +36,5 @@
 
 <script setup>
 const route = useRoute();
-const content = useContentStore().components.mainPrograms;
+const content = computed(() => useContentStore().components.mainPrograms);
 </script>

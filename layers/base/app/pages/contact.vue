@@ -10,5 +10,5 @@
 
 <script setup>
 usePageMeta("contact");
-const content = useContentStore().components.contact;
+const content = computed(() => useContentStore().components.contact);
 </script>

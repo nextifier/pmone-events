@@ -21,7 +21,7 @@
     <div class="@container mx-auto mt-6 max-w-xl">
       <div v-if="pending" class="flex items-center justify-center gap-x-2">
         <LoadingSpinner class="h-5 border-blue-600 dark:border-white" />
-        <span class="tracking-tight">Loading</span>
+        <span class="tracking-tight">{{ $t('ui.loading') }}</span>
       </div>
 
       <div
@@ -29,7 +29,7 @@
         class="flex items-center justify-center text-center"
       >
         <span class="text-primary text-2xl font-semibold tracking-tighter"
-          >Failed to get the data.</span
+          >{{ $t('ui.failedToGetData') }}</span
         >
       </div>
 
@@ -42,7 +42,7 @@
                 v-model="searchInput"
                 ref="searchInputEl"
                 class="input-base peer h-10 px-9 py-2 text-sm tracking-tight"
-                placeholder="Search"
+                :placeholder="$t('ui.search')"
               />
 
               <IconSearch
@@ -79,7 +79,7 @@
                     class="border-border flex h-full w-44 items-center justify-between gap-x-3 rounded-xl border px-3 py-2 transition select-none @xl:w-64"
                   >
                     <span class="truncate text-sm"
-                      >{{ selectedLocation || "All Locations" }}
+                      >{{ selectedLocation || $t('ui.allLocations') }}
                     </span>
                     <IconChevronDown
                       class="size-3 shrink-0 transition group-data-[state=open]:rotate-180"
@@ -118,7 +118,7 @@
                       class="absolute top-2 left-2 size-5"
                     />
                     <span class="text-sm">{{
-                      location || "All Locations"
+                      location || $t('ui.allLocations')
                     }}</span>
                   </button>
                 </DropdownMenuItem>
@@ -252,7 +252,7 @@
                         v-if="activity.presented_by"
                         class="text-muted-foreground mt-1.5 text-xs tracking-tight"
                       >
-                        Presented by {{ activity.presented_by }}
+                        {{ $t('ui.presentedBy') }} {{ activity.presented_by }}
                       </div>
                     </div>
 
@@ -281,7 +281,7 @@
                 >
                   <span
                     class="text-primary text-base font-semibold tracking-tight"
-                    >Rundown is coming soon 🤩 Check back later!</span
+                    >{{ $t('rundown.comingSoon') }}</span
                   >
                 </div>
               </div>
@@ -291,7 +291,7 @@
           <div v-else>
             <span
               class="text-primary text-center text-2xl font-semibold tracking-tighter"
-              >Nothing to see here… yet!
+              >{{ $t('rundown.nothingYet') }}
             </span>
           </div>
         </div>
@@ -303,7 +303,7 @@
           </div>
 
           <span class="text-primary text-xl font-semibold tracking-tight"
-            >Rundown is coming soon 🤩 Check back later!
+            >{{ $t('rundown.comingSoon') }}
           </span>
         </div>
       </div>
@@ -321,7 +321,7 @@ import {
 } from "reka-ui";
 import { refDebounced } from "@vueuse/core";
 
-const content = useContentStore().components.rundown;
+const content = computed(() => useContentStore().components.rundown);
 const config = useRuntimeConfig();
 const uiStore = useUiStore();
 const route = useRoute();

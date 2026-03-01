@@ -6,7 +6,7 @@
       <h1
         class="text-primary text-3xl leading-[1.25]! font-medium tracking-tighter text-balance sm:text-4xl"
       >
-        {{ title }}
+        {{ titleText }}
       </h1>
       <p v-if="description" class="mt-2 tracking-tight sm:mt-3">
         {{ description }}
@@ -38,7 +38,7 @@
                   v-model="formState[field.name]"
                   type="text"
                   :name="field.name"
-                  placeholder="Enter your product type"
+                  :placeholder="$t('ui.enterYourProductType')"
                   class="flex-1"
                 />
                 <button
@@ -57,7 +57,7 @@
                 @update:model-value="handleProductSelect"
               >
                 <SelectTrigger class="w-full">
-                  <SelectValue placeholder="Select a product" />
+                  <SelectValue :placeholder="$t('ui.selectAProduct')" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -81,7 +81,7 @@
             >
               <Select v-model="formState[field.name]">
                 <SelectTrigger class="w-full">
-                  <SelectValue placeholder="Select an option" />
+                  <SelectValue :placeholder="$t('ui.selectAnOption')" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -150,7 +150,7 @@
           v-ripple
         >
           <LoadingSpinner v-if="isLoading" class="border-background size-4" />
-          <span>{{ submitLabel }}</span>
+          <span>{{ submitLabelText }}</span>
         </button>
       </form>
     </template>
@@ -172,9 +172,9 @@
         <h2
           class="text-primary mt-6 text-3xl font-medium tracking-tighter text-balance sm:text-4xl"
         >
-          {{ successTitle }}
+          {{ successTitleText }}
         </h2>
-        <p class="mt-4">{{ successMessage }}</p>
+        <p class="mt-4">{{ successMessageText }}</p>
 
         <NuxtLink
           to="/"
@@ -182,7 +182,7 @@
           v-ripple
           @click="handleSuccessAction"
         >
-          {{ successButtonLabel }}
+          {{ successButtonText }}
         </NuxtLink>
       </div>
     </template>
@@ -192,13 +192,15 @@
 <script setup>
 import { toast } from "vue-sonner";
 
+const { t } = useI18n();
+
 // Props with defaults
 const props = defineProps({
   // Form configuration
-  title: { type: String, default: "Contact us" },
+  title: { type: String, default: null },
   description: { type: String, default: null },
-  submitLabel: { type: String, default: "Send message" },
-  subject: { type: String, default: "Contact Form" },
+  submitLabel: { type: String, default: null },
+  subject: { type: String, default: null },
 
   // Field visibility toggles
   showJobTitle: { type: Boolean, default: false },
@@ -241,17 +243,18 @@ const props = defineProps({
   disclaimer: { type: String, default: null },
 
   // Success state customization
-  successTitle: {
-    type: String,
-    default: "Thank you! Your request has been successfully submitted.",
-  },
-  successMessage: {
-    type: String,
-    default:
-      "Our team will contact you via email or WhatsApp as soon as possible.",
-  },
-  successButtonLabel: { type: String, default: "Okay. Send me back to home" },
+  successTitle: { type: String, default: null },
+  successMessage: { type: String, default: null },
+  successButtonLabel: { type: String, default: null },
 });
+
+// Computed defaults using i18n
+const titleText = computed(() => props.title || t('contact.title'));
+const submitLabelText = computed(() => props.submitLabel || t('ui.sendMessage'));
+const subjectText = computed(() => props.subject || t('contact.formTitle'));
+const successTitleText = computed(() => props.successTitle || t('contact.successTitle'));
+const successMessageText = computed(() => props.successMessage || t('contact.successMessage'));
+const successButtonText = computed(() => props.successButtonLabel || t('contact.successButton'));
 
 // Emits
 const emit = defineEmits(["submit", "success", "error"]);
@@ -272,31 +275,31 @@ const honeypot = reactive({
 const showCustomProductInput = ref(false);
 
 // All available fields definition
-const allFields = [
-  { name: "name", label: "Name", type: "text", required: true },
-  { name: "jobTitle", label: "Job Title", type: "text", required: false },
-  { name: "brandName", label: "Brand Name", type: "text", required: false },
-  { name: "products", label: "Products", type: "text", required: false },
-  { name: "email", label: "Email", type: "email", required: true },
-  { name: "phone", label: "Phone (WhatsApp)", type: "phone", required: true },
+const allFields = computed(() => [
+  { name: "name", label: t('contact.name'), type: "text", required: true },
+  { name: "jobTitle", label: t('contact.jobTitle'), type: "text", required: false },
+  { name: "brandName", label: t('contact.brandName'), type: "text", required: false },
+  { name: "products", label: t('contact.products'), type: "text", required: false },
+  { name: "email", label: t('contact.email'), type: "email", required: true },
+  { name: "phone", label: t('contact.phone'), type: "phone", required: true },
   {
     name: "referralSource",
-    label: "How did you find out about this event?",
+    label: t('contact.referralSource'),
     type: "select",
     required: false,
   },
   {
     name: "message",
-    label: "Message",
+    label: t('contact.message'),
     type: "textarea",
-    placeholder: "Leave a message..",
+    placeholder: t('ui.leaveAMessage'),
     required: true,
   },
-];
+]);
 
 // Computed: fields to include based on props
 const fields = computed(() => {
-  return allFields.filter((field) => {
+  return allFields.value.filter((field) => {
     if (field.name === "jobTitle") return props.showJobTitle;
     if (field.name === "brandName") return props.showBrandName;
     if (field.name === "products") return props.showProducts;
@@ -330,10 +333,10 @@ const visibleFields = computed(() => {
 
 const disclaimerText = computed(() => {
   if (props.disclaimer) return props.disclaimer;
-  if (props.title === "Exhibitor Registration") {
-    return "Do not worry. By submitting this form, you are not automatically registered as an exhibitor. We need your contact information so our sales team can provide you with further details about available booths, pricing, and more.";
+  if (props.title === "Exhibitor Registration" || props.subject === "Exhibitor Registration") {
+    return t('contact.disclaimerExhibitor');
   }
-  return "Please ensure you put the correct and active email address and phone number. Our team will reach you soon.";
+  return t('contact.disclaimerDefault');
 });
 
 // Methods
@@ -380,7 +383,7 @@ async function handleSubmit() {
 
   try {
     const formData = buildFormData();
-    const subject = props.subject;
+    const subject = subjectText.value;
 
     const result = await $fetch("/api/contact/submit", {
       method: "POST",
@@ -404,14 +407,14 @@ async function handleSubmit() {
       emit("success", result);
     } else {
       toast.error(
-        result.message || "Failed to send message. Please try again.",
+        result.message || t('contact.errorSend'),
       );
       emit("error", result);
     }
   } catch (error) {
     console.error("Contact form error:", error);
     const message =
-      error?.data?.message || "Network error. Please try again later.";
+      error?.data?.message || t('contact.errorNetwork');
     toast.error(message);
     emit("error", error);
   } finally {

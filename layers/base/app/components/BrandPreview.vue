@@ -69,7 +69,7 @@
 <script setup>
 import AutoScroll from "embla-carousel-auto-scroll";
 
-const content = useContentStore().components.brandPreview;
+const content = computed(() => useContentStore().components.brandPreview);
 const config = useRuntimeConfig();
 
 const {

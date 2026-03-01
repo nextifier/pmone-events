@@ -43,14 +43,14 @@ export default defineNuxtConfig({
     ],
     lazy: true,
     langDir: "../i18n/locales",
-    defaultLocale: "en",
+    defaultLocale: "id",
     strategy: "no_prefix",
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: "i18n_locale",
-      redirectOn: "root",
-      alwaysRedirect: false,
-      fallbackLocale: "en",
+      redirectOn: "all",
+      alwaysRedirect: true,
+      fallbackLocale: "id",
     },
     vueI18n: "./i18n.config.ts",
     compilation: {

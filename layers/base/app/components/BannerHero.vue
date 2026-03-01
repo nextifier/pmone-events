@@ -147,5 +147,5 @@ onUnmounted(() => {
   }
 });
 
-const items = useContentStore().components.hero.bannerHero;
+const items = computed(() => useContentStore().components.hero.bannerHero);
 </script>

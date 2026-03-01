@@ -32,12 +32,7 @@
         <span v-else></span>
 
         <span v-if="post.reading_time">
-          <span class="font-normal"
-            >{{ post.reading_time }} min<span v-if="post.reading_time > 1"
-              >s</span
-            >
-            read
-          </span>
+          <span class="font-normal">{{ $t('ui.readingTime', post.reading_time, { n: post.reading_time }) }}</span>
         </span>
         <span v-else></span>
       </div>

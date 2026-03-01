@@ -24,16 +24,16 @@
 </template>
 
 <script setup>
-const items = useContentStore().components.hero.announcements;
+const items = computed(() => useContentStore().components.hero.announcements);
 
 const currentIndex = ref(0);
 let intervalId = null;
 
-const currentItem = computed(() => items[currentIndex.value]);
+const currentItem = computed(() => items.value[currentIndex.value]);
 
 onMounted(() => {
   intervalId = setInterval(() => {
-    currentIndex.value = (currentIndex.value + 1) % items.length;
+    currentIndex.value = (currentIndex.value + 1) % items.value.length;
   }, 6000);
 });
 

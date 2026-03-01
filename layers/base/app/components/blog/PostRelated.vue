@@ -3,7 +3,7 @@
     <!-- Sidebar variant (compact list) -->
     <div v-if="variant === 'sidebar'" class="grid grid-cols-1 gap-y-2.5 self-start">
       <h5 class="text-primary text-sm font-semibold tracking-tighter">
-        {{ title }}
+        {{ titleText }}
       </h5>
       <div class="grid grid-cols-1 gap-y-2.5">
         <nuxt-link
@@ -58,7 +58,7 @@
       <h5
         class="text-primary text-3xl !leading-[1.25] font-semibold tracking-[-0.06em] text-balance sm:text-5xl"
       >
-        {{ title }}
+        {{ titleText }}
       </h5>
       <div
         class="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-[repeat(auto-fit,minmax(240px,1fr))]"
@@ -112,6 +112,7 @@
 
 <script setup>
 import { useSidebar } from "@/components/ui/sidebar/utils";
+const { t } = useI18n();
 
 const props = defineProps({
   variant: {
@@ -121,7 +122,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: "You might also like",
+    default: null,
   },
   limit: {
     type: Number,
@@ -129,6 +130,7 @@ const props = defineProps({
   },
 });
 
+const titleText = computed(() => props.title || t('ui.youMightAlsoLike'));
 const { setOpenMobile } = useSidebar();
 const route = useRoute();
 const { $dayjs } = useNuxtApp();

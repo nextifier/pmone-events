@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-const content = useContentStore().components.factsAndFigures;
+const content = computed(() => useContentStore().components.factsAndFigures);
 
 const stats = ref([
   {

@@ -1,0 +1,431 @@
+{
+  "ui": {
+    "viewAll": "すべて見る",
+    "viewAllBrands": "すべてのブランドを見る",
+    "contactUs": "お問い合わせ",
+    "back": "戻る",
+    "comingSoon": "近日公開",
+    "backToHome": "ホームに戻る",
+    "bookSpace": "ブースを予約",
+    "getTicket": "チケットを取得",
+    "lightDarkMode": "ライト / ダークモード",
+    "toggleSidebar": "サイドバーの切替",
+    "openMenu": "メニューを開く",
+    "toggleFullscreen": "フルスクリーンの切替",
+    "switchLanguage": "言語の切替",
+    "copyright": "著作権",
+    "allRightsReserved": "無断転載を禁じます。",
+    "readingTime": "{n}分で読めます",
+    "loading": "読み込み中",
+    "failedToGetData": "データの取得に失敗しました。",
+    "search": "検索",
+    "searchPosts": "記事を検索",
+    "brands": "ブランド",
+    "booth": "ブース",
+    "categories": "カテゴリー",
+    "description": "説明",
+    "created": "作成日",
+    "views": "{n}回閲覧",
+    "posted": "投稿日",
+    "shareThisPost": "この記事をシェア",
+    "soldOut": "完売",
+    "startsFrom": "〜から",
+    "startsIn": "開始まで",
+    "endsIn": "終了まで",
+    "ticketsSoldOut": "チケットは完売しました",
+    "ticketsComingSoon": "チケットは近日発売",
+    "presentedBy": "提供",
+    "allLocations": "すべてのロケーション",
+    "selectAProduct": "製品を選択してください",
+    "selectAnOption": "オプションを選択してください",
+    "enterYourProductType": "製品タイプを入力してください",
+    "sendMessage": "メッセージを送る",
+    "leaveAMessage": "メッセージをどうぞ..",
+    "youMightAlsoLike": "こちらもおすすめ"
+  },
+  "news": {
+    "latestUpdates": "最新情報",
+    "showingPostsFor": "{total}件の記事を表示中：",
+    "showingPosts": "{total}件の記事を表示中",
+    "noResultsFor": "該当する記事が見つかりませんでした：",
+    "noResultsHint": "別のキーワードで試してみてください。きっと気になる記事が見つかるはずです！",
+    "noPostsYet": "まだ記事がありません",
+    "comeBackLater": "また後でご確認ください"
+  },
+  "brands": {
+    "comingSoon": "ブランド一覧は近日公開です。もう少しお待ちください！"
+  },
+  "rundown": {
+    "title": "Rundown",
+    "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。",
+    "comingSoon": "Rundownは近日公開です。もう少しお待ちください！",
+    "nothingYet": "まだ情報はありません！"
+  },
+  "ticket": {
+    "agreementPrefix": "チケット購入を続けることで、以下に同意したものとみなされます：",
+    "agreementAnd": "および",
+    "ticketTerms": "チケット利用規約",
+    "eventPolicy": "イベントポリシー"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "formTitle": "お問い合わせフォーム",
+    "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。",
+    "name": "お名前",
+    "jobTitle": "役職",
+    "brandName": "ブランド名",
+    "products": "製品",
+    "email": "Email",
+    "phone": "電話番号 (WhatsApp)",
+    "referralSource": "このイベントを何で知りましたか？",
+    "message": "メッセージ",
+    "successTitle": "送信完了しました。ありがとうございます！",
+    "successMessage": "担当者からEmailまたはWhatsAppでご連絡いたします。",
+    "successButton": "ホームに戻る",
+    "disclaimerDefault": "正しいEmailアドレスと電話番号をご記入ください。担当者から折り返しご連絡いたします。",
+    "disclaimerExhibitor": "このフォームを送信しても、出展が自動的に確定するわけではありません。営業チームがブースの空き状況や料金などの詳細をご案内するため、ご連絡先をお伺いしています。",
+    "errorSend": "メッセージの送信に失敗しました。もう一度お試しください。",
+    "errorNetwork": "ネットワークエラーが発生しました。しばらくしてから再度お試しください。"
+  },
+  "countdown": {
+    "day": "日",
+    "hour": "時間",
+    "min": "分",
+    "sec": "秒"
+  },
+  "eventStatus": {
+    "startsIn": "イベント開始まで",
+    "live": "開催中",
+    "completed": "終了"
+  },
+  "conjunction": {
+    "label": "同時開催",
+    "and": "と"
+  },
+  "nav": {
+    "Home": "ホーム",
+    "Brands": "ブランド",
+    "Rundown": "スケジュール",
+    "Programs": "プログラム",
+    "Resources": "情報",
+    "Partners": "パートナー",
+    "Contact": "お問い合わせ",
+    "News": "ニュース",
+    "Ticket": "チケット",
+    "Exhibitor Registration": "出展者登録",
+    "Gallery": "ギャラリー",
+    "FAQ": "FAQ",
+    "Links": "リンク",
+    "Ticket Terms and Conditions": "チケット利用規約",
+    "Ticket Refund and Return Policy": "チケット返金・返品ポリシー",
+    "Event Policy": "イベントポリシー",
+    "Terms of Service": "利用規約",
+    "Privacy Policy": "プライバシーポリシー",
+    "Help Center": "ヘルプセンター",
+    "Sponsorship Registration": "スポンサー登録",
+    "Media Partner Registration": "メディアパートナー登録",
+    "Menu": "メニュー",
+    "Get in touch": "お問い合わせ",
+    "Social": "ソーシャル",
+    "Discover": "もっと見る",
+    "For Businesses": "ビジネス向け",
+    "Terms and policies": "利用規約",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube",
+    "Mega Property": "Mega Property"
+  },
+  "partners": {
+    "Organized by": "主催",
+    "Supported by": "後援"
+  },
+  "hero": {
+    "countdownLabel": "理想の住まいへの扉が開くまで：",
+    "title": "夢のリノベーション、その設計図はここに。",
+    "description": "最新の建材を手に取って確かめ、デザイナーから直接アドバイスをもらい、確かな自信を持ってリノベーションを始めましょう。",
+    "announcement": "出展スペースはまだ空きがあります",
+    "banners": {
+      "0": {
+        "subHeadline": "Megabuild Indonesia に出展しませんか！",
+        "content": "<p>何千人もの住宅オーナー、建築家、デザイナーにあなたのブランドをアピールしましょう。一緒に成功を築きましょう。</p>",
+        "cta": "今すぐブースを予約"
+      },
+      "1": {
+        "subHeadline": "インスピレーションと最新情報をお届け！",
+        "content": "<p>Instagramで建築関連のインスピレーション、出展者スポットライト、開催前の限定プレゼント情報を毎日チェック。お見逃しなく！</p>",
+        "cta": "{'@'}megabuildindoをフォロー"
+      }
+    }
+  },
+  "trustedBy": {
+    "title": "Megabuild Indonesia で信頼される業界リーディングブランド"
+  },
+  "brandPreview": {
+    "title": "{appName}の注目ブランドをチェック"
+  },
+  "brandList": {
+    "title": "ブランド一覧",
+    "description": "建材、建築、インテリアデザイン業界の多彩なブランドと、最新のイノベーション・製品をご覧ください。"
+  },
+  "mainPrograms": {
+    "title": "<span class=''>メイン</span> <span class='text-accent'>プログラム</span>",
+    "description": "{appName}の主要プログラムをご紹介します。展示会、ビジネスカンファレンス、セミナー、ビジネスマッチングなど、業界のトップから学び、つながる機会が満載です。",
+    "items": {
+      "0": {
+        "title": "Exhibition",
+        "description": "インドネシアのトップメーカーや国際ブランドが集結。建材、建築、施工、インテリアデザインの最新イノベーションをご覧いただけます。"
+      },
+      "1": {
+        "title": "Opening Ceremony",
+        "description": "政府関係者によるテープカットで幕を開ける Megabuild Indonesia の開会式。各界の名士が一堂に会する記念の瞬間です。"
+      },
+      "2": {
+        "title": "Megabuild Conference",
+        "description": "建設・建築業界の最新テーマを深掘りするカンファレンス。業界のエキスパートとリーダーが登壇し、展示会の初日と2日目に開催されます。"
+      },
+      "3": {
+        "title": "セミナー、フォーラム、トークショー",
+        "description": "メディアパートナーと業界の専門家が登壇。建築家、デザイナー、コントラクター、デベロッパーに向けて、実践的なインサイトと業界ディスカッションをお届けします。"
+      },
+      "4": {
+        "title": "1O1 - ビジネスマッチング",
+        "description": "建材メーカーと輸入業者、ディストリビューター、プロジェクトオーナーを結びます。材料・技術・設備のサプライヤーと地域のバイヤーを精密にマッチング。"
+      },
+      "5": {
+        "title": "Power Networking Night",
+        "description": "経営者、上級管理職、業界団体のリーダーが集うディナー&ネットワーキング。ここでの出会いが、次のビジネスチャンスにつながります。"
+      },
+      "6": {
+        "title": "Hosted Buyer Program",
+        "description": "ASEAN 各国からターゲットバイヤーとパートナーを招聘し、出展者と直接つなぎます。条件を満たす業界プレーヤーの宿泊費は主催者が全額負担します。"
+      },
+      "7": {
+        "title": "建設業者・不動産デベロッパー会員の集い",
+        "description": "インドネシア不動産協会とインドネシア建設業者協会との共催。展示会期間中に会員同士のネットワーキングとナレッジシェアリングを行います。"
+      },
+      "8": {
+        "title": "インドネシア・セラミックスの美",
+        "description": "床タイル、サニタリーウェアから屋根材、テーブルウェアまで、インドネシアのセラミックスの最高のデザインをキュレーション展示。地元の匠の技を一堂にご覧いただけます。"
+      },
+      "9": {
+        "title": "プロフェッショナル＆学生見学ツアー",
+        "description": "建築家、インテリアデザイナー、コンサルタント、コントラクター、デザイン学生、教員を招待し、建材とデザインイノベーションの最新動向に触れていただきます。"
+      },
+      "10": {
+        "title": "Brand Talks",
+        "description": "ポッドキャスト形式で参加ブランドの最新製品、デザイン、テクノロジー、イノベーションを紹介。各ブランドが自らのストーリーを語るスポットライトセッションです。"
+      },
+      "11": {
+        "title": "デザイナーワークショップ",
+        "description": "インドネシア建築家協会（IAI）とインドネシアインテリアデザイナー協会（HDII）と連携し、来場する会員に実践的なワークショップ、研修、教育プログラムを提供します。"
+      },
+      "12": {
+        "title": "Jakarta Design Week 2026",
+        "description": "IAI とジャカルタ首都特別州政府との共催。建築の課題と都市の未来を形づくるイノベーションについて議論するフォーラムとカンファレンスを開催します。"
+      },
+      "13": {
+        "title": "床・壁タイル施工コンペティション",
+        "description": "タイル施工職人が出展者の製品を使って技を競います。卓越した技術を披露し、賞金と業界での認知を獲得するチャンスです。"
+      },
+      "14": {
+        "title": "Megabuild Awards 2026",
+        "description": "インドネシアの建材・デザイン業界における卓越した成果を表彰。HDII、IAI、GBCIとの連携で、ベストデザイン、イノベーション、サステナビリティなどの各部門で受賞者を選出します。"
+      },
+      "15": {
+        "title": "Megabuild ベストブース",
+        "description": "4部門でブースの創造性を表彰：大型ブース（108 m²超）、中型ブース（50〜108 m²）、小型ブース（50 m²未満）、そして人気投票で選ばれるお気に入りブース。"
+      }
+    }
+  },
+  "factsAndFigures": {
+    "subtitle": "ファクト＆フィギュア",
+    "title": "Megabuild Indonesia が業界をリードする理由",
+    "description": "21回の開催実績が物語る確かな成果。Megabuild Indonesia は、数千社のビジネス成長を後押ししてきました。"
+  },
+  "partnerships": {
+    "title": "<span class=''>一緒に </span><span class='text-primary'>イベントを作りませんか</span>",
+    "description": "{appName}に参加して、ビジネスを次のステージへ。パートナーとの出会い、ブランドの露出、ネットワークの拡大を実現しましょう。",
+    "exhibitor": {
+      "title": "出展者として参加する",
+      "description": "ブランドと起業家の皆さん、多彩で熱心な来場者にあなたの製品をアピールしましょう。",
+      "cta": "ブースを予約する"
+    },
+    "sponsor": {
+      "title": "スポンサーとして参加する",
+      "description": "業界を代表するイベントのスポンサーとなり、主要な意思決定者とつながりましょう。",
+      "cta": "スポンサーになる"
+    },
+    "mediaPartner": {
+      "title": "メディアパートナーとして参加する",
+      "description": "業界最大のストーリーを発信する独占アクセスで、パートナーシップを組みませんか。",
+      "cta": "メディアとして参加"
+    },
+    "reservedSpace": {
+      "title": "このスペースは素敵なパートナーのために用意しています。あなたかもしれません。",
+      "cta": "パートナーになる"
+    }
+  },
+  "visitorCta": {
+    "title": "<span class=\"text-primary\">リノベーションをお考えですか？</span><br /><span class=\"\">必要な情報がすべて揃っています。</span>",
+    "description": "ネットで延々と検索するのはもう終わり。建材サプライヤー、デザインのアイデア、プロのアドバイスがすべて一か所に。無料パスで、賢いリノベーションの第一歩を踏み出しましょう。",
+    "cta": "無料チケットを取得"
+  },
+  "mediaCoverage": {
+    "title": "メディアでの紹介",
+    "description": "{appName}に関する主要メディアの掲載をご覧ください。"
+  },
+  "credits": {
+    "title": "イベントを支えるコミュニティ",
+    "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援によって実現しています。"
+  },
+  "postSlider": {
+    "title": "最新情報",
+    "titleMorePosts": "こちらもおすすめ"
+  },
+  "bookSpace": {
+    "title": "出展者登録",
+    "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。トップブランドと並んで、ビジネスの成長を加速させてください。"
+  },
+  "faq": {
+    "title": "よくある質問",
+    "description": "チケット、イベントの詳細、出展者情報など、よくあるご質問への回答をまとめました。",
+    "emptyState": "よくある質問を準備中です。もう少しお待ちください。",
+    "contactTitle": "ご不明な点がありましたら、お気軽にどうぞ！",
+    "items": {
+      "0": {
+        "q": "{eventTitle}はいつ、どこで開催されますか？",
+        "a": "<p>{eventTitle}は<strong>{eventDate}</strong>、<strong>{eventTime}</strong>に<a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>で開催されます。</p>"
+      },
+      "1": {
+        "q": "チケットはどうやって入手できますか？",
+        "a": "<p>公式サイトからチケットをお求めいただけます。<a href=\"/ticket\">チケットを取得</a>ボタンをクリックして、登録手続きを行ってください。購入後、EチケットがEmailおよびWhatsAppに届きます。</p>"
+      },
+      "2": {
+        "q": "チケットの料金はいくらですか？",
+        "a": "<p>料金はチケットの種類やキャンペーン時期によって異なります。最新の料金情報は<a href=\"/ticket\">チケットページ</a>をご確認ください。早割やプレセール期間は特別割引もありますので、お見逃しなく！</p>"
+      },
+      "3": {
+        "q": "参加できなくなった場合、返金は可能ですか？",
+        "a": "<p>チケットの購入後の返金・交換は承っておりません。詳しくは<a href=\"/ticket-refund-and-return-policy\">チケット返金・返品ポリシー</a>をご確認ください。</p>"
+      },
+      "4": {
+        "q": "イベント当日は何を持参すればいいですか？",
+        "a": "<p>Eチケット（スマートフォン画面または印刷）を受付でバッジまたはリストバンドと交換してください。出展者や他の来場者とのネットワーキングをお考えの方は、名刺もお持ちいただくことをおすすめします。</p>"
+      },
+      "5": {
+        "q": "誰でも参加できますか？",
+        "a": "<p>はい、どなたでもご参加いただけます。リノベーションを計画中の住宅オーナーから、建築家、コントラクター、デベロッパー、デザインの専門家まで、建築・建材・インテリアデザインに関心のある方を歓迎しています。</p>"
+      },
+      "6": {
+        "q": "どんなブランドが出展しますか？",
+        "a": "<p>建材、建築、施工、インテリアデザイン業界から多彩なブランドが出展します。出展者一覧は<a href=\"/brands\">ブランドページ</a>でご確認いただけます。開催日が近づくにつれ随時更新されます。</p>"
+      },
+      "7": {
+        "q": "出展者になるにはどうすればいいですか？",
+        "a": "<p><a href=\"/book-space\">出展者登録ページ</a>から申し込むか、<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>で担当チームにお問い合わせください。ブースのパッケージや空き状況についてご案内いたします。</p>"
+      },
+      "8": {
+        "q": "セミナーやワークショップはありますか？",
+        "a": "<p>はい！展示会期間中、セミナー、カンファレンス、ワークショップ、ネットワーキングセッションなど多彩なプログラムを開催します。スケジュールの詳細は<a href=\"/rundown\">Rundownページ</a>をご確認ください。</p>"
+      },
+      "9": {
+        "q": "スポンサーやメディアパートナーになるには？",
+        "a": "<p>スポンサーシップやメディアパートナーシップのご相談を承っています。<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>または<a href=\"mailto:{email}\">{email}</a>までお気軽にご連絡ください。</p>"
+      },
+      "10": {
+        "q": "会場に駐車場はありますか？",
+        "a": "<p>はい、会場には駐車場が完備されています。ただしピーク時は満車になることもありますので、早めの来場をおすすめします。公共交通機関やライドシェアの利用もご検討ください。</p>"
+      },
+      "11": {
+        "q": "会場内で写真や動画を撮影してもいいですか？",
+        "a": "<p>個人利用の範囲での写真・動画撮影は可能です。ただし、商用目的の撮影には主催者の書面による許可が必要です。詳しくは<a href=\"/event-policy\">イベントポリシー</a>をご確認ください。</p>"
+      },
+      "12": {
+        "q": "イベントで守るべきルールはありますか？",
+        "a": "<p>来場者の皆さまには、イベントスタッフやセキュリティの指示に従っていただきます。ご来場前に<a href=\"/event-policy\">イベントポリシー</a>をお読みください。</p>"
+      },
+      "13": {
+        "q": "イベントの最新情報はどこで確認できますか？",
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>で最新情報、出展者発表、限定コンテンツをチェックしてください。<a href=\"/news\">Newsページ</a>でも記事や更新情報を配信しています。</p>"
+      },
+      "14": {
+        "q": "主催者への連絡方法は？",
+        "a": "<p>以下の方法でお問い合わせいただけます：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">こちらからチャット</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>その他の連絡手段については<a href=\"/help-center\">ヘルプセンター</a>をご覧ください。</p>"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Megabuild Indonesia：建材・建築・施工・インテリアデザイン展",
+      "description": "MEGABUILD Indonesia で、建材、建築、インテリアデザインの最新トレンドとイノベーションを発見しましょう。"
+    },
+    "brands": {
+      "title": "ブランド一覧",
+      "description": "建材、建築、インテリアデザイン業界の多彩なブランドと最新の製品・イノベーションをご覧ください。"
+    },
+    "rundown": {
+      "title": "Rundown",
+      "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。"
+    },
+    "programs": {
+      "title": "メインプログラム",
+      "description": "{appName}の主要プログラムをご紹介します。展示会、ビジネスカンファレンス、セミナー、ビジネスマッチングなど、業界のトップから学び、つながる機会が満載です。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。"
+    },
+    "bookSpace": {
+      "title": "ブースを予約する",
+      "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。トップブランドと並んで、ビジネスの成長を加速させてください。"
+    },
+    "ticket": {
+      "title": "チケットを取得",
+      "description": "{appName}の入場チケットはこちら。日程、会場、チケットの種類など、必要な情報をご確認いただけます。"
+    },
+    "gallery": {
+      "title": "Gallery",
+      "description": "{appName}の過去の開催の様子をGalleryでご覧ください。"
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "{appName}に関するよくある質問をまとめました。チケット、イベント詳細、パートナーシップなどの情報はこちらから。"
+    },
+    "links": {
+      "title": "Links",
+      "description": "便利なリンク集です。必要な情報にすばやくアクセスできます。"
+    },
+    "news": {
+      "title": "News",
+      "description": "建築・建設業界の最新トレンド、ニュース、インサイトをお届けします。専門家による記事やイベントの最新情報をご覧ください。"
+    },
+    "ticketPolicy": {
+      "title": "チケットポリシー",
+      "description": "{appName}のチケットポリシーをご確認ください。チケットの種類、料金、返金に関するガイドラインをご案内します。"
+    },
+    "eventPolicy": {
+      "title": "イベントポリシー",
+      "description": "{appName}のイベントポリシーです。参加者・出展者向けのルール、規約、注意事項をご確認ください。"
+    },
+    "partners": {
+      "title": "パートナー一覧",
+      "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援なくしては実現しません。心から感謝いたします。"
+    },
+    "terms": {
+      "title": "利用規約",
+      "description": ""
+    },
+    "privacy": {
+      "title": "プライバシーポリシー",
+      "description": ""
+    },
+    "winner": {
+      "title": "抽選ジェネレーター",
+      "description": "ランダムに当選者を選出するジェネレーターです。名前を入力してスロットを回すだけ。コンテスト、プレゼント企画、イベントに最適です！"
+    }
+  }
+}

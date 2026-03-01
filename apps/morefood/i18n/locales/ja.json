@@ -1,0 +1,413 @@
+{
+  "ui": {
+    "viewAll": "すべて見る",
+    "viewAllBrands": "すべてのブランドを見る",
+    "contactUs": "お問い合わせ",
+    "back": "戻る",
+    "comingSoon": "近日公開",
+    "backToHome": "ホームに戻る",
+    "bookSpace": "ブースを予約",
+    "getTicket": "チケットを取得",
+    "lightDarkMode": "ライト / ダークモード",
+    "toggleSidebar": "サイドバーの切替",
+    "openMenu": "メニューを開く",
+    "toggleFullscreen": "フルスクリーンの切替",
+    "switchLanguage": "言語の切替",
+    "copyright": "著作権",
+    "allRightsReserved": "無断転載を禁じます。",
+    "readingTime": "{n}分で読めます",
+    "loading": "読み込み中",
+    "failedToGetData": "データの取得に失敗しました。",
+    "search": "検索",
+    "searchPosts": "記事を検索",
+    "brands": "ブランド",
+    "booth": "ブース",
+    "categories": "カテゴリー",
+    "description": "説明",
+    "created": "作成日",
+    "views": "{n}回閲覧",
+    "posted": "投稿日",
+    "shareThisPost": "この記事をシェア",
+    "soldOut": "完売",
+    "startsFrom": "〜から",
+    "startsIn": "開始まで",
+    "endsIn": "終了まで",
+    "ticketsSoldOut": "チケットは完売しました",
+    "ticketsComingSoon": "チケットは近日発売",
+    "presentedBy": "提供",
+    "allLocations": "すべてのロケーション",
+    "selectAProduct": "製品を選択してください",
+    "selectAnOption": "オプションを選択してください",
+    "enterYourProductType": "製品タイプを入力してください",
+    "sendMessage": "メッセージを送る",
+    "leaveAMessage": "メッセージをどうぞ..",
+    "youMightAlsoLike": "こちらもおすすめ"
+  },
+  "news": {
+    "latestUpdates": "最新情報",
+    "showingPostsFor": "{total}件の記事を表示中：",
+    "showingPosts": "{total}件の記事を表示中",
+    "noResultsFor": "該当する記事が見つかりませんでした：",
+    "noResultsHint": "別のキーワードで試してみてください。きっと気になる記事が見つかるはずです！",
+    "noPostsYet": "まだ記事がありません",
+    "comeBackLater": "また後でご確認ください"
+  },
+  "brands": {
+    "comingSoon": "ブランド一覧は近日公開です。もう少しお待ちください！"
+  },
+  "rundown": {
+    "title": "Rundown",
+    "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。",
+    "comingSoon": "Rundownは近日公開です。もう少しお待ちください！",
+    "nothingYet": "まだ情報はありません！"
+  },
+  "ticket": {
+    "agreementPrefix": "チケット購入を続けることで、以下に同意したものとみなされます：",
+    "agreementAnd": "および",
+    "ticketTerms": "チケット利用規約",
+    "eventPolicy": "イベントポリシー"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "formTitle": "お問い合わせフォーム",
+    "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。",
+    "name": "お名前",
+    "jobTitle": "役職",
+    "brandName": "ブランド名",
+    "products": "製品",
+    "email": "Email",
+    "phone": "電話番号 (WhatsApp)",
+    "referralSource": "このイベントを何で知りましたか？",
+    "message": "メッセージ",
+    "successTitle": "送信完了しました。ありがとうございます！",
+    "successMessage": "担当者からEmailまたはWhatsAppでご連絡いたします。",
+    "successButton": "ホームに戻る",
+    "disclaimerDefault": "正しいEmailアドレスと電話番号をご記入ください。担当者から折り返しご連絡いたします。",
+    "disclaimerExhibitor": "このフォームを送信しても、出展が自動的に確定するわけではありません。営業チームがブースの空き状況や料金などの詳細をご案内するため、ご連絡先をお伺いしています。",
+    "errorSend": "メッセージの送信に失敗しました。もう一度お試しください。",
+    "errorNetwork": "ネットワークエラーが発生しました。しばらくしてから再度お試しください。"
+  },
+  "countdown": {
+    "day": "日",
+    "hour": "時間",
+    "min": "分",
+    "sec": "秒"
+  },
+  "eventStatus": {
+    "startsIn": "イベント開始まで",
+    "live": "開催中",
+    "completed": "終了"
+  },
+  "conjunction": {
+    "label": "同時開催",
+    "and": "と"
+  },
+  "nav": {
+    "Home": "ホーム",
+    "Brands": "ブランド",
+    "Rundown": "スケジュール",
+    "Programs": "プログラム",
+    "Resources": "情報",
+    "Partners": "パートナー",
+    "Contact": "お問い合わせ",
+    "News": "ニュース",
+    "Ticket": "チケット",
+    "Exhibitor Registration": "出展者登録",
+    "Gallery": "ギャラリー",
+    "FAQ": "FAQ",
+    "Links": "リンク",
+    "Ticket Terms and Conditions": "チケット利用規約",
+    "Ticket Refund and Return Policy": "チケット返金・返品ポリシー",
+    "Event Policy": "イベントポリシー",
+    "Terms of Service": "利用規約",
+    "Privacy Policy": "プライバシーポリシー",
+    "Help Center": "ヘルプセンター",
+    "Sponsorship Registration": "スポンサー登録",
+    "Media Partner Registration": "メディアパートナー登録",
+    "Menu": "メニュー",
+    "Get in touch": "お問い合わせ",
+    "Social": "ソーシャル",
+    "Discover": "もっと見る",
+    "For Businesses": "ビジネス向け",
+    "Terms and policies": "利用規約",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube"
+  },
+  "partners": {
+    "Organized by": "主催",
+    "Supported by": "後援"
+  },
+  "hero": {
+    "countdownLabel": "グルメの冒険まであと：",
+    "subtitle": "単なる展示会ではありません。メニューと店舗のためのアイデア工場です。",
+    "title": "すべての食材に、ストーリーがある。",
+    "description": "食べ物以上のものをお届けします。新しいアイデア、新しいパートナー、そしてF&Bビジネスを成長させる無数の方法を発見してください。",
+    "ctaTicket": "チケットを取得",
+    "ctaExhibit": "出展したい",
+    "playRecap": "ダイジェストを見る",
+    "announcement": "出展スペースはまだ空きがあります",
+    "banners": {
+      "0": {
+        "subHeadline": "出展者の募集を開始しました！",
+        "content": "<p>30,000人以上のバイヤー、ディストリビューター、F&Bプロフェッショナルにブランドをアピールしませんか。東南アジア最大級のフードマーケットで輝くチャンスです。</p>",
+        "cta": "今すぐブースを予約"
+      },
+      "1": {
+        "subHeadline": "3つのExpo、1枚のチケット！",
+        "content": "<p>あなたのチケットで<strong>Franchise & License Expo (FLEI)</strong>にも入場できます。さらに多くのビジネスモデルと機会を、一か所で発見してください。</p>",
+        "cta": "FLEIを見る"
+      },
+      "2": {
+        "subHeadline": "コーヒーへの愛を込めて",
+        "content": "<p>チケットには<strong>Cafe & Brasserie Expo</strong>への完全入場権が含まれています。最新のコーヒー、ペストリー、最先端のカフェテクノロジーを探索しましょう。カフェオーナー必見です！</p>",
+        "cta": "Cafe & Brasserie Expoを見る"
+      },
+      "3": {
+        "subHeadline": "ご存知ですか？",
+        "content": "<p>インドネシアは世界最大のHalal食品消費市場です！数十億ドル規模のビジネスチャンスが、適切な製品を待っています。準備はできていますか？</p>"
+      },
+      "4": {
+        "subHeadline": "来場者へのアドバイス",
+        "content": "<p>一番歩きやすい靴で来てください！20,000m²の会場に1,200以上の出展者。たくさん歩いて、もっとたくさん試食しましょう！</p>",
+        "cta": "出展者をチェック"
+      },
+      "5": {
+        "subHeadline": "早割チケットがまもなく登場！",
+        "content": "<p>お得なチケットを手に入れたいですか？SNSをフォローして、Early Birdプロモーション開始をいち早くキャッチしましょう。お見逃しなく！</p>",
+        "cta": "Instagramをフォロー"
+      }
+    }
+  },
+  "mainPrograms": {
+    "title": "<span class='text-outline'>メイン</span> <span class='text-accent'>プログラム</span>",
+    "description": "会場のあらゆるコーナーが、学び、つながり、インスピレーションを得る場所です。訪問を最大限に活かすための充実したプログラムをご用意しました。",
+    "items": {
+      "0": {
+        "title": "The Global Marketplace",
+        "description": "イベントの中心です。20,000m²の会場に世界中から1,200以上の出展者が集結。数千の新製品、食材、テクノロジーを一つ屋根の下で発見できます。"
+      },
+      "1": {
+        "title": "MoreFood Talks: 業界サミット",
+        "description": "トップクラスの業界リーダー、マーケットアナリスト、成功した起業家のインサイトで競争優位性を獲得。カンファレンスシリーズではF&Bの未来、Halal市場のトレンド、持続可能なビジネスを取り上げます。"
+      },
+      "2": {
+        "title": "Launch Pad: イノベーションステージ",
+        "description": "最新製品のお披露目を一番乗りで目撃してください。Launch Padは革新的なブランドが最新の製品を発表する専用ステージです。画期的なフードテックからワクワクする新フレーバーまで。"
+      },
+      "3": {
+        "title": "The Inspiration Zone",
+        "description": "創造力を刺激するハンズオンの体験型エリアです。五感に響くディスプレイを楽しみ、ユニークなフードペアリングを発見し、新しいカフェコンセプトやリテールレイアウトからインスピレーションを得てください。"
+      },
+      "4": {
+        "title": "Business Matching Service",
+        "description": "マッチングはお任せください。事前審査済みのバイヤーとの集中的で生産的なミーティングをセッティングします。本題に直行できます。"
+      },
+      "5": {
+        "title": "Chef's Table: ライブクッキングデモ",
+        "description": "見て、嗅いで、味わう未来。著名シェフがステージに立ち、出展者の製品を料理の傑作に変身させます。ライブクッキング、レシピのアイデア、そして美味しい無料試食をお楽しみに。"
+      },
+      "6": {
+        "title": "Creator's Hub: KOLライブ配信",
+        "description": "この熱気を感じてください！トップフードインフルエンサーやコンテンツクリエイターがCreator's Hubからライブ配信。トレンドの発見、ブランドオーナーへのインタビュー、そのワクワクを数百万人のオンライン視聴者と共有します。"
+      },
+      "7": {
+        "title": "Halal市場ワークショップ",
+        "description": "Halal市場で成功するための実践ガイドです。インドネシアのHalal認証プロセスからムスリム消費者へのマーケティング戦略まで、専門家によるワークショップに参加しましょう。席数限定です。"
+      }
+    }
+  },
+  "partnerships": {
+    "title": "<span class='text-outline'>一緒に </span><span class='text-accent'>イベントを作りませんか</span>",
+    "description": "More Food Expoの成功は、強力なパートナーシップの上に成り立っています。製品の展示、ブランドの強化、イベントの取材など、あなたに最適な機会をご用意しています。",
+    "exhibitor": {
+      "title": "出展者として参加する",
+      "description": "F&Bブランドと起業家の皆さん、多彩で熱心な来場者にあなたの製品をアピールしましょう。",
+      "cta": "ブースを予約する"
+    },
+    "sponsor": {
+      "title": "スポンサーとして参加する",
+      "description": "F&B業界を代表するイベントのスポンサーとなり、主要な意思決定者とつながりましょう。",
+      "cta": "スポンサーになる"
+    },
+    "mediaPartner": {
+      "title": "メディアパートナーとして参加する",
+      "description": "F&B業界最大のストーリーを発信する独占アクセスで、パートナーシップを組みませんか。",
+      "cta": "メディアとして参加"
+    },
+    "reservedSpace": {
+      "title": "このスペースは素敵なパートナーのために用意しています。あなたかもしれません。",
+      "cta": "パートナーになる"
+    }
+  },
+  "visitorCta": {
+    "title": "<span class='text-outline'>スクロールはやめて。</span> <span class='text-accent'>味わいに来て。</span>",
+    "description": "画面越しでは、チャンスの味は伝わりません。チケットを確保して、F&B業界の未来を直接体験しましょう。",
+    "cta": "チケットを取得"
+  },
+  "mediaCoverage": {
+    "title": "メディアでの紹介",
+    "description": "{appName}に関する主要メディアの掲載をご覧ください。"
+  },
+  "credits": {
+    "title": "イベントを支えるコミュニティ",
+    "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援によって実現しています。"
+  },
+  "postSlider": {
+    "title": "最新情報",
+    "titleMorePosts": "こちらもおすすめ"
+  },
+  "brandPreview": {
+    "title": "{appName}の注目ブランドをチェック"
+  },
+  "brandList": {
+    "title": "ブランド一覧",
+    "description": "More Food Expo 2026の出展ブランド一覧です。国内外の多彩な食品ブランドから新しいパートナーや製品を見つけてください。"
+  },
+  "bookSpace": {
+    "title": "出展者登録",
+    "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。トップブランドと並んで、ビジネスの成長を加速させてください。"
+  },
+  "faq": {
+    "title": "よくある質問",
+    "description": "チケット、イベントの詳細、出展者情報など、よくあるご質問への回答をまとめました。",
+    "emptyState": "よくある質問を準備中です。もう少しお待ちください。",
+    "contactTitle": "ご不明な点がありましたら、お気軽にどうぞ！",
+    "items": {
+      "0": {
+        "q": "{eventTitle}はいつ、どこで開催されますか？",
+        "a": "<p>{eventTitle}は<strong>{eventDate}</strong>、<strong>{eventTime}</strong>に<a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>で開催されます。</p>"
+      },
+      "1": {
+        "q": "チケットはどうやって入手できますか？",
+        "a": "<p>公式サイトからチケットをお求めいただけます。<a href=\"/ticket\">チケットを取得</a>ボタンをクリックして、登録手続きを行ってください。購入後、EチケットがEmailおよびWhatsAppに届きます。</p>"
+      },
+      "2": {
+        "q": "チケットの料金はいくらですか？",
+        "a": "<p>料金はチケットの種類やキャンペーン時期によって異なります。最新の料金情報は<a href=\"/ticket\">チケットページ</a>をご確認ください。早割やプレセール期間は特別割引もありますので、お見逃しなく！</p>"
+      },
+      "3": {
+        "q": "参加できなくなった場合、返金は可能ですか？",
+        "a": "<p>チケットの購入後の返金・交換は承っておりません。詳しくは<a href=\"/ticket-refund-and-return-policy\">チケット返金・返品ポリシー</a>をご確認ください。</p>"
+      },
+      "4": {
+        "q": "イベント当日は何を持参すればいいですか？",
+        "a": "<p>Eチケット（スマートフォン画面または印刷）を受付でバッジまたはリストバンドと交換してください。出展者や他の来場者とのネットワーキングをお考えの方は、名刺もお持ちいただくことをおすすめします。</p>"
+      },
+      "5": {
+        "q": "誰でも参加できますか？",
+        "a": "<p>はい、どなたでもご参加いただけます！カフェオーナー、F&B起業家、コーヒー愛好家、食品業界のプロフェッショナル、または美食のトレンドを探求したい方、どなたでも歓迎です！</p>"
+      },
+      "6": {
+        "q": "どんなブランドや製品が展示されますか？",
+        "a": "<p>多彩なF&Bブランド、機器サプライヤー、食材プロバイダー、サービス企業が出展します。コーヒーマシンやカフェ家具から食品原料、パッケージソリューションまで。出展者一覧は<a href=\"/brands\">ブランドページ</a>でご確認いただけます。</p>"
+      },
+      "7": {
+        "q": "出展者になるにはどうすればいいですか？",
+        "a": "<p>F&B製品やサービスを出展されたい方は、<a href=\"/book-space\">出展者登録ページ</a>からお申し込みいただくか、<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>で担当チームにお問い合わせください。ブースパッケージや空き状況についてご案内いたします。</p>"
+      },
+      "8": {
+        "q": "製品の試食・試飲セッションはありますか？",
+        "a": "<p>はい！多くの出展者がブースで製品の試食・試飲を提供しています。新しい製品、食材、フレーバーを発見する絶好の機会です。ビジネスにも個人的な楽しみにもぜひご活用ください。</p>"
+      },
+      "9": {
+        "q": "セミナーやワークショップはありますか？",
+        "a": "<p>はい！抽出テクニック、食品トレンド、ビジネス戦略、業界インサイトなど、多彩なセミナー、ワークショップ、デモセッションを開催します。スケジュールの詳細は<a href=\"/rundown\">Rundownページ</a>をご確認ください。</p>"
+      },
+      "10": {
+        "q": "スポンサーやメディアパートナーになるには？",
+        "a": "<p>スポンサーシップやメディアパートナーシップのご相談を承っています。<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>または<a href=\"mailto:{email}\">{email}</a>までお気軽にご連絡ください。</p>"
+      },
+      "11": {
+        "q": "会場に駐車場はありますか？",
+        "a": "<p>はい、会場には駐車場が完備されています。ただしピーク時は満車になることもありますので、早めの来場をおすすめします。公共交通機関やライドシェアの利用もご検討ください。</p>"
+      },
+      "12": {
+        "q": "会場内で写真や動画を撮影してもいいですか？",
+        "a": "<p>個人利用の範囲での写真・動画撮影は可能です。ただし、商用目的の撮影には主催者の書面による許可が必要です。詳しくは<a href=\"/event-policy\">イベントポリシー</a>をご確認ください。</p>"
+      },
+      "13": {
+        "q": "イベントの最新情報はどこで確認できますか？",
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>で最新情報、出展者発表、限定コンテンツをチェックしてください。<a href=\"/news\">Newsページ</a>でも記事や更新情報を配信しています。</p>"
+      },
+      "14": {
+        "q": "主催者への連絡方法は？",
+        "a": "<p>以下の方法でお問い合わせいただけます：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">こちらからチャット</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>その他の連絡手段については<a href=\"/help-center\">ヘルプセンター</a>をご覧ください。</p>"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "More Food Expo Indonesia · フード業界の新たな出会い",
+      "description": "More Food Expo Indonesiaは2026年5月7-10日にJIEXPOで開催。世界のフードビジネスとインドネシアの成長するHalal市場をつなぎます。"
+    },
+    "brands": {
+      "title": "ブランド一覧",
+      "description": "More Food Expo 2026の出展ブランド一覧です。国内外の多彩な食品ブランドから新しいパートナーや製品を見つけてください。"
+    },
+    "rundown": {
+      "title": "Rundown",
+      "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。"
+    },
+    "programs": {
+      "title": "メインプログラム",
+      "description": "More Food Expo 2026のアクティビティをご紹介します。ビジネスマッチングから業界トークまで、価値あるつながりを作るためのプログラムが揃っています。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。"
+    },
+    "bookSpace": {
+      "title": "ブースを予約する",
+      "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。トップブランドと並んで、ビジネスの成長を加速させてください。"
+    },
+    "ticket": {
+      "title": "チケットを取得",
+      "description": "{appName}の入場チケットはこちら。日程、会場、チケットの種類など、必要な情報をご確認いただけます。"
+    },
+    "gallery": {
+      "title": "Gallery",
+      "description": "{appName}の過去の開催の様子をGalleryでご覧ください。"
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "{appName}に関するよくある質問をまとめました。チケット、イベント詳細、パートナーシップなどの情報はこちらから。"
+    },
+    "links": {
+      "title": "Links",
+      "description": "便利なリンク集です。必要な情報にすばやくアクセスできます。"
+    },
+    "news": {
+      "title": "News",
+      "description": "フード業界の最新トレンド、ニュース、インサイトをお届けします。専門家による記事やイベントの最新情報をご覧ください。"
+    },
+    "ticketPolicy": {
+      "title": "チケットポリシー",
+      "description": "{appName}のチケットポリシーをご確認ください。チケットの種類、料金、返金に関するガイドラインをご案内します。"
+    },
+    "eventPolicy": {
+      "title": "イベントポリシー",
+      "description": "{appName}のイベントポリシーです。参加者・出展者向けのルール、規約、注意事項をご確認ください。"
+    },
+    "partners": {
+      "title": "パートナー一覧",
+      "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援なくしては実現しません。心から感謝いたします。"
+    },
+    "terms": {
+      "title": "利用規約",
+      "description": ""
+    },
+    "privacy": {
+      "title": "プライバシーポリシー",
+      "description": ""
+    },
+    "winner": {
+      "title": "抽選ジェネレーター",
+      "description": "ランダムに当選者を選出するジェネレーターです。名前を入力してスロットを回すだけ。コンテスト、プレゼント企画、イベントに最適です！"
+    }
+  }
+}

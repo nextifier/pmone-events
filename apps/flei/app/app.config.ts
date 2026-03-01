@@ -33,6 +33,11 @@ const event = {
   // hall: "",
   // teaserVideoId: "7mBDPbHKIQM",
   profileImage: "/img/avatar/flei.svg",
+  description:
+    "Mulai Bisnismu di Pameran Franchise Terbesar di Indonesia. Temukan brand-brand unggulan dari sektor F&B, ritel, edukasi, dan banyak lagi.",
+  offersName: "Tiket Masuk FLEI",
+  offersDescription:
+    "Harga tiket Pameran Franchise berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   inConjunction: {
     label: "In conjunction with",
     list: [

@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-const gallery = new useGalleryStore();
+const gallery = useGalleryStore();
 
 const imageObjects = gallery.images.map((image) => ({
   src: `/img/gallery/${image}`,

@@ -184,7 +184,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const content = useContentStore().components.visitorCta;
+const content = computed(() => useContentStore().components.visitorCta);
 const event = useAppConfig().event;
 
 const isInitialized = ref(false);

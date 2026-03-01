@@ -53,5 +53,5 @@
 
 <script setup>
 usePageMeta("links");
-const content = useContentStore().components.links;
+const content = computed(() => useContentStore().components.links);
 </script>

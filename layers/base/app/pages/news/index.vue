@@ -4,7 +4,7 @@
       <div class="@container">
         <div class="flex flex-col gap-x-6 gap-y-6 lg:flex-row lg:items-end lg:justify-between">
           <h1 class="text-primary text-4xl font-medium tracking-[-0.06em] sm:text-5xl">
-            Latest updates
+            {{ $t('news.latestUpdates') }}
           </h1>
 
           <div class="flex w-full max-w-md items-center gap-2">
@@ -14,7 +14,7 @@
                 v-model="searchInput"
                 ref="searchInputEl"
                 class="input-base peer dark:bg-muted/50! h-9 px-9 py-2 text-sm tracking-tight"
-                placeholder="Search posts"
+                :placeholder="$t('ui.searchPosts')"
               />
 
               <IconSearch
@@ -46,12 +46,12 @@
         <div class="mt-8 sm:mt-10">
           <div v-if="!pending && posts?.length" class="text-muted-foreground mb-4 tracking-tight">
             <span v-if="isSearching">
-              Showing {{ meta.total }} posts for
+              {{ $t('news.showingPostsFor', { total: meta.total }) }}
               <span class="font-medium text-gray-700 italic dark:text-gray-300"
                 >"{{ debouncedSearchInput }}"</span
               >
             </span>
-            <span v-else> Showing {{ meta.total }} posts </span>
+            <span v-else> {{ $t('news.showingPosts', { total: meta.total }) }} </span>
           </div>
 
           <div
@@ -63,20 +63,19 @@
 
           <div v-else-if="error" class="flex items-center justify-center text-center">
             <span class="text-primary text-2xl font-semibold tracking-tighter"
-              >Failed to get the data.</span
+              >{{ $t('ui.failedToGetData') }}</span
             >
           </div>
 
           <!-- Search results with no matches (must be before generic "No posts" check) -->
           <div v-else-if="isSearching && posts?.length === 0" class="flex flex-col gap-y-4">
             <span class="text-4xl font-semibold tracking-tighter sm:text-5xl"
-              >No results found for
+              >{{ $t('news.noResultsFor') }}
               <span class="font-bold italic">"{{ debouncedSearchInput }}"</span></span
             >
 
             <span class="text-base tracking-tight sm:text-lg"
-              >Maybe try a different keyword, or explore other topics—we're sure you'll find
-              something awesome!</span
+              >{{ $t('news.noResultsHint') }}</span
             >
           </div>
 
@@ -85,16 +84,16 @@
             <h2
               class="text-4xl font-bold tracking-tighter text-black sm:text-4xl xl:text-5xl dark:text-white"
             >
-              No posts yet
+              {{ $t('news.noPostsYet') }}
             </h2>
-            <p class="mt-4 text-base tracking-tight sm:text-lg">Please come back later</p>
+            <p class="mt-4 text-base tracking-tight sm:text-lg">{{ $t('news.comeBackLater') }}</p>
 
             <nuxt-link
               to="/"
               class="mt-4 flex items-center gap-x-1 rounded-full bg-black p-4 font-semibold tracking-tight text-white dark:bg-white dark:text-black"
             >
               <IconChevronLeft class="h-4" />
-              <span>Back to Home</span>
+              <span>{{ $t('ui.backToHome') }}</span>
             </nuxt-link>
           </div>
 

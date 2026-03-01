@@ -70,7 +70,7 @@
       >
         <div class="flex items-center gap-1">
           <IconShop class="size-3.5 shrink-0" />
-          <span class="line-clamp-1 text-xs tracking-tight">Booth</span>
+          <span class="line-clamp-1 text-xs tracking-tight">{{ $t('ui.booth') }}</span>
         </div>
 
         <span class="text-primary line-clamp-1 font-semibold tracking-tight">{{
@@ -127,14 +127,14 @@
               $dayjs(props.brand.created_at).format('MMMM D, YYYY [at] h:mm A')
             "
           >
-            <span class="hidden sm:inline">Created </span>
+            <span class="hidden sm:inline">{{ $t('ui.created') }} </span>
             {{ $dayjs(props.brand.created_at).fromNow() }}
           </span>
 
           <span
             v-if="props.brand.views_count && props.showViewsCount"
             class="text-muted-foreground line-clamp-1 flex items-center gap-x-0.5 text-xs tracking-tight"
-            v-tippy="`${props.brand.views_count} views`"
+            v-tippy="$t('ui.views', props.brand.views_count, { n: props.brand.views_count })"
           >
             <Icon name="hugeicons:view" class="size-4" />
             <span>{{ props.brand.views_count }}</span>

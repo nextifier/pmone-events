@@ -203,7 +203,7 @@
 <script setup>
 import { refDebounced } from "@vueuse/core";
 
-const content = useContentStore().components.brandList;
+const content = computed(() => useContentStore().components.brandList);
 const config = useRuntimeConfig();
 const route = useRoute();
 

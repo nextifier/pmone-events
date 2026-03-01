@@ -37,5 +37,5 @@
 
 <script setup>
 usePageMeta("eventGuidelines");
-const content = useContentStore().components.eventGuidelines;
+const content = computed(() => useContentStore().components.eventGuidelines);
 </script>

@@ -1,0 +1,387 @@
+{
+  "ui": {
+    "viewAll": "すべて見る",
+    "viewAllBrands": "すべてのブランドを見る",
+    "contactUs": "お問い合わせ",
+    "back": "戻る",
+    "comingSoon": "近日公開",
+    "backToHome": "ホームに戻る",
+    "bookSpace": "ブースを予約",
+    "getTicket": "チケットを取得",
+    "lightDarkMode": "ライト / ダークモード",
+    "toggleSidebar": "サイドバーの切替",
+    "openMenu": "メニューを開く",
+    "toggleFullscreen": "フルスクリーンの切替",
+    "switchLanguage": "言語の切替",
+    "copyright": "著作権",
+    "allRightsReserved": "無断転載を禁じます。",
+    "readingTime": "{n}分で読めます",
+    "loading": "読み込み中",
+    "failedToGetData": "データの取得に失敗しました。",
+    "search": "検索",
+    "searchPosts": "記事を検索",
+    "brands": "ブランド",
+    "booth": "ブース",
+    "categories": "カテゴリー",
+    "description": "説明",
+    "created": "作成日",
+    "views": "{n}回閲覧",
+    "posted": "投稿日",
+    "shareThisPost": "この記事をシェア",
+    "soldOut": "完売",
+    "startsFrom": "〜から",
+    "startsIn": "開始まで",
+    "endsIn": "終了まで",
+    "ticketsSoldOut": "チケットは完売しました",
+    "ticketsComingSoon": "チケットは近日発売",
+    "presentedBy": "提供",
+    "allLocations": "すべてのロケーション",
+    "selectAProduct": "製品を選択してください",
+    "selectAnOption": "オプションを選択してください",
+    "enterYourProductType": "製品タイプを入力してください",
+    "sendMessage": "メッセージを送る",
+    "leaveAMessage": "メッセージをどうぞ..",
+    "youMightAlsoLike": "こちらもおすすめ"
+  },
+  "news": {
+    "latestUpdates": "最新情報",
+    "showingPostsFor": "{total}件の記事を表示中：",
+    "showingPosts": "{total}件の記事を表示中",
+    "noResultsFor": "該当する記事が見つかりませんでした：",
+    "noResultsHint": "別のキーワードで試してみてください。きっと気になる記事が見つかるはずです！",
+    "noPostsYet": "まだ記事がありません",
+    "comeBackLater": "また後でご確認ください"
+  },
+  "brands": {
+    "comingSoon": "ブランド一覧は近日公開です。もう少しお待ちください！"
+  },
+  "rundown": {
+    "title": "Rundown",
+    "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。",
+    "comingSoon": "Rundownは近日公開です。もう少しお待ちください！",
+    "nothingYet": "まだ情報はありません！"
+  },
+  "ticket": {
+    "agreementPrefix": "チケット購入を続けることで、以下に同意したものとみなされます：",
+    "agreementAnd": "および",
+    "ticketTerms": "チケット利用規約",
+    "eventPolicy": "イベントポリシー"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "formTitle": "お問い合わせフォーム",
+    "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。",
+    "name": "お名前",
+    "jobTitle": "役職",
+    "brandName": "ブランド名",
+    "products": "製品",
+    "email": "Email",
+    "phone": "電話番号 (WhatsApp)",
+    "referralSource": "このイベントを何で知りましたか？",
+    "message": "メッセージ",
+    "successTitle": "送信完了しました。ありがとうございます！",
+    "successMessage": "担当者からEmailまたはWhatsAppでご連絡いたします。",
+    "successButton": "ホームに戻る",
+    "disclaimerDefault": "正しいEmailアドレスと電話番号をご記入ください。担当者から折り返しご連絡いたします。",
+    "disclaimerExhibitor": "このフォームを送信しても、出展が自動的に確定するわけではありません。営業チームがブースの空き状況や料金などの詳細をご案内するため、ご連絡先をお伺いしています。",
+    "errorSend": "メッセージの送信に失敗しました。もう一度お試しください。",
+    "errorNetwork": "ネットワークエラーが発生しました。しばらくしてから再度お試しください。"
+  },
+  "countdown": {
+    "day": "日",
+    "hour": "時間",
+    "min": "分",
+    "sec": "秒"
+  },
+  "eventStatus": {
+    "startsIn": "イベント開始まで",
+    "live": "開催中",
+    "completed": "終了"
+  },
+  "conjunction": {
+    "label": "同時開催",
+    "and": "と"
+  },
+  "nav": {
+    "Home": "ホーム",
+    "Brands": "ブランド",
+    "Rundown": "スケジュール",
+    "Programs": "プログラム",
+    "Resources": "情報",
+    "Partners": "パートナー",
+    "Contact": "お問い合わせ",
+    "News": "ニュース",
+    "Ticket": "チケット",
+    "Exhibitor Registration": "出展者登録",
+    "Gallery": "ギャラリー",
+    "FAQ": "FAQ",
+    "Links": "リンク",
+    "Ticket Terms and Conditions": "チケット利用規約",
+    "Ticket Refund and Return Policy": "チケット返金・返品ポリシー",
+    "Event Policy": "イベントポリシー",
+    "Terms of Service": "利用規約",
+    "Privacy Policy": "プライバシーポリシー",
+    "Help Center": "ヘルプセンター",
+    "Sponsorship Registration": "スポンサー登録",
+    "Media Partner Registration": "メディアパートナー登録",
+    "Menu": "メニュー",
+    "Get in touch": "お問い合わせ",
+    "Social": "ソーシャル",
+    "Discover": "もっと見る",
+    "For Businesses": "ビジネス向け",
+    "Terms and policies": "利用規約",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube"
+  },
+  "partners": {
+    "Organized by": "主催",
+    "Supported by": "後援"
+  },
+  "hero": {
+    "countdownLabel": "チョコレートの発見まであと：",
+    "title": "チョコレートの知られざるストーリーを、味わおう。",
+    "description": "ここにあるすべてのチョコレートには、産地と作り手のユニークな物語があります。一つひとつの特別さを、ぜひ味わいにきてください。",
+    "announcement": "出展スペースはまだ空きがあります",
+    "banners": {
+      "0": {
+        "subHeadline": "自慢の商品、ありますか？",
+        "content": "<p>23,000人以上のF&Bプロフェッショナル、カフェオーナー、グルメ愛好家と直接つながれます。あなたのブランドを試食してもらい、話題にしてもらう絶好のステージです。</p>",
+        "cta": "ブランドを出展する"
+      },
+      "1": {
+        "subHeadline": "情熱をビジネスに",
+        "content": "<p>あなたのパスで隣接する<strong>Franchise & License Expo Indonesia (FLEI)</strong>と<strong>More Food Expo Indonesia</strong>にも入場できます。F&Bの情熱を成長するビジネスに変える方法を学べる場所です。</p>",
+        "cta": "FLEIを見る"
+      },
+      "2": {
+        "subHeadline": "お見逃しなく！",
+        "content": "<p>Instagramをフォローして、注目の出展者、限定プレゼント、舞台裏の様子をいち早くチェックしましょう。見逃せない情報が満載です。</p>",
+        "cta": "{'@'}cafebrasserieexpoをフォロー"
+      }
+    }
+  },
+  "mainPrograms": {
+    "title": "<span>メインプログラム</span>",
+    "description": "ここが本番です。ライブコンペティション、体験型ワークショップ、終わりのないテイスティングで、あなたの訪問のすべての瞬間をエネルギーとインスピレーションで満たします。",
+    "items": {
+      "0": {
+        "title": "ライブコンペティション",
+        "description": "アドレナリン全開！国内トップクラスのバリスタ、ブリューワー、シェフたちがメインステージで栄光をかけて競い合います。会場のエネルギーは感染力抜群です。"
+      },
+      "1": {
+        "title": "テイスティングバー",
+        "description": "ここはあなたの遊び場です。コーヒー、お茶、ワイン、チョコレートの出展者から何百もの製品を試飲・試食。次のお気に入りの味を、無料で見つけましょう。"
+      },
+      "2": {
+        "title": "ハンズオンワークショップ",
+        "description": "見るだけじゃなく、参加しましょう！プロのようにワインをテイスティングする方法、完璧なコーヒーの淹れ方、フレーバーの組み合わせ方を、少人数制のセッションで学べます。席数限定です。"
+      },
+      "3": {
+        "title": "Bean-to-Barデモ",
+        "description": "チョコレート作りの魔法を、目の前でご覧ください。アルチザンメーカーが、一粒のカカオ豆がどのように極上のチョコレートバーに生まれ変わるかを実演します。"
+      },
+      "4": {
+        "title": "インダストリートーク",
+        "description": "業界のプロから最新情報を入手しましょう。カフェカルチャーの未来、F&Bのサステナビリティ、今知っておくべきトレンドについてのカジュアルなトークセッションです。"
+      },
+      "5": {
+        "title": "ライブミュージック & DJ",
+        "description": "あなたのフレーバージャーニーのサウンドトラック。一日中ライブバンドとDJが素敵な音楽をお届けして、心地よい雰囲気を演出します。"
+      }
+    }
+  },
+  "partnerships": {
+    "title": "<span class='text-outline'>一緒に </span><span class='text-primary'>イベントを作りませんか</span>",
+    "description": "{appName}に参加して、ビジネスを次のステージへ。パートナーとの出会い、ブランドの露出、ネットワークの拡大を実現しましょう。",
+    "exhibitor": {
+      "title": "出展者として参加する",
+      "description": "ブランドと起業家の皆さん、多彩で熱心な来場者にあなたの製品をアピールしましょう。",
+      "cta": "ブースを予約する"
+    },
+    "sponsor": {
+      "title": "スポンサーとして参加する",
+      "description": "業界を代表するイベントのスポンサーとなり、主要な意思決定者とつながりましょう。",
+      "cta": "スポンサーになる"
+    },
+    "mediaPartner": {
+      "title": "メディアパートナーとして参加する",
+      "description": "業界最大のストーリーを発信する独占アクセスで、パートナーシップを組みませんか。",
+      "cta": "メディアとして参加"
+    },
+    "reservedSpace": {
+      "title": "このスペースは素敵なパートナーのために用意しています。あなたかもしれません。",
+      "cta": "パートナーになる"
+    }
+  },
+  "visitorCta": {
+    "title": "今年<span class=\"text-accent\">最大のフレーバーパーティー</span>は、<span class=\"text-accent\">無料</span>です。",
+    "description": "今年一番おいしいイベントに、あなたの席を用意しています。探検して、味わって、インスピレーションを見つけに来てください。必要なのは無料パスだけです。",
+    "cta": "無料チケットを取得"
+  },
+  "mediaCoverage": {
+    "title": "メディアでの紹介",
+    "description": "{appName}に関する主要メディアの掲載をご覧ください。"
+  },
+  "credits": {
+    "title": "イベントを支えるコミュニティ",
+    "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援によって実現しています。"
+  },
+  "postSlider": {
+    "title": "最新情報",
+    "titleMorePosts": "こちらもおすすめ"
+  },
+  "brandPreview": {
+    "title": "{appName}の注目ブランドをチェック"
+  },
+  "brandList": {
+    "title": "ブランド一覧",
+    "description": "多彩なカフェブランドの製品とイノベーションをご覧ください。コーヒー、お茶、ワイン、チョコレートなど、各ブランドの魅力をお楽しみいただけます。"
+  },
+  "bookSpace": {
+    "title": "出展者登録",
+    "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。トップブランドと並んで、ビジネスの成長を加速させてください。"
+  },
+  "faq": {
+    "title": "よくある質問",
+    "description": "チョコレート展のチケット、イベントの詳細、出展者情報など、よくあるご質問への回答をまとめました。",
+    "emptyState": "よくある質問を準備中です。もう少しお待ちください。",
+    "contactTitle": "ご不明な点がありましたら、お気軽にどうぞ！",
+    "items": {
+      "0": {
+        "q": "{eventTitle}はいつ、どこで開催されますか？",
+        "a": "<p>{eventTitle}は<strong>{eventDate}</strong>、<strong>{eventTime}</strong>に<a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>で開催されます。</p>"
+      },
+      "1": {
+        "q": "チケットはどうやって入手できますか？",
+        "a": "<p>公式サイトからチケットをお求めいただけます。<a href=\"/ticket\">チケットを取得</a>ボタンをクリックして、登録手続きを行ってください。購入後、Eチケットがメールおよび WhatsApp に届きます。</p>"
+      },
+      "2": {
+        "q": "チケットの料金はいくらですか？",
+        "a": "<p>料金はチケットの種類やキャンペーン時期によって異なります。最新の料金情報は<a href=\"/ticket\">チケットページ</a>をご確認ください。早割やプレセール期間は特別割引もありますので、お見逃しなく！</p>"
+      },
+      "3": {
+        "q": "参加できなくなった場合、返金は可能ですか？",
+        "a": "<p>チケットの購入後の返金・交換は承っておりません。詳しくは<a href=\"/ticket-refund-and-return-policy\">チケット返金・返品ポリシー</a>をご確認ください。</p>"
+      },
+      "4": {
+        "q": "イベント当日は何を持参すればいいですか？",
+        "a": "<p>Eチケット（スマートフォン画面または印刷）を受付でバッジまたはリストバンドと交換してください。出展者や他の来場者とのネットワーキングをお考えの方は、名刺もお持ちいただくことをおすすめします。</p>"
+      },
+      "5": {
+        "q": "誰でも参加できますか？",
+        "a": "<p>はい、どなたでもご参加いただけます！カフェオーナー、F&B起業家、コーヒー愛好家、食品業界のプロフェッショナル、あるいは美食トレンドに興味のある方など、どなたでも歓迎です。</p>"
+      },
+      "6": {
+        "q": "どんなブランドや製品が出展しますか？",
+        "a": "<p>F&Bブランド、機器メーカー、食材サプライヤー、サービス企業など多彩な出展者が集まります。コーヒーマシン、カフェ什器から食品原料、パッケージソリューションまで。出展者一覧は<a href=\"/brands\">ブランドページ</a>でご確認いただけます。</p>"
+      },
+      "7": {
+        "q": "出展者になるにはどうすればいいですか？",
+        "a": "<p><a href=\"/book-space\">出展者登録ページ</a>から申し込むか、<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>で担当チームにお問い合わせください。ブースのパッケージや空き状況についてご案内いたします。</p>"
+      },
+      "8": {
+        "q": "試食やテイスティングセッションはありますか？",
+        "a": "<p>はい！多くの出展者がブースで試食やテイスティングを提供しています。新しい製品、食材、フレーバーを発見する絶好の機会です。</p>"
+      },
+      "9": {
+        "q": "セミナーやワークショップはありますか？",
+        "a": "<p>はい！抽出テクニック、フードトレンド、ビジネス戦略、業界インサイトなど、多彩なセミナー、ワークショップ、デモセッションを開催します。スケジュールの詳細は<a href=\"/rundown\">Rundownページ</a>をご確認ください。</p>"
+      },
+      "10": {
+        "q": "スポンサーやメディアパートナーになるには？",
+        "a": "<p>スポンサーシップやメディアパートナーシップのご相談を承っています。<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>または<a href=\"mailto:{email}\">{email}</a>までお気軽にご連絡ください。</p>"
+      },
+      "11": {
+        "q": "会場に駐車場はありますか？",
+        "a": "<p>はい、会場には駐車場が完備されています。ただしピーク時は満車になることもありますので、早めの来場をおすすめします。公共交通機関やライドシェアの利用もご検討ください。</p>"
+      },
+      "12": {
+        "q": "会場内で写真や動画を撮影してもいいですか？",
+        "a": "<p>個人利用の範囲での写真・動画撮影は可能です。ただし、商用目的の撮影には主催者の書面による許可が必要です。詳しくは<a href=\"/event-policy\">イベントポリシー</a>をご確認ください。</p>"
+      },
+      "13": {
+        "q": "イベントの最新情報はどこで確認できますか？",
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>で最新情報、出展者発表、限定コンテンツをチェックしてください。<a href=\"/news\">Newsページ</a>でも記事や更新情報を配信しています。</p>"
+      },
+      "14": {
+        "q": "主催者への連絡方法は？",
+        "a": "<p>以下の方法でお問い合わせいただけます：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">こちらからチャット</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>その他の連絡手段については<a href=\"/help-center\">ヘルプセンター</a>をご覧ください。</p>"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Cokelat Expo Indonesia · インドネシアチョコレートの祭典",
+      "description": "Cokelat Expo Indonesiaで、テイスティング、ワークショップ、コンペティションなど、インドネシアのチョコレート文化を体験しましょう。"
+    },
+    "brands": {
+      "title": "ブランド一覧",
+      "description": "{appName}に出展するブランドの製品やイノベーションをご覧ください。"
+    },
+    "rundown": {
+      "title": "Rundown",
+      "description": "{appName}のイベントスケジュールやプログラムの詳細をご確認いただけます。"
+    },
+    "programs": {
+      "title": "メインプログラム",
+      "description": "{appName}の主要プログラムをご紹介します。業界のトップから学び、つながる機会です。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "チケット、パートナーシップ、イベントの詳細など、ご不明な点がありましたらお気軽にお問い合わせください。"
+    },
+    "bookSpace": {
+      "title": "ブースを予約する",
+      "description": "{appName}でブースを確保して、何千人もの見込み客にあなたのブランドをアピールしましょう。"
+    },
+    "ticket": {
+      "title": "チケットを取得",
+      "description": "{appName}の入場チケットはこちら。日程、会場、チケットの種類など、必要な情報をご確認いただけます。"
+    },
+    "gallery": {
+      "title": "Gallery",
+      "description": "{appName}の過去の開催の様子をGalleryでご覧ください。"
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "{appName}に関するよくある質問をまとめました。チケット、イベント詳細、パートナーシップなどの情報はこちらから。"
+    },
+    "links": {
+      "title": "Links",
+      "description": "便利なリンク集です。必要な情報にすばやくアクセスできます。"
+    },
+    "news": {
+      "title": "News",
+      "description": "F&B・チョコレート業界の最新トレンド、ニュース、インサイトをお届けします。"
+    },
+    "ticketPolicy": {
+      "title": "チケットポリシー",
+      "description": "{appName}のチケットポリシーをご確認ください。チケットの種類、料金、返金に関するガイドラインをご案内します。"
+    },
+    "eventPolicy": {
+      "title": "イベントポリシー",
+      "description": "{appName}のイベントポリシーです。参加者・出展者向けのルール、規約、注意事項をご確認ください。"
+    },
+    "partners": {
+      "title": "パートナー一覧",
+      "description": "このイベントは、パートナー、スポンサー、メディアの皆さまのご支援なくしては実現しません。心から感謝いたします。"
+    },
+    "terms": {
+      "title": "利用規約",
+      "description": ""
+    },
+    "privacy": {
+      "title": "プライバシーポリシー",
+      "description": ""
+    },
+    "winner": {
+      "title": "抽選ジェネレーター",
+      "description": "ランダムに当選者を選出するジェネレーターです。名前を入力してスロットを回すだけ。コンテスト、プレゼント企画、イベントに最適です！"
+    }
+  }
+}

@@ -31,6 +31,9 @@ export default defineAppConfig({
     hall: "",
     teaserVideoId: "",
     profileImage: "",
+    description: "",
+    offersName: "",
+    offersDescription: "",
     inConjunction: {
       label: "In conjunction with",
       list: [] as { name: string; url: string; img: string }[],
