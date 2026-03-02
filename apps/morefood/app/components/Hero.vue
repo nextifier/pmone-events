@@ -31,21 +31,21 @@
               :endTime="eventEndTime"
             />
 
-            <span
+            <!-- <span
               class="text-muted-foreground text-sm font-semibold tracking-tighter text-balance"
               v-html="
                 $t('hero.instagramTip', {
                   instagram: useAppConfig().social.instagram,
                 })
               "
-            ></span>
+            ></span> -->
           </div>
 
           <div class="flex flex-col items-start">
             <span class="section-subtitle">{{ content.subtitle }}</span>
 
             <h1
-              class="text-primary mt-2 text-[clamp(2.5rem,4.5vw,5rem)] leading-[1.15]! font-medium tracking-[-0.06em] text-balance"
+              class="text-primary mt-2 text-[clamp(2.5rem,4.5vw,4.5rem)] leading-[1.15]! font-medium tracking-[-0.06em] text-balance"
             >
               <!-- <SplitText :text="content.title" /> -->
               {{ content.title }}
