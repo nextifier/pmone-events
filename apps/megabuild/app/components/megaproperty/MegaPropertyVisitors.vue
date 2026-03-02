@@ -2,10 +2,12 @@
   <section id="target-visitors">
     <div class="container">
       <div class="flex flex-col items-center text-center">
-        <span class="text-gradient-accent font-medium tracking-tight"
-          >Target Visitors</span
-        >
-        <h2 class="section-title mt-2.5">Who Should Attend?</h2>
+        <span class="text-gradient-accent font-medium tracking-tight">{{
+          $t("megaProperty.visitors.label")
+        }}</span>
+        <h2 class="section-title mt-2.5">
+          {{ $t("megaProperty.visitors.title") }}
+        </h2>
       </div>
 
       <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -44,37 +46,23 @@
 </template>
 
 <script setup>
-const tiers = [
-  {
-    badge: "Tier 1",
-    icon: "hugeicons:crown",
-    title: "Core Investors & Buyers",
-    items: [
-      "Individual investors & property buyers",
-      "High net worth individuals (HNWIs)",
-      "First time home buyers & starter home seekers",
-    ],
-  },
-  {
-    badge: "Tier 2",
-    icon: "hugeicons:user-group",
-    title: "Young Professionals & Families",
-    items: [
-      "Gen Z & young professionals seeking modern or smart homes",
-      "Newlyweds & young couples looking for their first property",
-      "Growing families seeking residential upgrades or investment properties",
-    ],
-  },
-  {
-    badge: "Tier 3",
-    icon: "hugeicons:briefcase-01",
-    title: "Industry & Business Stakeholders",
-    items: [
-      "Architects, interior designers, urban planners",
-      "Contractors, builders, and construction consultants",
-      "Real estate agents, brokers, property managers",
-      "Corporate representatives & financial institutions",
-    ],
-  },
+const { t } = useI18n();
+
+const tierIcons = [
+  "hugeicons:crown",
+  "hugeicons:user-group",
+  "hugeicons:briefcase-01",
 ];
+
+const tierItemCounts = [3, 3, 4];
+
+const tiers = computed(() =>
+  tierIcons.map((icon, i) => ({
+    icon,
+    title: t(`megaProperty.visitors.tiers.${i}.title`),
+    items: Array.from({ length: tierItemCounts[i] }, (_, j) =>
+      t(`megaProperty.visitors.tiers.${i}.items.${j}`)
+    ),
+  }))
+);
 </script>

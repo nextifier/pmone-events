@@ -18,16 +18,18 @@ export const usePageMeta = (pageKey, overrides = {}) => {
     twitterCard: "summary_large_image",
   });
 
-  if (meta.value?.ogImage) {
-    defineOgImage({
-      url: meta.value.ogImage,
-    });
-  } else {
-    defineOgImageComponent("Page", {
-      headline: useAppConfig().app.name,
-      title: title.value,
-      description: description.value,
-    });
+  if (import.meta.server) {
+    if (meta.value?.ogImage) {
+      defineOgImage({
+        url: meta.value.ogImage,
+      });
+    } else {
+      defineOgImageComponent("Page", {
+        headline: useAppConfig().app.name,
+        title: title.value,
+        description: description.value,
+      });
+    }
   }
 
   const structuredData = {

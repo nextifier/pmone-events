@@ -124,7 +124,7 @@
   },
   "about": {
     "sectionTitle": "<span class='text-accent'>Lebih</span> <span class='text-outline'> dari Sekadar</span> <span class='text-accent'> Food</span> <span class='text-outline'> Expo</span>",
-    "forgetBoring": "Lupakan pameran yang itu-itu aja",
+    "forgetBoring": "Lupakan pameran yang begitu-begitu saja",
     "paragraph1": "MoreFood Expo Indonesia mempertemukan supplier global dan buyer Asia dalam satu platform sourcing yang powerful.",
     "paragraph2": "Pameran ini mencakup sektor utama seperti mesin dan kemasan makanan, bahan baku, solusi rantai pasok, makanan kaleng dan kemasan, bumbu, roti dan kue, snack, permen, minuman, dan masih banyak lagi.",
     "paragraph3": "Temukan teknologi inovatif, jelajahi produk berkualitas tinggi, terhubung dengan produsen terpercaya, dan buka peluang bisnis nyata. Semuanya di satu tempat.",
@@ -140,11 +140,11 @@
       },
       "1": {
         "title": "Temukan Produk Andalan Berikutnya",
-        "description": "Jelajahi produk inovatif dari 1,200+ exhibitor. Cari rasa baru, teknologi, dan tren yang bikin pelanggan kamu balik lagi."
+        "description": "Jelajahi produk inovatif dari 1,200+ exhibitor. Cari rasa baru, teknologi, dan tren yang membuat pelanggan kamu kembali lagi."
       },
       "2": {
         "title": "Masuk ke Pasar Halal",
-        "description": "Pasar Halal lagi booming dan peluangnya besar banget. Kami bantu kamu cari supplier terpercaya yang sudah bersertifikat untuk salah satu pasar terbesar di dunia."
+        "description": "Pasar Halal sedang berkembang pesat dan peluangnya sangat besar. Kami bantu kamu cari supplier terpercaya yang sudah bersertifikat untuk salah satu pasar terbesar di dunia."
       },
       "3": {
         "title": "Tiga Expo, Satu Tiket",
@@ -156,7 +156,7 @@
     "countdownLabel": "Event dimulai dalam:",
     "subtitle": "Lebih dari pameran. Tempat cari ide baru buat menu dan bisnis F&B kamu.",
     "title": "Yang Kamu Cari buat Bisnis F&B, Ada di Sini.",
-    "description": "Ketemu supplier baru, coba produk terbaru, dan dapetin insight langsung dari pelaku industri. Semua ada di sini.",
+    "description": "Ketemu supplier baru, coba produk terbaru, dan dapatkan insight langsung dari pelaku industri. Semua ada di sini.",
     "ctaTicket": "Dapatkan Tiket",
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
@@ -169,7 +169,7 @@
       },
       "1": {
         "subHeadline": "Tiga Expo, Satu Tiket!",
-        "content": "<p>Tiket kamu juga berlaku untuk <strong>Franchise & License Expo (FLEI)</strong>. Bisa sekalian explore peluang bisnis franchise di tempat yang sama.</p>",
+        "content": "<p>Tiket kamu juga berlaku untuk <strong>Franchise & License Expo (FLEI)</strong>. Sekalian eksplorasi peluang bisnis franchise di tempat yang sama.</p>",
         "cta": "Lihat FLEI"
       },
       "2": {
@@ -183,12 +183,12 @@
       },
       "4": {
         "subHeadline": "Tips buat Pengunjung",
-        "content": "<p>Pakai sepatu yang nyaman! Area pamerannya 20.000m² dengan 1.200+ exhibitor. Siap-siap banyak jalan dan banyak icip-icip.</p>",
+        "content": "<p>Pakai sepatu yang nyaman! Area pamerannya 20.000m² dengan 1.200+ exhibitor. Siap-siap banyak jalan dan banyak mencicipi.</p>",
         "cta": "Lihat Siapa Aja yang Pameran"
       },
       "5": {
         "subHeadline": "Tiket Early Bird Segera Hadir!",
-        "content": "<p>Mau harga tiket paling murah? Follow media sosial kami supaya nggak kelewatan waktu promo Early Bird dibuka.</p>",
+        "content": "<p>Mau harga tiket paling murah? Follow media sosial kami supaya tidak ketinggalan waktu promo Early Bird dibuka.</p>",
         "cta": "Follow Kami di Instagram"
       }
     },
@@ -196,7 +196,7 @@
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
-    "description": "Setiap sudut expo punya sesuatu yang beda. Seminar, demo masak, business matching, semuanya dirancang supaya kunjungan kamu nggak cuma jalan-jalan.",
+    "description": "Setiap sudut expo punya sesuatu yang berbeda. Seminar, demo masak, business matching, semuanya dirancang supaya kunjungan kamu tidak hanya sekedar jalan-jalan.",
     "items": {
       "0": {
         "title": "The Global Marketplace",
@@ -212,15 +212,15 @@
       },
       "3": {
         "title": "The Inspiration Zone",
-        "description": "Area interaktif yang bisa langsung kamu coba. Ada display sensorik, food pairing yang nggak biasa, dan konsep-konsep cafe dan retail yang bisa jadi referensi."
+        "description": "Area interaktif yang bisa langsung kamu coba. Ada display sensorik, food pairing yang tidak biasa, dan konsep-konsep cafe dan retail yang bisa jadi referensi."
       },
       "4": {
         "title": "Business Matching Service",
-        "description": "Kamu nggak perlu cari sendiri. Kami bantu jodohkan kamu dengan buyer yang sudah terverifikasi. Meeting-nya fokus dan langsung ke inti."
+        "description": "Kamu tidak perlu cari sendiri. Kami bantu jodohkan kamu dengan buyer yang sudah terverifikasi. Meeting-nya fokus dan langsung ke inti."
       },
       "5": {
         "title": "Chef's Table: Live Cooking Demos",
-        "description": "Chef ternama naik panggung, olah produk exhibitor jadi masakan yang bikin ngiler. Bisa nonton live, dapet ide resep, plus sampel gratis."
+        "description": "Chef ternama naik panggung, mengolah produk exhibitor jadi masakan yang menggugah selera. Bisa nonton live, dapat ide resep, plus sampel gratis."
       },
       "6": {
         "title": "Creator's Hub: KOL Live Streams",
@@ -237,7 +237,7 @@
     "description": "More Food Expo bisa sebesar ini karena dukungan banyak pihak. Mau pameran, jadi sponsor, atau liput acara? Ada tempat buat kamu.",
     "exhibitor": {
       "title": "Daftar Exhibitor",
-      "description": "Tunjukin produk F&B kamu ke ribuan pengunjung yang datang dengan niat beli dan cari supplier baru.",
+      "description": "Tunjukkan produk F&B kamu ke ribuan pengunjung yang datang dengan niat beli dan cari supplier baru.",
       "cta": "Pesan Space Kamu"
     },
     "sponsor": {
@@ -247,7 +247,7 @@
     },
     "mediaPartner": {
       "title": "Daftar Media Partner",
-      "description": "Dapetin akses eksklusif untuk meliput salah satu event F&B terbesar di Indonesia.",
+      "description": "Dapatkan akses eksklusif untuk meliput salah satu event F&B terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
     "reservedSpace": {
@@ -257,7 +257,7 @@
   },
   "visitorCta": {
     "title": "<span class='text-outline'>Stop Scrolling.</span> <span class='text-accent'>Langsung Datang.</span>",
-    "description": "Dari layar nggak bisa icip-icip. Ambil tiket kamu dan rasakan sendiri gimana serunya industri F&B Indonesia.",
+    "description": "Dari layar tidak bisa mencicipi. Ambil tiket kamu dan rasakan sendiri bagaimana serunya industri F&B Indonesia.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -295,7 +295,7 @@
     "successMessage": "Tim kami akan segera follow up lewat email atau WhatsApp.",
     "successButton": "Oke, ke beranda",
     "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
-    "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa kasih info soal booth, harga, dan detail lainnya.",
+    "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa memberikan info soal booth, harga, dan detail lainnya.",
     "errorSend": "Pesan gagal terkirim. Coba lagi ya.",
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
   },
@@ -319,10 +319,10 @@
       },
       "2": {
         "q": "Berapa harga tiketnya?",
-        "a": "<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami. Jangan sampe kelewatan promo early bird dan pre-sale!</p>"
+        "a": "<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, langsung cek halaman <a href=\"/ticket\">Tiket</a> kami. Jangan sampai ketinggalan promo early bird dan pre-sale!</p>"
       },
       "3": {
-        "q": "Apakah bisa refund kalau nggak bisa hadir?",
+        "q": "Apakah bisa refund kalau tidak bisa hadir?",
         "a": "<p>Semua penjualan tiket bersifat final. Tidak ada refund atau penukaran setelah pembelian. Untuk detail lebih lanjut, cek <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund dan Pengembalian Tiket</a> kami.</p>"
       },
       "4": {
@@ -343,7 +343,7 @@
       },
       "8": {
         "q": "Apakah ada sesi sampling atau tasting produk?",
-        "a": "<p>Banyak! Exhibitor biasanya sediakan sampling dan tasting di booth mereka. Kesempatan bagus buat nemu produk baru, bahan baku, dan rasa-rasa yang belum pernah kamu coba.</p>"
+        "a": "<p>Banyak! Exhibitor biasanya menyediakan sampling dan tasting di booth mereka. Kesempatan bagus untuk menemukan produk baru, bahan baku, dan rasa-rasa yang belum pernah kamu coba.</p>"
       },
       "9": {
         "q": "Apakah ada seminar atau workshop?",
@@ -362,8 +362,8 @@
         "a": "<p>Boleh untuk keperluan pribadi. Kalau untuk komersial atau profesional, harus minta izin tertulis dari penyelenggara dulu. Detailnya bisa dibaca di <a href=\"/event-policy\">Event Policy</a>.</p>"
       },
       "13": {
-        "q": "Gimana caranya dapetin info terbaru soal acara?",
-        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat dapetin update, pengumuman, dan konten eksklusif. Atau kunjungi halaman <a href=\"/news\">News</a> untuk artikel dan info terkini.</p>"
+        "q": "Bagaimana cara mendapatkan info terbaru soal acara?",
+        "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> untuk mendapatkan update, pengumuman, dan konten eksklusif. Atau kunjungi halaman <a href=\"/news\">News</a> untuk artikel dan info terkini.</p>"
       },
       "14": {
         "q": "Bagaimana cara menghubungi organizer?",
@@ -426,7 +426,7 @@
     },
     "partners": {
       "title": "Partner Kami",
-      "description": "Acara ini nggak akan terwujud tanpa dukungan dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang ikut membangun acara ini."
+      "description": "Acara ini tidak akan terwujud tanpa dukungan dari komunitas kami. Terima kasih untuk para partner, sponsor, dan media yang ikut membangun acara ini."
     },
     "terms": {
       "title": "Syarat dan Ketentuan",

@@ -2,15 +2,16 @@
   <section id="target-exhibitors">
     <div class="container">
       <div class="flex flex-col items-center text-center">
-        <span class="text-gradient-accent font-medium tracking-tight"
-          >Target Exhibitors</span
-        >
-        <h2 class="section-title mt-2.5">Who Should Exhibit?</h2>
+        <span class="text-gradient-accent font-medium tracking-tight">{{
+          $t("megaProperty.exhibitors.label")
+        }}</span>
+        <h2 class="section-title mt-2.5">
+          {{ $t("megaProperty.exhibitors.title") }}
+        </h2>
         <p
           class="text-muted-foreground mx-auto mt-2.5 max-w-2xl text-base tracking-tight text-balance sm:text-lg"
         >
-          Developers, Investors, Real Estate Agencies/Brokers, Consultants,
-          Financial Institutions
+          {{ $t("megaProperty.exhibitors.description") }}
         </p>
       </div>
 
@@ -46,26 +47,17 @@
 
       <!-- Zones -->
       <div class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-        <div class="border-border flex flex-col rounded-xl border px-5 py-7">
-          <Icon
-            name="hugeicons:paint-brush-01"
-            class="text-foreground size-6"
-          />
+        <div
+          v-for="(zone, index) in zones"
+          :key="index"
+          class="border-border flex flex-col rounded-xl border px-5 py-7"
+        >
+          <Icon :name="zone.icon" class="text-foreground size-6" />
           <h3 class="text-foreground mt-4 text-lg font-semibold tracking-tight">
-            Designers Alley
+            {{ zone.title }}
           </h3>
           <p class="text-muted-foreground mt-1.5">
-            Architects, Interior Designers, Contractors
-          </p>
-        </div>
-
-        <div class="border-border flex flex-col rounded-xl border px-5 py-7">
-          <Icon name="hugeicons:building-03" class="text-foreground size-6" />
-          <h3 class="text-foreground mt-4 text-lg font-semibold tracking-tight">
-            Property Developer Zone
-          </h3>
-          <p class="text-muted-foreground mt-1.5">
-            Property Developers & Real Estate
+            {{ zone.description }}
           </p>
         </div>
       </div>
@@ -74,86 +66,38 @@
 </template>
 
 <script setup>
-const categories = [
-  {
-    icon: "hugeicons:building-02",
-    title: "Property Developers",
-    items: [
-      "Residential developers",
-      "Commercial property developers",
-      "Mixed-use & township developers",
-      "Industrial & logistics developers",
-    ],
-  },
-  {
-    icon: "hugeicons:bank",
-    title: "Investors & Financial Institutions",
-    items: [
-      "Real estate investment companies",
-      "REITs",
-      "Banks and property financing",
-      "Venture capital firms",
-    ],
-  },
-  {
-    icon: "hugeicons:briefcase-01",
-    title: "Real Estate Agencies & Brokers",
-    items: [
-      "National real estate agencies",
-      "International brokers",
-      "Property listing platforms",
-      "Bankers",
-    ],
-  },
-  {
-    icon: "hugeicons:ruler",
-    title: "Architects & Urban Planners",
-    items: [
-      "Architecture firms",
-      "Urban & masterplan consultants",
-      "Landscape planners",
-      "Sustainability planners",
-    ],
-  },
-  {
-    icon: "hugeicons:sofa-01",
-    title: "Interior Design & Furniture",
-    items: [
-      "Interior design studios",
-      "Furniture & decor suppliers",
-      "Workspace styling solutions",
-      "Home styling solutions",
-    ],
-  },
-  {
-    icon: "hugeicons:wrench-01",
-    title: "Building Materials & Technology",
-    items: [
-      "Construction materials",
-      "Smart building & IoT solutions",
-      "Energy efficiency providers",
-      "Sustainable technology",
-    ],
-  },
-  {
-    icon: "hugeicons:file-validation",
-    title: "Property Service Providers",
-    items: [
-      "Property consultants",
-      "Surveyors & valuators",
-      "Legal & notary services",
-      "Insurance providers",
-    ],
-  },
-  {
-    icon: "hugeicons:cpu",
-    title: "Investment & Technology",
-    items: [
-      "Property fintech",
-      "Real estate software (CRM)",
-      "AI/VR solutions",
-      "Asset tokenization",
-    ],
-  },
+const { t } = useI18n();
+
+const categoryIcons = [
+  "hugeicons:building-02",
+  "hugeicons:bank",
+  "hugeicons:briefcase-01",
+  "hugeicons:ruler",
+  "hugeicons:sofa-01",
+  "hugeicons:wrench-01",
+  "hugeicons:file-validation",
+  "hugeicons:cpu",
 ];
+
+const categoryItemCounts = [4, 4, 4, 4, 4, 4, 4, 4];
+
+const categories = computed(() =>
+  categoryIcons.map((icon, i) => ({
+    icon,
+    title: t(`megaProperty.exhibitors.categories.${i}.title`),
+    items: Array.from({ length: categoryItemCounts[i] }, (_, j) =>
+      t(`megaProperty.exhibitors.categories.${i}.items.${j}`)
+    ),
+  }))
+);
+
+const zoneIcons = ["hugeicons:paint-brush-01", "hugeicons:building-03"];
+
+const zones = computed(() =>
+  zoneIcons.map((icon, i) => ({
+    icon,
+    title: t(`megaProperty.exhibitors.zones.${i}.title`),
+    description: t(`megaProperty.exhibitors.zones.${i}.description`),
+  }))
+);
 </script>

@@ -452,12 +452,212 @@
     "subtitle": "Co-located Event",
     "title": "Introducing <span class=\"text-gradient-accent\">Mega Property Expo</span>",
     "description": "Indonesia's premier real estate exhibition, co-located with Megabuild Indonesia. Discover exclusive property showcases, connect with leading developers, and explore investment opportunities.",
-    "cta": "Explore Mega Property",
+    "ctaButton": "Explore Mega Property",
     "highlights": [
       "Premium Property Showcases",
       "Industry Networking",
       "Expert Conferences",
       "Investment Solutions"
-    ]
+    ],
+    "meta": {
+      "title": "Mega Property Expo 2026 - Premier Real Estate Exhibition",
+      "description": "Mega Property Expo 2026 brings together leading property developers, investors, architects, and industry professionals. June 4-7, 2026 at NICE PIK2, Jakarta.",
+      "ogTitle": "Mega Property Expo 2026 - Premier Real Estate Exhibition",
+      "ogDescription": "Premier real estate exhibition co-located with Megabuild Indonesia. Connect with property developers, investors, and industry professionals."
+    },
+    "hero": {
+      "title1": "Accelerating Transformation",
+      "title2": "Dream it! Live it!",
+      "description": "Premier real estate exhibition that brings together leading property developers, investors, architects, and industry professionals in one dynamic platform.",
+      "ctaTicket": "Get ticket",
+      "ctaExhibit": "I want to exhibit",
+      "tagline": "Indonesia's largest integrated building & property ecosystem."
+    },
+    "about": {
+      "label": "About the event",
+      "title": "What is Mega Property Expo?",
+      "paragraph1": "<strong class=\"text-foreground\">Mega Property Expo</strong> is a premier real estate exhibition that brings together leading property developers, investors, architects, and industry professionals in one dynamic platform.",
+      "paragraph2": "Co-located with <strong class=\"text-foreground\">Megabuild Indonesia</strong> and <strong class=\"text-foreground\">Keramika Indonesia</strong>, the Expo will be held from 4-7 June 2026 at NICE PIK, positioning itself as a key meeting point for the future of property and built environment in Indonesia and the region.",
+      "paragraph3": "Designed to address the growing demand for residential, commercial, and mixed-use developments, Mega Property Expo 2026 showcases a wide range of property opportunities from premium housing and urban developments to investment-ready projects.",
+      "paragraph4": "Supported by insightful conferences, market outlooks, and strategic networking opportunities, the Expo serves as an essential destination for stakeholders seeking growth, innovation, and long-term value in the property sector."
+    },
+    "expect": {
+      "label": "What to Expect",
+      "title": "Your Gateway to Property Excellence",
+      "items": {
+        "0": {
+          "title": "Exclusive Property Showcases",
+          "description": "View and compare high-value developments from across Indonesia and the world, featuring premium residential, commercial, and mixed-use projects."
+        },
+        "1": {
+          "title": "World-Class Speakers & Panels",
+          "description": "Gain insights from leading investors, developers, and financial experts through insightful conferences and market outlooks."
+        },
+        "2": {
+          "title": "Premium Networking Opportunities",
+          "description": "Connect with decision-makers, industry leaders, and serious buyers. Build meaningful relationships through Developers Night events."
+        },
+        "3": {
+          "title": "Financing & Investment Solutions",
+          "description": "Meet banks, wealth advisors, and financial institutions for cross-border investment guidance and home mortgage solutions."
+        }
+      }
+    },
+    "whyExhibit": {
+      "label": "Why Exhibit",
+      "title": "6 Reasons Why You Should Exhibit",
+      "description": "Join the premier platform that connects you with thousands of potential buyers, investors, and industry professionals.",
+      "reasons": {
+        "0": {
+          "title": "Reach Key Buyers & Investors",
+          "description": "Connect with developers, investors, Gen Z, and young families actively seeking property solutions."
+        },
+        "1": {
+          "title": "Showcase Your Innovations",
+          "description": "Present your latest residential, commercial, and smart home projects to a targeted audience."
+        },
+        "2": {
+          "title": "Build Strategic Partnerships",
+          "description": "Engage with key stakeholders to explore joint ventures, collaborations, and business growth."
+        },
+        "3": {
+          "title": "Strengthen Your Brand",
+          "description": "Position your company as a leader and gain visibility among domestic and international audiences."
+        },
+        "4": {
+          "title": "Gain Market Insights",
+          "description": "Learn from market leaders and property professionals through conferences and panels."
+        },
+        "5": {
+          "title": "Integrated with Megabuild",
+          "description": "Benefit from synergy with construction and building materials event for additional exposure."
+        }
+      }
+    },
+    "visitors": {
+      "label": "Target Visitors",
+      "title": "Who Should Attend?",
+      "tiers": {
+        "0": {
+          "title": "Core Investors & Buyers",
+          "items": {
+            "0": "Individual investors & property buyers",
+            "1": "High net worth individuals (HNWIs)",
+            "2": "First time home buyers & starter home seekers"
+          }
+        },
+        "1": {
+          "title": "Young Professionals & Families",
+          "items": {
+            "0": "Gen Z & young professionals seeking modern or smart homes",
+            "1": "Newlyweds & young couples looking for their first property",
+            "2": "Growing families seeking residential upgrades or investment properties"
+          }
+        },
+        "2": {
+          "title": "Industry & Business Stakeholders",
+          "items": {
+            "0": "Architects, interior designers, urban planners",
+            "1": "Contractors, builders, and construction consultants",
+            "2": "Real estate agents, brokers, property managers",
+            "3": "Corporate representatives & financial institutions"
+          }
+        }
+      }
+    },
+    "exhibitors": {
+      "label": "Target Exhibitors",
+      "title": "Who Should Exhibit?",
+      "description": "Developers, Investors, Real Estate Agencies/Brokers, Consultants, Financial Institutions",
+      "categories": {
+        "0": {
+          "title": "Property Developers",
+          "items": {
+            "0": "Residential developers",
+            "1": "Commercial property developers",
+            "2": "Mixed-use & township developers",
+            "3": "Industrial & logistics developers"
+          }
+        },
+        "1": {
+          "title": "Investors & Financial Institutions",
+          "items": {
+            "0": "Real estate investment companies",
+            "1": "REITs",
+            "2": "Banks and property financing",
+            "3": "Venture capital firms"
+          }
+        },
+        "2": {
+          "title": "Real Estate Agencies & Brokers",
+          "items": {
+            "0": "National real estate agencies",
+            "1": "International brokers",
+            "2": "Property listing platforms",
+            "3": "Bankers"
+          }
+        },
+        "3": {
+          "title": "Architects & Urban Planners",
+          "items": {
+            "0": "Architecture firms",
+            "1": "Urban & masterplan consultants",
+            "2": "Landscape planners",
+            "3": "Sustainability planners"
+          }
+        },
+        "4": {
+          "title": "Interior Design & Furniture",
+          "items": {
+            "0": "Interior design studios",
+            "1": "Furniture & decor suppliers",
+            "2": "Workspace styling solutions",
+            "3": "Home styling solutions"
+          }
+        },
+        "5": {
+          "title": "Building Materials & Technology",
+          "items": {
+            "0": "Construction materials",
+            "1": "Smart building & IoT solutions",
+            "2": "Energy efficiency providers",
+            "3": "Sustainable technology"
+          }
+        },
+        "6": {
+          "title": "Property Service Providers",
+          "items": {
+            "0": "Property consultants",
+            "1": "Surveyors & valuators",
+            "2": "Legal & notary services",
+            "3": "Insurance providers"
+          }
+        },
+        "7": {
+          "title": "Investment & Technology",
+          "items": {
+            "0": "Property fintech",
+            "1": "Real estate software (CRM)",
+            "2": "AI/VR solutions",
+            "3": "Asset tokenization"
+          }
+        }
+      },
+      "zones": {
+        "0": {
+          "title": "Designers Alley",
+          "description": "Architects, Interior Designers, Contractors"
+        },
+        "1": {
+          "title": "Property Developer Zone",
+          "description": "Property Developers & Real Estate"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Showcase Your Property?",
+      "description": "Secure your booth at Mega Property Expo 2026 and connect with thousands of potential buyers, investors, and industry professionals.",
+      "button": "Book Your Space"
+    }
   }
 }

@@ -17,47 +17,22 @@
       </div>
 
       <div class="flex flex-col items-start">
-        <span class="text-gradient-accent font-medium tracking-tight"
-          >About the event</span
-        >
+        <span class="text-gradient-accent font-medium tracking-tight">{{
+          $t("megaProperty.about.label")
+        }}</span>
         <h2
           class="text-foreground mt-2.5 text-3xl font-semibold tracking-tighter"
         >
-          What is Mega Property Expo?
+          {{ $t("megaProperty.about.title") }}
         </h2>
 
         <div
           class="text-body mt-6 space-y-4 text-base leading-normal! tracking-tight lg:text-xl"
         >
-          <p>
-            <strong class="text-foreground">Mega Property Expo</strong>
-            is a premier real estate exhibition that brings together leading
-            property developers, investors, architects, and industry
-            professionals in one dynamic platform.
-          </p>
-
-          <p>
-            Co-located with
-            <strong class="text-foreground">Megabuild Indonesia</strong> and
-            <strong class="text-foreground">Keramika Indonesia</strong>, the
-            Expo will be held from 4-7 June 2026 at NICE PIK, positioning itself
-            as a key meeting point for the future of property and built
-            environment in Indonesia and the region.
-          </p>
-
-          <p>
-            Designed to address the growing demand for residential, commercial,
-            and mixed-use developments, Mega Property Expo 2026 showcases a wide
-            range of property opportunities from premium housing and urban
-            developments to investment-ready projects.
-          </p>
-
-          <p>
-            Supported by insightful conferences, market outlooks, and strategic
-            networking opportunities, the Expo serves as an essential
-            destination for stakeholders seeking growth, innovation, and
-            long-term value in the property sector.
-          </p>
+          <p v-html="$t('megaProperty.about.paragraph1')"></p>
+          <p v-html="$t('megaProperty.about.paragraph2')"></p>
+          <p v-html="$t('megaProperty.about.paragraph3')"></p>
+          <p v-html="$t('megaProperty.about.paragraph4')"></p>
         </div>
       </div>
     </div>

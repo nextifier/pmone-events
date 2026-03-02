@@ -2,11 +2,11 @@
   <section id="what-to-expect">
     <div class="container">
       <div class="flex flex-col items-center text-center">
-        <span class="text-gradient-accent font-medium tracking-tight"
-          >What to Expect</span
-        >
+        <span class="text-gradient-accent font-medium tracking-tight">{{
+          $t("megaProperty.expect.label")
+        }}</span>
         <h2 class="section-title mt-2.5">
-          Your Gateway to Property Excellence
+          {{ $t("megaProperty.expect.title") }}
         </h2>
       </div>
 
@@ -38,30 +38,20 @@
 </template>
 
 <script setup>
-const items = [
-  {
-    icon: "hugeicons:home-01",
-    title: "Exclusive Property Showcases",
-    description:
-      "View and compare high-value developments from across Indonesia and the world, featuring premium residential, commercial, and mixed-use projects.",
-  },
-  {
-    icon: "hugeicons:mic-01",
-    title: "World-Class Speakers & Panels",
-    description:
-      "Gain insights from leading investors, developers, and financial experts through insightful conferences and market outlooks.",
-  },
-  {
-    icon: "hugeicons:agreement-01",
-    title: "Premium Networking Opportunities",
-    description:
-      "Connect with decision-makers, industry leaders, and serious buyers. Build meaningful relationships through Developers Night events.",
-  },
-  {
-    icon: "hugeicons:bank",
-    title: "Financing & Investment Solutions",
-    description:
-      "Meet banks, wealth advisors, and financial institutions for cross-border investment guidance and home mortgage solutions.",
-  },
+const { t } = useI18n();
+
+const icons = [
+  "hugeicons:home-01",
+  "hugeicons:mic-01",
+  "hugeicons:agreement-01",
+  "hugeicons:bank",
 ];
+
+const items = computed(() =>
+  icons.map((icon, i) => ({
+    icon,
+    title: t(`megaProperty.expect.items.${i}.title`),
+    description: t(`megaProperty.expect.items.${i}.description`),
+  }))
+);
 </script>

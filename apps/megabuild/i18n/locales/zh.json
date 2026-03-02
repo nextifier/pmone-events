@@ -452,12 +452,212 @@
     "subtitle": "Co-located Event",
     "title": "<span class=\"text-gradient-accent\">Mega Property Expo</span> 简介",
     "description": "与 Megabuild Indonesia 同期举办的印尼房地产展。精品楼盘、头部开发商、投资机会，都在这里。",
-    "cta": "探索 Mega Property",
+    "ctaButton": "探索 Mega Property",
     "highlights": [
       "精品楼盘展示",
       "行业交流",
       "专家峰会",
       "投资方案"
-    ]
+    ],
+    "meta": {
+      "title": "Mega Property Expo 2026 - 印尼房地产精品展",
+      "description": "Mega Property Expo 2026 汇聚头部开发商、投资人、建筑师和行业专业人士。2026年6月4-7日，雅加达 NICE PIK2。",
+      "ogTitle": "Mega Property Expo 2026 - 印尼房地产精品展",
+      "ogDescription": "与 Megabuild Indonesia 同期举办的印尼房地产展，链接开发商、投资人和行业资源。"
+    },
+    "hero": {
+      "title1": "加速行业转型",
+      "title2": "Dream it! Live it!",
+      "description": "印尼房地产精品展，汇聚头部开发商、投资人、建筑师和行业专业人士，一个平台搞定所有对接。",
+      "ctaTicket": "领取门票",
+      "ctaExhibit": "参展报名",
+      "tagline": "印尼最大的建筑与房地产一体化生态平台。"
+    },
+    "about": {
+      "label": "关于展会",
+      "title": "Mega Property Expo 是什么？",
+      "paragraph1": "<strong class=\"text-foreground\">Mega Property Expo</strong> 是印尼房地产精品展，把头部开发商、投资人、建筑师和行业专业人士聚在一个平台上。",
+      "paragraph2": "与 <strong class=\"text-foreground\">Megabuild Indonesia</strong> 和 <strong class=\"text-foreground\">Keramika Indonesia</strong> 同期举办，2026年6月4-7日在 NICE PIK 开展。这里是印尼房地产和建筑行业的核心交汇点。",
+      "paragraph3": "住宅、商业、mixed-use 项目需求持续增长。Mega Property Expo 2026 集中展示精品住宅、城市开发和投资级项目，帮你快速了解市场全貌。",
+      "paragraph4": "现场还有行业峰会、市场趋势分析和高端社交活动，让参展方和观众都能拿到实际的行业信息和商业机会。"
+    },
+    "expect": {
+      "label": "展会亮点",
+      "title": "在这里能看到什么",
+      "items": {
+        "0": {
+          "title": "精品楼盘集中展示",
+          "description": "国内外高品质住宅、商业和 mixed-use 项目同场展出，方便你直接对比和筛选。"
+        },
+        "1": {
+          "title": "行业大咖分享",
+          "description": "投资人、开发商、金融专家现场做主题分享，带来市场趋势和一手数据。"
+        },
+        "2": {
+          "title": "高端商务社交",
+          "description": "跟行业决策者、核心买家面对面交流。Developers Night 是建立深度关系的好场合。"
+        },
+        "3": {
+          "title": "金融与投资方案",
+          "description": "银行、财富顾问、金融机构到场，提供跨境投资指导和房贷方案咨询。"
+        }
+      }
+    },
+    "whyExhibit": {
+      "label": "为什么参展",
+      "title": "6 个值得参展的理由",
+      "description": "一个平台，连接数千位潜在买家、投资人和行业人脉。",
+      "reasons": {
+        "0": {
+          "title": "直达核心买家和投资人",
+          "description": "开发商、投资人、Gen Z、年轻家庭，都在主动找项目。"
+        },
+        "1": {
+          "title": "展示你的最新项目",
+          "description": "住宅、商业、smart home 项目，展给最精准的目标受众。"
+        },
+        "2": {
+          "title": "建立战略合作",
+          "description": "跟关键决策者谈合资、联合开发，直接推进商业落地。"
+        },
+        "3": {
+          "title": "提升品牌影响力",
+          "description": "在国内外观众面前确立行业地位，获得持续的品牌曝光。"
+        },
+        "4": {
+          "title": "获取市场情报",
+          "description": "峰会和论坛上拿到一手行业数据和趋势判断。"
+        },
+        "5": {
+          "title": "与 Megabuild 联动",
+          "description": "借助建材和施工展的流量，获得额外的观众和商业对接。"
+        }
+      }
+    },
+    "visitors": {
+      "label": "目标观众",
+      "title": "谁应该来看？",
+      "tiers": {
+        "0": {
+          "title": "投资人与购房者",
+          "items": {
+            "0": "个人投资者和购房者",
+            "1": "HNWI（高净值人群）",
+            "2": "首次购房者和刚需群体"
+          }
+        },
+        "1": {
+          "title": "年轻群体与家庭",
+          "items": {
+            "0": "Gen Z 和年轻白领，关注 smart home 和现代住宅",
+            "1": "新婚夫妇，正在找第一套房",
+            "2": "成长期家庭，考虑换房或投资房产"
+          }
+        },
+        "2": {
+          "title": "行业与商业伙伴",
+          "items": {
+            "0": "建筑师、室内设计师、城市规划师",
+            "1": "承包商、施工方、工程顾问",
+            "2": "房产中介、经纪人、物业管理",
+            "3": "企业代表和金融机构"
+          }
+        }
+      }
+    },
+    "exhibitors": {
+      "label": "目标参展商",
+      "title": "谁应该来展？",
+      "description": "开发商、投资人、房产中介/经纪、顾问、金融机构",
+      "categories": {
+        "0": {
+          "title": "房地产开发商",
+          "items": {
+            "0": "住宅开发",
+            "1": "商业地产开发",
+            "2": "Mixed-use 与 township 开发",
+            "3": "产业与物流地产开发"
+          }
+        },
+        "1": {
+          "title": "投资与金融机构",
+          "items": {
+            "0": "房地产投资公司",
+            "1": "REITs",
+            "2": "银行与房贷服务",
+            "3": "风险投资"
+          }
+        },
+        "2": {
+          "title": "房产中介与经纪",
+          "items": {
+            "0": "国内房产中介",
+            "1": "国际经纪机构",
+            "2": "房产信息平台",
+            "3": "银行从业者"
+          }
+        },
+        "3": {
+          "title": "建筑师与城市规划",
+          "items": {
+            "0": "建筑设计事务所",
+            "1": "城市与总体规划顾问",
+            "2": "景观规划",
+            "3": "可持续规划"
+          }
+        },
+        "4": {
+          "title": "室内设计与家具",
+          "items": {
+            "0": "室内设计工作室",
+            "1": "家具与装饰供应商",
+            "2": "办公空间设计",
+            "3": "家居软装方案"
+          }
+        },
+        "5": {
+          "title": "建材与科技",
+          "items": {
+            "0": "建筑材料",
+            "1": "Smart building 与 IoT 方案",
+            "2": "节能产品供应",
+            "3": "绿色建筑技术"
+          }
+        },
+        "6": {
+          "title": "房地产服务商",
+          "items": {
+            "0": "房地产咨询",
+            "1": "测量与评估",
+            "2": "法律与公证",
+            "3": "保险服务"
+          }
+        },
+        "7": {
+          "title": "投资与科技",
+          "items": {
+            "0": "房产金融科技",
+            "1": "房地产软件（CRM）",
+            "2": "AI/VR 方案",
+            "3": "资产通证化"
+          }
+        }
+      },
+      "zones": {
+        "0": {
+          "title": "Designers Alley",
+          "description": "建筑师、室内设计师、承包商"
+        },
+        "1": {
+          "title": "Property Developer Zone",
+          "description": "房地产开发商与中介机构"
+        }
+      }
+    },
+    "cta": {
+      "title": "准备好展示你的项目了吗？",
+      "description": "在 Mega Property Expo 2026 预订展位，跟数千位潜在买家、投资人和行业伙伴直接对接。",
+      "button": "预订展位"
+    }
   }
 }

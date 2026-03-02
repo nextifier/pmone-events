@@ -76,7 +76,7 @@
             to="/megaproperty"
             class="bg-primary text-primary-foreground hover:bg-primary/80 mt-8 flex items-center gap-x-1 rounded-lg px-4 py-2 font-medium tracking-tight transition active:scale-98"
           >
-            {{ $t("megaProperty.cta") }}
+            {{ $t("megaProperty.ctaButton") }}
             <Icon name="hugeicons:arrow-right-02" class="size-4" />
           </NuxtLink>
         </div>

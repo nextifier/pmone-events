@@ -105,7 +105,7 @@
     "noResultsFor": "Tidak ada hasil untuk",
     "noResultsHint": "Coba keyword lain atau jelajahi topik lainnya.",
     "noPostsYet": "Belum ada artikel",
-    "comeBackLater": "Cek lagi nanti ya"
+    "comeBackLater": "Cek lagi nanti"
   },
   "brands": {
     "comingSoon": "Daftar brand segera hadir. Cek lagi nanti!"
@@ -114,7 +114,7 @@
     "title": "Rundown",
     "description": "Jadwal lengkap acara dan program di {appName}.",
     "comingSoon": "Rundown segera hadir. Cek lagi nanti!",
-    "nothingYet": "Belum ada jadwal nih!"
+    "nothingYet": "Belum ada jadwal."
   },
   "ticket": {
     "agreementPrefix": "Dengan melanjutkan, kamu setuju dengan",
@@ -140,7 +140,7 @@
       },
       "2": {
         "subHeadline": "Jangan Ketinggalan!",
-        "content": "<p>Follow Instagram kami buat bocoran exhibitor, giveaway, dan behind the scenes. Sayang kalau dilewatkan.</p>",
+        "content": "<p>Follow Instagram kami untuk update terbaru soal exhibitor, giveaway, dan behind the scenes. Sayang kalau dilewatkan.</p>",
         "cta": "Follow {'@'}cafebrasserieexpo"
       }
     },
@@ -175,7 +175,7 @@
       },
       "5": {
         "title": "Live Music & DJs",
-        "description": "Live band dan DJ menemani sepanjang hari. Biar suasana makin enak sambil jelajahi pameran."
+        "description": "Live band dan DJ menemani sepanjang hari. Supaya suasana makin menyenangkan sambil menjelajahi pameran."
       }
     }
   },
@@ -243,7 +243,7 @@
     "successButton": "Oke, ke beranda",
     "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif supaya tim kami bisa segera menghubungi.",
     "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa kasih info soal booth, harga, dan detail lainnya.",
-    "errorSend": "Pesan gagal terkirim. Coba lagi ya.",
+    "errorSend": "Pesan gagal terkirim. Silakan coba lagi.",
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
   },
   "bookSpace": {
@@ -261,15 +261,15 @@
         "a": "<p>{eventTitle} diadakan tanggal <strong>{eventDate}</strong>, jam <strong>{eventTime}</strong>, di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
       },
       "1": {
-        "q": "Gimana cara dapet tiket?",
-        "a": "<p>Langsung lewat website ini. Klik <a href=\"/ticket\">Get Ticket</a>, ikuti prosesnya, dan e-ticket dikirim ke email serta WhatsApp kamu.</p>"
+        "q": "Bagaimana cara mendapatkan tiket?",
+        "a": "<p>Langsung lewat website ini. Klik <a href=\"/ticket\">Get Ticket</a>, ikuti prosesnya, dan e-ticket akan dikirim ke email serta WhatsApp kamu.</p>"
       },
       "2": {
         "q": "Berapa harga tiketnya?",
         "a": "<p>Tergantung jenis tiket dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> untuk harga terkini. Ada promo early bird dan pre-sale juga.</p>"
       },
       "3": {
-        "q": "Bisa refund kalau nggak bisa hadir?",
+        "q": "Bisa refund kalau tidak bisa hadir?",
         "a": "<p>Semua pembelian tiket bersifat final, tidak bisa di-refund atau ditukar. Detail lengkap ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
       },
       "4": {
@@ -277,43 +277,43 @@
         "a": "<p>Bawa e-ticket kamu (digital atau print) untuk ditukar badge atau wristband di meja registrasi. Bawa kartu nama juga kalau mau networking.</p>"
       },
       "5": {
-        "q": "Siapa aja yang bisa datang?",
-        "a": "<p>Semua orang! Pemilik kafe, pengusaha F&B, pecinta cokelat, profesional industri makanan, atau siapa pun yang penasaran sama dunia cokelat.</p>"
+        "q": "Siapa saja yang bisa datang?",
+        "a": "<p>Semua orang! Pemilik kafe, pengusaha F&B, pecinta cokelat, profesional industri makanan, atau siapa pun yang ingin mengenal dunia cokelat lebih jauh.</p>"
       },
       "6": {
-        "q": "Brand dan produk apa aja yang dipamerkan?",
+        "q": "Brand dan produk apa saja yang dipamerkan?",
         "a": "<p>Mulai dari brand cokelat, pemasok bahan baku, peralatan F&B, sampai solusi packaging. Daftar lengkap exhibitor bisa dicek di halaman <a href=\"/brands\">Brands</a>.</p>"
       },
       "7": {
-        "q": "Gimana cara ikut pameran sebagai exhibitor?",
+        "q": "Bagaimana cara ikut pameran sebagai exhibitor?",
         "a": "<p>Kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> atau hubungi tim kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info paket booth dan ketersediaannya.</p>"
       },
       "8": {
         "q": "Ada sesi tasting atau sampling produk?",
-        "a": "<p>Ada! Banyak exhibitor sediakan tasting dan sampling di booth mereka. Kesempatan bagus buat nemuin produk dan rasa baru.</p>"
+        "a": "<p>Ada! Banyak exhibitor menyediakan tasting dan sampling di booth mereka. Kesempatan bagus untuk menemukan produk dan rasa baru.</p>"
       },
       "9": {
         "q": "Ada seminar atau workshop?",
         "a": "<p>Ada! Kami adakan seminar, workshop, dan demo session tentang teknik pengolahan cokelat, tren F&B, strategi bisnis, dan banyak lagi. Cek jadwalnya di halaman <a href=\"/rundown\">Rundown</a>.</p>"
       },
       "10": {
-        "q": "Gimana cara jadi sponsor atau media partner?",
+        "q": "Bagaimana cara menjadi sponsor atau media partner?",
         "a": "<p>Hubungi kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
       },
       "11": {
         "q": "Ada parkir di venue?",
-        "a": "<p>Ada. Tapi parkir bisa cepat penuh di jam ramai, jadi datang lebih awal. Bisa juga pakai transportasi umum atau ojol.</p>"
+        "a": "<p>Ada. Tapi parkir bisa cepat penuh di jam ramai, jadi disarankan datang lebih awal. Bisa juga menggunakan transportasi umum atau ride-hailing.</p>"
       },
       "12": {
         "q": "Boleh foto atau video di acara?",
         "a": "<p>Boleh, untuk keperluan pribadi. Kalau untuk keperluan komersial, perlu izin tertulis dari penyelenggara. Selengkapnya di <a href=\"/event-policy\">Event Policy</a>.</p>"
       },
       "13": {
-        "q": "Gimana caranya dapet info terbaru soal acara?",
+        "q": "Bagaimana cara mendapatkan info terbaru tentang acara?",
         "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat update terbaru dan konten eksklusif. Kunjungi juga halaman <a href=\"/news\">News</a> untuk artikel terkini.</p>"
       },
       "14": {
-        "q": "Gimana cara hubungi panitia?",
+        "q": "Bagaimana cara menghubungi panitia?",
         "a": "<p>Hubungi kami lewat:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Info lainnya bisa dicek di <a href=\"/help-center\">Help Center</a>.</p>"
       }
     }
@@ -325,10 +325,10 @@
     "zones": {
       "coffee": { "title": "Indonesia Coffee Festival", "description": "Pusat keramaian expo ini. Dengarkan bunyi mesin espresso, saksikan barista terbaik berlaga, dan temukan kopi favorit baru kamu." },
       "tea": { "title": "Indonesia Tea Festival", "description": "Masuk ke area yang lebih tenang, khusus untuk teh. Cicipi berbagai jenis teh, dari daun langka sampai racikan baru, dan pelajari cara seduh yang gampang dipraktikkan di rumah." },
-      "wine": { "title": "Indonesia Wine Festival", "description": "Wine tasting tanpa harus tegang. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Nggak ada aturan ribet, yang ada cuma wine enak." }
+      "wine": { "title": "Indonesia Wine Festival", "description": "Wine tasting tanpa harus tegang. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Tidak ada aturan yang rumit, yang ada cuma wine enak." }
     },
     "accessNote": "Belum cukup? Seluruh expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> di Hall 10.",
-    "accessNote2": "Jadi iya, satu tiket buat semuanya selama tiga hari. Lumayan banget, kan."
+    "accessNote2": "Satu tiket untuk semuanya selama tiga hari. Lebih dari cukup."
   },
   "pages": {
     "home": {

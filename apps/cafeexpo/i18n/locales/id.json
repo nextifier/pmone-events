@@ -105,7 +105,7 @@
     "noResultsFor": "Tidak ada hasil untuk",
     "noResultsHint": "Coba keyword lain atau jelajahi topik lainnya.",
     "noPostsYet": "Belum ada artikel",
-    "comeBackLater": "Cek lagi nanti ya"
+    "comeBackLater": "Cek lagi nanti"
   },
   "brands": {
     "comingSoon": "Daftar brand segera hadir. Cek lagi nanti!"
@@ -114,7 +114,7 @@
     "title": "Rundown",
     "description": "Lihat jadwal lengkap acara dan program di {appName}.",
     "comingSoon": "Rundown segera hadir. Cek lagi nanti!",
-    "nothingYet": "Belum ada jadwal nih!"
+    "nothingYet": "Belum ada jadwal di sini!"
   },
   "ticket": {
     "agreementPrefix": "Dengan melanjutkan, kamu setuju dengan",
@@ -125,7 +125,7 @@
   "hero": {
     "countdownLabel": "Hitung mundur menuju CBE:",
     "title": "Semua yang Kamu Cari, Ada di Sini.",
-    "description": "Cobain langsung ratusan brand kopi, teh, wine, dan cokelat. Tiket kamu = akses penuh ke tiga hari penuh rasa.",
+    "description": "Coba langsung ratusan brand kopi, teh, wine, dan cokelat. Tiket kamu = akses penuh ke tiga hari penuh rasa.",
     "ctaTicket": "Dapatkan Tiket",
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
@@ -165,11 +165,11 @@
       },
       "wine": {
         "title": "Indonesia Wine Festival",
-        "description": "Nikmati wine tasting tanpa tekanan. Suasananya santai, pilihan wine-nya dari lokal sampai impor. Tanpa aturan ribet, cuma wine yang enak."
+        "description": "Nikmati wine tasting tanpa tekanan. Suasananya santai, pilihan wine-nya dari lokal sampai impor. Tanpa aturan rumit, cuma wine yang enak."
       },
       "chocolate": {
         "title": "Cokelat Expo Indonesia",
-        "description": "Surga buat pencinta cokelat. Ketemu langsung pembuatnya, lihat prosesnya, dan cobain rasa-rasa unik yang nggak bakal kamu temukan di tempat lain."
+        "description": "Surga buat pencinta cokelat. Ketemu langsung pembuatnya, lihat prosesnya, dan coba rasa-rasa unik yang tidak akan kamu temukan di tempat lain."
       }
     }
   },
@@ -179,11 +179,11 @@
     "items": {
       "0": {
         "title": "Live Competitions",
-        "description": "Saksikan barista, brewer, dan chef terbaik adu skill di panggung utama. Energinya beda. Talentanya gila."
+        "description": "Saksikan barista, brewer, dan chef terbaik adu skill di panggung utama. Energinya beda. Talentanya luar biasa."
       },
       "1": {
         "title": "Tasting Bars",
-        "description": "Cobain ratusan produk dari exhibitor kopi, teh, wine, dan cokelat. Temukan rasa favorit baru kamu. Gratis semua."
+        "description": "Coba ratusan produk dari exhibitor kopi, teh, wine, dan cokelat. Temukan rasa favorit baru kamu. Gratis semua."
       },
       "2": {
         "title": "Hands-On Workshops",
@@ -191,7 +191,7 @@
       },
       "3": {
         "title": "Bean-to-Bar Demos",
-        "description": "Lihat langsung gimana biji kakao berubah jadi cokelat batangan. Para pengrajin artisan bakal demo prosesnya di depan kamu."
+        "description": "Lihat langsung bagaimana biji kakao berubah jadi cokelat batangan. Para pengrajin artisan akan demo prosesnya di depan kamu."
       },
       "4": {
         "title": "Industry Talks",
@@ -208,7 +208,7 @@
     "description": "Ikut {appName} dan buka peluang baru. Ketemu calon partner, perluas jangkauan brand, dan grow bareng.",
     "exhibitor": {
       "title": "Daftar Exhibitor",
-      "description": "Tunjukin produk kamu ke ribuan pengunjung yang antusias. Panggung udah siap, tinggal brand kamu yang naik.",
+      "description": "Tunjukkan produk kamu ke ribuan pengunjung yang antusias. Panggung sudah siap, tinggal brand kamu yang naik.",
       "cta": "Book Slot Kamu"
     },
     "sponsor": {
@@ -266,8 +266,8 @@
     "successMessage": "Tim kami akan segera follow up lewat email atau WhatsApp.",
     "successButton": "Oke, ke beranda",
     "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
-    "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa kasih info soal booth, harga, dan detail lainnya.",
-    "errorSend": "Pesan gagal terkirim. Coba lagi ya.",
+    "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa memberikan info soal booth, harga, dan detail lainnya.",
+    "errorSend": "Pesan gagal terkirim. Silakan coba lagi.",
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
   },
   "bookSpace": {
@@ -277,7 +277,7 @@
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
     "description": "Jawaban buat pertanyaan seputar acara, tiket, exhibitor, dan lainnya.",
-    "emptyState": "Kami sedang kumpulkan pertanyaan yang sering ditanyakan. Cek lagi nanti ya.",
+    "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Cek lagi nanti.",
     "contactTitle": "Punya pertanyaan lain? Langsung kirim ke kami!",
     "items": {
       "0": {
@@ -285,7 +285,7 @@
         "a": "<p>{eventTitle} diadakan tanggal <strong>{eventDate}</strong>, jam <strong>{eventTime}</strong>, di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
       },
       "1": {
-        "q": "Gimana cara dapetin tiket?",
+        "q": "Bagaimana cara mendapatkan tiket?",
         "a": "<p>Beli langsung lewat website resmi kami. Klik tombol <a href=\"/ticket\">Get Ticket</a> dan ikuti prosesnya. E-ticket langsung dikirim ke email dan WhatsApp kamu.</p>"
       },
       "2": {
@@ -293,7 +293,7 @@
         "a": "<p>Tergantung jenis tiket dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> buat info harga terbaru. Jangan lewatkan promo early bird dan pre-sale!</p>"
       },
       "3": {
-        "q": "Bisa refund kalau nggak jadi hadir?",
+        "q": "Bisa refund kalau tidak jadi hadir?",
         "a": "<p>Semua pembelian tiket bersifat final dan tidak bisa refund atau tukar. Selengkapnya baca di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
       },
       "4": {
@@ -301,39 +301,39 @@
         "a": "<p>Bawa e-ticket kamu (digital atau print) buat ditukar badge atau wristband di meja registrasi. Bawa kartu nama juga kalau mau networking.</p>"
       },
       "5": {
-        "q": "Siapa aja yang boleh datang?",
+        "q": "Siapa saja yang boleh datang?",
         "a": "<p>Semua orang! Pemilik kafe, pengusaha F&B, coffee lover, profesional industri makanan, atau siapa pun yang suka explore dunia kuliner. Semuanya welcome.</p>"
       },
       "6": {
-        "q": "Brand dan produk apa aja yang dipamerkan?",
+        "q": "Brand dan produk apa saja yang dipamerkan?",
         "a": "<p>Beragam, mulai dari brand F&B, supplier peralatan, penyedia bahan baku, sampai perusahaan jasa. Mesin kopi, furnitur kafe, bahan makanan, solusi packaging, semuanya ada. Cek daftar lengkapnya di <a href=\"/brands\">Brands</a>.</p>"
       },
       "7": {
-        "q": "Mau ikut pameran, gimana caranya?",
+        "q": "Mau ikut pameran, bagaimana caranya?",
         "a": "<p>Kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> atau hubungi tim kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> buat info booth dan ketersediaan.</p>"
       },
       "8": {
-        "q": "Ada tasting atau sampling produk nggak?",
-        "a": "<p>Ada! Banyak exhibitor sediakan tasting dan sampling di booth mereka. Kesempatan bagus buat nemu produk dan rasa baru.</p>"
+        "q": "Ada tasting atau sampling produk tidak?",
+        "a": "<p>Ada! Banyak exhibitor sediakan tasting dan sampling di booth mereka. Kesempatan bagus untuk menemukan produk dan rasa baru.</p>"
       },
       "9": {
         "q": "Ada seminar atau workshop?",
         "a": "<p>Ada! Kami adakan seminar, workshop, dan demo soal teknik brewing, tren makanan, strategi bisnis, dan banyak lagi. Cek <a href=\"/rundown\">Rundown</a> buat jadwal lengkapnya.</p>"
       },
       "10": {
-        "q": "Gimana caranya jadi sponsor atau media partner?",
+        "q": "Bagaimana caranya jadi sponsor atau media partner?",
         "a": "<p>Hubungi kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau <a href=\"mailto:{email}\">{email}</a> buat diskusi paket kerjasama.</p>"
       },
       "11": {
         "q": "Ada parkir di venue?",
-        "a": "<p>Ada. Tapi datang lebih awal ya karena parkir bisa penuh pas jam ramai. Bisa juga pakai transportasi umum atau ride-sharing.</p>"
+        "a": "<p>Ada. Tapi datang lebih awal karena parkir bisa penuh saat jam ramai. Bisa juga pakai transportasi umum atau ride-sharing.</p>"
       },
       "12": {
         "q": "Boleh foto atau video di venue?",
         "a": "<p>Boleh, untuk keperluan pribadi. Untuk keperluan komersial, perlu izin tertulis dari panitia. Detail selengkapnya di <a href=\"/event-policy\">Event Policy</a>.</p>"
       },
       "13": {
-        "q": "Gimana caranya dapetin info terbaru?",
+        "q": "Bagaimana caranya mendapatkan info terbaru?",
         "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> buat update, pengumuman, dan konten eksklusif. Atau kunjungi halaman <a href=\"/news\">News</a> kami.</p>"
       },
       "14": {
@@ -345,7 +345,7 @@
   "pages": {
     "home": {
       "title": "Caf\u00e9 & Brasserie Expo Jakarta (CBE)",
-      "description": "Datang ke CBE Jakarta dan cobain ratusan brand kopi, teh, wine, dan cokelat. Ikuti tasting, workshop, kompetisi, dan banyak lagi."
+      "description": "Datang ke CBE Jakarta dan coba ratusan brand kopi, teh, wine, dan cokelat. Ikuti tasting, workshop, kompetisi, dan banyak lagi."
     },
     "brands": {
       "title": "Brand",
@@ -357,7 +357,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Lihat program utama di {appName}. Dapetin insight dan networking bareng para ahli industri."
+      "description": "Lihat program utama di {appName}. Dapatkan insight dan networking bareng para ahli industri."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -397,7 +397,7 @@
     },
     "partners": {
       "title": "Partner Kami",
-      "description": "CBE nggak mungkin terwujud tanpa dukungan partner, sponsor, dan media kami. Terima kasih!"
+      "description": "CBE tidak mungkin terwujud tanpa dukungan partner, sponsor, dan media kami. Terima kasih!"
     },
     "terms": {
       "title": "Syarat dan Ketentuan",

@@ -2,15 +2,16 @@
   <section id="why-exhibit">
     <div class="container">
       <div class="flex flex-col items-center text-center">
-        <span class="text-gradient-accent font-medium tracking-tight"
-          >Why Exhibit</span
-        >
-        <h2 class="section-title mt-2.5">6 Reasons Why You Should Exhibit</h2>
+        <span class="text-gradient-accent font-medium tracking-tight">{{
+          $t("megaProperty.whyExhibit.label")
+        }}</span>
+        <h2 class="section-title mt-2.5">
+          {{ $t("megaProperty.whyExhibit.title") }}
+        </h2>
         <p
           class="text-muted-foreground mx-auto mt-2 max-w-2xl text-base tracking-tight text-balance sm:text-lg"
         >
-          Join the premier platform that connects you with thousands of
-          potential buyers, investors, and industry professionals.
+          {{ $t("megaProperty.whyExhibit.description") }}
         </p>
       </div>
 
@@ -36,42 +37,22 @@
 </template>
 
 <script setup>
-const reasons = [
-  {
-    icon: "hugeicons:user-multiple-02",
-    title: "Reach Key Buyers & Investors",
-    description:
-      "Connect with developers, investors, Gen Z, and young families actively seeking property solutions.",
-  },
-  {
-    icon: "hugeicons:idea",
-    title: "Showcase Your Innovations",
-    description:
-      "Present your latest residential, commercial, and smart home projects to a targeted audience.",
-  },
-  {
-    icon: "hugeicons:agreement-01",
-    title: "Build Strategic Partnerships",
-    description:
-      "Engage with key stakeholders to explore joint ventures, collaborations, and business growth.",
-  },
-  {
-    icon: "hugeicons:award-01",
-    title: "Strengthen Your Brand",
-    description:
-      "Position your company as a leader and gain visibility among domestic and international audiences.",
-  },
-  {
-    icon: "hugeicons:chart-line-data-01",
-    title: "Gain Market Insights",
-    description:
-      "Learn from market leaders and property professionals through conferences and panels.",
-  },
-  {
-    icon: "hugeicons:puzzle",
-    title: "Integrated with Megabuild",
-    description:
-      "Benefit from synergy with construction and building materials event for additional exposure.",
-  },
+const { t } = useI18n();
+
+const icons = [
+  "hugeicons:user-multiple-02",
+  "hugeicons:idea",
+  "hugeicons:agreement-01",
+  "hugeicons:award-01",
+  "hugeicons:chart-line-data-01",
+  "hugeicons:puzzle",
 ];
+
+const reasons = computed(() =>
+  icons.map((icon, i) => ({
+    icon,
+    title: t(`megaProperty.whyExhibit.reasons.${i}.title`),
+    description: t(`megaProperty.whyExhibit.reasons.${i}.description`),
+  }))
+);
 </script>

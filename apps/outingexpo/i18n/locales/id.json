@@ -50,7 +50,7 @@
     "noResultsFor": "Tidak ada hasil untuk",
     "noResultsHint": "Coba keyword lain atau jelajahi topik lainnya.",
     "noPostsYet": "Belum ada artikel",
-    "comeBackLater": "Cek lagi nanti ya"
+    "comeBackLater": "Cek lagi nanti"
   },
   "brands": {
     "comingSoon": "Daftar brand segera hadir. Cek lagi nanti!"
@@ -59,7 +59,7 @@
     "title": "Rundown",
     "description": "Lihat jadwal lengkap acara dan program di {appName}.",
     "comingSoon": "Rundown segera hadir. Cek lagi nanti!",
-    "nothingYet": "Belum ada jadwal nih!"
+    "nothingYet": "Belum ada jadwal tersedia."
   },
   "ticket": {
     "agreementPrefix": "Dengan melanjutkan, kamu setuju dengan",
@@ -83,8 +83,8 @@
     "successMessage": "Tim kami akan segera follow up lewat email atau WhatsApp.",
     "successButton": "Oke, ke beranda",
     "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
-    "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa kasih info booth, harga, dan detail lainnya.",
-    "errorSend": "Pesan gagal terkirim. Coba lagi ya.",
+    "disclaimerExhibitor": "Kirim form ini bukan berarti langsung terdaftar sebagai exhibitor. Tim sales kami akan menghubungi untuk memberikan info booth, harga, dan detail lainnya.",
+    "errorSend": "Pesan gagal terkirim. Silakan coba lagi.",
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
   },
   "countdown": {
@@ -147,15 +147,15 @@
     "subheading": "Semua yang Kamu Butuhkan untuk Outing Terbaik",
     "items": {
       "0": { "title": "Temukan Destinasi Impian", "description": "Ratusan pilihan destinasi outing ada di sini. Pantai tropis, retreat di pegunungan, sampai taman petualangan yang bikin adrenalin naik. Trip seru kamu berikutnya dimulai dari sini." },
-      "1": { "title": "Ketemu Organizer Terbaik", "description": "Langsung kenalan sama event organizer, travel agent, dan spesialis corporate outing. Mau retreat kantor atau liburan bareng keluarga, tinggal pilih partner yang pas." },
-      "2": { "title": "Dapetin Promo Eksklusif", "description": "Diskon dan paket spesial yang cuma ada di pameran ini. Hemat besar buat outing, team building, atau incentive trip kamu berikutnya." },
-      "3": { "title": "Dapet Inspirasi Langsung", "description": "Lihat demo langsung, dengerin sharing dari para ahli, dan eksplor gear outdoor serta teknologi travel terbaru. Pulang dengan ide segar buat petualangan selanjutnya." }
+      "1": { "title": "Temui Organizer Terbaik", "description": "Terhubung langsung dengan event organizer, travel agent, dan spesialis corporate outing. Mau retreat kantor atau liburan bersama keluarga, pilih partner yang paling sesuai." },
+      "2": { "title": "Dapatkan Promo Eksklusif", "description": "Diskon dan paket spesial yang hanya tersedia di pameran ini. Hemat lebih banyak untuk outing, team building, atau incentive trip berikutnya." },
+      "3": { "title": "Dapatkan Inspirasi Langsung", "description": "Lihat demo langsung, ikuti sharing dari para ahli, dan eksplor gear outdoor serta teknologi travel terbaru. Pulang dengan ide segar untuk petualangan selanjutnya." }
     }
   },
   "hero": {
     "countdownLabel": "Mulai dalam:",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
-    "description": "Ketemu event organizer terbaik, temukan destinasi seru, dan dapetin promo perjalanan eksklusif untuk outing kamu berikutnya.",
+    "description": "Temui event organizer terbaik, temukan destinasi seru, dan dapatkan promo perjalanan eksklusif untuk outing berikutnya.",
     "announcement": "Slot exhibitor masih tersedia!",
     "banners": {
       "0": {
@@ -165,7 +165,7 @@
       },
       "1": {
         "subHeadline": "Tampilkan brand kamu di Indonesia Outing & Incentive Travel Expo 2026!",
-        "content": "<p>Ribuan pencari outing, perencana corporate, dan pecinta travel bakal hadir. Ini kesempatan buat brand kamu dikenal lebih luas.</p>",
+        "content": "<p>Ribuan pencari outing, perencana corporate, dan pecinta travel akan hadir. Ini kesempatan untuk brand kamu dikenal lebih luas.</p>",
         "cta": "Pesan Booth Sekarang"
       },
       "2": {
@@ -202,17 +202,17 @@
       },
       "3": {
         "title": "Business Matching",
-        "description": "Ketemu langsung buyer dan partner potensial."
+        "description": "Bertemu langsung dengan buyer dan partner potensial."
       },
       "4": {
         "title": "Community Meet-Ups",
-        "description": "Kenalan dan perluas jaringan sesama pelaku outing."
+        "description": "Terhubung dan perluas jaringan bersama sesama pelaku outing."
       }
     }
   },
   "partnerships": {
     "title": "<span class='text-outline'>Jadi </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Bagian dari IOITE</span>",
-    "description": "Ikut {appName} untuk ketemu calon partner, dapetin exposure, dan perluas jaringan bisnis kamu.",
+    "description": "Ikut {appName} untuk menemui calon partner, mendapatkan exposure, dan memperluas jaringan bisnis kamu.",
     "exhibitor": {
       "title": "Daftar Exhibitor",
       "description": "Punya layanan outing atau destinasi seru? Tampilkan ke ribuan pengunjung yang siap booking.",
@@ -264,7 +264,7 @@
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
     "description": "Jawaban untuk pertanyaan seputar outing expo, tiket, exhibitor, dan lainnya.",
-    "emptyState": "Kami sedang menyiapkan daftar pertanyaan. Cek lagi nanti ya.",
+    "emptyState": "Kami sedang menyiapkan daftar pertanyaan. Cek lagi nanti.",
     "contactTitle": "Masih ada pertanyaan? Langsung kirim ke kami!",
     "items": {
       "0": {
@@ -272,35 +272,35 @@
         "a": "<p>{eventTitle} diadakan tanggal <strong>{eventDate}</strong>, jam <strong>{eventTime}</strong>, di <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>.</p>"
       },
       "1": {
-        "q": "Gimana cara dapetin tiket?",
+        "q": "Bagaimana cara mendapatkan tiket?",
         "a": "<p>Klik tombol <a href=\"/ticket\">Get Ticket</a> di website kami dan ikuti langkah registrasinya. E-ticket akan dikirim ke email dan WhatsApp kamu.</p>"
       },
       "2": {
         "q": "Berapa harga tiketnya?",
-        "a": "<p>Harga tiket beda-beda tergantung jenis dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> untuk harga terkini. Ada promo early bird juga!</p>"
+        "a": "<p>Harga tiket bervariasi tergantung jenis dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> untuk harga terkini. Ada promo early bird juga!</p>"
       },
       "3": {
-        "q": "Bisa refund kalau nggak bisa hadir?",
+        "q": "Bisa refund kalau tidak bisa hadir?",
         "a": "<p>Semua pembelian tiket bersifat final. Tidak ada refund atau penukaran. Detail lengkapnya ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
       },
       "4": {
         "q": "Apa yang perlu dibawa ke acara?",
-        "a": "<p>Bawa e-ticket kamu (digital atau print) untuk ditukar badge di meja registrasi. Kalau mau networking sama vendor corporate event, bawa kartu nama juga ya.</p>"
+        "a": "<p>Bawa e-ticket kamu (digital atau print) untuk ditukar badge di meja registrasi. Kalau ingin networking dengan vendor corporate event, jangan lupa bawa kartu nama.</p>"
       },
       "5": {
-        "q": "Siapa aja yang boleh datang?",
-        "a": "<p>Semua orang! HR, event organizer, perwakilan perusahaan yang cari team building, pecinta traveling, dan penyedia layanan outing. Semuanya welcome.</p>"
+        "q": "Siapa saja yang boleh datang?",
+        "a": "<p>Semua orang! HR, event organizer, perwakilan perusahaan yang mencari team building, pecinta traveling, dan penyedia layanan outing. Semua terbuka untuk hadir.</p>"
       },
       "6": {
-        "q": "Layanan dan destinasi apa aja yang ditampilkan?",
+        "q": "Layanan dan destinasi apa saja yang ditampilkan?",
         "a": "<p>Destinasi outing, aktivitas team building, venue corporate event, paket perjalanan, petualangan outdoor, resort, dan pengalaman grup lainnya. Cek halaman <a href=\"/brands\">Exhibitors</a> untuk daftar lengkap.</p>"
       },
       "7": {
         "q": "Bisa langsung booking di lokasi?",
-        "a": "<p>Bisa! Banyak exhibitor kasih promo eksklusif dan terima booking langsung di tempat. Cocok buat dapetin deal corporate outing dan paket team building.</p>"
+        "a": "<p>Bisa! Banyak exhibitor memberikan promo eksklusif dan menerima booking langsung di tempat. Kesempatan bagus untuk mendapatkan deal corporate outing dan paket team building.</p>"
       },
       "8": {
-        "q": "Gimana cara jadi exhibitor?",
+        "q": "Bagaimana cara menjadi exhibitor?",
         "a": "<p>Kunjungi halaman <a href=\"/book-space\">Registrasi Exhibitor</a> atau hubungi tim kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info booth.</p>"
       },
       "9": {
@@ -308,27 +308,27 @@
         "a": "<p>Ada! Topiknya mulai dari team building, perencanaan corporate event, destinasi outing terkini, sampai employee engagement. Cek <a href=\"/rundown\">Rundown</a> untuk jadwalnya.</p>"
       },
       "10": {
-        "q": "Cocok nggak buat cari aktivitas team building?",
-        "a": "<p>Cocok banget! Kamu bisa ketemu langsung penyedia team building, bandingin paket, dan diskusikan kebutuhan spesifik perusahaan kamu.</p>"
+        "q": "Apakah cocok untuk mencari aktivitas team building?",
+        "a": "<p>Sangat cocok! Kamu bisa bertemu langsung dengan penyedia team building, membandingkan paket, dan mendiskusikan kebutuhan spesifik perusahaan kamu.</p>"
       },
       "11": {
-        "q": "Gimana cara jadi sponsor atau media partner?",
+        "q": "Bagaimana cara menjadi sponsor atau media partner?",
         "a": "<p>Hubungi kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> atau email ke <a href=\"mailto:{email}\">{email}</a> untuk diskusi paket kerjasama.</p>"
       },
       "12": {
         "q": "Ada parkir di venue?",
-        "a": "<p>Ada. Tapi kami sarankan datang lebih awal karena parkir bisa cepat penuh saat jam ramai. Bisa juga pakai transportasi umum atau ojol.</p>"
+        "a": "<p>Ada. Kami sarankan datang lebih awal karena parkir bisa cepat penuh saat jam ramai. Bisa juga menggunakan transportasi umum atau layanan ojek online.</p>"
       },
       "13": {
         "q": "Boleh foto dan video di acara?",
         "a": "<p>Boleh, untuk keperluan pribadi. Kalau untuk keperluan komersial, perlu izin tertulis dari penyelenggara. Selengkapnya baca <a href=\"/event-policy\">Event Policy</a>.</p>"
       },
       "14": {
-        "q": "Gimana cara dapat info terbaru?",
+        "q": "Bagaimana cara mendapatkan info terbaru?",
         "a": "<p>Follow Instagram kami <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a> untuk update exhibitor, pengumuman, dan konten eksklusif. Atau kunjungi halaman <a href=\"/news\">News</a>.</p>"
       },
       "15": {
-        "q": "Gimana cara hubungi penyelenggara?",
+        "q": "Bagaimana cara menghubungi penyelenggara?",
         "a": "<p>Hubungi kami lewat:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">Klik di sini</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>Atau kunjungi <a href=\"/help-center\">Help Center</a> untuk opsi kontak lainnya.</p>"
       }
     }
@@ -404,9 +404,9 @@
     }
   },
   "about": {
-    "sectionSubtitle": "Kenalan Sama Indonesia Outing & Incentive Travel Expo (IOITE)",
+    "sectionSubtitle": "Mengenal Indonesia Outing & Incentive Travel Expo (IOITE)",
     "sectionTitle": "Semua Kebutuhan Outing Kamu, Ada di Sini!",
-    "sectionDescription": "Indonesia Outing & Incentive Travel Expo adalah tempat paling lengkap buat kamu yang lagi cari inspirasi outing. Mulai dari wisata petualangan, retreat perusahaan, outing keluarga, sampai olahraga ekstrem, semuanya ada. Kami kumpulkan penyedia layanan terbaik, destinasi seru, dan penawaran menarik dalam satu event tiga hari. Yuk, eksplor semua kemungkinan buat petualangan kamu berikutnya."
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo adalah tempat paling lengkap untuk kamu yang sedang mencari inspirasi outing. Mulai dari wisata petualangan, retreat perusahaan, outing keluarga, sampai olahraga ekstrem, semuanya ada. Kami kumpulkan penyedia layanan terbaik, destinasi seru, dan penawaran menarik dalam satu event tiga hari. Eksplorasi semua kemungkinan untuk petualangan kamu berikutnya."
   },
   "pastExhibitors": {
     "title": "Dipercaya <span class=\"text-primary\">Brand-Brand Ternama</span>",

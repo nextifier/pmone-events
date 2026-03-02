@@ -12,13 +12,13 @@
 </template>
 
 <script setup>
+const { t } = useI18n();
+
 useSeoMeta({
-  title: "Mega Property Expo 2026 - Premier Real Estate Exhibition",
-  description:
-    "Mega Property Expo 2026 brings together leading property developers, investors, architects, and industry professionals. June 4-7, 2026 at NICE PIK2, Jakarta.",
-  ogTitle: "Mega Property Expo 2026 - Premier Real Estate Exhibition",
-  ogDescription:
-    "Premier real estate exhibition co-located with Megabuild Indonesia. Connect with property developers, investors, and industry professionals.",
+  title: t("megaProperty.meta.title"),
+  description: t("megaProperty.meta.description"),
+  ogTitle: t("megaProperty.meta.ogTitle"),
+  ogDescription: t("megaProperty.meta.ogDescription"),
   ogImage: "/img/megaproperty/og-image.jpg",
   twitterCard: "summary_large_image",
 });

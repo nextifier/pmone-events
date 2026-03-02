@@ -41,20 +41,18 @@
         <h1 class="mt-12 flex flex-col items-center lg:mt-14">
           <span
             class="text-foreground text-3xl font-medium tracking-tighter sm:text-4xl"
-            >Accelerating Transformation</span
+            >{{ $t("megaProperty.hero.title1") }}</span
           >
           <span
             class="gradient-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent! sm:text-8xl"
-            >Dream it! Live it!</span
+            >{{ $t("megaProperty.hero.title2") }}</span
           >
         </h1>
 
         <p
           class="mt-4 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
         >
-          Premier real estate exhibition that brings together leading property
-          developers, investors, architects, and industry professionals in one
-          dynamic platform.
+          {{ $t("megaProperty.hero.description") }}
         </p>
 
         <div class="mt-6 flex gap-2 md:flex-wrap md:gap-3">
@@ -62,14 +60,14 @@
             to="/ticket"
             class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
             v-ripple
-            >Get ticket</nuxt-link
+            >{{ $t("megaProperty.hero.ctaTicket") }}</nuxt-link
           >
 
           <nuxt-link
             to="/book-space"
             class="bg-primary/5 hover:bg-primary/10 dark:bg-primary/8 text-primary dark:border-primary/8 dark:hover:bg-primary/16 flex items-center justify-center rounded-xl border border-transparent px-4 py-3 font-semibold tracking-tight backdrop-blur-lg transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
             v-ripple
-            >I want to exhibit</nuxt-link
+            >{{ $t("megaProperty.hero.ctaExhibit") }}</nuxt-link
           >
         </div>
       </div>
@@ -80,7 +78,7 @@
         <p
           class="text-foreground text-2xl font-medium tracking-tight text-balance"
         >
-          Indonesia's largest integrated building & property ecosystem.
+          {{ $t("megaProperty.hero.tagline") }}
         </p>
 
         <MegapropertyMegaPropertyInConjunction
