@@ -171,7 +171,27 @@
   },
   "about": {
     "title": "<span class='text-accent'>맛있는 건</span> 다 여기에.",
-    "description": "스페셜티 커피, 프리미엄 차, 수제 초콜릿, 와인까지. CBE가 F&B의 정수를 한 공간에 모았어요. 카페 사장님, 예비 창업자, 음식을 사랑하는 분 모두. 맛과 기회가 만나는 곳이에요."
+    "description": "스페셜티 커피, 프리미엄 차, 수제 초콜릿, 와인까지. CBE가 F&B의 정수를 한 공간에 모았어요. 카페 사장님, 예비 창업자, 음식을 사랑하는 분 모두. 맛과 기회가 만나는 곳이에요.",
+    "sectionTitle": "끌리는 존부터 시작해 보세요.",
+    "sectionDescription": "커피, 차, 와인, 초콜릿. 네 가지 존을 준비했어요. 아래에서 한번 둘러보고 가장 먼저 가고 싶은 곳을 골라 보세요.",
+    "zones": {
+      "coffee": {
+        "title": "Indonesia Coffee Festival",
+        "description": "엑스포에서 가장 활기 넘치는 공간이에요. 에스프레소 머신 소리, 최고의 바리스타 대결, 그리고 새로운 인생 커피를 찾을 수 있어요."
+      },
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "차에 집중할 수 있는 조용한 공간이에요. 귀한 찻잎부터 새로운 블렌드까지 다양하게 시음하고, 집에서 더 맛있게 우리는 법도 배워 보세요."
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "부담 없이 와인을 즐길 수 있는 공간이에요. 국내외 다양한 와인을 편하게 시음해 보세요. 복잡한 규칙 없이, 맛있는 와인만."
+      },
+      "chocolate": {
+        "title": "Cokelat Expo Indonesia",
+        "description": "초콜릿을 사랑하는 사람들의 천국이에요. 만드는 사람을 직접 만나고, 제조 과정을 보고, 여기서만 맛볼 수 있는 특별한 풍미를 경험해 보세요."
+      }
+    }
   },
   "mainPrograms": {
     "title": "<span>주요 프로그램</span>",
@@ -207,17 +227,17 @@
     "title": "<span class='text-outline'>함께 </span><span class='text-primary'>만들어 가요</span>",
     "description": "{appName}에 참여해서 새로운 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓혀 보세요.",
     "exhibitor": {
-      "title": "전시 참가사 되기",
+      "title": "전시업체 등록",
       "description": "열정 가득한 관람객에게 여러분의 제품을 직접 선보일 수 있어요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "F&B 업계 핵심 의사결정자들에게 브랜드를 직접 알릴 수 있어요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "F&B 업계 현장을 독점 취재할 기회예요.",
       "cta": "미디어 파트너 신청"
     },

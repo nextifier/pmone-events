@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics. We're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -142,6 +142,36 @@
     "Organized by": "Organized by",
     "Supported by": "Supported by"
   },
+  "about": {
+    "sectionTitle": "<span class='text-accent'>More</span> <span class='text-outline'> than just a</span> <span class='text-accent'> Food</span> <span class='text-outline'> Expo</span>",
+    "forgetBoring": "Forget boring trade shows",
+    "paragraph1": "MoreFood Expo Indonesia brings together global suppliers and Asian buyers in one powerful sourcing platform.",
+    "paragraph2": "The exhibition features key sectors including Food Machinery & Packaging, Food Ingredients, Supply Chain Solutions, Canned & Packaged Food, Condiments, Bakery, Snacks, Sweets, Beverages, and more.",
+    "paragraph3": "Discover innovative technologies, explore high-quality products, connect with trusted manufacturers, and unlock real business opportunities, all in one venue.",
+    "paragraph4": "Register today! Expand your network and source the right partners for your business at MoreFood Expo 2026."
+  },
+  "whyVisit": {
+    "heading": "Why You'll Love It Here",
+    "subheading": "Your Recipe for Success",
+    "items": {
+      "0": {
+        "title": "Meet Your Next Partner",
+        "description": "Connect with 30,000+ industry players, from top importers and distributors to major hotel and restaurant chains. This is networking that gets results."
+      },
+      "1": {
+        "title": "Discover Your Next Bestseller",
+        "description": "Explore innovative products from over 1,200 exhibitors. Find the new flavors, tech, and trends that will have your customers buzzing."
+      },
+      "2": {
+        "title": "Unlock the Halal Market",
+        "description": "Tap into the booming Halal economy. We make it simple to find trusted, certified suppliers for one of the world's biggest markets."
+      },
+      "3": {
+        "title": "Three Expos, One Ticket",
+        "description": "Your pass also gets you into the Franchise & License Expo (FLEI) and the Cafe Brasserie Expo. More opportunities, all in one place."
+      }
+    }
+  },
   "hero": {
     "countdownLabel": "Your culinary adventure starts in:",
     "subtitle": "More than an expo. It's an idea factory for your menu and store.",
@@ -226,17 +256,17 @@
     "title": "<span class='text-outline'>Become a </span><span class='text-accent'>Part of our Story</span>",
     "description": "The success of More Food Expo is built on strong partnerships. Whether you want to showcase your products, amplify your brand, or cover the event, we have an opportunity for you. Find your perfect fit below.",
     "exhibitor": {
-      "title": "Become an Exhibitor",
+      "title": "Register as Exhibitor",
       "description": "Calling all brands and entrepreneurs! Showcase your products to a diverse and enthusiastic audience.",
       "cta": "Book Your Space"
     },
     "sponsor": {
-      "title": "Become a Sponsor",
+      "title": "Register as Sponsor",
       "description": "Connect with key decision-makers by sponsoring the industry's leading event.",
       "cta": "Sponsor us"
     },
     "mediaPartner": {
-      "title": "Become a Media Partner",
+      "title": "Register as Media Partner",
       "description": "Partner with us for exclusive access to share the industry's biggest stories.",
       "cta": "Join as Media"
     },

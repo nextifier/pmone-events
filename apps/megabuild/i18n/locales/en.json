@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics. We're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -144,9 +144,9 @@
     "Supported by": "Supported by"
   },
   "hero": {
-    "countdownLabel": "Doors to the future of your home open in:",
-    "title": "The Blueprint for Your Dream Renovation.",
-    "description": "Take control of your renovation. Touch and feel the latest materials, get direct advice from designers, and build your project with total confidence.",
+    "countdownLabel": "The expo opens in:",
+    "title": "Accelerating Transformation in the Built Environment",
+    "description": "The enhanced edition of building materials, interior design, architecture, and construction exhibition & conference in Indonesia.",
     "announcement": "Space is still available for exhibitors",
     "banners": {
       "0": {
@@ -270,17 +270,17 @@
     "title": "<span class=''>Become a </span><span class='text-primary'>Part of our Story</span>",
     "description": "Take your business to the next level by participating in {appName}. Meet potential partners, gain exposure, and grow your network.",
     "exhibitor": {
-      "title": "Become an Exhibitor",
+      "title": "Register as Exhibitor",
       "description": "Calling all brands and entrepreneurs! Showcase your products to a diverse and enthusiastic audience.",
       "cta": "Book Your Space"
     },
     "sponsor": {
-      "title": "Become a Sponsor",
+      "title": "Register as Sponsor",
       "description": "Connect with key decision-makers by sponsoring the industry's leading event.",
       "cta": "Sponsor us"
     },
     "mediaPartner": {
-      "title": "Become a Media Partner",
+      "title": "Register as Media Partner",
       "description": "Partner with us for exclusive access to share the industry's biggest stories.",
       "cta": "Join as Media"
     },
@@ -338,7 +338,7 @@
       },
       "5": {
         "q": "Who can attend the event?",
-        "a": "<p>The event is open to anyone interested in building materials, architecture, construction, and interior design — from homeowners planning renovations to architects, contractors, developers, and design professionals.</p>"
+        "a": "<p>The event is open to anyone interested in building materials, architecture, construction, and interior design, from homeowners planning renovations to architects, contractors, developers, and design professionals.</p>"
       },
       "6": {
         "q": "What brands will be exhibiting at the event?",

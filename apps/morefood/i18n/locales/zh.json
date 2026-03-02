@@ -142,6 +142,36 @@
     "Organized by": "主办方",
     "Supported by": "支持方"
   },
+  "about": {
+    "sectionTitle": "<span class='text-accent'>More</span> <span class='text-outline'> than just a</span> <span class='text-accent'> Food</span> <span class='text-outline'> Expo</span>",
+    "forgetBoring": "别再逛无聊的展会了",
+    "paragraph1": "MoreFood Expo Indonesia 将全球供应商和亚洲买家汇聚在一个高效的采购平台上。",
+    "paragraph2": "展会涵盖食品机械与包装、食品原料、供应链解决方案、罐头与包装食品、调味品、烘焙、零食、糖果、饮料等核心领域。",
+    "paragraph3": "发现创新技术，探索优质产品，对接可靠厂商，解锁真实的商业机会。一个展馆，全部搞定。",
+    "paragraph4": "立即报名！在 MoreFood Expo 2026 拓展人脉，找到最适合你的合作伙伴。"
+  },
+  "whyVisit": {
+    "heading": "为什么要来",
+    "subheading": "你的成功配方",
+    "items": {
+      "0": {
+        "title": "找到你的下一个合作伙伴",
+        "description": "现场汇聚 30,000+ 行业人士，从顶级进口商、经销商到大型酒店和餐饮连锁。高效对接，直接出成果。"
+      },
+      "1": {
+        "title": "发现下一个爆款",
+        "description": "1,200+ 展商带来创新产品。新口味、新技术、新趋势，让你的客户眼前一亮。"
+      },
+      "2": {
+        "title": "打开 Halal 市场大门",
+        "description": "Halal 经济正在爆发。我们帮你快速找到可靠的认证供应商，抓住全球最大市场之一的机会。"
+      },
+      "3": {
+        "title": "三场大展，一张门票",
+        "description": "你的门票同时可以进入 Franchise & License Expo (FLEI) 和 Cafe Brasserie Expo。更多机会，一站搞定。"
+      }
+    }
+  },
   "hero": {
     "countdownLabel": "距离开展还有：",
     "subtitle": "不只是展会。你的下一个菜单灵感、下一个供应商，可能就在这里。",
@@ -198,7 +228,7 @@
       },
       "2": {
         "title": "Launch Pad: 创新舞台",
-        "description": "新品首发的专属舞台。创新品牌在这里发布最新产品——从食品科技到全新口味，第一时间看到。"
+        "description": "新品首发的专属舞台。创新品牌在这里发布最新产品，从食品科技到全新口味，第一时间看到。"
       },
       "3": {
         "title": "The Inspiration Zone",
@@ -226,17 +256,17 @@
     "title": "<span class='text-outline'>一起 </span><span class='text-accent'>把这件事做大</span>",
     "description": "More Food Expo 的成功靠的是合作伙伴。不管你是想展示产品、做品牌曝光，还是做媒体报道，这里有适合你的合作方式。",
     "exhibitor": {
-      "title": "成为参展商",
+      "title": "参展商报名",
       "description": "把你的 F&B 产品直接展示给带着采购需求来的买家和行业人士。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "赞助 F&B 行业头部展会，让核心决策者看到你的品牌。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "拿到印尼头部 F&B 展会的独家报道权。",
       "cta": "媒体合作"
     },

@@ -146,11 +146,11 @@
     "countdownLabel": "Renovation Expo 開催まで：",
     "title": "<span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">リノベーション</span></span>を、<span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">ここから始めよう。</span>",
     "description": "最新の建材を手に取って確かめて、デザイナーに直接相談。リノベーション計画に必要なすべてが一堂に。",
-    "announcement": "ブース空きあり — お申し込みはお早めに！",
+    "announcement": "ブース空きあり。お申し込みはお早めに！",
     "banners": {
       "0": {
         "subHeadline": "リノベーション情報を一気に収集！",
-        "content": "<p>数百のブランド、プロによるデザイン相談、最新の住宅トレンド情報 — すべてアクセスできます。</p>",
+        "content": "<p>数百のブランド、プロによるデザイン相談、最新の住宅トレンド情報。すべてアクセスできます。</p>",
         "cta": "パスを入手"
       },
       "1": {
@@ -248,17 +248,17 @@
     "title": "<span class='text-outline'>一緒に </span><span class='text-primary'>ビジネスを広げませんか</span>",
     "description": "{appName}に参加して、新しいビジネスチャンスを。パートナーとの出会い、ブランドの露出、ネットワークの拡大がここにあります。",
     "exhibitor": {
-      "title": "出展者として参加",
+      "title": "出展登録",
       "description": "リノベーション・インテリア関連の製品をお持ちですか？購買意欲の高い来場者に直接アピールできます。",
       "cta": "ブースを予約する"
     },
     "sponsor": {
-      "title": "スポンサーとして参加",
+      "title": "スポンサー登録",
       "description": "建材・インテリア業界のキーパーソンに、スポンサーとして直接リーチできます。",
-      "cta": "スポンサーになる"
+      "cta": "スポンサー登録"
     },
     "mediaPartner": {
-      "title": "メディアパートナーとして参加",
+      "title": "メディアパートナー登録",
       "description": "インドネシア最大級のリノベーション展を独占取材。すぐに使えるコンテンツをお届けします。",
       "cta": "メディアとして参加"
     },
@@ -366,7 +366,7 @@
   "pages": {
     "home": {
       "title": "Renovation Expo - Megabuild Indonesia：建材・建築・建設・インテリアデザイン展",
-      "description": "MEGABUILD Indonesia — 建材、建築、インテリアデザインの最新トレンドが集まるインドネシア最大級の展示会。"
+      "description": "MEGABUILD Indonesia。建材、建築、インテリアデザインの最新トレンドが集まるインドネシア最大級の展示会。"
     },
     "brands": {
       "title": "ブランド一覧",

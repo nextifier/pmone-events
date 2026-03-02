@@ -13,29 +13,16 @@
             ease="expo.out"
             :delay="150"
             :duration="2"
-            :text="`
-              Good News. Your Ticket <span class='text-accent'>Unlocks More..</span>
-            `"
+            :text="$t('about.sectionTitle')"
           />
         </h2>
 
         <div
           class="text-primary mt-2 space-y-6 text-2xl !leading-[1.3] font-semibold tracking-tighter text-pretty sm:text-3xl"
         >
+          <p v-html="$t('about.sectionDescription')"></p>
           <p>
-            While you're here for the chocolate, your ticket unlocks a lot
-            more. Cokelat Expo is part of the bigger
-            <nuxt-link
-              to="https://cafebrasserieexpo.com/"
-              target="_blank"
-              class="underline decoration-dotted decoration-2 underline-offset-8"
-              >Cafe & Brasserie Expo Indonesia</nuxt-link
-            >, which also features festivals for coffee, tea, and wine.
-          </p>
-          <p>
-            This means your pass doesn't just get you into the best
-            chocolate party of the year. It also gives you full access to three
-            other flavor zones:
+            {{ $t('about.sectionDescription2') }}
           </p>
         </div>
 
@@ -56,12 +43,10 @@
             </div>
 
             <h6 class="font-display mt-12 text-4xl">
-              Indonesia Coffee Festival
+              {{ $t('about.zones.coffee.title') }}
             </h6>
             <p class="mt-2 tracking-tight">
-              This is the lively center of the expo. Hear the sound of espresso
-              machines, watch the best baristas compete for titles, and find
-              your new favorite coffee.
+              {{ $t('about.zones.coffee.description') }}
             </p>
 
             <div
@@ -96,11 +81,9 @@
               <LogoITFAcronym class="h-9" />
             </div>
 
-            <h6 class="font-display mt-12 text-4xl">Indonesia Tea Festival</h6>
+            <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.tea.title') }}</h6>
             <p class="mt-2 text-base font-medium tracking-tight">
-              Step into a calmer space dedicated to tea. Taste a wide variety of
-              teas, from rare leaves to new blends, and learn simple ways to
-              make a better cup at home.
+              {{ $t('about.zones.tea.description') }}
             </p>
 
             <div
@@ -135,11 +118,9 @@
               <LogoIWFAcronym class="h-9" />
             </div>
 
-            <h6 class="font-display mt-12 text-4xl">Indonesia Wine Festival</h6>
+            <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.wine.title') }}</h6>
             <p class="mt-2 text-base font-medium tracking-tight">
-              Enjoy wine tasting without the pressure. We've created a relaxed
-              space to explore different wines from here and abroad. No
-              complicated rules, just good wine.
+              {{ $t('about.zones.wine.description') }}
             </p>
 
             <div
@@ -163,19 +144,9 @@
         <div
           class="text-primary mt-16 space-y-6 text-2xl !leading-[1.3] font-semibold tracking-tighter text-pretty sm:text-3xl"
         >
+          <p v-html="$t('about.accessNote')"></p>
           <p>
-            And if that's not enough, the entire expo is happening alongside the
-            <nuxt-link
-              to="https://franchise-expo.co.id/"
-              target="_blank"
-              class="underline decoration-dotted decoration-2 underline-offset-8"
-              >Franchise & License Expo Indonesia (FLEI)</nuxt-link
-            >
-            in Hall 10.
-          </p>
-          <p>
-            So yes, one ticket gets you into all of it for three days. It's
-            a pretty great deal.
+            {{ $t('about.accessNote2') }}
           </p>
         </div>
       </div>

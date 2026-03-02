@@ -142,6 +142,16 @@
     "Organized by": "Diselenggarakan oleh",
     "Supported by": "Didukung oleh"
   },
+  "whyVisit": {
+    "heading": "Kenapa Harus Datang?",
+    "subheading": "Semua yang Kamu Butuhkan untuk Outing Terbaik",
+    "items": {
+      "0": { "title": "Temukan Destinasi Impian", "description": "Ratusan pilihan destinasi outing ada di sini. Pantai tropis, retreat di pegunungan, sampai taman petualangan yang bikin adrenalin naik. Trip seru kamu berikutnya dimulai dari sini." },
+      "1": { "title": "Ketemu Organizer Terbaik", "description": "Langsung kenalan sama event organizer, travel agent, dan spesialis corporate outing. Mau retreat kantor atau liburan bareng keluarga, tinggal pilih partner yang pas." },
+      "2": { "title": "Dapetin Promo Eksklusif", "description": "Diskon dan paket spesial yang cuma ada di pameran ini. Hemat besar buat outing, team building, atau incentive trip kamu berikutnya." },
+      "3": { "title": "Dapet Inspirasi Langsung", "description": "Lihat demo langsung, dengerin sharing dari para ahli, dan eksplor gear outdoor serta teknologi travel terbaru. Pulang dengan ide segar buat petualangan selanjutnya." }
+    }
+  },
   "hero": {
     "countdownLabel": "Mulai dalam:",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
@@ -204,17 +214,17 @@
     "title": "<span class='text-outline'>Jadi </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Bagian dari IOITE</span>",
     "description": "Ikut {appName} untuk ketemu calon partner, dapetin exposure, dan perluas jaringan bisnis kamu.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Punya layanan outing atau destinasi seru? Tampilkan ke ribuan pengunjung yang siap booking.",
       "cta": "Book Booth"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Langsung terhubung dengan decision-maker di industri outing lewat sponsorship.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Liputan eksklusif dan akses ke konten terbaik dari industri outing.",
       "cta": "Gabung sebagai Media"
     },
@@ -279,7 +289,7 @@
       },
       "5": {
         "q": "Siapa aja yang boleh datang?",
-        "a": "<p>Semua orang! HR, event organizer, perwakilan perusahaan yang cari team building, pecinta traveling, penyedia layanan outing — semuanya welcome.</p>"
+        "a": "<p>Semua orang! HR, event organizer, perwakilan perusahaan yang cari team building, pecinta traveling, dan penyedia layanan outing. Semuanya welcome.</p>"
       },
       "6": {
         "q": "Layanan dan destinasi apa aja yang ditampilkan?",
@@ -349,7 +359,7 @@
       "description": "Amankan booth kamu di {appName}. Tampilkan brand ke ribuan pengunjung dan kembangkan bisnis kamu."
     },
     "ticket": {
-      "title": "Ambil Tiket",
+      "title": "Tiket {appName}",
       "description": "Dapatkan tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {
@@ -392,6 +402,11 @@
       "title": "Random Winner Generator",
       "description": "Pilih pemenang secara acak. Masukkan nama, putar slot, tentukan pemenang. Cocok untuk kontes, giveaway, dan event."
     }
+  },
+  "about": {
+    "sectionSubtitle": "Kenalan Sama Indonesia Outing & Incentive Travel Expo (IOITE)",
+    "sectionTitle": "Semua Kebutuhan Outing Kamu, Ada di Sini!",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo adalah tempat paling lengkap buat kamu yang lagi cari inspirasi outing. Mulai dari wisata petualangan, retreat perusahaan, outing keluarga, sampai olahraga ekstrem, semuanya ada. Kami kumpulkan penyedia layanan terbaik, destinasi seru, dan penawaran menarik dalam satu event tiga hari. Yuk, eksplor semua kemungkinan buat petualangan kamu berikutnya."
   },
   "pastExhibitors": {
     "title": "Dipercaya <span class=\"text-primary\">Brand-Brand Ternama</span>",

@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics. We're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -284,17 +284,17 @@
     "title": "<span class=''>Become a </span><span class='text-primary'>Part of our Story</span>",
     "description": "Take your business to the next level by participating in {appName}. Meet potential partners, gain exposure, and grow your network.",
     "exhibitor": {
-      "title": "Become an Exhibitor",
+      "title": "Register as Exhibitor",
       "description": "Calling all brands and entrepreneurs! Showcase your products to a diverse and enthusiastic audience.",
       "cta": "Book Your Space"
     },
     "sponsor": {
-      "title": "Become a Sponsor",
+      "title": "Register as Sponsor",
       "description": "Connect with key decision-makers by sponsoring the industry's leading event.",
       "cta": "Sponsor us"
     },
     "mediaPartner": {
-      "title": "Become a Media Partner",
+      "title": "Register as Media Partner",
       "description": "Partner with us for exclusive access to share the industry's biggest stories.",
       "cta": "Join as Media"
     },

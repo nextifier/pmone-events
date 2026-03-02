@@ -122,12 +122,42 @@
     "ticketTerms": "Syarat & Ketentuan Tiket",
     "eventPolicy": "Kebijakan Acara"
   },
+  "about": {
+    "sectionTitle": "<span class='text-accent'>Lebih</span> <span class='text-outline'> dari Sekadar</span> <span class='text-accent'> Food</span> <span class='text-outline'> Expo</span>",
+    "forgetBoring": "Lupakan pameran yang itu-itu aja",
+    "paragraph1": "MoreFood Expo Indonesia mempertemukan supplier global dan buyer Asia dalam satu platform sourcing yang powerful.",
+    "paragraph2": "Pameran ini mencakup sektor utama seperti mesin dan kemasan makanan, bahan baku, solusi rantai pasok, makanan kaleng dan kemasan, bumbu, roti dan kue, snack, permen, minuman, dan masih banyak lagi.",
+    "paragraph3": "Temukan teknologi inovatif, jelajahi produk berkualitas tinggi, terhubung dengan produsen terpercaya, dan buka peluang bisnis nyata. Semuanya di satu tempat.",
+    "paragraph4": "Daftar sekarang! Perluas jaringan kamu dan temukan partner yang tepat untuk bisnis kamu di MoreFood Expo 2026."
+  },
+  "whyVisit": {
+    "heading": "Kenapa Harus Datang?",
+    "subheading": "Keuntungan Datang ke MoreFood Expo",
+    "items": {
+      "0": {
+        "title": "Ketemu Partner Bisnis Baru",
+        "description": "Di sini ada 30,000+ pelaku industri, dari importir besar dan distributor sampai jaringan hotel dan restoran ternama. Networking yang langsung berbuah hasil."
+      },
+      "1": {
+        "title": "Temukan Produk Andalan Berikutnya",
+        "description": "Jelajahi produk inovatif dari 1,200+ exhibitor. Cari rasa baru, teknologi, dan tren yang bikin pelanggan kamu balik lagi."
+      },
+      "2": {
+        "title": "Masuk ke Pasar Halal",
+        "description": "Pasar Halal lagi booming dan peluangnya besar banget. Kami bantu kamu cari supplier terpercaya yang sudah bersertifikat untuk salah satu pasar terbesar di dunia."
+      },
+      "3": {
+        "title": "Tiga Expo, Satu Tiket",
+        "description": "Tiket kamu juga berlaku untuk Franchise & License Expo (FLEI) dan Cafe Brasserie Expo. Lebih banyak peluang, semuanya di satu tempat."
+      }
+    }
+  },
   "hero": {
     "countdownLabel": "Event dimulai dalam:",
     "subtitle": "Lebih dari pameran. Tempat cari ide baru buat menu dan bisnis F&B kamu.",
-    "title": "Satu Tempat, Ribuan Peluang F&B.",
+    "title": "Yang Kamu Cari buat Bisnis F&B, Ada di Sini.",
     "description": "Ketemu supplier baru, coba produk terbaru, dan dapetin insight langsung dari pelaku industri. Semua ada di sini.",
-    "ctaTicket": "Ambil Tiket",
+    "ctaTicket": "Dapatkan Tiket",
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
     "announcement": "Slot Exhibitor Masih Tersedia!",
@@ -166,7 +196,7 @@
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
-    "description": "Setiap sudut expo punya sesuatu yang beda. Mulai dari seminar, demo masak, sampai business matching -- semuanya dirancang supaya kunjungan kamu nggak cuma jalan-jalan.",
+    "description": "Setiap sudut expo punya sesuatu yang beda. Seminar, demo masak, business matching, semuanya dirancang supaya kunjungan kamu nggak cuma jalan-jalan.",
     "items": {
       "0": {
         "title": "The Global Marketplace",
@@ -178,7 +208,7 @@
       },
       "2": {
         "title": "Launch Pad: The Innovation Stage",
-        "description": "Panggung khusus buat brand yang mau launching produk baru. Dari food tech sampai rasa-rasa baru -- kamu bisa lihat duluan sebelum yang lain."
+        "description": "Panggung khusus buat brand yang mau launching produk baru. Dari food tech sampai rasa-rasa baru, kamu bisa lihat duluan sebelum yang lain."
       },
       "3": {
         "title": "The Inspiration Zone",
@@ -206,17 +236,17 @@
     "title": "<span class='text-outline'>Gabung </span><span class='text-accent'>Bareng Kami</span>",
     "description": "More Food Expo bisa sebesar ini karena dukungan banyak pihak. Mau pameran, jadi sponsor, atau liput acara? Ada tempat buat kamu.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Tunjukin produk F&B kamu ke ribuan pengunjung yang datang dengan niat beli dan cari supplier baru.",
       "cta": "Pesan Space Kamu"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Brand kamu langsung terlihat oleh decision-maker di industri F&B lewat sponsorship di event ini.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Dapetin akses eksklusif untuk meliput salah satu event F&B terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
@@ -228,7 +258,7 @@
   "visitorCta": {
     "title": "<span class='text-outline'>Stop Scrolling.</span> <span class='text-accent'>Langsung Datang.</span>",
     "description": "Dari layar nggak bisa icip-icip. Ambil tiket kamu dan rasakan sendiri gimana serunya industri F&B Indonesia.",
-    "cta": "Ambil Tiket"
+    "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
     "title": "Liputan Media & Komunitas",
@@ -301,7 +331,7 @@
       },
       "5": {
         "q": "Siapa saja yang bisa hadir?",
-        "a": "<p>Semua orang boleh datang! Pemilik cafe, pengusaha F&B, pecinta makanan, profesional industri, atau yang mau explore tren kuliner terbaru -- semuanya welcome.</p>"
+        "a": "<p>Semua orang boleh datang! Pemilik cafe, pengusaha F&B, pecinta makanan, profesional industri, atau yang mau explore tren kuliner terbaru. Semuanya welcome.</p>"
       },
       "6": {
         "q": "Brand dan produk apa saja yang dipamerkan?",
@@ -367,7 +397,7 @@
       "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Gabung bareng brand-brand terdepan."
     },
     "ticket": {
-      "title": "Ambil Tiket",
+      "title": "Tiket {appName}",
       "description": "Dapatkan tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {

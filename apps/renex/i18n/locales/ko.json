@@ -146,11 +146,11 @@
     "countdownLabel": "Renovation Expo 개막까지:",
     "title": "<span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">리노베이션</span></span>, <span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">여기서 시작하세요.</span>",
     "description": "최신 자재를 직접 보고 만져보고, 디자이너에게 바로 상담받고. 리노베이션에 필요한 모든 게 한자리에 있어요.",
-    "announcement": "전시 부스 아직 자리 있어요 — 지금 신청하세요!",
+    "announcement": "전시 부스 아직 자리 있어요. 지금 신청하세요!",
     "banners": {
       "0": {
         "subHeadline": "리노베이션 정보 한번에 수집!",
-        "content": "<p>수백 개 브랜드, 전문 디자인 상담, 최신 홈 인테리어 트렌드 — 전부 만나보세요.</p>",
+        "content": "<p>수백 개 브랜드, 전문 디자인 상담, 최신 홈 인테리어 트렌드를 전부 만나보세요.</p>",
         "cta": "티켓 받기"
       },
       "1": {
@@ -248,17 +248,17 @@
     "title": "<span class='text-outline'>함께 </span><span class='text-primary'>성장해요</span>",
     "description": "{appName}에 참여하고 새로운 비즈니스 기회를 만들어 보세요. 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓힐 수 있어요.",
     "exhibitor": {
-      "title": "전시 참가사 되기",
+      "title": "전시업체 등록",
       "description": "리노베이션·인테리어 제품이 있다면, 구매 의향이 높은 관람객에게 직접 선보이세요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "건자재·인테리어 업계 핵심 행사의 스폰서로 의사결정자에게 직접 도달하세요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "인도네시아 최대 리노베이션 전시회 독점 취재. 바로 활용 가능한 콘텐츠를 제공해요.",
       "cta": "미디어 파트너 신청"
     },
@@ -366,7 +366,7 @@
   "pages": {
     "home": {
       "title": "Renovation Expo - Megabuild Indonesia: 건축자재, 건축, 시공 및 인테리어 디자인 전시회",
-      "description": "MEGABUILD Indonesia — 건축자재, 건축, 인테리어 디자인 최신 트렌드가 모이는 인도네시아 최대 전시회."
+      "description": "MEGABUILD Indonesia. 건축자재, 건축, 인테리어 디자인 최신 트렌드가 모이는 인도네시아 최대 전시회."
     },
     "brands": {
       "title": "브랜드",

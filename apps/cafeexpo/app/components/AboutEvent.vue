@@ -13,7 +13,7 @@
           :delay="150"
           :duration="2"
           :text="`
-              <span class='text-accent'>Choose Your Flavor Adventure.</span>
+              <span class='text-accent'>${$t('about.sectionTitle')}</span>
             `"
         />
       </h2>
@@ -22,9 +22,7 @@
         class="text-primary mx-auto max-w-4xl space-y-4 text-2xl !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-3xl"
       >
         <p>
-          We've set up four distinct zones for you to explore: coffee, tea,
-          wine, and chocolate. Take a look below and see which one calls to you
-          first.
+          {{ $t('about.sectionDescription') }}
         </p>
       </div>
 
@@ -49,11 +47,9 @@
             <LogoICFAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">Indonesia Coffee Festival</h6>
+          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.coffee.title') }}</h6>
           <p class="mt-2 tracking-tight">
-            This is the lively center of the expo. Hear the sound of espresso
-            machines, watch the best baristas compete for titles, and find your
-            new favorite coffee.
+            {{ $t('about.zones.coffee.description') }}
           </p>
 
           <div
@@ -91,11 +87,9 @@
             <LogoITFAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">Indonesia Tea Festival</h6>
+          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.tea.title') }}</h6>
           <p class="mt-2 text-base font-medium tracking-tight">
-            Step into a calmer space dedicated to tea. Taste a wide variety of
-            teas, from rare leaves to new blends, and learn simple ways to make
-            a better cup at home.
+            {{ $t('about.zones.tea.description') }}
           </p>
 
           <div
@@ -133,11 +127,9 @@
             <LogoIWFAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">Indonesia Wine Festival</h6>
+          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.wine.title') }}</h6>
           <p class="mt-2 text-base font-medium tracking-tight">
-            Enjoy wine tasting without the pressure. We've created a relaxed
-            space to explore different wines from here and abroad. No
-            complicated rules, just good wine.
+            {{ $t('about.zones.wine.description') }}
           </p>
 
           <div
@@ -175,11 +167,9 @@
             <LogoCEIAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">Cokelat Expo Indonesia</h6>
+          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.chocolate.title') }}</h6>
           <p class="mt-2 text-base font-medium tracking-tight">
-            Welcome to a chocolate lover's paradise. Meet the people who make
-            the chocolate, see how it's done, and taste unique flavors you can't
-            find anywhere else.
+            {{ $t('about.zones.chocolate.description') }}
           </p>
 
           <div

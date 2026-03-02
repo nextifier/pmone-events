@@ -32,7 +32,8 @@
 .gradient-accent,
 .before\:gradient-accent::before,
 .text-gradient-accent {
-  background-image:
+  @apply bg-linear-to-r from-red-500 to-red-600 font-medium tracking-tight dark:from-red-400 dark:to-red-500;
+  /* background-image:
     linear-gradient(0deg, #dc2626, #dc2626),
     linear-gradient(
       to right,
@@ -49,7 +50,7 @@
       #757a7b 85.34%,
       #576265 91.31%
     );
-  background-blend-mode: color, overlay, normal;
+  background-blend-mode: color, overlay, normal; */
 }
 
 .text-gradient-accent {

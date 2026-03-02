@@ -179,7 +179,7 @@
       },
       "1": {
         "title": "试饮吧台",
-        "description": "咖啡、茶、红酒、巧克力——参展商的得意之作，免费试。你的下一款心头好说不定就在这里。"
+        "description": "咖啡、茶、红酒、巧克力，参展商的得意之作，免费试。你的下一款心头好说不定就在这里。"
       },
       "2": {
         "title": "动手工作坊",
@@ -203,17 +203,17 @@
     "title": "<span class='text-outline'>加入 </span><span class='text-primary'>我们的故事</span>",
     "description": "参与 {appName}，结识潜在合作伙伴，让更多人看到你的品牌。",
     "exhibitor": {
-      "title": "成为参展商",
+      "title": "参展商报名",
       "description": "把你的产品展示给上万名对咖啡和食饮充满热情的观众。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "在咖啡·F&B 行业最受关注的展会上提升品牌影响力。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "独家内容和现场取材权，让你的报道有料有看点。",
       "cta": "媒体合作"
     },
@@ -252,7 +252,7 @@
   },
   "faq": {
     "title": "常见问题",
-    "description": "门票、参展、活动详情——常见问题都在这里。",
+    "description": "门票、参展、活动详情，常见问题都在这里。",
     "emptyState": "常见问题正在整理中，请稍后查看。",
     "contactTitle": "还有问题？直接发给我们。",
     "items": {
@@ -278,7 +278,7 @@
       },
       "5": {
         "q": "谁都能来吗？",
-        "a": "<p>谁都能来。咖啡馆老板、F&B 创业者、咖啡爱好者、行业从业者，或者纯粹想逛逛——都欢迎。</p>"
+        "a": "<p>谁都能来。咖啡馆老板、F&B 创业者、咖啡爱好者、行业从业者，或者纯粹想逛逛，都欢迎。</p>"
       },
       "6": {
         "q": "现场有哪些品牌和产品？",
@@ -294,7 +294,7 @@
       },
       "9": {
         "q": "有讲座或工作坊吗？",
-        "a": "<p>有。冲煮技术、美食趋势、商业策略、行业洞察——多场讲座和工作坊等你来。完整日程在 <a href=\"/rundown\">活动日程页面</a>。</p>"
+        "a": "<p>有。冲煮技术、美食趋势、商业策略、行业洞察，多场讲座和工作坊等你来。完整日程在 <a href=\"/rundown\">活动日程页面</a>。</p>"
       },
       "10": {
         "q": "怎么成为赞助商或媒体伙伴？",
@@ -317,6 +317,18 @@
         "a": "<p>可以通过：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式在 <a href=\"/help-center\">帮助中心</a>。</p>"
       }
     }
+  },
+  "about": {
+    "sectionTitle": "好消息：你的门票<span class='text-accent'>能解锁更多。</span>",
+    "sectionDescription": "Indonesia Coffee Festival 是 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a> 的核心板块。",
+    "sectionDescription2": "也就是说，你的门票不只能逛咖啡节。你还能自由进入另外三个风味专区：",
+    "zones": {
+      "tea": { "title": "Indonesia Tea Festival", "description": "一个安静的茶主题区域。从稀有茶叶到创新拼配，各种茶都能尝到，还能学到在家泡好茶的简单方法。" },
+      "wine": { "title": "Indonesia Wine Festival", "description": "轻松品酒，没有门槛。国内外各种葡萄酒随便试，不讲规矩，只讲好喝。" },
+      "chocolate": { "title": "Cokelat Expo Indonesia", "description": "巧克力爱好者的乐园。见见做巧克力的人，看看制作过程，尝尝别处找不到的特别风味。" }
+    },
+    "accessNote": "还不够？整个博览会还和 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> 同期举办，就在 Hall 10。",
+    "accessNote2": "没错，一张票，三天时间，全部通行。相当划算。"
   },
   "pages": {
     "home": {
@@ -345,7 +357,7 @@
     },
     "ticket": {
       "title": "领取门票",
-      "description": "{appName} 入场门票——日期、地点、票种信息一目了然。"
+      "description": "{appName} 入场门票，日期、地点、票种信息一目了然。"
     },
     "gallery": {
       "title": "活动相册",

@@ -226,17 +226,17 @@
     "title": "함께해요",
     "description": "{appName}에서 애니메 팬과 컬렉터에게 브랜드를 소개하세요. 새로운 파트너와 만나고, 인지도를 높이고, 네트워크를 넓힐 수 있어요.",
     "exhibitor": {
-      "title": "참가사 되기",
+      "title": "전시업체 등록",
       "description": "애니메, 만화, 팝컬처 관련 브랜드라면 여기가 딱 맞는 무대예요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "인도네시아 최대 애니메 행사에서 팬과 업계 핵심 인물에게 직접 다가가세요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "인도네시아 최대 애니메 & 팝컬처 축제를 독점 취재할 기회를 잡으세요.",
       "cta": "미디어 파트너 신청"
     },
@@ -501,7 +501,7 @@
   "icgp": {
     "heroSubtitle": "✨ 코스프레 실력을 보여줄 때",
     "heroTitle": "Indonesia Cosplay Grand Prix (ICGP) 2026!",
-    "citiesTitle": "카운트다운 시작! 5개 도시, 하나의 정상 — 다음 ICGP 챔피언은?",
+    "citiesTitle": "카운트다운 시작! 5개 도시, 하나의 정상. 다음 ICGP 챔피언은?",
     "citiesDescription": "ICGP가 5개 도시에서 시작돼요! 어떤 도시가 있는지 확인하고, 올해 가장 뜨거운 코스프레 배틀에 참가하세요!",
     "judge": "심사위원",
     "judges": "심사위원",
@@ -557,7 +557,7 @@
         "description": "결승 우승팀이 일본 WCS에 인도네시아 대표로 출전해요."
       }
     },
-    "joinTitle": "ICGP 2026을 당신의 도시로 — 지역 주최자로 신청하세요!",
+    "joinTitle": "ICGP 2026을 당신의 도시로! 지역 주최자로 신청하세요!",
     "joinDescription": "코스프레에 열정적인 이벤트 주최자이신가요? Indonesia Anime Con이 ICGP 2026 지역 예선을 개최할 파트너를 모집 중이에요!",
     "joinDeadline": "마감: 2025년 11월 21일",
     "joinApply": "신청하기",

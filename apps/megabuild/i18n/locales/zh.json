@@ -144,9 +144,9 @@
     "Supported by": "支持方"
   },
   "hero": {
-    "countdownLabel": "距开展还有：",
-    "title": "装修要用的，这里都有。",
-    "description": "亲手摸到最新建材，跟设计师当面聊，带着十足的把握开始你的装修。",
+    "countdownLabel": "距开展：",
+    "title": "加速建筑环境转型",
+    "description": "印尼规模最大的建材、室内设计、建筑与施工展览会暨行业峰会。",
     "announcement": "参展 Booth 仍有空位",
     "banners": {
       "0": {
@@ -177,7 +177,7 @@
   },
   "mainPrograms": {
     "title": "<span class=''>核心</span> <span class='text-accent'>项目</span>",
-    "description": "展览、行业大会、深度培训、精准对接——{appName} 帮你拿到有用的行业资源和人脉。",
+    "description": "展览、行业大会、深度培训、精准对接，{appName} 帮你拿到有用的行业资源和人脉。",
     "items": {
       "0": {
         "title": "Exhibition",
@@ -213,7 +213,7 @@
       },
       "8": {
         "title": "印尼陶瓷之美展示",
-        "description": "精心策划的陶瓷展——地砖、卫浴、屋顶产品到餐具，看遍印尼本土匠心之作。"
+        "description": "精心策划的陶瓷展，地砖、卫浴、屋顶产品到餐具，看遍印尼本土匠心之作。"
       },
       "9": {
         "title": "专业人士与学生参观",
@@ -270,17 +270,17 @@
     "title": "<span class=''>加入 </span><span class='text-primary'>Megabuild</span>",
     "description": "参与 {appName}，打开新的商业机会。结识潜在合作伙伴，展示品牌，拓展人脉。",
     "exhibitor": {
-      "title": "成为参展商",
-      "description": "品牌方、企业主注意了——把你的产品展示给上万名潜在客户。",
+      "title": "参展商报名",
+      "description": "品牌方、企业主注意了，把你的产品展示给上万名潜在客户。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "赞助行业头部展会，直接触达核心决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "获取建材与设计行业的独家内容和深度报道资源。",
       "cta": "媒体合作"
     },
@@ -291,7 +291,7 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">准备装修了？</span><br /><span class=\"\">从这里开始。</span>",
-    "description": "别在网上来回搜了。建材供应商、设计灵感、专业建议——全在一个地方。",
+    "description": "别在网上来回搜了。建材供应商、设计灵感、专业建议，全在一个地方。",
     "cta": "领取门票"
   },
   "mediaCoverage": {
@@ -393,7 +393,7 @@
     },
     "programs": {
       "title": "核心项目",
-      "description": "展览、行业大会、研讨会和精准对接——了解 {appName} 的核心项目。"
+      "description": "展览、行业大会、研讨会和精准对接，了解 {appName} 的核心项目。"
     },
     "contact": {
       "title": "联系我们",

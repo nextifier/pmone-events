@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics. We're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -142,6 +142,33 @@
     "Organized by": "Organized by",
     "Supported by": "Supported by"
   },
+  "about": {
+    "sectionSubtitle": "Meet Indonesia Outing & Incentive Travel Expo (IOITE)",
+    "sectionTitle": "Your One-Stop Hub for All Things Outing!",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo is your gateway to discovering incredible outing opportunities across Indonesia. From adventure tourism and corporate retreats to family outings and extreme sports, we've gathered the best providers, destinations, and deals in one amazing three-day event. Come explore what's possible for your next adventure."
+  },
+  "whyVisit": {
+    "heading": "Why You'll Love It Here",
+    "subheading": "Everything You Need for the Perfect Outing",
+    "items": {
+      "0": {
+        "title": "Find Your Perfect Destination",
+        "description": "Browse hundreds of outing destinations, from tropical beaches and mountain retreats to thrilling adventure parks. Your next unforgettable trip starts here."
+      },
+      "1": {
+        "title": "Connect with Top Organizers",
+        "description": "Meet the best event organizers, travel agents, and corporate outing specialists. Whether it's a company retreat or a family adventure, find the right partner."
+      },
+      "2": {
+        "title": "Grab Exclusive Deals",
+        "description": "Get show-only discounts and special packages you won't find anywhere else. Save big on your next outing, team building, or incentive trip."
+      },
+      "3": {
+        "title": "Get Inspired Live",
+        "description": "Watch live demos, attend expert talks, and experience the latest in outdoor gear and travel tech. Leave with fresh ideas for your next adventure."
+      }
+    }
+  },
   "hero": {
     "countdownLabel": "Adventure begins in:",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
@@ -204,17 +231,17 @@
     "title": "<span class='text-outline'>Become a </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Part of IOITE Story</span>",
     "description": "Take your business to the next level by participating in {appName}. Meet potential partners, gain exposure, and grow your network.",
     "exhibitor": {
-      "title": "Become an Exhibitor",
+      "title": "Register as Exhibitor",
       "description": "Calling all brands and entrepreneurs! Showcase your products to a diverse and enthusiastic audience.",
       "cta": "Book Your Space"
     },
     "sponsor": {
-      "title": "Become a Sponsor",
+      "title": "Register as Sponsor",
       "description": "Connect with key decision-makers by sponsoring the industry's leading event.",
       "cta": "Sponsor us"
     },
     "mediaPartner": {
-      "title": "Become a Media Partner",
+      "title": "Register as Media Partner",
       "description": "Partner with us for exclusive access to share the industry's biggest stories.",
       "cta": "Join as Media"
     },

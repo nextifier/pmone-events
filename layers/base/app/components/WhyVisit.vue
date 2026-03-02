@@ -2,8 +2,8 @@
   <section id="why-visit">
     <div class="container">
       <div class="flex flex-col items-start text-left">
-        <span class="text-gradient-accent">Why You'll Love It Here</span>
-        <h2 class="section-title mt-2">Your Recipe for Success</h2>
+        <span class="text-gradient-accent">{{ $t('whyVisit.heading') }}</span>
+        <h2 class="section-title mt-2">{{ $t('whyVisit.subheading') }}</h2>
       </div>
 
       <div
@@ -107,26 +107,20 @@
 </template>
 
 <script setup>
-const items = [
-  {
-    iconName: "hugeicons:agreement-01",
-    title: "Meet Your Next Partner",
-    description: `Connect with 30,000+ industry players, from top importers and distributors to major hotel and restaurant chains. This is networking that gets results.`,
-  },
-  {
-    iconName: "hugeicons:ai-idea",
-    title: "Discover Your Next Bestseller",
-    description: `Explore innovative products from over 1,200 exhibitors. Find the new flavors, tech, and trends that will have your customers buzzing.`,
-  },
-  {
-    iconName: "hugeicons:halal",
-    title: "Unlock the Halal Market",
-    description: `Seamlessly tap into the booming Halal economy. We make it simple to find trusted, certified suppliers for one of the world's biggest markets.`,
-  },
-  {
-    iconName: "hugeicons:ticket-star",
-    title: "Three Expos, One Ticket",
-    description: `Your pass also gets you into the Franchise & License Expo (FLEI) and the Cafe Brasserie Expo. More opportunities, all in one place.`,
-  },
+const { t } = useI18n();
+
+const icons = [
+  "hugeicons:agreement-01",
+  "hugeicons:ai-idea",
+  "hugeicons:halal",
+  "hugeicons:ticket-star",
 ];
+
+const items = computed(() =>
+  icons.map((iconName, i) => ({
+    iconName,
+    title: t(`whyVisit.items.${i}.title`),
+    description: t(`whyVisit.items.${i}.description`),
+  })),
+);
 </script>

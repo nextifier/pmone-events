@@ -142,6 +142,16 @@
     "Organized by": "主办方",
     "Supported by": "支持方"
   },
+  "whyVisit": {
+    "heading": "为什么一定要来",
+    "subheading": "完美团建，你需要的全在这里",
+    "items": {
+      "0": { "title": "找到你的理想目的地", "description": "热带海滩、山间度假、刺激的探险乐园，上百个团建目的地等你来挑。下一趟难忘之旅，从这里开始。" },
+      "1": { "title": "对接顶级活动策划", "description": "现场汇集优秀活动策划公司、旅行社和企业团建专家。不管是公司团建还是家庭出游，直接找到靠谱的合作伙伴。" },
+      "2": { "title": "拿下现场独家优惠", "description": "展会专属折扣和特惠套餐，别处买不到。团建、拓展、奖励旅行，省一大笔。" },
+      "3": { "title": "现场体验，灵感拉满", "description": "看实操演示，听行业大咖分享，亲手试最新户外装备和旅行科技。带着满满的新点子回去策划下一场冒险。" }
+    }
+  },
   "hero": {
     "countdownLabel": "距开幕：",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
@@ -150,7 +160,7 @@
     "banners": {
       "0": {
         "subHeadline": "团建所需，这里都有。",
-        "content": "<p>免费参观印尼最大的团建活动展——数百个目的地、专业策划团队、独家优惠，一站搞定。</p>",
+        "content": "<p>免费参观印尼最大的团建活动展。数百个目的地、专业策划团队、独家优惠，一站搞定。</p>",
         "cta": "领取门票"
       },
       "1": {
@@ -176,7 +186,7 @@
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>核心</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">项目</span>",
-    "description": "展览、讲座、现场体验、精准对接——{appName} 的核心项目都在这里。",
+    "description": "展览、讲座、现场体验、精准对接，{appName} 的核心项目都在这里。",
     "items": {
       "0": {
         "title": "Outing Inspiration Stage",
@@ -204,17 +214,17 @@
     "title": "<span class='text-outline'>加入 </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITE 的故事</span>",
     "description": "参与 {appName}，认识潜在合作伙伴，提升品牌曝光，拓展商业网络。",
     "exhibitor": {
-      "title": "成为参展商",
+      "title": "参展商报名",
       "description": "做团建服务或运营目的地？把你的产品直接展示给上万名潜在客户。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "赞助行业标杆展会，直接触达企业决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "独家内容和行业深度报道，合作机会就在这里。",
       "cta": "媒体合作"
     },
@@ -253,7 +263,7 @@
   },
   "faq": {
     "title": "常见问题",
-    "description": "门票、参展、活动详情——常见问题都在这里。",
+    "description": "门票、参展、活动详情，常见问题都在这里。",
     "emptyState": "常见问题正在整理中，请稍后再来。",
     "contactTitle": "还有问题？直接发给我们。",
     "items": {
@@ -283,7 +293,7 @@
       },
       "6": {
         "q": "有哪些服务和目的地展示？",
-        "a": "<p>团建目的地、团队活动、企业活动场地、旅行套餐、户外项目、度假村、特色团体体验——种类很多。完整名单请看 <a href=\"/brands\">参展商页面</a>。</p>"
+        "a": "<p>团建目的地、团队活动、企业活动场地、旅行套餐、户外项目、度假村、特色团体体验，种类很多。完整名单请看 <a href=\"/brands\">参展商页面</a>。</p>"
       },
       "7": {
         "q": "现场能直接预订服务吗？",
@@ -326,7 +336,7 @@
   "pages": {
     "home": {
       "title": "Indonesia Outing & Incentive Travel Expo: 团建方案一站搞定",
-      "description": "企业团建、学校旅行、团体活动——在 Indonesia Outing & Incentive Travel Expo 找到你需要的方案。"
+      "description": "企业团建、学校旅行、团体活动，在 Indonesia Outing & Incentive Travel Expo 找到你需要的方案。"
     },
     "brands": {
       "title": "品牌",
@@ -392,6 +402,11 @@
       "title": "随机抽奖器",
       "description": "输入名单，转动抽奖机，公平选出获奖者。适用于各类抽奖和活动。"
     }
+  },
+  "about": {
+    "sectionSubtitle": "认识 Indonesia Outing & Incentive Travel Expo (IOITE)",
+    "sectionTitle": "团建方案，一站搞定！",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo 是你探索印尼团建资源的最佳入口。探险旅游、企业团建、亲子出游、极限运动，我们把最优质的服务商、目的地和优惠方案汇集在三天的展会里。来看看你的下一次团建有哪些新玩法。"
   },
   "pastExhibitors": {
     "title": "受<span class=\"text-primary\">知名品牌</span>信赖",

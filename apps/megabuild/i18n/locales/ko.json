@@ -144,9 +144,9 @@
     "Supported by": "후원"
   },
   "hero": {
-    "countdownLabel": "행사 시작까지:",
-    "title": "리모델링에 필요한 모든 것, 한 곳에서.",
-    "description": "최신 건자재를 직접 만져보고, 디자이너한테 바로 상담받고, 확신을 갖고 리모델링을 시작하세요.",
+    "countdownLabel": "개막까지:",
+    "title": "건축 환경의 변화를 가속하다",
+    "description": "인도네시아 최대 건자재·인테리어 디자인·건축·건설 전시회 & 컨퍼런스.",
     "announcement": "전시 부스 아직 자리 있어요",
     "banners": {
       "0": {
@@ -270,17 +270,17 @@
     "title": "<span class=''>Megabuild와 </span><span class='text-primary'>함께하세요</span>",
     "description": "{appName}에 참여해서 새로운 비즈니스 기회를 열어보세요. 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓힐 수 있어요.",
     "exhibitor": {
-      "title": "전시 참가사 되기",
+      "title": "전시업체 등록",
       "description": "브랜드와 사업가 여러분, 수천 명의 관람객에게 제품을 선보이세요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "업계 핵심 행사의 스폰서가 되어 의사결정권자들과 직접 연결되세요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "건자재 및 디자인 업계의 독점 취재 기회를 드려요.",
       "cta": "미디어 파트너 신청"
     },

@@ -142,6 +142,36 @@
     "Organized by": "主催",
     "Supported by": "後援"
   },
+  "about": {
+    "sectionTitle": "<span class='text-accent'>More</span> <span class='text-outline'> than just a</span> <span class='text-accent'> Food</span> <span class='text-outline'> Expo</span>",
+    "forgetBoring": "退屈な展示会はもう終わりです",
+    "paragraph1": "MoreFood Expo Indonesiaは、世界中のサプライヤーとアジアのバイヤーを一つのプラットフォームでつなぐ、本格的なソーシングの場です。",
+    "paragraph2": "食品機械・包装、食品原料、サプライチェーン、缶詰・パッケージ食品、調味料、ベーカリー、スナック、菓子、飲料など、幅広い分野を網羅しています。",
+    "paragraph3": "革新的なテクノロジーの発見、高品質な製品の比較、信頼できるメーカーとの出会い、そしてビジネスチャンスの開拓。すべてが一つの会場で実現します。",
+    "paragraph4": "今すぐ登録を。MoreFood Expo 2026でネットワークを広げ、あなたのビジネスに最適なパートナーを見つけてください。"
+  },
+  "whyVisit": {
+    "heading": "来場する理由",
+    "subheading": "成功へのレシピ",
+    "items": {
+      "0": {
+        "title": "次のビジネスパートナーに出会う",
+        "description": "大手輸入業者やディストリビューターからホテル・レストランチェーンまで、30,000人以上の業界関係者が集結します。成果につながるネットワーキングの場です。"
+      },
+      "1": {
+        "title": "次のヒット商品を見つける",
+        "description": "1,200以上の出展者が集まる会場で、革新的な製品を探索できます。新しいフレーバー、テクノロジー、トレンドをいち早くキャッチしてください。"
+      },
+      "2": {
+        "title": "Halal市場への扉を開く",
+        "description": "急成長するHalal経済にアクセスしませんか。世界有数の市場に対応した認証済みサプライヤーを、効率よく見つけることができます。"
+      },
+      "3": {
+        "title": "3つのExpo、1枚のチケット",
+        "description": "お持ちのチケットでFranchise & License Expo (FLEI)とCafe Brasserie Expoにも入場できます。ビジネスチャンスが一か所に集まっています。"
+      }
+    }
+  },
   "hero": {
     "countdownLabel": "開催まであと：",
     "subtitle": "展示会を超えた場所。メニュー開発やビジネス拡大のヒントがここにあります。",
@@ -226,17 +256,17 @@
     "title": "<span class='text-outline'>一緒に </span><span class='text-accent'>イベントを盛り上げませんか</span>",
     "description": "More Food Expoは多くのパートナーの協力で成り立っています。出展、スポンサー、メディア取材など、あなたに合った参加方法を見つけてください。",
     "exhibitor": {
-      "title": "出展者として参加する",
+      "title": "出展登録",
       "description": "購買意欲の高いバイヤーや業界関係者に、あなたのF&B製品を直接アピールできます。",
       "cta": "ブースを予約する"
     },
     "sponsor": {
-      "title": "スポンサーとして参加する",
+      "title": "スポンサー登録",
       "description": "F&B業界の主要イベントを通じて、決裁権を持つ来場者にブランドを届けましょう。",
-      "cta": "スポンサーになる"
+      "cta": "スポンサー登録"
     },
     "mediaPartner": {
-      "title": "メディアパートナーとして参加する",
+      "title": "メディアパートナー登録",
       "description": "インドネシア有数のF&Bイベントを独占取材できる機会です。",
       "cta": "メディアとして参加"
     },

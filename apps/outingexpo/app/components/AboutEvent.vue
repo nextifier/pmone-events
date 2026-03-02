@@ -23,22 +23,14 @@
         </div>
 
         <div class="flex flex-col items-start text-left">
-          <span class="section-subtitle"
-            >Meet Indonesia Outing & Incentive Travel Expo (IOITE)</span
-          >
+          <span class="section-subtitle">{{ $t('about.sectionSubtitle') }}</span>
 
           <h2 class="section-title mt-2">
-            Your One-Stop Hub for
-            <span class="">All Things Outing</span>!
+            {{ $t('about.sectionTitle') }}
           </h2>
 
           <p class="section-description mt-3">
-            Indonesia Outing & Incentive Travel Expo is your gateway to
-            discovering incredible outing opportunities across Indonesia. From
-            adventure tourism and corporate retreats to family outings and
-            extreme sports - we've gathered the best providers, destinations,
-            and deals in one amazing three-day event. Come explore what's
-            possible for your next adventure.
+            {{ $t('about.sectionDescription') }}
           </p>
         </div>
       </div>

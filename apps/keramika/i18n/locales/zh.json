@@ -183,11 +183,11 @@
   },
   "mainPrograms": {
     "title": "<span class=''>核心</span> <span class=''>项目</span>",
-    "description": "展览、行业大会、深度培训、精准对接——在 {appName} 拿到真正有用的行业资源和人脉。",
+    "description": "展览、行业大会、深度培训、精准对接，在 {appName} 拿到真正有用的行业资源和人脉。",
     "items": {
       "0": {
         "title": "Exhibition",
-        "description": "印尼顶级陶瓷制造商携最新产品和设计亮相。原材料、机械、技术、设备——行业必需品一站齐全。"
+        "description": "印尼顶级陶瓷制造商携最新产品和设计亮相。原材料、机械、技术、设备，行业必需品一站齐全。"
       },
       "1": {
         "title": "Opening Ceremony",
@@ -211,7 +211,7 @@
       },
       "6": {
         "title": "The Beauty of Indonesia Ceramics Installation",
-        "description": "精选印尼陶瓷的顶级设计——地砖、卫浴、屋顶产品、餐具，本土匠心的精华都在这里。"
+        "description": "精选印尼陶瓷的顶级设计，地砖、卫浴、屋顶产品、餐具，本土匠心的精华都在这里。"
       },
       "7": {
         "title": "Professional & Student Visit",
@@ -284,17 +284,17 @@
     "title": "<span class=''>加入 </span><span class='text-primary'>Keramika</span>",
     "description": "参与 {appName}，结识潜在合作伙伴，让你的品牌被更多人看到，拓展商业网络。",
     "exhibitor": {
-      "title": "成为参展商",
-      "description": "品牌方、企业主注意了——把你的产品展示给上万名观众和行业买家。",
+      "title": "参展商报名",
+      "description": "品牌方、企业主注意了，把你的产品展示给上万名观众和行业买家。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "赞助东盟陶瓷行业头部展会，直接触达核心决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "与我们合作，获取陶瓷行业大展的独家报道资源。",
       "cta": "媒体合作"
     },
@@ -407,7 +407,7 @@
     },
     "programs": {
       "title": "核心项目",
-      "description": "展览、行业大会、研讨会和精准对接——在 {appName} 获取行业资源和人脉。"
+      "description": "展览、行业大会、研讨会和精准对接，在 {appName} 获取行业资源和人脉。"
     },
     "contact": {
       "title": "联系我们",

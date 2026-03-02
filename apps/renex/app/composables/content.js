@@ -38,7 +38,7 @@ export const useContentStore = defineStore("content", () => {
       ogImage: "/og/og-book-space.jpg",
     },
     ticket: {
-      title: t("pages.ticket.title"),
+      title: t("pages.ticket.title", { appName }),
       description: t("pages.ticket.description", { appName }),
       ogImage: "/og/og-ticket.jpg",
     },

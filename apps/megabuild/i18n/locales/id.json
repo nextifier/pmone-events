@@ -144,9 +144,9 @@
     "Supported by": "Didukung oleh"
   },
   "hero": {
-    "countdownLabel": "Event dimulai dalam:",
-    "title": "Satu Tempat untuk Semua Kebutuhan Renovasi Kamu.",
-    "description": "Lihat langsung material terbaru, ngobrol sama desainer, dan rencanakan renovasi kamu dengan yakin. Semuanya ada di sini.",
+    "countdownLabel": "Pameran dibuka dalam:",
+    "title": "Pameran Bangunan dan Interior Terbesar di Indonesia.",
+    "description": "Ratusan brand bahan bangunan, arsitektur, dan interior design ada di satu tempat. Datang, bandingkan, langsung deal.",
     "announcement": "Slot Exhibitor Masih Tersedia!",
     "banners": {
       "0": {
@@ -177,7 +177,7 @@
   },
   "mainPrograms": {
     "title": "<span class=''>Program</span> <span class='text-accent'>Utama</span>",
-    "description": "Exhibition, konferensi, seminar, sampai business matching — ini program-program yang bisa kamu ikuti di {appName}.",
+    "description": "Exhibition, konferensi, seminar, sampai business matching. Ini program-program yang bisa kamu ikuti di {appName}.",
     "items": {
       "0": {
         "title": "Exhibition",
@@ -213,7 +213,7 @@
       },
       "8": {
         "title": "The Beauty of Indonesia Ceramics Installation",
-        "description": "Showcase keramik Indonesia terbaik — dari ubin lantai, sanitaryware, sampai produk atap dan tableware. Semua karya lokal ada di satu tempat."
+        "description": "Showcase keramik Indonesia terbaik, dari ubin lantai, sanitaryware, sampai produk atap dan tableware. Semua karya lokal ada di satu tempat."
       },
       "9": {
         "title": "Kunjungan Profesional & Mahasiswa",
@@ -270,17 +270,17 @@
     "title": "<span class=''>Jadilah </span><span class='text-primary'>Bagian dari Megabuild</span>",
     "description": "Ikut {appName} dan buka peluang baru. Ketemu partner potensial, tampil di depan ribuan pengunjung, dan perluas koneksi bisnis kamu.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Punya brand atau bisnis? Ini kesempatan kamu tampil di depan audiens yang tepat.",
       "cta": "Book Slot Kamu"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Sponsori event ini dan langsung terhubung dengan decision-maker di industri.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Akses eksklusif untuk liputan industri material bangunan dan desain.",
       "cta": "Gabung sebagai Media"
     },
@@ -291,7 +291,7 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">Mau renovasi rumah?</span><br /><span class=\"\">Mulai dari sini.</span>",
-    "description": "Nggak perlu ribet browsing sana-sini. Supplier, ide desain, saran dari ahli — semua ada di satu tempat.",
+    "description": "Nggak perlu ribet browsing sana-sini. Supplier, ide desain, dan saran dari ahli. Semua ada di satu tempat.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -330,7 +330,7 @@
       },
       "3": {
         "q": "Bisa refund kalau nggak jadi datang?",
-        "a": "<p>Semua penjualan tiket bersifat final — nggak bisa refund atau tukar. Detailnya ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund dan Pengembalian Tiket</a>.</p>"
+        "a": "<p>Semua penjualan tiket bersifat final dan nggak bisa refund atau tukar. Detailnya ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund dan Pengembalian Tiket</a>.</p>"
       },
       "4": {
         "q": "Apa saja yang perlu dibawa ke acara?",
@@ -338,7 +338,7 @@
       },
       "5": {
         "q": "Siapa saja yang boleh datang?",
-        "a": "<p>Siapa aja boleh. Mau pemilik rumah yang lagi renovasi, arsitek, kontraktor, developer, atau profesional desain — semuanya welcome.</p>"
+        "a": "<p>Siapa aja boleh. Mau pemilik rumah yang lagi renovasi, arsitek, kontraktor, developer, atau profesional desain, semuanya welcome.</p>"
       },
       "6": {
         "q": "Brand apa saja yang ikut pameran?",
@@ -393,7 +393,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Exhibition, konferensi, seminar, sampai business matching — program-program utama di {appName}."
+      "description": "Exhibition, konferensi, seminar, sampai business matching. Program-program utama di {appName}."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -404,7 +404,7 @@
       "description": "Pesan booth kamu di {appName}. Tampil di depan ribuan calon pelanggan dan kembangkan bisnis kamu."
     },
     "ticket": {
-      "title": "Ambil Tiket",
+      "title": "Tiket {appName}",
       "description": "Dapatkan tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {

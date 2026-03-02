@@ -183,7 +183,7 @@
   },
   "mainPrograms": {
     "title": "<span class=''>メイン</span> <span class=''>プログラム</span>",
-    "description": "展示会、ビジネスカンファレンス、セミナー、ビジネスマッチング — {appName}で業界のキーパーソンとつながれます。",
+    "description": "展示会、ビジネスカンファレンス、セミナー、ビジネスマッチング。{appName}で業界のキーパーソンとつながれます。",
     "items": {
       "0": {
         "title": "Exhibition",
@@ -211,7 +211,7 @@
       },
       "6": {
         "title": "The Beauty of Indonesia Ceramics Installation",
-        "description": "フロアタイル、衛生陶器、屋根材、テーブルウェアまで — インドネシアセラミクスの最高峰デザインを集めたキュレーション展示です。"
+        "description": "フロアタイル、衛生陶器、屋根材、テーブルウェアまで。インドネシアセラミクスの最高峰デザインを集めたキュレーション展示です。"
       },
       "7": {
         "title": "Professional & Student Visit",
@@ -284,17 +284,17 @@
     "title": "<span class=''>Keramikaに </span><span class='text-primary'>参加しませんか</span>",
     "description": "{appName}でビジネスパートナーと出会い、ブランドの認知を広げ、ネットワークを拡大しましょう。",
     "exhibitor": {
-      "title": "出展者として参加",
+      "title": "出展登録",
       "description": "ブランド・企業の皆さん、多くの来場者とバイヤーに製品をアピールできるチャンスです。",
       "cta": "ブースを予約する"
     },
     "sponsor": {
-      "title": "スポンサーとして参加",
+      "title": "スポンサー登録",
       "description": "ASEANのセラミクス業界を代表するイベントのスポンサーになりませんか。意思決定者と直接つながれます。",
-      "cta": "スポンサーになる"
+      "cta": "スポンサー登録"
     },
     "mediaPartner": {
-      "title": "メディアパートナーとして参加",
+      "title": "メディアパートナー登録",
       "description": "セラミクス業界の注目イベントを独占取材できるパートナーシップです。",
       "cta": "メディアとして参加"
     },
@@ -407,7 +407,7 @@
     },
     "programs": {
       "title": "メインプログラム",
-      "description": "展示会、ビジネスカンファレンス、セミナー、ビジネスマッチング — {appName}で業界のキーパーソンとつながりましょう。"
+      "description": "展示会、ビジネスカンファレンス、セミナー、ビジネスマッチング。{appName}で業界のキーパーソンとつながりましょう。"
     },
     "contact": {
       "title": "お問い合わせ",

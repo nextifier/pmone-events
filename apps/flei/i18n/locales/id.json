@@ -125,9 +125,9 @@
   },
   "hero": {
     "countdownLabel": "Pameran franchise terbesar dibuka dalam:",
-    "title": "Cari Franchise? Semua Ada di Sini.",
-    "description": "Ratusan brand franchise dari F&B, ritel, edukasi, dan sektor lainnya siap kamu jelajahi. Ketemu langsung, tanya-tanya, dan mulai bisnis kamu.",
-    "ctaTicket": "Ambil Tiket",
+    "title": "Cari Franchise? Temukan di Pameran Franchise Terbesar di Indonesia",
+    "description": "Ratusan brand franchise dari F&B, ritel, edukasi, dan sektor lainnya siap kamu jelajahi di Franchise Expo. Ketemu langsung, tanya-tanya, dan mulai bisnis kamu.",
+    "ctaTicket": "Dapatkan Tiket",
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
     "edition": "Edisi ke-{n}",
@@ -152,7 +152,7 @@
   },
   "about": {
     "title": "<span class='text-accent'>Ratusan Peluang Bisnis</span> dalam Satu Gedung.",
-    "description": "FLEI mengumpulkan brand franchise dan lisensi terbaik di satu tempat. Gak perlu riset sana-sini — datang, bandingkan langsung, dan pilih bisnis yang paling cocok buat kamu."
+    "description": "FLEI mengumpulkan brand franchise dan lisensi terbaik di satu tempat. Gak perlu riset sana-sini, tinggal datang, bandingkan langsung, dan pilih bisnis yang paling cocok buat kamu."
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
@@ -168,7 +168,7 @@
       },
       "2": {
         "title": "Business Matching",
-        "description": "Jadwalkan meeting dengan exhibitor atau investor sebelum datang ke venue. Gak perlu buang waktu keliling tanpa arah — langsung ketemu orang yang tepat."
+        "description": "Jadwalkan meeting dengan exhibitor atau investor sebelum datang ke venue. Gak perlu buang waktu keliling tanpa arah, langsung ketemu orang yang tepat."
       },
       "3": {
         "title": "Practical Masterclasses",
@@ -190,7 +190,7 @@
     "items": {
       "0": {
         "title": "Franchise",
-        "description": "Brand franchise yang sudah terbukti jalan — dari F&B sampai ritel. Lengkap dengan sistem support dan training untuk mitra baru."
+        "description": "Brand franchise yang sudah terbukti jalan, dari F&B sampai ritel. Lengkap dengan sistem support dan training untuk mitra baru."
       },
       "1": {
         "title": "Business Opportunity",
@@ -214,17 +214,17 @@
     "title": "<span class='text-outline'>Gabung </span><span class='text-primary'>Bareng Kami</span>",
     "description": "Ikut {appName} untuk ketemu calon partner, tampil di depan ribuan pengunjung, dan perluas jaringan bisnis kamu.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Pamerkan produk kamu ke ribuan pengunjung yang datang khusus cari peluang bisnis.",
       "cta": "Book Space Kamu"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Brand kamu tampil di depan ribuan pengusaha dan decision maker industri franchise.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Dapatkan akses liputan eksklusif dari pameran franchise terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
@@ -283,7 +283,7 @@
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
-    "description": "Jawaban untuk pertanyaan seputar FLEI — tiket, exhibitor, program, dan lainnya.",
+    "description": "Jawaban untuk pertanyaan seputar FLEI, mulai dari tiket, exhibitor, program, dan lainnya.",
     "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Cek lagi nanti ya.",
     "contactTitle": "Punya pertanyaan? Langsung kirim ke kami!",
     "items": {
@@ -309,7 +309,7 @@
       },
       "5": {
         "q": "Siapa aja yang boleh datang?",
-        "a": "<p>Siapa saja boleh hadir. Calon pengusaha, pemilik bisnis, investor, atau yang lagi cari peluang usaha — semuanya welcome.</p>"
+        "a": "<p>Siapa saja boleh hadir. Calon pengusaha, pemilik bisnis, investor, atau yang lagi cari peluang usaha, semuanya welcome.</p>"
       },
       "6": {
         "q": "Brand apa aja yang ikut pameran?",
@@ -375,8 +375,8 @@
       "description": "Amankan booth kamu di {appName}. Tampil di depan ribuan pengunjung yang siap jadi pelanggan baru kamu."
     },
     "ticket": {
-      "title": "Ambil Tiket",
-      "description": "Tiket masuk {appName} — info tanggal, venue, dan pilihan tiket ada di sini."
+      "title": "Tiket {appName}",
+      "description": "Tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {
       "title": "Galeri Acara",

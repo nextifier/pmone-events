@@ -192,7 +192,7 @@
       },
       "3": {
         "title": "Practical Masterclasses",
-        "description": "数字营销、运营优化、品牌管理——跟每天做这些事的人学实战技能。名额有限。"
+        "description": "数字营销、运营优化、品牌管理，跟每天做这些事的人学实战技能。名额有限。"
       },
       "4": {
         "title": "Ecopreneur Challenge",
@@ -234,17 +234,17 @@
     "title": "<span class='text-outline'>加入 </span><span class='text-primary'>我们的故事</span>",
     "description": "参与 {appName}，结识潜在合作伙伴，让更多人认识你的品牌。",
     "exhibitor": {
-      "title": "成为参展商",
+      "title": "参展商报名",
       "description": "把你的产品展示给上万名专门来找商机的观众。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "在加盟行业的核心活动上展示品牌，直接触达决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "印尼最大加盟展的独家报道权，等你来拿。",
       "cta": "媒体合作"
     },

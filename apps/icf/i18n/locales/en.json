@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics. We're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -142,6 +142,27 @@
     "Organized by": "Organized by",
     "Supported by": "Supported by"
   },
+  "about": {
+    "sectionTitle": "Good News. Your Ticket <span class='text-accent'>Unlocks More..</span>",
+    "sectionDescription": "The Indonesia Coffee Festival is the heart of a much bigger event: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a>.",
+    "sectionDescription2": "This means your pass doesn't just get you into the best coffee party of the year. It also gives you full access to three other flavor zones:",
+    "zones": {
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "Step into a calmer space dedicated to tea. Taste a wide variety of teas, from rare leaves to new blends, and learn simple ways to make a better cup at home."
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "Enjoy wine tasting without the pressure. We've created a relaxed space to explore different wines from here and abroad. No complicated rules, just good wine."
+      },
+      "chocolate": {
+        "title": "Cokelat Expo Indonesia",
+        "description": "Welcome to a chocolate lover's paradise. Meet the people who make the chocolate, see how it's done, and taste unique flavors you can't find anywhere else."
+      }
+    },
+    "accessNote": "And if that's not enough, the entire expo is happening alongside the <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> in Hall 10.",
+    "accessNote2": "So yes, one ticket gets you into all of it for three days. It's a pretty great deal."
+  },
   "hero": {
     "countdownLabel": "The brewing begins in:",
     "title": "Find Your Next Favorite Coffee.",
@@ -203,17 +224,17 @@
     "title": "Become a <span class='text-primary'>Part of our Story</span>",
     "description": "Take your business to the next level by participating in {appName}. Meet potential partners, gain exposure, and grow your network.",
     "exhibitor": {
-      "title": "Become an Exhibitor",
+      "title": "Register as Exhibitor",
       "description": "Calling all brands and entrepreneurs! Showcase your products to a diverse and enthusiastic audience.",
       "cta": "Book Your Space"
     },
     "sponsor": {
-      "title": "Become a Sponsor",
+      "title": "Register as Sponsor",
       "description": "Connect with key decision-makers by sponsoring the industry's leading event.",
       "cta": "Sponsor us"
     },
     "mediaPartner": {
-      "title": "Become a Media Partner",
+      "title": "Register as Media Partner",
       "description": "Partner with us for exclusive access to share the industry's biggest stories.",
       "cta": "Join as Media"
     },

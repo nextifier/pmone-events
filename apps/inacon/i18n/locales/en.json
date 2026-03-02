@@ -48,7 +48,7 @@
     "showingPostsFor": "Showing {total} posts for",
     "showingPosts": "Showing {total} posts",
     "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics—we're sure you'll find something awesome!",
+    "noResultsHint": "Maybe try a different keyword, or explore other topics. We're sure you'll find something awesome!",
     "noPostsYet": "No posts yet",
     "comeBackLater": "Please come back later"
   },
@@ -226,17 +226,17 @@
     "title": "Become a Part of our Story",
     "description": "Take your business to the next level by participating in {appName}. Meet potential partners, gain exposure, and grow your network.",
     "exhibitor": {
-      "title": "Become an Exhibitor",
+      "title": "Register as Exhibitor",
       "description": "Calling all brands and entrepreneurs! Showcase your products to a diverse and enthusiastic audience.",
       "cta": "Book Your Space"
     },
     "sponsor": {
-      "title": "Become a Sponsor",
+      "title": "Register as Sponsor",
       "description": "Connect with key decision-makers by sponsoring the industry's leading event.",
       "cta": "Sponsor us"
     },
     "mediaPartner": {
-      "title": "Become a Media Partner",
+      "title": "Register as Media Partner",
       "description": "Partner with us for exclusive access to share the industry's biggest stories.",
       "cta": "Join as Media"
     },
@@ -501,7 +501,7 @@
   "icgp": {
     "heroSubtitle": "✨ Unleash Your Cosplay Creativity at",
     "heroTitle": "Indonesia Cosplay Grand Prix (ICGP) 2026!",
-    "citiesTitle": "Countdown Begins! 5 Cities, 1 Goal—Who Will Be the Next ICGP Champion?",
+    "citiesTitle": "Countdown Begins! 5 Cities, 1 Goal. Who Will Be the Next ICGP Champion?",
     "citiesDescription": "ICGP is kicking off in 5 cities! Check out the list and get ready to join the most exciting cosplay journey of the year!",
     "judge": "Judge",
     "judges": "Judges",
@@ -557,7 +557,7 @@
         "description": "The team that wins the ICGP Grand Final will represent Indonesia at the World Cosplay Summit (WCS) in Japan."
       }
     },
-    "joinTitle": "Bring ICGP 2026 to Your City—Sign Up as a Regional Organizer!",
+    "joinTitle": "Bring ICGP 2026 to Your City. Sign Up as a Regional Organizer!",
     "joinDescription": "Are you an Event Organizer passionate about cosplay and ready to take part in the biggest national competition? Indonesia Anime Con is now accepting proposals from Event Organizers to conduct the ICGP 2026 Regional Preliminary Selection!",
     "joinDeadline": "Deadline: November 21, 2025",
     "joinApply": "Apply",

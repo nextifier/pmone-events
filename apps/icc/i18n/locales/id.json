@@ -155,7 +155,7 @@
   "hero": {
     "countdownLabel": "ICC 2026 tinggal",
     "subHeadline": "Venue Baru. Hype Tetap.",
-    "title": "SATU DEKADE POP CULTURE TERBESAR",
+    "title": "10 TAHUN JADI RUMAH POP CULTURE INDONESIA.",
     "description": "Sepuluh tahun jadi rumah buat komik, toys, film, game, dan cosplay. Oktober ini, ICC rayain satu dekade. Dan kamu harus ada.",
     "announcement": "Slot booth exhibitor masih tersedia",
     "banners": {
@@ -216,17 +216,17 @@
     "title": "Gabung Bareng Kami",
     "description": "Mau brand kamu dilihat ribuan fans pop culture? {appName} tempatnya. Ketemu calon partner, perluas network.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Punya brand atau produk keren? Tunjukin langsung ke audiens yang tepat.",
       "cta": "Book Space"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Raih audiens pop culture se-Indonesia lewat sponsorship di event terbesar ini.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Liputan eksklusif dari event pop culture terbesar. Kita collab.",
       "cta": "Gabung sebagai Media"
     },
@@ -238,7 +238,7 @@
   "visitorCta": {
     "title": "Pop Culture Crossover Terbesar Tahun Ini",
     "description": "{appName} balik lagi, lebih gede dari sebelumnya. Guest legendaris, panggung epic, dan memories yang nggak tergantikan. Jangan sampe kelewatan.",
-    "cta": "Ambil Tiket"
+    "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
     "title": "Kata Media",
@@ -390,7 +390,7 @@
       "description": "Amankan booth kamu di {appName}. Pamerkan brand kamu ke ribuan fans pop culture."
     },
     "ticket": {
-      "title": "Beli Tiket",
+      "title": "Tiket {appName}",
       "description": "Beli tiket {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {

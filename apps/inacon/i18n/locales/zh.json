@@ -226,17 +226,17 @@
     "title": "加入我们",
     "description": "在 {appName} 把你的品牌带到动漫粉丝和收藏家面前。结识合作伙伴，提升曝光度，拓展人脉。",
     "exhibitor": {
-      "title": "成为参展商",
+      "title": "参展商报名",
       "description": "做动漫、漫画、流行文化相关产品？这里是最合适的展示舞台。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "在印尼最大的动漫活动上直接触达粉丝和行业决策者。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "独家报道印尼最大动漫 & 流行文化盛会的机会来了。",
       "cta": "媒体合作"
     },
@@ -267,7 +267,7 @@
   },
   "brandList": {
     "title": "品牌",
-    "description": "看看 {appName} 有哪些品牌参展——动漫周边、手办、服饰、流行文化好物应有尽有。"
+    "description": "看看 {appName} 有哪些品牌参展，动漫周边、手办、服饰、流行文化好物应有尽有。"
   },
   "bookSpace": {
     "title": "参展商报名",
@@ -385,7 +385,7 @@
     },
     "brands": {
       "title": "品牌",
-      "description": "逛逛 {appName} 的参展品牌——动漫周边、手办、游戏装备、流行文化好物最新阵容。"
+      "description": "逛逛 {appName} 的参展品牌，动漫周边、手办、游戏装备、流行文化好物最新阵容。"
     },
     "rundown": {
       "title": "活动日程",
@@ -557,7 +557,7 @@
         "description": "总决赛冠军队代表印尼出征日本 WCS。"
       }
     },
-    "joinTitle": "把 ICGP 2026 带到你的城市——报名成为地区主办方！",
+    "joinTitle": "把 ICGP 2026 带到你的城市！报名成为地区主办方！",
     "joinDescription": "你是热爱 Cosplay 的活动主办方吗？Indonesia Anime Con 正在征集 ICGP 2026 地区预选赛的合作主办方！",
     "joinDeadline": "截止日期：2025 年 11 月 21 日",
     "joinApply": "申请",

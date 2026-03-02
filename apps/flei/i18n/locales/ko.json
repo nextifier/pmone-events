@@ -234,17 +234,17 @@
     "title": "<span class='text-outline'>함께 </span><span class='text-primary'>만들어가요</span>",
     "description": "{appName}에 참여해서 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓혀보세요.",
     "exhibitor": {
-      "title": "전시 참가사 되기",
+      "title": "전시업체 등록",
       "description": "사업 기회를 찾으러 온 수천 명의 관람객에게 브랜드를 직접 보여줄 수 있어요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "프랜차이즈 업계의 핵심 인물들이 모이는 자리에서 브랜드를 알리세요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "인도네시아 최대 프랜차이즈 박람회를 독점 취재할 기회예요.",
       "cta": "미디어 파트너 신청"
     },

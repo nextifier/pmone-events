@@ -226,17 +226,17 @@
     "title": "Gabung Bareng Kami",
     "description": "Perkenalkan brand kamu ke ribuan fans anime dan pop culture di {appName}. Temui calon partner, tambah exposure, dan perluas jaringan bisnis.",
     "exhibitor": {
-      "title": "Jadi Eksibitor",
+      "title": "Daftar Eksibitor",
       "description": "Punya produk keren buat komunitas anime, manga, atau pop culture? Ini panggung yang tepat.",
       "cta": "Pesan Booth"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Brand kamu bisa tampil langsung di depan ribuan fans dan decision-maker industri pop culture.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Dapatkan akses eksklusif untuk liputan dari event pop culture dan anime terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
@@ -267,7 +267,7 @@
   },
   "brandList": {
     "title": "Brand",
-    "description": "Lihat brand-brand yang hadir di {appName} — mulai dari merchandise anime, figure, apparel, sampai gadget pop culture."
+    "description": "Lihat brand-brand yang hadir di {appName}, mulai dari merchandise anime, figure, apparel, sampai gadget pop culture."
   },
   "bookSpace": {
     "title": "Registrasi Tenant",
@@ -309,7 +309,7 @@
       },
       "7": {
         "q": "Siapa aja yang boleh datang?",
-        "a": "<p>Semua orang! Hardcore otaku, casual anime fans, kolektor, artist, atau yang baru kenal dunia anime dan pop culture — semua pasti nemu yang seru.</p>"
+        "a": "<p>Semua orang! Hardcore otaku, casual anime fans, kolektor, artist, atau yang baru kenal dunia anime dan pop culture. Semua pasti nemu yang seru.</p>"
       },
       "8": {
         "q": "Apa aja yang ada di event?",
@@ -385,7 +385,7 @@
     },
     "brands": {
       "title": "Brands",
-      "description": "Jelajahi brand-brand yang hadir di {appName} — dari merchandise anime, figure, gaming gear, sampai produk pop culture terbaru."
+      "description": "Jelajahi brand-brand yang hadir di {appName}, dari merchandise anime, figure, gaming gear, sampai produk pop culture terbaru."
     },
     "rundown": {
       "title": "Rundown",
@@ -404,7 +404,7 @@
       "description": "Pesan booth kamu di {appName} dan tampilkan brand ke ribuan fans anime dan kolektor."
     },
     "ticket": {
-      "title": "Beli Tiket",
+      "title": "Tiket {appName}",
       "description": "Dapatkan tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {
@@ -492,7 +492,7 @@
   },
   "portfolioReview": {
     "title": "Portfolio Review",
-    "description": "Buat kamu yang seniman, content creator, atau pecinta seni — ini kesempatan buat dapat review portofolio langsung dari profesional industri yang ngerti dan peduli sama bakat kreatif.",
+    "description": "Buat kamu yang seniman, content creator, atau pecinta seni. Ini kesempatan buat dapat review portofolio langsung dari profesional industri yang ngerti dan peduli sama bakat kreatif.",
     "openFor": "Terbuka untuk:",
     "notes": "Catatan:",
     "noteVenue": "Portfolio Review diadakan di {appName}, {eventDate} di {eventLocation}.",
@@ -501,7 +501,7 @@
   "icgp": {
     "heroSubtitle": "✨ Tunjukkan Skill Cosplay Kamu di",
     "heroTitle": "Indonesia Cosplay Grand Prix (ICGP) 2026!",
-    "citiesTitle": "Countdown Dimulai! 5 Kota, 1 Misi — Siapa Juara ICGP Selanjutnya?",
+    "citiesTitle": "Countdown Dimulai! 5 Kota, 1 Misi. Siapa Juara ICGP Selanjutnya?",
     "citiesDescription": "ICGP hadir di 5 kota! Cek daftarnya dan siap-siap join perjalanan cosplay paling seru tahun ini!",
     "judge": "Juri",
     "judges": "Juri",
@@ -557,7 +557,7 @@
         "description": "Tim juara Grand Final mewakili Indonesia di World Cosplay Summit (WCS) di Jepang."
       }
     },
-    "joinTitle": "Bawa ICGP 2026 ke Kotamu — Daftar Jadi Regional Organizer!",
+    "joinTitle": "Bawa ICGP 2026 ke Kotamu. Daftar Jadi Regional Organizer!",
     "joinDescription": "Kamu event organizer yang passionate soal cosplay? Indonesia Anime Con buka kesempatan buat EO yang mau adain Seleksi Awal ICGP 2026 di kota masing-masing!",
     "joinDeadline": "Batas waktu: 21 November 2025",
     "joinApply": "Daftar",

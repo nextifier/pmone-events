@@ -203,17 +203,17 @@
     "title": "<span class='text-outline'>加入 </span><span class='text-primary'>我们的故事</span>",
     "description": "参与 {appName}，认识潜在合作伙伴，让更多人知道你的品牌。",
     "exhibitor": {
-      "title": "成为参展商",
+      "title": "参展商报名",
       "description": "把你的产品展示给上万名来场观众。让他们亲手摸、亲口尝。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "在印尼巧克力·F&B 行业的标杆展会上，让品牌被关键决策者看到。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体合作伙伴",
+      "title": "媒体合作报名",
       "description": "独家报道资格，带你的读者走进行业一线。",
       "cta": "媒体合作"
     },
@@ -317,6 +317,18 @@
         "a": "<p>你可以通过以下方式联系：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点击开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多信息请访问 <a href=\"/help-center\">帮助中心</a>。</p>"
       }
     }
+  },
+  "about": {
+    "sectionTitle": "好消息：你的门票<span class='text-accent'>能解锁更多。</span>",
+    "sectionDescription": "来看巧克力的同时，门票还能帮你打开更多大门。Cokelat Expo 是 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a> 的一部分，咖啡、茶、葡萄酒的专题区同样精彩。",
+    "sectionDescription2": "也就是说，你的门票不只是巧克力展。你还能自由进入另外三个风味专区：",
+    "zones": {
+      "coffee": { "title": "Indonesia Coffee Festival", "description": "整个博览会最热闹的区域。听着咖啡机的声响，看顶级咖啡师同台竞技，顺便找到你的下一杯心头好。" },
+      "tea": { "title": "Indonesia Tea Festival", "description": "一个安静的茶主题区域。从稀有茶叶到创新拼配，各种茶都能尝到，还能学到在家泡好茶的简单方法。" },
+      "wine": { "title": "Indonesia Wine Festival", "description": "轻松品酒，没有门槛。国内外各种葡萄酒随便试，不讲规矩，只讲好喝。" }
+    },
+    "accessNote": "还不够？整个博览会还和 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> 同期举办，就在 Hall 10。",
+    "accessNote2": "没错，一张票，三天时间，全部通行。相当划算。"
   },
   "pages": {
     "home": {

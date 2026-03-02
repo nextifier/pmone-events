@@ -203,17 +203,17 @@
     "title": "<span class='text-outline'>함께 </span><span class='text-primary'>만들어가요</span>",
     "description": "{appName}에 참여해서 새로운 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓혀보세요.",
     "exhibitor": {
-      "title": "전시 참가사 되기",
+      "title": "전시업체 등록",
       "description": "커피와 식음료에 관심 있는 수천 명의 관람객에게 제품을 직접 선보일 수 있어요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "커피·F&B 업계 핵심 행사의 스폰서로 브랜드 인지도를 높여보세요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "페스티벌 독점 취재권으로 업계 관심 콘텐츠를 발신할 수 있어요.",
       "cta": "미디어 파트너 신청"
     },
@@ -318,6 +318,18 @@
       }
     }
   },
+  "about": {
+    "sectionTitle": "반가운 소식. 티켓 한 장으로 <span class='text-accent'>더 많이 즐길 수 있어요.</span>",
+    "sectionDescription": "Indonesia Coffee Festival은 더 큰 행사인 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a>의 일부예요.",
+    "sectionDescription2": "그래서 이 티켓은 커피 축제만을 위한 게 아니에요. 세 가지 플레이버 존에도 자유롭게 입장할 수 있어요:",
+    "zones": {
+      "tea": { "title": "Indonesia Tea Festival", "description": "차를 위한 여유로운 공간이에요. 희귀한 찻잎부터 새로운 블렌드까지 다양한 차를 시음하고, 집에서 맛있게 우리는 팁도 배워보세요." },
+      "wine": { "title": "Indonesia Wine Festival", "description": "부담 없이 와인을 즐길 수 있는 공간이에요. 국내외 다양한 와인을 편하게 시음해 보세요. 복잡한 규칙 없이, 좋은 와인만 있으면 돼요." },
+      "chocolate": { "title": "Cokelat Expo Indonesia", "description": "초콜릿 덕후라면 여기가 천국이에요. 초콜릿을 만드는 사람들을 직접 만나고, 제조 과정을 보고, 다른 곳에서 맛볼 수 없는 특별한 맛을 경험해 보세요." }
+    },
+    "accessNote": "게다가 이 엑스포 전체가 Hall 10에서 열리는 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a>와 동시 개최돼요.",
+    "accessNote2": "네, 맞아요. 티켓 한 장으로 3일간 전부 즐길 수 있어요. 꽤 괜찮은 조건이죠."
+  },
   "pages": {
     "home": {
       "title": "Indonesia Coffee Festival (ICF)",
@@ -345,7 +357,7 @@
     },
     "ticket": {
       "title": "티켓 받기",
-      "description": "{appName} 입장 티켓 — 일정, 장소, 티켓 옵션을 한눈에 확인할 수 있어요."
+      "description": "{appName} 입장 티켓. 일정, 장소, 티켓 옵션을 한눈에 확인할 수 있어요."
     },
     "gallery": {
       "title": "갤러리",

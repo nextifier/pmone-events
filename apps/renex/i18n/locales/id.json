@@ -146,11 +146,11 @@
     "countdownLabel": "Renovation Expo dimulai dalam:",
     "title": "Mulai <span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">Renovasi</span></span> Rumahmu, <span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">Tanpa Ragu.</span>",
     "description": "Lihat langsung ratusan pilihan material, konsultasi sama desainer, dan rencanakan renovasi rumahmu di satu tempat.",
-    "announcement": "Booth masih tersedia — daftar sekarang!",
+    "announcement": "Booth masih tersedia. Daftar sekarang!",
     "banners": {
       "0": {
         "subHeadline": "Inspirasi Tanpa Batas!",
-        "content": "<p>Ratusan brand, konsultasi desain, tren home improvement terbaru — semuanya bisa kamu akses di sini.</p>",
+        "content": "<p>Ratusan brand, konsultasi desain, dan tren home improvement terbaru. Semuanya bisa kamu akses di sini.</p>",
         "cta": "Dapatkan Tiket"
       },
       "1": {
@@ -226,7 +226,7 @@
   "factsAndFigures": {
     "subtitle": "Fakta & Angka",
     "title": "21 Edisi, Ribuan Bisnis Bertumbuh",
-    "description": "Data dari 21 edisi bicara sendiri — Megabuild Indonesia konsisten jadi tempat ribuan bisnis ketemu peluang baru.",
+    "description": "Data dari 21 edisi bicara sendiri. Megabuild Indonesia konsisten jadi tempat ribuan bisnis ketemu peluang baru.",
     "stats": {
       "visitors": {
         "label": "Total Pengunjung",
@@ -248,17 +248,17 @@
     "title": "<span class='text-outline'>Gabung </span><span class='text-primary'>Bareng Kami</span>",
     "description": "Ikut {appName} dan buka peluang bisnis baru. Ketemu partner potensial, tampil di depan ribuan pengunjung, dan perluas jaringan.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Punya produk renovasi atau interior? Pamerkan langsung ke ribuan pengunjung yang datang siap beli.",
       "cta": "Pesan Booth"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Sponsor event ini dan terhubung langsung dengan decision-maker di industri bangunan dan interior.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Liputan eksklusif dari pameran renovasi terbesar. Konten siap tayang untuk media kamu.",
       "cta": "Gabung sebagai Media"
     },
@@ -269,7 +269,7 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">Mau renovasi?</span><br /><span class=\"text-outline\">Semua yang kamu butuhkan ada di sini.</span>",
-    "description": "Nggak perlu ribet cari satu-satu. Supplier, ide desain, konsultasi langsung dari ahlinya — semua di satu tempat.",
+    "description": "Nggak perlu ribet cari satu-satu. Supplier, ide desain, dan konsultasi langsung dari ahlinya. Semua di satu tempat.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -293,7 +293,7 @@
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
-    "description": "Pesan booth di {appName} dan tampilkan produkmu ke ribuan pengunjung. Slot terbatas — hubungi tim kami sekarang."
+    "description": "Pesan booth di {appName} dan tampilkan produkmu ke ribuan pengunjung. Slot terbatas, hubungi tim kami sekarang."
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
@@ -315,7 +315,7 @@
       },
       "3": {
         "q": "Bisa refund kalau nggak jadi datang?",
-        "a": "<p>Semua pembelian tiket bersifat final — tidak bisa di-refund atau ditukar. Detail lengkap ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
+        "a": "<p>Semua pembelian tiket bersifat final dan tidak bisa di-refund atau ditukar. Detail lengkap ada di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
       },
       "4": {
         "q": "Perlu bawa apa ke acara ini?",
@@ -323,11 +323,11 @@
       },
       "5": {
         "q": "Siapa aja yang boleh datang?",
-        "a": "<p>Siapa aja boleh! Mau pemilik rumah, arsitek, desainer interior, kontraktor, atau sekadar cari inspirasi renovasi — semua welcome.</p>"
+        "a": "<p>Siapa aja boleh! Mau pemilik rumah, arsitek, desainer interior, kontraktor, atau sekadar cari inspirasi renovasi, semua welcome.</p>"
       },
       "6": {
         "q": "Brand apa aja yang ikut pameran?",
-        "a": "<p>Ada banyak — mulai dari material bangunan, desain interior, perabot rumah, sampai jasa renovasi. Lihat daftar lengkapnya di halaman <a href=\"/brands\">Brands</a>. Terus di-update sampai hari H.</p>"
+        "a": "<p>Ada banyak, mulai dari material bangunan, desain interior, perabot rumah, sampai jasa renovasi. Lihat daftar lengkapnya di halaman <a href=\"/brands\">Brands</a>. Terus di-update sampai hari H.</p>"
       },
       "7": {
         "q": "Gimana cara ikut pameran sebagai exhibitor?",
@@ -378,7 +378,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Program utama di {appName} — pameran, seminar, workshop, dan konsultasi desain. Semua bisa kamu ikuti."
+      "description": "Program utama di {appName}. Pameran, seminar, workshop, dan konsultasi desain. Semua bisa kamu ikuti."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -389,7 +389,7 @@
       "description": "Pesan booth di {appName} dan tampilkan produkmu ke ribuan pengunjung."
     },
     "ticket": {
-      "title": "Ambil Tiket",
+      "title": "Tiket {appName}",
       "description": "Tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {

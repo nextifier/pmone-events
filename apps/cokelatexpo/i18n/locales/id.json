@@ -125,7 +125,7 @@
   "hero": {
     "countdownLabel": "Cokelat Expo dimulai dalam:",
     "title": "Ada Cerita di Balik Setiap Gigitan.",
-    "description": "Setiap cokelat punya kisah — dari kebun kakao, dari tangan pembuat, sampai ke lidah kamu. Datang, cicipi, dan temukan sendiri bedanya.",
+    "description": "Setiap cokelat punya kisah. Dari kebun kakao, dari tangan pembuat, sampai ke lidah kamu. Datang, cicipi, dan temukan sendiri bedanya.",
     "announcement": "Slot exhibitor masih tersedia",
     "banners": {
       "0": {
@@ -159,7 +159,7 @@
       },
       "1": {
         "title": "Tasting Bars",
-        "description": "Cicipi ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Temukan rasa favorit baru — gratis."
+        "description": "Cicipi ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Temukan rasa favorit baru, gratis."
       },
       "2": {
         "title": "Hands-On Workshops",
@@ -183,17 +183,17 @@
     "title": "<span class='text-outline'>Jadilah </span><span class='text-primary'>Bagian dari Cerita Kami</span>",
     "description": "Ikut {appName} dan perluas jangkauan brand kamu. Ketemu calon partner, dapatkan eksposur, dan bangun koneksi baru.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Tunjukkan produk kamu ke ribuan pengunjung yang antusias dan siap beli.",
       "cta": "Book Slot Kamu"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Terhubung langsung dengan decision-maker di event industri F&B.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Akses liputan eksklusif dari pameran cokelat terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
@@ -318,6 +318,18 @@
       }
     }
   },
+  "about": {
+    "sectionTitle": "Kabar Baik. Tiket Kamu <span class='text-accent'>Berlaku Lebih Luas..</span>",
+    "sectionDescription": "Selain cokelat, tiket kamu juga membuka akses ke banyak hal lainnya. Cokelat Expo adalah bagian dari <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a> yang juga menghadirkan festival kopi, teh, dan wine.",
+    "sectionDescription2": "Jadi tiket kamu bukan cuma buat pameran cokelat terbesar tahun ini. Kamu juga bisa bebas eksplor tiga zona rasa lainnya:",
+    "zones": {
+      "coffee": { "title": "Indonesia Coffee Festival", "description": "Pusat keramaian expo ini. Dengarkan bunyi mesin espresso, saksikan barista terbaik berlaga, dan temukan kopi favorit baru kamu." },
+      "tea": { "title": "Indonesia Tea Festival", "description": "Masuk ke area yang lebih tenang, khusus untuk teh. Cicipi berbagai jenis teh, dari daun langka sampai racikan baru, dan pelajari cara seduh yang gampang dipraktikkan di rumah." },
+      "wine": { "title": "Indonesia Wine Festival", "description": "Wine tasting tanpa harus tegang. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Nggak ada aturan ribet, yang ada cuma wine enak." }
+    },
+    "accessNote": "Belum cukup? Seluruh expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> di Hall 10.",
+    "accessNote2": "Jadi iya, satu tiket buat semuanya selama tiga hari. Lumayan banget, kan."
+  },
   "pages": {
     "home": {
       "title": "Cokelat Expo Indonesia · Pameran Cokelat & Kakao Terbesar",
@@ -344,7 +356,7 @@
       "description": "Amankan booth kamu di {appName} dan tampilkan brand ke ribuan calon pelanggan."
     },
     "ticket": {
-      "title": "Ambil Tiket",
+      "title": "Tiket {appName}",
       "description": "Tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {

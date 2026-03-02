@@ -142,6 +142,16 @@
     "Organized by": "主催",
     "Supported by": "後援"
   },
+  "whyVisit": {
+    "heading": "来場をおすすめする理由",
+    "subheading": "理想のアウティングに必要なものが全部揃います",
+    "items": {
+      "0": { "title": "理想の行き先を見つけよう", "description": "トロピカルビーチ、山のリトリート、スリル満点のアドベンチャーパークまで、数百のアウティング先が集結。忘れられない旅のきっかけが、ここにあります。" },
+      "1": { "title": "トップクラスの企画会社と直接話せる", "description": "実績あるイベント企画会社、旅行代理店、法人向けアウティングの専門家が勢揃い。社員旅行でもファミリー向けでも、ぴったりのパートナーが見つかります。" },
+      "2": { "title": "会場限定の特別プランをゲット", "description": "ここでしか手に入らない割引やパッケージが満載。次のアウティングやチームビルディング、インセンティブ旅行をお得に計画できます。" },
+      "3": { "title": "会場で最新トレンドを体感", "description": "ライブデモ、専門家のトーク、最新のアウトドアギアやトラベルテックを実際に見て触れて。次の冒険のアイデアがきっと見つかります。" }
+    }
+  },
   "hero": {
     "countdownLabel": "開催まであと：",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
@@ -204,17 +214,17 @@
     "title": "<span class='text-outline'>一緒に </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITEを盛り上げませんか</span>",
     "description": "{appName}に参加して、パートナーとの出会い、ブランドの認知拡大、ネットワークの構築を実現しましょう。",
     "exhibitor": {
-      "title": "出展者として参加する",
+      "title": "出展登録",
       "description": "アウティングサービスや目的地をお持ちですか？数千人の来場者に直接アピールできます。",
       "cta": "ブースを予約する"
     },
     "sponsor": {
-      "title": "スポンサーとして参加する",
+      "title": "スポンサー登録",
       "description": "スポンサーとして企業の意思決定者に直接リーチできます。",
-      "cta": "スポンサーになる"
+      "cta": "スポンサー登録"
     },
     "mediaPartner": {
-      "title": "メディアパートナーとして参加する",
+      "title": "メディアパートナー登録",
       "description": "アウティング業界の注目コンテンツを独占的に取材・配信できます。",
       "cta": "メディアとして参加"
     },
@@ -392,6 +402,11 @@
       "title": "抽選ジェネレーター",
       "description": "名前を入力してスロットを回すだけ。コンテストやプレゼント企画にお使いいただけます。"
     }
+  },
+  "about": {
+    "sectionSubtitle": "Indonesia Outing & Incentive Travel Expo (IOITE) とは",
+    "sectionTitle": "アウティングのすべてが揃う場所",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expoは、インドネシア各地の魅力的なアウティング体験を一度に探せる展示会です。アドベンチャーツーリズムや企業研修、ファミリーアウティング、エクストリームスポーツまで、厳選されたサービスや目的地、お得なプランが3日間に集結します。次の冒険のヒントを見つけに来てください。"
   },
   "pastExhibitors": {
     "title": "<span class=\"text-primary\">有名ブランド</span>も出展しています",

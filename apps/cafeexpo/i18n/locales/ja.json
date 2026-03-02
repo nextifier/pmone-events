@@ -171,7 +171,27 @@
   },
   "about": {
     "title": "<span class='text-accent'>おいしいもの</span>、ぜんぶここに。",
-    "description": "こだわりコーヒー、プレミアム紅茶、クラフトチョコレート、ワイン。CBEはF&Bの世界をひとつの会場に集めました。カフェオーナーの方も、これから始める方も、ただおいしいものが好きな方も。味覚とチャンスが出会う3日間です。"
+    "description": "こだわりコーヒー、プレミアム紅茶、クラフトチョコレート、ワイン。CBEはF&Bの世界をひとつの会場に集めました。カフェオーナーの方も、これから始める方も、ただおいしいものが好きな方も。味覚とチャンスが出会う3日間です。",
+    "sectionTitle": "気になるゾーンから始めよう。",
+    "sectionDescription": "コーヒー、紅茶、ワイン、チョコレート。4つのゾーンを用意しました。まずは気になるところからチェックしてみてください。",
+    "zones": {
+      "coffee": {
+        "title": "Indonesia Coffee Festival",
+        "description": "エスプレッソマシンの音、トップバリスタの真剣勝負。会場で一番活気があるゾーンです。あなたの新しいお気に入りが見つかるかもしれません。"
+      },
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "少し落ち着いた空間で、お茶の世界をじっくり楽しめます。希少な茶葉から新しいブレンドまで。自宅でおいしく淹れるコツも学べます。"
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "気負わずワインを楽しめる空間です。国内外のワインをリラックスして試飲できます。難しいルールは抜き。おいしいワインだけ。"
+      },
+      "chocolate": {
+        "title": "Cokelat Expo Indonesia",
+        "description": "チョコレート好きにはたまらない空間です。作り手に会って、製造工程を見て、ここでしか味わえないフレーバーを体験してください。"
+      }
+    }
   },
   "mainPrograms": {
     "title": "<span>メインプログラム</span>",
@@ -207,17 +227,17 @@
     "title": "<span class='text-outline'>一緒に </span><span class='text-primary'>イベントを作りませんか</span>",
     "description": "{appName}に参加して、パートナーとの出会い、ブランド露出の拡大、ネットワーク構築を実現しましょう。",
     "exhibitor": {
-      "title": "出展者として参加",
+      "title": "出展登録",
       "description": "熱心な来場者にあなたの商品を直接アピールできます。",
       "cta": "ブースを予約"
     },
     "sponsor": {
-      "title": "スポンサーとして参加",
+      "title": "スポンサー登録",
       "description": "F&B業界の意思決定者に直接リーチできるスポンサーシップです。",
-      "cta": "スポンサーになる"
+      "cta": "スポンサー登録"
     },
     "mediaPartner": {
-      "title": "メディアパートナーとして参加",
+      "title": "メディアパートナー登録",
       "description": "F&B業界の最前線を独占取材できるパートナーシップです。",
       "cta": "メディアとして参加"
     },

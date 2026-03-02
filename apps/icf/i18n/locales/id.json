@@ -159,11 +159,11 @@
       },
       "1": {
         "title": "Tasting Bar",
-        "description": "Cobain ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Temukan rasa favorit baru kamu — semuanya gratis."
+        "description": "Cobain ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Temukan rasa favorit baru kamu. Semuanya gratis."
       },
       "2": {
         "title": "Workshop Hands-On",
-        "description": "Belajar langsung dari expert. Wine tasting, teknik brew, flavor pairing — semuanya bisa kamu coba sendiri. Kursi terbatas."
+        "description": "Belajar langsung dari expert. Wine tasting, teknik brew, dan flavor pairing, semuanya bisa kamu coba sendiri. Kursi terbatas."
       },
       "3": {
         "title": "Bean-to-Bar Demo",
@@ -175,7 +175,7 @@
       },
       "5": {
         "title": "Live Music & DJ",
-        "description": "Band dan DJ menemani kamu sepanjang hari. Ngopi sambil dengerin musik — suasana festival yang pas."
+        "description": "Band dan DJ menemani kamu sepanjang hari. Ngopi sambil dengerin musik, suasana festival yang pas."
       }
     }
   },
@@ -183,17 +183,17 @@
     "title": "<span class='text-outline'>Jadilah </span><span class='text-primary'>Bagian dari Cerita Kami</span>",
     "description": "Ikut {appName} dan buka peluang baru. Ketemu calon partner, perluas network, dan tunjukkan brand kamu ke audiens yang tepat.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
+      "title": "Daftar Exhibitor",
       "description": "Pamerkan produk kamu ke ribuan pengunjung yang antusias. Kesempatan bagus buat naikin awareness brand kamu.",
       "cta": "Book Slot Kamu"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Jangkau decision-maker di industri kopi dan F&B lewat event yang sudah punya nama.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Akses eksklusif ke behind-the-scenes dan liputan langsung dari festival kopi terbesar.",
       "cta": "Gabung sebagai Media"
     },
@@ -204,7 +204,7 @@
   },
   "visitorCta": {
     "title": "Festival kopi <span class=\"text-accent\">terbesar</span> tahun ini, <span class=\"text-accent\">gratis.</span>",
-    "description": "Tasting, workshop, live music — semuanya bisa kamu nikmatin tanpa bayar. Yang perlu kamu lakukan cuma daftar tiket.",
+    "description": "Tasting, workshop, dan live music. Semuanya bisa kamu nikmatin tanpa bayar. Yang perlu kamu lakukan cuma daftar tiket.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -270,7 +270,7 @@
       },
       "3": {
         "q": "Bisa refund kalau nggak jadi datang?",
-        "a": "<p>Semua pembelian tiket bersifat final — tidak ada refund atau penukaran. Detail lengkapnya bisa kamu baca di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
+        "a": "<p>Semua pembelian tiket bersifat final dan tidak ada refund atau penukaran. Detail lengkapnya bisa kamu baca di <a href=\"/ticket-refund-and-return-policy\">Kebijakan Refund Tiket</a>.</p>"
       },
       "4": {
         "q": "Apa yang perlu dibawa ke acara?",
@@ -278,7 +278,7 @@
       },
       "5": {
         "q": "Siapa aja yang boleh datang?",
-        "a": "<p>Siapa aja! Pemilik kafe, pengusaha F&B, pecinta kopi, profesional industri makanan, atau yang sekadar mau eksplor — semuanya welcome.</p>"
+        "a": "<p>Siapa aja! Pemilik kafe, pengusaha F&B, pecinta kopi, profesional industri makanan, atau yang sekadar mau eksplor. Semuanya welcome.</p>"
       },
       "6": {
         "q": "Brand dan produk apa aja yang dipamerkan?",
@@ -294,7 +294,7 @@
       },
       "9": {
         "q": "Ada seminar atau workshop?",
-        "a": "<p>Ada! Topiknya macam-macam — teknik brewing, tren makanan, strategi bisnis, sampai insight industri. Cek jadwal lengkapnya di halaman <a href=\"/rundown\">Rundown</a>.</p>"
+        "a": "<p>Ada! Topiknya macam-macam, dari teknik brewing, tren makanan, strategi bisnis, sampai insight industri. Cek jadwal lengkapnya di halaman <a href=\"/rundown\">Rundown</a>.</p>"
       },
       "10": {
         "q": "Gimana cara jadi sponsor atau media partner?",
@@ -318,10 +318,22 @@
       }
     }
   },
+  "about": {
+    "sectionTitle": "Kabar Baik. Tiket Kamu <span class='text-accent'>Berlaku Lebih Luas..</span>",
+    "sectionDescription": "Indonesia Coffee Festival adalah bagian dari event yang lebih besar: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a>.",
+    "sectionDescription2": "Jadi tiket kamu bukan cuma buat masuk festival kopi terbesar tahun ini. Kamu juga bisa bebas eksplor tiga zona rasa lainnya:",
+    "zones": {
+      "tea": { "title": "Indonesia Tea Festival", "description": "Masuk ke area yang lebih tenang, khusus untuk teh. Cicipi berbagai jenis teh, dari daun langka sampai racikan baru, dan pelajari cara seduh yang gampang dipraktikkan di rumah." },
+      "wine": { "title": "Indonesia Wine Festival", "description": "Wine tasting tanpa harus tegang. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Nggak ada aturan ribet, yang ada cuma wine enak." },
+      "chocolate": { "title": "Cokelat Expo Indonesia", "description": "Surganya pecinta cokelat. Ketemu langsung sama pembuat cokelatnya, lihat prosesnya dari dekat, dan cicipi rasa-rasa unik yang nggak bakal kamu temuin di tempat lain." }
+    },
+    "accessNote": "Belum cukup? Seluruh expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> di Hall 10.",
+    "accessNote2": "Jadi iya, satu tiket buat semuanya selama tiga hari. Lumayan banget, kan."
+  },
   "pages": {
     "home": {
       "title": "Indonesia Coffee Festival (ICF)",
-      "description": "Hadir di Indonesia Coffee Festival — tasting, workshop, kompetisi barista, dan ratusan brand kopi dalam satu tempat."
+      "description": "Hadir di Indonesia Coffee Festival. Tasting, workshop, kompetisi barista, dan ratusan brand kopi dalam satu tempat."
     },
     "brands": {
       "title": "Brand",
@@ -333,7 +345,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Program utama di {appName} — kompetisi, workshop, dan tasting yang sayang untuk dilewatkan."
+      "description": "Program utama di {appName}. Kompetisi, workshop, dan tasting yang sayang untuk dilewatkan."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -344,8 +356,8 @@
       "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan pengunjung."
     },
     "ticket": {
-      "title": "Ambil Tiket",
-      "description": "Tiket masuk {appName} — info tanggal, venue, dan pilihan tiket ada di sini."
+      "title": "Tiket {appName}",
+      "description": "Tiket masuk {appName}. Info tanggal, venue, dan pilihan tiket ada di sini."
     },
     "gallery": {
       "title": "Galeri Acara",

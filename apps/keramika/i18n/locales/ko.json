@@ -183,7 +183,7 @@
   },
   "mainPrograms": {
     "title": "<span class=''>주요</span> <span class=''>프로그램</span>",
-    "description": "전시, 비즈니스 컨퍼런스, 세미나, 비즈니스 매칭까지 — {appName}에서 업계 핵심 인사들과 만나보세요.",
+    "description": "전시, 비즈니스 컨퍼런스, 세미나, 비즈니스 매칭까지. {appName}에서 업계 핵심 인사들과 만나보세요.",
     "items": {
       "0": {
         "title": "Exhibition",
@@ -211,7 +211,7 @@
       },
       "6": {
         "title": "The Beauty of Indonesia Ceramics Installation",
-        "description": "바닥 타일, 위생도기, 지붕재, 테이블웨어까지 — 인도네시아 세라믹 최고 디자인을 모은 큐레이션 전시예요."
+        "description": "바닥 타일, 위생도기, 지붕재, 테이블웨어까지. 인도네시아 세라믹 최고 디자인을 모은 큐레이션 전시예요."
       },
       "7": {
         "title": "Professional & Student Visit",
@@ -284,17 +284,17 @@
     "title": "<span class=''>Keramika와 </span><span class='text-primary'>함께하세요</span>",
     "description": "{appName}에 참여해서 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓혀보세요.",
     "exhibitor": {
-      "title": "전시 참가사 되기",
+      "title": "전시업체 등록",
       "description": "브랜드와 기업 여러분, 수천 명의 관람객과 업계 바이어에게 제품을 선보이세요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "ASEAN 세라믹 업계 대표 행사의 스폰서가 되어 핵심 의사결정권자들과 연결되세요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "세라믹 업계 최대 행사를 독점 취재할 수 있는 파트너십 기회예요.",
       "cta": "미디어 파트너 신청"
     },
@@ -407,7 +407,7 @@
     },
     "programs": {
       "title": "주요 프로그램",
-      "description": "전시, 비즈니스 컨퍼런스, 세미나, 비즈니스 매칭까지 — {appName}에서 업계 핵심 인사들과 만나보세요."
+      "description": "전시, 비즈니스 컨퍼런스, 세미나, 비즈니스 매칭까지. {appName}에서 업계 핵심 인사들과 만나보세요."
     },
     "contact": {
       "title": "문의하기",

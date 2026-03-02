@@ -8,7 +8,7 @@
     <div class="container">
       <div class="flex flex-col items-center text-center">
         <h2
-          class="text-[clamp(3rem,20vw,10rem)] !leading-[1] font-extrabold tracking-tighter text-balance"
+          class="text-primary text-[clamp(3rem,20vw,10rem)] !leading-[1] font-extrabold tracking-tighter text-balance"
         >
           <SplitText
             splitType="words"
@@ -16,12 +16,7 @@
             :delay="150"
             :duration="2"
             class="pb-4 sm:pb-8"
-            :text="`
-            <span class='text-accent'>More</span>
-            <span class='text-outline'> than just a</span>
-            <span class='text-accent'> Food</span>
-            <span class='text-outline'> Expo</span>
-            `"
+            :text="$t('about.sectionTitle')"
           />
         </h2>
       </div>
@@ -45,9 +40,9 @@
 
         <div class="flex flex-col items-start gap-y-4">
           <span
-            class="inline-flex items-end gap-2 text-xl font-semibold tracking-tighter"
+            class="text-foreground inline-flex items-end gap-2 text-xl font-semibold tracking-tighter"
           >
-            <span>Forget boring trade shows</span>
+            <span>{{ $t("about.forgetBoring") }}</span>
             <NuxtImg
               src="/img/kv/monkey-sleep.png"
               alt=""
@@ -63,23 +58,16 @@
             class="text-primary space-y-4 text-xl !leading-[1.3] font-semibold tracking-tighter sm:text-2xl"
           >
             <p>
-              MoreFood Expo Indonesia brings together global suppliers and Asian
-              buyers in one powerful sourcing platform.
+              {{ $t("about.paragraph1") }}
             </p>
             <p>
-              The exhibition features key sectors including Food Machinery &
-              Packaging, Food Ingredients, Supply Chain Solutions, Canned &
-              Packaged Food, Condiments, Bakery, Snacks, Sweets, Beverages, and
-              more.
+              {{ $t("about.paragraph2") }}
             </p>
             <p>
-              Discover innovative technologies, explore high-quality products,
-              connect with trusted manufacturers, and unlock real business
-              opportunities, all in one venue.
+              {{ $t("about.paragraph3") }}
             </p>
             <p>
-              Register today! Expand your network and source the right partners
-              for your business at MoreFood Expo 2026.
+              {{ $t("about.paragraph4") }}
             </p>
           </div>
         </div>

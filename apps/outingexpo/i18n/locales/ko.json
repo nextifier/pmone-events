@@ -142,6 +142,16 @@
     "Organized by": "주최",
     "Supported by": "후원"
   },
+  "whyVisit": {
+    "heading": "꼭 와야 하는 이유",
+    "subheading": "완벽한 아웃팅을 위한 모든 것",
+    "items": {
+      "0": { "title": "딱 맞는 여행지를 찾아보세요", "description": "열대 해변, 산속 리트릿, 짜릿한 어드벤처 파크까지 수백 개의 아웃팅 여행지가 한자리에. 잊지 못할 다음 여행, 여기서 시작해요." },
+      "1": { "title": "최고의 기획사를 직접 만나세요", "description": "검증된 이벤트 기획사, 여행사, 기업 아웃팅 전문가가 총출동해요. 회사 워크숍이든 가족 여행이든, 딱 맞는 파트너를 찾을 수 있어요." },
+      "2": { "title": "현장 한정 특가를 잡으세요", "description": "박람회에서만 만날 수 있는 할인과 특별 패키지가 가득해요. 다음 아웃팅, 팀빌딩, 인센티브 여행 비용을 확 줄여보세요." },
+      "3": { "title": "현장에서 영감을 받아가세요", "description": "라이브 데모, 전문가 토크, 최신 아웃도어 장비와 여행 기술 체험까지. 다음 모험을 위한 새로운 아이디어를 가득 안고 돌아가세요." }
+    }
+  },
   "hero": {
     "countdownLabel": "개최까지:",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
@@ -204,17 +214,17 @@
     "title": "<span class='text-outline'>함께 </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITE를 만들어가요</span>",
     "description": "{appName}에 참여해서 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓혀보세요.",
     "exhibitor": {
-      "title": "전시 참가사 되기",
+      "title": "전시업체 등록",
       "description": "아웃팅 서비스나 여행지를 운영하고 계신가요? 수천 명의 관람객에게 직접 소개할 수 있어요.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
-      "title": "스폰서 되기",
+      "title": "스폰서 등록",
       "description": "스폰서로 참여하면 기업 의사결정권자에게 직접 다가갈 수 있어요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
-      "title": "미디어 파트너 되기",
+      "title": "미디어 파트너 등록",
       "description": "아웃팅 업계 주요 이벤트를 독점 취재할 기회예요.",
       "cta": "미디어 파트너 신청"
     },
@@ -392,6 +402,11 @@
       "title": "랜덤 추첨기",
       "description": "이름을 입력하고 슬롯을 돌려서 당첨자를 뽑아보세요. 콘테스트나 경품 이벤트에 딱이에요!"
     }
+  },
+  "about": {
+    "sectionSubtitle": "Indonesia Outing & Incentive Travel Expo (IOITE)를 소개해요",
+    "sectionTitle": "아웃팅에 필요한 모든 것, 한자리에서!",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo는 인도네시아 전역의 다양한 아웃팅을 한 번에 탐색할 수 있는 박람회예요. 어드벤처 여행, 기업 워크숍, 가족 나들이, 익스트림 스포츠까지 최고의 서비스와 여행지, 특별 혜택을 3일간 만나볼 수 있어요. 다음 모험을 위한 영감을 찾으러 오세요."
   },
   "pastExhibitors": {
     "title": "<span class=\"text-primary\">유명 브랜드</span>도 함께했어요",

@@ -203,17 +203,17 @@
     "title": "<span class='text-outline'>一緒に </span><span class='text-primary'>このイベントを作りませんか</span>",
     "description": "{appName}に参加して、新しいビジネスチャンスを広げましょう。パートナーとの出会い、ブランドの露出拡大に最適です。",
     "exhibitor": {
-      "title": "出展者として参加",
+      "title": "出展登録",
       "description": "あなたの商品を、コーヒーと食に関心の高い来場者に直接アピールできます。",
       "cta": "ブースを予約する"
     },
     "sponsor": {
-      "title": "スポンサーとして参加",
+      "title": "スポンサー登録",
       "description": "コーヒー・F&B業界のキーパーソンが集まるイベントで、ブランドの存在感を高めませんか。",
-      "cta": "スポンサーになる"
+      "cta": "スポンサー登録"
     },
     "mediaPartner": {
-      "title": "メディアパートナーとして参加",
+      "title": "メディアパートナー登録",
       "description": "フェスティバルの独占取材権で、業界の注目コンテンツを発信できます。",
       "cta": "メディアとして参加"
     },
@@ -317,6 +317,18 @@
         "a": "<p>以下の方法でご連絡いただけます：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">こちらからチャット</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>その他のお問い合わせ方法は<a href=\"/help-center\">ヘルプセンター</a>をご覧ください。</p>"
       }
     }
+  },
+  "about": {
+    "sectionTitle": "うれしいお知らせ。チケット1枚で、<span class='text-accent'>もっと楽しめます。</span>",
+    "sectionDescription": "Indonesia Coffee Festivalは、大規模イベント <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a> の一部として開催されます。",
+    "sectionDescription2": "つまり、チケットはコーヒーフェスだけでなく、他の3つのフレーバーゾーンにもそのまま入場できます。",
+    "zones": {
+      "tea": { "title": "Indonesia Tea Festival", "description": "お茶の世界をゆっくり楽しめるエリアです。希少な茶葉から新しいブレンドまで、さまざまなお茶を試飲して、自宅でおいしく淹れるコツも学べます。" },
+      "wine": { "title": "Indonesia Wine Festival", "description": "気軽にワインテイスティングを楽しめるスペースです。国内外のワインを、堅苦しいルールなしで自由に試してみてください。" },
+      "chocolate": { "title": "Cokelat Expo Indonesia", "description": "チョコレート好きにはたまらないエリア。作り手に直接会って、製造工程を見て、ここでしか味わえない特別なチョコレートを楽しんでください。" }
+    },
+    "accessNote": "さらに、このExpo全体が <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a>（Hall 10）と同時開催です。",
+    "accessNote2": "チケット1枚で、3日間すべてに入場できます。かなりお得です。"
   },
   "pages": {
     "home": {

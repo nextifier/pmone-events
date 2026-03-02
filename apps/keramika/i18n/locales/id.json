@@ -183,7 +183,7 @@
   },
   "mainPrograms": {
     "title": "<span class=''>Program</span> <span class=''>Utama</span>",
-    "description": "Pameran, konferensi, seminar, business matching — semua ada di {appName}. Dapetin insight dan kenalan langsung sama para pemain industri.",
+    "description": "Pameran, konferensi, seminar, dan business matching. Semua ada di {appName}. Dapetin insight dan kenalan langsung sama para pemain industri.",
     "items": {
       "0": {
         "title": "Exhibition",
@@ -211,7 +211,7 @@
       },
       "6": {
         "title": "The Beauty of Indonesia Ceramics Installation",
-        "description": "Pameran kurasi yang tampilkan desain terbaik keramik Indonesia — dari ubin lantai, sanitaryware, produk atap, sampai peralatan makan. Semua karya lokal terbaik di satu tempat."
+        "description": "Pameran kurasi yang tampilkan desain terbaik keramik Indonesia, dari ubin lantai, sanitaryware, produk atap, sampai peralatan makan. Semua karya lokal terbaik di satu tempat."
       },
       "7": {
         "title": "Professional & Student Visit",
@@ -223,7 +223,7 @@
       },
       "9": {
         "title": "Ceramics Artistic Showcase",
-        "description": "Seniman keramik demo teknik bikin gerabah — tradisional dan modern — pakai tanah liat lokal. Live demo yang bikin pengunjung pengen ikut coba."
+        "description": "Seniman keramik demo teknik bikin gerabah, tradisional dan modern, pakai tanah liat lokal. Live demo yang bikin pengunjung pengen ikut coba."
       },
       "10": {
         "title": "Designer Workshops",
@@ -231,7 +231,7 @@
       },
       "11": {
         "title": "Building Contractors & Property Developers Members Gathering",
-        "description": "Acara bareng REI dan AKI — ajang networking dan sharing antar anggota selama pameran berlangsung."
+        "description": "Acara bareng REI dan AKI. Ajang networking dan sharing antar anggota selama pameran berlangsung."
       },
       "12": {
         "title": "Seminars, Forum, Talkshows",
@@ -282,19 +282,19 @@
   },
   "partnerships": {
     "title": "<span class=''>Jadilah </span><span class='text-primary'>Bagian dari Keramika</span>",
-    "description": "Ikut {appName} — ketemu calon partner, perluas network, dan buat brand kamu makin dikenal di industri keramik.",
+    "description": "Ikut {appName} dan ketemu calon partner, perluas network, dan buat brand kamu makin dikenal di industri keramik.",
     "exhibitor": {
-      "title": "Jadi Exhibitor",
-      "description": "Buat semua brand dan pengusaha — ini kesempatan pamerkan produk kamu ke ribuan pengunjung dan buyer.",
+      "title": "Daftar Exhibitor",
+      "description": "Buat semua brand dan pengusaha. Ini kesempatan pamerkan produk kamu ke ribuan pengunjung dan buyer.",
       "cta": "Book Space Kamu"
     },
     "sponsor": {
-      "title": "Jadi Sponsor",
+      "title": "Daftar Sponsor",
       "description": "Sponsori pameran keramik terbesar di ASEAN. Langsung terhubung dengan para decision-maker industri.",
-      "cta": "Jadi Sponsor"
+      "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
-      "title": "Jadi Media Partner",
+      "title": "Daftar Media Partner",
       "description": "Akses eksklusif buat liputan dan cerita dari pameran keramik terbesar di kawasan.",
       "cta": "Gabung sebagai Media"
     },
@@ -305,7 +305,7 @@
   },
   "visitorCta": {
     "title": "<span class=\"text-primary\">Mau renovasi rumah?</span><br /><span class=\"\">Panduan lengkap kamu ada di sini.</span>",
-    "description": "Nggak perlu lagi browsing tanpa ujung. Supplier keramik, inspirasi desain, saran langsung dari ahlinya — semua ada di satu tempat.",
+    "description": "Nggak perlu lagi browsing tanpa ujung. Supplier keramik, inspirasi desain, dan saran langsung dari ahlinya. Semua ada di satu tempat.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -418,8 +418,8 @@
       "description": "Amankan booth kamu di {appName} dan tampilkan brand kamu ke ribuan pengunjung dan buyer industri."
     },
     "ticket": {
-      "title": "Ambil Tiket",
-      "description": "Dapatkan tiket masuk {appName}. Temukan semua info yang kamu butuhkan — tanggal, venue, dan pilihan tiket."
+      "title": "Tiket {appName}",
+      "description": "Dapatkan tiket masuk {appName}. Temukan semua info yang kamu butuhkan: tanggal, venue, dan pilihan tiket."
     },
     "gallery": {
       "title": "Galeri Acara",

@@ -145,7 +145,7 @@
   "hero": {
     "countdownLabel": "CBE 开幕倒计时：",
     "title": "好吃的，都在这。",
-    "description": "咖啡、茶、葡萄酒、巧克力——数百个品牌等你来尝。门票一张，3 天畅享。",
+    "description": "咖啡、茶、葡萄酒、巧克力，数百个品牌等你来尝。门票一张，3 天畅享。",
     "ctaTicket": "领取门票",
     "ctaExhibit": "参展报名",
     "playRecap": "看回顾视频",
@@ -171,7 +171,27 @@
   },
   "about": {
     "title": "<span class='text-accent'>好吃的</span>，都在这。",
-    "description": "精品咖啡、好茶、手工巧克力、葡萄酒——CBE 把 F&B 的好东西汇聚到一起。开咖啡馆的、准备创业的、纯粹爱吃的，这里是味道和机会碰撞的地方。"
+    "description": "精品咖啡、好茶、手工巧克力、葡萄酒，CBE 把 F&B 的好东西汇聚到一起。开咖啡馆的、准备创业的、纯粹爱吃的，这里是味道和机会碰撞的地方。",
+    "sectionTitle": "选一个区，先逛起来。",
+    "sectionDescription": "咖啡、茶、葡萄酒、巧克力，四个主题区等你来。看看下面的介绍，挑个最感兴趣的先走一圈。",
+    "zones": {
+      "coffee": {
+        "title": "Indonesia Coffee Festival",
+        "description": "整个展会最热闹的地方。咖啡机轰鸣、顶尖咖啡师现场比拼，说不定你的新宠咖啡就在这等着你。"
+      },
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "一个安静的茶空间。从稀有茶叶到新式拼配，慢慢品。还能学到在家泡出好茶的小窍门。"
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "轻松的品酒空间，没有繁琐的规矩。国产的、进口的，随意试。好喝就行。"
+      },
+      "chocolate": {
+        "title": "Cokelat Expo Indonesia",
+        "description": "巧克力爱好者的天堂。跟制作人面对面聊、看工艺流程、尝别处找不到的独特风味。"
+      }
+    }
   },
   "mainPrograms": {
     "title": "<span>核心项目</span>",
@@ -207,17 +227,17 @@
     "title": "<span class='text-outline'>加入 </span><span class='text-primary'>我们</span>",
     "description": "参与 {appName}，找到合作伙伴，让更多人认识你的品牌。",
     "exhibitor": {
-      "title": "成为参展商",
+      "title": "参展商报名",
       "description": "把你的产品摆到上万名观众面前，直接展示、直接对话。",
       "cta": "预订展位"
     },
     "sponsor": {
-      "title": "成为赞助商",
+      "title": "赞助商报名",
       "description": "在 F&B 行业最重要的场合里，让你的品牌被关键人物看到。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
-      "title": "成为媒体伙伴",
+      "title": "媒体合作报名",
       "description": "独家报道 F&B 行业一线内容的合作机会。",
       "cta": "媒体合作"
     },
