@@ -124,10 +124,10 @@
   },
   "about": {
     "sectionTitle": "<span class='text-accent'>Lebih</span> <span class='text-outline'> dari Sekadar</span> <span class='text-accent'> Food</span> <span class='text-outline'> Expo</span>",
-    "forgetBoring": "Lupakan pameran yang begitu-begitu saja",
+    "forgetBoring": "Lupakan food expo yang begitu-begitu saja",
     "paragraph1": "MoreFood Expo Indonesia mempertemukan supplier global dan buyer Asia dalam satu platform sourcing yang powerful.",
-    "paragraph2": "Pameran ini mencakup sektor utama seperti mesin dan kemasan makanan, bahan baku, solusi rantai pasok, makanan kaleng dan kemasan, bumbu, roti dan kue, snack, permen, minuman, dan masih banyak lagi.",
-    "paragraph3": "Temukan teknologi inovatif, jelajahi produk berkualitas tinggi, terhubung dengan produsen terpercaya, dan buka peluang bisnis nyata. Semuanya di satu tempat.",
+    "paragraph2": "Food & Beverage Expo ini mencakup sektor utama di industri F&B: mesin dan kemasan makanan, bahan baku, solusi rantai pasok, makanan kaleng dan kemasan, bumbu, roti dan kue, snack, permen, minuman, dan masih banyak lagi.",
+    "paragraph3": "Temukan teknologi inovatif, jelajahi produk berkualitas tinggi, terhubung dengan produsen terpercaya, dan buka peluang bisnis nyata di food exhibition terlengkap se-Indonesia.",
     "paragraph4": "Daftar sekarang! Perluas jaringan kamu dan temukan partner yang tepat untuk bisnis kamu di MoreFood Expo 2026."
   },
   "whyVisit": {
@@ -136,15 +136,15 @@
     "items": {
       "0": {
         "title": "Ketemu Partner Bisnis Baru",
-        "description": "Di sini ada 30,000+ pelaku industri, dari importir besar dan distributor sampai jaringan hotel dan restoran ternama. Networking yang langsung berbuah hasil."
+        "description": "Di F&B Expo ini, ada 30,000+ pelaku industri F&B, dari importir besar dan distributor sampai jaringan hotel dan restoran ternama. Networking yang langsung berbuah hasil."
       },
       "1": {
         "title": "Temukan Produk Andalan Berikutnya",
-        "description": "Jelajahi produk inovatif dari 1,200+ exhibitor. Cari rasa baru, teknologi, dan tren yang membuat pelanggan kamu kembali lagi."
+        "description": "Jelajahi produk inovatif dari 1,200+ exhibitor di food expo dan beverage expo terlengkap ini. Temukan rasa baru, teknologi, dan tren yang bikin pelanggan kamu kembali lagi."
       },
       "2": {
         "title": "Masuk ke Pasar Halal",
-        "description": "Pasar Halal sedang berkembang pesat dan peluangnya sangat besar. Kami bantu kamu cari supplier terpercaya yang sudah bersertifikat untuk salah satu pasar terbesar di dunia."
+        "description": "Pasar Halal sedang berkembang pesat dan peluangnya sangat besar. Di food exhibition ini, kami bantu kamu cari supplier terpercaya yang sudah bersertifikat untuk salah satu pasar terbesar di dunia."
       },
       "3": {
         "title": "Tiga Expo, Satu Tiket",
@@ -154,9 +154,9 @@
   },
   "hero": {
     "countdownLabel": "Event dimulai dalam:",
-    "subtitle": "Lebih dari pameran. Tempat cari ide baru buat menu dan bisnis F&B kamu.",
-    "title": "Yang Kamu Cari buat Bisnis F&B, Ada di Sini.",
-    "description": "Ketemu supplier baru, coba produk terbaru, dan dapatkan insight langsung dari pelaku industri. Semua ada di sini.",
+    "subtitle": "Lebih dari sekadar food expo. Tempat cari ide baru buat menu dan bisnis F&B kamu.",
+    "title": "Yang Kamu Cari buat Bisnis F&B, Ada di MoreFood Expo.",
+    "description": "Ketemu supplier baru, coba produk terbaru, dan dapatkan insight langsung dari pelaku industri. Semua ada di Food & Beverage Expo terbesar di Indonesia.",
     "ctaTicket": "Dapatkan Tiket",
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
@@ -164,7 +164,7 @@
     "banners": {
       "0": {
         "subHeadline": "Pendaftaran Exhibitor Dibuka!",
-        "content": "<p>Pamerkan brand kamu ke 30.000+ buyer, distributor, dan profesional F&B. Kesempatan besar buat unjuk produk di salah satu pasar makanan terbesar di Asia Tenggara.</p>",
+        "content": "<p>Pamerkan brand kamu ke 30.000+ buyer, distributor, dan profesional F&B di MoreFood Expo. Kesempatan besar buat unjuk produk di salah satu F&B Expo terbesar di Asia Tenggara.</p>",
         "cta": "Pesan Space Sekarang"
       },
       "1": {
@@ -196,11 +196,11 @@
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
-    "description": "Setiap sudut expo punya sesuatu yang berbeda. Seminar, demo masak, business matching, semuanya dirancang supaya kunjungan kamu tidak hanya sekedar jalan-jalan.",
+    "description": "Bukan cuma booth dan brosur. MoreFood Expo punya panggung demo masak, sesi business matching, sampai workshop pasar Halal. Datang buat satu, pulang bawa banyak.",
     "items": {
       "0": {
         "title": "The Global Marketplace",
-        "description": "Ini pusatnya. Area 20.000m² diisi 1.200+ exhibitor dari berbagai negara. Ribuan produk, bahan baku, dan teknologi F&B bisa kamu temukan langsung di sini."
+        "description": "Ini jantung dari food exhibition terbesar di Indonesia. Area 20.000m² diisi 1.200+ exhibitor dari berbagai negara. Ribuan produk, bahan baku, dan teknologi F&B bisa kamu temukan langsung di sini."
       },
       "1": {
         "title": "MoreFood Talks: Industry Summits",
@@ -234,10 +234,10 @@
   },
   "partnerships": {
     "title": "<span class='text-outline'>Gabung </span><span class='text-accent'>Bareng Kami</span>",
-    "description": "More Food Expo bisa sebesar ini karena dukungan banyak pihak. Mau pameran, jadi sponsor, atau liput acara? Ada tempat buat kamu.",
+    "description": "MoreFood Expo bisa sebesar ini karena dukungan banyak pihak. Mau pameran, jadi sponsor, atau liput acara? Ada tempat buat kamu.",
     "exhibitor": {
       "title": "Daftar Exhibitor",
-      "description": "Tunjukkan produk F&B kamu ke ribuan pengunjung yang datang dengan niat beli dan cari supplier baru.",
+      "description": "Tunjukkan produk kamu ke ribuan pengunjung F&B Expo yang datang dengan niat beli dan cari supplier baru.",
       "cta": "Pesan Space Kamu"
     },
     "sponsor": {
@@ -247,7 +247,7 @@
     },
     "mediaPartner": {
       "title": "Daftar Media Partner",
-      "description": "Dapatkan akses eksklusif untuk meliput salah satu event F&B terbesar di Indonesia.",
+      "description": "Dapatkan akses eksklusif untuk meliput salah satu F&B Expo terbesar di Indonesia.",
       "cta": "Gabung sebagai Media"
     },
     "reservedSpace": {
@@ -256,9 +256,9 @@
     }
   },
   "visitorCta": {
-    "title": "<span class='text-outline'>Stop Scrolling.</span> <span class='text-accent'>Langsung Datang.</span>",
-    "description": "Dari layar tidak bisa mencicipi. Ambil tiket kamu dan rasakan sendiri bagaimana serunya industri F&B Indonesia.",
-    "cta": "Dapatkan Tiket"
+    "title": "<span class='text-outline'>Datang.</span> <span class='text-accent'>Rasakan Sendiri.</span>",
+    "description": "Foto dan video ga bakal cukup. Cicipi produk terbaru, kenalan langsung sama supplier, dan bawa pulang koneksi yang beneran berguna. MoreFood Expo cuma 4 hari.",
+    "cta": "Ambil Tiket"
   },
   "mediaCoverage": {
     "title": "Liputan Media & Komunitas",
@@ -277,7 +277,7 @@
   },
   "brandList": {
     "title": "Brand",
-    "description": "Daftar lengkap brand yang pameran di More Food Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional."
+    "description": "Daftar lengkap brand yang pameran di MoreFood Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional."
   },
   "contact": {
     "title": "Hubungi Kami",
@@ -301,11 +301,11 @@
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
-    "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Gabung bareng brand-brand terdepan di industri F&B."
+    "description": "Amankan booth kamu di Food & Beverage Expo terbesar di Indonesia dan pamerkan brand kamu ke ribuan calon pelanggan. Gabung bareng brand-brand terdepan di industri F&B."
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
-    "description": "Cari tahu jawaban pertanyaan-pertanyaan seputar More Food Expo, tiket, exhibitor, dan info lainnya di sini.",
+    "description": "Cari tahu jawaban pertanyaan-pertanyaan seputar MoreFood Expo, tiket, exhibitor, dan info lainnya di sini.",
     "emptyState": "Kami sedang mengumpulkan pertanyaan yang sering ditanyakan. Silakan kembali lagi nanti.",
     "contactTitle": "Punya pertanyaan? Langsung kirim ke kami!",
     "items": {
@@ -331,7 +331,7 @@
       },
       "5": {
         "q": "Siapa saja yang bisa hadir?",
-        "a": "<p>Semua orang boleh datang! Pemilik cafe, pengusaha F&B, pecinta makanan, profesional industri, atau yang mau explore tren kuliner terbaru. Semuanya welcome.</p>"
+        "a": "<p>Semua orang boleh datang! Pemilik cafe, pengusaha F&B, pecinta makanan, profesional industri F&B, atau yang mau explore tren kuliner terbaru. Semuanya welcome.</p>"
       },
       "6": {
         "q": "Brand dan produk apa saja yang dipamerkan?",
@@ -373,12 +373,12 @@
   },
   "pages": {
     "home": {
-      "title": "More Food Expo Indonesia · Pameran Makanan & Minuman Terbesar",
-      "description": "More Food Expo Indonesia hadir 7-10 Mei 2026 di JIEXPO. Menghubungkan bisnis makanan dari seluruh dunia dengan pasar Halal Indonesia yang terus berkembang."
+      "title": "MoreFood Expo Indonesia · Food & Beverage Expo Terbesar",
+      "description": "MoreFood Expo Indonesia hadir 7-10 Mei 2026 di JIExpo Kemayoran. F&B Expo yang menghubungkan bisnis makanan dan minuman dari seluruh dunia dengan pasar Halal Indonesia."
     },
     "brands": {
       "title": "Brand",
-      "description": "Lihat daftar lengkap brand yang pameran di More Food Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional."
+      "description": "Lihat daftar lengkap brand yang pameran di MoreFood Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional."
     },
     "rundown": {
       "title": "Rundown",
@@ -386,7 +386,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Kenali program-program di More Food Expo 2026. Dari Business Matching sampai industry talks, semua dirancang buat bantu kamu bangun koneksi bisnis."
+      "description": "Kenali program-program di MoreFood Expo 2026. Dari Business Matching sampai industry talks, semua dirancang buat bantu kamu bangun koneksi di industri F&B."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -394,7 +394,7 @@
     },
     "bookSpace": {
       "title": "Book Space",
-      "description": "Amankan booth kamu di {appName} dan pamerkan brand kamu ke ribuan calon pelanggan. Gabung bareng brand-brand terdepan."
+      "description": "Amankan booth kamu di Food & Beverage Expo terbesar dan pamerkan brand kamu ke ribuan calon pelanggan. Gabung bareng brand-brand terdepan di industri F&B."
     },
     "ticket": {
       "title": "Tiket {appName}",
@@ -414,7 +414,7 @@
     },
     "news": {
       "title": "Berita",
-      "description": "Ikuti insight, berita, dan tren terbaru di industri makanan. Baca artikel dan update acara dari kami."
+      "description": "Ikuti insight, berita, dan tren terbaru di industri F&B. Baca artikel dan update acara dari MoreFood Expo."
     },
     "ticketPolicy": {
       "title": "Kebijakan Tiket",

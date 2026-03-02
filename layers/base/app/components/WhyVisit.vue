@@ -2,8 +2,8 @@
   <section id="why-visit">
     <div class="container">
       <div class="flex flex-col items-start text-left">
-        <span class="text-gradient-accent">{{ $t('whyVisit.heading') }}</span>
-        <h2 class="section-title mt-2">{{ $t('whyVisit.subheading') }}</h2>
+        <span class="text-gradient-accent">{{ $t("whyVisit.heading") }}</span>
+        <h2 class="section-title mt-2">{{ $t("whyVisit.subheading") }}</h2>
       </div>
 
       <div
@@ -23,14 +23,15 @@
               class="text-accent size-6"
             />
           </div>
-          <span
+          <h3
             v-if="item.title"
             class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
-            >{{ item.title }}</span
           >
-          <span v-if="item.description" class="tracking-tight">{{
-            item.description
-          }}</span>
+            {{ item.title }}
+          </h3>
+          <p v-if="item.description" class="tracking-tight">
+            {{ item.description }}
+          </p>
         </div>
       </div>
     </div>

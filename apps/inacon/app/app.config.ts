@@ -33,6 +33,11 @@ const event = {
   hall: "Assembly, Cendrawasih, and Plenary Hall",
   teaserVideoId: "",
   profileImage: "/img/avatar/inacon.svg",
+  description:
+    "Festival anime dan budaya Jepang terbesar di Indonesia. Nikmati pengalaman seru bertemu guest artis, cosplay, merchandise eksklusif, dan banyak lagi.",
+  offersName: "Tiket Masuk INACON",
+  offersDescription:
+    "Harga tiket Indonesia Anime Con berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   rundownImages: [
     {
       src: "/img/rundown/super-stage-day-1.jpg",

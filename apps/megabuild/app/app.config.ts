@@ -33,6 +33,11 @@ const event = {
   // hall: "Hall B",
   teaserVideoId: "",
   profileImage: "/img/avatar/megabuild.svg",
+  description:
+    "Pameran bahan bangunan dan interior terbesar di Indonesia. Temukan produk-produk unggulan untuk proyek konstruksi, renovasi, dan desain interior Anda.",
+  offersName: "Tiket Masuk Megabuild",
+  offersDescription:
+    "Harga tiket pameran bahan bangunan berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   inConjunction: {
     label: "In conjunction with",
     list: [

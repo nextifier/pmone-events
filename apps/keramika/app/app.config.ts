@@ -33,6 +33,11 @@ const event = {
   // hall: "",
   teaserVideoId: "",
   profileImage: "/img/avatar/keramika.svg",
+  description:
+    "Pameran keramik dan produk finishing terlengkap di Indonesia. Jelajahi koleksi terbaik dari brand keramik, marmer, granit, dan sanitari terkemuka.",
+  offersName: "Tiket Masuk Keramika",
+  offersDescription:
+    "Harga tiket pameran keramik berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   inConjunction: {
     label: "In conjunction with",
     list: [

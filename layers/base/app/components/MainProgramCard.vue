@@ -25,7 +25,7 @@
       <div
         class="absolute inset-x-0 bottom-0 flex h-1/2 flex-col items-center justify-end px-4 pb-4 text-center text-base !leading-tight font-bold tracking-tighter text-white text-shadow-lg @[200px]:px-6 @[200px]:pb-8 @[200px]:text-2xl"
       >
-        <span class="text-balance">{{ program.title }}</span>
+        <h3 class="text-balance">{{ program.title }}</h3>
       </div>
     </div>
   </div>

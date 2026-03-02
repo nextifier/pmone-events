@@ -33,7 +33,11 @@
 
             <span
               class="text-muted-foreground text-sm font-semibold tracking-tighter text-balance"
-              v-html="$t('hero.instagramTip', { instagram: useAppConfig().social.instagram })"
+              v-html="
+                $t('hero.instagramTip', {
+                  instagram: useAppConfig().social.instagram,
+                })
+              "
             ></span>
           </div>
 
@@ -41,13 +45,13 @@
             <span class="section-subtitle">{{ content.subtitle }}</span>
 
             <h1
-              class="text-primary mt-2 text-[clamp(3.5rem,5vw,7rem)] !leading-[1.2] font-medium tracking-[-0.06em] text-balance"
+              class="text-primary mt-2 text-[clamp(2.5rem,4.5vw,5rem)] leading-[1.15]! font-medium tracking-[-0.06em] text-balance"
             >
               <!-- <SplitText :text="content.title" /> -->
               {{ content.title }}
             </h1>
 
-            <p class="section-description mt-0">
+            <p class="section-description mt-3">
               {{ content.description }}
             </p>
 

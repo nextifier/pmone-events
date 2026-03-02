@@ -33,6 +33,11 @@ const event = {
   // hall: "Hall B",
   teaserVideoId: "1Tsjh4xvtFw",
   profileImage: "/img/avatar/renex.svg",
+  description:
+    "Pameran renovasi rumah dan interior by Megabuild Indonesia. Temukan inspirasi dan solusi terbaik untuk proyek renovasi dan desain interior Anda.",
+  offersName: "Tiket Masuk RENEX",
+  offersDescription:
+    "Harga tiket pameran renovasi berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   // inConjunction: {
   //   label: "In conjunction with",
   //   list: [

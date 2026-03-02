@@ -35,6 +35,11 @@ const event = {
   // hall: "",
   // teaserVideoId: "",
   profileImage: "/img/avatar/cbe.svg",
+  description:
+    "Festival kopi terbesar di Indonesia. Jelajahi ragam kopi nusantara, peralatan brewing terbaik, dan peluang bisnis di industri kopi.",
+  offersName: "Tiket Masuk ICF",
+  offersDescription:
+    "Harga tiket festival kopi berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   inConjunction: {
     label: "In conjunction with",
     list: [

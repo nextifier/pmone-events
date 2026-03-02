@@ -33,6 +33,11 @@ const event = {
   // hall: "",
   // teaserVideoId: "",
   profileImage: "/img/avatar/cbe.svg",
+  description:
+    "Pameran cokelat dan kakao pertama di Indonesia. Temukan produk cokelat premium, bahan baku, dan peluang bisnis di industri cokelat dan kakao.",
+  offersName: "Tiket Masuk Cokelat Expo",
+  offersDescription:
+    "Harga tiket pameran cokelat berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   inConjunction: {
     label: "In conjunction with",
     list: [

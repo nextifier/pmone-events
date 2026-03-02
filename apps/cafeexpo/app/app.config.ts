@@ -33,6 +33,11 @@ const event = {
   // hall: "",
   // teaserVideoId: "",
   profileImage: "/img/avatar/cbe.svg",
+  description:
+    "Pameran industri kafe dan restoran terbesar di Indonesia. Temukan peralatan, bahan baku, dan peluang bisnis F&B dari brand-brand terkemuka.",
+  offersName: "Tiket Masuk CBE",
+  offersDescription:
+    "Harga tiket pameran kafe dan restoran berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   inConjunction: {
     label: "In conjunction with",
     list: [

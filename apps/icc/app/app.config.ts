@@ -33,6 +33,11 @@ const event = {
   // hall: "",
   teaserVideoId: "",
   profileImage: "/img/avatar/icc.svg",
+  description:
+    "Ajang pop culture terbesar di Indonesia. Nikmati pengalaman seru bertemu artis internasional, cosplay, komik, merchandise eksklusif, dan banyak lagi.",
+  offersName: "Tiket Masuk ICC",
+  offersDescription:
+    "Harga tiket Indonesia Comic Con berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
 };
 
 const settings = {

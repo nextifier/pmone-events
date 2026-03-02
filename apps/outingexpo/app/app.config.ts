@@ -33,6 +33,11 @@ const event = {
   hall: "Hall 10 & 11",
   teaserVideoId: "",
   profileImage: "/img/avatar/ioe.svg",
+  description:
+    "Pameran outing dan incentive travel terbesar di Indonesia. Temukan destinasi, venue, dan layanan terbaik untuk acara outing perusahaan Anda.",
+  offersName: "Tiket Masuk IOITE",
+  offersDescription:
+    "Harga tiket pameran outing dan travel berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   // inConjunction: {
   //   label: "In conjunction with",
   //   list: [

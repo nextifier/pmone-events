@@ -33,6 +33,11 @@ const event = {
   // hall: "Hall B",
   teaserVideoId: "",
   profileImage: "/img/avatar/more-food.svg",
+  description:
+    "Food & Beverage Expo terlengkap di Indonesia. Temukan bahan baku, peralatan, dan peluang bisnis F&B dari ratusan brand di MoreFood Expo.",
+  offersName: "Tiket Masuk MoreFood Expo",
+  offersDescription:
+    "Harga tiket Food & Beverage Expo berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
   inConjunction: {
     label: "In conjunction with",
     list: [

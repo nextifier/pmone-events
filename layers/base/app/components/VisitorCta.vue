@@ -140,7 +140,7 @@
             </nuxt-link>
 
             <div class="flex flex-col items-start gap-y-1.5">
-              <span
+              <h3
                 v-if="banner.subtitle"
                 class="text-sm font-semibold tracking-tighter text-[var(--accent-color-light)] dark:text-[var(--accent-color-dark)]"
                 :style="{
@@ -149,14 +149,14 @@
                 }"
               >
                 {{ banner.subtitle }}
-              </span>
+              </h3>
 
-              <h6
+              <span
                 v-if="banner.title"
                 class="text-primary text-base !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-lg"
               >
                 {{ banner.title }}
-              </h6>
+              </span>
 
               <p v-if="banner.description" class="text-sm tracking-tight">
                 {{ banner.description }}
