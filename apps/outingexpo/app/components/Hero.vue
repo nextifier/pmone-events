@@ -72,11 +72,11 @@
             class="xl:max-h-screen-offset relative isolate -mx-4 flex h-full items-center justify-center overflow-hidden sm:-mx-0 lg:-mx-[20%]"
           >
             <NuxtImg
-              src="/img/hero-img.png"
+              src="/img/hero-img-2026-03-03.png"
               alt=""
               class="w-full"
               width="1000"
-              height="946"
+              height="955"
               sizes="100vw sm:1000px"
               format="webp"
             />
