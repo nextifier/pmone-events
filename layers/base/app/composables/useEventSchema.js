@@ -78,34 +78,27 @@ export function useEventSchema() {
     }),
   ]);
 
-  // --- Build offers from ticket data ---
-  const offers = ticket
-    ? {
-        "@type": "Offer",
-        url: `${siteUrl}/ticket`,
-        availability: "https://schema.org/InStock",
-        ...(parsePrice(ticket.price) !== undefined && {
-          price: parsePrice(ticket.price),
-          priceCurrency: "IDR",
-        }),
-        ...(ticket.starts_in && {
-          validFrom: toSchemaDate(ticket.starts_in),
-        }),
-        ...(config.event.offersName && { name: config.event.offersName }),
-        ...(config.event.offersDescription && {
-          description: config.event.offersDescription,
-        }),
-      }
-    : undefined;
+  // --- Build offers (ticket data with config fallback) ---
+  const ticketPrice = ticket ? parsePrice(ticket.price) : undefined;
+  const offers = {
+    "@type": "Offer",
+    url: `${siteUrl}/ticket`,
+    name: config.event.offersName || `Tiket Masuk ${config.app.shortName}`,
+    description: config.event.offersDescription || undefined,
+    availability: "https://schema.org/InStock",
+    price: ticketPrice !== undefined ? ticketPrice : "0",
+    priceCurrency: "IDR",
+    validFrom: toSchemaDate(
+      ticket?.starts_in || config.event.startTime,
+    ),
+  };
 
   // --- Event schema (raw JSON-LD for full control over all fields) ---
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
     name: config.event.title,
-    ...(config.event.description && {
-      description: config.event.description,
-    }),
+    description: config.event.description || config.event.title,
     startDate: toSchemaDate(config.event.startTime),
     endDate: toSchemaDate(config.event.endTime),
     eventStatus: "https://schema.org/EventScheduled",
@@ -121,13 +114,18 @@ export function useEventSchema() {
       },
     },
     image: [`${siteUrl}/icons/icon-512x512.png`],
-    organizer: { "@id": `${siteUrl}/#identity` },
+    organizer: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#identity`,
+      name: config.app.name,
+      url: siteUrl,
+    },
     performer: {
       "@type": "Organization",
       name: config.app.name,
       url: siteUrl,
     },
-    ...(offers && { offers }),
+    offers,
   };
 
   // --- FAQPage schema (raw JSON-LD for Google Rich Results detection) ---
