@@ -144,38 +144,38 @@
   },
   "whyVisit": {
     "heading": "为什么一定要来",
-    "subheading": "完美团建，你需要的全在这里",
+    "subheading": "企业团建与激励旅行的一站式商务平台",
     "items": {
-      "0": { "title": "找到你的理想目的地", "description": "热带海滩、山间度假、刺激的探险乐园，上百个团建目的地等你来挑。下一趟难忘之旅，从这里开始。" },
-      "1": { "title": "对接顶级活动策划", "description": "现场汇集优秀活动策划公司、旅行社和企业团建专家。不管是公司团建还是家庭出游，直接找到靠谱的合作伙伴。" },
-      "2": { "title": "拿下现场独家优惠", "description": "展会专属折扣和特惠套餐，别处买不到。团建、拓展、奖励旅行，省一大笔。" },
-      "3": { "title": "现场体验，灵感拉满", "description": "看实操演示，听行业大咖分享，亲手试最新户外装备和旅行科技。带着满满的新点子回去策划下一场冒险。" }
+      "0": { "title": "直接对接企业决策层", "description": "60-70% 的参观者是 HR 负责人、高管和企业采购。这不是普通展会，这是成交发生的地方。" },
+      "1": { "title": "100+ 品牌与解决方案，同场呈现", "description": "从团建目的地、团队拓展供应商到激励旅行方案，一次逛完，直接对比，找到最适合你公司的选择。" },
+      "2": { "title": "4天专业议程，分阶段、有重点", "description": "第1-2天聚焦商务洽谈和企业对接，第3-4天侧重现场体验和社区活动。按你的需求选择参加日期。" },
+      "3": { "title": "精选行业会议与HR论坛", "description": "参与 Inspiration Talk Series、Corporate Insights 和 HR Forum，深入探讨员工激励趋势、人才发展战略和激励旅行规划。" }
     }
   },
   "hero": {
     "countdownLabel": "距开幕：",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
-    "description": "对接专业活动策划、发现优质目的地、拿到独家旅行优惠。下一次团建，从这里开始找方案。",
+    "description": "企业团建与激励旅行的商务平台。100+ 品牌、HR 行业论坛、精准商务对接，尽在一站。",
     "announcement": "参展展位仍有空位",
     "banners": {
       "0": {
-        "subHeadline": "团建所需，这里都有。",
-        "content": "<p>免费参观印尼最大的团建活动展。数百个目的地、专业策划团队、独家优惠，一站搞定。</p>",
-        "cta": "领取门票"
+        "subHeadline": "一张门票，畅览4天全场展会。",
+        "content": "<p>现场汇集 100+ 团建、激励旅行和企业活动服务商。免费入场，立即注册锁定参观名额。</p>",
+        "cta": "立即注册"
       },
       "1": {
-        "subHeadline": "在 Indonesia Outing & Incentive Travel Expo 2026 展示你的品牌！",
-        "content": "<p>数千名户外爱好者、企业活动负责人和旅行达人会到现场。直接和目标客户面对面。</p>",
+        "subHeadline": "规模扩大3倍，目标观众 25,000+。",
+        "content": "<p>2025 年展会吸引超过 10,000 名观众，来自 70 多家企业。今年规模翻三倍。把你的品牌展示在企业决策者面前。</p>",
         "cta": "立即预订展位"
       },
       "2": {
-        "subHeadline": "免费团建规划咨询",
-        "content": "<p>带上你的想法。专业策划师和旅行专家帮你量身定制团建方案。</p>",
+        "subHeadline": "让团队再上一个台阶的行业论坛。",
+        "content": "<p>Inspiration Talk Series、Corporate Insights、HR Forum、Business Matching Lounge，为 HR 和企业管理层量身打造。</p>",
         "cta": "查看全部项目"
       },
       "3": {
         "subHeadline": "别错过最新消息！",
-        "content": "<p>关注我们的 Instagram，获取户外灵感、参展商亮点和独家福利。</p>",
+        "content": "<p>关注我们的 Instagram，获取参展商动态、活动预告，以及企业团建与激励旅行的行业洞察。</p>",
         "cta": "关注 {'@'}indooutingexpo"
       }
     },
@@ -186,47 +186,47 @@
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>核心</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">项目</span>",
-    "description": "展览、讲座、现场体验、精准对接，{appName} 的核心项目都在这里。",
+    "description": "行业论坛、HR 峰会、精准对接、现场体验区。以下是 {appName} 为企业管理层和行业从业者精心打造的核心项目。",
     "items": {
       "0": {
-        "title": "Outing Inspiration Stage",
-        "description": "行业专家分享最新团建创意。"
+        "title": "Inspiration Talk Series",
+        "description": "聚焦员工激励趋势、企业文化建设和团建策略的启发式分享。"
       },
       "1": {
-        "title": "Live Activity Demos",
-        "description": "现场体验团建活动和户外项目。"
+        "title": "Corporate Insights",
+        "description": "面向 HR 和企业管理层的战略论坛，议题涵盖人才发展、组织变革和激励旅行。"
       },
       "2": {
-        "title": "Flash Deals",
-        "description": "现场专属团建优惠，当场拿下。"
+        "title": "Business Matching Lounge",
+        "description": "精心匹配的一对一商务会谈，让 HR 和采购决策者直接对接团建及体验式服务供应商。"
       },
       "3": {
-        "title": "Business Matching",
-        "description": "精准对接采购方和合作伙伴。"
+        "title": "HR Forum & Future Talk",
+        "description": "聚焦人才战略、组织转型、员工心理健康和新型激励方式的旗舰论坛。"
       },
       "4": {
-        "title": "Community Meet-Ups",
-        "description": "和同行交流，拓展人脉圈。"
+        "title": "Experience Trial Zones",
+        "description": "现场体验区。亲身试玩参展商提供的团队拓展、户外项目和体验式企业活动方案。"
       }
     }
   },
   "partnerships": {
     "title": "<span class='text-outline'>加入 </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITE 的故事</span>",
-    "description": "参与 {appName}，认识潜在合作伙伴，提升品牌曝光，拓展商业网络。",
+    "description": "IOITE 为解决方案供应商与正在规划团建和激励计划的企业搭建桥梁。加入 {appName}，直接触达精准目标客群。",
     "exhibitor": {
       "title": "参展商报名",
-      "description": "做团建服务或运营目的地？把你的产品直接展示给上万名潜在客户。",
+      "description": "你有目的地、场地或企业团建服务？目标观众 25,000+，其中 60-70% 是企业决策者。",
       "cta": "预订展位"
     },
     "sponsor": {
       "title": "赞助商报名",
-      "description": "赞助行业标杆展会，直接触达企业决策者。",
+      "description": "三档赞助方案：Experience Maker、Core Collaborator、Synergy Partner，选择最契合你品牌目标的合作方式。",
       "cta": "赞助合作"
     },
     "mediaPartner": {
       "title": "媒体合作报名",
-      "description": "独家内容和行业深度报道，合作机会就在这里。",
-      "cta": "媒体合作"
+      "description": "2025 年展会获得 40 多家全国性媒体支持。加入我们，获取独家内容和行业深度报道。",
+      "cta": "成为媒体伙伴"
     },
     "reservedSpace": {
       "title": "这个位置留给对的合作伙伴。是你吗？",
@@ -234,8 +234,8 @@
     }
   },
   "visitorCta": {
-    "title": "一张<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">门票</span>，开启你的下一次团建",
-    "description": "上百种团建方案、专业策划师、现场独家优惠。Indonesia Outing & Incentive Travel Expo 2026，等你来。",
+    "title": "一张<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">门票</span>，开启全新可能",
+    "description": "100+ 品牌、HR 行业论坛、精准商务对接、现场体验区。IOITE 2026，为期4天，锁定你的参观名额。",
     "cta": "领取门票"
   },
   "mediaCoverage": {
@@ -255,15 +255,15 @@
   },
   "brandList": {
     "title": "品牌",
-    "description": "团建服务商、旅行目的地、户外装备……各类品牌都在这里。"
+    "description": "目的地与场地、活动策划与体验服务、旅行与交通、激励与企业解决方案、文娱与配套服务。浏览 IOITE 的全部参展品牌。"
   },
   "bookSpace": {
     "title": "参展商报名",
-    "description": "在 {appName} 预订展位，向上万名潜在客户展示你的品牌。"
+    "description": "锁定你在 {appName} 的展位。面向 25,000+ 目标观众展示品牌，大多数为企业决策者。"
   },
   "faq": {
     "title": "常见问题",
-    "description": "门票、参展、活动详情，常见问题都在这里。",
+    "description": "关于 IOITE 门票、参展、活动详情的常见问题解答。",
     "emptyState": "常见问题正在整理中，请稍后再来。",
     "contactTitle": "还有问题？直接发给我们。",
     "items": {
@@ -272,75 +272,75 @@
         "a": "<p>{eventTitle} 将于 <strong>{eventDate}</strong>，<strong>{eventTime}</strong> 在 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a> 举办。</p>"
       },
       "1": {
-        "q": "怎么买票？",
-        "a": "<p>在官网点击 <a href=\"/ticket\">领取门票</a> 按钮，按流程注册就行。电子门票会发到你的 Email 和 WhatsApp。</p>"
+        "q": "怎么获取门票？",
+        "a": "<p>在官网点击 <a href=\"/ticket\">领取门票</a> 按钮，按流程注册即可。电子门票会发到你的 Email 和 WhatsApp。</p>"
       },
       "2": {
         "q": "门票多少钱？",
-        "a": "<p>价格因票种和购买时间而异。最新价格请看 <a href=\"/ticket\">门票页面</a>。有早鸟优惠，别错过。</p>"
+        "a": "<p>价格因票种和购买时间而异。最新价格请查看 <a href=\"/ticket\">门票页面</a>。</p>"
       },
       "3": {
         "q": "买了票去不了，能退吗？",
-        "a": "<p>门票售出后不退不换。详情请看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
+        "a": "<p>门票售出后不退不换。详情请查看 <a href=\"/ticket-refund-and-return-policy\">退票政策</a>。</p>"
       },
       "4": {
         "q": "去现场要带什么？",
-        "a": "<p>带上电子门票（手机出示或打印），在签到台换入场证。打算和团建服务商聊合作的话，建议带上名片。</p>"
+        "a": "<p>带上电子门票（手机出示或打印），在签到台换取入场证。如果计划和企业活动供应商洽谈，建议带上名片。</p>"
       },
       "5": {
         "q": "谁都能参加吗？",
-        "a": "<p>对，完全开放。HR、活动策划、找团建方案的企业代表、旅行爱好者、团建服务商，都欢迎。</p>"
+        "a": "<p>完全开放。HR 负责人、活动策划、企业采购、社区团体、教育机构、普通观众都欢迎。第1-2天侧重专业人士和企业对接，第3-4天面向社区和公众开放。</p>"
       },
       "6": {
-        "q": "有哪些服务和目的地展示？",
-        "a": "<p>团建目的地、团队活动、企业活动场地、旅行套餐、户外项目、度假村、特色团体体验，种类很多。完整名单请看 <a href=\"/brands\">参展商页面</a>。</p>"
+        "q": "展会涵盖哪些品牌和服务？",
+        "a": "<p>五大参展类别：目的地与场地、活动与体验服务、旅行与交通、激励与企业解决方案、文娱与配套服务。完整名单请查看 <a href=\"/brands\">参展商页面</a>。</p>"
       },
       "7": {
         "q": "现场能直接预订服务吗？",
-        "a": "<p>可以。很多参展商提供现场专属优惠和即时预订。企业团建、团队活动、团体旅行的好价格，当场就能拿到。</p>"
+        "a": "<p>可以。很多参展商提供现场专属优惠和即时预订服务。</p>"
       },
       "8": {
         "q": "怎么报名参展？",
-        "a": "<p>去 <a href=\"/book-space\">参展商报名页面</a> 提交申请，或者通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们了解展位信息。</p>"
+        "a": "<p>前往 <a href=\"/book-space\">参展商报名页面</a> 提交申请，或通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 联系我们了解展位详情。</p>"
       },
       "9": {
-        "q": "有讲座或分享会吗？",
-        "a": "<p>有。主题包括高效团建、企业活动策划、热门团建目的地等。完整日程请看 <a href=\"/rundown\">日程页面</a>。</p>"
+        "q": "有行业论坛或会议吗？",
+        "a": "<p>有。IOITE 设有四大核心项目：Inspiration Talk Series、Corporate Insights、Business Matching Lounge 和 HR Forum & Future Talk，议题涵盖员工激励、人才发展和激励旅行策略。详细日程请查看 <a href=\"/rundown\">日程页面</a>。</p>"
       },
       "10": {
-        "q": "适合找团建活动吗？",
-        "a": "<p>非常适合。这里能直接和团建服务商面谈，比较不同方案，找到最合适你们公司的活动。</p>"
+        "q": "第1-2天和第3-4天有什么区别？",
+        "a": "<p>第1-2天（工作日）是 Business & Planning Days，聚焦商务洽谈、行业论坛和企业对接。第3-4天（周末）是 Experience & Community Days，侧重现场活动体验、项目展示和更广泛的社区互动。</p>"
       },
       "11": {
         "q": "怎么成为赞助商或媒体合作伙伴？",
-        "a": "<p>通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或 <a href=\"mailto:{email}\">{email}</a> 联系我们聊合作方案。</p>"
+        "a": "<p>通过 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 或发送邮件至 <a href=\"mailto:{email}\">{email}</a> 联系我们，洽谈合作方案。</p>"
       },
       "12": {
         "q": "展馆有停车位吗？",
-        "a": "<p>有，但高峰时段车位可能紧张，建议早点到或者打车过来。</p>"
+        "a": "<p>有。NICE PIK 2 配备充足的停车区域，但高峰时段车位紧张，建议提前到场或乘坐公共交通。</p>"
       },
       "13": {
         "q": "能拍照录像吗？",
-        "a": "<p>个人用途没问题。商业拍摄需要主办方书面许可。详情请看 <a href=\"/event-policy\">活动政策</a>。</p>"
+        "a": "<p>个人用途没问题。商业拍摄需取得主办方书面许可。详情请查看 <a href=\"/event-policy\">活动政策</a>。</p>"
       },
       "14": {
         "q": "怎么获取最新活动消息？",
-        "a": "<p>关注 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间看到参展商亮点、活动预告和独家福利。也可以看 <a href=\"/news\">资讯页面</a>。</p>"
+        "a": "<p>关注 Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>，第一时间获取参展商动态、活动预告和独家内容。也可以访问 <a href=\"/news\">资讯页面</a>。</p>"
       },
       "15": {
         "q": "怎么联系主办方？",
-        "a": "<p>可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式请看 <a href=\"/help-center\">帮助中心</a>。</p>"
+        "a": "<p>可以通过以下方式联系我们：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">点这里开始聊天</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>更多联系方式请查看 <a href=\"/help-center\">帮助中心</a>。</p>"
       }
     }
   },
   "pages": {
     "home": {
-      "title": "Indonesia Outing & Incentive Travel Expo: 团建方案一站搞定",
-      "description": "企业团建、学校旅行、团体活动，在 Indonesia Outing & Incentive Travel Expo 找到你需要的方案。"
+      "title": "Indonesia Outing & Incentive Travel Expo (IOITE) 2026：企业团建与激励旅行商务平台",
+      "description": "印尼最大的团建与激励旅行展会。100+ 品牌、HR 论坛、精准商务对接，2026年8月27-30日，NICE PIK 2。"
     },
     "brands": {
       "title": "品牌",
-      "description": "团建服务商、旅行目的地、户外装备……各类品牌都在这里。"
+      "description": "目的地与场地、活动策划、旅行交通、激励方案、文娱配套。浏览 IOITE 的全部参展品牌。"
     },
     "rundown": {
       "title": "活动日程",
@@ -348,7 +348,7 @@
     },
     "programs": {
       "title": "核心项目",
-      "description": "{appName} 的核心项目：展览、讲座、体验活动和精准对接。"
+      "description": "{appName} 的核心项目：行业论坛、HR 峰会、精准对接、现场体验区和社区互动。"
     },
     "contact": {
       "title": "联系我们",
@@ -356,7 +356,7 @@
     },
     "bookSpace": {
       "title": "预订展位",
-      "description": "在 {appName} 预订展位，向上万名潜在客户展示你的品牌。"
+      "description": "锁定你在 {appName} 的展位，面向 25,000+ 目标观众展示品牌，大多数为企业决策者。"
     },
     "ticket": {
       "title": "领取门票",
@@ -368,7 +368,7 @@
     },
     "faq": {
       "title": "常见问题",
-      "description": "关于 {appName} 的常见问题和解答。"
+      "description": "关于 {appName} 的常见问题和解答。门票、活动详情、参展合作等。"
     },
     "links": {
       "title": "快捷链接",
@@ -376,7 +376,7 @@
     },
     "news": {
       "title": "资讯",
-      "description": "团建和旅行行业的最新动态、趋势和深度内容。"
+      "description": "企业团建与激励旅行行业的最新动态、趋势和深度洞察。"
     },
     "ticketPolicy": {
       "title": "购票政策",
@@ -404,12 +404,12 @@
     }
   },
   "about": {
-    "sectionSubtitle": "认识 Indonesia Outing & Incentive Travel Expo (IOITE)",
-    "sectionTitle": "团建方案，一站搞定！",
-    "sectionDescription": "Indonesia Outing & Incentive Travel Expo 是你探索印尼团建资源的最佳入口。探险旅游、企业团建、亲子出游、极限运动，我们把最优质的服务商、目的地和优惠方案汇集在三天的展会里。来看看你的下一次团建有哪些新玩法。"
+    "sectionSubtitle": "前身为 Indonesia Outing Expo",
+    "sectionTitle": "不只是团建展，更是企业活动商务平台",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo (IOITE) 由 Indonesia Outing Expo 升级而来，覆盖范围更广：企业团建、激励旅行、体验式企业活动，三大板块整合于同一平台。2025 年展会吸引了 10,000+ 观众，来自 70 多家企业，汇集 100+ 品牌。2026 年规模扩大 3 倍，4 天满档，横跨 NICE PIK 2 两个展厅。第1-2天专注商务洽谈和企业对接，第3-4天侧重现场活动体验和社区互动。"
   },
   "pastExhibitors": {
-    "title": "受<span class=\"text-primary\">知名品牌</span>信赖",
-    "description": "这些品牌已在 Indonesia Outing Expo 2025 参展，与数千潜在合作伙伴建立了联系。"
+    "title": "受<span class=\"text-primary\"> 100+ 品牌</span>信赖",
+    "description": "10,000+ 观众，70+ 参会企业，95% 参展商推荐再次参展。以下是 Indonesia Outing Expo 2025 的参展品牌。"
   }
 }

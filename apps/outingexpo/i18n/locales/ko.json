@@ -143,39 +143,39 @@
     "Supported by": "후원"
   },
   "whyVisit": {
-    "heading": "꼭 와야 하는 이유",
-    "subheading": "완벽한 아웃팅을 위한 모든 것",
+    "heading": "IOITE에 참가해야 하는 이유",
+    "subheading": "기업 인게이지먼트와 인센티브 여행을 위한 단 하나의 플랫폼",
     "items": {
-      "0": { "title": "딱 맞는 여행지를 찾아보세요", "description": "열대 해변, 산속 리트릿, 짜릿한 어드벤처 파크까지 수백 개의 아웃팅 여행지가 한자리에. 잊지 못할 다음 여행, 여기서 시작해요." },
-      "1": { "title": "최고의 기획사를 직접 만나세요", "description": "검증된 이벤트 기획사, 여행사, 기업 아웃팅 전문가가 총출동해요. 회사 워크숍이든 가족 여행이든, 딱 맞는 파트너를 찾을 수 있어요." },
-      "2": { "title": "현장 한정 특가를 잡으세요", "description": "박람회에서만 만날 수 있는 할인과 특별 패키지가 가득해요. 다음 아웃팅, 팀빌딩, 인센티브 여행 비용을 확 줄여보세요." },
-      "3": { "title": "현장에서 영감을 받아가세요", "description": "라이브 데모, 전문가 토크, 최신 아웃도어 장비와 여행 기술 체험까지. 다음 모험을 위한 새로운 아이디어를 가득 안고 돌아가세요." }
+      "0": { "title": "의사결정권자를 현장에서 만나세요", "description": "방문객의 60~70%가 HR 리더, C-Level 임원, 기업 바이어입니다. 일반 박람회가 아닙니다. 실제 계약이 성사되는 현장이에요." },
+      "1": { "title": "100개 이상의 브랜드와 솔루션, 한자리에서 비교하세요", "description": "아웃팅 여행지, 팀빌딩 전문업체, 인센티브 여행 패키지, 기업 웰니스 프로그램까지. 직접 비교하고 우리 회사에 맞는 파트너를 골라보세요." },
+      "2": { "title": "4일간 전략적으로 설계된 프로그램", "description": "1~2일차는 비즈니스 플래닝과 기업 네트워킹. 3~4일차는 현장 체험과 커뮤니티 프로그램. 목적에 맞는 날에 방문하세요." },
+      "3": { "title": "엄선된 HR 컨퍼런스 & 포럼", "description": "Inspiration Talk Series, Corporate Insights, HR Forum까지. 인게이지먼트 트렌드, 인재 개발, 인센티브 전략을 집중적으로 다룹니다." }
     }
   },
   "hero": {
     "countdownLabel": "개최까지:",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
-    "description": "전문 이벤트 기획사, 다양한 여행지, 한정 특가까지. 다음 아웃팅에 필요한 모든 게 한자리에 있어요.",
+    "description": "기업 인게이지먼트와 인센티브 여행을 위한 비즈니스 플랫폼. 100+ 브랜드, HR 컨퍼런스, 비즈니스 매칭이 한곳에 모입니다.",
     "announcement": "전시 부스 아직 자리 있어요",
     "banners": {
       "0": {
-        "subHeadline": "아웃팅의 모든 것, 한자리에서 만나보세요.",
-        "content": "<p>인도네시아 최대 아웃팅 박람회에 무료로 입장하세요. 수백 개의 여행지, 전문 기획팀, 한정 특가가 모여 있어요.</p>",
-        "cta": "티켓 받기"
+        "subHeadline": "티켓 한 장으로 4일간 전 프로그램 이용 가능.",
+        "content": "<p>아웃팅, 인센티브 여행, 기업 인게이지먼트 솔루션을 제공하는 100개 이상의 브랜드를 만나보세요. 무료 입장. 지금 등록하고 배지를 확보하세요.</p>",
+        "cta": "지금 등록하기"
       },
       "1": {
-        "subHeadline": "Indonesia Outing & Incentive Travel Expo 2026에서 브랜드를 알려보세요!",
-        "content": "<p>아웃도어 애호가, 기업 연수 담당자, 여행 매니아 수천 명이 찾는 행사예요. 부스에서 직접 만나보세요.</p>",
+        "subHeadline": "규모 3배 확대. 목표 방문객 25,000명 이상.",
+        "content": "<p>2025년에는 70개 이상의 기업에서 10,000명 이상이 참관했습니다. 올해는 규모가 3배로 커집니다. 기업 의사결정권자 앞에 브랜드를 선보이세요.</p>",
         "cta": "부스 예약하기"
       },
       "2": {
-        "subHeadline": "무료 아웃팅 기획 상담",
-        "content": "<p>아이디어를 가져오세요. 전문 플래너와 여행 전문가가 팀에 맞는 아웃팅을 함께 설계해 드려요.</p>",
-        "cta": "프로그램 전체 보기"
+        "subHeadline": "팀의 역량을 한 단계 끌어올릴 컨퍼런스와 포럼.",
+        "content": "<p>Inspiration Talk Series, Corporate Insights, HR Forum, Business Matching Lounge. HR과 기업 리더를 위해 엄선된 프로그램입니다.</p>",
+        "cta": "전체 프로그램 보기"
       },
       "3": {
-        "subHeadline": "소식 놓치지 마세요!",
-        "content": "<p>Instagram을 팔로우하면 아웃도어 영감, 참가사 소식, 한정 경품 이벤트를 바로 받아볼 수 있어요.</p>",
+        "subHeadline": "최신 소식을 놓치지 마세요!",
+        "content": "<p>Instagram을 팔로우하면 참가사 정보, 행사 프로그램, 기업 인게이지먼트 및 인센티브 여행 관련 인사이트를 받아볼 수 있어요.</p>",
         "cta": "{'@'}indooutingexpo 팔로우하기"
       }
     },
@@ -186,56 +186,56 @@
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>주요</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">프로그램</span>",
-    "description": "전시, 세미나, 라이브 데모, 비즈니스 매칭까지. {appName}에서 경험할 수 있는 주요 프로그램을 소개해요.",
+    "description": "컨퍼런스, HR 포럼, 비즈니스 매칭, 체험존까지. {appName}이 기업 리더와 업계 전문가를 위해 준비한 핵심 프로그램을 소개합니다.",
     "items": {
       "0": {
-        "title": "아웃팅 인스피레이션 스테이지",
-        "description": "업계 전문가가 들려주는 최신 아웃팅 아이디어."
+        "title": "Inspiration Talk Series",
+        "description": "인게이지먼트 트렌드, 기업 문화, 아웃팅 & 인센티브 전략에 관한 영감 넘치는 세션."
       },
       "1": {
-        "title": "라이브 액티비티 데모",
-        "description": "팀빌딩과 아웃도어 활동을 직접 체험해 보세요."
+        "title": "Corporate Insights",
+        "description": "HR과 기업 리더를 위한 전략 컨퍼런스. 인재 개발, 인게이지먼트 혁신, 인센티브 여행이 주요 주제입니다."
       },
       "2": {
-        "title": "플래시 딜",
-        "description": "현장에서만 만날 수 있는 아웃팅 특가."
+        "title": "Business Matching Lounge",
+        "description": "HR 담당자 및 의사결정권자와 아웃팅 파트너, 체험 솔루션 업체를 연결하는 1:1 맞춤 미팅."
       },
       "3": {
-        "title": "비즈니스 매칭",
-        "description": "바이어와 파트너를 효율적으로 연결해 드려요."
+        "title": "HR Forum & Future Talk",
+        "description": "인재 전략, 조직 혁신, 정신 건강, 차세대 인센티브 및 리워드 접근법을 논의하는 핵심 포럼."
       },
       "4": {
-        "title": "커뮤니티 밋업",
-        "description": "같은 업계 사람들과 편하게 네트워킹하세요."
+        "title": "Experience Trial Zones",
+        "description": "현장 체험 공간. 팀빌딩 프로그램, 아웃도어 액티비티, 체험형 솔루션을 직접 경험해 보세요."
       }
     }
   },
   "partnerships": {
     "title": "<span class='text-outline'>함께 </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITE를 만들어가요</span>",
-    "description": "{appName}에 참여해서 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓혀보세요.",
+    "description": "IOITE는 솔루션 제공업체와 인게이지먼트·인센티브 프로그램을 적극적으로 기획하는 기업을 연결합니다. {appName}에 참가해 핵심 타깃 오디언스를 직접 만나세요.",
     "exhibitor": {
       "title": "전시업체 등록",
-      "description": "아웃팅 서비스나 여행지를 운영하고 계신가요? 수천 명의 관람객에게 직접 소개할 수 있어요.",
+      "description": "여행지, 행사장, 기업 아웃팅 서비스를 운영하시나요? 목표 방문객 25,000명 이상, 그중 60~70%가 기업 의사결정권자입니다.",
       "cta": "부스 예약하기"
     },
     "sponsor": {
       "title": "스폰서 등록",
-      "description": "스폰서로 참여하면 기업 의사결정권자에게 직접 다가갈 수 있어요.",
+      "description": "Experience Maker, Core Collaborator, Synergy Partner 세 가지 스폰서십 등급이 있습니다. 브랜드 목표에 맞는 등급을 선택하세요.",
       "cta": "스폰서 문의"
     },
     "mediaPartner": {
       "title": "미디어 파트너 등록",
-      "description": "아웃팅 업계 주요 이벤트를 독점 취재할 기회예요.",
+      "description": "2025년에는 40개 이상의 주요 미디어가 함께했습니다. 독점 취재권과 아웃팅·인센티브 업계의 핵심 콘텐츠를 확보하세요.",
       "cta": "미디어 파트너 신청"
     },
     "reservedSpace": {
-      "title": "이 자리는 좋은 파트너를 위해 비워뒀어요. 혹시 여러분?",
+      "title": "이 자리는 좋은 파트너를 위해 비워뒀어요. 함께하시겠어요?",
       "cta": "파트너 되기"
     }
   },
   "visitorCta": {
     "title": "<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">티켓</span> 한 장이면 시작이에요",
-    "description": "수백 가지 아웃팅 옵션, 전문 이벤트 플래너, 현장 한정 프로모션. Indonesia Outing & Incentive Travel Expo 2026에서 만나요!",
+    "description": "100개 이상의 브랜드, HR 컨퍼런스, 비즈니스 매칭, 체험존까지. 4일간 하나의 박람회에서 전부 만나보세요. IOITE 2026에서 자리를 확보하세요.",
     "cta": "티켓 받기"
   },
   "mediaCoverage": {
@@ -244,7 +244,7 @@
   },
   "credits": {
     "title": "함께 만드는 사람들",
-    "description": "파트너, 스폰서, 미디어의 지원 덕분에 이 행사가 가능해요."
+    "description": "파트너, 스폰서, 미디어의 지원 덕분에 이 행사가 가능합니다."
   },
   "postSlider": {
     "title": "최신 소식",
@@ -255,61 +255,61 @@
   },
   "brandList": {
     "title": "브랜드",
-    "description": "팀빌딩 서비스부터 여행지까지, 다양한 아웃팅 관련 브랜드를 둘러보세요."
+    "description": "여행지 및 숙박시설, 이벤트 & 체험 업체, 여행 & 교통, 인센티브 & 리워드 솔루션, 엔터테인먼트 & 웰니스까지. IOITE에 참가하는 브랜드를 둘러보세요."
   },
   "bookSpace": {
     "title": "전시 참가 신청",
-    "description": "{appName}에서 부스를 확보하고 수천 명의 잠재 고객에게 브랜드를 소개하세요."
+    "description": "{appName}에서 부스를 확보하세요. 목표 방문객 25,000명 이상, 대다수가 기업 의사결정권자입니다."
   },
   "faq": {
     "title": "자주 묻는 질문",
-    "description": "행사, 티켓, 전시 참가 관련 자주 묻는 질문을 모았어요.",
+    "description": "IOITE 행사, 티켓, 전시 참가 등에 관한 궁금증을 모아 정리했습니다.",
     "emptyState": "자주 묻는 질문을 정리하고 있어요. 조금만 기다려 주세요.",
     "contactTitle": "더 궁금한 점이 있으면 편하게 보내주세요!",
     "items": {
       "0": {
         "q": "{eventTitle}은(는) 언제, 어디서 열리나요?",
-        "a": "<p>{eventTitle}은(는) <strong>{eventDate}</strong>, <strong>{eventTime}</strong>에 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>에서 열려요.</p>"
+        "a": "<p>{eventTitle}은(는) <strong>{eventDate}</strong>, <strong>{eventTime}</strong>에 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>에서 열립니다.</p>"
       },
       "1": {
         "q": "티켓은 어떻게 받나요?",
-        "a": "<p>공식 웹사이트에서 <a href=\"/ticket\">티켓 받기</a> 버튼을 클릭하고 등록하면 돼요. 전자 티켓은 Email과 WhatsApp으로 보내드려요.</p>"
+        "a": "<p>공식 웹사이트에서 <a href=\"/ticket\">티켓 받기</a> 버튼을 클릭하고 등록하면 됩니다. 전자 티켓은 Email과 WhatsApp으로 발송돼요.</p>"
       },
       "2": {
-        "q": "티켓 가격이 얼마예요?",
-        "a": "<p>티켓 종류와 구매 시기에 따라 달라요. 최신 가격은 <a href=\"/ticket\">티켓 페이지</a>에서 확인해 주세요. 얼리버드 할인도 있어요!</p>"
+        "q": "티켓 가격이 얼마인가요?",
+        "a": "<p>티켓 종류와 구매 시기에 따라 다릅니다. 최신 가격은 <a href=\"/ticket\">티켓 페이지</a>에서 확인해 주세요.</p>"
       },
       "3": {
         "q": "참석 못 하면 환불 가능한가요?",
-        "a": "<p>구매한 티켓은 환불이나 교환이 안 돼요. 자세한 내용은 <a href=\"/ticket-refund-and-return-policy\">티켓 환불 정책</a>을 확인해 주세요.</p>"
+        "a": "<p>구매한 티켓은 환불이나 교환이 불가합니다. 자세한 내용은 <a href=\"/ticket-refund-and-return-policy\">티켓 환불 정책</a>을 확인해 주세요.</p>"
       },
       "4": {
         "q": "행사장에 뭘 가져가면 되나요?",
-        "a": "<p>전자 티켓(디지털 또는 출력본)을 등록 데스크에서 배지로 교환해요. 기업 행사 업체와 상담할 계획이면 명함도 챙겨오세요.</p>"
+        "a": "<p>전자 티켓(디지털 또는 출력본)을 등록 데스크에서 배지로 교환합니다. 기업 행사 업체와 상담 예정이라면 명함도 준비해 오세요.</p>"
       },
       "5": {
         "q": "누구나 참관할 수 있나요?",
-        "a": "<p>네, 누구나 환영해요! HR 담당자, 이벤트 기획자, 팀빌딩을 찾는 기업 담당자, 여행 좋아하시는 분, 아웃팅 서비스 업체 모두요.</p>"
+        "a": "<p>네, 누구나 참관 가능합니다. HR 리더, 이벤트 기획자, 기업 바이어, 커뮤니티, 교육기관, 일반 방문객 모두 환영해요. 1~2일차는 전문가 및 기업 관계자 중심, 3~4일차는 커뮤니티와 일반 방문객까지 폭넓게 운영됩니다.</p>"
       },
       "6": {
-        "q": "어떤 서비스와 여행지가 전시되나요?",
-        "a": "<p>아웃팅 목적지, 팀빌딩, 기업 이벤트 장소, 여행 패키지, 아웃도어 체험, 리조트 등 다양해요. <a href=\"/brands\">참가사 페이지</a>에서 전체 목록을 확인하세요.</p>"
+        "q": "어떤 브랜드와 서비스가 전시되나요?",
+        "a": "<p>5개 전시 카테고리가 있습니다: 여행지 & 행사장, 이벤트 & 체험 업체, 여행 & 교통, 인센티브 & 리워드 솔루션, 엔터테인먼트 & 웰니스. <a href=\"/brands\">참가사 페이지</a>에서 전체 목록을 확인하세요.</p>"
       },
       "7": {
         "q": "현장에서 바로 예약할 수 있나요?",
-        "a": "<p>네! 많은 참가사가 현장 한정 프로모션과 즉석 예약을 받고 있어요. 기업 아웃팅이나 팀빌딩 패키지를 직접 비교하고 바로 결정할 수 있어요.</p>"
+        "a": "<p>네! 많은 참가사가 현장 한정 프로모션과 즉석 예약을 진행하고 있어요.</p>"
       },
       "8": {
         "q": "전시 참가는 어떻게 신청하나요?",
-        "a": "<p><a href=\"/book-space\">전시 참가 신청 페이지</a>에서 신청하시거나 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>으로 문의해 주세요.</p>"
+        "a": "<p><a href=\"/book-space\">전시 참가 신청 페이지</a>를 방문하시거나 <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>으로 문의해 주세요.</p>"
       },
       "9": {
-        "q": "세미나나 발표 프로그램도 있나요?",
-        "a": "<p>네! 팀빌딩, 기업 이벤트 기획, 인기 아웃팅 여행지 등 다양한 주제의 세미나를 진행해요. <a href=\"/rundown\">일정 페이지</a>에서 확인하세요.</p>"
+        "q": "세미나나 컨퍼런스 프로그램이 있나요?",
+        "a": "<p>네. IOITE에는 네 가지 핵심 프로그램이 있습니다: Inspiration Talk Series, Corporate Insights, Business Matching Lounge, HR Forum & Future Talk. 직원 인게이지먼트, 인재 개발, 인센티브 전략 등 다양한 주제를 다룹니다. <a href=\"/rundown\">일정 페이지</a>에서 확인하세요.</p>"
       },
       "10": {
-        "q": "팀빌딩 활동을 찾기에 좋은가요?",
-        "a": "<p>그럼요! 팀빌딩 업체를 직접 만나서 패키지를 비교하고 회사에 맞는 활동을 찾기에 딱 좋은 자리예요.</p>"
+        "q": "1~2일차와 3~4일차는 어떻게 다른가요?",
+        "a": "<p>1~2일차(평일)는 Business & Planning Days로, 비즈니스 미팅과 컨퍼런스, 기업 네트워킹에 집중합니다. 3~4일차(주말)는 Experience & Community Days로, 현장 체험, 프로그램 쇼케이스, 폭넓은 커뮤니티 참여 프로그램이 진행됩니다.</p>"
       },
       "11": {
         "q": "스폰서나 미디어 파트너가 되려면요?",
@@ -317,15 +317,15 @@
       },
       "12": {
         "q": "행사장에 주차할 수 있나요?",
-        "a": "<p>네, 주차 시설이 있어요. 다만 피크 시간에는 자리가 빨리 차니까 일찍 오시는 걸 추천해요. 대중교통이나 차량 호출도 편리해요.</p>"
+        "a": "<p>네, NICE PIK 2에 넓은 주차장이 있습니다. 다만 피크 시간에는 빨리 찰 수 있으니 일찍 도착하시는 걸 권장합니다.</p>"
       },
       "13": {
         "q": "사진이나 영상을 찍어도 되나요?",
-        "a": "<p>개인 용도의 촬영은 가능해요. 상업 목적 촬영은 주최 측 사전 허가가 필요해요. <a href=\"/event-policy\">행사 정책</a>에서 자세히 확인하세요.</p>"
+        "a": "<p>개인 용도 촬영은 가능합니다. 상업 목적 촬영은 주최 측의 사전 서면 허가가 필요합니다. <a href=\"/event-policy\">행사 정책</a>에서 자세히 확인하세요.</p>"
       },
       "14": {
         "q": "최신 소식은 어디서 확인하나요?",
-        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>을 팔로우하면 참가사 소식, 행사 업데이트, 한정 이벤트를 바로 받아볼 수 있어요. <a href=\"/news\">뉴스 페이지</a>도 확인해 보세요.</p>"
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>을 팔로우하면 참가사 소식, 행사 업데이트, 독점 콘텐츠를 바로 받아볼 수 있어요. <a href=\"/news\">뉴스 페이지</a>도 확인해 보세요.</p>"
       },
       "15": {
         "q": "주최 측에 어떻게 연락하나요?",
@@ -335,12 +335,12 @@
   },
   "pages": {
     "home": {
-      "title": "Indonesia Outing & Incentive Travel Expo: 아웃팅의 모든 것을 한곳에서",
-      "description": "회사 야유회, 수학여행, 단체 모험 기획 중이라면? Indonesia Outing & Incentive Travel Expo에서 영감을 얻어보세요!"
+      "title": "Indonesia Outing & Incentive Travel Expo (IOITE) 2026: 기업 인게이지먼트 & 인센티브 여행 비즈니스 플랫폼",
+      "description": "인도네시아 최대 아웃팅 및 인센티브 여행 박람회. 100+ 브랜드, HR 컨퍼런스, 비즈니스 매칭. 2026년 8월 27~30일, NICE PIK 2."
     },
     "brands": {
       "title": "브랜드",
-      "description": "팀빌딩 서비스부터 여행지까지, 다양한 아웃팅 관련 브랜드를 둘러보세요."
+      "description": "여행지, 행사장, 이벤트 기획사, 여행사, 인센티브 프로그램 업체, 기업 지원 서비스까지. IOITE 참가 브랜드를 둘러보세요."
     },
     "rundown": {
       "title": "일정",
@@ -348,7 +348,7 @@
     },
     "programs": {
       "title": "주요 프로그램",
-      "description": "{appName}의 주요 프로그램: 전시, 세미나, 비즈니스 매칭 등을 소개해요."
+      "description": "{appName}의 핵심 프로그램: 컨퍼런스, HR 포럼, 비즈니스 매칭, 체험존, 커뮤니티 프로그램을 소개합니다."
     },
     "contact": {
       "title": "문의하기",
@@ -356,19 +356,19 @@
     },
     "bookSpace": {
       "title": "부스 예약하기",
-      "description": "{appName}에서 부스를 확보하고 수천 명의 잠재 고객에게 브랜드를 소개하세요."
+      "description": "{appName}에서 부스를 확보하세요. 목표 방문객 25,000명 이상, 대다수가 기업 의사결정권자입니다."
     },
     "ticket": {
-      "title": "티켓 받기",
-      "description": "{appName} 입장 티켓을 받으세요. 일정, 장소, 티켓 옵션을 한눈에 확인해요."
+      "title": "{appName} 티켓",
+      "description": "{appName} 입장 티켓을 받으세요. 일정, 장소, 티켓 옵션을 한눈에 확인할 수 있습니다."
     },
     "gallery": {
-      "title": "갤러리",
+      "title": "행사 갤러리",
       "description": "지난 {appName}의 하이라이트 사진을 구경해 보세요."
     },
     "faq": {
       "title": "FAQ",
-      "description": "{appName}에 대한 자주 묻는 질문과 답변을 모았어요."
+      "description": "{appName}에 대한 자주 묻는 질문과 답변을 모았습니다. 티켓, 행사 정보, 파트너십 등을 확인하세요."
     },
     "links": {
       "title": "링크",
@@ -376,7 +376,7 @@
     },
     "news": {
       "title": "뉴스",
-      "description": "아웃팅 & 여행 업계의 최신 소식과 트렌드를 확인하세요."
+      "description": "기업 인게이지먼트 및 인센티브 여행 업계의 최신 소식과 트렌드를 확인하세요."
     },
     "ticketPolicy": {
       "title": "티켓 정책",
@@ -384,11 +384,11 @@
     },
     "eventPolicy": {
       "title": "행사 정책",
-      "description": "{appName}의 행사 규정과 참가자 및 전시 참가사 안내 사항이에요."
+      "description": "{appName}의 행사 규정과 참가자 및 전시 참가사 안내 사항입니다."
     },
     "partners": {
       "title": "파트너",
-      "description": "파트너, 스폰서, 미디어의 지원 덕분에 이 행사를 만들 수 있었어요. 감사합니다."
+      "description": "파트너, 스폰서, 미디어의 지원 덕분에 이 행사를 만들 수 있었습니다. 감사합니다."
     },
     "terms": {
       "title": "이용약관",
@@ -404,12 +404,12 @@
     }
   },
   "about": {
-    "sectionSubtitle": "Indonesia Outing & Incentive Travel Expo (IOITE)를 소개해요",
-    "sectionTitle": "아웃팅에 필요한 모든 것, 한자리에서!",
-    "sectionDescription": "Indonesia Outing & Incentive Travel Expo는 인도네시아 전역의 다양한 아웃팅을 한 번에 탐색할 수 있는 박람회예요. 어드벤처 여행, 기업 워크숍, 가족 나들이, 익스트림 스포츠까지 최고의 서비스와 여행지, 특별 혜택을 3일간 만나볼 수 있어요. 다음 모험을 위한 영감을 찾으러 오세요."
+    "sectionSubtitle": "구 Indonesia Outing Expo",
+    "sectionTitle": "단순한 아웃팅 박람회를 넘어서",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo(IOITE)는 Indonesia Outing Expo에서 진화한 행사입니다. 기업 인게이지먼트, 인센티브 여행, 체험 기반 프로그램을 아우르는 통합 비즈니스 플랫폼으로 확장되었습니다. 2025년에는 70개 이상의 기업에서 10,000명 이상이 방문하고 100개 이상의 브랜드가 참가했습니다. 올해는 규모 3배 확대, NICE PIK 2의 2개 홀에서 4일간 진행됩니다. 1~2일차는 비즈니스 플래닝과 기업 네트워킹, 3~4일차는 현장 체험과 커뮤니티 프로그램에 집중합니다."
   },
   "pastExhibitors": {
-    "title": "<span class=\"text-primary\">유명 브랜드</span>도 함께했어요",
-    "description": "Indonesia Outing Expo 2025에 참가한 브랜드들. 수천 명의 잠재 파트너와 연결됐어요."
+    "title": "지난 행사에서 <span class=\"text-primary\">100개 이상의 브랜드</span>가 함께했습니다",
+    "description": "방문객 10,000명 이상. 참여 기업 70곳 이상. 참가사의 95%가 재참가를 추천. Indonesia Outing Expo 2025에서 전시한 브랜드를 소개합니다."
   }
 }

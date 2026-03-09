@@ -34,10 +34,10 @@ const event = {
   teaserVideoId: "",
   profileImage: "/img/avatar/ioe.svg",
   description:
-    "Pameran outing dan incentive travel terbesar di Indonesia. Temukan destinasi, venue, dan layanan terbaik untuk acara outing perusahaan Anda.",
+    "Platform bisnis untuk corporate engagement dan incentive travel. 100+ brand, konferensi HR, business matching. 27-30 Agustus 2026, NICE PIK 2.",
   offersName: "Tiket Masuk IOITE",
   offersDescription:
-    "Harga tiket pameran outing dan travel berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
+    "Harga tiket pameran corporate engagement dan incentive travel berbeda-beda tergantung jenis tiket dan waktu pembeliannya.",
   // inConjunction: {
   //   label: "In conjunction with",
   //   list: [

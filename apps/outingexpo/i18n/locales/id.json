@@ -144,38 +144,38 @@
   },
   "whyVisit": {
     "heading": "Kenapa Harus Datang?",
-    "subheading": "Semua yang Kamu Butuhkan untuk Outing Terbaik",
+    "subheading": "Satu Platform untuk Corporate Engagement & Incentive Travel",
     "items": {
-      "0": { "title": "Temukan Destinasi Impian", "description": "Ratusan pilihan destinasi outing ada di sini. Pantai tropis, retreat di pegunungan, sampai taman petualangan yang bikin adrenalin naik. Trip seru kamu berikutnya dimulai dari sini." },
-      "1": { "title": "Temui Organizer Terbaik", "description": "Terhubung langsung dengan event organizer, travel agent, dan spesialis corporate outing. Mau retreat kantor atau liburan bersama keluarga, pilih partner yang paling sesuai." },
-      "2": { "title": "Dapatkan Promo Eksklusif", "description": "Diskon dan paket spesial yang hanya tersedia di pameran ini. Hemat lebih banyak untuk outing, team building, atau incentive trip berikutnya." },
-      "3": { "title": "Dapatkan Inspirasi Langsung", "description": "Lihat demo langsung, ikuti sharing dari para ahli, dan eksplor gear outdoor serta teknologi travel terbaru. Pulang dengan ide segar untuk petualangan selanjutnya." }
+      "0": { "title": "Akses Langsung ke Decision Makers", "description": "60-70% pengunjung adalah HR leaders, C-Level, dan corporate buyers. Ini bukan pameran biasa. Ini tempat deal terjadi." },
+      "1": { "title": "100+ Brand & Solusi dalam Satu Venue", "description": "Dari destinasi outing, penyedia team building, sampai program incentive travel. Bandingkan langsung, pilih yang paling cocok untuk perusahaan kamu." },
+      "2": { "title": "Program Bisnis 4 Hari, Fokus & Strategis", "description": "Hari 1-2 untuk planning dan networking korporat. Hari 3-4 untuk experience dan aktivasi langsung. Datang di hari yang sesuai kebutuhan kamu." },
+      "3": { "title": "Konferensi & Forum HR Terkurasi", "description": "Ikuti Inspiration Talk Series, Corporate Insights, dan HR Forum yang membahas tren engagement, people development, dan incentive strategy." }
     }
   },
   "hero": {
     "countdownLabel": "Mulai dalam:",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
-    "description": "Temui event organizer terbaik, temukan destinasi seru, dan dapatkan promo perjalanan eksklusif untuk outing berikutnya.",
+    "description": "Platform bisnis untuk corporate engagement dan incentive travel. 100+ brand, konferensi HR, business matching, semuanya di satu tempat.",
     "announcement": "Slot exhibitor masih tersedia!",
     "banners": {
       "0": {
-        "subHeadline": "Satu tempat untuk semua kebutuhan outing kamu.",
-        "content": "<p>Masuk gratis ke pameran outing terbesar di Indonesia. Ratusan destinasi, event organizer profesional, dan promo perjalanan eksklusif, semua ada di sini.</p>",
-        "cta": "Dapatkan Tiket"
+        "subHeadline": "Satu tiket. Akses ke seluruh pameran 4 hari.",
+        "content": "<p>Temui 100+ brand penyedia outing, incentive travel, dan corporate engagement. Gratis masuk. Daftar sekarang dan amankan badge kamu.</p>",
+        "cta": "Daftar Sekarang"
       },
       "1": {
-        "subHeadline": "Tampilkan brand kamu di Indonesia Outing & Incentive Travel Expo 2026!",
-        "content": "<p>Ribuan pencari outing, perencana corporate, dan pecinta travel akan hadir. Ini kesempatan untuk brand kamu dikenal lebih luas.</p>",
+        "subHeadline": "3x lebih besar. 25,000+ target pengunjung.",
+        "content": "<p>Edisi 2025 dihadiri 10,000+ pengunjung dari 70+ perusahaan. Tahun ini skalanya 3x lipat. Tampilkan brand kamu di depan corporate decision makers.</p>",
         "cta": "Pesan Booth Sekarang"
       },
       "2": {
-        "subHeadline": "Konsultasi perencanaan outing, gratis!",
-        "content": "<p>Bawa ide kamu. Event organizer dan travel expert siap bantu rancang outing yang pas buat tim kamu.</p>",
+        "subHeadline": "Konferensi & forum yang bikin tim kamu naik level.",
+        "content": "<p>Inspiration Talk Series, Corporate Insights, HR Forum, dan Business Matching Lounge. Program terkurasi untuk HR dan corporate leaders.</p>",
         "cta": "Lihat Semua Program"
       },
       "3": {
         "subHeadline": "Jangan sampai ketinggalan update-nya!",
-        "content": "<p>Follow Instagram kami untuk inspirasi outing, info exhibitor, dan giveaway eksklusif menjelang Indonesia Outing & Incentive Travel Expo.</p>",
+        "content": "<p>Follow Instagram kami untuk info exhibitor, program acara, dan insight seputar corporate engagement dan incentive travel.</p>",
         "cta": "Follow {'@'}indooutingexpo"
       }
     },
@@ -186,46 +186,46 @@
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Program</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Utama</span>",
-    "description": "Pameran, seminar, demo langsung, sampai business matching. Ini program-program utama di {appName} yang sayang untuk dilewatkan.",
+    "description": "Konferensi, forum HR, business matching, dan experience zone. Ini program-program unggulan di {appName} yang dirancang untuk corporate leaders dan pelaku industri.",
     "items": {
       "0": {
-        "title": "Outing Inspiration Stage",
-        "description": "Ide segar langsung dari para ahlinya."
+        "title": "Inspiration Talk Series",
+        "description": "Sesi inspiratif seputar tren engagement, budaya perusahaan, dan strategi outing & incentive."
       },
       "1": {
-        "title": "Live Activity Demos",
-        "description": "Lihat langsung aksi team building dan aktivitas outdoor."
+        "title": "Corporate Insights",
+        "description": "Konferensi strategis untuk HR dan corporate leaders. Topik: people development, engagement transformation, incentive travel."
       },
       "2": {
-        "title": "Flash Deals",
-        "description": "Promo outing spesial, cuma ada di tempat."
+        "title": "Business Matching Lounge",
+        "description": "Meeting 1-on-1 terkurasi yang mempertemukan HR & decision makers dengan partner outing dan experiential solutions."
       },
       "3": {
-        "title": "Business Matching",
-        "description": "Bertemu langsung dengan buyer dan partner potensial."
+        "title": "HR Forum & Future Talk",
+        "description": "Forum unggulan tentang people strategy, workforce transformation, mental well-being, dan pendekatan incentive modern."
       },
       "4": {
-        "title": "Community Meet-Ups",
-        "description": "Terhubung dan perluas jaringan bersama sesama pelaku outing."
+        "title": "Experience Trial Zones",
+        "description": "Area aktivasi langsung. Coba sendiri program team building, aktivitas outdoor, dan experience-based solutions dari para exhibitor."
       }
     }
   },
   "partnerships": {
     "title": "<span class='text-outline'>Jadi </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Bagian dari IOITE</span>",
-    "description": "Ikut {appName} untuk menemui calon partner, mendapatkan exposure, dan memperluas jaringan bisnis kamu.",
+    "description": "IOITE mempertemukan penyedia solusi dengan perusahaan yang aktif merancang program engagement dan incentive. Ikut {appName} untuk akses langsung ke audiens yang tepat.",
     "exhibitor": {
       "title": "Daftar Exhibitor",
-      "description": "Punya layanan outing atau destinasi seru? Tampilkan ke ribuan pengunjung yang siap booking.",
+      "description": "Punya destinasi, venue, atau layanan corporate outing? 25,000+ target pengunjung, 60-70% di antaranya corporate decision makers.",
       "cta": "Book Booth"
     },
     "sponsor": {
       "title": "Daftar Sponsor",
-      "description": "Langsung terhubung dengan decision-maker di industri outing lewat sponsorship.",
+      "description": "Tiga tier sponsorship: Experience Maker, Core Collaborator, dan Synergy Partner. Pilih yang paling cocok dengan target brand kamu.",
       "cta": "Daftar Sponsor"
     },
     "mediaPartner": {
       "title": "Daftar Media Partner",
-      "description": "Liputan eksklusif dan akses ke konten terbaik dari industri outing.",
+      "description": "Edisi 2025 didukung 40+ media nasional. Gabung untuk liputan eksklusif dan akses konten terbaik dari industri outing & incentive.",
       "cta": "Gabung sebagai Media"
     },
     "reservedSpace": {
@@ -235,7 +235,7 @@
   },
   "visitorCta": {
     "title": "Mulai dari Satu <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Tiket</span>",
-    "description": "Ratusan pilihan outing, event planner profesional, dan promo spesial menunggu kamu. Amankan spot di Indonesia Outing & Incentive Travel Expo 2026.",
+    "description": "100+ brand, konferensi HR, business matching, dan experience zone. Semua di satu pameran, 4 hari. Amankan spot kamu di IOITE 2026.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -255,15 +255,15 @@
   },
   "brandList": {
     "title": "Brand",
-    "description": "Jelajahi brand-brand yang tampil di Indonesia Outing & Incentive Travel Expo. Dari penyedia team building sampai destinasi wisata."
+    "description": "Destinasi, venue, event organizer, travel agent, penyedia incentive program, dan layanan pendukung korporat. Jelajahi brand yang tampil di IOITE."
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
-    "description": "Amankan booth kamu di {appName}. Tampilkan brand ke ribuan pengunjung dan kembangkan bisnis kamu."
+    "description": "Amankan booth kamu di {appName}. Tampilkan brand ke 25,000+ target pengunjung, mayoritas corporate decision makers."
   },
   "faq": {
     "title": "Pertanyaan yang Sering Diajukan",
-    "description": "Jawaban untuk pertanyaan seputar outing expo, tiket, exhibitor, dan lainnya.",
+    "description": "Jawaban untuk pertanyaan seputar IOITE, tiket, exhibitor, dan lainnya.",
     "emptyState": "Kami sedang menyiapkan daftar pertanyaan. Cek lagi nanti.",
     "contactTitle": "Masih ada pertanyaan? Langsung kirim ke kami!",
     "items": {
@@ -277,7 +277,7 @@
       },
       "2": {
         "q": "Berapa harga tiketnya?",
-        "a": "<p>Harga tiket bervariasi tergantung jenis dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> untuk harga terkini. Ada promo early bird juga!</p>"
+        "a": "<p>Harga tiket bervariasi tergantung jenis dan periode pembelian. Cek halaman <a href=\"/ticket\">Tiket</a> untuk harga terkini.</p>"
       },
       "3": {
         "q": "Bisa refund kalau tidak bisa hadir?",
@@ -285,31 +285,31 @@
       },
       "4": {
         "q": "Apa yang perlu dibawa ke acara?",
-        "a": "<p>Bawa e-ticket kamu (digital atau print) untuk ditukar badge di meja registrasi. Kalau ingin networking dengan vendor corporate event, jangan lupa bawa kartu nama.</p>"
+        "a": "<p>Bawa e-ticket kamu (digital atau print) untuk ditukar badge di meja registrasi. Kalau ingin networking dengan vendor corporate event, bawa kartu nama.</p>"
       },
       "5": {
         "q": "Siapa saja yang boleh datang?",
-        "a": "<p>Semua orang! HR, event organizer, perwakilan perusahaan yang mencari team building, pecinta traveling, dan penyedia layanan outing. Semua terbuka untuk hadir.</p>"
+        "a": "<p>Terbuka untuk semua orang. HR leaders, event organizer, corporate buyers, perwakilan perusahaan, komunitas, institusi pendidikan, dan pengunjung umum. Khusus Day 1-2 difokuskan untuk profesional dan korporat, Day 3-4 terbuka lebih luas untuk komunitas dan publik.</p>"
       },
       "6": {
-        "q": "Layanan dan destinasi apa saja yang ditampilkan?",
-        "a": "<p>Destinasi outing, aktivitas team building, venue corporate event, paket perjalanan, petualangan outdoor, resort, dan pengalaman grup lainnya. Cek halaman <a href=\"/brands\">Exhibitors</a> untuk daftar lengkap.</p>"
+        "q": "Brand dan layanan apa saja yang ditampilkan?",
+        "a": "<p>Lima kategori exhibitor: destinasi & venue, event & experience providers, travel & transportasi, incentive & reward solutions, serta entertainment & wellness. Cek halaman <a href=\"/brands\">Exhibitors</a> untuk daftar lengkap.</p>"
       },
       "7": {
         "q": "Bisa langsung booking di lokasi?",
-        "a": "<p>Bisa! Banyak exhibitor memberikan promo eksklusif dan menerima booking langsung di tempat. Kesempatan bagus untuk mendapatkan deal corporate outing dan paket team building.</p>"
+        "a": "<p>Bisa. Banyak exhibitor memberikan promo eksklusif dan menerima booking langsung di tempat.</p>"
       },
       "8": {
         "q": "Bagaimana cara menjadi exhibitor?",
-        "a": "<p>Kunjungi halaman <a href=\"/book-space\">Registrasi Exhibitor</a> atau hubungi tim kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info booth.</p>"
+        "a": "<p>Kunjungi halaman <a href=\"/book-space\">Registrasi Exhibitor</a> atau hubungi tim kami lewat <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info booth dan harga.</p>"
       },
       "9": {
-        "q": "Ada seminar atau presentasi?",
-        "a": "<p>Ada! Topiknya mulai dari team building, perencanaan corporate event, destinasi outing terkini, sampai employee engagement. Cek <a href=\"/rundown\">Rundown</a> untuk jadwalnya.</p>"
+        "q": "Ada seminar atau konferensi?",
+        "a": "<p>Ada. IOITE punya empat program utama: Inspiration Talk Series, Corporate Insights, Business Matching Lounge, dan HR Forum & Future Talk. Topiknya mulai dari employee engagement, people development, sampai incentive strategy. Cek <a href=\"/rundown\">Rundown</a> untuk jadwalnya.</p>"
       },
       "10": {
-        "q": "Apakah cocok untuk mencari aktivitas team building?",
-        "a": "<p>Sangat cocok! Kamu bisa bertemu langsung dengan penyedia team building, membandingkan paket, dan mendiskusikan kebutuhan spesifik perusahaan kamu.</p>"
+        "q": "Apa bedanya Day 1-2 dan Day 3-4?",
+        "a": "<p>Day 1-2 (hari kerja) adalah Business & Planning Days, fokus ke diskusi bisnis, konferensi, dan networking korporat. Day 3-4 (akhir pekan) adalah Experience & Community Days, fokus ke aktivasi langsung, showcase program, dan engagement lebih luas.</p>"
       },
       "11": {
         "q": "Bagaimana cara menjadi sponsor atau media partner?",
@@ -317,7 +317,7 @@
       },
       "12": {
         "q": "Ada parkir di venue?",
-        "a": "<p>Ada. Kami sarankan datang lebih awal karena parkir bisa cepat penuh saat jam ramai. Bisa juga menggunakan transportasi umum atau layanan ojek online.</p>"
+        "a": "<p>Ada. NICE PIK 2 menyediakan area parkir yang luas. Tapi kami sarankan datang lebih awal karena parkir bisa cepat penuh saat jam ramai.</p>"
       },
       "13": {
         "q": "Boleh foto dan video di acara?",
@@ -335,12 +335,12 @@
   },
   "pages": {
     "home": {
-      "title": "Indonesia Outing & Incentive Travel Expo: Semua Kebutuhan Outing di Satu Tempat",
-      "description": "Cari inspirasi outing kantor, wisata sekolah, atau petualangan grup? Temukan semuanya di Indonesia Outing & Incentive Travel Expo!"
+      "title": "Indonesia Outing & Incentive Travel Expo (IOITE) 2026: Platform Bisnis untuk Corporate Engagement & Incentive Travel",
+      "description": "Pameran outing dan incentive travel terbesar di Indonesia. 100+ brand, konferensi HR, business matching, 27-30 Agustus 2026 di NICE PIK 2."
     },
     "brands": {
       "title": "Brand",
-      "description": "Jelajahi brand-brand yang tampil di Indonesia Outing & Incentive Travel Expo. Dari penyedia team building sampai destinasi wisata."
+      "description": "Destinasi, venue, event organizer, travel agent, penyedia incentive program, dan layanan pendukung korporat. Jelajahi brand yang tampil di IOITE."
     },
     "rundown": {
       "title": "Rundown",
@@ -348,7 +348,7 @@
     },
     "programs": {
       "title": "Program Utama",
-      "description": "Program utama di {appName}: pameran, seminar, business matching, dan banyak lagi."
+      "description": "Program utama di {appName}: konferensi, forum HR, business matching, experience zone, dan community activations."
     },
     "contact": {
       "title": "Hubungi Kami",
@@ -356,7 +356,7 @@
     },
     "bookSpace": {
       "title": "Book Space",
-      "description": "Amankan booth kamu di {appName}. Tampilkan brand ke ribuan pengunjung dan kembangkan bisnis kamu."
+      "description": "Amankan booth kamu di {appName}. Tampilkan brand ke 25,000+ target pengunjung, mayoritas corporate decision makers."
     },
     "ticket": {
       "title": "Tiket {appName}",
@@ -376,7 +376,7 @@
     },
     "news": {
       "title": "Berita",
-      "description": "Info, insight, dan tren terbaru dari dunia outing dan travel."
+      "description": "Info, insight, dan tren terbaru dari dunia corporate engagement dan incentive travel."
     },
     "ticketPolicy": {
       "title": "Kebijakan Tiket",
@@ -404,12 +404,12 @@
     }
   },
   "about": {
-    "sectionSubtitle": "Mengenal Indonesia Outing & Incentive Travel Expo (IOITE)",
-    "sectionTitle": "Semua Kebutuhan Outing Kamu, Ada di Sini!",
-    "sectionDescription": "Indonesia Outing & Incentive Travel Expo adalah tempat paling lengkap untuk kamu yang sedang mencari inspirasi outing. Mulai dari wisata petualangan, retreat perusahaan, outing keluarga, sampai olahraga ekstrem, semuanya ada. Kami kumpulkan penyedia layanan terbaik, destinasi seru, dan penawaran menarik dalam satu event tiga hari. Eksplorasi semua kemungkinan untuk petualangan kamu berikutnya."
+    "sectionSubtitle": "Formerly Indonesia Outing Expo",
+    "sectionTitle": "Lebih dari Sekadar Pameran Outing",
+    "sectionDescription": "Indonesia Outing & Incentive Travel Expo (IOITE) adalah evolusi dari Indonesia Outing Expo. Sekarang cakupannya lebih luas: corporate engagement, incentive travel, dan experience-based programs dalam satu platform terintegrasi. Edisi 2025 dihadiri 10,000+ pengunjung dari 70+ perusahaan dengan 100+ brand. Tahun ini 3x lebih besar, 4 hari penuh di 2 hall NICE PIK 2. Day 1-2 untuk perencanaan dan networking bisnis. Day 3-4 untuk aktivasi langsung dan community engagement."
   },
   "pastExhibitors": {
-    "title": "Dipercaya <span class=\"text-primary\">Brand-Brand Ternama</span>",
-    "description": "Brand-brand ini sudah tampil di Indonesia Outing Expo 2025 dan terhubung dengan ribuan partner potensial."
+    "title": "Dipercaya <span class=\"text-primary\">100+ Brand</span> di Edisi Sebelumnya",
+    "description": "10,000+ pengunjung. 70+ perusahaan. 95% exhibitor merekomendasikan untuk ikut lagi. Ini brand-brand yang sudah tampil di Indonesia Outing Expo 2025."
   }
 }
