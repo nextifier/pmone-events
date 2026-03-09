@@ -146,10 +146,22 @@
     "heading": "IOITEに来るべき理由",
     "subheading": "企業エンゲージメント＆インセンティブトラベルのワンストップ・プラットフォーム",
     "items": {
-      "0": { "title": "意思決定者に直接アクセス", "description": "来場者の60〜70%は、人事部門のリーダー、経営層、法人バイヤー。一般的な展示会とは違い、ここは商談が動く場所です。" },
-      "1": { "title": "100以上のブランドとソリューションが一堂に", "description": "アウティング先、チームビルディング、インセンティブトラベル、企業ウェルネスプログラムまで。会場で直接比較し、自社に合ったパートナーを見つけられます。" },
-      "2": { "title": "4日間の戦略的プログラム構成", "description": "1〜2日目は企業向けの商談・ネットワーキング。3〜4日目は体験型アクティベーションとコミュニティ交流。目的に合わせて参加日を選べます。" },
-      "3": { "title": "HR向けカンファレンス＆フォーラム", "description": "Inspiration Talk Series、Corporate Insights、HR Forumを通じて、エンゲージメントの最新トレンド、人材開発、インセンティブ戦略を学べます。" }
+      "0": {
+        "title": "意思決定者に直接アクセス",
+        "description": "来場者の60〜70%は、人事部門のリーダー、経営層、法人バイヤー。一般的な展示会とは違い、ここは商談が動く場所です。"
+      },
+      "1": {
+        "title": "100以上のブランドとソリューションが一堂に",
+        "description": "アウティング先、チームビルディング、インセンティブトラベル、企業ウェルネスプログラムまで。会場で直接比較し、自社に合ったパートナーを見つけられます。"
+      },
+      "2": {
+        "title": "4日間の戦略的プログラム構成",
+        "description": "1〜2日目は企業向けの商談・ネットワーキング。3〜4日目は体験型アクティベーションとコミュニティ交流。目的に合わせて参加日を選べます。"
+      },
+      "3": {
+        "title": "HR向けカンファレンス＆フォーラム",
+        "description": "Inspiration Talk Series、Corporate Insights、HR Forumを通じて、エンゲージメントの最新トレンド、人材開発、インセンティブ戦略を学べます。"
+      }
     }
   },
   "hero": {
@@ -185,7 +197,7 @@
     "edition": "第{n}回"
   },
   "mainPrograms": {
-    "title": "<span class='text-outline'>メイン</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">プログラム</span>",
+    "title": "<span class='text-outline'>メイン</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">プログラム</span>",
     "description": "カンファレンス、HRフォーラム、ビジネスマッチング、体験ゾーン。{appName}が企業リーダーと業界プロフェッショナルに向けて設計した主要プログラムです。",
     "items": {
       "0": {
@@ -211,7 +223,7 @@
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>IOITEの </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">パートナーになる</span>",
+    "title": "<span class='text-outline'>IOITEの </span><span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">パートナーになる</span>",
     "description": "IOITEは、エンゲージメントプログラムやインセンティブ施策を計画する企業と、ソリューションプロバイダーを直接つなぐ場です。{appName}に参加して、最適なオーディエンスにリーチしましょう。",
     "exhibitor": {
       "title": "出展登録",
@@ -234,7 +246,7 @@
     }
   },
   "visitorCta": {
-    "title": "<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">チケット</span>1枚から始めましょう",
+    "title": "<span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">チケット</span>1枚から始めましょう",
     "description": "100以上のブランド、HRカンファレンス、ビジネスマッチング、体験ゾーン。すべてを4日間の1つの会場で。IOITE 2026でお待ちしています。",
     "cta": "チケットを取得"
   },

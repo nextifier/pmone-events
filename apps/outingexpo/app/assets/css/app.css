@@ -33,7 +33,7 @@
 }
 
 .section-title-large {
-  @apply text-primary text-[clamp(2.5rem,12vw,6rem)] !leading-[1.1] font-extrabold tracking-tighter text-balance;
+  @apply text-primary text-[clamp(2.5rem,12vw,6rem)] !leading-[1.1] font-medium tracking-[-0.06em] text-balance;
 }
 
 .section-description {

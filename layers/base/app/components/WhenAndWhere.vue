@@ -2,11 +2,11 @@
   <div class="flex flex-col gap-y-4 text-left">
     <div class="flex items-center gap-x-3">
       <div
-        class="border-border flex size-10 shrink-0 flex-col overflow-hidden rounded-xl border text-center sm:size-12"
+        class="outline-inside flex size-10 shrink-0 flex-col overflow-hidden rounded-xl text-center sm:size-12"
       >
         <div
           v-if="shortMonth"
-          class="gradient-accent flex h-[40%] w-full flex-col items-center justify-center bg-linear-to-r text-[0.5rem] leading-none! font-semibold tracking-wide text-white uppercase sm:text-[0.6rem]"
+          class="gradient-accent flex h-[45%] w-full flex-col items-center justify-center bg-linear-to-r text-[0.7rem] leading-none! font-bold text-white uppercase"
         >
           {{ shortMonth }}
         </div>
@@ -21,7 +21,7 @@
 
       <div class="flex flex-col items-start gap-y-1">
         <span
-          class="text-primary line-clamp-1 text-base font-semibold tracking-tight"
+          class="text-primary line-clamp-1 text-base font-medium tracking-tight"
         >
           <span
             v-if="
@@ -43,7 +43,7 @@
 
     <div class="flex items-center gap-x-3">
       <div
-        class="border-border flex size-10 shrink-0 flex-col items-center justify-center rounded-xl border text-center sm:size-12"
+        class="outline-inside flex size-10 shrink-0 flex-col items-center justify-center rounded-xl text-center sm:size-12"
       >
         <IconLocation class="size-5" />
       </div>
@@ -53,7 +53,7 @@
           v-if="props.location"
           :to="props.locationLink ?? ''"
           target="_blank"
-          class="text-primary decoration-primary/80 gap-2 text-base font-semibold tracking-tight text-pretty decoration-dotted decoration-1 underline-offset-4 hover:underline"
+          class="text-primary decoration-primary/80 gap-2 text-base font-medium tracking-tight text-pretty decoration-dotted decoration-1 underline-offset-4 hover:underline"
         >
           <span>{{ props.location }}</span>
           <IconArrowUpRight class="ml-1 inline size-3.5" />

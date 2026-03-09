@@ -58,8 +58,8 @@
             {{ event.title }}
           </h1>
 
-          <div class="mt-2.5 flex flex-col gap-y-2.5">
-            <div v-if="event.edition?.value" class="flex">
+          <div class="flex flex-col gap-y-2.5">
+            <div v-if="event.edition?.value" class="mt-2.5 flex">
               <span
                 class="text-primary bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
                 >{{ event.edition.value
@@ -76,7 +76,7 @@
           </div>
 
           <WhenAndWhere
-            class="mt-6"
+            class="mt-5"
             :date="event.date"
             :time="event.time"
             :location="event.location"

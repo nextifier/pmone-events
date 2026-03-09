@@ -146,10 +146,22 @@
     "heading": "Kenapa Harus Datang?",
     "subheading": "Satu Platform untuk Corporate Engagement & Incentive Travel",
     "items": {
-      "0": { "title": "Akses Langsung ke Decision Makers", "description": "60-70% pengunjung adalah HR leaders, C-Level, dan corporate buyers. Ini bukan pameran biasa. Ini tempat deal terjadi." },
-      "1": { "title": "100+ Brand & Solusi dalam Satu Venue", "description": "Dari destinasi outing, penyedia team building, sampai program incentive travel. Bandingkan langsung, pilih yang paling cocok untuk perusahaan kamu." },
-      "2": { "title": "Program Bisnis 4 Hari, Fokus & Strategis", "description": "Hari 1-2 untuk planning dan networking korporat. Hari 3-4 untuk experience dan aktivasi langsung. Datang di hari yang sesuai kebutuhan kamu." },
-      "3": { "title": "Konferensi & Forum HR Terkurasi", "description": "Ikuti Inspiration Talk Series, Corporate Insights, dan HR Forum yang membahas tren engagement, people development, dan incentive strategy." }
+      "0": {
+        "title": "Akses Langsung ke Decision Makers",
+        "description": "60-70% pengunjung adalah HR leaders, C-Level, dan corporate buyers. Ini bukan pameran biasa. Ini tempat deal terjadi."
+      },
+      "1": {
+        "title": "100+ Brand & Solusi dalam Satu Venue",
+        "description": "Dari destinasi outing, penyedia team building, sampai program incentive travel. Bandingkan langsung, pilih yang paling cocok untuk perusahaan kamu."
+      },
+      "2": {
+        "title": "Program Bisnis 4 Hari, Fokus & Strategis",
+        "description": "Hari 1-2 untuk planning dan networking korporat. Hari 3-4 untuk experience dan aktivasi langsung. Datang di hari yang sesuai kebutuhan kamu."
+      },
+      "3": {
+        "title": "Konferensi & Forum HR Terkurasi",
+        "description": "Ikuti Inspiration Talk Series, Corporate Insights, dan HR Forum yang membahas tren engagement, people development, dan incentive strategy."
+      }
     }
   },
   "hero": {
@@ -185,7 +197,7 @@
     "edition": "Edisi ke-{n}"
   },
   "mainPrograms": {
-    "title": "<span class='text-outline'>Program</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Utama</span>",
+    "title": "<span class='text-outline'>Program</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">Utama</span>",
     "description": "Konferensi, forum HR, business matching, dan experience zone. Ini program-program unggulan di {appName} yang dirancang untuk corporate leaders dan pelaku industri.",
     "items": {
       "0": {
@@ -211,7 +223,7 @@
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>Jadi </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Bagian dari IOITE</span>",
+    "title": "<span class='text-outline'>Jadi </span><span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">Bagian dari IOITE</span>",
     "description": "IOITE mempertemukan penyedia solusi dengan perusahaan yang aktif merancang program engagement dan incentive. Ikut {appName} untuk akses langsung ke audiens yang tepat.",
     "exhibitor": {
       "title": "Daftar Exhibitor",
@@ -234,7 +246,7 @@
     }
   },
   "visitorCta": {
-    "title": "Mulai dari Satu <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Tiket</span>",
+    "title": "Mulai dari Satu <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">Tiket</span>",
     "description": "100+ brand, konferensi HR, business matching, dan experience zone. Semua di satu pameran, 4 hari. Amankan spot kamu di IOITE 2026.",
     "cta": "Dapatkan Tiket"
   },

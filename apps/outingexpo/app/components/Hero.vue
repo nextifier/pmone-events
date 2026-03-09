@@ -36,7 +36,7 @@
             <Announcement class="border-primary/30 text-primary border" />
 
             <h1
-              class="text-primary mt-4 text-[clamp(3.4rem,4vw,6rem)] !leading-[1.1] font-semibold tracking-[-0.08em] text-balance"
+              class="text-primary mt-4 text-[clamp(3.4rem,4vw,6rem)] !leading-[1.1] font-medium tracking-[-0.06em] text-balance"
             >
               <SplitText3D origin="left" :text="content.title" />
             </h1>
@@ -110,7 +110,7 @@
                 class="text-primary relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
               >
                 <span
-                  class="relative isolate flex flex-col items-center text-7xl !leading-[0.9] font-extrabold tracking-tighter text-balance uppercase md:items-end 2xl:text-8xl"
+                  class="relative isolate flex flex-col items-center text-7xl !leading-[0.9] font-semibold tracking-tighter text-balance uppercase md:items-end 2xl:text-8xl"
                 >
                   <span>{{ event.dateOnly }}</span>
                   <span
@@ -122,7 +122,7 @@
                 <nuxt-link
                   :to="event.locationLink ?? ''"
                   target="_blank"
-                  class="mt-4 text-xl font-bold tracking-tighter text-balance decoration-dotted underline-offset-4 hover:underline"
+                  class="mt-4 text-xl font-medium tracking-tighter text-balance decoration-dotted underline-offset-4 hover:underline"
                   >{{ event.location }}</nuxt-link
                 >
                 <span

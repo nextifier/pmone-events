@@ -146,10 +146,22 @@
     "heading": "IOITE에 참가해야 하는 이유",
     "subheading": "기업 인게이지먼트와 인센티브 여행을 위한 단 하나의 플랫폼",
     "items": {
-      "0": { "title": "의사결정권자를 현장에서 만나세요", "description": "방문객의 60~70%가 HR 리더, C-Level 임원, 기업 바이어입니다. 일반 박람회가 아닙니다. 실제 계약이 성사되는 현장이에요." },
-      "1": { "title": "100개 이상의 브랜드와 솔루션, 한자리에서 비교하세요", "description": "아웃팅 여행지, 팀빌딩 전문업체, 인센티브 여행 패키지, 기업 웰니스 프로그램까지. 직접 비교하고 우리 회사에 맞는 파트너를 골라보세요." },
-      "2": { "title": "4일간 전략적으로 설계된 프로그램", "description": "1~2일차는 비즈니스 플래닝과 기업 네트워킹. 3~4일차는 현장 체험과 커뮤니티 프로그램. 목적에 맞는 날에 방문하세요." },
-      "3": { "title": "엄선된 HR 컨퍼런스 & 포럼", "description": "Inspiration Talk Series, Corporate Insights, HR Forum까지. 인게이지먼트 트렌드, 인재 개발, 인센티브 전략을 집중적으로 다룹니다." }
+      "0": {
+        "title": "의사결정권자를 현장에서 만나세요",
+        "description": "방문객의 60~70%가 HR 리더, C-Level 임원, 기업 바이어입니다. 일반 박람회가 아닙니다. 실제 계약이 성사되는 현장이에요."
+      },
+      "1": {
+        "title": "100개 이상의 브랜드와 솔루션, 한자리에서 비교하세요",
+        "description": "아웃팅 여행지, 팀빌딩 전문업체, 인센티브 여행 패키지, 기업 웰니스 프로그램까지. 직접 비교하고 우리 회사에 맞는 파트너를 골라보세요."
+      },
+      "2": {
+        "title": "4일간 전략적으로 설계된 프로그램",
+        "description": "1~2일차는 비즈니스 플래닝과 기업 네트워킹. 3~4일차는 현장 체험과 커뮤니티 프로그램. 목적에 맞는 날에 방문하세요."
+      },
+      "3": {
+        "title": "엄선된 HR 컨퍼런스 & 포럼",
+        "description": "Inspiration Talk Series, Corporate Insights, HR Forum까지. 인게이지먼트 트렌드, 인재 개발, 인센티브 전략을 집중적으로 다룹니다."
+      }
     }
   },
   "hero": {
@@ -185,7 +197,7 @@
     "edition": "제{n}회"
   },
   "mainPrograms": {
-    "title": "<span class='text-outline'>주요</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">프로그램</span>",
+    "title": "<span class='text-outline'>주요</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">프로그램</span>",
     "description": "컨퍼런스, HR 포럼, 비즈니스 매칭, 체험존까지. {appName}이 기업 리더와 업계 전문가를 위해 준비한 핵심 프로그램을 소개합니다.",
     "items": {
       "0": {
@@ -211,7 +223,7 @@
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>함께 </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITE를 만들어가요</span>",
+    "title": "<span class='text-outline'>함께 </span><span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">IOITE를 만들어가요</span>",
     "description": "IOITE는 솔루션 제공업체와 인게이지먼트·인센티브 프로그램을 적극적으로 기획하는 기업을 연결합니다. {appName}에 참가해 핵심 타깃 오디언스를 직접 만나세요.",
     "exhibitor": {
       "title": "전시업체 등록",
@@ -234,7 +246,7 @@
     }
   },
   "visitorCta": {
-    "title": "<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">티켓</span> 한 장이면 시작이에요",
+    "title": "<span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">티켓</span> 한 장이면 시작이에요",
     "description": "100개 이상의 브랜드, HR 컨퍼런스, 비즈니스 매칭, 체험존까지. 4일간 하나의 박람회에서 전부 만나보세요. IOITE 2026에서 자리를 확보하세요.",
     "cta": "티켓 받기"
   },

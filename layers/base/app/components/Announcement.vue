@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative inline-flex h-8 items-center justify-start overflow-hidden rounded-full px-3 py-1 font-semibold tracking-tighter transition active:scale-95"
+    class="relative inline-flex h-8 items-center justify-start overflow-hidden rounded-full px-3 py-1 font-medium tracking-tighter transition active:scale-95"
   >
     <Transition
       enter-active-class="transition-all duration-500 ease-out"

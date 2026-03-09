@@ -151,10 +151,22 @@
     "heading": "Why Attend IOITE",
     "subheading": "One Platform for Corporate Engagement & Incentive Travel",
     "items": {
-      "0": { "title": "Direct Access to Decision Makers", "description": "60-70% of visitors are HR leaders, C-Level executives, and corporate buyers. This isn't a generic expo. This is where deals happen." },
-      "1": { "title": "100+ Brands & Solutions Under One Roof", "description": "Outing destinations, team building providers, incentive travel packages, corporate wellness programs. Compare options face-to-face and pick what fits your company." },
-      "2": { "title": "4-Day Strategic Format", "description": "Days 1-2 focus on business planning and corporate networking. Days 3-4 shift to live activations and brand experience. Attend the days that match your goals." },
-      "3": { "title": "Curated HR Conferences & Forums", "description": "Inspiration Talk Series, Corporate Insights, and HR Forum covering engagement trends, people development, and incentive strategy." }
+      "0": {
+        "title": "Direct Access to Decision Makers",
+        "description": "60-70% of visitors are HR leaders, C-Level executives, and corporate buyers. This isn't a generic expo. This is where deals happen."
+      },
+      "1": {
+        "title": "100+ Brands & Solutions Under One Roof",
+        "description": "Outing destinations, team building providers, incentive travel packages, corporate wellness programs. Compare options face-to-face and pick what fits your company."
+      },
+      "2": {
+        "title": "4-Day Strategic Format",
+        "description": "Days 1-2 focus on business planning and corporate networking. Days 3-4 shift to live activations and brand experience. Attend the days that match your goals."
+      },
+      "3": {
+        "title": "Curated HR Conferences & Forums",
+        "description": "Inspiration Talk Series, Corporate Insights, and HR Forum covering engagement trends, people development, and incentive strategy."
+      }
     }
   },
   "hero": {
@@ -190,7 +202,7 @@
     "edition": "{n}{ordinal} edition"
   },
   "mainPrograms": {
-    "title": "<span class='text-outline'>Main</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Programs</span>",
+    "title": "<span class='text-outline'>Main</span> <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Programs</span>",
     "description": "Conferences, HR forums, business matching, and experience zones. These are the flagship programs at {appName}, built for corporate leaders and industry professionals.",
     "items": {
       "0": {
@@ -216,7 +228,7 @@
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>Become a </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Part of IOITE</span>",
+    "title": "<span class='text-outline'>Become a </span><span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Part of IOITE</span>",
     "description": "IOITE connects solution providers with companies actively planning engagement and incentive programs. Join {appName} for direct access to the right audience.",
     "exhibitor": {
       "title": "Register as Exhibitor",
@@ -239,7 +251,7 @@
     }
   },
   "visitorCta": {
-    "title": "It Starts with One <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">Ticket</span>",
+    "title": "It Starts with One <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Ticket</span>",
     "description": "100+ brands, HR conferences, business matching, and experience zones. All in one expo, 4 days. Secure your spot at IOITE 2026.",
     "cta": "Get Ticket"
   },

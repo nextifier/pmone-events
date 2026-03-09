@@ -146,10 +146,22 @@
     "heading": "为什么一定要来",
     "subheading": "企业团建与激励旅行的一站式商务平台",
     "items": {
-      "0": { "title": "直接对接企业决策层", "description": "60-70% 的参观者是 HR 负责人、高管和企业采购。这不是普通展会，这是成交发生的地方。" },
-      "1": { "title": "100+ 品牌与解决方案，同场呈现", "description": "从团建目的地、团队拓展供应商到激励旅行方案，一次逛完，直接对比，找到最适合你公司的选择。" },
-      "2": { "title": "4天专业议程，分阶段、有重点", "description": "第1-2天聚焦商务洽谈和企业对接，第3-4天侧重现场体验和社区活动。按你的需求选择参加日期。" },
-      "3": { "title": "精选行业会议与HR论坛", "description": "参与 Inspiration Talk Series、Corporate Insights 和 HR Forum，深入探讨员工激励趋势、人才发展战略和激励旅行规划。" }
+      "0": {
+        "title": "直接对接企业决策层",
+        "description": "60-70% 的参观者是 HR 负责人、高管和企业采购。这不是普通展会，这是成交发生的地方。"
+      },
+      "1": {
+        "title": "100+ 品牌与解决方案，同场呈现",
+        "description": "从团建目的地、团队拓展供应商到激励旅行方案，一次逛完，直接对比，找到最适合你公司的选择。"
+      },
+      "2": {
+        "title": "4天专业议程，分阶段、有重点",
+        "description": "第1-2天聚焦商务洽谈和企业对接，第3-4天侧重现场体验和社区活动。按你的需求选择参加日期。"
+      },
+      "3": {
+        "title": "精选行业会议与HR论坛",
+        "description": "参与 Inspiration Talk Series、Corporate Insights 和 HR Forum，深入探讨员工激励趋势、人才发展战略和激励旅行规划。"
+      }
     }
   },
   "hero": {
@@ -185,7 +197,7 @@
     "edition": "第{n}届"
   },
   "mainPrograms": {
-    "title": "<span class='text-outline'>核心</span> <span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">项目</span>",
+    "title": "<span class='text-outline'>核心</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">项目</span>",
     "description": "行业论坛、HR 峰会、精准对接、现场体验区。以下是 {appName} 为企业管理层和行业从业者精心打造的核心项目。",
     "items": {
       "0": {
@@ -211,7 +223,7 @@
     }
   },
   "partnerships": {
-    "title": "<span class='text-outline'>加入 </span><span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">IOITE 的故事</span>",
+    "title": "<span class='text-outline'>加入 </span><span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">IOITE 的故事</span>",
     "description": "IOITE 为解决方案供应商与正在规划团建和激励计划的企业搭建桥梁。加入 {appName}，直接触达精准目标客群。",
     "exhibitor": {
       "title": "参展商报名",
@@ -234,7 +246,7 @@
     }
   },
   "visitorCta": {
-    "title": "一张<span class=\"gradient-accent bg-clip-text font-extrabold text-transparent pr-1\">门票</span>，开启全新可能",
+    "title": "一张<span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">门票</span>，开启全新可能",
     "description": "100+ 品牌、HR 行业论坛、精准商务对接、现场体验区。IOITE 2026，为期4天，锁定你的参观名额。",
     "cta": "领取门票"
   },
