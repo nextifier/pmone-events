@@ -10,7 +10,7 @@
     >
       <nuxt-link
         :key="currentItem.text"
-        :to="currentItem.link"
+        :to="lp(currentItem.link)"
         :target="currentItem.link.startsWith('http') ? '_blank' : ''"
         class="flex items-center justify-start gap-x-1 text-left whitespace-nowrap"
       >
@@ -24,6 +24,9 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
+const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
+
 const items = computed(() => useContentStore().components.hero.announcements);
 
 const currentIndex = ref(0);

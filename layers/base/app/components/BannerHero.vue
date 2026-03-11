@@ -24,7 +24,7 @@
         class="basis-full pl-2"
       >
         <nuxt-link
-          :to="item.cta?.link ?? ''"
+          :to="lp(item.cta?.link ?? '')"
           :target="item.cta?.link.startsWith('http') ? '_blank' : ''"
           class="text-primary border-primary/10 flex h-full items-center rounded-2xl border bg-white/3 backdrop-blur-lg"
         >
@@ -146,6 +146,9 @@ onUnmounted(() => {
     emblaApi.value.off("reInit");
   }
 });
+
+const localePath = useLocalePath();
+const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
 const items = computed(() => useContentStore().components.hero.bannerHero);
 </script>

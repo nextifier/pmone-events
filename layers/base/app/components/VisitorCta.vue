@@ -62,7 +62,7 @@
                   class="mt-2 flex w-full flex-col items-baseline gap-x-2 gap-y-1 text-left sm:mt-4 sm:items-end sm:gap-y-2 sm:text-right"
                 >
                   <nuxt-link
-                    :to="event.locationLink ?? ''"
+                    :to="lp(event.locationLink ?? '')"
                     target="_blank"
                     class="shrink-0 text-base font-semibold tracking-tighter text-balance decoration-dotted underline-offset-4 hover:underline"
                     >{{ event.locationShort }}
@@ -96,7 +96,7 @@
 
             <div class="xs:w-auto mt-6 flex w-full items-center gap-2">
               <NuxtLink
-                :to="content.cta.url"
+                :to="lp(content.cta.url)"
                 :target="content.cta.url.startsWith('http') ? '_blank' : ''"
                 class="bg-primary text-primary-foreground hover:bg-primary/80 xs:grow-0 rainbow-button flex grow items-center justify-center gap-x-1.5 rounded-xl px-5 py-4 font-semibold tracking-tight transition active:scale-95"
               >
@@ -122,7 +122,7 @@
             class="flex items-start gap-x-2.5 gap-y-4 lg:max-w-[240px] lg:flex-col"
           >
             <nuxt-link
-              :to="banner.cta.link"
+              :to="lp(banner.cta.link)"
               :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
               class="lg:shadow-wrapper aspect-4/5 min-w-24 rounded-xl transition duration-500 sm:rounded-2xl lg:w-full lg:hover:rotate-6"
             >
@@ -164,7 +164,7 @@
 
               <nuxt-link
                 v-if="banner.cta"
-                :to="banner.cta.link"
+                :to="lp(banner.cta.link)"
                 :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
                 class="bg-border/60 text-primary hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
                 v-ripple
@@ -183,6 +183,9 @@
 <script setup>
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const localePath = useLocalePath();
+const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
 const content = computed(() => useContentStore().components.visitorCta);
 const event = useAppConfig().event;

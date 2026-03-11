@@ -41,7 +41,7 @@
             </p>
 
             <nuxt-link
-              :to="content.exhibitor.cta.url"
+              :to="lp(content.exhibitor.cta.url)"
               :target="
                 content.exhibitor.cta.url.startsWith('http') ? '_blank' : ''
               "
@@ -63,7 +63,7 @@
           <Cross v-if="index == 1" position="top-right" />
 
           <nuxt-link
-            :to="item.link"
+            :to="lp(item.link)"
             :target="item.link.startsWith('http') ? '_blank' : ''"
             class="bg-muted aspect-square w-full shrink-0 overflow-hidden rounded-xl lg:size-32"
           >
@@ -95,7 +95,7 @@
             </div>
 
             <nuxt-link
-              :to="item.link"
+              :to="lp(item.link)"
               :target="item.link.startsWith('http') ? '_blank' : ''"
               class="bg-muted text-primary hover:bg-primary hover:text-primary-foreground flex items-center justify-center gap-x-1 rounded-lg px-3 py-2 text-center text-sm font-semibold tracking-tight transition active:scale-98"
               v-ripple
@@ -120,7 +120,7 @@
             </div>
 
             <nuxt-link
-              :to="content.reservedSpace.cta.url"
+              :to="lp(content.reservedSpace.cta.url)"
               :target="
                 content.reservedSpace.cta.url.startsWith('http') ? '_blank' : ''
               "
@@ -135,5 +135,8 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
+const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
+
 const content = computed(() => useContentStore().components.partnerships);
 </script>
