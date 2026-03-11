@@ -10,9 +10,9 @@
   >
     <nav class="container-wider flex h-full items-center">
       <nuxt-link
-        to="/"
+        :to="localePath('/')"
         aria-label="Home"
-        @click="$scrollToTopIfCurrentPageIs('/')"
+        @click="$scrollToTopIfCurrentPageIs(localePath('/'))"
         v-ripple
       >
         <Logo
@@ -29,18 +29,18 @@
 
         <div class="flex h-full shrink-0 items-center gap-x-2">
           <nuxt-link
-            to="/book-space"
+            :to="localePath('/book-space')"
             class="border-border text-primary hover:bg-muted hidden items-center justify-center gap-x-2 rounded-xl border px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
-            @click="$scrollToTopIfCurrentPageIs('/book-space')"
+            @click="$scrollToTopIfCurrentPageIs(localePath('/book-space'))"
             v-ripple
           >
             <span>{{ $t('ui.bookSpace') }}</span>
           </nuxt-link>
 
           <nuxt-link
-            to="/ticket"
+            :to="localePath('/ticket')"
             class="hover:bg-primary/80 bg-primary text-primary-foreground hidden items-center justify-center rounded-xl px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
-            @click="$scrollToTopIfCurrentPageIs('/ticket')"
+            @click="$scrollToTopIfCurrentPageIs(localePath('/ticket'))"
             v-ripple
             >{{ $t('ui.getTicket') }}</nuxt-link
           >
@@ -114,6 +114,7 @@ import { useSidebar } from "@/components/ui/sidebar/utils";
 const { toggleSidebar, open, isMobile } = useSidebar();
 
 const route = useRoute();
+const localePath = useLocalePath();
 const { metaSymbol } = useShortcuts();
 
 const isMenuOpen = ref(false);

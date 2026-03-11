@@ -55,11 +55,11 @@
                     :key="index"
                   >
                     <NuxtLink
-                      :to="link.path"
+                      :to="lp(link.path)"
                       :target="link.path.startsWith('http') ? '_blank' : ''"
                       class="text-primary hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
                       active-class="bg-muted"
-                      @click="$scrollToTopIfCurrentPageIs(link.path)"
+                      @click="$scrollToTopIfCurrentPageIs(lp(link.path))"
                       @contextmenu="
                         (event) => {
                           if (link.rightClickLink) {
@@ -100,11 +100,11 @@
                       :key="index"
                     >
                       <NuxtLink
-                        :to="link.path"
+                        :to="lp(link.path)"
                         :target="link.path.startsWith('http') ? '_blank' : ''"
                         class="text-primary hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
                         active-class="bg-muted"
-                        @click="$scrollToTopIfCurrentPageIs(link.path)"
+                        @click="$scrollToTopIfCurrentPageIs(lp(link.path))"
                         @contextmenu="
                           (event) => {
                             if (link.rightClickLink) {
@@ -132,9 +132,9 @@
         >
           <DialogClose as-child>
             <NuxtLink
-              to="/book-space"
+              :to="localePath('/book-space')"
               class="bg-muted text-primary hover:bg-border flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
-              @click="$scrollToTopIfCurrentPageIs('/book-space')"
+              @click="$scrollToTopIfCurrentPageIs(localePath('/book-space'))"
               v-ripple
               >{{ $t('ui.bookSpace') }}</NuxtLink
             ></DialogClose
@@ -142,9 +142,9 @@
 
           <DialogClose as-child>
             <NuxtLink
-              to="/ticket"
+              :to="localePath('/ticket')"
               class="bg-primary text-primary-foreground hover:bg-primary/80 flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
-              @click="$scrollToTopIfCurrentPageIs('/ticket')"
+              @click="$scrollToTopIfCurrentPageIs(localePath('/ticket'))"
               v-ripple
               >{{ $t('ui.getTicket') }}</NuxtLink
             >
@@ -168,6 +168,8 @@ import {
 } from "reka-ui";
 
 const route = useRoute();
+const localePath = useLocalePath();
+const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
 const props = defineProps({
   open: {

@@ -45,7 +45,7 @@
         </button>
 
         <nuxt-link
-          to="/programs"
+          :to="localePath('/programs')"
           class="text-primary hover:bg-primary hover:text-primary-foreground flex h-full items-center justify-center rounded-md border px-4 text-sm font-semibold tracking-tight transition active:scale-98"
         >
           <span>{{ $t('ui.viewAll') }}</span>
@@ -56,6 +56,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const props = defineProps({
   programs: Array,
 });

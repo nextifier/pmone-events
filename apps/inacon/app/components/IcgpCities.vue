@@ -4,7 +4,7 @@
       <div class="flex flex-col items-center text-center">
         <div
           class="mb-10 flex h-24 items-center gap-x-4 lg:h-32"
-          v-if="route.name !== 'icgp'"
+          v-if="getRouteBaseName(route) !== 'icgp'"
         >
           <LogoIcgp class="h-full w-auto text-black dark:text-white" />
           <NuxtImg
@@ -241,6 +241,7 @@
 
 <script setup>
 const route = useRoute();
+const getRouteBaseName = useRouteBaseName();
 const items = ref([
   {
     city: "Yogyakarta",

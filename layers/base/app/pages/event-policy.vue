@@ -16,7 +16,7 @@
         <p>
           {{ companyName }} will only collect personal information that is
           relevant for the purposes stated in our
-          <nuxt-link to="/privacy">Privacy Policy</nuxt-link>. The personal
+          <nuxt-link :to="localePath('/privacy')">Privacy Policy</nuxt-link>. The personal
           information will be processed to provide services, including
           organizing events and facilitating participant networking through the
           company website and associated services. The company will also use the
@@ -158,6 +158,7 @@ usePageMeta(null, {
     "Review the event rules and regulations including prohibited activities, medical care policies, and photography guidelines.",
 });
 
+const localePath = useLocalePath();
 const config = useAppConfig();
 const eventTitle = config.event.title;
 const companyName = config.app.company.name;

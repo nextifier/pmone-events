@@ -73,7 +73,7 @@
           </div>
 
           <NuxtLink
-            to="/megaproperty"
+            :to="localePath('/megaproperty')"
             class="bg-primary text-primary-foreground hover:bg-primary/80 mt-8 flex items-center gap-x-1 rounded-lg px-4 py-2 font-medium tracking-tight transition active:scale-98"
           >
             {{ $t("megaProperty.ctaButton") }}
@@ -87,6 +87,7 @@
 
 <script setup>
 const { t } = useI18n();
+const localePath = useLocalePath();
 
 const highlights = computed(() => [
   { icon: "hugeicons:home-01", label: t("megaProperty.highlights[0]") },

@@ -53,7 +53,7 @@
           </button>
 
           <nuxt-link
-            to="/partners#media"
+            :to="localePath('/partners') + '#media'"
             external
             class="text-primary hover:bg-primary hover:text-primary-foreground flex h-full items-center justify-center rounded-md border px-4 text-sm font-semibold tracking-tight transition active:scale-98"
           >
@@ -66,6 +66,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const news = useNewsCoveragesStore().list;
 const content = computed(() => useContentStore().components.mediaCoverage);
 </script>

@@ -38,7 +38,7 @@
           All ticket sales are final. There are no refunds and no exchanges. We
           encourage you to review your order carefully before confirming your
           purchase. For more information, please refer to our
-          <nuxt-link to="/ticket-refund-and-return-policy"
+          <nuxt-link :to="localePath('/ticket-refund-and-return-policy')"
             >Ticket Refund and Return Policy</nuxt-link
           >.
         </p>
@@ -58,7 +58,7 @@
           including codes of conduct or instructions provided by the organizer
           or venue staff. Failure to comply may result in removal from the event
           without refund. For more details, please refer to our
-          <nuxt-link to="/event-policy">Event Policy</nuxt-link>.
+          <nuxt-link :to="localePath('/event-policy')">Event Policy</nuxt-link>.
         </p>
 
         <h2>7. Lost or Stolen Tickets</h2>
@@ -117,6 +117,7 @@ usePageMeta(null, {
     "Read the ticket terms and conditions including ticket validity, e-ticket delivery, redemption process, and usage policies.",
 });
 
+const localePath = useLocalePath();
 const config = useAppConfig();
 const eventTitle = config.event.title;
 const email = config.contact.email;

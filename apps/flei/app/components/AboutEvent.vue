@@ -2,7 +2,7 @@
   <div
     class="space-y-16 overflow-hidden lg:space-y-24"
     :class="{
-      'pt-6': ['ticket'].includes(route.name),
+      'pt-6': getRouteBaseName(route) === 'ticket',
     }"
   >
     <div class="container flex flex-col lg:items-center lg:text-center">
@@ -25,4 +25,5 @@
 
 <script setup>
 const route = useRoute();
+const getRouteBaseName = useRouteBaseName();
 </script>

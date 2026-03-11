@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useFAQStore = defineStore("faq", {
   state: () => {
     const config = useAppConfig();
+    const localePath = useLocalePath();
     const eventTitle = config.event.title;
     const eventDate = config.event.date;
     const eventTime = config.event.time;
@@ -24,19 +25,19 @@ export const useFAQStore = defineStore("faq", {
         {
           q: "How do I get tickets to attend the event?",
           a: `
-            <p>You can get your tickets through our official website. Simply click the <a href="/ticket">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>
+            <p>You can get your tickets through our official website. Simply click the <a href="${localePath('/ticket')}">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>
           `,
         },
         {
           q: "How much does a ticket cost?",
           a: `
-            <p>Ticket prices vary depending on the ticket type and promotional period. Please visit our <a href="/ticket">Ticket page</a> for the most up-to-date pricing information. Don't miss our early bird and pre-sale promotions!</p>
+            <p>Ticket prices vary depending on the ticket type and promotional period. Please visit our <a href="${localePath('/ticket')}">Ticket page</a> for the most up-to-date pricing information. Don't miss our early bird and pre-sale promotions!</p>
           `,
         },
         {
           q: "Can I get a refund if I can't attend?",
           a: `
-            <p>All ticket sales are final. There are no refunds or exchanges once a ticket has been purchased. Please review our <a href="/ticket-refund-and-return-policy">Ticket Refund and Return Policy</a> for more details.</p>
+            <p>All ticket sales are final. There are no refunds or exchanges once a ticket has been purchased. Please review our <a href="${localePath('/ticket-refund-and-return-policy')}">Ticket Refund and Return Policy</a> for more details.</p>
           `,
         },
         {
@@ -54,7 +55,7 @@ export const useFAQStore = defineStore("faq", {
         {
           q: "What products and services will be showcased?",
           a: `
-            <p>You'll find a wide range of building materials, home improvement products, construction equipment, interior design solutions, furniture, sanitary ware, flooring, roofing, and much more. Visit our <a href="/brands">Brands page</a> for the exhibitor list.</p>
+            <p>You'll find a wide range of building materials, home improvement products, construction equipment, interior design solutions, furniture, sanitary ware, flooring, roofing, and much more. Visit our <a href="${localePath('/brands')}">Brands page</a> for the exhibitor list.</p>
           `,
         },
         {
@@ -66,13 +67,13 @@ export const useFAQStore = defineStore("faq", {
         {
           q: "How can I become an exhibitor?",
           a: `
-            <p>To showcase your products or services at our event, please visit our <a href="/book-space">Exhibitor Registration page</a> or contact our team via <a href="${whatsappLink}" target="_blank">WhatsApp</a> for booth packages and availability.</p>
+            <p>To showcase your products or services at our event, please visit our <a href="${localePath('/book-space')}">Exhibitor Registration page</a> or contact our team via <a href="${whatsappLink}" target="_blank">WhatsApp</a> for booth packages and availability.</p>
           `,
         },
         {
           q: "Are there any seminars or workshops at the event?",
           a: `
-            <p>Yes! We organize seminars and workshops covering topics like interior design trends, sustainable building, renovation tips, and industry insights. Check our <a href="/rundown">Rundown page</a> for the complete schedule.</p>
+            <p>Yes! We organize seminars and workshops covering topics like interior design trends, sustainable building, renovation tips, and industry insights. Check our <a href="${localePath('/rundown')}">Rundown page</a> for the complete schedule.</p>
           `,
         },
         {
@@ -96,13 +97,13 @@ export const useFAQStore = defineStore("faq", {
         {
           q: "Can I take photos or videos at the event?",
           a: `
-            <p>Personal photography and video recording for non-commercial purposes are allowed. However, professional or commercial recording requires written permission from the organizer. Please refer to our <a href="/event-policy">Event Policy</a> for more details.</p>
+            <p>Personal photography and video recording for non-commercial purposes are allowed. However, professional or commercial recording requires written permission from the organizer. Please refer to our <a href="${localePath('/event-policy')}">Event Policy</a> for more details.</p>
           `,
         },
         {
           q: "How can I stay updated about the event?",
           a: `
-            <p>Follow us on Instagram <a href="https://www.instagram.com/${instagram}" target="_blank">@${instagram}</a> for the latest updates, exhibitor announcements, and exclusive content. You can also check our <a href="/news">News page</a>.</p>
+            <p>Follow us on Instagram <a href="https://www.instagram.com/${instagram}" target="_blank">@${instagram}</a> for the latest updates, exhibitor announcements, and exclusive content. You can also check our <a href="${localePath('/news')}">News page</a>.</p>
           `,
         },
         {
@@ -113,7 +114,7 @@ export const useFAQStore = defineStore("faq", {
               <li>WhatsApp: <a href="${whatsappLink}" target="_blank">Click here to chat</a></li>
               <li>Email: <a href="mailto:${email}">${email}</a></li>
             </ul>
-            <p>Visit our <a href="/help-center">Help Center</a> for more contact options and quick links to useful information.</p>
+            <p>Visit our <a href="${localePath('/help-center')}">Help Center</a> for more contact options and quick links to useful information.</p>
           `,
         },
       ],

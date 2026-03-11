@@ -84,8 +84,21 @@
     "successButton": "Oke, ke beranda",
     "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
     "disclaimerExhibitor": "Kirim form ini bukan berarti langsung terdaftar sebagai exhibitor. Tim sales kami akan menghubungi untuk memberikan info booth, harga, dan detail lainnya.",
+    "preferDirectContact": "Langsung Hubungi Kami?",
     "errorSend": "Pesan gagal terkirim. Silakan coba lagi.",
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
+  },
+  "sponsorshipRegistration": {
+    "title": "Registrasi Sponsorship",
+    "description": "Tertarik menjadi sponsor acara kami? Isi form di bawah dan tim kami akan menghubungi dengan detail paket sponsorship.",
+    "metaDescription": "Jadilah sponsor dan terhubung langsung dengan decision-maker di acara kami. Isi form registrasi untuk memulai."
+  },
+  "mediaPartnerRegistration": {
+    "title": "Registrasi Media Partner",
+    "description": "Ingin menjadi media partner kami? Isi form di bawah dan tim kami akan menghubungi dengan detail kerjasama dan liputan media.",
+    "metaDescription": "Dapatkan akses eksklusif untuk meliput acara industri terbesar. Daftar sebagai media partner sekarang.",
+    "nameLabel": "Nama Kamu",
+    "mediaNameLabel": "Nama Media"
   },
   "countdown": {
     "day": "Hari",
@@ -255,8 +268,10 @@
     "description": "Apa kata media tentang {appName}."
   },
   "credits": {
-    "title": "Di Balik Event Ini",
-    "description": "Acara ini terwujud berkat dukungan para mitra, sponsor, dan media."
+    "becomeSponsor": "Jadi Sponsor",
+    "joinMediaPartner": "Gabung sebagai Media Partner",
+    "title": "Komunitas di Balik Event Ini",
+    "description": "Event ini hadir berkat dukungan luar biasa dari partner, sponsor, dan media kami."
   },
   "postSlider": {
     "title": "Update Terbaru",

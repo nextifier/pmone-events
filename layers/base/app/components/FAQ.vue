@@ -38,7 +38,7 @@
       </h6>
       <div class="mt-4 flex items-center justify-center lg:mt-6">
         <nuxt-link
-          to="/contact"
+          :to="localePath('/contact')"
           class="bg-muted text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-1.5 rounded-full p-4 font-semibold tracking-tighter transition duration-200 active:scale-98"
         >
           <span>{{ $t('ui.contactUs') }}</span>
@@ -49,6 +49,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.faq);
 const faq = useFAQStore();
 </script>

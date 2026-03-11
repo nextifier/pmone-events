@@ -84,8 +84,21 @@
     "successButton": "好的，回到首页",
     "disclaimerDefault": "请确保你填写的 Email 和手机号是正确且可用的，方便我们尽快联系你。",
     "disclaimerExhibitor": "放心，提交表单不代表你已经注册成为参展商。我们只是需要你的联系方式，方便销售团队给你发送 Booth 价格、可选方案等详细信息。",
+    "preferDirectContact": "直接联系我们",
     "errorSend": "发送失败，请重试。",
     "errorNetwork": "网络出错，请稍后重试。"
+  },
+  "sponsorshipRegistration": {
+    "title": "赞助商注册",
+    "description": "有兴趣赞助我们的活动吗？请填写以下表格，我们的团队将与您联系，提供赞助方案详情。",
+    "metaDescription": "成为赞助商，与行业关键决策者建立联系。立即填写注册表格。"
+  },
+  "mediaPartnerRegistration": {
+    "title": "媒体合作伙伴注册",
+    "description": "想成为我们的媒体合作伙伴吗？请填写以下表格，我们的团队将与您联系，提供合作详情和媒体报道机会。",
+    "metaDescription": "获得独家采访权，报道行业最大盛事。立即注册成为媒体合作伙伴。",
+    "nameLabel": "您的姓名",
+    "mediaNameLabel": "媒体名称"
   },
   "countdown": {
     "day": "天",
@@ -313,8 +326,10 @@
     "description": "看看各大媒体怎么报道 {appName}。"
   },
   "credits": {
-    "title": "活动背后的社区力量",
-    "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场活动成为可能。"
+    "becomeSponsor": "成为赞助商",
+    "joinMediaPartner": "申请媒体合作",
+    "title": "活动背后的社区",
+    "description": "感谢合作伙伴、赞助商和媒体的大力支持，让这场活动成为可能。"
   },
   "postSlider": {
     "title": "最新动态",

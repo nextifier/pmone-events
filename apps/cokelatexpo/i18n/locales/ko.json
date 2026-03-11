@@ -84,8 +84,21 @@
     "successButton": "홈으로 돌아가기",
     "disclaimerDefault": "연락 가능한 Email과 전화번호를 입력해 주세요. 담당자가 곧 연락드려요.",
     "disclaimerExhibitor": "걱정 마세요. 양식을 제출해도 전시 참가가 바로 확정되지 않아요. 부스 옵션이나 가격 안내를 위해 연락처가 필요해요.",
+    "preferDirectContact": "직접 연락하기",
     "errorSend": "전송에 실패했어요. 다시 시도해 주세요.",
     "errorNetwork": "네트워크 오류예요. 잠시 후 다시 시도해 주세요."
+  },
+  "sponsorshipRegistration": {
+    "title": "스폰서 등록",
+    "description": "이벤트 스폰서에 관심이 있으신가요? 아래 양식을 작성해 주시면 스폰서십 패키지에 대해 연락드리겠습니다.",
+    "metaDescription": "스폰서가 되어 업계 주요 의사결정자들과 연결하세요. 등록 양식을 작성해 주세요."
+  },
+  "mediaPartnerRegistration": {
+    "title": "미디어 파트너 등록",
+    "description": "미디어 파트너가 되고 싶으신가요? 아래 양식을 작성해 주시면 파트너십 세부사항에 대해 연락드리겠습니다.",
+    "metaDescription": "업계 최대 이벤트를 독점 취재할 기회를 잡으세요. 지금 미디어 파트너로 등록하세요.",
+    "nameLabel": "이름",
+    "mediaNameLabel": "미디어명"
   },
   "countdown": {
     "day": "일",
@@ -232,8 +245,10 @@
     "description": "주요 매체에서 다룬 {appName} 소식을 확인해 보세요."
   },
   "credits": {
-    "title": "함께 만드는 사람들",
-    "description": "파트너, 스폰서, 미디어의 지원 덕분에 이 행사를 열 수 있어요."
+    "becomeSponsor": "스폰서 참여",
+    "joinMediaPartner": "미디어 파트너 신청",
+    "title": "이벤트를 만드는 커뮤니티",
+    "description": "파트너, 스폰서, 미디어의 소중한 지원 덕분에 이 이벤트가 실현됩니다."
   },
   "postSlider": {
     "title": "최신 소식",
@@ -323,9 +338,18 @@
     "sectionDescription": "초콜릿 말고도 이 티켓으로 즐길 수 있는 게 많아요. Cokelat Expo는 커피, 차, 와인 페스티벌도 함께하는 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a>의 일부예요.",
     "sectionDescription2": "그래서 이 티켓은 초콜릿 행사만을 위한 게 아니에요. 세 가지 플레이버 존에도 자유롭게 입장할 수 있어요:",
     "zones": {
-      "coffee": { "title": "Indonesia Coffee Festival", "description": "엑스포의 중심이 되는 활기 넘치는 공간이에요. 에스프레소 머신 소리를 들으며, 최고의 바리스타 대결을 구경하고, 새로운 최애 커피를 찾아보세요." },
-      "tea": { "title": "Indonesia Tea Festival", "description": "차를 위한 여유로운 공간이에요. 희귀한 찻잎부터 새로운 블렌드까지 다양한 차를 시음하고, 집에서 맛있게 우리는 팁도 배워보세요." },
-      "wine": { "title": "Indonesia Wine Festival", "description": "부담 없이 와인을 즐길 수 있는 공간이에요. 국내외 다양한 와인을 편하게 시음해 보세요. 복잡한 규칙 없이, 좋은 와인만 있으면 돼요." }
+      "coffee": {
+        "title": "Indonesia Coffee Festival",
+        "description": "엑스포의 중심이 되는 활기 넘치는 공간이에요. 에스프레소 머신 소리를 들으며, 최고의 바리스타 대결을 구경하고, 새로운 최애 커피를 찾아보세요."
+      },
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "차를 위한 여유로운 공간이에요. 희귀한 찻잎부터 새로운 블렌드까지 다양한 차를 시음하고, 집에서 맛있게 우리는 팁도 배워보세요."
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "부담 없이 와인을 즐길 수 있는 공간이에요. 국내외 다양한 와인을 편하게 시음해 보세요. 복잡한 규칙 없이, 좋은 와인만 있으면 돼요."
+      }
     },
     "accessNote": "게다가 이 엑스포 전체가 Hall 10에서 열리는 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a>와 동시 개최돼요.",
     "accessNote2": "네, 맞아요. 티켓 한 장으로 3일간 전부 즐길 수 있어요. 꽤 괜찮은 조건이죠."

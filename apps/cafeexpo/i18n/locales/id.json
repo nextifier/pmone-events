@@ -236,8 +236,10 @@
     "description": "Apa kata media tentang {appName}."
   },
   "credits": {
+    "becomeSponsor": "Jadi Sponsor",
+    "joinMediaPartner": "Gabung sebagai Media Partner",
     "title": "Komunitas di Balik Event Ini",
-    "description": "CBE ada berkat dukungan para mitra, sponsor, dan media."
+    "description": "Event ini hadir berkat dukungan luar biasa dari partner, sponsor, dan media kami."
   },
   "postSlider": {
     "title": "Update Terbaru",
@@ -267,8 +269,21 @@
     "successButton": "Oke, ke beranda",
     "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
     "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa memberikan info soal booth, harga, dan detail lainnya.",
+    "preferDirectContact": "Langsung Hubungi Kami?",
     "errorSend": "Pesan gagal terkirim. Silakan coba lagi.",
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
+  },
+  "sponsorshipRegistration": {
+    "title": "Registrasi Sponsorship",
+    "description": "Tertarik menjadi sponsor acara kami? Isi form di bawah dan tim kami akan menghubungi dengan detail paket sponsorship.",
+    "metaDescription": "Jadilah sponsor dan terhubung langsung dengan decision-maker di acara kami. Isi form registrasi untuk memulai."
+  },
+  "mediaPartnerRegistration": {
+    "title": "Registrasi Media Partner",
+    "description": "Ingin menjadi media partner kami? Isi form di bawah dan tim kami akan menghubungi dengan detail kerjasama dan liputan media.",
+    "metaDescription": "Dapatkan akses eksklusif untuk meliput acara industri terbesar. Daftar sebagai media partner sekarang.",
+    "nameLabel": "Nama Kamu",
+    "mediaNameLabel": "Nama Media"
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
@@ -344,7 +359,7 @@
   },
   "pages": {
     "home": {
-      "title": "Caf\u00e9 & Brasserie Expo Jakarta (CBE)",
+      "title": "Café & Brasserie Expo Jakarta (CBE)",
       "description": "Datang ke CBE Jakarta dan coba ratusan brand kopi, teh, wine, dan cokelat. Ikuti tasting, workshop, kompetisi, dan banyak lagi."
     },
     "brands": {

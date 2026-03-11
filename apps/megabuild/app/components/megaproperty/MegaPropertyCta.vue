@@ -13,7 +13,7 @@
         </p>
 
         <NuxtLink
-          to="/book-space"
+          :to="localePath('/book-space')"
           class="bg-primary text-primary-foreground hover:bg-primary/80 mt-6 flex items-center gap-x-1 rounded-lg px-5 py-3 font-medium tracking-tight transition active:scale-98"
         >
           {{ $t("megaProperty.cta.button") }}
@@ -22,3 +22,7 @@
     </div>
   </section>
 </template>
+
+<script setup>
+const localePath = useLocalePath();
+</script>

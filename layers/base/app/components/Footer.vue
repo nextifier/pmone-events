@@ -4,8 +4,8 @@
       <div class="flex flex-col gap-x-2 gap-y-10 lg:flex-row lg:gap-x-8">
         <div class="flex shrink-0 flex-col items-center gap-y-1 lg:items-start">
           <nuxt-link
-            to="/"
-            @click="$scrollToTopIfCurrentPageIs('/')"
+            :to="localePath('/')"
+            @click="$scrollToTopIfCurrentPageIs(localePath('/'))"
             v-ripple
             aria-label="Brand Logo"
           >
@@ -30,9 +30,9 @@
               <NuxtLink
                 v-for="(link, index) in item.links"
                 :key="index"
-                :to="link.path"
+                :to="lp(link.path)"
                 :target="link.path.startsWith('http') ? '_blank' : ''"
-                @click="$scrollToTopIfCurrentPageIs(link.path)"
+                @click="$scrollToTopIfCurrentPageIs(lp(link.path))"
                 @contextmenu="
                   (event) => {
                     if (link.rightClickLink) {
@@ -68,3 +68,8 @@
     </div>
   </footer>
 </template>
+
+<script setup>
+const localePath = useLocalePath();
+const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
+</script>

@@ -212,8 +212,10 @@
     "description": "Apa kata media soal {appName}."
   },
   "credits": {
+    "becomeSponsor": "Jadi Sponsor",
+    "joinMediaPartner": "Gabung sebagai Media Partner",
     "title": "Komunitas di Balik Event Ini",
-    "description": "Terima kasih untuk para partner, sponsor, dan media yang membantu mewujudkan festival ini."
+    "description": "Event ini hadir berkat dukungan luar biasa dari partner, sponsor, dan media kami."
   },
   "postSlider": {
     "title": "Update Terbaru",
@@ -243,8 +245,21 @@
     "successButton": "Oke, ke beranda",
     "disclaimerDefault": "Pastikan email dan nomor HP yang kamu isi aktif dan benar supaya tim kami bisa segera menghubungi.",
     "disclaimerExhibitor": "Tenang, kirim form ini bukan berarti kamu langsung terdaftar sebagai exhibitor. Ini supaya tim sales kami bisa kasih info soal booth, harga, dan detail lainnya.",
+    "preferDirectContact": "Langsung Hubungi Kami?",
     "errorSend": "Pesan gagal terkirim. Coba lagi ya.",
     "errorNetwork": "Koneksi bermasalah. Coba lagi nanti."
+  },
+  "sponsorshipRegistration": {
+    "title": "Registrasi Sponsorship",
+    "description": "Tertarik menjadi sponsor acara kami? Isi form di bawah dan tim kami akan menghubungi dengan detail paket sponsorship.",
+    "metaDescription": "Jadilah sponsor dan terhubung langsung dengan decision-maker di acara kami. Isi form registrasi untuk memulai."
+  },
+  "mediaPartnerRegistration": {
+    "title": "Registrasi Media Partner",
+    "description": "Ingin menjadi media partner kami? Isi form di bawah dan tim kami akan menghubungi dengan detail kerjasama dan liputan media.",
+    "metaDescription": "Dapatkan akses eksklusif untuk meliput acara industri terbesar. Daftar sebagai media partner sekarang.",
+    "nameLabel": "Nama Kamu",
+    "mediaNameLabel": "Nama Media"
   },
   "bookSpace": {
     "title": "Registrasi Exhibitor",
@@ -323,9 +338,18 @@
     "sectionDescription": "Indonesia Coffee Festival adalah bagian dari event yang lebih besar: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a>.",
     "sectionDescription2": "Jadi tiket kamu bukan cuma buat masuk festival kopi terbesar tahun ini. Kamu juga bisa bebas eksplor tiga zona rasa lainnya:",
     "zones": {
-      "tea": { "title": "Indonesia Tea Festival", "description": "Masuk ke area yang lebih tenang, khusus untuk teh. Cicipi berbagai jenis teh, dari daun langka sampai racikan baru, dan pelajari cara seduh yang gampang dipraktikkan di rumah." },
-      "wine": { "title": "Indonesia Wine Festival", "description": "Wine tasting tanpa tekanan. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Tidak ada aturan yang rumit, yang ada hanya wine yang enak." },
-      "chocolate": { "title": "Cokelat Expo Indonesia", "description": "Surganya pecinta cokelat. Temui langsung para pembuat cokelatnya, lihat prosesnya dari dekat, dan cicipi rasa-rasa unik yang tidak akan kamu temukan di tempat lain." }
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "Masuk ke area yang lebih tenang, khusus untuk teh. Cicipi berbagai jenis teh, dari daun langka sampai racikan baru, dan pelajari cara seduh yang gampang dipraktikkan di rumah."
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "Wine tasting tanpa tekanan. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Tidak ada aturan yang rumit, yang ada hanya wine yang enak."
+      },
+      "chocolate": {
+        "title": "Cokelat Expo Indonesia",
+        "description": "Surganya pecinta cokelat. Temui langsung para pembuat cokelatnya, lihat prosesnya dari dekat, dan cicipi rasa-rasa unik yang tidak akan kamu temukan di tempat lain."
+      }
     },
     "accessNote": "Belum cukup? Seluruh expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> di Hall 10.",
     "accessNote2": "Jadi satu tiket berlaku untuk semuanya selama tiga hari. Sangat menguntungkan, kan."

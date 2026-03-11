@@ -63,31 +63,31 @@
         <p>Find answers to common questions and important information:</p>
         <ul>
           <li>
-            <nuxt-link to="/faq">Frequently Asked Questions (FAQ)</nuxt-link> -
+            <nuxt-link :to="localePath('/faq')">Frequently Asked Questions (FAQ)</nuxt-link> -
             Find answers to common questions about the event
           </li>
           <li>
-            <nuxt-link to="/ticket-terms-and-conditions"
+            <nuxt-link :to="localePath('/ticket-terms-and-conditions')"
               >Ticket Terms and Conditions</nuxt-link
             >
             - Learn about ticket usage rules and policies
           </li>
           <li>
-            <nuxt-link to="/ticket-refund-and-return-policy"
+            <nuxt-link :to="localePath('/ticket-refund-and-return-policy')"
               >Ticket Refund and Return Policy</nuxt-link
             >
             - Understand our refund and return policy
           </li>
           <li>
-            <nuxt-link to="/event-policy">Event Policy</nuxt-link> - Review
+            <nuxt-link :to="localePath('/event-policy')">Event Policy</nuxt-link> - Review
             event rules and regulations
           </li>
           <li>
-            <nuxt-link to="/privacy">Privacy Policy</nuxt-link> - Learn how we
+            <nuxt-link :to="localePath('/privacy')">Privacy Policy</nuxt-link> - Learn how we
             handle your personal information
           </li>
           <li>
-            <nuxt-link to="/terms">Terms of Service</nuxt-link> - Read our terms
+            <nuxt-link :to="localePath('/terms')">Terms of Service</nuxt-link> - Read our terms
             and conditions for using this website
           </li>
         </ul>
@@ -103,7 +103,7 @@
         </ul>
         <p>
           For detailed answers, please visit our
-          <nuxt-link to="/faq">FAQ page</nuxt-link> or contact us directly.
+          <nuxt-link :to="localePath('/faq')">FAQ page</nuxt-link> or contact us directly.
         </p>
 
         <h3>Event Information</h3>
@@ -127,7 +127,7 @@
         <p>
           For exhibitor registration, sponsorship, or media partnership
           inquiries, please contact us through the channels above or visit our
-          <nuxt-link to="/contact">Contact page</nuxt-link>.
+          <nuxt-link :to="localePath('/contact')">Contact page</nuxt-link>.
         </p>
       </div>
     </div>
@@ -141,6 +141,7 @@ usePageMeta(null, {
     "Get help with ticketing, event information, and general inquiries. Contact us via WhatsApp or email for assistance.",
 });
 
+const localePath = useLocalePath();
 const config = useAppConfig();
 const eventTitle = config.event.title;
 const email = config.contact.email;

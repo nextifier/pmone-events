@@ -2,7 +2,7 @@
   <div
     class="space-y-16 overflow-hidden lg:space-y-24"
     :class="{
-      'pt-6': ['ticket'].includes(route.name),
+      'pt-6': getRouteBaseName(route) === 'ticket',
     }"
   >
     <div class="container">
@@ -82,6 +82,7 @@
 
 <script setup>
 const route = useRoute();
+const getRouteBaseName = useRouteBaseName();
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

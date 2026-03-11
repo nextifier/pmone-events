@@ -84,8 +84,21 @@
     "successButton": "ホームに戻る",
     "disclaimerDefault": "有効なEmailアドレスと電話番号をご記入ください。担当者から折り返しご連絡いたします。",
     "disclaimerExhibitor": "このフォームを送信しても、出展が確定するわけではありません。ブースの空き状況や料金など、詳しいご案内のためにご連絡先をお伺いしています。",
+    "preferDirectContact": "直接お問い合わせ",
     "errorSend": "送信に失敗しました。もう一度お試しください。",
     "errorNetwork": "通信エラーが発生しました。しばらくしてから再度お試しください。"
+  },
+  "sponsorshipRegistration": {
+    "title": "スポンサー登録",
+    "description": "イベントのスポンサーに興味がありますか？以下のフォームにご記入ください。スポンサーシップパッケージについてご連絡いたします。",
+    "metaDescription": "スポンサーとして業界のキーパーソンとつながりましょう。登録フォームにご記入ください。"
+  },
+  "mediaPartnerRegistration": {
+    "title": "メディアパートナー登録",
+    "description": "メディアパートナーになりませんか？以下のフォームにご記入いただければ、パートナーシップの詳細についてご連絡いたします。",
+    "metaDescription": "業界最大のイベントを独占取材するチャンス。メディアパートナーとして今すぐご登録ください。",
+    "nameLabel": "お名前",
+    "mediaNameLabel": "メディア名"
   },
   "countdown": {
     "day": "日",
@@ -256,8 +269,10 @@
     "description": "各メディアでの{appName}の取り上げをご覧ください。"
   },
   "credits": {
+    "becomeSponsor": "スポンサーになる",
+    "joinMediaPartner": "メディアパートナー申請",
     "title": "イベントを支えるコミュニティ",
-    "description": "パートナー、スポンサー、メディアの皆さまのご支援で、このイベントは実現しています。"
+    "description": "パートナー、スポンサー、メディアの皆様のサポートにより、このイベントは実現しています。"
   },
   "postSlider": {
     "title": "最新情報",
@@ -344,7 +359,7 @@
   },
   "pages": {
     "home": {
-      "title": "Caf\u00e9 & Brasserie Expo Jakarta (CBE)",
+      "title": "Café & Brasserie Expo Jakarta (CBE)",
       "description": "ジャカルタのCBEで数百ブランドのコーヒー、紅茶、ワイン、チョコレートを体験。テイスティング、ワークショップ、コンペティションなど盛りだくさんです。"
     },
     "brands": {

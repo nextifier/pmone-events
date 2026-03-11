@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    :to="`/brands/${props.brand.slug}`"
+    :to="localePath(`/brands/${props.brand.slug}`)"
     class="bg-muted/60 @container relative isolate flex h-full flex-col gap-4 overflow-hidden rounded-3xl p-4 sm:p-5"
     @click.native="active = props.brand.slug"
   >
@@ -168,6 +168,7 @@ const props = defineProps({
   },
 });
 
+const localePath = useLocalePath();
 const active = useState();
 
 const config = useRuntimeConfig();

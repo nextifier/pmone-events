@@ -9,7 +9,7 @@
         <nuxt-link
           v-for="post in filteredPosts.slice(0, limit)"
           :key="post.slug"
-          :to="`/news/${post.slug}`"
+          :to="localePath(`/news/${post.slug}`)"
           class="flex items-center gap-x-2"
           @click="onLinkClick"
         >
@@ -66,7 +66,7 @@
         <nuxt-link
           v-for="post in filteredPosts.slice(0, limit)"
           :key="post.slug"
-          :to="`/news/${post.slug}`"
+          :to="localePath(`/news/${post.slug}`)"
           class="flex flex-col gap-y-1.5"
         >
           <div
@@ -113,6 +113,7 @@
 <script setup>
 import { useSidebar } from "@/components/ui/sidebar/utils";
 const { t } = useI18n();
+const localePath = useLocalePath();
 
 const props = defineProps({
   variant: {

@@ -52,7 +52,7 @@
           </li>
           <li>
             <strong>Website</strong> refers to {{ name }}, accessible from
-            <nuxt-link to="/">{{ website }}</nuxt-link>
+            <nuxt-link :to="localePath('/')">{{ website }}</nuxt-link>
           </li>
           <li>
             <strong>You</strong> means the individual accessing or using the
@@ -275,7 +275,7 @@
           </li>
           <li>
             By visiting this page on our website:
-            <nuxt-link to="/">{{ contactPageLink }}</nuxt-link>
+            <nuxt-link :to="localePath('/')">{{ contactPageLink }}</nuxt-link>
           </li>
         </ul>
       </div>
@@ -290,6 +290,7 @@ usePageMeta(null, {
     "Read our terms and conditions for using this website, including user acknowledgements, limitations of liability, and governing law.",
 });
 
+const localePath = useLocalePath();
 const name = useAppConfig().app.name;
 const website = useAppConfig().app.url;
 const companyName = useAppConfig().app.company.name;

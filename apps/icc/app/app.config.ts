@@ -212,11 +212,11 @@ const routes = {
   },
   sponsorship: {
     label: "Sponsorship Registration",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsapp}&text=Halo, ${app.shortName}! Saya mau tanya-tanya tentang sponsorship.`,
+    path: "/sponsorship-registration",
   },
   mediaPartner: {
     label: "Media Partner Registration",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsappMarketing}&text=Halo, ${app.shortName}! Saya mau tanya-tanya tentang partnership.`,
+    path: "/media-partner-registration",
   },
   specialShow: {
     label: "Special Show",

@@ -16,10 +16,10 @@
         <div class="flex flex-col items-center text-center">
           <h2
             :class="{
-              'section-title': ['guests'].includes(route.name),
-              'section-title-large': ['index'].includes(route.name),
+              'section-title': getRouteBaseName(route) === 'guests',
+              'section-title-large': getRouteBaseName(route) === 'index',
               'text-primary text-3xl font-extrabold tracking-tighter sm:text-4xl':
-                !['index', 'guests'].includes(route.name),
+                !['index', 'guests'].includes(getRouteBaseName(route)),
             }"
           >
             {{ $t("guests.sectionTitle") }}
@@ -71,5 +71,6 @@
 
 <script setup>
 const route = useRoute();
+const getRouteBaseName = useRouteBaseName();
 const guests = useGuestStore().list.filter((guest) => guest.isPublished);
 </script>

@@ -50,7 +50,7 @@
 
         <p>
           <strong>To report an incident onsite at ICC</strong>, please visit the
-          <nuxt-link to="/contact">Contact page</nuxt-link>. If you're still in
+          <nuxt-link :to="localePath('/contact')">Contact page</nuxt-link>. If you're still in
           the area where the incident took place and it's safe to stay, our
           Security Team will meet you there.
         </p>
@@ -96,5 +96,6 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 usePageMeta("antiHarassmentPolicy");
 </script>

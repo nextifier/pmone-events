@@ -3,12 +3,12 @@
     id="icgp-join-for-event-organizer"
     class="px-1.5 sm:container sm:px-0"
     :class="{
-      'pt-36 lg:pt-48': route.name == 'icgp',
+      'pt-36 lg:pt-48': getRouteBaseName(route) === 'icgp',
     }"
   >
     <div
       class="relative flex flex-col items-center rounded-3xl bg-black px-4 text-white sm:px-8 lg:rounded-[48px] lg:px-12 dark:bg-gray-900 dark:text-white"
-      :class="route.name === 'icgp' ? 'pb-16' : 'pb-32'"
+      :class="getRouteBaseName(route) === 'icgp' ? 'pb-16' : 'pb-32'"
     >
       <div
         id="icgp-mascot-img-wrapper"
@@ -32,7 +32,7 @@
       <InvertedBorderRadius
         location="bottom-center"
         destination="/icgp"
-        v-if="route.name !== 'icgp'"
+        v-if="getRouteBaseName(route) !== 'icgp'"
       />
 
       <div class="relative z-10 flex flex-col items-center text-center">
@@ -72,6 +72,7 @@
 
 <script setup>
 const route = useRoute();
+const getRouteBaseName = useRouteBaseName();
 
 // onMounted(() => {
 //   const { $gsap: gsap } = useNuxtApp();

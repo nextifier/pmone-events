@@ -2,7 +2,7 @@
   <div v-if="items?.length" class="flex items-center gap-2">
     <div class="relative isolate flex -space-x-2.5">
       <NuxtLink
-        to="/"
+        :to="localePath('/')"
         class="bg-muted ring-background border-border relative z-4 size-10 overflow-hidden rounded-full border ring-2 transition hover:scale-110"
         :style="{
           zIndex: items.length + 1,
@@ -62,5 +62,6 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const items = useAppConfig().event.inConjunction?.list;
 </script>

@@ -70,14 +70,14 @@
 
             <div class="mt-6 flex w-full gap-2 md:flex-wrap md:gap-3">
               <nuxt-link
-                to="/ticket"
+                :to="localePath('/ticket')"
                 class="bg-accent text-accent-foreground hover:bg-accent/80 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
                 v-ripple
                 >{{ $t("hero.ctaTicket") }}</nuxt-link
               >
 
               <nuxt-link
-                to="/book-space"
+                :to="localePath('/book-space')"
                 class="bg-accent/5 hover:bg-accent/10 dark:bg-accent/8 text-primary dark:border-primary/8 dark:hover:bg-primary/16 flex items-center justify-center rounded-xl border border-transparent px-4 py-3 font-semibold tracking-tight backdrop-blur-lg transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
                 v-ripple
                 >{{ $t("hero.ctaExhibit") }}</nuxt-link
@@ -152,6 +152,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.hero);
 const event = useAppConfig().event;
 const eventStartTime = computed(() => new Date(event.startTime));

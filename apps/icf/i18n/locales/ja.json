@@ -84,8 +84,21 @@
     "successButton": "ホームへ戻る",
     "disclaimerDefault": "正しいEmailと電話番号をご入力ください。担当者から折り返しご連絡します。",
     "disclaimerExhibitor": "フォームの送信だけでは出展は確定しません。ブースの空き状況や料金など、詳しいご案内のためにご連絡先をお伺いしています。",
+    "preferDirectContact": "直接お問い合わせ",
     "errorSend": "送信できませんでした。もう一度お試しください。",
     "errorNetwork": "通信エラーが発生しました。しばらくしてから再度お試しください。"
+  },
+  "sponsorshipRegistration": {
+    "title": "スポンサー登録",
+    "description": "イベントのスポンサーに興味がありますか？以下のフォームにご記入ください。スポンサーシップパッケージについてご連絡いたします。",
+    "metaDescription": "スポンサーとして業界のキーパーソンとつながりましょう。登録フォームにご記入ください。"
+  },
+  "mediaPartnerRegistration": {
+    "title": "メディアパートナー登録",
+    "description": "メディアパートナーになりませんか？以下のフォームにご記入いただければ、パートナーシップの詳細についてご連絡いたします。",
+    "metaDescription": "業界最大のイベントを独占取材するチャンス。メディアパートナーとして今すぐご登録ください。",
+    "nameLabel": "お名前",
+    "mediaNameLabel": "メディア名"
   },
   "countdown": {
     "day": "日",
@@ -232,8 +245,10 @@
     "description": "{appName}を取り上げた各メディアの記事をご覧ください。"
   },
   "credits": {
-    "title": "イベントを支えるパートナー",
-    "description": "パートナー、スポンサー、メディアの皆さまのご協力で、このフェスティバルが実現しています。"
+    "becomeSponsor": "スポンサーになる",
+    "joinMediaPartner": "メディアパートナー申請",
+    "title": "イベントを支えるコミュニティ",
+    "description": "パートナー、スポンサー、メディアの皆様のサポートにより、このイベントは実現しています。"
   },
   "postSlider": {
     "title": "最新情報",
@@ -323,9 +338,18 @@
     "sectionDescription": "Indonesia Coffee Festivalは、大規模イベント <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a> の一部として開催されます。",
     "sectionDescription2": "つまり、チケットはコーヒーフェスだけでなく、他の3つのフレーバーゾーンにもそのまま入場できます。",
     "zones": {
-      "tea": { "title": "Indonesia Tea Festival", "description": "お茶の世界をゆっくり楽しめるエリアです。希少な茶葉から新しいブレンドまで、さまざまなお茶を試飲して、自宅でおいしく淹れるコツも学べます。" },
-      "wine": { "title": "Indonesia Wine Festival", "description": "気軽にワインテイスティングを楽しめるスペースです。国内外のワインを、堅苦しいルールなしで自由に試してみてください。" },
-      "chocolate": { "title": "Cokelat Expo Indonesia", "description": "チョコレート好きにはたまらないエリア。作り手に直接会って、製造工程を見て、ここでしか味わえない特別なチョコレートを楽しんでください。" }
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "お茶の世界をゆっくり楽しめるエリアです。希少な茶葉から新しいブレンドまで、さまざまなお茶を試飲して、自宅でおいしく淹れるコツも学べます。"
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "気軽にワインテイスティングを楽しめるスペースです。国内外のワインを、堅苦しいルールなしで自由に試してみてください。"
+      },
+      "chocolate": {
+        "title": "Cokelat Expo Indonesia",
+        "description": "チョコレート好きにはたまらないエリア。作り手に直接会って、製造工程を見て、ここでしか味わえない特別なチョコレートを楽しんでください。"
+      }
     },
     "accessNote": "さらに、このExpo全体が <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a>（Hall 10）と同時開催です。",
     "accessNote2": "チケット1枚で、3日間すべてに入場できます。かなりお得です。"

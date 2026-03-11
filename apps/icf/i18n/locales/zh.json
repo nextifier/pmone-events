@@ -84,8 +84,21 @@
     "successButton": "好的，回到首页",
     "disclaimerDefault": "请填写正确的 Email 和手机号，方便我们尽快联系你。",
     "disclaimerExhibitor": "放心，提交表单不等于确认参展。我们需要你的联系方式，好安排销售团队跟你沟通展位方案和价格。",
+    "preferDirectContact": "直接联系我们",
     "errorSend": "发送失败，请重试。",
     "errorNetwork": "网络出错，请稍后重试。"
+  },
+  "sponsorshipRegistration": {
+    "title": "赞助商注册",
+    "description": "有兴趣赞助我们的活动吗？请填写以下表格，我们的团队将与您联系，提供赞助方案详情。",
+    "metaDescription": "成为赞助商，与行业关键决策者建立联系。立即填写注册表格。"
+  },
+  "mediaPartnerRegistration": {
+    "title": "媒体合作伙伴注册",
+    "description": "想成为我们的媒体合作伙伴吗？请填写以下表格，我们的团队将与您联系，提供合作详情和媒体报道机会。",
+    "metaDescription": "获得独家采访权，报道行业最大盛事。立即注册成为媒体合作伙伴。",
+    "nameLabel": "您的姓名",
+    "mediaNameLabel": "媒体名称"
   },
   "countdown": {
     "day": "天",
@@ -232,8 +245,10 @@
     "description": "看看各大媒体怎么报道 {appName}。"
   },
   "credits": {
-    "title": "幕后支持",
-    "description": "感谢所有合作伙伴、赞助商和媒体的支持，让这场咖啡节成为现实。"
+    "becomeSponsor": "成为赞助商",
+    "joinMediaPartner": "申请媒体合作",
+    "title": "活动背后的社区",
+    "description": "感谢合作伙伴、赞助商和媒体的大力支持，让这场活动成为可能。"
   },
   "postSlider": {
     "title": "最新动态",
@@ -323,9 +338,18 @@
     "sectionDescription": "Indonesia Coffee Festival 是 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe & Brasserie Expo Indonesia</a> 的核心板块。",
     "sectionDescription2": "也就是说，你的门票不只能逛咖啡节。你还能自由进入另外三个风味专区：",
     "zones": {
-      "tea": { "title": "Indonesia Tea Festival", "description": "一个安静的茶主题区域。从稀有茶叶到创新拼配，各种茶都能尝到，还能学到在家泡好茶的简单方法。" },
-      "wine": { "title": "Indonesia Wine Festival", "description": "轻松品酒，没有门槛。国内外各种葡萄酒随便试，不讲规矩，只讲好喝。" },
-      "chocolate": { "title": "Cokelat Expo Indonesia", "description": "巧克力爱好者的乐园。见见做巧克力的人，看看制作过程，尝尝别处找不到的特别风味。" }
+      "tea": {
+        "title": "Indonesia Tea Festival",
+        "description": "一个安静的茶主题区域。从稀有茶叶到创新拼配，各种茶都能尝到，还能学到在家泡好茶的简单方法。"
+      },
+      "wine": {
+        "title": "Indonesia Wine Festival",
+        "description": "轻松品酒，没有门槛。国内外各种葡萄酒随便试，不讲规矩，只讲好喝。"
+      },
+      "chocolate": {
+        "title": "Cokelat Expo Indonesia",
+        "description": "巧克力爱好者的乐园。见见做巧克力的人，看看制作过程，尝尝别处找不到的特别风味。"
+      }
     },
     "accessNote": "还不够？整个博览会还和 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> 同期举办，就在 Hall 10。",
     "accessNote2": "没错，一张票，三天时间，全部通行。相当划算。"

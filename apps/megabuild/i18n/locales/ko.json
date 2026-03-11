@@ -84,8 +84,21 @@
     "successButton": "확인. 홈으로 돌아가기",
     "disclaimerDefault": "연락 가능한 Email과 전화번호를 입력해 주세요. 담당자가 곧 연락드릴게요.",
     "disclaimerExhibitor": "걱정 마세요. 양식을 제출한다고 바로 전시 참가가 확정되는 건 아니에요. 부스 옵션이나 가격 안내를 위해 연락처만 받는 거예요.",
+    "preferDirectContact": "직접 연락하기",
     "errorSend": "메시지 전송에 실패했어요. 다시 시도해 주세요.",
     "errorNetwork": "네트워크 오류가 발생했어요. 잠시 후 다시 시도해 주세요."
+  },
+  "sponsorshipRegistration": {
+    "title": "스폰서 등록",
+    "description": "이벤트 스폰서에 관심이 있으신가요? 아래 양식을 작성해 주시면 스폰서십 패키지에 대해 연락드리겠습니다.",
+    "metaDescription": "스폰서가 되어 업계 주요 의사결정자들과 연결하세요. 등록 양식을 작성해 주세요."
+  },
+  "mediaPartnerRegistration": {
+    "title": "미디어 파트너 등록",
+    "description": "미디어 파트너가 되고 싶으신가요? 아래 양식을 작성해 주시면 파트너십 세부사항에 대해 연락드리겠습니다.",
+    "metaDescription": "업계 최대 이벤트를 독점 취재할 기회를 잡으세요. 지금 미디어 파트너로 등록하세요.",
+    "nameLabel": "이름",
+    "mediaNameLabel": "미디어명"
   },
   "countdown": {
     "day": "일",
@@ -299,8 +312,10 @@
     "description": "주요 매체에서 다룬 {appName} 소식을 확인해 보세요."
   },
   "credits": {
-    "title": "함께 만드는 사람들",
-    "description": "파트너, 스폰서, 미디어의 지원이 있어 이 행사가 가능해요."
+    "becomeSponsor": "스폰서 참여",
+    "joinMediaPartner": "미디어 파트너 신청",
+    "title": "이벤트를 만드는 커뮤니티",
+    "description": "파트너, 스폰서, 미디어의 소중한 지원 덕분에 이 이벤트가 실현됩니다."
   },
   "postSlider": {
     "title": "최신 소식",

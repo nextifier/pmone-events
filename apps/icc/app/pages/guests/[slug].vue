@@ -99,7 +99,7 @@
 
             <nuxt-link
               v-if="guest.meetAndGreetAvailable"
-              to="/meet-and-greet"
+              :to="localePath('/meet-and-greet')"
               class="hover:bg-opacity-80 dark:hover:bg-opacity-80 col-span-full flex items-center justify-center gap-1.5 rounded-3xl bg-black px-4 py-6 text-center text-lg font-semibold tracking-tight text-white transition sm:text-xl dark:bg-white dark:text-black"
             >
               <IconTicketStar class="h-6" />
@@ -119,6 +119,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const config = useRuntimeConfig();
 const route = useRoute();
 const guests = useGuestStore();

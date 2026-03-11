@@ -10,8 +10,8 @@
     >
       <div
         v-if="
-          (category.highlight && route.name !== 'programs-meet-and-greet') ||
-          route.name === 'programs-meet-and-greet'
+          (category.highlight && getRouteBaseName(route) !== 'programs-meet-and-greet') ||
+          getRouteBaseName(route) === 'programs-meet-and-greet'
         "
       >
         <h1
@@ -183,7 +183,7 @@
         <div
           :id="`terms-${category.slug}`"
           v-if="
-            route.name === 'programs-meet-and-greet' && category.terms?.length
+            getRouteBaseName(route) === 'programs-meet-and-greet' && category.terms?.length
           "
           class="pt-16 lg:pt-20"
         >
@@ -208,7 +208,7 @@
 
         <div v-else class="mt-4 flex items-center justify-center lg:mt-6">
           <nuxt-link
-            :to="`/meet-and-greet#terms-${category.slug}`"
+            :to="localePath('/meet-and-greet') + `#terms-${category.slug}`"
             class="flex items-center justify-center gap-1.5 rounded-full px-5 py-4 tracking-tight transition hover:bg-gray-100 active:scale-95 dark:hover:bg-gray-900"
           >
             <span>{{ $t("meetAndGreet.readTerms") }}</span>
@@ -221,7 +221,9 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const route = useRoute();
+const getRouteBaseName = useRouteBaseName();
 import { toast } from "vue-sonner";
 const meetAndGreetList = ref([
   {

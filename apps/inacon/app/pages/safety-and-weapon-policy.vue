@@ -19,7 +19,7 @@
         <p>
           <strong>What if I’m harassed?</strong><br />
           For information and details on reporting harassment, please visit our
-          <nuxt-link to="/anti-harassment-policy"
+          <nuxt-link :to="localePath('/anti-harassment-policy')"
             >anti-harassment policy</nuxt-link
           >.
         </p>
@@ -97,5 +97,6 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 usePageMeta("safetyAndWeaponPolicy");
 </script>

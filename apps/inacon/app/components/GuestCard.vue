@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/guests/${guest.slug}`" class="@container">
+  <NuxtLink :to="localePath(`/guests/${guest.slug}`)" class="@container">
     <div class="group relative isolate">
       <div
         v-if="guest.transparentBackground"
@@ -91,6 +91,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 defineProps({
   guest: Object,
   showCategory: {

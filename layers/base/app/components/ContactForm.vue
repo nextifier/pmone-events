@@ -177,7 +177,7 @@
         <p class="mt-4">{{ successMessageText }}</p>
 
         <NuxtLink
-          to="/"
+          :to="localePath('/')"
           class="bg-primary text-primary-foreground mt-8 rounded-xl px-6 py-4 font-semibold tracking-tight"
           v-ripple
           @click="handleSuccessAction"
@@ -193,6 +193,7 @@
 import { toast } from "vue-sonner";
 
 const { t } = useI18n();
+const localePath = useLocalePath();
 
 // Props with defaults
 const props = defineProps({
@@ -201,6 +202,10 @@ const props = defineProps({
   description: { type: String, default: null },
   submitLabel: { type: String, default: null },
   subject: { type: String, default: null },
+
+  // Custom field labels
+  nameLabel: { type: String, default: null },
+  brandNameLabel: { type: String, default: null },
 
   // Field visibility toggles
   showJobTitle: { type: Boolean, default: false },
@@ -276,9 +281,9 @@ const showCustomProductInput = ref(false);
 
 // All available fields definition
 const allFields = computed(() => [
-  { name: "name", label: t('contact.name'), type: "text", required: true },
+  { name: "name", label: props.nameLabel || t('contact.name'), type: "text", required: true },
   { name: "jobTitle", label: t('contact.jobTitle'), type: "text", required: false },
-  { name: "brandName", label: t('contact.brandName'), type: "text", required: false },
+  { name: "brandName", label: props.brandNameLabel || t('contact.brandName'), type: "text", required: false },
   { name: "products", label: t('contact.products'), type: "text", required: false },
   { name: "email", label: t('contact.email'), type: "email", required: true },
   { name: "phone", label: t('contact.phone'), type: "phone", required: true },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Sidebar
-      v-if="['news-slug'].includes(route.name)"
+      v-if="getRouteBaseName(route) === 'news-slug'"
       side="right"
       variant="sidebar"
       class="top-(--navbar-height-desktop) border-transparent"
@@ -185,7 +185,7 @@
             <SharePage
               model="post"
               :title="post.title"
-              :url="`${useAppConfig().app.url}/news/${post.slug}`"
+              :url="`${useAppConfig().app.url}${localePath(`/news/${post.slug}`)}`"
             />
           </div>
         </main>
@@ -204,6 +204,8 @@
 
 <script setup>
 const route = useRoute();
+const localePath = useLocalePath();
+const getRouteBaseName = useRouteBaseName();
 
 const { $dayjs } = useNuxtApp();
 

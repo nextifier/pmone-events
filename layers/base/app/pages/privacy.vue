@@ -60,7 +60,7 @@
           </li>
           <li>
             <strong>Website</strong> refers to {{ name }}, accessible from
-            <nuxt-link to="/">{{ website }}</nuxt-link>
+            <nuxt-link :to="localePath('/')">{{ website }}</nuxt-link>
           </li>
           <li><strong>Service</strong> refers to the Website.</li>
           <li><strong>Country</strong> refers to: Indonesia</li>
@@ -433,7 +433,7 @@
           </li>
           <li>
             By visiting this page on our website:
-            <nuxt-link to="/#contact">{{ contactPageLink }}</nuxt-link>
+            <nuxt-link :to="localePath('/') + '#contact'">{{ contactPageLink }}</nuxt-link>
           </li>
         </ul>
       </div>
@@ -448,6 +448,7 @@ usePageMeta(null, {
     "Learn how we collect, use, and protect your personal data. Read our privacy policy regarding cookies, data retention, and your rights.",
 });
 
+const localePath = useLocalePath();
 const name = useAppConfig().app.name;
 const website = useAppConfig().app.url;
 const companyName = useAppConfig().app.company.name;

@@ -33,8 +33,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: {
-        lang: "en",
+        translate: "no",
       },
+      meta: [
+        { name: "google", content: "notranslate" },
+      ],
       link: [
         {
           rel: "apple-touch-icon",
@@ -140,7 +143,7 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: "../i18n/locales",
     defaultLocale: "en",
-    strategy: "no_prefix",
+    strategy: "prefix_except_default",
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: "i18n_locale",

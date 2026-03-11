@@ -89,7 +89,7 @@
             <p class="mt-4 text-base tracking-tight sm:text-lg">{{ $t('news.comeBackLater') }}</p>
 
             <nuxt-link
-              to="/"
+              :to="localePath('/')"
               class="mt-4 flex items-center gap-x-1 rounded-full bg-black p-4 font-semibold tracking-tight text-white dark:bg-white dark:text-black"
             >
               <IconChevronLeft class="h-4" />
@@ -135,6 +135,7 @@ defineOptions({
   name: "news",
 });
 
+const localePath = useLocalePath();
 const route = useRoute();
 const router = useRouter();
 

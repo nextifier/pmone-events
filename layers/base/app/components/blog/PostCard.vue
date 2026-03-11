@@ -137,11 +137,12 @@ const props = defineProps({
 });
 
 const { $dayjs } = useNuxtApp();
+const localePath = useLocalePath();
 
 const active = useState("active-post-slug", () => null);
 
 // Computed URL to avoid template string issues
-const postUrl = computed(() => `/news/${props.post?.slug || ""}`);
+const postUrl = computed(() => localePath(`/news/${props.post?.slug || ""}`));
 
 const imageStyle = computed(() => {
   if (active.value === props.post?.slug) {

@@ -81,8 +81,21 @@
     "successButton": "Okay. Send me back to home",
     "disclaimerDefault": "Please ensure you put the correct and active email address and phone number. Our team will reach you soon.",
     "disclaimerExhibitor": "Do not worry. By submitting this form, you are not automatically registered as an exhibitor. We need your contact information so our sales team can provide you with further details about available booths, pricing, and more.",
+    "preferDirectContact": "Prefer to Connect Directly?",
     "errorSend": "Failed to send message. Please try again.",
     "errorNetwork": "Network error. Please try again later."
+  },
+  "sponsorshipRegistration": {
+    "title": "Sponsorship Registration",
+    "description": "Interested in sponsoring our event? Fill out the form below and our team will reach out with sponsorship packages and opportunities.",
+    "metaDescription": "Become a sponsor and connect with key decision-makers at our event. Fill out the registration form to get started."
+  },
+  "mediaPartnerRegistration": {
+    "title": "Media Partner Registration",
+    "description": "Want to become our media partner? Fill out the form below and our team will get in touch with partnership details and media coverage opportunities.",
+    "metaDescription": "Partner with us for exclusive access to share the industry's biggest stories. Register as a media partner today.",
+    "nameLabel": "Your Name",
+    "mediaNameLabel": "Media Name"
   },
   "countdown": {
     "day": "Day | Days",
@@ -127,6 +140,12 @@
     "Discover": "Discover",
     "For Businesses": "For Businesses",
     "Terms and policies": "Terms and policies"
+  },
+  "credits": {
+    "becomeSponsor": "Become a Sponsor",
+    "joinMediaPartner": "Join as Media Partner",
+    "title": "Meet the Community Behind the Event",
+    "description": "This event is brought to life by the amazing support of our partners, sponsors, and media."
   },
   "partners": {
     "Organized by": "Organized by",

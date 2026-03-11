@@ -105,7 +105,7 @@
 
         <p>
           For more information about ticket usage and rules, please refer to our
-          <nuxt-link to="/ticket-terms-and-conditions"
+          <nuxt-link :to="localePath('/ticket-terms-and-conditions')"
             >Ticket Terms and Conditions</nuxt-link
           >.
         </p>
@@ -121,6 +121,7 @@ usePageMeta(null, {
     "Understand our ticket refund and return policy. All ticket sales are final with no refunds or exchanges.",
 });
 
+const localePath = useLocalePath();
 const config = useAppConfig();
 const eventTitle = config.event.title;
 const email = config.contact.email;

@@ -56,7 +56,7 @@
 
     <div class="container mt-8 flex justify-center">
       <nuxt-link
-        to="/brands"
+        :to="localePath('/brands')"
         class="text-primary border-border hover:bg-muted flex items-center justify-center gap-1.5 rounded-full border p-4 text-sm font-medium tracking-tight transition active:scale-98"
       >
         <Icon name="hugeicons:grid-view" class="size-4" />
@@ -68,6 +68,7 @@
 
 <script setup>
 import AutoScroll from "embla-carousel-auto-scroll";
+const localePath = useLocalePath();
 
 const content = computed(() => useContentStore().components.brandPreview);
 const config = useRuntimeConfig();

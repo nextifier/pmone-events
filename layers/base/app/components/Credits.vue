@@ -59,11 +59,27 @@
         </DevOnly>
       </div>
     </div>
+
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-2.5">
+      <NuxtLink
+        :to="localePath('/sponsorship-registration')"
+        class="bg-muted hover:bg-border text-foreground flex items-center justify-center rounded-lg border border-transparent px-4 py-2 font-semibold tracking-tight transition active:scale-98"
+      >
+        {{ $t("credits.becomeSponsor") }}
+      </NuxtLink>
+      <NuxtLink
+        :to="localePath('/media-partner-registration')"
+        class="bg-muted hover:bg-border text-foreground flex items-center justify-center rounded-lg border border-transparent px-4 py-2 font-semibold tracking-tight transition active:scale-98"
+      >
+        {{ $t("credits.joinMediaPartner") }}
+      </NuxtLink>
+    </div>
   </section>
 </template>
 
 <script setup>
 import { NuxtLink } from "#components";
+const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.credits);
 const partners = computed(() => usePartnerStore().partnerCategories);
 </script>

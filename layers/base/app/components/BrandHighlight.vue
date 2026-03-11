@@ -19,7 +19,7 @@
         <nuxt-link
           v-for="(brand, index) in brands"
           :key="index"
-          :to="`/brands/${brand.slug}`"
+          :to="localePath(`/brands/${brand.slug}`)"
         >
           <div
             class="flex flex-col items-center gap-1 overflow-hidden text-center transition hover:scale-110 active:scale-98"
@@ -62,7 +62,7 @@
 
       <div class="mt-8 flex justify-center">
         <nuxt-link
-          to="/brands"
+          :to="localePath('/brands')"
           class="flex items-center justify-center gap-1.5 rounded-full bg-gray-100 p-4 text-sm font-medium tracking-tight text-black transition hover:bg-gray-200 active:scale-98 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
         >
           <IconGrid class="h-4" />
@@ -84,6 +84,7 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const config = useRuntimeConfig();
 
 const {

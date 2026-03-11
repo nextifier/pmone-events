@@ -84,8 +84,21 @@
     "successButton": "ホームへ戻る",
     "disclaimerDefault": "連絡のつくEmailと電話番号を入力してね。担当者からすぐにご連絡します。",
     "disclaimerExhibitor": "フォーム送信だけでは出展確定にはなりません。ブースの空き状況や料金について、営業チームからご案内するための情報です。",
+    "preferDirectContact": "直接お問い合わせ",
     "errorSend": "送信に失敗しました。もう一度お試しください。",
     "errorNetwork": "ネットワークエラーです。しばらくしてから再度お試しください。"
+  },
+  "sponsorshipRegistration": {
+    "title": "スポンサー登録",
+    "description": "イベントのスポンサーに興味がありますか？以下のフォームにご記入ください。スポンサーシップパッケージについてご連絡いたします。",
+    "metaDescription": "スポンサーとして業界のキーパーソンとつながりましょう。登録フォームにご記入ください。"
+  },
+  "mediaPartnerRegistration": {
+    "title": "メディアパートナー登録",
+    "description": "メディアパートナーになりませんか？以下のフォームにご記入いただければ、パートナーシップの詳細についてご連絡いたします。",
+    "metaDescription": "業界最大のイベントを独占取材するチャンス。メディアパートナーとして今すぐご登録ください。",
+    "nameLabel": "お名前",
+    "mediaNameLabel": "メディア名"
   },
   "countdown": {
     "day": "日",
@@ -255,8 +268,10 @@
     "description": "各メディアの{appName}に関する報道をチェック。"
   },
   "credits": {
-    "title": "イベントを支える仲間たち",
-    "description": "パートナー、スポンサー、メディアの皆さまのご支援でこのイベントは実現しています。"
+    "becomeSponsor": "スポンサーになる",
+    "joinMediaPartner": "メディアパートナー申請",
+    "title": "イベントを支えるコミュニティ",
+    "description": "パートナー、スポンサー、メディアの皆様のサポートにより、このイベントは実現しています。"
   },
   "postSlider": {
     "title": "最新ニュース",

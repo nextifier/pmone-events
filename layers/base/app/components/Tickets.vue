@@ -24,11 +24,11 @@
             class="text-xs tracking-tight text-balance sm:text-sm xl:text-pretty"
           >
             {{ $t('ticket.agreementPrefix') }}
-            <nuxt-link to="/ticket-terms-and-conditions" class="text-info hover:underline"
+            <nuxt-link :to="localePath('/ticket-terms-and-conditions')" class="text-info hover:underline"
               >{{ $t('ticket.ticketTerms') }}</nuxt-link
             >
             {{ $t('ticket.agreementAnd') }}
-            <nuxt-link to="/event-policy" class="text-info hover:underline"
+            <nuxt-link :to="localePath('/event-policy')" class="text-info hover:underline"
               >{{ $t('ticket.eventPolicy') }}</nuxt-link
             >.
           </p>
@@ -283,6 +283,7 @@ const props = defineProps({
 });
 
 import { toast } from "vue-sonner";
+const localePath = useLocalePath();
 const { t } = useI18n();
 const { $dayjs } = useNuxtApp();
 

@@ -60,7 +60,7 @@
             <slot name="sticky-header" />
             <div
               ref="drawerContentBody"
-              class="pointer-events-auto"
+              class="pointer-events-auto overflow-x-hidden wrap-break-word"
               :class="{
                 'touch-pan-down': drawerContentBodyIsAtTop,
                 'overflow-y-auto': props.overflowContent,

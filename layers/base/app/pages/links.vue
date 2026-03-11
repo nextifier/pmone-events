@@ -36,7 +36,7 @@
         </NuxtLink>
 
         <NuxtLink
-          to="/"
+          :to="localePath('/')"
           class="text-muted-foreground hover:text-primary flex items-center gap-x-1.5 text-sm tracking-tight transition active:scale-98"
         >
           <IconWebsite class="size-4 shrink-0" />
@@ -53,5 +53,6 @@
 
 <script setup>
 usePageMeta("links");
+const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.links);
 </script>

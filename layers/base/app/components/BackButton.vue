@@ -32,6 +32,7 @@ const props = defineProps({
 
 const router = useRouter();
 const route = useRoute();
+const localePath = useLocalePath();
 
 // Buat computed property untuk menentukan tujuan fallback secara dinamis.
 const fallbackDestination = computed(() => {
@@ -46,11 +47,11 @@ const fallbackDestination = computed(() => {
 
   // Jika path hanya memiliki satu segmen (misal: '/news') atau kurang, kembali ke halaman utama.
   if (pathSegments.length <= 1) {
-    return "/";
+    return localePath("/");
   }
 
   pathSegments.pop(); // Hapus segmen terakhir
-  return "/" + pathSegments.join("/"); // Gabungkan kembali
+  return "/" + pathSegments.join("/"); // Gabungkan kembali (path sudah mengandung locale prefix)
 });
 
 const goBack = () => {
