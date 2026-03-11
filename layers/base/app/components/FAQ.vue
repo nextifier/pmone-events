@@ -1,6 +1,6 @@
 <template>
   <div class="container flex flex-col items-center lg:max-w-(--breakpoint-sm)">
-    <h1 class="section-title text-center font-semibold">{{ content.title }}</h1>
+    <component :is="tag" class="section-title text-center font-semibold">{{ content.title }}</component>
     <p class="section-description mt-3 text-center">
       {{ content.description }}
     </p>
@@ -13,11 +13,11 @@
           :value="`faq-item-${index}`"
         >
           <AccordionTrigger>
-            <h6
+            <span
               class="text-lg font-medium tracking-tighter text-balance sm:text-xl"
             >
               {{ item.q }}
-            </h6>
+            </span>
           </AccordionTrigger>
           <AccordionContent>
             <div class="format-html" v-html="item.a"></div>
@@ -31,11 +31,11 @@
     </div>
 
     <div class="mt-10 lg:mt-16">
-      <h6
+      <h2
         class="text-center text-3xl font-semibold tracking-tight text-balance text-black sm:text-4xl dark:text-white"
       >
         {{ content.contactTitle }}
-      </h6>
+      </h2>
       <div class="mt-4 flex items-center justify-center lg:mt-6">
         <nuxt-link
           :to="localePath('/contact')"
@@ -49,6 +49,10 @@
 </template>
 
 <script setup>
+const props = defineProps({
+  tag: { type: String, default: "h1" },
+});
+
 const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.faq);
 const faq = useFAQStore();

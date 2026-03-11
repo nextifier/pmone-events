@@ -13,10 +13,10 @@
 
     <div class="container-wider relative z-20">
       <div
-        class="min-h-screen-offset grid grid-cols-1 gap-y-6 pt-6 md:grid-cols-2 md:items-center md:pt-0 xl:grid-cols-3"
+        class="min-h-screen-offset relative isolate grid grid-cols-1 gap-y-6 pt-6 md:grid-cols-2 md:items-end md:pt-0 xl:grid-cols-3 xl:items-start"
       >
         <div
-          class="3xl:gap-y-24 order-first flex h-full flex-col gap-y-6 sm:gap-y-12 md:pt-10"
+          class="xl:max-h-screen-offset relative z-20 order-first flex h-full flex-col justify-between gap-y-6 sm:gap-y-12 md:pt-6 lg:pb-10 2xl:pt-10 2xl:pb-16"
         >
           <div class="flex flex-col items-start gap-y-2.5">
             <span class="text-primary/70 text-sm tracking-tight">{{
@@ -74,7 +74,7 @@
         </div>
 
         <div
-          class="relative order-2 -mx-[40%] h-full md:order-last md:col-span-2 xl:order-2 xl:col-span-1"
+          class="relative isolate z-10 order-2 -mx-[40%] h-full md:order-last md:col-span-2 xl:order-2 xl:col-span-1"
         >
           <div class="relative isolate z-30">
             <div ref="mainImageRef">
@@ -137,8 +137,12 @@
           </div>
         </div>
 
-        <div class="order-3 h-full md:order-2 md:pt-10 xl:order-last">
-          <div class="relative ml-auto flex size-full flex-col gap-y-6">
+        <div
+          class="xl:max-h-screen-offset relative z-30 order-3 h-full md:order-2 md:pt-6 lg:pb-10 xl:order-last 2xl:pt-10 2xl:pb-16"
+        >
+          <div
+            class="relative ml-auto flex size-full flex-col justify-between gap-y-6"
+          >
             <BannerHero class="relative z-20 w-full" />
 
             <div
