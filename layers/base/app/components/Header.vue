@@ -45,7 +45,7 @@
             >{{ $t('ui.getTicket') }}</nuxt-link
           >
 
-          <LanguageSwitcher />
+          <LanguageSwitcher v-if="!['news', 'news-slug'].includes(route.name)" />
 
           <Tippy>
             <ColorModeToggle />
