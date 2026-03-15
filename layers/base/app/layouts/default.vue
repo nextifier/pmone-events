@@ -6,7 +6,7 @@
         <slot />
       </main>
 
-      <Footer v-if="!['links', 'winner'].includes(route.name)" />
+      <Footer v-if="!['links', 'winner'].some((n) => route.name?.toString().startsWith(n))" />
 
       <DialogRundown />
       <DialogEmbedMedia />

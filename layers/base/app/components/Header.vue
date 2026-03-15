@@ -45,7 +45,7 @@
             >{{ $t('ui.getTicket') }}</nuxt-link
           >
 
-          <LanguageSwitcher v-if="!['news', 'news-slug'].includes(route.name)" />
+          <LanguageSwitcher v-if="!route.name?.toString().startsWith('news')" />
 
           <Tippy>
             <ColorModeToggle />
@@ -57,7 +57,7 @@
             </template>
           </Tippy>
 
-          <Tippy v-if="['news-slug'].includes(route.name)">
+          <Tippy v-if="route.name?.toString().startsWith('news-slug')">
             <button
               data-sidebar="trigger"
               data-slot="sidebar-trigger"
@@ -94,7 +94,7 @@
           </Tippy>
 
           <button
-            v-if="['winner'].includes(route.name)"
+            v-if="route.name?.toString().startsWith('winner')"
             @click="toggleFullScreen"
             type="button"
             v-tippy="'Toggle Fullscreen'"

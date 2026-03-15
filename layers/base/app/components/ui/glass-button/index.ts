@@ -91,7 +91,7 @@ export const buttonVariants = cva(
       size: "default",
       rounded: "full",
     },
-  }
+  },
 );
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;

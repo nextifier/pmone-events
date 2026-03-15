@@ -4,6 +4,7 @@
 @source "../../app.vue";
 @source "../../app.config.ts";
 @source "../../components/**/*.vue";
+@source "../../components/**/*.ts";
 @source "../../composables/**/*.js";
 @source "../../layouts/**/*.vue";
 @source "../../pages/**/*.vue";

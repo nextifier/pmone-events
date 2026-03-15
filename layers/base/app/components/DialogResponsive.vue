@@ -10,8 +10,8 @@
             class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80"
           />
           <DialogContent
-            class="bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100%-4rem)] w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border shadow-lg outline-hidden duration-200"
-            :style="{ maxWidth: dialogMaxWidth }"
+            class="bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border shadow-lg outline-hidden duration-200"
+            :style="{ maxWidth: dialogMaxWidth, maxHeight: dialogMaxHeight }"
             @interact-outside="onInteractOutside"
             @escape-key-down="onEscapeKeyDown"
           >
@@ -45,16 +45,11 @@
     <template v-else>
       <DrawerRoot v-model:open="isOpen">
         <DrawerPortal>
-          <DrawerOverlay
-            v-if="!hideOverlay"
-            class="fixed inset-0 z-50 bg-black/80"
-          />
+          <DrawerOverlay v-if="!hideOverlay" class="fixed inset-0 z-50 bg-black/80" />
           <DrawerContent
             class="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto max-h-[85vh] flex-col rounded-t-2xl border-t outline-hidden lg:max-h-[calc(100lvh-var(--navbar-height-desktop))]"
           >
-            <div
-              class="bg-border mx-auto mt-2 mb-7 h-1.5 w-[100px] shrink-0 rounded-full"
-            />
+            <div class="bg-border mx-auto mt-2 mb-7 h-1.5 w-[100px] shrink-0 rounded-full" />
             <DrawerTitle class="hidden" />
             <DrawerDescription class="hidden" />
             <slot name="sticky-header" />
@@ -75,18 +70,14 @@
               @click="onCloseButtonClick"
               class="group data-[state=open]:bg-muted data-[state=open]:text-muted-foreground hover:bg-muted absolute top-1.5 right-3 z-20 flex size-8 items-center justify-center rounded-full focus:outline-hidden disabled:pointer-events-none"
             >
-              <IconClose
-                class="size-4 opacity-60 transition group-hover:opacity-100"
-              />
+              <IconClose class="size-4 opacity-60 transition group-hover:opacity-100" />
               <span class="sr-only">Close</span>
             </button>
             <DrawerClose
               v-else-if="drawerCloseButton || isDesktop"
               class="group data-[state=open]:bg-muted data-[state=open]:text-muted-foreground hover:bg-muted absolute top-1.5 right-3 z-20 flex size-8 items-center justify-center rounded-full focus:outline-hidden disabled:pointer-events-none"
             >
-              <IconClose
-                class="size-4 opacity-60 transition group-hover:opacity-100"
-              />
+              <IconClose class="size-4 opacity-60 transition group-hover:opacity-100" />
               <span class="sr-only">Close</span>
             </DrawerClose>
           </DrawerContent>
@@ -134,6 +125,10 @@ const props = defineProps({
   dialogMaxWidth: {
     type: String,
     default: "400px",
+  },
+  dialogMaxHeight: {
+    type: String,
+    default: "calc(100% - 4rem)",
   },
   drawerCloseButton: {
     type: Boolean,
@@ -201,8 +196,7 @@ watch(isOpen, (newValue, oldValue) => {
   if (isDesktop.value && props.isResponsive) {
     if (newValue) {
       const hasScrollbar =
-        document.documentElement.scrollHeight >
-        document.documentElement.clientHeight;
+        document.documentElement.scrollHeight > document.documentElement.clientHeight;
       if (!hasScrollbar) {
         const test = document.createElement("div");
         test.style.cssText =

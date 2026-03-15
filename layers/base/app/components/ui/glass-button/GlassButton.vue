@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
+import type { PrimitiveProps } from "reka-ui";
 import { Primitive } from "reka-ui";
-import type { HTMLAttributes, Component } from "vue";
+import type { HTMLAttributes } from "vue";
 import type { RouteLocationRaw } from "vue-router";
 import { buttonVariants, type ButtonVariants } from ".";
 
-interface Props {
-  as?: string | Component;
-  asChild?: boolean;
+interface Props extends PrimitiveProps {
   variant?: ButtonVariants["variant"];
   size?: ButtonVariants["size"];
   rounded?: ButtonVariants["rounded"];
@@ -46,7 +45,9 @@ const innerShadowRoundedClass = computed(() => {
 });
 
 const hasInnerShadow = computed(() => {
-  return !["ghost", "link", "white-ghost", "black-ghost"].includes(props.variant ?? "default");
+  return !["ghost", "link", "white-ghost", "black-ghost"].includes(
+    props.variant ?? "default",
+  );
 });
 
 const isOutlineVariant = computed(() => {
@@ -77,7 +78,7 @@ const isOutlineVariant = computed(() => {
 
           'group-hover:blur-[clamp(2px,0.0625em,6px)] group-hover:[transition:filter_var(--transition-duration)_var(--transition-ease)] group-hover:after:top-[calc(var(--shadow-offset)-0.875em)]',
 
-          'group-active:blur-[clamp(2px,0.125em,12px)] group-active:after:top-[calc(var(--shadow-offset)-0.5em)] group-active:after:opacity-75'
+          'group-active:blur-[clamp(2px,0.125em,12px)] group-active:after:top-[calc(var(--shadow-offset)-0.5em)] group-active:after:opacity-75',
         )
       "
     />

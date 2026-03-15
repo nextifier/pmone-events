@@ -3,11 +3,8 @@
     <div class="flex flex-col items-center text-center">
       <h2
         :class="{
-          'section-title': ['brands'].includes(route.name),
-          'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': ![
-            'index',
-            'brands',
-          ].includes(route.name),
+          'section-title': route.name?.toString().startsWith('brands'),
+          'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': !['index', 'brands'].some((n) => route.name?.toString().startsWith(n)),
         }"
       >
         {{ content.title }}

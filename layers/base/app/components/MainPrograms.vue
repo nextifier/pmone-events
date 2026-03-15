@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div v-if="['programs'].includes(route.name)" class="container mt-10">
+    <div v-if="route.name?.toString().startsWith('programs')" class="container mt-10">
       <div
         class="grid gap-x-2 gap-y-3 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-y-8"
         :class="content.list[0].image ? 'grid-cols-2' : 'grid-cols-1'"

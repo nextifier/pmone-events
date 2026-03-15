@@ -4,7 +4,7 @@
     noUseBrowserLocale
     fetchCountry
     country-code="ID"
-    :ignored-countries="['AC']"
+    :ignored-countries="['AC', 'TA']"
     class="flex"
     @update:model-value="handlePhoneUpdate"
   >

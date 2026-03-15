@@ -2,7 +2,7 @@
   <div
     class="space-y-16 overflow-hidden lg:space-y-24"
     :class="{
-      'pt-6': ['ticket'].includes(route.name),
+      'pt-6': route.name?.toString().startsWith('ticket'),
     }"
   >
     <!-- <div class="container-wider flex flex-col items-center">
