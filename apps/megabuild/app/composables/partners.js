@@ -425,10 +425,62 @@ export const usePartnerStore = defineStore("partners", {
             img: "indotrading.png",
             link: "https://www.indotrading.com/",
           },
-          // {
-          //   img: "jejakini.png",
-          //   link: "",
-          // },
+          {
+            img: "jejakini.png",
+            link: "",
+          },
+          {
+            img: "katadata.png",
+            link: "https://katadata.co.id/",
+          },
+          {
+            img: "konstruksi-media.png",
+            link: "https://konstruksimedia.com/",
+          },
+          {
+            img: "media-event.png",
+            link: "",
+          },
+          {
+            img: "property-and-the-city.png",
+            link: "https://propertyandthecity.com/",
+          },
+          {
+            img: "sisi.png",
+            link: "",
+          },
+          {
+            img: "thephrase.png",
+            link: "https://thephrase.id/",
+          },
+          {
+            img: "infobrand.png",
+            link: "",
+          },
+          {
+            img: "property-bank.png",
+            link: "https://www.propertynbank.com/",
+          },
+          {
+            img: "rentfix.png",
+            link: "https://rentfix.com/",
+          },
+          {
+            img: "soul-of-jakarta.png",
+            link: "https://www.soulofjakarta.id/",
+          },
+          {
+            img: "urbanvibes.png",
+            link: "https://urbanvibes.id/",
+          },
+          {
+            img: "wartausaha.png",
+            link: "",
+          },
+          {
+            img: "whats-new-indonesia.png",
+            link: "https://whatsnewindonesia.com/",
+          },
 
           // {
           //   img: "detik.png",
@@ -436,16 +488,8 @@ export const usePartnerStore = defineStore("partners", {
           // },
 
           // {
-          //   img: "konstruksi-media-new.png",
-          //   link: "https://konstruksimedia.com/",
-          // },
-          // {
           //   img: "tender-indonesia.png",
           //   link: "https://www.tender-indonesia.com/tender_home/",
-          // },
-          // {
-          //   img: "rentfix.png",
-          //   link: "https://rentfix.com/",
           // },
 
           // {
@@ -456,10 +500,7 @@ export const usePartnerStore = defineStore("partners", {
           //   img: "indonetwork.png",
           //   link: "https://en.indonetwork.co.id/",
           // },
-          // {
-          //   img: "property-and-the-city.png",
-          //   link: "https://propertyandthecity.com/",
-          // },
+
           // {
           //   img: "inclover.png",
           //   link: "https://inclovermag.com/",
@@ -467,14 +508,6 @@ export const usePartnerStore = defineStore("partners", {
           // {
           //   img: "cts-network.png",
           //   link: "https://www.ctsnetwork.id/",
-          // },
-          // {
-          //   img: "property-bank.png",
-          //   link: "https://www.propertynbank.com/",
-          // },
-          // {
-          //   img: "urbanvibes.png",
-          //   link: "https://urbanvibes.id/",
           // },
 
           // {
@@ -488,14 +521,6 @@ export const usePartnerStore = defineStore("partners", {
           // {
           //   img: "homepoint.png",
           //   link: "https://homepoint.id/",
-          // },
-          // {
-          //   img: "soul-of-jakarta.png",
-          //   link: "https://www.soulofjakarta.id/",
-          // },
-          // {
-          //   img: "thephrase.png",
-          //   link: "https://thephrase.id/",
           // },
 
           // {
@@ -522,10 +547,7 @@ export const usePartnerStore = defineStore("partners", {
           //   img: "haluan-network.png",
           //   link: "",
           // },
-          // {
-          //   img: "infobrand.png",
-          //   link: "",
-          // },
+
           // {
           //   img: "katalog-promosi.png",
           //   link: "",
@@ -550,10 +572,7 @@ export const usePartnerStore = defineStore("partners", {
           //   img: "viva.png",
           //   link: "",
           // },
-          // {
-          //   img: "wartausaha.png",
-          //   link: "",
-          // },
+
           // {
           //   img: "proporsio.png",
           //   link: "",
@@ -567,10 +586,6 @@ export const usePartnerStore = defineStore("partners", {
           //   link: "",
           // },
 
-          // {
-          //   img: "katadata.png",
-          //   link: "https://katadata.co.id/",
-          // },
           // {
           //   img: "properti1.png",
           // },
@@ -592,10 +607,7 @@ export const usePartnerStore = defineStore("partners", {
           //   img: "seab.png",
           //   link: "https://seab.tradelinkmedia.biz/",
           // },
-          // {
-          //   img: "whats-new-indonesia.png",
-          //   link: "https://whatsnewindonesia.com/",
-          // },
+
           // {
           //   img: "casa.png",
           //   link: "https://www.mra.co.id/alacasa.html",
