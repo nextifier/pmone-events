@@ -3,10 +3,11 @@
   "pnpm": {
     "overrides": {
       "@nuxt/devtools": "3.1.1",
-      "vue": "latest",
+      "vue": "^3.5.29",
       "esm-env": "npm:esm-env-runtime@^0.1.1",
       "commander": "^13.1.0",
-      "citty": "^0.2.1"
+      "citty": "^0.2.1",
+      "@intlify/unplugin-vue-i18n": "^11.1.1"
     }
   },
   "devDependencies": {
