@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  image: {},
+  ,
 
   site: {
     url: "https://keramika.co.id",

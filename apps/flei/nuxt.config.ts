@@ -18,8 +18,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  image: {},
-
   site: {
     url: "https://franchise-expo.co.id",
     name: "Franchise & License Expo Indonesia",

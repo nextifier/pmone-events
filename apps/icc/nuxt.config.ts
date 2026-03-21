@@ -20,7 +20,7 @@ export default defineNuxtConfig({
 
   fonts: {},
 
-  image: {},
+  ,
 
   i18n: {
     locales: [

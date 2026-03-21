@@ -35,9 +35,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         translate: "no",
       },
-      meta: [
-        { name: "google", content: "notranslate" },
-      ],
+      meta: [{ name: "google", content: "notranslate" }],
       link: [
         {
           rel: "apple-touch-icon",
@@ -100,10 +98,7 @@ export default defineNuxtConfig({
 
   ogImage: {
     defaults: {
-      component: "Page",
       renderer: "takumi",
-      width: 1200,
-      height: 630,
     },
   },
 

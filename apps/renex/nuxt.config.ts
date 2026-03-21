@@ -18,7 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  image: {},
+  ,
 
   site: {
     url: "https://renex.megabuild.co.id",

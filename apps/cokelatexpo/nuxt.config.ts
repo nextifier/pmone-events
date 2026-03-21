@@ -20,7 +20,7 @@ export default defineNuxtConfig({
 
   fonts: {},
 
-  image: {},
+  ,
 
   site: {
     url: "https://cokelatexpo.id",
