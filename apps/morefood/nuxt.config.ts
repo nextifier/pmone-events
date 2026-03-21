@@ -18,8 +18,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  ,
-
   site: {
     url: "https://morefoodexpo.com",
     name: "More Food Expo Indonesia",

@@ -18,8 +18,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  ,
-
   site: {
     url: "https://indooutingexpo.co.id",
     name: "Indonesia Outing & Incentive Travel Expo",

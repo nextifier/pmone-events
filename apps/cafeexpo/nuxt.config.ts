@@ -20,8 +20,6 @@ export default defineNuxtConfig({
 
   fonts: {},
 
-  ,
-
   i18n: {
     locales: [
       { code: "en", language: "en-US", name: "English", file: "en.json" },

@@ -19,8 +19,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  ,
-
   site: {
     url: "https://keramika.co.id",
     name: "Keramika Indonesia",

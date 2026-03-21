@@ -18,8 +18,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  ,
-
   site: {
     url: "https://renex.megabuild.co.id",
     name: "Renovation Expo",

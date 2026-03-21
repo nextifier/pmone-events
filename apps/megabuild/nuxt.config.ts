@@ -19,8 +19,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  ,
-
   site: {
     url: "https://megabuild.co.id",
     name: "Megabuild Indonesia",
