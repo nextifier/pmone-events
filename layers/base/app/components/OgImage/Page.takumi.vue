@@ -27,7 +27,7 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
 
 <template>
   <div
-    class="relative flex h-full w-full flex-col px-[100px] py-[100px]"
+    class="relative flex h-full w-full flex-col px-[100px] py-[100px] antialiased"
     :class="isDarkMode ? 'bg-black text-white' : 'bg-white text-black'"
   >
     <div
@@ -60,7 +60,7 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
       </h1>
       <p
         v-if="description"
-        class="mt-3 shrink-0 text-[32px] leading-[1.6] font-medium tracking-tighter text-pretty"
+        class="mt-3 shrink-0 text-[32px] leading-[1.6] tracking-tighter text-pretty"
         style="line-clamp: 2; text-overflow: ellipsis; overflow: hidden"
       >
         {{ description }}
@@ -88,11 +88,9 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
             class="text-3xl font-semibold tracking-tighter"
             >{{ useAppConfig().app.name }}</span
           >
-          <span
-            v-if="useAppConfig().app.url"
-            class="text-2xl font-medium tracking-tight"
-            >{{ useAppConfig().app.url }}</span
-          >
+          <span v-if="useAppConfig().app.url" class="text-2xl tracking-tight">{{
+            useAppConfig().app.url
+          }}</span>
         </div>
       </div>
     </div>

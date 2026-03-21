@@ -18,8 +18,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  fonts: {},
-
   i18n: {
     locales: [
       { code: "en", language: "en-US", name: "English", file: "en.json" },

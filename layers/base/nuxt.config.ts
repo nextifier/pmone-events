@@ -67,8 +67,6 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
   ],
 
-  fonts: {},
-
   icon: {
     mode: "svg",
     clientBundle: {

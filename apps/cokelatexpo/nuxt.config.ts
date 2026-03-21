@@ -18,8 +18,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  fonts: {},
-
   site: {
     url: "https://cokelatexpo.id",
     name: "Cokelat Expo Indonesia",
