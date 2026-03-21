@@ -3,6 +3,13 @@
 @source "../../components/**/*.vue";
 @source "../../pages/**/*.vue";
 
+@font-face {
+  font-family: "AvenirExtraBold";
+  src: url("/fonts/Avenir-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
 @theme {
   /* Yellow (custom) */
   --color-yellow-50: oklch(0.99 0.0287 109.03);

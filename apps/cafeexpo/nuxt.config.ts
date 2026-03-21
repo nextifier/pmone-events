@@ -18,16 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  fonts: {
-    families: [
-      {
-        name: "Sink",
-        src: "/fonts/Sink.woff2",
-        weight: "400",
-        display: "swap",
-      },
-    ],
-  },
+  fonts: {},
 
   image: {},
 

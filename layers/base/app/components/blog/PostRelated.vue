@@ -19,8 +19,7 @@
             <img
               v-if="post.featured_image"
               :src="
-                post.featured_image?.thumb ||
-                post.featured_image?.sm ||
+                post.featured_image?.sm?.url ||
                 post.featured_image?.original
               "
               :alt="post.title"
@@ -75,7 +74,7 @@
             <img
               v-if="post.featured_image"
               :src="
-                post.featured_image?.sm ||
+                post.featured_image?.md?.url ||
                 post.featured_image?.original
               "
               :alt="post.title"

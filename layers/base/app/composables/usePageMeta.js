@@ -16,20 +16,20 @@ export const usePageMeta = (pageKey, overrides = {}) => {
     ogDescription: description,
     ogUrl: useAppConfig().app.url + route.path,
     twitterCard: "summary_large_image",
+    twitterTitle: title,
+    twitterDescription: description,
   });
 
-  if (import.meta.server) {
-    if (meta.value?.ogImage) {
-      defineOgImage({
-        url: meta.value.ogImage,
-      });
-    } else {
-      defineOgImageComponent("Page", {
-        headline: useAppConfig().app.name,
-        title: title.value,
-        description: description.value,
-      });
-    }
+  if (meta.value?.ogImage) {
+    useSeoMeta({
+      ogImage: meta.value.ogImage,
+    });
+  } else if (import.meta.server) {
+    defineOgImage("Page", {
+      headline: useAppConfig().app.name,
+      title: title.value,
+      description: description.value,
+    });
   }
 
   const structuredData = {

@@ -18,16 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  fonts: {
-    families: [
-      {
-        name: "AvenirExtraBold",
-        src: "/fonts/Avenir-ExtraBold.woff2",
-        weight: "800",
-        display: "swap",
-      },
-    ],
-  },
+  fonts: {},
 
   image: {},
 

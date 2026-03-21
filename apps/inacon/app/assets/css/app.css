@@ -3,6 +3,20 @@
 @source "../../components/**/*.vue";
 @source "../../pages/**/*.vue";
 
+@font-face {
+  font-family: "DisplayGF";
+  src: url("/fonts/DisplayGF.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HeadingElv";
+  src: url("/fonts/HeadingElv.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
 @theme {
   /* Yellow (custom) */
   --color-yellow-50: oklch(0.99 0.0287 109.03);

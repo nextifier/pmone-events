@@ -3,6 +3,13 @@
 @source "../../components/**/*.vue";
 @source "../../pages/**/*.vue";
 
+@font-face {
+  font-family: "Sink";
+  src: url("/fonts/Sink.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
 @theme {
   /* KV-Brown */
   --color-kv-brown-50: oklch(0.9681 0.0074 80.72);

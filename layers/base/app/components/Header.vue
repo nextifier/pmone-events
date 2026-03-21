@@ -34,7 +34,7 @@
             @click="$scrollToTopIfCurrentPageIs(localePath('/book-space'))"
             v-ripple
           >
-            <span>{{ $t('ui.bookSpace') }}</span>
+            <span>{{ $t("ui.bookSpace") }}</span>
           </nuxt-link>
 
           <nuxt-link
@@ -42,7 +42,7 @@
             class="hover:bg-primary/80 bg-primary text-primary-foreground hidden items-center justify-center rounded-xl px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
             @click="$scrollToTopIfCurrentPageIs(localePath('/ticket'))"
             v-ripple
-            >{{ $t('ui.getTicket') }}</nuxt-link
+            >{{ $t("ui.getTicket") }}</nuxt-link
           >
 
           <LanguageSwitcher v-if="!route.name?.toString().startsWith('news')" />
@@ -52,7 +52,7 @@
             <template #content>
               <span class="inline-flex items-center gap-x-1.5 tracking-tight">
                 <span>Light / Dark Mode</span>
-                <kbd class="keyboard-symbol">{{ metaSymbol }} D</kbd>
+                <kbd class="keyboard-symbol">D</kbd>
               </span>
             </template>
           </Tippy>
@@ -88,7 +88,7 @@
             <template #content>
               <span class="inline-flex items-center gap-x-1.5 tracking-tight">
                 <span>Open Menu</span>
-                <kbd class="keyboard-symbol">{{ metaSymbol }} M</kbd>
+                <kbd class="keyboard-symbol">M</kbd>
               </span>
             </template>
           </Tippy>

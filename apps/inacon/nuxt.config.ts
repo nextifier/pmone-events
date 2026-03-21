@@ -18,22 +18,7 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "dark", fallback: "dark" },
 
-  fonts: {
-    families: [
-      {
-        name: "DisplayGF",
-        src: "/fonts/DisplayGF.woff2",
-        weight: "400",
-        display: "swap",
-      },
-      {
-        name: "HeadingElv",
-        src: "/fonts/HeadingElv.woff2",
-        weight: "400",
-        display: "swap",
-      },
-    ],
-  },
+  fonts: {},
 
   image: {},
 

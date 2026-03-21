@@ -69,17 +69,7 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
   ],
 
-  fonts: {
-    provider: "local",
-    families: [
-      {
-        name: "MinusOne",
-        src: "/fonts/MinusOne-VF.woff2",
-        weight: "100 1000",
-        display: "swap",
-      },
-    ],
-  },
+  fonts: {},
 
   icon: {
     mode: "svg",
@@ -111,6 +101,7 @@ export default defineNuxtConfig({
   ogImage: {
     defaults: {
       component: "Page",
+      renderer: "takumi",
       width: 1200,
       height: 630,
     },

@@ -5,17 +5,20 @@
       class="border-border relative flex aspect-16/10 items-center justify-center overflow-hidden rounded-lg border"
       @click="active = post.slug"
     >
-      <img
+      <BlurImage
         v-if="post.featured_image"
         :src="
-          post.featured_image?.md ||
-          post.featured_image?.sm ||
+          post.featured_image?.md?.url ||
+          post.featured_image?.sm?.url ||
           post.featured_image?.original
         "
+        :lqip="post.featured_image?.lqip?.url"
         :alt="post.title"
-        class="size-full object-cover"
+        :width="post.featured_image?.md?.width || post.featured_image?.width || 900"
+        :height="post.featured_image?.md?.height || post.featured_image?.height || 600"
         :style="imageStyle"
         loading="lazy"
+        image-class="size-full object-cover"
       />
 
       <div

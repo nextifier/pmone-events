@@ -55,7 +55,7 @@ const isDarkMode = computed({
 });
 
 defineShortcuts({
-  meta_d: {
+  d: {
     handler: () => {
       isDarkMode.value = !isDarkMode.value;
     },

@@ -2,15 +2,15 @@
 const props = defineProps({
   headline: {
     type: String,
-    default: "headline",
+    default: "",
   },
   title: {
     type: String,
-    default: "title",
+    default: "",
   },
   description: {
     type: String,
-    default: "description",
+    default: "",
   },
   brandName: {
     type: String,
@@ -28,39 +28,40 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
 <template>
   <div
     class="relative flex h-full w-full flex-col px-[100px] py-[100px]"
+    style="font-family: &quot;Inter&quot;, sans-serif"
     :class="isDarkMode ? 'bg-black text-white' : 'bg-white text-black'"
   >
     <div
-      class="absolute inset-y-0 left-[100px] border-l-2 border-dashed"
-      :class="isDarkMode ? 'bg-white/15' : 'bg-black/10'"
+      class="absolute inset-y-0 left-[100px] border-l-2 border-solid"
+      :class="isDarkMode ? 'border-white/15' : 'border-black/10'"
     ></div>
 
     <div
-      class="absolute inset-y-0 right-[100px] border-r-2 border-dashed"
-      :class="isDarkMode ? 'bg-white/15' : 'bg-black/10'"
+      class="absolute inset-y-0 right-[100px] border-r-2 border-solid"
+      :class="isDarkMode ? 'border-white/15' : 'border-black/10'"
     ></div>
 
     <div
-      class="absolute inset-x-0 top-[100px] border-t-2 border-dashed"
-      :class="isDarkMode ? 'bg-white/15' : 'bg-black/10'"
+      class="absolute inset-x-0 top-[100px] border-t-2 border-solid"
+      :class="isDarkMode ? 'border-white/15' : 'border-black/10'"
     ></div>
 
     <div
-      class="absolute inset-x-0 bottom-[100px] border-b-2 border-dashed"
-      :class="isDarkMode ? 'bg-white/15' : 'bg-black/10'"
+      class="absolute inset-x-0 bottom-[100px] border-b-2 border-solid"
+      :class="isDarkMode ? 'border-white/15' : 'border-black/10'"
     ></div>
 
     <div class="flex h-full flex-col text-left">
       <h1
         v-if="title"
-        class="mt-2 text-[80px] leading-none font-semibold tracking-tighter"
+        class="mt-2 text-[80px] leading-none font-bold tracking-tighter"
       >
         <span v-if="title.length > 40">{{ title.slice(0, 40) }}...</span>
         <span v-else>{{ title }}</span>
       </h1>
       <p
         v-if="description"
-        class="mt-2 text-[28px] leading-[1.6] tracking-tight text-balance"
+        class="mt-4 text-[28px] leading-[1.6] font-medium tracking-tight text-balance"
       >
         <span v-if="description.length > 160"
           >{{ description.slice(0, 160) }}...</span
@@ -71,7 +72,7 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
       <div class="mt-auto flex flex-row items-center gap-x-5">
         <div
           class="flex size-24 items-center justify-center overflow-hidden rounded-full border"
-          :class="isDarkMode ? 'border-white/15' : 'border-black/10'"
+          :class="isDarkMode ? 'border-white/15' : 'border-black/5'"
         >
           <img
             src="/icons/icon-192x192.png"
@@ -85,12 +86,14 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
         <div class="flex flex-col items-start gap-y-2">
           <span
             v-if="useAppConfig().app.name"
-            class="text-3xl font-semibold tracking-tighter"
+            class="text-3xl font-bold tracking-tighter"
             >{{ useAppConfig().app.name }}</span
           >
-          <span v-if="useAppConfig().app.url" class="text-2xl tracking-tight">{{
-            useAppConfig().app.url
-          }}</span>
+          <span
+            v-if="useAppConfig().app.url"
+            class="text-2xl font-medium tracking-tight"
+            >{{ useAppConfig().app.url }}</span
+          >
         </div>
       </div>
     </div>
