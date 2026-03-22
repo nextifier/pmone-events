@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "@events/base": "workspace:*",
-    "nuxt": "^4.2.2"
+    "nuxt": "^4.4.2"
   }
 }

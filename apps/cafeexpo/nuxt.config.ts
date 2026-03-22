@@ -20,11 +20,11 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", file: "en.json" },
-      { code: "id", language: "id-ID", name: "Indonesia", file: "id.json" },
-      { code: "zh", language: "zh-CN", name: "中文", file: "zh.json" },
-      { code: "ja", language: "ja-JP", name: "日本語", file: "ja.json" },
-      { code: "ko", language: "ko-KR", name: "한국어", file: "ko.json" },
+      { code: "en", language: "en-US", name: "English", file: "en.ts" },
+      { code: "id", language: "id-ID", name: "Indonesia", file: "id.ts" },
+      { code: "zh", language: "zh-CN", name: "中文", file: "zh.ts" },
+      { code: "ja", language: "ja-JP", name: "日本語", file: "ja.ts" },
+      { code: "ko", language: "ko-KR", name: "한국어", file: "ko.ts" },
     ],
     lazy: true,
     langDir: "../i18n/locales",

@@ -1,0 +1,437 @@
+export default {
+  "ui": {
+    "viewAll": "전체 보기",
+    "viewAllBrands": "브랜드 전체 보기",
+    "contactUs": "문의하기",
+    "back": "뒤로",
+    "comingSoon": "곧 공개돼요",
+    "backToHome": "홈으로 돌아가기",
+    "bookSpace": "부스 예약",
+    "getTicket": "티켓 받기",
+    "lightDarkMode": "라이트 / 다크 모드",
+    "toggleSidebar": "사이드바 열기/닫기",
+    "openMenu": "메뉴 열기",
+    "toggleFullscreen": "전체 화면 전환",
+    "switchLanguage": "언어 변경",
+    "copyright": "저작권",
+    "allRightsReserved": "All rights reserved.",
+    "readingTime": "{n}분 읽기",
+    "loading": "로딩 중",
+    "failedToGetData": "데이터를 불러오지 못했어요.",
+    "search": "검색",
+    "searchPosts": "게시글 검색",
+    "brands": "브랜드",
+    "booth": "부스",
+    "categories": "카테고리",
+    "description": "설명",
+    "created": "작성일",
+    "views": "조회 {n}회",
+    "posted": "게시일",
+    "shareThisPost": "이 글 공유하기",
+    "soldOut": "매진",
+    "startsFrom": "시작가",
+    "startsIn": "시작까지",
+    "endsIn": "종료까지",
+    "ticketsSoldOut": "티켓이 매진됐어요",
+    "ticketsComingSoon": "티켓 곧 오픈해요",
+    "presentedBy": "주관",
+    "allLocations": "전체 장소",
+    "selectAProduct": "상품을 선택해 주세요",
+    "selectAnOption": "옵션을 선택해 주세요",
+    "enterYourProductType": "상품 유형을 입력해 주세요",
+    "sendMessage": "보내기",
+    "leaveAMessage": "메시지를 남겨 주세요..",
+    "youMightAlsoLike": "이런 글도 있어요"
+  },
+  "news": {
+    "latestUpdates": "최신 소식",
+    "showingPostsFor": "{total}개의 검색 결과",
+    "showingPosts": "총 {total}개의 게시글",
+    "noResultsFor": "검색 결과가 없어요",
+    "noResultsHint": "다른 키워드로 검색해 보세요.",
+    "noPostsYet": "아직 게시글이 없어요",
+    "comeBackLater": "조금만 기다려 주세요"
+  },
+  "brands": {
+    "comingSoon": "브랜드 목록을 준비 중이에요. 조금만 기다려 주세요."
+  },
+  "rundown": {
+    "title": "일정",
+    "description": "{appName} 행사 일정과 프로그램을 확인하세요.",
+    "comingSoon": "일정을 준비 중이에요. 조금만 기다려 주세요.",
+    "nothingYet": "아직 준비 중이에요."
+  },
+  "ticket": {
+    "agreementPrefix": "티켓을 구매하면 아래에 동의하게 돼요:",
+    "agreementAnd": "&",
+    "ticketTerms": "티켓 이용약관",
+    "eventPolicy": "행사 정책"
+  },
+  "contact": {
+    "title": "문의하기",
+    "formTitle": "문의 양식",
+    "description": "티켓, 전시 참가, 파트너십 등 궁금한 점이 있으면 연락해 주세요.",
+    "name": "이름",
+    "jobTitle": "직책",
+    "brandName": "브랜드명",
+    "products": "상품",
+    "email": "Email",
+    "phone": "전화번호 (WhatsApp)",
+    "referralSource": "이 행사를 어떻게 알게 됐나요?",
+    "message": "메시지",
+    "successTitle": "접수됐어요! 감사합니다.",
+    "successMessage": "담당자가 Email 또는 WhatsApp으로 연락드릴게요.",
+    "successButton": "확인. 홈으로 가기",
+    "disclaimerDefault": "연락 가능한 Email과 전화번호를 입력해 주세요. 담당자가 곧 연락드려요.",
+    "disclaimerExhibitor": "걱정 마세요. 이 양식을 제출해도 바로 전시 참가가 확정되는 건 아니에요. 부스 옵션이나 가격 안내를 위해 연락처가 필요해요.",
+    "preferDirectContact": "직접 연락하기",
+    "errorSend": "전송에 실패했어요. 다시 시도해 주세요.",
+    "errorNetwork": "네트워크 오류가 발생했어요. 잠시 후 다시 시도해 주세요."
+  },
+  "sponsorshipRegistration": {
+    "title": "스폰서 등록",
+    "description": "이벤트 스폰서에 관심이 있으신가요? 아래 양식을 작성해 주시면 스폰서십 패키지에 대해 연락드리겠습니다.",
+    "metaDescription": "스폰서가 되어 업계 주요 의사결정자들과 연결하세요. 등록 양식을 작성해 주세요."
+  },
+  "mediaPartnerRegistration": {
+    "title": "미디어 파트너 등록",
+    "description": "미디어 파트너가 되고 싶으신가요? 아래 양식을 작성해 주시면 파트너십 세부사항에 대해 연락드리겠습니다.",
+    "metaDescription": "업계 최대 이벤트를 독점 취재할 기회를 잡으세요. 지금 미디어 파트너로 등록하세요.",
+    "nameLabel": "이름",
+    "mediaNameLabel": "미디어명"
+  },
+  "countdown": {
+    "day": "일",
+    "hour": "시간",
+    "min": "분",
+    "sec": "초"
+  },
+  "eventStatus": {
+    "startsIn": "행사 시작까지 ",
+    "live": "진행 중",
+    "completed": "종료"
+  },
+  "conjunction": {
+    "label": "동시 개최",
+    "and": "및"
+  },
+  "nav": {
+    "Home": "홈",
+    "Brands": "브랜드",
+    "Rundown": "일정",
+    "Programs": "프로그램",
+    "Resources": "정보",
+    "Partners": "파트너",
+    "Contact": "문의",
+    "News": "뉴스",
+    "Ticket": "티켓",
+    "Exhibitor Registration": "전시 참가 신청",
+    "Gallery": "갤러리",
+    "FAQ": "FAQ",
+    "Links": "링크",
+    "Ticket Terms and Conditions": "티켓 이용약관",
+    "Ticket Refund and Return Policy": "티켓 환불 정책",
+    "Event Policy": "행사 정책",
+    "Terms of Service": "이용약관",
+    "Privacy Policy": "개인정보 처리방침",
+    "Help Center": "고객센터",
+    "Sponsorship Registration": "스폰서십 신청",
+    "Media Partner Registration": "미디어 파트너 신청",
+    "Menu": "메뉴",
+    "Get in touch": "연락하기",
+    "Social": "소셜",
+    "Discover": "둘러보기",
+    "For Businesses": "비즈니스",
+    "Terms and policies": "약관 및 정책",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube"
+  },
+  "partners": {
+    "Organized by": "주최",
+    "Supported by": "후원",
+    "Franchise Consultant": "프랜차이즈 컨설턴트"
+  },
+  "hero": {
+    "countdownLabel": "인도네시아 최대 프랜차이즈 박람회까지:",
+    "title": "프랜차이즈 찾고 있다면, 여기로 오세요.",
+    "description": "F&B, 리테일, 교육 등 각 분야의 프랜차이즈 브랜드가 한자리에 모여요. 직접 만나보고, 비교하고, 나에게 맞는 사업을 찾아보세요.",
+    "ctaTicket": "티켓 받기",
+    "ctaExhibit": "전시 참가 등록",
+    "playRecap": "하이라이트 보기",
+    "edition": "제{n}회",
+    "announcement": "전시 부스 자리가 아직 남아 있어요",
+    "banners": {
+      "0": {
+        "subHeadline": "전시 참가 신청 오픈!",
+        "content": "<p>제26회 FLEI, JIExpo Kemayoran에서 열려요. 14,000명 넘는 관람객에게 브랜드를 직접 알릴 수 있어요.</p>",
+        "cta": "부스 예약하기"
+      },
+      "1": {
+        "subHeadline": "티켓 하나로 세 개 행사를!",
+        "content": "<p>티켓으로 <strong>Cafe & Brasserie Expo Indonesia</strong>와 <strong>More Food Expo Indonesia</strong>도 입장할 수 있어요.</p>",
+        "cta": "Cafe & Brasserie Expo 보기"
+      },
+      "2": {
+        "subHeadline": "최신 소식 놓치지 마세요!",
+        "content": "<p>Instagram 팔로우하면 참가 브랜드, 연사, 프로모션 소식을 가장 먼저 받아볼 수 있어요.</p>",
+        "cta": "{'@'}fleiexpoid 팔로우하기"
+      }
+    }
+  },
+  "about": {
+    "title": "<span class='text-accent'>수백 가지 사업 기회</span>가 한 건물 안에.",
+    "description": "FLEI는 검증된 프랜차이즈와 라이선스 브랜드를 한곳에 모은 박람회예요. 이곳저곳 알아볼 필요 없이, 직접 와서 비교하고 내 사업을 골라보세요."
+  },
+  "mainPrograms": {
+    "title": "<span class='text-outline'>주요</span> <span class='text-accent'>프로그램</span>",
+    "description": "전시만 있는 게 아니에요. {appName}에서는 비즈니스 컨퍼런스, 코칭, 매칭 등 다양한 프로그램이 진행돼요.",
+    "items": {
+      "0": {
+        "title": "비즈니스 컨퍼런스",
+        "description": "FLEI 메인 무대. \"Grab-Run-Grow\" 세션에서 CEO와 창업자들이 자기 전략을 직접 얘기해요. 교과서가 아니라 실전 경험이에요."
+      },
+      "1": {
+        "title": "비즈니스 코칭",
+        "description": "사업 관련 고민이 있으세요? 전문가와 무료로 1:1 상담받을 수 있어요. 구체적인 문제를 가져오면, 맞춤 솔루션을 받아가세요."
+      },
+      "2": {
+        "title": "비즈니스 매칭",
+        "description": "행사 전에 미리 전시 참가사나 투자자와 미팅을 잡을 수 있어요. 당일에 시간 낭비 없이 필요한 사람을 바로 만나세요."
+      },
+      "3": {
+        "title": "실전 마스터클래스",
+        "description": "디지털 마케팅, 운영 효율화, 브랜드 관리. 매일 현장에서 이걸 하는 사람들에게 직접 배우는 워크숍이에요. 좌석 한정."
+      },
+      "4": {
+        "title": "에코프리너 챌린지",
+        "description": "지속 가능한 사업 아이디어가 있다면, 투자자 앞에서 발표해 보세요. 전문가 피드백도 받고 상금도 노릴 수 있어요."
+      },
+      "5": {
+        "title": "인스피레이션 스테이지",
+        "description": "맨바닥에서 시작한 창업자들의 진짜 이야기를 들어보세요. 실패담, 성공 비결, 그 과정에서 배운 것들까지."
+      }
+    }
+  },
+  "businessSegments": {
+    "title": "<span class='text-outline'>비즈니스</span> 카테고리",
+    "description": "FLEI에서 만날 수 있는 5가지 사업 분야예요.",
+    "items": {
+      "0": {
+        "title": "프랜차이즈",
+        "description": "검증된 프랜차이즈 브랜드가 참가해요. F&B부터 리테일까지, 교육과 지원 시스템을 포함해서 비교해 볼 수 있어요."
+      },
+      "1": {
+        "title": "비즈니스 기회",
+        "description": "처음 사업을 시작하는 분에게 딱 맞아요. 앞으로 프랜차이즈로 성장할 수 있는 유망한 사업 아이템을 찾아보세요."
+      },
+      "2": {
+        "title": "리테일 테크 솔루션",
+        "description": "매장 운영 효율과 고객 경험을 높여주는 기술이에요. POS 시스템부터 데이터 분석까지 다양하게 만나볼 수 있어요."
+      },
+      "3": {
+        "title": "라이선싱 & 코브랜딩",
+        "description": "인기 캐릭터나 유명 브랜드의 라이선스를 활용해서 제품 경쟁력을 높여보세요. 맞는 파트너를 여기서 찾을 수 있어요."
+      },
+      "4": {
+        "title": "디스트리뷰터",
+        "description": "인도네시아 유통 네트워크에 진출하세요. 에이전트, 도매, 온라인 파트너를 찾는 브랜드와 연결해 드려요."
+      }
+    }
+  },
+  "partnerships": {
+    "title": "<span class='text-outline'>함께 </span><span class='text-primary'>만들어가요</span>",
+    "description": "{appName}에 참여해서 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓혀보세요.",
+    "exhibitor": {
+      "title": "전시업체 등록",
+      "description": "사업 기회를 찾으러 온 수천 명의 관람객에게 브랜드를 직접 보여줄 수 있어요.",
+      "cta": "부스 예약하기"
+    },
+    "sponsor": {
+      "title": "스폰서 등록",
+      "description": "프랜차이즈 업계의 핵심 인물들이 모이는 자리에서 브랜드를 알리세요.",
+      "cta": "스폰서 문의"
+    },
+    "mediaPartner": {
+      "title": "미디어 파트너 등록",
+      "description": "인도네시아 최대 프랜차이즈 박람회를 독점 취재할 기회예요.",
+      "cta": "미디어 파트너 신청"
+    },
+    "reservedSpace": {
+      "title": "좋은 파트너를 위해 이 자리를 남겨뒀어요.",
+      "cta": "파트너 되기"
+    }
+  },
+  "visitorCta": {
+    "title": "티켓을 <span class=\"text-accent\">받으세요.</span> 사업 기회는 <span class=\"text-accent\">무한.</span>",
+    "description": "수천 명의 사업가, 투자자가 모이는 자리예요. 등록은 1분이면 끝나요.",
+    "cta": "티켓 받기"
+  },
+  "mediaCoverage": {
+    "title": "미디어 보도",
+    "description": "주요 매체에서 다룬 {appName} 소식을 확인하세요."
+  },
+  "credits": {
+    "becomeSponsor": "스폰서 참여",
+    "joinMediaPartner": "미디어 파트너 신청",
+    "title": "이벤트를 만드는 커뮤니티",
+    "description": "파트너, 스폰서, 미디어의 소중한 지원 덕분에 이 이벤트가 실현됩니다."
+  },
+  "postSlider": {
+    "title": "최신 소식",
+    "titleMorePosts": "이런 글도 있어요"
+  },
+  "brandPreview": {
+    "title": "{appName} 참가 브랜드"
+  },
+  "brandList": {
+    "title": "브랜드",
+    "description": "다양한 카테고리의 프랜차이즈 및 라이선스 브랜드를 둘러보세요."
+  },
+  "bookSpace": {
+    "title": "전시 참가 신청",
+    "description": "{appName}에서 부스를 확보하고 수천 명의 관람객에게 브랜드를 선보이세요."
+  },
+  "faq": {
+    "title": "자주 묻는 질문",
+    "description": "FLEI 티켓, 전시 참가, 프로그램 등에 대한 질문과 답변을 모았어요.",
+    "emptyState": "자주 묻는 질문을 정리하고 있어요. 조금만 기다려 주세요.",
+    "contactTitle": "궁금한 점이 있으면 편하게 보내주세요!",
+    "items": {
+      "0": {
+        "q": "{eventTitle}은(는) 언제, 어디서 열리나요?",
+        "a": "<p>{eventTitle}은(는) <strong>{eventDate}</strong>, <strong>{eventTime}</strong>에 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>에서 열려요.</p>"
+      },
+      "1": {
+        "q": "티켓은 어떻게 받나요?",
+        "a": "<p>공식 웹사이트에서 받을 수 있어요. <a href=\"/ticket\">티켓 받기</a> 버튼을 클릭하고 등록하면 전자 티켓이 Email과 WhatsApp으로 가요.</p>"
+      },
+      "2": {
+        "q": "티켓 가격이 얼마예요?",
+        "a": "<p>종류와 구매 시기에 따라 달라요. <a href=\"/ticket\">티켓 페이지</a>에서 최신 가격을 확인하세요. 얼리버드 할인도 놓치지 마세요!</p>"
+      },
+      "3": {
+        "q": "못 가게 되면 환불 받을 수 있나요?",
+        "a": "<p>구매한 티켓은 환불이나 교환이 안 돼요. 자세한 내용은 <a href=\"/ticket-refund-and-return-policy\">티켓 환불 정책</a>을 확인해 주세요.</p>"
+      },
+      "4": {
+        "q": "행사장에 뭘 가져가야 하나요?",
+        "a": "<p>전자 티켓(화면 또는 출력본)을 등록 데스크에서 배지로 교환하면 돼요. 네트워킹하려면 명함도 챙겨오세요.</p>"
+      },
+      "5": {
+        "q": "누가 참관할 수 있나요?",
+        "a": "<p>누구나 올 수 있어요. 예비 창업자, 사업주, 투자자, 사업 기회를 찾는 분이라면 누구든 환영해요.</p>"
+      },
+      "6": {
+        "q": "어떤 브랜드가 참가하나요?",
+        "a": "<p>여러 업종의 브랜드가 참가해요. <a href=\"/brands\">브랜드 페이지</a>에서 목록을 확인할 수 있고, 행사일이 가까워지면 업데이트돼요.</p>"
+      },
+      "7": {
+        "q": "전시 참가는 어떻게 하나요?",
+        "a": "<p><a href=\"/book-space\">전시 참가 신청 페이지</a>에서 신청하거나, <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>으로 문의해 주세요.</p>"
+      },
+      "8": {
+        "q": "세미나나 워크숍도 있나요?",
+        "a": "<p>네! 세미나, 워크숍, 네트워킹 세션 등이 준비돼 있어요. <a href=\"/rundown\">일정 페이지</a>에서 전체 프로그램을 확인하세요.</p>"
+      },
+      "9": {
+        "q": "스폰서나 미디어 파트너는 어떻게 되나요?",
+        "a": "<p><a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 또는 <a href=\"mailto:{email}\">{email}</a>로 연락해 주세요. 파트너십 내용을 안내해 드릴게요.</p>"
+      },
+      "10": {
+        "q": "주차할 수 있나요?",
+        "a": "<p>행사장에 주차 시설이 있어요. 다만 피크 시간엔 빨리 찰 수 있으니 일찍 오시거나 대중교통을 이용하세요.</p>"
+      },
+      "11": {
+        "q": "사진이나 영상 촬영해도 되나요?",
+        "a": "<p>개인 용도의 촬영은 가능해요. 상업 목적의 촬영은 주최 측 허가가 필요해요. <a href=\"/event-policy\">행사 정책</a>을 확인해 주세요.</p>"
+      },
+      "12": {
+        "q": "행사장에서 지켜야 할 규칙이 있나요?",
+        "a": "<p>행사 스태프와 보안 요원의 안내에 따라주세요. 방문 전에 <a href=\"/event-policy\">행사 정책</a>을 한번 읽어보시면 좋아요.</p>"
+      },
+      "13": {
+        "q": "행사 소식은 어디서 받을 수 있나요?",
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>을 팔로우하세요. <a href=\"/news\">뉴스 페이지</a>에서도 최신 소식을 확인할 수 있어요.</p>"
+      },
+      "14": {
+        "q": "주최 측에 어떻게 연락하나요?",
+        "a": "<p>아래 방법으로 연락하세요:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">여기를 클릭해서 채팅</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p><a href=\"/help-center\">고객센터</a>에서 더 많은 정보를 찾을 수 있어요.</p>"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Franchise & License Expo Indonesia (FLEI) · 인도네시아 최대 프랜차이즈 박람회",
+      "description": "자카르타 FLEI에서 프랜차이즈 브랜드를 만나고, 비즈니스 세미나에 참석하고, 업계 네트워크를 넓혀보세요."
+    },
+    "brands": {
+      "title": "브랜드",
+      "description": "다양한 카테고리의 프랜차이즈 및 라이선스 브랜드를 둘러보세요."
+    },
+    "rundown": {
+      "title": "일정",
+      "description": "{appName} 행사 일정과 프로그램을 확인하세요."
+    },
+    "programs": {
+      "title": "주요 프로그램",
+      "description": "{appName}의 전시, 컨퍼런스, 세미나, 비즈니스 매칭 등 주요 프로그램을 확인하세요."
+    },
+    "contact": {
+      "title": "문의하기",
+      "description": "티켓, 전시 참가, 파트너십 등 궁금한 점이 있으면 연락해 주세요."
+    },
+    "bookSpace": {
+      "title": "부스 예약하기",
+      "description": "{appName}에서 부스를 확보하고 수천 명의 관람객에게 브랜드를 선보이세요."
+    },
+    "ticket": {
+      "title": "티켓 받기",
+      "description": "{appName} 입장 티켓. 일정, 장소, 티켓 옵션을 확인하세요."
+    },
+    "gallery": {
+      "title": "갤러리",
+      "description": "지난 {appName} 하이라이트 사진을 구경해 보세요."
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "{appName} 티켓, 행사 정보, 파트너십 등 자주 묻는 질문을 확인하세요."
+    },
+    "links": {
+      "title": "링크",
+      "description": "필요한 주요 링크를 모았어요."
+    },
+    "news": {
+      "title": "뉴스",
+      "description": "비즈니스와 프랜차이즈 업계의 최신 소식과 트렌드를 확인하세요."
+    },
+    "ticketPolicy": {
+      "title": "티켓 정책",
+      "description": "{appName} 티켓 종류, 가격, 환불 안내를 확인하세요."
+    },
+    "eventPolicy": {
+      "title": "행사 정책",
+      "description": "{appName} 참가자 및 전시 참가사를 위한 규정과 안내 사항이에요."
+    },
+    "partners": {
+      "title": "파트너",
+      "description": "파트너, 스폰서, 미디어의 지원 덕분에 이 행사를 만들 수 있어요. 감사합니다."
+    },
+    "terms": {
+      "title": "이용약관",
+      "description": ""
+    },
+    "privacy": {
+      "title": "개인정보 처리방침",
+      "description": ""
+    },
+    "winner": {
+      "title": "랜덤 추첨기",
+      "description": "이름을 입력하고 슬롯을 돌려서 당첨자를 뽑아보세요. 콘테스트, 경품 이벤트에 딱이에요!"
+    }
+  }
+};

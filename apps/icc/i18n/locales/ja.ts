@@ -1,0 +1,502 @@
+export default {
+  "ui": {
+    "viewAll": "すべて見る",
+    "viewAllBrands": "ブランド一覧",
+    "contactUs": "お問い合わせ",
+    "back": "戻る",
+    "comingSoon": "近日公開",
+    "backToHome": "ホームに戻る",
+    "bookSpace": "ブース予約",
+    "getTicket": "チケット購入",
+    "lightDarkMode": "ライト / ダークモード",
+    "toggleSidebar": "サイドバーの切替",
+    "openMenu": "メニュー",
+    "toggleFullscreen": "フルスクリーンの切替",
+    "switchLanguage": "言語の切替",
+    "copyright": "著作権",
+    "allRightsReserved": "無断転載を禁じます。",
+    "readingTime": "約{n}分",
+    "loading": "読み込み中",
+    "failedToGetData": "データの取得に失敗しました。",
+    "search": "検索",
+    "searchPosts": "記事を検索",
+    "brands": "ブランド",
+    "booth": "ブース",
+    "categories": "カテゴリー",
+    "description": "説明",
+    "created": "作成日",
+    "views": "{n}回閲覧",
+    "posted": "投稿日",
+    "shareThisPost": "この記事をシェア",
+    "soldOut": "完売",
+    "startsFrom": "〜から",
+    "startsIn": "開始まで",
+    "endsIn": "終了まで",
+    "ticketsSoldOut": "チケット完売",
+    "ticketsComingSoon": "チケットは近日発売",
+    "presentedBy": "提供",
+    "allLocations": "すべてのロケーション",
+    "selectAProduct": "商品を選択",
+    "selectAnOption": "選択してください",
+    "enterYourProductType": "商品タイプを入力",
+    "sendMessage": "送信",
+    "leaveAMessage": "メッセージをどうぞ..",
+    "youMightAlsoLike": "こちらもおすすめ"
+  },
+  "news": {
+    "latestUpdates": "最新ニュース",
+    "showingPostsFor": "{total}件の記事",
+    "showingPosts": "{total}件の記事",
+    "noResultsFor": "該当する記事がありません",
+    "noResultsHint": "別のキーワードで試すか、他のトピックもチェックしてみてね！",
+    "noPostsYet": "まだ記事がありません",
+    "comeBackLater": "少し待っててね"
+  },
+  "brands": {
+    "comingSoon": "ブランド一覧は近日公開！もう少し待っててね！"
+  },
+  "rundown": {
+    "title": "スケジュール",
+    "description": "{appName}のタイムテーブルとプログラム詳細はこちら。",
+    "comingSoon": "スケジュールは近日公開！もう少し待っててね！",
+    "nothingYet": "まだ情報はないよ！"
+  },
+  "ticket": {
+    "agreementPrefix": "購入を続けると、以下に同意したことになります：",
+    "agreementAnd": "および",
+    "ticketTerms": "チケット利用規約",
+    "eventPolicy": "イベントポリシー"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "formTitle": "お問い合わせフォーム",
+    "description": "チケット、出展、パートナーシップなど、何でも気軽に聞いてください。",
+    "name": "お名前",
+    "jobTitle": "役職",
+    "brandName": "ブランド名",
+    "products": "商品",
+    "email": "Email",
+    "phone": "電話番号 (WhatsApp)",
+    "referralSource": "このイベントを何で知りましたか？",
+    "message": "メッセージ",
+    "successTitle": "送信完了！お問い合わせありがとうございます。",
+    "successMessage": "担当者からEmailまたはWhatsAppで折り返しご連絡します。",
+    "successButton": "ホームに戻る",
+    "disclaimerDefault": "正しいEmailアドレスと電話番号を入力してください。担当者からすぐにご連絡します。",
+    "disclaimerExhibitor": "フォーム送信 = 出展確定ではありません。ブースの空き状況や料金などをご案内するために、連絡先をお聞きしています。",
+    "preferDirectContact": "直接お問い合わせ",
+    "errorSend": "送信に失敗しました。もう一度お試しください。",
+    "errorNetwork": "ネットワークエラーです。しばらくしてから再度お試しください。"
+  },
+  "sponsorshipRegistration": {
+    "title": "スポンサー登録",
+    "description": "イベントのスポンサーに興味がありますか？以下のフォームにご記入ください。スポンサーシップパッケージについてご連絡いたします。",
+    "metaDescription": "スポンサーとして業界のキーパーソンとつながりましょう。登録フォームにご記入ください。"
+  },
+  "mediaPartnerRegistration": {
+    "title": "メディアパートナー登録",
+    "description": "メディアパートナーになりませんか？以下のフォームにご記入いただければ、パートナーシップの詳細についてご連絡いたします。",
+    "metaDescription": "業界最大のイベントを独占取材するチャンス。メディアパートナーとして今すぐご登録ください。",
+    "nameLabel": "お名前",
+    "mediaNameLabel": "メディア名"
+  },
+  "countdown": {
+    "day": "日",
+    "hour": "時間",
+    "min": "分",
+    "sec": "秒"
+  },
+  "eventStatus": {
+    "startsIn": "開幕まで",
+    "live": "開催中",
+    "completed": "終了"
+  },
+  "conjunction": {
+    "label": "同時開催",
+    "and": "と"
+  },
+  "nav": {
+    "Home": "ホーム",
+    "Guests": "ゲスト",
+    "Brands": "ブランド",
+    "Rundown": "スケジュール",
+    "Programs": "プログラム",
+    "Resources": "情報",
+    "Partners": "パートナー",
+    "Contact": "お問い合わせ",
+    "News": "ニュース",
+    "Ticket": "チケット",
+    "Tenant Registration": "出展者登録",
+    "Gallery": "ギャラリー",
+    "FAQ": "FAQ",
+    "Links": "リンク",
+    "Ticket Terms and Conditions": "チケット利用規約",
+    "Ticket Refund and Return Policy": "チケット返金ポリシー",
+    "Event Policy": "イベントポリシー",
+    "Terms of Service": "利用規約",
+    "Privacy Policy": "プライバシーポリシー",
+    "Help Center": "ヘルプセンター",
+    "Sponsorship Registration": "スポンサー申込",
+    "Media Partner Registration": "メディアパートナー申込",
+    "Special Show": "Special Show",
+    "Meet & Greet": "Meet & Greet",
+    "Workshop": "Workshop",
+    "Raya Championship of Cosplay": "Raya Championship of Cosplay",
+    "Portfolio Review": "Portfolio Review",
+    "Event Guidelines": "イベントガイドライン",
+    "Safety and Weapon Policy": "安全・武器ポリシー",
+    "Anti-Harassment Policy": "ハラスメント防止ポリシー",
+    "Menu": "メニュー",
+    "Get in touch": "お問い合わせ",
+    "Social": "SNS",
+    "Discover": "もっと見る",
+    "For Businesses": "ビジネス向け",
+    "Terms and policies": "規約・ポリシー",
+    "Email": "Email",
+    "WhatsApp": "WhatsApp",
+    "Instagram": "Instagram",
+    "X": "X",
+    "Facebook": "Facebook",
+    "TikTok": "TikTok",
+    "LinkedIn": "LinkedIn",
+    "YouTube": "YouTube"
+  },
+  "partners": {
+    "Organized by": "主催",
+    "Supported by": "後援"
+  },
+  "hero": {
+    "countdownLabel": "ICC 2026 開幕まで",
+    "subHeadline": "新会場。アツさはそのまま。",
+    "title": "ポップカルチャーの祭典、10年目",
+    "description": "コミック、トイ、映画、ゲーム、コスプレ。ICC はずっとポップカルチャーのホームでした。この10月、10周年をみんなで盛り上げよう。",
+    "announcement": "出展ブースまだ空きあります",
+    "banners": {
+      "0": {
+        "subHeadline": "出展者募集中",
+        "content": "<p>インドネシア最大のポップカルチャーイベントで、何千人ものファンとコレクターにブランドをアピールしませんか？</p>",
+        "cta": "ブース予約"
+      }
+    },
+    "ctaTicket": "チケット購入",
+    "ctaExhibit": "出展登録",
+    "playRecap": "ハイライト映像",
+    "edition": "第{n}回"
+  },
+  "mainPrograms": {
+    "title": "メインプログラム",
+    "description": "展示、トークショー、コスプレ大会まで。{appName}を見逃せない理由がここにあります。",
+    "items": {
+      "0": {
+        "title": "Exhibition"
+      },
+      "1": {
+        "title": "Main Guest Talkshow"
+      },
+      "2": {
+        "title": "Meet & Greet"
+      },
+      "3": {
+        "title": "Cosplay Parade"
+      },
+      "4": {
+        "title": "Cosplay Competition"
+      },
+      "5": {
+        "title": "Gaming Competition"
+      },
+      "6": {
+        "title": "Movie Panel"
+      },
+      "7": {
+        "title": "Portfolio Review"
+      },
+      "8": {
+        "title": "Creator Workshop"
+      },
+      "9": {
+        "title": "Toys Auction"
+      },
+      "10": {
+        "title": "Stamp Rally"
+      },
+      "11": {
+        "title": "Live Performance"
+      }
+    }
+  },
+  "partnerships": {
+    "title": "一緒にイベントを盛り上げよう",
+    "description": "{appName}に参加して、ポップカルチャーファンにブランドを届けましょう。新しいパートナーとの出会いやネットワーク拡大のチャンスです。",
+    "exhibitor": {
+      "title": "出展登録",
+      "description": "ブランドや商品を持っている方、熱いファンの前で直接アピールしませんか？",
+      "cta": "ブース予約"
+    },
+    "sponsor": {
+      "title": "スポンサー登録",
+      "description": "インドネシア最大級のポップカルチャーイベントで、コアなファン層にリーチ。",
+      "cta": "スポンサー申込"
+    },
+    "mediaPartner": {
+      "title": "メディアパートナー登録",
+      "description": "ポップカルチャー最大イベントの独占取材。一緒にストーリーを届けましょう。",
+      "cta": "メディア申込"
+    },
+    "reservedSpace": {
+      "title": "ここは最高のパートナーのための特等席。あなたかもしれません。",
+      "cta": "パートナーになる"
+    }
+  },
+  "visitorCta": {
+    "title": "今年最大のポップカルチャー祭、体験しよう",
+    "description": "{appName}がパワーアップして帰ってくる！レジェンドゲストとの出会い、最高のステージ、忘れられない思い出。チケットは今すぐ。",
+    "cta": "チケット購入"
+  },
+  "mediaCoverage": {
+    "title": "メディア掲載実績",
+    "description": "各メディアで取り上げられた{appName}の記事をチェック。"
+  },
+  "credits": {
+    "becomeSponsor": "スポンサーになる",
+    "joinMediaPartner": "メディアパートナー申請",
+    "title": "イベントを支えるコミュニティ",
+    "description": "パートナー、スポンサー、メディアの皆様のサポートにより、このイベントは実現しています。"
+  },
+  "postSlider": {
+    "title": "最新ニュース",
+    "titleMorePosts": "こちらもおすすめ"
+  },
+  "brandPreview": {
+    "title": "ブランド"
+  },
+  "brandList": {
+    "title": "ブランド一覧",
+    "description": "{appName}に出展するブランドをチェック。コミック、トイ、限定グッズが勢揃い。"
+  },
+  "bookSpace": {
+    "title": "出展者登録",
+    "description": "{appName}でブースを確保。何千人ものポップカルチャーファンとコレクターにブランドをアピールしよう。"
+  },
+  "faq": {
+    "title": "よくある質問",
+    "description": "チケット、イベント詳細、出展情報など、よくある質問をまとめました。",
+    "emptyState": "よくある質問を準備中です。もう少し待っててね。",
+    "contactTitle": "他に質問がある？気軽に送ってね！",
+    "items": {
+      "0": {
+        "q": "{eventTitle}はいつ、どこで？",
+        "a": "<p><strong>{eventDate}</strong>、<strong>{eventTime}</strong>に<a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>で開催します。</p>"
+      },
+      "1": {
+        "q": "チケットはどこで買えるの？",
+        "a": "<p>公式サイトの<a href=\"/ticket\">チケット購入</a>ボタンから手続きできます。購入後、EチケットがEmailとWhatsAppに届きます。</p>"
+      },
+      "2": {
+        "q": "チケットはいくら？",
+        "a": "<p>チケットの種類（1日券、通し券、VIPなど）や時期によって異なります。最新価格は<a href=\"/ticket\">チケットページ</a>をチェック。早割がお得です！</p>"
+      },
+      "3": {
+        "q": "行けなくなったら返金できる？",
+        "a": "<p>購入後の返金・交換はできません。詳しくは<a href=\"/ticket-refund-and-return-policy\">チケット返金ポリシー</a>をご確認ください。</p>"
+      },
+      "4": {
+        "q": "当日は何を持っていけばいい？",
+        "a": "<p>Eチケット（スマホ画面or印刷）を受付でバッジまたはリストバンドと交換します。コスプレイヤーとの撮影用にカメラもお忘れなく！</p>"
+      },
+      "5": {
+        "q": "コスプレしてもいい？",
+        "a": "<p>もちろん！むしろ大歓迎です。お気に入りキャラの衣装で来てください。ただし、武器の小道具はセキュリティチェックと安全処理が必要です。詳しくは<a href=\"/event-policy\">イベントポリシー</a>へ。</p>"
+      },
+      "6": {
+        "q": "コスプレ大会はある？",
+        "a": "<p>あります！豪華賞品付きのコスプレ大会を開催。スケジュール、エントリー締切、カテゴリーは<a href=\"/rundown\">スケジュールページ</a>で確認してね。</p>"
+      },
+      "7": {
+        "q": "誰でも参加できる？",
+        "a": "<p>誰でもウェルカム！ガチ勢もにわかも、コレクターもアーティストも。ポップカルチャー、アニメ、漫画、ゲームに少しでも興味があれば楽しめます。</p>"
+      },
+      "8": {
+        "q": "会場ではどんなことができるの？",
+        "a": "<p>グッズ販売ブース、アーティストアレイ、ゲームゾーン、フォトスポット、ステージライブ、スペシャルゲストとのMeet & Greet、コスプレ大会など盛りだくさん！<a href=\"/brands\">出展者ページ</a>で全リストを確認できます。</p>"
+      },
+      "9": {
+        "q": "スペシャルゲストは来る？",
+        "a": "<p>来ます！声優、アーティスト、クリエイター、業界プロなど特別ゲストを招待しています。ゲスト発表はSNSと<a href=\"/news\">Newsページ</a>で。お楽しみに！</p>"
+      },
+      "10": {
+        "q": "出展者やアーティストとして参加するには？",
+        "a": "<p><a href=\"/book-space\">出展者登録ページ</a>から申し込むか、<a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>でチームに連絡してください。</p>"
+      },
+      "11": {
+        "q": "年齢制限はある？",
+        "a": "<p>ファミリー向けイベントで年齢制限はありません。チケットを持つ保護者同伴のお子さまは無料入場も可能です。詳しくは<a href=\"/ticket\">チケットページ</a>へ。</p>"
+      },
+      "12": {
+        "q": "会場に駐車場はある？",
+        "a": "<p>あります。ただし特に週末は混み合うので、早めに来るのがおすすめ。公共交通機関やライドシェアも便利です。</p>"
+      },
+      "13": {
+        "q": "写真や動画は撮っていい？",
+        "a": "<p>個人利用なら大歓迎！コスプレイヤーの撮影は必ず許可をもらってね。商用目的の撮影には主催者の書面許可が必要です。</p>"
+      },
+      "14": {
+        "q": "最新情報はどこで確認できる？",
+        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>をフォロー。ゲスト発表や限定情報をいち早くゲットできます。<a href=\"/news\">Newsページ</a>もチェックしてね。</p>"
+      },
+      "15": {
+        "q": "主催者への連絡方法は？",
+        "a": "<p>こちらからどうぞ：</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">チャットする</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p>他の連絡手段は<a href=\"/help-center\">ヘルプセンター</a>へ。</p>"
+      }
+    }
+  },
+  "eventGuidelines": {
+    "title": "イベントガイドライン",
+    "items": {
+      "0": {
+        "title": "不適切な衣装はNG",
+        "description": "TPOに合った服装で来てください。不快感を与える衣装はご遠慮ください。"
+      },
+      "1": {
+        "title": "ハラスメント禁止",
+        "description": "他の来場者を尊重してください。写真撮影やボディタッチは必ず相手の同意を。ハラスメント、差別、暴力は一切容認しません。"
+      },
+      "2": {
+        "title": "危険な小道具は持ち込み禁止",
+        "description": "危険物、鋭利な物、飛び道具、2m超の武器はNG。リアル系武器は必ず安全処理を。"
+      },
+      "3": {
+        "title": "通路を塞がないで",
+        "description": "入口や通路をふさがないようにお願いします。"
+      },
+      "4": {
+        "title": "ゴミは分別して捨ててね",
+        "description": "ゴミは指定の場所に捨ててください。"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Indonesia Comic Con (ICC)",
+      "description": "Indonesia Comic Conへようこそ！トイ、映画、コミック、ゲーム、コスプレ、スペシャルゲスト。ポップカルチャーの全部がここに。"
+    },
+    "guests": {
+      "title": "ゲスト",
+      "description": "{appName}に誰が来る？セレブ、アーティスト、業界のレジェンドたち。スペシャルゲストのラインナップをチェック。"
+    },
+    "brands": {
+      "title": "ブランド",
+      "description": "ICCの出展ブランドをチェック。コミック、コレクティブル、ゲーム、テック、ポップカルチャーグッズが勢揃い。"
+    },
+    "rundown": {
+      "title": "スケジュール",
+      "description": "{appName}のタイムテーブルとプログラム詳細はこちら。"
+    },
+    "programs": {
+      "title": "メインプログラム",
+      "description": "展示、トークショー、コスプレ大会まで。{appName}を見逃せない理由がここに。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "チケット、出展、パートナーシップなど、何でも気軽にどうぞ。"
+    },
+    "bookSpace": {
+      "title": "ブース予約",
+      "description": "{appName}でブースを確保して、ポップカルチャーファンにブランドをアピールしよう。"
+    },
+    "ticket": {
+      "title": "チケット購入",
+      "description": "{appName}のチケットはこちら。日程、会場、チケットの種類をまとめてチェック。"
+    },
+    "gallery": {
+      "title": "ギャラリー",
+      "description": "{appName}の過去のハイライトをギャラリーで振り返ろう。"
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "{appName}についてよくある質問。チケット、イベント、パートナーシップなどの情報はこちら。"
+    },
+    "links": {
+      "title": "リンク",
+      "description": "便利なリンクをまとめました。"
+    },
+    "news": {
+      "title": "ニュース",
+      "description": "ポップカルチャーの最新ニュースとICCのアップデート。"
+    },
+    "eventGuidelines": {
+      "title": "イベントガイドライン",
+      "description": "{appName}をもっと楽しむためのガイドライン。コスプレルール、マナー、大事な情報をまとめました。"
+    },
+    "safetyAndWeaponPolicy": {
+      "title": "安全・武器ポリシー",
+      "description": "{appName}ではみんなの安全が最優先。小道具や武器に関するポリシーはこちら。"
+    },
+    "antiHarassmentPolicy": {
+      "title": "ハラスメント防止ポリシー",
+      "description": "{appName}はすべての人が安心できる場所を目指しています。ゼロトレランスのポリシーをご確認ください。"
+    },
+    "meetAndGreet": {
+      "title": "Meet & Greet",
+      "description": "{appName}のMeet & Greetで、推しのスターやクリエイターと直接会えるチャンス。"
+    },
+    "portfolioReview": {
+      "title": "Portfolio Review",
+      "description": "{appName}のPortfolio Reviewで、プロから直接フィードバックをもらおう。"
+    },
+    "raya": {
+      "title": "Raya Championship of Cosplay",
+      "description": "Raya Championship of Cosplayでステージに立とう！トップコスプレイヤーたちとクリエイティビティで勝負。"
+    },
+    "specialShow": {
+      "title": "Special Show",
+      "description": "{appName}のSpecial Showをお楽しみに。"
+    },
+    "workshop": {
+      "title": "Workshop",
+      "description": "{appName}のWorkshopに参加しよう。"
+    },
+    "ticketPolicy": {
+      "title": "チケットポリシー",
+      "description": "{appName}のチケット種類、料金、返金について。"
+    },
+    "eventPolicy": {
+      "title": "イベントポリシー",
+      "description": "{appName}の参加者・出展者向けルールと注意事項。"
+    },
+    "partners": {
+      "title": "パートナー",
+      "description": "パートナー、スポンサー、メディアの皆さん。この応援がなければイベントは成り立ちません。ありがとうございます。"
+    },
+    "terms": {
+      "title": "利用規約",
+      "description": ""
+    },
+    "privacy": {
+      "title": "プライバシーポリシー",
+      "description": ""
+    },
+    "winner": {
+      "title": "ランダム抽選",
+      "description": "名前を入れてスロットを回すだけ。コンテスト、プレゼント企画、イベントの抽選にぴったり！"
+    }
+  },
+  "guests": {
+    "comingSoon": "近日発表",
+    "revealSoon": "次のゲストはInstagramで発表。お楽しみに！",
+    "sectionTitle": "ゲストラインナップ",
+    "sectionDescription": "{eventTitle}に誰が来る？"
+  },
+  "meetAndGreet": {
+    "readTerms": "利用規約を読む",
+    "termsTitle": "利用規約"
+  },
+  "portfolioReview": {
+    "title": "ポートフォリオレビュー",
+    "description": "アーティスト、クリエイター、アート好きのみんなへ。業界プロによるポートフォリオレビューを受けるチャンス！",
+    "openFor": "対象:",
+    "notes": "注意事項:",
+    "noteVenue": "ポートフォリオレビューは{appName}にて、{eventDate}に{eventLocation}で開催します。",
+    "noteContact": "選ばれた方にはIndonesia Comic Conから連絡があり、無料入場チケットが提供されます。"
+  }
+};

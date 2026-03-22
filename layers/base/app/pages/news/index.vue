@@ -2,9 +2,13 @@
   <div id="blog-page" class="min-h-screen-offset pt-4 pb-24 lg:pt-8">
     <div class="container-wider">
       <div class="@container">
-        <div class="flex flex-col gap-x-6 gap-y-6 lg:flex-row lg:items-end lg:justify-between">
-          <h1 class="text-primary text-4xl font-medium tracking-[-0.06em] sm:text-5xl">
-            {{ $t('news.latestUpdates') }}
+        <div
+          class="flex flex-col gap-x-6 gap-y-6 lg:flex-row lg:items-end lg:justify-between"
+        >
+          <h1
+            class="text-primary text-4xl font-medium tracking-[-0.06em] sm:text-5xl"
+          >
+            Latest updates
           </h1>
 
           <div class="flex w-full max-w-md items-center gap-2">
@@ -14,7 +18,7 @@
                 v-model="searchInput"
                 ref="searchInputEl"
                 class="input-base peer dark:bg-muted/50! h-9 px-9 py-2 text-sm tracking-tight"
-                :placeholder="$t('ui.searchPosts')"
+                placeholder="Search posts"
               />
 
               <IconSearch
@@ -44,57 +48,99 @@
         </div>
 
         <div class="mt-8 sm:mt-10">
-          <div v-if="!pending && posts?.length" class="text-muted-foreground mb-4 tracking-tight">
+          <div
+            v-if="!pending && posts?.length"
+            class="text-muted-foreground mb-4 tracking-tight"
+          >
             <span v-if="isSearching">
-              {{ $t('news.showingPostsFor', { total: meta.total }) }}
+              Showing {{ meta.total }} posts for
               <span class="font-medium text-gray-700 italic dark:text-gray-300"
                 >"{{ debouncedSearchInput }}"</span
               >
             </span>
-            <span v-else> {{ $t('news.showingPosts', { total: meta.total }) }} </span>
+            <span v-else> Showing {{ meta.total }} posts </span>
           </div>
 
           <div
             v-if="pending"
             class="grid grid-cols-1 gap-x-4 gap-y-8 @xl:grid-cols-2 @4xl:grid-cols-12"
           >
-            <BlogPostCardSkeleton v-for="(_, index) in 16" :key="index" :class="postCardClasses" />
+            <BlogPostCardSkeleton
+              v-for="(_, index) in 16"
+              :key="index"
+              :class="postCardClasses"
+            />
           </div>
 
-          <div v-else-if="error" class="flex items-center justify-center text-center">
+          <div
+            v-else-if="error"
+            class="flex items-center justify-center text-center"
+          >
             <span class="text-primary text-2xl font-semibold tracking-tighter"
-              >{{ $t('ui.failedToGetData') }}</span
+              >Failed to get the data.</span
             >
           </div>
 
           <!-- Search results with no matches (must be before generic "No posts" check) -->
-          <div v-else-if="isSearching && posts?.length === 0" class="flex flex-col gap-y-4">
+          <div
+            v-else-if="isSearching && posts?.length === 0"
+            class="flex flex-col gap-y-4"
+          >
             <span class="text-4xl font-semibold tracking-tighter sm:text-5xl"
-              >{{ $t('news.noResultsFor') }}
-              <span class="font-bold italic">"{{ debouncedSearchInput }}"</span></span
+              >No results found for
+              <span class="font-bold italic"
+                >"{{ debouncedSearchInput }}"</span
+              ></span
             >
 
             <span class="text-base tracking-tight sm:text-lg"
-              >{{ $t('news.noResultsHint') }}</span
+              >Maybe try a different keyword, or explore other topics. We're
+              sure you'll find something awesome!</span
             >
           </div>
 
+          <!-- Page out of range (e.g., ?page=10 when max is 9) -->
+          <div v-else-if="isPageOutOfRange" class="flex flex-col items-start">
+            <h2
+              class="text-4xl font-semibold tracking-tighter text-black sm:text-4xl xl:text-5xl dark:text-white"
+            >
+              Page {{ currentPage }} doesn't exist
+            </h2>
+            <p
+              class="text-muted-foreground mt-4 text-base tracking-tight sm:text-lg"
+            >
+              There are only {{ meta.last_page }} pages available.
+            </p>
+
+            <div class="mt-6 flex items-center gap-3">
+              <Button @click="currentPage = meta.last_page">
+                Go to last page
+              </Button>
+              <Button variant="outline" @click="currentPage = 1">
+                <IconChevronLeft class="size-4" />
+                Back to first page
+              </Button>
+            </div>
+          </div>
+
           <!-- No posts at all (not searching) -->
-          <div v-else-if="posts?.length === 0" class="flex flex-col items-start">
+          <div
+            v-else-if="posts?.length === 0"
+            class="flex flex-col items-start"
+          >
             <h2
               class="text-4xl font-bold tracking-tighter text-black sm:text-4xl xl:text-5xl dark:text-white"
             >
-              {{ $t('news.noPostsYet') }}
+              No posts yet
             </h2>
-            <p class="mt-4 text-base tracking-tight sm:text-lg">{{ $t('news.comeBackLater') }}</p>
+            <p class="mt-4 text-base tracking-tight sm:text-lg">
+              Please come back later
+            </p>
 
-            <nuxt-link
-              :to="localePath('/')"
-              class="mt-4 flex items-center gap-x-1 rounded-full bg-black p-4 font-semibold tracking-tight text-white dark:bg-white dark:text-black"
-            >
-              <IconChevronLeft class="h-4" />
-              <span>{{ $t('ui.backToHome') }}</span>
-            </nuxt-link>
+            <Button as="a" href="/" class="mt-4">
+              <IconChevronLeft class="size-4" />
+              Back to Home
+            </Button>
           </div>
 
           <!-- Posts list (regular or search results) -->
@@ -130,105 +176,102 @@
 </template>
 
 <script setup>
-usePageMeta("news");
+usePageMeta(null, {
+  title: "News",
+  description:
+    "Articles and updates covering events, exhibitions, and industry news.",
+});
 defineOptions({
   name: "news",
 });
 
-const localePath = useLocalePath();
 const route = useRoute();
 const router = useRouter();
 
 const postCardClasses = ref(
-  "@xl:first:col-span-2 @4xl:col-span-4 @4xl:first:col-span-6 @4xl:nth-2:col-span-6 @5xl:col-span-3 @[90rem]:col-span-3 @7xl:[&:nth-child(-n+3)]:col-span-4"
+  "@xl:first:col-span-2 @4xl:col-span-4 @4xl:first:col-span-6 @4xl:nth-2:col-span-6 @5xl:col-span-3 @[90rem]:col-span-3 @7xl:[&:nth-child(-n+3)]:col-span-4",
 );
 
 const postStore = usePostStore();
 const { posts, pending, error, meta } = storeToRefs(postStore);
 
-// Get initial values from URL query parameters
-const initialPage = Number(route.query.page) || 1;
-const initialSearchQuery = (route.query.q || "").toString();
+// URL-driven pagination (source of truth)
+const currentPage = computed({
+  get: () => Number(route.query.page) || 1,
+  set: (val) => {
+    const query = { ...route.query };
+    if (val > 1) {
+      query.page = String(val);
+    } else {
+      delete query.page;
+    }
+    router.push({ query });
+  },
+});
 
-// Initialize search input with URL query
+// Search state
+const initialSearchQuery = (route.query.q || "").toString();
 const searchInput = ref(initialSearchQuery);
 const debouncedSearchInput = refDebounced(searchInput, 400);
+const isSearching = computed(() => debouncedSearchInput.value.length > 0);
+const isPageOutOfRange = computed(
+  () =>
+    !isSearching.value &&
+    currentPage.value > 1 &&
+    meta.value.last_page >= 1 &&
+    currentPage.value > meta.value.last_page,
+);
 
-// Fetch initial data based on URL parameters
-// Always force fetch to ensure data matches current URL state
+// Initial SSR fetch
+const initialPage = Number(route.query.page) || 1;
 if (initialSearchQuery) {
   await postStore.searchPosts(initialSearchQuery, { page: initialPage });
 } else {
   await postStore.fetchPosts({ page: initialPage, force: true });
 }
 
-// Check if user is searching
-const isSearching = computed(() => debouncedSearchInput.value.length > 0);
+// Search input changes -> update URL (reset to page 1)
+watch(debouncedSearchInput, (newSearchTerm) => {
+  const currentQ = (route.query.q || "").toString();
+  const trimmed = newSearchTerm.trim();
 
-// Current page for pagination
-const currentPage = ref(initialPage);
+  // Skip if URL already matches (prevents loop from back/forward sync)
+  if (trimmed === currentQ) return;
 
-// Flag to prevent duplicate fetches when search triggers page reset
-const isSearchTriggeredPageChange = ref(false);
-
-// Watch for search input changes and search from backend
-watch(debouncedSearchInput, async (newSearchTerm) => {
-  if (newSearchTerm.trim()) {
-    // Mark that search is triggering the page change to prevent duplicate fetch
-    isSearchTriggeredPageChange.value = true;
-    currentPage.value = 1;
-    await postStore.searchPosts(newSearchTerm, { page: 1 });
-    isSearchTriggeredPageChange.value = false;
-
-    // Update URL with search query (without page param since it's page 1)
-    router.push({
-      query: { q: newSearchTerm },
-    });
-  } else {
-    // Mark that search clear is triggering the page change
-    isSearchTriggeredPageChange.value = true;
-    currentPage.value = 1;
-    await postStore.clearSearch();
-    isSearchTriggeredPageChange.value = false;
-
-    // Remove search query from URL
-    router.push({
-      query: {},
-    });
+  const query = {};
+  if (trimmed) {
+    query.q = trimmed;
   }
+  router.push({ query });
 });
 
-// Watch for page changes and fetch new data (only for user-initiated pagination)
-watch(currentPage, async (newPage) => {
-  // Skip if this page change was triggered by search (already handled above)
-  if (isSearchTriggeredPageChange.value) {
-    return;
-  }
+// Route query changes -> fetch data
+// Handles: pagination clicks, search, browser back/forward
+watch(
+  () => ({ page: route.query.page, q: route.query.q }),
+  async (newQuery, oldQuery) => {
+    const newPage = Number(newQuery.page) || 1;
+    const newSearch = (newQuery.q || "").toString();
+    const oldPage = Number(oldQuery?.page) || 1;
+    const oldSearch = (oldQuery?.q || "").toString();
 
-  if (newPage !== meta.value.current_page) {
-    if (isSearching.value) {
-      await postStore.searchPosts(debouncedSearchInput.value, { page: newPage });
-    } else {
-      await postStore.goToPage(newPage);
+    // Skip if nothing changed
+    if (newPage === oldPage && newSearch === oldSearch) return;
+
+    // Sync search input with URL (for browser back/forward)
+    if (newSearch !== searchInput.value) {
+      searchInput.value = newSearch;
     }
 
-    // Update URL query parameter
-    const query = {};
-    if (newPage > 1) query.page = newPage;
-    if (isSearching.value) query.q = debouncedSearchInput.value;
-    router.push({ query });
+    // Fetch data based on current URL state
+    if (newSearch) {
+      await postStore.searchPosts(newSearch, { page: newPage });
+    } else {
+      await postStore.fetchPosts({ page: newPage, force: true });
+    }
 
-    // Scroll to top of the page
     window.scrollTo({ top: 0 });
-  }
-});
-
-// Sync currentPage with meta when meta changes (e.g., after fetch)
-watch(
-  () => meta.value.current_page,
-  (newPage) => {
-    currentPage.value = newPage;
-  }
+  },
 );
 
 const searchInputEl = ref();

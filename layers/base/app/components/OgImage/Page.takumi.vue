@@ -1,14 +1,16 @@
 <script setup>
+defineOptions({ inheritAttrs: false });
+
 const props = defineProps({
   headline: {
     type: String,
     default: "",
   },
-  title: {
+  pageTitle: {
     type: String,
     default: "",
   },
-  description: {
+  pageDescription: {
     type: String,
     default: "",
   },
@@ -52,18 +54,18 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
 
     <div class="flex h-full flex-col text-left">
       <h1
-        v-if="title"
-        class="mt-2 shrink-0 text-[72px] leading-[1.1] font-semibold tracking-[-0.06em]"
+        v-if="pageTitle"
+        class="mt-2 shrink-0 text-[72px] leading-[1.1] font-normal tracking-[-0.06em]"
         style="line-clamp: 2; text-overflow: ellipsis; overflow: hidden"
       >
-        {{ title }}
+        {{ pageTitle }}
       </h1>
       <p
-        v-if="description"
-        class="mt-3 shrink-0 text-[32px] leading-[1.6] tracking-tighter text-pretty"
+        v-if="pageDescription"
+        class="mt-3 shrink-0 text-[32px] leading-[1.6] font-normal tracking-tighter text-pretty"
         style="line-clamp: 2; text-overflow: ellipsis; overflow: hidden"
       >
-        {{ description }}
+        {{ pageDescription }}
       </p>
 
       <div
@@ -85,7 +87,7 @@ const isDarkMode = ref(useAppConfig().settings.ogImage.isDarkMode);
         <div class="ml-4 flex flex-col items-start gap-y-2">
           <span
             v-if="useAppConfig().app.name"
-            class="text-3xl font-semibold tracking-tighter"
+            class="text-3xl font-normal tracking-tighter"
             >{{ useAppConfig().app.name }}</span
           >
           <span v-if="useAppConfig().app.url" class="text-2xl tracking-tight">{{

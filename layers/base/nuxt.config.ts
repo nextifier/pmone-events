@@ -51,6 +51,36 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: [
+        "@unhead/schema-org/vue",
+        "embla-carousel-vue",
+        "embla-carousel-autoplay",
+        "embla-carousel-auto-scroll",
+        "embla-carousel-wheel-gestures",
+        "gsap",
+        "gsap/ScrollTrigger",
+        "gsap/SplitText",
+        "gsap/Flip",
+        "vue-scrollto",
+        "vue3-picture-swipe",
+        "@number-flow/vue",
+        "vue-tippy",
+        "v-wave",
+        "class-variance-authority",
+        "dayjs",
+        "dayjs/plugin/relativeTime",
+        "dayjs/plugin/customParseFormat",
+        "vue-sonner",
+        "reka-ui",
+        "clsx",
+        "tailwind-merge",
+        "lucide-vue-next",
+        "vaul-vue",
+        "@vue/devtools-core",
+        "@vue/devtools-kit",
+      ],
+    },
   },
 
   modules: [
@@ -122,7 +152,7 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", file: "en.json" },
+      { code: "en", language: "en-US", name: "English", file: "en.ts" },
     ],
     lazy: true,
     langDir: "../i18n/locales",

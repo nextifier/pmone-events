@@ -221,6 +221,11 @@ const { $dayjs } = useNuxtApp();
 import { useSidebar } from "@/components/ui/sidebar/utils";
 const { open, isMobile, setOpenMobile } = useSidebar();
 
+// Set OG image state before async boundary so DevTools can detect it during Suspense
+if (import.meta.dev) {
+  useState(`og-image:ssr-exists:${route.path}`, () => false).value = true;
+}
+
 // Call local Nuxt server API (which proxies to PM One API)
 // API key is kept secure on the server, not exposed to browser
 const { data, pending, error } = await useFetch(`/api/blog/posts/${route.params.slug}`);
