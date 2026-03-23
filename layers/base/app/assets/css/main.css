@@ -1,18 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@font-face {
-  font-family: "MinusOne";
-  src: url("/fonts/MinusOne-VF.woff2") format("woff2");
-  font-weight: 100 1000;
-  font-display: swap;
-}
-
-body {
-  font-family: "MinusOne", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
 @source "../../app.vue";
 @source "../../app.config.ts";
 @source "../../components/**/*.vue";
@@ -37,16 +25,16 @@ body {
   --breakpoint-3xl: 1600px;
 
   --font-sans:
-    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    MinusOne, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --font-display:
-    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 
   --font-heading:
-    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 
   /* Slate */
   /* --color-gray-50: oklch(0.984 0.003 247.858);

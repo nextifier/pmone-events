@@ -97,6 +97,17 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
   ],
 
+  fonts: {
+    families: [
+      {
+        name: "MinusOne",
+        src: "/fonts/MinusOne-VF.woff2",
+        weight: "400 1000",
+        display: "swap",
+      },
+    ],
+  },
+
   icon: {
     mode: "svg",
     clientBundle: {
