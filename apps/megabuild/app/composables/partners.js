@@ -354,6 +354,10 @@ export const usePartnerStore = defineStore("partners", {
         directory: "/img/credits/media-partners/",
         list: [
           {
+            img: "seab.png",
+            link: "https://seab.tradelinkmedia.biz/",
+          },
+          {
             img: "archibuild.png",
             link: "",
           },
