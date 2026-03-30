@@ -15,6 +15,16 @@ export const usePartnerStore = defineStore("partners", {
         ],
       },
       {
+        category: "Co-organized by",
+        directory: "/img/credits/association-partners/",
+        list: [
+          {
+            img: "asaki.png",
+            link: "https://asaki.or.id/",
+          },
+        ],
+      },
+      {
         category: "Supported by",
         directory: "/img/credits/endorsed-by/",
         list: [
