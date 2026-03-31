@@ -29,7 +29,7 @@ export const useTicketStore = defineStore("tickets", {
             entrance: "Regular entrance",
             benefits: [
               "Access to Megabuild Indonesia",
-              "Access to Mega Property Expo",
+              "Access to MegaProperty Expo",
               "Access to Keramika Indonesia",
             ],
           },
@@ -52,7 +52,7 @@ export const useTicketStore = defineStore("tickets", {
           //   entrance: "VIP entrance",
           //   benefits: [
           //     "Access to Megabuild Indonesia",
-          //     "Access to Mega Property Expo",
+          //     "Access to MegaProperty Expo",
           //     "Access to Keramika Indonesia",
           //   ],
           // },

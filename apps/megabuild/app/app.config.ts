@@ -221,7 +221,7 @@ const routes = {
     path: "/links",
   },
   megaProperty: {
-    label: "Mega Property",
+    label: "MegaProperty",
     path: "/megaproperty",
   },
   sponsorship: {
