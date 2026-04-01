@@ -72,6 +72,7 @@ export default defineAppConfig({
     terms: {
       lastUpdate: "",
     },
+    tiktokPixelId: "",
   },
 
   contact: {

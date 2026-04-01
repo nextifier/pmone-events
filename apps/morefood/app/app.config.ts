@@ -97,6 +97,7 @@ const settings = {
   terms: {
     lastUpdate: "August 21, 2025",
   },
+  tiktokPixelId: "D729G23C77U67GBCUPK0",
 };
 
 const contact = {
