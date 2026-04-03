@@ -3,8 +3,12 @@
     <div class="flex flex-col items-center text-center">
       <h2
         :class="{
-          'section-title': route.name?.toString().startsWith('brands'),
-          'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': !['index', 'brands'].some((n) => route.name?.toString().startsWith(n)),
+          'section-title': route.name?.toString().includes('brands'),
+          'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': ![
+            'index',
+            'brands',
+            'edition-brands',
+          ].some((n) => route.name?.toString().startsWith(n)),
         }"
       >
         {{ content.title }}
@@ -50,11 +54,72 @@
           </button>
         </div>
 
-        <div class="flex gap-x-1.5">
+        <div class="flex w-full flex-wrap justify-end gap-1.5">
+          <DropdownMenu v-if="editions?.length > 1" :modal="false">
+            <DropdownMenuTrigger as-child>
+              <button
+                class="group border-border flex h-full min-w-0 flex-1 grow items-center justify-between gap-x-3 rounded-lg border px-2.5 py-2 tracking-tight transition sm:w-44 sm:flex-none"
+                aria-label="Edition"
+              >
+                <div class="text-muted-foreground flex items-center gap-x-1.5">
+                  <Icon name="hugeicons:calendar-03" class="size-4 shrink-0" />
+                  <span class="truncate text-sm">{{
+                    selectedEdition
+                      ? `${selectedEdition.edition_label} edition`
+                      : "Edition"
+                  }}</span>
+                </div>
+                <IconChevronDown
+                  class="size-3 shrink-0 transition group-data-[state=open]:rotate-180"
+                />
+              </button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent
+              align="start"
+              class="flex w-40 flex-col gap-y-1 rounded-lg px-1 py-2 sm:w-44"
+            >
+              <DropdownMenuItem
+                v-for="(item, index) in editions"
+                :key="index"
+                v-slot="{ active, close }"
+                as-child
+              >
+                <button
+                  :aria-label="item.title"
+                  class="relative flex w-full cursor-pointer items-center gap-x-4 rounded-md py-2 pr-4 pl-8 tracking-tight text-black ring-black ring-offset-2 ring-offset-white transition hover:bg-gray-100 hover:text-black focus-visible:ring-1 focus-visible:outline-hidden active:scale-98 dark:text-white dark:ring-white dark:ring-offset-gray-950 dark:hover:bg-gray-900 dark:hover:text-white"
+                  :class="{
+                    'bg-gray-100 text-black dark:bg-gray-900 dark:text-white':
+                      selectedEdition?.edition_number === item.edition_number &&
+                      !active,
+                    'bg-blue-600 text-white dark:bg-blue-600 dark:text-white':
+                      active,
+                  }"
+                  @click="changeEdition(item)"
+                >
+                  <IconCheck
+                    v-if="
+                      selectedEdition?.edition_number === item.edition_number
+                    "
+                    class="absolute top-1/2 left-2 size-5 -translate-y-1/2"
+                  />
+                  <div class="flex flex-col items-start gap-y-0.5">
+                    <span class="text-sm"
+                      >{{ item.edition_label }} Edition</span
+                    >
+                    <span class="text-xs opacity-60 sm:text-sm">{{
+                      item.date_label
+                    }}</span>
+                  </div>
+                </button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <DropdownMenu :modal="false">
             <DropdownMenuTrigger as-child>
               <button
-                class="group border-border flex h-full w-40 items-center justify-between gap-x-3 rounded-lg border px-2.5 py-2 tracking-tight transition sm:w-44"
+                class="group border-border flex h-full min-w-0 flex-1 items-center justify-between gap-x-3 rounded-lg border px-2.5 py-2 tracking-tight transition sm:w-44 sm:flex-none"
                 aria-label="Sort by"
               >
                 <div class="text-muted-foreground flex items-center gap-x-1.5">
@@ -103,7 +168,7 @@
           <button
             aria-label="Refresh data"
             @click="refresh()"
-            class="text-muted-foreground hover:bg-muted flex aspect-square size-10 items-center justify-center rounded-full transition active:scale-98"
+            class="text-muted-foreground hover:bg-muted flex aspect-square size-10 shrink-0 items-center justify-center rounded-full transition active:scale-98"
             v-tippy="'Refresh'"
           >
             <IconRefresh class="size-4" :class="{ 'animate-spin': pending }" />
@@ -151,7 +216,7 @@
         </div>
 
         <span class="text-primary text-xl font-semibold tracking-tight"
-          >Brand list is coming soon 🤩 Check back later!
+          >Brand list is coming soon. Check back later!
         </span>
       </div>
 
@@ -165,6 +230,7 @@
               v-for="(brand, index) in filteredBrands"
               :key="index"
               :brand="brand"
+              :brandBasePath="brandBasePath"
               :class="{
                 'col-span-2 sm:col-span-1': filteredBrands?.length === 1,
               }"
@@ -200,26 +266,52 @@
 <script setup>
 import { refDebounced } from "@vueuse/core";
 
+const props = defineProps({
+  edition: {
+    type: [String, Number],
+    default: null,
+  },
+});
+
 const content = computed(() => useContentStore().components.brandList);
 const config = useRuntimeConfig();
 const route = useRoute();
+const localePath = useLocalePath();
 
 const searchInput = defineModel({ default: "" });
 const debouncedSearchInput = refDebounced(searchInput, 300);
 
+// Edition dropdown
+const { data: editions } = await useFetch("/api/editions", {
+  transform: (res) => res.data,
+});
+
+const selectedEdition = computed(() => {
+  if (props.edition) {
+    return editions.value?.find(
+      (e) => String(e.edition_number) === String(props.edition),
+    );
+  }
+  return editions.value?.find((e) => e.is_active);
+});
+
+const brandBasePath = computed(() =>
+  props.edition ? `/${props.edition}/brands` : "/brands",
+);
+
+const changeEdition = (item) => {
+  if (item.is_active) {
+    navigateTo(localePath("/brands"));
+  } else {
+    navigateTo(localePath(`/${item.edition_number}/brands`));
+  }
+};
+
+// Sort dropdown
 const sortOptions = [
-  {
-    label: "Brand Name",
-    val: "brand_name",
-  },
-  {
-    label: "Booth Number",
-    val: "booth_number",
-  },
-  {
-    label: "Last Created",
-    val: "-created_at",
-  },
+  { label: "Brand Name", val: "brand_name" },
+  { label: "Booth Number", val: "booth_number" },
+  { label: "Last Created", val: "-created_at" },
 ];
 
 const selectedSortOption = ref(sortOptions[0]);
@@ -230,26 +322,24 @@ const changeSelectedSortOption = (param) => {
 
 const selectedSortOptionValue = computed(() => selectedSortOption.value.val);
 
-// const {
-//   data: brands,
-//   refresh,
-//   pending,
-//   error,
-// } = await useFetch(`${useAppConfig().app.apiUrl}/api/exhibitors`, {
-//   query: {
-//     "filter[is_published]": 1,
-//     // "filter[exhibit_at_the_edition_of]": "2024",
-//     // sort: selectedSortOptionValue,
-//   },
-//   server: ["brands"].includes(route.name) ? true : false,
-//   lazy: true,
-//   key: "fetchExhibitors",
-// });
+// Fetch brands
+const brandsUrl = computed(() =>
+  props.edition
+    ? `/api/exhibitors/by-edition/${props.edition}`
+    : "/api/exhibitors",
+);
 
-const brands = ref([]);
-const refresh = () => {};
-const pending = ref(0);
-const error = ref(0);
+const {
+  data: brands,
+  refresh,
+  pending,
+  error,
+} = await useFetch(brandsUrl, {
+  server: route.name?.toString().includes("brands") ? true : false,
+  lazy: true,
+  key: `fetchExhibitors-${props.edition || "active"}`,
+  transform: (res) => res.data,
+});
 
 const filteredBrands = computed(() => {
   // Filtering
@@ -289,27 +379,22 @@ const filteredBrands = computed(() => {
       results.sort((a, b) => b.created_at.localeCompare(a.created_at));
     } else if (selectedSortOption.value.val === "booth_number") {
       results.sort((a, b) => {
-        // Normalize booth numbers: replace special characters, handle nulls
         const normalize = (value) => {
-          if (!value) return null; // Return null explicitly for sorting logic
+          if (!value) return null;
           return value
-            .split("&")[0] // Take the first booth in case of multiple
-            .replace(/[^\w\s-]/gi, "") // Remove non-alphanumeric characters except hyphens
-            .replace(/\s/g, "") // Remove spaces
-            .toUpperCase(); // Make it case-insensitive
+            .split("&")[0]
+            .replace(/[^\w\s-]/gi, "")
+            .replace(/\s/g, "")
+            .toUpperCase();
         };
 
         const boothA = normalize(a.booth_number);
         const boothB = normalize(b.booth_number);
 
-        // If boothA is null, place it after boothB
         if (boothA === null && boothB !== null) return 1;
         if (boothB === null && boothA !== null) return -1;
-
-        // If both are null, consider them equal
         if (boothA === null && boothB === null) return 0;
 
-        // Compare non-null booth numbers
         return boothA.localeCompare(boothB, undefined, { numeric: true });
       });
     }

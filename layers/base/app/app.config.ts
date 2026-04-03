@@ -72,7 +72,7 @@ export default defineAppConfig({
     terms: {
       lastUpdate: "",
     },
-    tiktokPixelId: "",
+    tiktokPixelId: "" as string | string[],
   },
 
   contact: {

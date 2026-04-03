@@ -1,6 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  const pixelId = useAppConfig().settings.tiktokPixelId;
-  if (!pixelId) return;
+  const raw = useAppConfig().settings.tiktokPixelId;
+  const pixelIds = [].concat(raw).filter(Boolean);
+  if (!pixelIds.length) return;
 
   const w = window;
   const d = document;
@@ -46,7 +47,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     first.parentNode.insertBefore(s, first);
   };
 
-  ttq.load(pixelId);
+  for (const id of pixelIds) {
+    ttq.load(id);
+  }
   ttq.page();
 
   nuxtApp.hook("page:finish", () => {

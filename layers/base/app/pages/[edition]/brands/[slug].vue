@@ -75,7 +75,7 @@
             </div>
 
             <div class="text-base font-semibold tracking-tight">
-              <span v-if="brand.business_categories.length">{{
+              <span v-if="brand.business_categories?.length">{{
                 brand.business_categories.join(", ")
               }}</span>
               <span v-else>-</span>
@@ -160,12 +160,12 @@
 
 <script setup>
 const route = useRoute();
-const config = useRuntimeConfig();
-
 const { $dayjs } = useNuxtApp();
 
+const edition = route.params.edition;
+
 const { data: brand } = await useFetch(
-  `/api/exhibitors/${route.params.slug}`,
+  `/api/exhibitors/by-edition/${edition}/${route.params.slug}`,
   {
     transform: (res) => res.data,
   },

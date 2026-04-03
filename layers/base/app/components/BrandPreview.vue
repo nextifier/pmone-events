@@ -78,12 +78,9 @@ const {
   refresh,
   pending,
   error,
-} = await useFetch(`${useAppConfig().app.apiUrl}/api/exhibitors`, {
-  query: {
-    "filter[is_published]": 1,
-    sort: "brand_name",
-  },
+} = await useFetch("/api/exhibitors", {
   server: false,
   lazy: true,
+  transform: (res) => res.data,
 });
 </script>

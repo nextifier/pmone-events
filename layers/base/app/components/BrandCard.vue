@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    :to="localePath(`/brands/${props.brand.slug}`)"
+    :to="localePath(`${props.brandBasePath}/${props.brand.slug}`)"
     class="bg-muted/60 @container relative isolate flex h-full flex-col gap-4 overflow-hidden rounded-3xl p-4 sm:p-5"
     @click.native="active = props.brand.slug"
   >
@@ -10,27 +10,16 @@
       <div
         class="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-full p-[3px] text-center @3xs:size-18 @3xs:p-[2px] [&.active]:[view-transition-name:brand-avatar]"
         :class="{
-          'gradient-insta bg-linear-to-tr': props.brand.instagram,
-          'bg-border': !props.brand.instagram,
+          'gradient-insta bg-linear-to-tr': hasInstagram,
+          'bg-border': !hasInstagram,
           active: active === props.brand.slug,
         }"
       >
-        <NuxtImg
-          v-if="props.brand.brand_logo?.sm"
-          :src="`${useAppConfig().app.apiUrl}${props.brand.brand_logo.sm}`"
-          class="border-muted h-full w-full rounded-full border-3 bg-white object-contain"
-          sizes="150px"
-          :alt="props.brand.brand_name"
-          width="150"
-          height="150"
-          loading="lazy"
+        <Avatar
+          :model="{ name: props.brand.brand_name, profile_image: props.brand.brand_logo }"
+          class="size-full border-muted border-3 bg-white"
+          :colorful="false"
         />
-
-        <span
-          v-else
-          class="border-muted bg-muted text-primary line-clamp-1 flex h-full w-full items-center justify-center rounded-full border-3 text-xs !leading-[1.2] tracking-tight"
-          >{{ props.brand.brand_name }}</span
-        >
       </div>
 
       <div class="flex flex-col gap-y-1">
@@ -93,10 +82,9 @@
           }"
           :style="`z-index: ${brand.promotions.length - index}`"
         >
-          <NuxtImg
+          <img
             v-if="item.image?.md"
-            :src="`${useAppConfig().app.apiUrl}${item.image.md}`"
-            sizes="250px"
+            :src="item.image.md"
             :alt="props.brand.brand_name"
             loading="lazy"
             class="h-full w-full object-cover"
@@ -150,6 +138,10 @@
 <script setup>
 const props = defineProps({
   brand: Object,
+  brandBasePath: {
+    type: String,
+    default: "/brands",
+  },
   showCreatedAt: {
     type: Boolean,
     default: true,
@@ -173,4 +165,8 @@ const active = useState();
 
 const config = useRuntimeConfig();
 const { $dayjs } = useNuxtApp();
+
+const hasInstagram = computed(() =>
+  props.brand.links?.some((l) => l.label?.toLowerCase() === "instagram"),
+);
 </script>

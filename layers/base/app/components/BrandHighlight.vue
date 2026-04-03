@@ -29,27 +29,11 @@
                 .replace(/\b\w/g, (char) => char.toUpperCase())
             "
           >
-            <div
-              class="flex aspect-square w-full shrink-0 grow-0 items-center justify-center overflow-hidden rounded-full border border-gray-200 text-center dark:border-gray-800 dark:hover:bg-white dark:hover:text-black"
-            >
-              <NuxtImg
-                v-if="brand.brand_logo?.sm"
-                :src="`${useAppConfig().app.apiUrl}/${brand.brand_logo.sm}`"
-                :alt="brand.brand_name"
-                class="h-full w-full rounded-full object-contain dark:brightness-90 dark:contrast-200 dark:grayscale dark:invert-[75%] dark:hover:filter-none"
-                sizes="150px"
-                width="150"
-                height="150"
-                loading="lazy"
-                format="webp"
-              />
-
-              <span v-else class="line-clamp-2 text-xs leading-[1.2]!">{{
-                brand.brand_name
-                  .toLowerCase()
-                  .replace(/\b\w/g, (char) => char.toUpperCase())
-              }}</span>
-            </div>
+            <Avatar
+              :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
+              class="size-full border border-gray-200 bg-white dark:border-gray-800"
+              :colorful="false"
+            />
 
             <span class="line-clamp-1 text-xs tracking-tight">{{
               brand.brand_name
@@ -92,10 +76,7 @@ const {
   refresh,
   pending,
   error,
-} = await useFetch(`${useAppConfig().app.apiUrl}/api/exhibitors`, {
-  query: {
-    "filter[is_published]": 1,
-    sort: "brand_name",
-  },
+} = await useFetch("/api/exhibitors", {
+  transform: (res) => res.data,
 });
 </script>
