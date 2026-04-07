@@ -160,6 +160,7 @@ export default {
     "title": "한 입에 담긴 이야기를 맛보세요.",
     "description": "산지의 흙, 만든 사람의 손길, 거기서 나오는 맛. 여기서만 만날 수 있는 초콜릿을 직접 경험해 보세요.",
     "announcement": "전시 부스 자리 있어요",
+    "visitorAnnouncement": "관람객 등록이 시작됐어요!",
     "banners": {
       "0": {
         "subHeadline": "맛있는 제품이 있으세요?",

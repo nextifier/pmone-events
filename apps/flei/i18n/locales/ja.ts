@@ -165,6 +165,7 @@ export default {
     "playRecap": "ダイジェストを見る",
     "edition": "第{n}回",
     "announcement": "出展ブースに空きがあります",
+    "visitorAnnouncement": "来場者登録の受付を開始しました!",
     "banners": {
       "0": {
         "subHeadline": "出展者の募集を開始しました",

@@ -6,7 +6,7 @@
       >
         <div
           v-if="shortMonth"
-          class="gradient-accent flex h-[45%] w-full flex-col items-center justify-center bg-linear-to-r text-[0.7rem] leading-none! font-bold text-white uppercase"
+          class="bg-accent text-accent-foreground flex h-[45%] w-full flex-col items-center justify-center bg-linear-to-r text-[0.7rem] leading-none! font-bold uppercase"
         >
           {{ shortMonth }}
         </div>

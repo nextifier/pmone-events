@@ -173,6 +173,7 @@ export default {
     description:
       "インドネシア最大級の建材・インテリアデザイン・建築・建設の展示会＆カンファレンス。",
     announcement: "出展スペースはまだ空きがあります",
+    visitorAnnouncement: "来場者登録の受付を開始しました!",
     banners: {
       "0": {
         subHeadline: "Megabuild Indonesia に出展しませんか",

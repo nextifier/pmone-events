@@ -2,7 +2,7 @@
   <section
     id="hero"
     ref="containerRef"
-    class="from-background via-kv-brown-200/60 to-background dark:via-kv-brown-900/60 relative isolate bg-linear-to-b lg:bg-radial-[at_25%_25%]"
+    class="relative isolate overflow-hidden"
   >
     <div
       class="from-background to-background/0 absolute inset-x-0 top-0 z-0 h-[20%] bg-linear-to-b"

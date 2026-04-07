@@ -165,6 +165,7 @@ export default {
     "playRecap": "看回顾视频",
     "edition": "第{n}届",
     "announcement": "参展展位仍有空位",
+    "visitorAnnouncement": "观众注册现已开放!",
     "banners": {
       "0": {
         "subHeadline": "参展商报名已开启！",

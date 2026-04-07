@@ -155,6 +155,7 @@ export default {
     description:
       "The enhanced edition of building materials, interior design, architecture, and construction exhibition & conference in Indonesia.",
     announcement: "Space is still available for exhibitors",
+    visitorAnnouncement: "Visitor Registration Is Now Open!",
     banners: {
       "0": {
         subHeadline: "Exhibit at Megabuild Indonesia!",

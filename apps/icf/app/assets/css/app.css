@@ -102,11 +102,14 @@
   --popover: var(--color-kv-brown-50);
 }
 
-.dark.theme-brown {
-  --background: var(--color-kv-brown-950);
-  --border: var(--color-gray-700);
-  --muted: var(--color-kv-brown-900);
-  --popover: var(--color-kv-brown-950);
+.dark .theme-brown {
+  --background: var(--color-gray-800);
+  --foreground: var(--color-kv-brown-100);
+  --body: var(--color-kv-brown-100);
+  --primary: var(--color-kv-brown-100);
+  --border: var(--color-gray-600);
+  --muted: var(--color-gray-700);
+  --popover: var(--color-kv-brown-800);
 }
 
 .font-display {

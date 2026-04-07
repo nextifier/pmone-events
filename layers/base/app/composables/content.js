@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
 export const useContentStore = defineStore("content", {
   state: () => ({
@@ -185,7 +185,8 @@ export const useContentStore = defineStore("content", {
               "We're bringing in targeted buyers and partners from across the ASEAN region to connect with exhibitors. Accommodation fully covered by the organizer for qualified industry players.",
           },
           {
-            title: "Building Contractors & Property Developers Members Gathering",
+            title:
+              "Building Contractors & Property Developers Members Gathering",
             description:
               "A collaborative event with the Indonesian Real Estate Association and Indonesian Contractors Association, bringing members together for networking and knowledge-sharing during the exhibition.",
           },
@@ -319,7 +320,7 @@ export const useContentStore = defineStore("content", {
             },
           },
           {
-            image: "/img/banners/cbe-7th-poster.jpg",
+            image: "/img/banners/cbe-8th-poster.jpg",
             subtitle: "Cafe & Brasserie Expo Indonesia",
             title: "For the Love of Coffee & More.",
             description:
@@ -334,7 +335,7 @@ export const useContentStore = defineStore("content", {
             },
           },
           {
-            image: "/img/banners/flei-25th-poster.jpg",
+            image: "/img/banners/flei-26th-poster.jpg",
             subtitle: "Franchise & License Expo Indonesia",
             title: "Your Entrepreneurial Journey Starts Here.",
             description:

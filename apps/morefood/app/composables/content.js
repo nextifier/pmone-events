@@ -97,6 +97,10 @@ export const useContentStore = defineStore("content", () => {
           text: t("hero.announcement"),
           link: "/book-space",
         },
+        {
+          text: t("hero.visitorAnnouncement"),
+          link: "/ticket",
+        },
       ],
 
       bannerHero: [
@@ -118,7 +122,7 @@ export const useContentStore = defineStore("content", () => {
           subHeadline: t("hero.banners.1.subHeadline"),
           content: t("hero.banners.1.content"),
           img: {
-            src: "/img/banners/flei-25th-poster.jpg",
+            src: "/img/banners/flei-26th-poster.jpg",
             w: 400,
             h: 500,
           },
@@ -132,7 +136,7 @@ export const useContentStore = defineStore("content", () => {
           subHeadline: t("hero.banners.2.subHeadline"),
           content: t("hero.banners.2.content"),
           img: {
-            src: "/img/banners/cbe-7th-poster.jpg",
+            src: "/img/banners/cbe-8th-poster.jpg",
             w: 400,
             h: 500,
           },
@@ -287,9 +291,9 @@ export const useContentStore = defineStore("content", () => {
 
     visitorCta: {
       img: {
-        src: "/img/cta-img-2.jpg",
-        width: 1600,
-        height: 897,
+        src: "/img/cta-image.png",
+        width: 1721,
+        height: 1963,
       },
       title: t("visitorCta.title"),
       description: t("visitorCta.description"),
@@ -300,7 +304,7 @@ export const useContentStore = defineStore("content", () => {
       },
       banners: [
         {
-          image: "/img/banners/cbe-7th-poster.jpg",
+          image: "/img/banners/cbe-8th-poster.jpg",
           subtitle: "Cafe & Brasserie Expo Jakarta",
           title: "For the Love of Coffee & More.",
           description:
@@ -315,7 +319,7 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
-          image: "/img/banners/flei-25th-poster.jpg",
+          image: "/img/banners/flei-26th-poster.jpg",
           subtitle: "Franchise & License Expo Indonesia",
           title: "Your Entrepreneurial Journey Starts Here.",
           description:

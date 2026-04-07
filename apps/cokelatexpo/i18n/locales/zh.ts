@@ -160,6 +160,7 @@ export default {
     "title": "每一块巧克力，都有没讲完的故事。",
     "description": "产地的风土，匠人的手艺，最终成就独一无二的味道。来这里，亲口尝尝有什么不同。",
     "announcement": "参展展位仍有空位",
+    "visitorAnnouncement": "观众注册现已开放!",
     "banners": {
       "0": {
         "subHeadline": "你的产品够好吃吗？",

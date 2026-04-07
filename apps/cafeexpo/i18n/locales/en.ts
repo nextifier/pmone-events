@@ -151,6 +151,7 @@ export default {
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition",
     "announcement": "Space is still available for exhibitors",
+    "visitorAnnouncement": "Visitor Registration Is Now Open!",
     "banners": {
       "0": {
         "subHeadline": "Got a Delicious Product?",

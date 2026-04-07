@@ -22,7 +22,7 @@
         >
           <p v-html="$t('about.sectionDescription')"></p>
           <p>
-            {{ $t('about.sectionDescription2') }}
+            {{ $t("about.sectionDescription2") }}
           </p>
         </div>
 
@@ -30,7 +30,12 @@
           <div
             class="bg-kv-brown-800 relative flex flex-col items-start overflow-hidden rounded-2xl px-6 pt-0 pb-20 text-left text-white"
           >
-            <InvertedBorderRadius position="top-left">
+            <InvertedBorderRadius
+              position="top-left"
+              :style="{
+                '--ibr-background': 'var(--background)',
+              }"
+            >
               <span
                 class="bg-kv-brown-800 flex size-18 items-center justify-center text-white"
               >
@@ -43,10 +48,10 @@
             </div>
 
             <h6 class="font-display mt-12 text-4xl">
-              {{ $t('about.zones.coffee.title') }}
+              {{ $t("about.zones.coffee.title") }}
             </h6>
             <p class="mt-2 tracking-tight">
-              {{ $t('about.zones.coffee.description') }}
+              {{ $t("about.zones.coffee.description") }}
             </p>
 
             <div
@@ -69,7 +74,12 @@
           <div
             class="bg-kv-green-600 relative flex flex-col items-start overflow-hidden rounded-2xl px-6 pt-0 pb-20 text-left text-white"
           >
-            <InvertedBorderRadius position="top-left">
+            <InvertedBorderRadius
+              position="top-left"
+              :style="{
+                '--ibr-background': 'var(--background)',
+              }"
+            >
               <span
                 class="bg-kv-green-600 flex size-18 items-center justify-center text-white"
               >
@@ -81,9 +91,11 @@
               <LogoITFAcronym class="h-9" />
             </div>
 
-            <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.tea.title') }}</h6>
+            <h6 class="font-display mt-12 text-4xl">
+              {{ $t("about.zones.tea.title") }}
+            </h6>
             <p class="mt-2 text-base font-medium tracking-tight">
-              {{ $t('about.zones.tea.description') }}
+              {{ $t("about.zones.tea.description") }}
             </p>
 
             <div
@@ -106,7 +118,12 @@
           <div
             class="bg-kv-purple-800 relative flex flex-col items-start overflow-hidden rounded-2xl px-6 pt-0 pb-20 text-left text-white"
           >
-            <InvertedBorderRadius position="top-left">
+            <InvertedBorderRadius
+              position="top-left"
+              :style="{
+                '--ibr-background': 'var(--background)',
+              }"
+            >
               <span
                 class="bg-kv-purple-800 flex size-18 items-center justify-center text-white"
               >
@@ -118,9 +135,11 @@
               <LogoIWFAcronym class="h-9" />
             </div>
 
-            <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.wine.title') }}</h6>
+            <h6 class="font-display mt-12 text-4xl">
+              {{ $t("about.zones.wine.title") }}
+            </h6>
             <p class="mt-2 text-base font-medium tracking-tight">
-              {{ $t('about.zones.wine.description') }}
+              {{ $t("about.zones.wine.description") }}
             </p>
 
             <div
@@ -146,7 +165,7 @@
         >
           <p v-html="$t('about.accessNote')"></p>
           <p>
-            {{ $t('about.accessNote2') }}
+            {{ $t("about.accessNote2") }}
           </p>
         </div>
       </div>

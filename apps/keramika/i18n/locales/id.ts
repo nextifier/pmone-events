@@ -158,6 +158,7 @@ export default {
   "hero": {
     "countdownLabel": "Pameran dimulai dalam",
     "announcement": "Slot exhibitor masih tersedia!",
+    "visitorAnnouncement": "Registrasi Pengunjung Sudah Dibuka!",
     "banners": {
       "0": {
         "subHeadline": "Pameran Industri Keramik Terbesar di ASEAN",

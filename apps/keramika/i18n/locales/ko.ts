@@ -158,6 +158,7 @@ export default {
   "hero": {
     "countdownLabel": "개최까지",
     "announcement": "전시 부스 아직 자리 있어요",
+    "visitorAnnouncement": "관람객 등록이 시작됐어요!",
     "banners": {
       "0": {
         "subHeadline": "아세안 대표 세라믹 산업 전시회",

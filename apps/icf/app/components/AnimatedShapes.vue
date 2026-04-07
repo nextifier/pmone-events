@@ -7,7 +7,7 @@
       <div
         v-for="(item, index) in items"
         :key="index"
-        class="text-kv-brown-200 dark:text-kv-brown-900 *:size-full"
+        class="text-kv-brown-200 *:size-full"
         v-html="item"
       />
     </div>

@@ -194,6 +194,7 @@ export default {
     "ctaExhibit": "전시 참가 등록",
     "playRecap": "하이라이트 영상 보기",
     "announcement": "전시 부스 아직 자리 있어요",
+    "visitorAnnouncement": "관람객 등록이 시작됐어요!",
     "banners": {
       "0": {
         "subHeadline": "전시 참가 신청 오픈!",

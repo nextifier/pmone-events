@@ -3,15 +3,9 @@
     <Hero />
     <LazyAboutEvent />
     <LazyPartnerships />
-    <!-- <LazyVisitorCta /> -->
-    <LazyMediaCoveragesSlider />
+    <LazyVisitorCta />
+    <!-- <LazyMediaCoveragesSlider /> -->
     <LazyCredits class="container flex flex-col items-center text-center" />
-    <!-- <TextFit
-      tag="span"
-      text="Connecting Businesses"
-      :animated="true"
-      text-classes="text-accent text-center font-extrabold tracking-tighter italic text-accent text-center font-extrabold tracking-tighter italic"
-    /> -->
     <LazyBlogPostSlider
       :headline="useContentStore().components.postSlider.title.default"
     />

@@ -51,10 +51,7 @@
                   class="relative isolate flex items-end gap-x-2 text-right text-2xl !leading-[0.9] font-semibold tracking-tighter text-balance uppercase sm:flex-col sm:text-7xl"
                 >
                   <span>{{ event.dateOnly }}</span>
-                  <span
-                    class="gradient-accent bg-linear-to-r bg-clip-text text-transparent"
-                    >{{ event.month }}</span
-                  >
+                  <span class="text-accent">{{ event.month }}</span>
                   <span>{{ event.year }}</span>
                 </div>
 
@@ -98,13 +95,8 @@
               <NuxtLink
                 :to="lp(content.cta.url)"
                 :target="content.cta.url.startsWith('http') ? '_blank' : ''"
-                class="bg-primary text-primary-foreground hover:bg-primary/80 xs:grow-0 rainbow-button flex grow items-center justify-center gap-x-1.5 rounded-xl px-5 py-4 font-semibold tracking-tight transition active:scale-95"
+                class="bg-primary text-primary-foreground hover:bg-primary/80 xs:grow-0 rainbow-button flex grow items-center justify-center gap-x-1.5 rounded-xl px-5 py-3 text-base font-medium tracking-tight transition active:scale-95 sm:text-lg"
               >
-                <Icon
-                  v-if="content.cta.iconName"
-                  :name="content.cta.iconName"
-                  class="size-4.5 shrink-0"
-                />
                 <span>{{ content.cta.label }}</span>
               </NuxtLink>
             </div>

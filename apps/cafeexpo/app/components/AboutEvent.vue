@@ -22,7 +22,7 @@
         class="text-primary mx-auto max-w-4xl space-y-4 text-2xl !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-3xl"
       >
         <p>
-          {{ $t('about.sectionDescription') }}
+          {{ $t("about.sectionDescription") }}
         </p>
       </div>
 
@@ -34,7 +34,9 @@
         >
           <InvertedBorderRadius
             position="top-left"
-            class="[--ibr-background:var(--color-kv-brown-50)] dark:[--ibr-background:var(--color-kv-brown-950)]"
+            :style="{
+              '--ibr-background': 'var(--background)',
+            }"
           >
             <span
               class="bg-kv-brown-800 flex size-18 items-center justify-center text-white"
@@ -47,9 +49,11 @@
             <LogoICFAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.coffee.title') }}</h6>
+          <h6 class="font-display mt-12 text-4xl">
+            {{ $t("about.zones.coffee.title") }}
+          </h6>
           <p class="mt-2 tracking-tight">
-            {{ $t('about.zones.coffee.description') }}
+            {{ $t("about.zones.coffee.description") }}
           </p>
 
           <div
@@ -74,7 +78,9 @@
         >
           <InvertedBorderRadius
             position="top-left"
-            class="[--ibr-background:var(--color-kv-brown-50)] dark:[--ibr-background:var(--color-kv-brown-950)]"
+            :style="{
+              '--ibr-background': 'var(--background)',
+            }"
           >
             <span
               class="bg-kv-green-600 flex size-18 items-center justify-center text-white"
@@ -87,9 +93,11 @@
             <LogoITFAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.tea.title') }}</h6>
+          <h6 class="font-display mt-12 text-4xl">
+            {{ $t("about.zones.tea.title") }}
+          </h6>
           <p class="mt-2 text-base font-medium tracking-tight">
-            {{ $t('about.zones.tea.description') }}
+            {{ $t("about.zones.tea.description") }}
           </p>
 
           <div
@@ -114,7 +122,9 @@
         >
           <InvertedBorderRadius
             position="top-left"
-            class="[--ibr-background:var(--color-kv-brown-50)] dark:[--ibr-background:var(--color-kv-brown-950)]"
+            :style="{
+              '--ibr-background': 'var(--background)',
+            }"
           >
             <span
               class="bg-kv-purple-800 flex size-18 items-center justify-center text-white"
@@ -127,9 +137,11 @@
             <LogoIWFAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.wine.title') }}</h6>
+          <h6 class="font-display mt-12 text-4xl">
+            {{ $t("about.zones.wine.title") }}
+          </h6>
           <p class="mt-2 text-base font-medium tracking-tight">
-            {{ $t('about.zones.wine.description') }}
+            {{ $t("about.zones.wine.description") }}
           </p>
 
           <div
@@ -154,7 +166,9 @@
         >
           <InvertedBorderRadius
             position="top-left"
-            class="[--ibr-background:var(--color-kv-brown-50)] dark:[--ibr-background:var(--color-kv-brown-950)]"
+            :style="{
+              '--ibr-background': 'var(--background)',
+            }"
           >
             <span
               class="flex size-18 items-center justify-center bg-red-700 text-white"
@@ -167,9 +181,11 @@
             <LogoCEIAcronym class="h-9" />
           </div>
 
-          <h6 class="font-display mt-12 text-4xl">{{ $t('about.zones.chocolate.title') }}</h6>
+          <h6 class="font-display mt-12 text-4xl">
+            {{ $t("about.zones.chocolate.title") }}
+          </h6>
           <p class="mt-2 text-base font-medium tracking-tight">
-            {{ $t('about.zones.chocolate.description') }}
+            {{ $t("about.zones.chocolate.description") }}
           </p>
 
           <div

@@ -161,6 +161,7 @@ export default {
     "ctaExhibit": "Daftar Exhibitor",
     "playRecap": "Tonton Recap",
     "announcement": "Slot Exhibitor Masih Tersedia!",
+    "visitorAnnouncement": "Registrasi Pengunjung Sudah Dibuka!",
     "banners": {
       "0": {
         "subHeadline": "Pendaftaran Exhibitor Dibuka!",

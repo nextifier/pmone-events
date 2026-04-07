@@ -166,6 +166,7 @@ export default {
     title: "加速建筑环境转型",
     description: "印尼规模最大的建材、室内设计、建筑与施工展览会暨行业峰会。",
     announcement: "参展 Booth 仍有空位",
+    visitorAnnouncement: "观众注册现已开放!",
     banners: {
       "0": {
         subHeadline: "来 Megabuild Indonesia 展示你的品牌！",

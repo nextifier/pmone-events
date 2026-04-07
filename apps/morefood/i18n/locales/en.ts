@@ -181,6 +181,7 @@ export default {
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",
     "announcement": "Space is still available for exhibitors",
+    "visitorAnnouncement": "Visitor Registration Is Now Open!",
     "banners": {
       "0": {
         "subHeadline": "Exhibitor Registration Is Open!",

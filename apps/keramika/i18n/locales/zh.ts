@@ -158,6 +158,7 @@ export default {
   "hero": {
     "countdownLabel": "开展倒计时",
     "announcement": "参展 Booth 仍有空位",
+    "visitorAnnouncement": "观众注册现已开放!",
     "banners": {
       "0": {
         "subHeadline": "东盟领先的陶瓷行业展览会",

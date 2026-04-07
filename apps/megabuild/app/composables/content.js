@@ -95,6 +95,10 @@ export const useContentStore = defineStore("content", () => {
           text: t("hero.announcement"),
           link: "/book-space",
         },
+        {
+          text: t("hero.visitorAnnouncement"),
+          link: "/ticket",
+        },
       ],
       bannerHero: [
         {
@@ -282,7 +286,7 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
-          image: "/img/banners/cbe-7th-poster.jpg",
+          image: "/img/banners/cbe-8th-poster.jpg",
           subtitle: "Cafe & Brasserie Expo Indonesia",
           title: "For the Love of Coffee & More.",
           description:
@@ -297,7 +301,7 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
-          image: "/img/banners/flei-25th-poster.jpg",
+          image: "/img/banners/flei-26th-poster.jpg",
           subtitle: "Franchise & License Expo Indonesia",
           title: "Your Entrepreneurial Journey Starts Here.",
           description:

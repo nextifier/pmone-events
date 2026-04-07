@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     },
   },
 
-  colorMode: { preference: "light", fallback: "light" },
+  colorMode: { preference: "dark", fallback: "dark" },
 
   i18n: {
     locales: [

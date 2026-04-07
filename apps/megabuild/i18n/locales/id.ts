@@ -170,6 +170,7 @@ export default {
     description:
       "Ratusan brand bahan bangunan, arsitektur, dan interior design ada di satu tempat. Datang, bandingkan, langsung deal.",
     announcement: "Slot Exhibitor Masih Tersedia!",
+    visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
     banners: {
       "0": {
         subHeadline: "Pamerkan Brand Kamu di Megabuild Indonesia!",

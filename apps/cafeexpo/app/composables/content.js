@@ -96,6 +96,10 @@ export const useContentStore = defineStore("content", () => {
           text: t("hero.announcement"),
           link: "/book-space",
         },
+        {
+          text: t("hero.visitorAnnouncement"),
+          link: "/ticket",
+        },
       ],
       bannerHero: [
         {
@@ -232,7 +236,7 @@ export const useContentStore = defineStore("content", () => {
       },
       banners: [
         {
-          image: "/img/banners/flei-25th-poster.jpg",
+          image: "/img/banners/flei-26th-poster.jpg",
           subtitle: "Franchise & License Expo Indonesia",
           title: "Your Entrepreneurial Journey Starts Here.",
           description:

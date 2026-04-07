@@ -170,6 +170,7 @@ export default {
     description:
       "인도네시아 최대 건자재·인테리어 디자인·건축·건설 전시회 & 컨퍼런스.",
     announcement: "전시 부스 아직 자리 있어요",
+    visitorAnnouncement: "관람객 등록이 시작됐어요!",
     banners: {
       "0": {
         subHeadline: "Megabuild Indonesia에 참가하세요!",

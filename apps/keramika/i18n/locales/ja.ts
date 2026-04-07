@@ -158,6 +158,7 @@ export default {
   "hero": {
     "countdownLabel": "開催まであと",
     "announcement": "出展ブースの空きがあります",
+    "visitorAnnouncement": "来場者登録の受付を開始しました!",
     "banners": {
       "0": {
         "subHeadline": "ASEANを代表するセラミクス産業展",

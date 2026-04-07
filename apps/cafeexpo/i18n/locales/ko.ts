@@ -164,6 +164,7 @@ export default {
     "playRecap": "하이라이트 영상 보기",
     "edition": "제{n}회",
     "announcement": "전시 부스 자리 있어요",
+    "visitorAnnouncement": "관람객 등록이 시작됐어요!",
     "banners": {
       "0": {
         "subHeadline": "자신 있는 F&B 제품이 있으세요?",

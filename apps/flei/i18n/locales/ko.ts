@@ -165,6 +165,7 @@ export default {
     "playRecap": "하이라이트 보기",
     "edition": "제{n}회",
     "announcement": "전시 부스 자리가 아직 남아 있어요",
+    "visitorAnnouncement": "관람객 등록이 시작됐어요!",
     "banners": {
       "0": {
         "subHeadline": "전시 참가 신청 오픈!",

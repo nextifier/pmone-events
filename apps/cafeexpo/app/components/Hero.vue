@@ -2,15 +2,8 @@
   <section
     id="hero"
     ref="containerRef"
-    class="from-background via-kv-brown-200/60 to-background dark:via-kv-brown-900/60 relative isolate overflow-hidden bg-linear-to-b lg:bg-radial-[at_25%_25%]"
+    class="relative isolate overflow-hidden"
   >
-    <div
-      class="from-background to-background/0 absolute inset-x-0 top-0 z-0 h-[20%] bg-linear-to-b"
-    ></div>
-    <div
-      class="from-background to-background/0 absolute inset-x-0 bottom-0 z-0 h-[20%] bg-linear-to-t"
-    ></div>
-
     <div class="container-wider relative z-20">
       <div
         class="min-h-screen-offset relative isolate grid grid-cols-1 gap-x-4 gap-y-6 pt-6 md:grid-cols-2 md:items-end md:pt-0 xl:grid-cols-3"

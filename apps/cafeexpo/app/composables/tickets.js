@@ -37,7 +37,7 @@ export const useTicketStore = defineStore("tickets", {
             slug: "vip-ticket",
             image: "/img/tickets/entry-tickets/vip-ticket.jpg",
             starts_in: "Feb 12, 2026 10:00:00",
-            ends_in: "Mar 14, 2026 23:59:59",
+            ends_in: "May 10, 2026 21:00:00",
             showStartCountdownLabel: false,
             showEndCountdownLabel: false,
             status: "", // empty string, Coming Soon, Available, Sold out

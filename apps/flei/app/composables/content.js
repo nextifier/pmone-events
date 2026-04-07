@@ -96,6 +96,10 @@ export const useContentStore = defineStore("content", () => {
           text: t("hero.announcement"),
           link: "/book-space",
         },
+        {
+          text: t("hero.visitorAnnouncement"),
+          link: "/ticket",
+        },
       ],
       bannerHero: [
         {
@@ -232,23 +236,8 @@ export const useContentStore = defineStore("content", () => {
       },
       banners: [
         {
-          image: "/img/banners/indooutingexpo-2025-poster.jpg",
-          subtitle: "Indonesia Outing Expo",
-          title: "Escape the Office, Build the Team.",
-          description:
-            "Discover unique destinations and activities for your next corporate gathering, team building event, or group getaway. Plan your escape here!",
-          accentColor: {
-            light: "#0284c7",
-            dark: "#38bdf8",
-          },
-          cta: {
-            label: "Explore IOE",
-            link: "https://indooutingexpo.co.id/",
-          },
-        },
-        {
-          image: "/img/banners/cbe-7th-poster.jpg",
-          subtitle: "Cafe & Brasserie Expo Indonesia",
+          image: "/img/banners/cbe-8th-poster.jpg",
+          subtitle: "Cafe & Brasserie Expo",
           title: "For the Love of Coffee & More.",
           description:
             "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",
@@ -262,18 +251,18 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
-          image: "/img/banners/renex-2025-poster.jpg",
-          subtitle: "Renovation Expo",
-          title: "The Blueprint for Your Home Renovation.",
+          image: "/img/banners/morefood-2026-poster.jpg",
+          subtitle: "MoreFoox Expo Indonesia",
+          title: "Where Every Ingredient Tells a Story.",
           description:
-            "Take control of your renovation. Touch and feel the latest materials, get direct advice from designers, and build your project with total confidence.",
+            "MoreFood Expo is serving up more than just food. Discover fresh ideas, new partners, and a whole menu of ways to grow your business.",
           accentColor: {
-            light: "#2563eb",
-            dark: "#60a5fa",
+            light: "#e7000b",
+            dark: "#ff6467",
           },
           cta: {
-            label: "Explore RENEX",
-            link: "https://megabuild.co.id",
+            label: "Explore MoreFood",
+            link: "https://morefoodexpo.com",
           },
         },
       ],

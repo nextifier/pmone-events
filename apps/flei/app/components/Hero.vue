@@ -2,7 +2,7 @@
   <section
     id="hero"
     ref="containerRef"
-    class="from-background to-background relative isolate overflow-hidden bg-linear-to-b via-blue-100/0 lg:bg-radial-[at_25%_25%] dark:via-blue-950/90"
+    class="from-background to-background relative isolate overflow-hidden bg-linear-to-b via-blue-100/0 lg:bg-radial-[at_25%_25%] dark:via-blue-950/50"
   >
     <div
       class="from-background to-background/0 absolute inset-x-0 top-0 z-0 h-[20%] bg-linear-to-b"
@@ -10,6 +10,14 @@
     <div
       class="from-background to-background/0 absolute inset-x-0 bottom-0 z-0 h-[20%] bg-linear-to-t"
     ></div>
+
+    <CircularGradientBorder
+      class="pointer-events-none absolute bottom-0 left-0 z-0 size-[600px] rotate-90 lg:size-[30vw]"
+    />
+
+    <CircularGradientBorder
+      class="pointer-events-none absolute top-24 right-0 z-0 size-[700px] rotate-315 lg:top-16 lg:size-[27vw]"
+    />
 
     <div class="container-wider relative z-20">
       <div
@@ -50,7 +58,7 @@
             <Announcement class="border-primary/30 text-primary border" />
 
             <h1
-              class="text-primary mt-2 text-[clamp(2.5rem,4vw,4rem)] leading-[1.15]! font-medium tracking-[-0.06em] text-balance"
+              class="text-primary mt-4 text-[clamp(2.5rem,4vw,4rem)] leading-[1.15]! font-medium tracking-[-0.06em] text-balance"
             >
               {{ content.title }}
             </h1>
@@ -80,9 +88,9 @@
         </div>
 
         <div
-          class="relative isolate z-10 order-2 -mx-[40%] h-full md:order-last md:col-span-2 xl:order-2 xl:col-span-1"
+          class="relative isolate z-10 order-2 -mx-10 flex h-full items-center justify-center md:order-last md:col-span-2 lg:-mx-[40%] xl:order-2 xl:col-span-1"
         >
-          <HeroVisual />
+          <HeroVisual26th class="w-full lg:w-auto" />
         </div>
 
         <div

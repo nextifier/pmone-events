@@ -145,6 +145,7 @@ export default {
   "hero": {
     "countdownLabel": "The event starts in",
     "announcement": "Space is still available for exhibitors",
+    "visitorAnnouncement": "Visitor Registration Is Now Open!",
     "banners": {
       "0": {
         "subHeadline": "ASEAN's Leading Ceramics Industry Exhibition",

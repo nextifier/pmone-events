@@ -127,6 +127,7 @@ export default {
     "title": "Temukan Kopi Favorit Baru Kamu.",
     "description": "Ratusan roaster terbaik ada di sini. Kopi andalan baru kamu tinggal selangkah. Datang, coba satu per satu, dan temukan sendiri favoritmu.",
     "announcement": "Slot Exhibitor Masih Tersedia",
+    "visitorAnnouncement": "Registrasi Pengunjung Sudah Dibuka!",
     "banners": {
       "0": {
         "subHeadline": "Punya Produk yang Bikin Ketagihan?",

@@ -6,7 +6,7 @@
     <LazyAboutEvent />
     <LazyPartnerships />
     <!-- <LazyVisitorCta /> -->
-    <LazyMediaCoveragesSlider />
+    <!-- <LazyMediaCoveragesSlider /> -->
     <!-- <LazyCredits class="container flex flex-col items-center text-center" /> -->
     <LazyBlogPostSlider
       :headline="useContentStore().components.postSlider.title.default"
@@ -19,4 +19,5 @@
 <script setup>
 usePageMeta("home");
 useEventSchema();
+useHead({ bodyAttrs: { class: "theme-brown" } });
 </script>

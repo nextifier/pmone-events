@@ -11,5 +11,8 @@
   "dependencies": {
     "@events/base": "workspace:*",
     "nuxt": "^4.4.2"
+  },
+  "devDependencies": {
+    "ogl": "^1.0.11"
   }
 }
