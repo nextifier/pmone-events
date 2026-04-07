@@ -268,24 +268,24 @@ export const useContentStore = defineStore("content", () => {
         url: "/ticket",
       },
       banners: [
-        {
-          image: "/img/banners/indooutingexpo-2025-poster.jpg",
-          subtitle: "Indonesia Outing Expo",
-          title: "Escape the Office, Build the Team.",
-          description:
-            "Discover unique destinations and activities for your next corporate gathering, team building event, or group getaway. Plan your escape here!",
-          accentColor: {
-            light: "#0284c7",
-            dark: "#38bdf8",
-          },
-          cta: {
-            label: "Explore IOE",
-            link: "https://indooutingexpo.co.id/",
-          },
-        },
+        // {
+        //   image: "/img/banners/indooutingexpo-2025-poster.jpg",
+        //   subtitle: "Indonesia Outing Expo",
+        //   title: "Escape the Office, Build the Team.",
+        //   description:
+        //     "Discover unique destinations and activities for your next corporate gathering, team building event, or group getaway. Plan your escape here!",
+        //   accentColor: {
+        //     light: "#0284c7",
+        //     dark: "#38bdf8",
+        //   },
+        //   cta: {
+        //     label: "Explore IOE",
+        //     link: "https://indooutingexpo.co.id/",
+        //   },
+        // },
         {
           image: "/img/banners/cbe-8th-poster.jpg",
-          subtitle: "Cafe & Brasserie Expo Indonesia",
+          subtitle: "Cafe & Brasserie Expo",
           title: "For the Love of Coffee & More.",
           description:
             "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",
