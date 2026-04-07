@@ -14,7 +14,7 @@
     <LazyBlogPostSlider
       :headline="useContentStore().components.postSlider.title.default"
     />
-    <FAQ tag="h2" />
+    <LazyFAQ tag="h2" />
     <FAB />
   </div>
 </template>

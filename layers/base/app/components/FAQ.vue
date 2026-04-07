@@ -12,21 +12,28 @@
         </p>
       </div>
 
-      <!-- <div
-        class="bg-pattern-diagonal hidden grow rounded-2xl border lg:flex"
-      ></div> -->
+      <div class="hidden grow rounded-2xl lg:flex">
+        <FlickeringGrid
+          class="relative inset-0 z-0 mask-[radial-gradient(450px_circle_at_center,white,transparent)]"
+          :square-size="4"
+          :grid-gap="6"
+          color="var(--color-accent)"
+          :max-opacity="0.5"
+          :flicker-chance="0.1"
+        />
+      </div>
 
       <div
         class="hidden flex-col items-center text-center lg:flex lg:items-start lg:text-left"
       >
         <h2
-          class="text-foreground text-3xl font-semibold tracking-tighter text-balance sm:text-4xl"
+          class="text-foreground text-3xl font-medium tracking-tighter text-balance sm:text-5xl"
         >
           {{ content.contactTitle }}
         </h2>
         <nuxt-link
           :to="localePath('/contact')"
-          class="bg-muted text-primary hover:bg-primary hover:text-primary-foreground mt-4 flex items-center gap-1.5 rounded-full px-4 py-3 font-semibold tracking-tighter transition duration-200 active:scale-98"
+          class="bg-muted border-border text-primary hover:bg-primary hover:text-primary-foreground mt-4 flex items-center gap-1.5 rounded-full border px-4 py-3 font-semibold tracking-tighter transition duration-200 active:scale-98"
         >
           <span>{{ $t("ui.contactUs") }}</span>
         </nuxt-link>

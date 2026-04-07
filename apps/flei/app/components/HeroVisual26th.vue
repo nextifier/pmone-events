@@ -5,7 +5,12 @@
     <div
       class="absolute inset-0 z-10 flex size-full flex-col items-center justify-center overflow-clip rounded-full"
     >
-      <BendingGallery :items="items" :bend="2" :border-radius="0.1" />
+      <BendingGallery
+        :items="items"
+        :bend="2"
+        :border-radius="0.1"
+        class="z-20"
+      />
     </div>
   </div>
 </template>
