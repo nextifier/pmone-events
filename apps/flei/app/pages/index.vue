@@ -17,4 +17,7 @@
 <script setup>
 usePageMeta("home");
 useEventSchema();
+definePageMeta({
+  colorMode: "dark",
+});
 </script>

@@ -236,21 +236,6 @@ export const useContentStore = defineStore("content", () => {
       },
       banners: [
         {
-          image: "/img/banners/cbe-8th-poster.jpg",
-          subtitle: "Cafe & Brasserie Expo Indonesia",
-          title: "For the Love of Coffee & More.",
-          description:
-            "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",
-          accentColor: {
-            light: "#795548",
-            dark: "#a1887f",
-          },
-          cta: {
-            label: "Explore CBE",
-            link: "https://cafebrasserieexpo.com/",
-          },
-        },
-        {
           image: "/img/banners/flei-26th-poster.jpg",
           subtitle: "Franchise & License Expo Indonesia",
           title: "Your Entrepreneurial Journey Starts Here.",
@@ -266,18 +251,18 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
-          image: "/img/banners/renex-2025-poster.jpg",
-          subtitle: "Renovation Expo",
-          title: "The Blueprint for Your Home Renovation.",
+          image: "/img/banners/morefood-2026-poster.jpg",
+          subtitle: "MoreFood Expo Indonesia",
+          title: "Where Every Ingredient Tells a Story.",
           description:
-            "Take control of your renovation. Touch and feel the latest materials, get direct advice from designers, and build your project with total confidence.",
+            "MoreFood Expo is serving up more than just food. Discover fresh ideas, new partners, and a whole menu of ways to grow your business.",
           accentColor: {
-            light: "#2563eb",
-            dark: "#60a5fa",
+            light: "#e7000b",
+            dark: "#ff6467",
           },
           cta: {
-            label: "Explore RENEX",
-            link: "https://megabuild.co.id",
+            label: "Explore MoreFood",
+            link: "https://morefoodexpo.com",
           },
         },
       ],

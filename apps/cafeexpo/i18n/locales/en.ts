@@ -204,7 +204,7 @@ export default {
       },
       "1": {
         "title": "Tasting Bars",
-        "description": "This is your playground. Sample hundreds of products from coffee, tea, wine, and chocolate exhibitors. Discover your next favorite flavor, completely free."
+        "description": "Sample hundreds of products from coffee, tea, wine, and chocolate exhibitors. Your next favorite flavor is somewhere in here."
       },
       "2": {
         "title": "Hands-On Workshops",
@@ -248,8 +248,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "The <span class=\"text-accent\">biggest flavor party</span> of the year <span class=\"text-accent\">is free.</span>",
-    "description": "We're saving you a spot at the tastiest get-together of the year. Come to explore, indulge, and get inspired. All you need is your pass.",
+    "title": "One ticket. <span class=\"text-accent\">Three expos.</span> <span class=\"text-accent\">Four days.</span>",
+    "description": "Cafe & Brasserie Expo, FLEI, and MoreFood Expo, all at JIExpo Kemayoran. One pass covers everything for four days.",
     "cta": "Get Ticket"
   },
   "mediaCoverage": {

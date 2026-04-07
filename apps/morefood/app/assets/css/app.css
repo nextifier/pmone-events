@@ -10,7 +10,7 @@
 
 .dark {
   --accent: var(--color-red-500);
-  --accent-foreground: var(--color-black);
+  --accent-foreground: var(--color-white);
 }
 
 .section-subtitle {

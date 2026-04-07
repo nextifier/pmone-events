@@ -122,7 +122,7 @@
                 v-if="banner.image"
                 :src="banner.image"
                 :alt="banner.title"
-                class="bg-muted border-border size-full rounded-lg border object-cover select-none sm:rounded-xl lg:shadow-md"
+                class="bg-muted outline-inside size-full rounded-lg object-cover select-none sm:rounded-xl lg:shadow-md"
                 sizes="240px"
                 width="1080"
                 height="1350"

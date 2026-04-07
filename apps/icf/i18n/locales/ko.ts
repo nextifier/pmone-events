@@ -193,7 +193,7 @@ export default {
       },
       "1": {
         "title": "테이스팅 바",
-        "description": "커피, 차, 와인, 초콜릿까지. 참가사들의 자신작을 무료로 맛볼 수 있어요. 새로운 최애를 찾아보세요."
+        "description": "커피, 차, 와인, 초콜릿까지. 참가사들의 자신작을 그 자리에서 맛볼 수 있어요. 새로운 최애를 찾아보세요."
       },
       "2": {
         "title": "체험 워크숍",
@@ -237,8 +237,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "올해 <span class=\"text-accent\">가장 큰 커피 축제</span>가 <span class=\"text-accent\">무료</span>예요.",
-    "description": "시음, 워크숍, 라이브 뮤직. 전부 무료로 즐길 수 있어요. 필요한 건 입장권 하나뿐이에요.",
+    "title": "티켓 한 장으로 <span class=\"text-accent\">세 개 엑스포</span>, <span class=\"text-accent\">나흘간.</span>",
+    "description": "커피 축제 티켓으로 옆의 FLEI와 MoreFood Expo도 들어갈 수 있어요. 같은 장소, 4일간.",
     "cta": "티켓 받기"
   },
   "mediaCoverage": {
@@ -352,8 +352,8 @@ export default {
         "description": "초콜릿 덕후라면 여기가 천국이에요. 초콜릿을 만드는 사람들을 직접 만나고, 제조 과정을 보고, 다른 곳에서 맛볼 수 없는 특별한 맛을 경험해 보세요."
       }
     },
-    "accessNote": "게다가 이 엑스포 전체가 Hall 10에서 열리는 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a>와 동시 개최돼요.",
-    "accessNote2": "네, 맞아요. 티켓 한 장으로 3일간 전부 즐길 수 있어요. 꽤 괜찮은 조건이죠."
+    "accessNote": "같은 JIExpo Kemayoran에서 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a>와 <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a>도 함께 열려요.",
+    "accessNote2": "티켓 한 장이면 4일간 전부 즐길 수 있어요. 꽤 괜찮죠."
   },
   "pages": {
     "home": {

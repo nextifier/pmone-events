@@ -217,7 +217,7 @@ export default {
       },
       "1": {
         "title": "Tasting Bars",
-        "description": "咖啡、茶、葡萄酒、巧克力参展商的产品随便尝。找到你的新最爱，免费。"
+        "description": "咖啡、茶、葡萄酒、巧克力参展商的产品，现场都能尝。你的下一个最爱说不定就在这里。"
       },
       "2": {
         "title": "Hands-On Workshops",
@@ -261,8 +261,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "今年<span class=\"text-accent\">最好吃的活动</span>，<span class=\"text-accent\">免费。</span>",
-    "description": "你的位置已经留好了。来发现新口味、找灵感、享受好时光。带一张门票就行。",
+    "title": "一张票，<span class=\"text-accent\">三场展</span>，<span class=\"text-accent\">四天。</span>",
+    "description": "Cafe & Brasserie Expo、FLEI、MoreFood Expo，都在 JIExpo Kemayoran。一票四天，全场通行。",
     "cta": "领门票"
   },
   "mediaCoverage": {

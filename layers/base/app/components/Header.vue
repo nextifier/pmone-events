@@ -47,15 +47,7 @@
 
           <LanguageSwitcher v-if="!route.name?.toString().startsWith('news')" />
 
-          <Tippy>
-            <ColorModeToggle />
-            <template #content>
-              <span class="inline-flex items-center gap-x-1.5 tracking-tight">
-                <span>Light / Dark Mode</span>
-                <kbd class="keyboard-symbol">D</kbd>
-              </span>
-            </template>
-          </Tippy>
+          <ColorModeToggle v-if="!route.meta.colorMode" />
 
           <Tippy v-if="route.name?.toString().startsWith('news-slug')">
             <button

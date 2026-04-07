@@ -193,7 +193,7 @@ export default {
       },
       "1": {
         "title": "テイスティングバー",
-        "description": "コーヒー、お茶、ワイン、チョコレート。出展者の製品を無料で試飲・試食して、お気に入りを見つけてください。"
+        "description": "コーヒー、お茶、ワイン、チョコレート。出展者の製品をその場で試飲・試食できます。お気に入りがきっと見つかります。"
       },
       "2": {
         "title": "ハンズオンワークショップ",
@@ -237,8 +237,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "今年<span class=\"text-accent\">最大のチョコレートの祭典</span>。<span class=\"text-accent\">入場無料</span>です。",
-    "description": "試食、ワークショップ、新しい出会い。すべてチケットで楽しめます。",
+    "title": "チケット1枚で、<span class=\"text-accent\">3つのExpo</span>。<span class=\"text-accent\">4日間。</span>",
+    "description": "チョコレートのチケットで、隣のFLEIとMoreFood Expoにもそのまま入れます。会場はJIExpo Kemayoran。",
     "cta": "チケットを取得"
   },
   "mediaCoverage": {
@@ -352,8 +352,8 @@ export default {
         "description": "気軽にワインテイスティングを楽しめるスペースです。国内外のワインを、堅苦しいルールなしで自由に試してみてください。"
       }
     },
-    "accessNote": "さらに、このExpo全体が <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a>（Hall 10）と同時開催です。",
-    "accessNote2": "チケット1枚で、3日間すべてに入場できます。かなりお得です。"
+    "accessNote": "会場のJIExpo Kemayoranでは、<a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> と <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a> も同時に開催しています。",
+    "accessNote2": "チケット1枚で4日間、全会場に入れます。かなりお得です。"
   },
   "pages": {
     "home": {

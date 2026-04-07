@@ -217,7 +217,7 @@ export default {
       },
       "1": {
         "title": "테이스팅 바",
-        "description": "커피, 차, 와인, 초콜릿 참가사의 수백 가지 제품을 자유롭게 시음할 수 있어요. 무료예요."
+        "description": "커피, 차, 와인, 초콜릿 참가사의 수백 가지 제품을 그 자리에서 시음할 수 있어요. 새로운 취향을 찾아보세요."
       },
       "2": {
         "title": "핸즈온 워크숍",
@@ -261,8 +261,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "올해 <span class=\"text-accent\">가장 맛있는 행사</span>, <span class=\"text-accent\">무료</span>예요.",
-    "description": "당신의 자리를 준비해 뒀어요. 새로운 맛, 영감, 즐거움을 찾으러 오세요. 입장권만 있으면 돼요.",
+    "title": "티켓 한 장으로 <span class=\"text-accent\">세 개 엑스포</span>, <span class=\"text-accent\">나흘간.</span>",
+    "description": "Cafe & Brasserie Expo, FLEI, MoreFood Expo가 JIExpo Kemayoran 한곳에. 4일 동안 마음껏 둘러보세요.",
     "cta": "티켓 받기"
   },
   "mediaCoverage": {

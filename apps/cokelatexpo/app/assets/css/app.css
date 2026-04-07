@@ -109,7 +109,7 @@
   --primary: var(--color-kv-brown-100);
   --border: var(--color-gray-600);
   --muted: var(--color-gray-700);
-  --popover: var(--color-kv-brown-800);
+  --popover: var(--color-gray-800);
 }
 
 .font-display {

@@ -252,7 +252,7 @@ export const useContentStore = defineStore("content", () => {
         },
         {
           image: "/img/banners/morefood-2026-poster.jpg",
-          subtitle: "MoreFoox Expo Indonesia",
+          subtitle: "MoreFood Expo Indonesia",
           title: "Where Every Ingredient Tells a Story.",
           description:
             "MoreFood Expo is serving up more than just food. Discover fresh ideas, new partners, and a whole menu of ways to grow your business.",

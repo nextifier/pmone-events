@@ -160,7 +160,7 @@ export default {
       },
       "1": {
         "title": "Tasting Bars",
-        "description": "Cicipi ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Temukan rasa favorit baru, gratis."
+        "description": "Cicipi ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Rasa favorit baru kamu ada di antara mereka."
       },
       "2": {
         "title": "Hands-On Workshops",
@@ -204,8 +204,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-accent\">Pameran cokelat terbesar</span> tahun ini. <span class=\"text-accent\">Gratis.</span>",
-    "description": "Kami sudah siapkan tempat buat kamu. Datang, cicipi, dan cari inspirasi. Yang kamu butuhkan cuma tiket.",
+    "title": "Satu tiket. <span class=\"text-accent\">Tiga expo.</span> <span class=\"text-accent\">Empat hari penuh rasa.</span>",
+    "description": "Tiket cokelat kamu juga berlaku untuk FLEI dan MoreFood Expo di sebelah. Semua di JIExpo Kemayoran, empat hari penuh.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -352,8 +352,8 @@ export default {
         "description": "Wine tasting tanpa harus tegang. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Tidak ada aturan yang rumit, yang ada cuma wine enak."
       }
     },
-    "accessNote": "Belum cukup? Seluruh expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> di Hall 10.",
-    "accessNote2": "Satu tiket untuk semuanya selama tiga hari. Lebih dari cukup."
+    "accessNote": "Expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> dan <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a> di JIExpo Kemayoran.",
+    "accessNote2": "Satu tiket, empat hari, akses ke semuanya. Lumayan banget, kan."
   },
   "pages": {
     "home": {

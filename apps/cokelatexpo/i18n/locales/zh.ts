@@ -193,7 +193,7 @@ export default {
       },
       "1": {
         "title": "Tasting Bars",
-        "description": "免费品尝咖啡、茶、葡萄酒和巧克力参展商的产品。找到你的下一个心头好。"
+        "description": "现场品尝咖啡、茶、葡萄酒和巧克力参展商的产品。你的下一个心头好，说不定就在这里。"
       },
       "2": {
         "title": "Hands-On Workshops",
@@ -237,8 +237,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "今年<span class=\"text-accent\">最大的巧克力盛会</span>，<span class=\"text-accent\">免费参加。</span>",
-    "description": "品鉴、工坊、新发现。一张门票，全部解锁。",
+    "title": "一张票，<span class=\"text-accent\">三场展</span>，<span class=\"text-accent\">四天好味道。</span>",
+    "description": "巧克力的票也能逛旁边的 FLEI 和 MoreFood Expo。都在 JIExpo Kemayoran，连着四天。",
     "cta": "领取门票"
   },
   "mediaCoverage": {
@@ -352,8 +352,8 @@ export default {
         "description": "轻松品酒，没有门槛。国内外各种葡萄酒随便试，不讲规矩，只讲好喝。"
       }
     },
-    "accessNote": "还不够？整个博览会还和 <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> 同期举办，就在 Hall 10。",
-    "accessNote2": "没错，一张票，三天时间，全部通行。相当划算。"
+    "accessNote": "同一个 JIExpo Kemayoran 会场，<a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> 和 <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a> 也在同期举办。",
+    "accessNote2": "一张票，四天，全部通行。很划算。"
   },
   "pages": {
     "home": {

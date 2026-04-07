@@ -160,7 +160,7 @@ export default {
       },
       "1": {
         "title": "Tasting Bar",
-        "description": "Coba ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Temukan rasa favorit baru kamu. Semuanya gratis."
+        "description": "Coba ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Kopi favorit baru kamu ada di antara mereka."
       },
       "2": {
         "title": "Workshop Hands-On",
@@ -204,8 +204,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "Festival kopi <span class=\"text-accent\">terbesar</span> tahun ini, <span class=\"text-accent\">gratis.</span>",
-    "description": "Tasting, workshop, dan live music. Semuanya bisa kamu nikmati tanpa bayar. Yang perlu kamu lakukan hanya daftar tiket.",
+    "title": "Satu tiket. <span class=\"text-accent\">Tiga expo.</span> <span class=\"text-accent\">Empat hari.</span>",
+    "description": "Tiket kopi kamu juga berlaku untuk FLEI dan MoreFood Expo di sebelah. Satu venue, empat hari.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {
@@ -305,7 +305,7 @@ export default {
         "a": "<p>Kunjungi halaman <a href=\"/book-space\">Exhibitor Registration</a> atau hubungi tim kami via <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> untuk info paket booth dan ketersediaan.</p>"
       },
       "8": {
-        "q": "Ada tasting atau sampling gratis?",
+        "q": "Ada sesi tasting atau sampling produk?",
         "a": "<p>Banyak! Exhibitor menyediakan sampling dan tasting di booth mereka. Kesempatan bagus untuk mencoba produk dan rasa-rasa baru.</p>"
       },
       "9": {
@@ -352,8 +352,8 @@ export default {
         "description": "Surganya pecinta cokelat. Temui langsung para pembuat cokelatnya, lihat prosesnya dari dekat, dan cicipi rasa-rasa unik yang tidak akan kamu temukan di tempat lain."
       }
     },
-    "accessNote": "Belum cukup? Seluruh expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> di Hall 10.",
-    "accessNote2": "Jadi satu tiket berlaku untuk semuanya selama tiga hari. Sangat menguntungkan, kan."
+    "accessNote": "Expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> dan <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a> di JIExpo Kemayoran.",
+    "accessNote2": "Satu tiket, empat hari, bebas masuk ke mana saja. Lumayan banget, kan."
   },
   "pages": {
     "home": {

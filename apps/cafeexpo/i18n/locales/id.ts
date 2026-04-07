@@ -228,8 +228,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-accent\">Event rasa terbesar</span> tahun ini, <span class=\"text-accent\">gratis.</span>",
-    "description": "Tempat kamu sudah disiapkan. Datang untuk explore, nikmati, dan cari inspirasi. Yang kamu butuhkan cuma tiket.",
+    "title": "Satu tiket. <span class=\"text-accent\">Tiga expo.</span> <span class=\"text-accent\">Empat hari.</span>",
+    "description": "Cafe & Brasserie Expo, FLEI, dan MoreFood Expo, semuanya di JIExpo Kemayoran. Satu tiket buat empat hari penuh.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {

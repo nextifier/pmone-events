@@ -217,7 +217,7 @@ export default {
       },
       "1": {
         "title": "テイスティングバー",
-        "description": "コーヒー、紅茶、ワイン、チョコレート。出展ブランドの商品を自由に試せます。お気に入りの一品を見つけてください。無料です。"
+        "description": "コーヒー、紅茶、ワイン、チョコレート。出展ブランドの商品をその場で試せます。お気に入りの一品を見つけてください。"
       },
       "2": {
         "title": "ハンズオンワークショップ",
@@ -261,8 +261,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "今年<span class=\"text-accent\">一番おいしいイベント</span>は、<span class=\"text-accent\">入場無料</span>です。",
-    "description": "あなたの席を用意しています。新しい味との出会い、刺激、ひらめきを求めて、ぜひお越しください。パスだけでOKです。",
+    "title": "チケット1枚で、<span class=\"text-accent\">3つのExpo</span>。<span class=\"text-accent\">4日間。</span>",
+    "description": "Cafe & Brasserie Expo、FLEI、MoreFood Expo。JIExpo Kemayoranで4日間、すべて入場できます。",
     "cta": "チケットを取得"
   },
   "mediaCoverage": {

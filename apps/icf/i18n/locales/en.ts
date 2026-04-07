@@ -160,8 +160,8 @@ export default {
         "description": "Welcome to a chocolate lover's paradise. Meet the people who make the chocolate, see how it's done, and taste unique flavors you can't find anywhere else."
       }
     },
-    "accessNote": "And if that's not enough, the entire expo is happening alongside the <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> in Hall 10.",
-    "accessNote2": "So yes, one ticket gets you into all of it for three days. It's a pretty great deal."
+    "accessNote": "The expo also runs alongside <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> and <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a>, all under one roof at JIExpo Kemayoran.",
+    "accessNote2": "One ticket, four days, full access to everything. Hard to beat that."
   },
   "hero": {
     "countdownLabel": "The brewing begins in:",
@@ -201,7 +201,7 @@ export default {
       },
       "1": {
         "title": "Tasting Bars",
-        "description": "This is your playground. Sample hundreds of products from coffee, tea, wine, and chocolate exhibitors. Discover your next favorite flavor, completely free."
+        "description": "Sample hundreds of products from coffee, tea, wine, and chocolate exhibitors. Your next favorite cup is somewhere in here."
       },
       "2": {
         "title": "Hands-On Workshops",
@@ -245,8 +245,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "The <span class=\"text-accent\">biggest flavor party</span> of the year <span class=\"text-accent\">is free.</span>",
-    "description": "We're saving you a spot at the tastiest get-together of the year. Come to explore, indulge, and get inspired. All you need is your pass.",
+    "title": "One ticket. <span class=\"text-accent\">Three expos.</span> <span class=\"text-accent\">Four days.</span>",
+    "description": "Your coffee pass also gets you into FLEI and MoreFood Expo next door. Same venue, four days to explore it all.",
     "cta": "Get Ticket"
   },
   "mediaCoverage": {
