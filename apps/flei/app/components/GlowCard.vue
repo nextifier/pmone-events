@@ -1,28 +1,22 @@
 <template>
-  <!-- Circle glow: even inner glow ring (centered) -->
+  <!-- Circle / Crescent: circular glow variants -->
   <div
-    v-if="shape === 'circle' && variant === 'glow'"
+    v-if="shape === 'circle'"
     :class="['glow-container relative w-full aspect-square overflow-hidden rounded-full', props.class]"
     :style="baseStyle"
   >
     <div class="glow-blur absolute z-1">
-      <div class="glow-ring glow-ring--circle w-full h-full [clip-path:circle(50%)]" />
+      <div
+        :class="[
+          'glow-ring w-full h-full [clip-path:circle(50%)]',
+          variant === 'crescent' ? 'glow-ring--crescent-blur' : 'glow-ring--circle',
+        ]"
+      />
     </div>
-    <div class="absolute inset-0 z-20 grid place-content-center text-center uppercase text-balance">
-      <slot />
-    </div>
-  </div>
-
-  <!-- Crescent: off-center glow + sharp crescent ring (matches test-2.vue exactly) -->
-  <div
-    v-else-if="variant === 'crescent'"
-    :class="['glow-container relative w-full aspect-square overflow-hidden rounded-full', props.class]"
-    :style="baseStyle"
-  >
-    <div class="glow-blur absolute z-1">
-      <div class="glow-ring glow-ring--crescent-blur w-full h-full [clip-path:circle(50%)]" />
-    </div>
-    <div class="glow-ring glow-ring--crescent-sharp absolute inset-0 z-10 [clip-path:circle(50%)]" />
+    <div
+      v-if="variant === 'crescent'"
+      class="glow-ring glow-ring--crescent-sharp absolute inset-0 z-10 [clip-path:circle(50%)]"
+    />
     <div class="absolute inset-0 z-20 grid place-content-center text-center uppercase text-balance">
       <slot />
     </div>
@@ -42,8 +36,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-
 interface ColorStop {
   color: string;
   position?: string;

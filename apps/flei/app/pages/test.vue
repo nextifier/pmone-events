@@ -79,7 +79,7 @@
             Subtle (1cqi)
           </GlowCard>
           <GlowCard blur="4cqi" class="max-w-60 text-sm">
-            Default (4cqi)
+            Default (2cqi)
           </GlowCard>
           <GlowCard blur="8cqi" class="max-w-60 text-sm">
             Heavy (8cqi)
@@ -91,15 +91,17 @@
 </template>
 
 <script setup>
+definePageMeta({ robots: false });
+
 const colorsRainbow = [
-  { color: "oklch(0.595 0.196 254.96)", position: "0%" },
-  { color: "oklch(0.659 0.187 252.32)", position: "7%" },
-  { color: "oklch(0.775 0.121 247.99)", position: "25%" },
-  { color: "oklch(0.953 0.083 144.45)", position: "49%" },
-  { color: "oklch(0.875 0.175 92.22)", position: "68%" },
-  { color: "oklch(0.7 0.202 44.18)", position: "80%" },
-  { color: "oklch(0.676 0.217 38.8)", position: "85%" },
-  { color: "oklch(0.595 0.196 254.96)", position: "100%" },
+  { color: "oklch(0.595 0.196 254.96)", position: "0deg" },
+  { color: "oklch(0.659 0.187 252.32)", position: "25.2deg" },
+  { color: "oklch(0.775 0.121 247.99)", position: "90deg" },
+  { color: "oklch(0.953 0.083 144.45)", position: "176.4deg" },
+  { color: "oklch(0.875 0.175 92.22)", position: "244.8deg" },
+  { color: "oklch(0.7 0.202 44.18)", position: "288deg" },
+  { color: "oklch(0.676 0.217 38.8)", position: "306deg" },
+  { color: "oklch(0.595 0.196 254.96)", position: "360deg" },
 ];
 
 const colorsOrange = [

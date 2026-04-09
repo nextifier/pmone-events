@@ -1,6 +1,7 @@
 <template>
   <div class="max-h-screen-offset relative isolate h-full">
-    <CircularGradientBorder class="pointer-events-none z-50 size-full" />
+    <!-- <CircularGradientBorder class="pointer-events-none z-50 size-full" /> -->
+    <GlowCard variant="crescent" class="pointer-events-none z-50 size-full" />
 
     <div
       class="absolute inset-0 z-10 flex size-full flex-col items-center justify-center overflow-clip rounded-full"

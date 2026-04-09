@@ -11,13 +11,25 @@
       class="from-background to-background/0 absolute inset-x-0 bottom-0 z-0 h-[20%] bg-linear-to-t"
     ></div>
 
-    <CircularGradientBorder
+    <!-- <CircularGradientBorder
       class="pointer-events-none absolute bottom-0 left-0 z-0 size-[600px] rotate-90 lg:size-[30vw]"
-    />
+    /> -->
 
-    <CircularGradientBorder
+    <div
+      class="pointer-events-none absolute bottom-0 left-0 z-0 size-[600px] rotate-90 lg:size-[30vw]"
+    >
+      <GlowCard variant="crescent" class="size-full" />
+    </div>
+
+    <!-- <CircularGradientBorder
       class="pointer-events-none absolute top-24 right-0 z-0 size-[700px] rotate-315 lg:top-16 lg:size-[27vw]"
-    />
+    /> -->
+
+    <div
+      class="pointer-events-none absolute top-24 right-0 z-0 size-[700px] rotate-315 lg:top-16 lg:size-[27vw]"
+    >
+      <GlowCard variant="crescent" class="size-full" />
+    </div>
 
     <div class="container-wider relative z-20">
       <div
