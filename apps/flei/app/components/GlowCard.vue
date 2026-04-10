@@ -2,14 +2,19 @@
   <!-- Circle / Crescent: circular glow variants -->
   <div
     v-if="shape === 'circle'"
-    :class="['glow-container relative w-full aspect-square overflow-hidden rounded-full', props.class]"
+    :class="[
+      'glow-container relative aspect-square w-full overflow-hidden rounded-full',
+      props.class,
+    ]"
     :style="baseStyle"
   >
     <div class="glow-blur absolute z-1">
       <div
         :class="[
-          'glow-ring w-full h-full [clip-path:circle(50%)]',
-          variant === 'crescent' ? 'glow-ring--crescent-blur' : 'glow-ring--circle',
+          'glow-ring h-full w-full [clip-path:circle(50%)]',
+          variant === 'crescent'
+            ? 'glow-ring--crescent-blur'
+            : 'glow-ring--circle',
         ]"
       />
     </div>
@@ -17,7 +22,9 @@
       v-if="variant === 'crescent'"
       class="glow-ring glow-ring--crescent-sharp absolute inset-0 z-10 [clip-path:circle(50%)]"
     />
-    <div class="absolute inset-0 z-20 grid place-content-center text-center uppercase text-balance">
+    <div
+      class="absolute inset-0 z-20 grid place-content-center text-center text-balance uppercase"
+    >
       <slot />
     </div>
   </div>
@@ -26,7 +33,7 @@
   <div
     v-else
     :class="[
-      'glow-container glow-card overflow-hidden relative isolate w-full aspect-square place-self-center grid place-content-center p-2 text-center uppercase text-balance rounded-lg',
+      'glow-container glow-card relative isolate grid aspect-square w-full place-content-center place-self-center overflow-hidden rounded-lg p-2 text-center text-balance uppercase',
       props.class,
     ]"
     :style="baseStyle"
@@ -47,6 +54,7 @@ interface Props {
   colors?: ColorStop[];
   duration?: number;
   blur?: string;
+  animated?: boolean;
   class?: string;
 }
 
@@ -54,23 +62,27 @@ const props = withDefaults(defineProps<Props>(), {
   shape: "circle",
   variant: "glow",
   colors: () => [
-    { color: "#ec4899", position: "0deg" },
-    { color: "#3b82f6", position: "118.8deg" },
-    { color: "#22d3ee", position: "237.6deg" },
-    { color: "#ec4899", position: "360deg" },
+    { color: "#3b82f6", position: "0deg" },
+    { color: "#22d3ee", position: "118.8deg" },
+    { color: "#ec4899", position: "237.6deg" },
+    { color: "#3b82f6", position: "360deg" },
   ],
   duration: 4,
   blur: "2cqi",
+  animated: false,
 });
 
 const colorStops = computed(() =>
-  props.colors.map((c) => (c.position ? `${c.color} ${c.position}` : c.color)).join(", "),
+  props.colors
+    .map((c) => (c.position ? `${c.color} ${c.position}` : c.color))
+    .join(", "),
 );
 
 const baseStyle = computed(() => ({
   "--glow-colors": colorStops.value,
   "--glow-duration": `${props.duration}s`,
   "--glow-blur": props.blur,
+  "--glow-play-state": props.animated ? "running" : "paused",
 }));
 </script>
 
@@ -100,6 +112,7 @@ const baseStyle = computed(() => ({
     var(--glow-colors)
   );
   animation: glow-rotate var(--glow-duration) linear infinite;
+  animation-play-state: var(--glow-play-state, paused);
 }
 
 /* Blur wrapper shared by circle and crescent */
@@ -148,6 +161,7 @@ const baseStyle = computed(() => ({
     1;
   filter: blur(var(--glow-blur));
   animation: glow-rotate var(--glow-duration) linear infinite;
+  animation-play-state: var(--glow-play-state, paused);
   content: "";
 }
 </style>
