@@ -12,6 +12,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     pmOneApiKey: process.env.NUXT_PM_ONE_API_KEY || "",
+    tiktokAccessTokens: process.env.NUXT_TIKTOK_ACCESS_TOKENS || "",
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
