@@ -18,7 +18,7 @@ const event = {
     value: 11,
     ordinal: "th",
   },
-  poster: "/img/tickets/keramika-2026-poster.jpg",
+  poster: "/img/tickets/keramika-11th-poster.jpg",
   status: "", // Available values: "upcoming", "live", "completed"
   startTime: "Jun 4, 2026 10:00:00",
   endTime: "Jun 7, 2026 21:00:00",

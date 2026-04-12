@@ -102,54 +102,63 @@
         v-if="brand.promotions?.length"
         class="grid grid-cols-1 gap-x-4 sm:grid-cols-2 sm:gap-y-4 xl:grid-cols-3"
       >
-        <div v-for="(promo, index) in brand.promotions" :key="index">
+        <div v-for="(promo, promoIndex) in brand.promotions" :key="promoIndex">
           <div
-            class="overflow-hidden bg-gray-100 sm:rounded-2xl dark:bg-gray-900"
+            v-for="(image, imgIndex) in promo.images"
+            :key="`${promoIndex}-${imgIndex}`"
           >
-            <img
-              v-if="promo.image?.xl"
-              :src="promo.image.xl"
-              alt=""
-              class="h-full w-full object-contain"
-              loading="lazy"
-            />
-          </div>
-
-          <div
-            class="flex items-start gap-x-2.5 pt-3 pr-4 pb-8 pl-2 sm:px-0 sm:pt-4"
-          >
-            <nuxt-link
-              :to="instagramLink?.url || ''"
-              target="_blank"
-              class="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-full p-0.5 text-center"
-              :class="
-                instagramLink ? 'gradient-insta bg-linear-to-tr' : 'bg-border'
-              "
+            <div
+              class="overflow-hidden bg-gray-100 sm:rounded-2xl dark:bg-gray-900"
             >
-              <Avatar
-                :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
-                class="size-full border-2 border-white bg-white dark:border-gray-950"
-                :colorful="false"
+              <img
+                :src="image.xl"
+                :alt="image.alt || ''"
+                class="h-full w-full object-contain"
+                loading="lazy"
               />
-            </nuxt-link>
+            </div>
 
-            <div class="text-primary flex flex-col gap-y-1 pt-1.5">
+            <div
+              class="flex items-start gap-x-2.5 pt-3 pr-4 pb-8 pl-2 sm:px-0 sm:pt-4"
+            >
               <nuxt-link
                 :to="instagramLink?.url || ''"
                 target="_blank"
-                class="font-semibold tracking-tight"
-                >{{ instagramUsername ?? brand.brand_name }}</nuxt-link
+                class="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-full p-0.5 text-center"
+                :class="
+                  instagramLink
+                    ? 'gradient-insta bg-linear-to-tr'
+                    : 'bg-border'
+                "
               >
+                <Avatar
+                  :model="{
+                    name: brand.brand_name,
+                    profile_image: brand.brand_logo,
+                  }"
+                  class="size-full border-2 border-white bg-white dark:border-gray-950"
+                  :colorful="false"
+                />
+              </nuxt-link>
 
-              <div v-if="promo.caption" class="tracking-tight">
-                {{ promo.caption }}
+              <div class="text-primary flex flex-col gap-y-1 pt-1.5">
+                <nuxt-link
+                  :to="instagramLink?.url || ''"
+                  target="_blank"
+                  class="font-semibold tracking-tight"
+                  >{{ instagramUsername ?? brand.brand_name }}</nuxt-link
+                >
+
+                <div v-if="promo.caption" class="tracking-tight">
+                  {{ promo.caption }}
+                </div>
+
+                <span
+                  class="text-xs tracking-tight text-gray-500 dark:text-gray-400"
+                >
+                  {{ $dayjs(promo.created_at).fromNow() }}
+                </span>
               </div>
-
-              <span
-                class="text-xs tracking-tight text-gray-500 dark:text-gray-400"
-              >
-                {{ $dayjs(promo.created_at).fromNow() }}
-              </span>
             </div>
           </div>
         </div>

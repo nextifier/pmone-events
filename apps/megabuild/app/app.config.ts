@@ -18,7 +18,7 @@ const event = {
     value: 23,
     ordinal: "rd",
   },
-  poster: "/img/tickets/megabuild-2026-poster.jpg",
+  poster: "/img/tickets/megabuild-23rd-poster.jpg",
   status: "", // Available values: "upcoming", "live", "completed"
   startTime: "Jun 4, 2026 10:00:00",
   endTime: "Jun 7, 2026 21:00:00",

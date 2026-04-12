@@ -83,9 +83,9 @@
           :style="`z-index: ${brand.promotions.length - index}`"
         >
           <img
-            v-if="item.image?.md"
-            :src="item.image.md"
-            :alt="props.brand.brand_name"
+            v-if="item.md"
+            :src="item.md"
+            :alt="item.alt || props.brand.brand_name"
             loading="lazy"
             class="h-full w-full object-cover"
           />
