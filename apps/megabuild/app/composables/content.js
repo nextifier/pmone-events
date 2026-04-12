@@ -271,23 +271,23 @@ export const useContentStore = defineStore("content", () => {
       },
       banners: [
         {
-          image: "/img/banners/indooutingexpo-2025-poster.jpg",
-          subtitle: "Indonesia Outing Expo",
-          title: "Escape the Office, Build the Team.",
+          image: "/img/banners/flei-26th-poster.jpg",
+          subtitle: "Franchise & License Expo Indonesia",
+          title: "Your Entrepreneurial Journey Starts Here.",
           description:
-            "Discover unique destinations and activities for your next corporate gathering, team building event, or group getaway. Plan your escape here!",
+            "Looking to start your own business? Discover hundreds of proven franchise opportunities from top local and international brands. Find your future venture!",
           accentColor: {
-            light: "#0284c7",
-            dark: "#38bdf8",
+            light: "#0891b2",
+            dark: "#06b6d4",
           },
           cta: {
-            label: "Explore IOE",
-            link: "https://indooutingexpo.co.id/",
+            label: "Explore FLEI",
+            link: "https://franchise-expo.co.id",
           },
         },
         {
           image: "/img/banners/cbe-8th-poster.jpg",
-          subtitle: "Cafe & Brasserie Expo Indonesia",
+          subtitle: "Cafe & Brasserie Expo",
           title: "For the Love of Coffee & More.",
           description:
             "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",
@@ -301,18 +301,18 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
-          image: "/img/banners/flei-26th-poster.jpg",
-          subtitle: "Franchise & License Expo Indonesia",
-          title: "Your Entrepreneurial Journey Starts Here.",
+          image: "/img/banners/morefood-2026-poster.jpg",
+          subtitle: "MoreFood Expo Indonesia",
+          title: "Where Every Ingredient Tells a Story.",
           description:
-            "Looking to start your own business? Discover hundreds of proven franchise opportunities from top local and international brands. Find your future venture!",
+            "MoreFood Expo is serving up more than just food. Discover fresh ideas, new partners, and a whole menu of ways to grow your business.",
           accentColor: {
-            light: "#0891b2",
-            dark: "#06b6d4",
+            light: "#e7000b",
+            dark: "#ff6467",
           },
           cta: {
-            label: "Explore FLEI",
-            link: "https://franchise-expo.co.id",
+            label: "Explore MoreFood",
+            link: "https://morefoodexpo.com",
           },
         },
       ],

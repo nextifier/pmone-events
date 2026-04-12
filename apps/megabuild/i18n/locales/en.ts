@@ -326,9 +326,9 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="text-primary">Planning a renovation?</span><br /><span class="">Your essential guide awaits you here.</span>',
+      '<span class="text-primary">Building something?</span><br /><span class="">Find every material under one roof.</span>',
     description:
-      "Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your pass to smarter renovation solutions.",
+      "Hundreds of brands across construction, kitchen, sanitary, and smart home. Compare options side by side, talk straight with the makers, and walk out knowing exactly what fits your build.",
     cta: "Get Ticket",
   },
   mediaCoverage: {

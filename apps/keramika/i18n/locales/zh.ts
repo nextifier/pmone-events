@@ -318,8 +318,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">在规划装修？</span><br /><span class=\"\">你需要的一站式指南就在这里。</span>",
-    "description": "别再漫无目的地搜索了。供应商、设计灵感、专业建议，一个地方全搞定。",
+    "title": "<span class=\"text-primary\">选瓷砖，</span><br /><span class=\"\">还是亲眼看过再决定。</span>",
+    "description": "亲手摸纹理，在自然光下看花色，价格直接问厂家。数百个国内外品牌的瓷砖、石材、卫浴产品，一次看个够。",
     "cta": "领取门票"
   },
   "mediaCoverage": {

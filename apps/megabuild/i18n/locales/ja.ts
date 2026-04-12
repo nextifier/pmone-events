@@ -344,9 +344,9 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="text-primary">リノベーションをお考えですか？</span><br /><span class="">ここから始めましょう。</span>',
+      '<span class="text-primary">家づくりの材料探し、</span><br /><span class="">ここで全部そろいます。</span>',
     description:
-      "ネットで延々と調べる必要はもうありません。建材サプライヤー、デザインのアイデア、プロのアドバイスがすべて一か所に。パスを手に入れましょう。",
+      "建材、キッチン、サニタリー、スマートホームまで、数百のブランドが一堂に。実物を見比べて、メーカーに直接質問できる場所です。",
     cta: "チケットを取得",
   },
   mediaCoverage: {

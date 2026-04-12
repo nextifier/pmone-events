@@ -6,7 +6,7 @@
     <LazyAboutEvent />
     <!-- <LazyFactsAndFigures /> -->
     <LazyPartnerships />
-    <!-- <LazyVisitorCta /> -->
+    <LazyVisitorCta />
     <LazyMediaCoveragesSlider />
     <LazyCredits class="container flex flex-col items-center text-center" />
     <LazyBlogPostSlider

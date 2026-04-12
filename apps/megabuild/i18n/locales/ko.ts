@@ -340,9 +340,9 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="text-primary">리모델링 준비 중이세요?</span><br /><span class="">여기서 시작하세요.</span>',
+      '<span class="text-primary">집 짓는 데 필요한 자재,</span><br /><span class="">여기 다 있어요.</span>',
     description:
-      "인터넷에서 끝없이 검색하지 않아도 돼요. 건자재 업체, 디자인 아이디어, 전문가 상담이 한 자리에.",
+      "건자재, 주방, 욕실, 스마트홈까지 수백 개 브랜드가 한자리에. 실물을 직접 보고, 담당자에게 바로 물어보세요.",
     cta: "티켓 받기",
   },
   mediaCoverage: {

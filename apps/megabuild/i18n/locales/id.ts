@@ -341,9 +341,9 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="text-primary">Mau renovasi rumah?</span><br /><span class="">Mulai dari sini.</span>',
+      '<span class="text-primary">Lagi cari material buat proyek rumah?</span><br /><span class="">Semuanya kumpul di sini.</span>',
     description:
-      "Tidak perlu repot browsing ke sana-sini. Supplier, ide desain, dan saran dari ahli. Semua ada di satu tempat.",
+      "Ratusan brand bahan bangunan, sanitary, kitchen, sampai smart home dalam satu pameran. Bandingkan langsung, tanya ke ahlinya, pulang bawa solusi yang siap dipakai.",
     cta: "Dapatkan Tiket",
   },
   mediaCoverage: {

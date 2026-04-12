@@ -318,8 +318,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">Mau renovasi rumah?</span><br /><span class=\"\">Panduan lengkap kamu ada di sini.</span>",
-    "description": "Tidak perlu lagi browsing tanpa ujung. Supplier keramik, inspirasi desain, dan saran langsung dari ahlinya. Semua ada di satu tempat.",
+    "title": "<span class=\"text-primary\">Lagi pilih keramik buat rumah?</span><br /><span class=\"\">Lihat aslinya dulu sebelum beli.</span>",
+    "description": "Pegang sendiri teksturnya, cek motifnya di bawah cahaya asli, tanya harga langsung ke supplier. Ratusan koleksi keramik, granit, dan sanitary dari brand lokal sampai impor.",
     "cta": "Dapatkan Tiket"
   },
   "mediaCoverage": {

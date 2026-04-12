@@ -305,8 +305,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">Planning a renovation?</span><br /><span class=\"\">Your essential guide awaits you here.</span>",
-    "description": "Stop the endless searching online. Find all the suppliers, ideas, and professional advice you need in one place. Secure your pass to smarter renovation solutions.",
+    "title": "<span class=\"text-primary\">Picking tiles for your space?</span><br /><span class=\"\">See them in person first.</span>",
+    "description": "Feel the texture, check the pattern under real light, and get pricing straight from the supplier. Hundreds of tile, stone, and sanitary collections from local and international brands.",
     "cta": "Get Ticket"
   },
   "mediaCoverage": {

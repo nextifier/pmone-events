@@ -318,8 +318,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">리모델링을 계획하고 있나요?</span><br /><span class=\"\">필요한 모든 가이드가 여기 있어요.</span>",
-    "description": "인터넷에서 끝없이 검색하지 마세요. 공급업체, 디자인 아이디어, 전문가 조언을 한 곳에서 만나보세요. 똑똑한 리모델링을 시작하세요.",
+    "title": "<span class=\"text-primary\">타일 고를 땐,</span><br /><span class=\"\">직접 보고 정하는 게 답이에요.</span>",
+    "description": "질감을 만져보고, 자연광 아래서 무늬를 확인하고, 가격은 업체에 바로 물어보세요. 국내외 수백 개 브랜드의 타일, 석재, 위생도기를 한자리에서.",
     "cta": "티켓 받기"
   },
   "mediaCoverage": {

@@ -332,9 +332,9 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="text-primary">准备装修了？</span><br /><span class="">从这里开始。</span>',
+      '<span class="text-primary">盖房子要用的材料，</span><br /><span class="">这里都能找到。</span>',
     description:
-      "别在网上来回搜了。建材供应商、设计灵感、专业建议，全在一个地方。",
+      "数百个品牌齐聚一堂，从建材、厨房、卫浴到智能家居。现场比较实物，直接和厂商聊。",
     cta: "领取门票",
   },
   mediaCoverage: {

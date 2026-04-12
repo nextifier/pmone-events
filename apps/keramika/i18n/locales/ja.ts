@@ -318,8 +318,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "<span class=\"text-primary\">リフォームをお考えですか？</span><br /><span class=\"\">必要な情報がここに揃っています。</span>",
-    "description": "ネットで探し続ける必要はもうありません。サプライヤー、デザインのヒント、プロのアドバイスが一か所に。賢いリフォーム計画を始めましょう。",
+    "title": "<span class=\"text-primary\">タイル選びは、</span><br /><span class=\"\">実物を見てから決めたい。</span>",
+    "description": "質感を手で確かめて、自然光の下で柄を確認。価格はメーカーに直接聞けます。国内外の数百ブランドのタイル、石材、サニタリーが集まります。",
     "cta": "チケットを取得"
   },
   "mediaCoverage": {
