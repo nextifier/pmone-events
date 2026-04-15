@@ -70,65 +70,6 @@ export const usePartnerStore = defineStore("partners", {
       },
 
       {
-        category: "Official Audiovisual Partner",
-        directory: "/img/credits/etc/",
-        list: [
-          {
-            img: "sda.png",
-          },
-        ],
-      },
-
-      {
-        category: "Official Freight Forwarders",
-        directory: "/img/credits/etc/",
-        list: [
-          // {
-          //   img: "dsv-and-rogers-asia.png",
-          //   link: "",
-          // },
-          {
-            img: "maximos.png",
-            link: "",
-          },
-          {
-            img: "rogers-asia.png",
-            link: "",
-          },
-        ],
-      },
-
-      {
-        category: "Official Internet Partner",
-        directory: "/img/credits/etc/",
-        list: [
-          {
-            img: "iforte.png",
-          },
-        ],
-      },
-
-      {
-        category: "Official Contractor",
-        directory: "/img/credits/etc/",
-        list: [
-          {
-            img: "cityneon.png",
-          },
-        ],
-      },
-
-      {
-        category: "Official Hotel Partner",
-        directory: "/img/credits/etc/",
-        list: [
-          {
-            img: "the1o1.png",
-          },
-        ],
-      },
-
-      {
         category: "Official Ticketing Partner",
         directory: "/img/credits/etc/",
         list: [
