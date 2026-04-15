@@ -28,6 +28,200 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
+      {
+        category: "Supporting Associations & Communities",
+        directory: "/img/credits/associations/",
+        list: [
+          {
+            img: "ali.png",
+          },
+          {
+            img: "hipmi.png",
+          },
+          {
+            img: "ipbbi.png",
+          },
+          {
+            img: "appmbgi.png",
+          },
+          {
+            img: "gapmmi.png",
+          },
+          {
+            img: "gphri.png",
+          },
+          {
+            img: "ipa.png",
+          },
+          {
+            img: "ppji.png",
+          },
+          {
+            img: "brin.png",
+          },
+          {
+            img: "mui.png",
+          },
+          {
+            img: "pdf.png",
+          },
+        ],
+      },
+
+      {
+        category: "Official Audiovisual Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "sda.png",
+          },
+        ],
+      },
+
+      {
+        category: "Official Freight Forwarders",
+        directory: "/img/credits/etc/",
+        list: [
+          // {
+          //   img: "dsv-and-rogers-asia.png",
+          //   link: "",
+          // },
+          {
+            img: "maximos.png",
+            link: "",
+          },
+          {
+            img: "rogers-asia.png",
+            link: "",
+          },
+        ],
+      },
+
+      {
+        category: "Official Internet Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "iforte.png",
+          },
+        ],
+      },
+
+      {
+        category: "Official Contractor",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "cityneon.png",
+          },
+        ],
+      },
+
+      {
+        category: "Official Hotel Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "the1o1.png",
+          },
+        ],
+      },
+
+      {
+        category: "Official Ticketing Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "undangin.png",
+          },
+        ],
+      },
+
+      {
+        category: "Media Partners",
+        directory: "/img/credits/media-partners/",
+        list: [
+          {
+            img: "bisnis-indonesia.png",
+          },
+          {
+            img: "bisnis-muda.png",
+          },
+          {
+            img: "bisnis.com.png",
+          },
+          {
+            img: "bisnis-market.png",
+          },
+          {
+            img: "dunia-mice.png",
+          },
+          {
+            img: "gac-media.png",
+          },
+          {
+            img: "jakarta-story.png",
+          },
+          {
+            img: "liputan6.png",
+          },
+          {
+            img: "eventfest.png",
+          },
+          {
+            img: "event-guide.png",
+          },
+          {
+            img: "holopis.png",
+          },
+          {
+            img: "indonetwork.png",
+          },
+          {
+            img: "indotrading.png",
+          },
+          {
+            img: "info-umkm.png",
+          },
+          {
+            img: "katadata.png",
+          },
+          {
+            img: "katalog-promosi.png",
+          },
+          {
+            img: "media-event.png",
+          },
+          {
+            img: "sisi.png",
+          },
+          {
+            img: "the-phrase.png",
+          },
+          {
+            img: "wartausaha.png",
+          },
+          {
+            img: "infobrand.png",
+          },
+          {
+            img: "jejakini.png",
+          },
+          {
+            img: "kreen.png",
+          },
+          {
+            img: "soul-of-jakarta.png",
+          },
+          {
+            img: "urbanvibes.png",
+          },
+          {
+            img: "whats-new-indonesia.png",
+          },
+        ],
+      },
     ],
   }),
 });

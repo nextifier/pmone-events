@@ -128,15 +128,15 @@ export const usePartnerStore = defineStore("partners", {
         ],
       },
 
-      // {
-      //   category: "Official Internet Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "iforte.png",
-      //     },
-      //   ],
-      // },
+      {
+        category: "Official Internet Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "iforte.png",
+          },
+        ],
+      },
 
       {
         category: "Official Contractor",
