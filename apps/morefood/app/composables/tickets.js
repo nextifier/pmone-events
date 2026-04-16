@@ -14,7 +14,7 @@ export const useTicketStore = defineStore("tickets", {
             slug: "regular-pass",
             image: "/img/tickets/entry-tickets/regular-ticket.jpg",
             starts_in: "Mar 15, 2026 10:00:00",
-            ends_in: "Apr 15, 2026 23:59:59",
+            ends_in: "Apr 30, 2026 23:59:59",
             showStartCountdownLabel: false,
             showEndCountdownLabel: false,
             status: "", // empty string, Coming Soon, Available, Sold out
