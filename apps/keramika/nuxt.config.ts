@@ -83,6 +83,16 @@ export default defineNuxtConfig({
     },
   },
 
+  pwa: {
+    manifest: {
+      name: "Keramika Indonesia",
+      short_name: "Keramika",
+      description: "Pameran industri keramik terdepan di ASEAN. Jelajahi koleksi terbaik dari brand keramik, marmer, granit, dan sanitari terkemuka.",
+      theme_color: "#ffffff",
+      background_color: "#ffffff",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

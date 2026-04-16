@@ -88,6 +88,14 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Indonesia Anime Con (INACON)",
+      short_name: "INACON",
+      description: "Festival anime dan budaya Jepang terbesar di Indonesia. Nikmati guest artis, cosplay, merchandise eksklusif, dan pengalaman seru lainnya.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

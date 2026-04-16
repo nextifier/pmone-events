@@ -96,6 +96,7 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "nuxt-gtag",
     "@formkit/auto-animate/nuxt",
+    "@vite-pwa/nuxt",
   ],
 
   fonts: {
@@ -176,6 +177,57 @@ export default defineNuxtConfig({
       redirectOn: "all",
       alwaysRedirect: true,
       fallbackLocale: "en",
+    },
+  },
+
+  pwa: {
+    registerType: "autoUpdate",
+    registerWebManifestInRouteRules: true,
+    manifest: {
+      name: "",
+      short_name: "",
+      start_url: "/",
+      display: "standalone",
+      theme_color: "#09090b",
+      background_color: "#09090b",
+      description: "",
+      icons: [
+        {
+          src: "icons/icon-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any",
+        },
+      ],
+    },
+    workbox: {
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
+      navigateFallback: null,
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+    },
+    injectManifest: {
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+    },
+    client: {
+      installPrompt: true,
+    },
+    devOptions: {
+      enabled: false,
+      suppressWarnings: true,
+      navigateFallbackAllowlist: [/^\/$/],
+      type: "module",
     },
   },
 

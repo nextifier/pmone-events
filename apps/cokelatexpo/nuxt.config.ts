@@ -82,6 +82,14 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Cokelat Expo Indonesia",
+      short_name: "CEI",
+      description: "Pameran cokelat dan kakao pertama di Indonesia. Temukan produk cokelat premium, bahan baku, dan peluang bisnis di industri kakao.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

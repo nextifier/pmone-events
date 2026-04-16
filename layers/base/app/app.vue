@@ -1,5 +1,6 @@
 <template>
   <Html>
+    <NuxtPwaManifest />
     <Body
       class="bg-background text-body font-sans text-sm antialiased sm:text-base"
     >

@@ -82,6 +82,14 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Franchise & License Expo Indonesia (FLEI)",
+      short_name: "FLEI",
+      description: "Pameran franchise dan lisensi terbesar di Indonesia. Temukan peluang bisnis dari ratusan brand unggulan di berbagai sektor.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

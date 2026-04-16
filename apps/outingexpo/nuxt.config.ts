@@ -82,6 +82,16 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Indonesia Outing & Incentive Travel Expo (IOITE)",
+      short_name: "IOITE",
+      description: "Pameran corporate outing dan incentive travel di Indonesia. Temukan destinasi, venue, dan solusi event untuk perusahaan Anda.",
+      theme_color: "#ffffff",
+      background_color: "#ffffff",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

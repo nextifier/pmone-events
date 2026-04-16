@@ -82,6 +82,16 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "More Food Expo Indonesia",
+      short_name: "MoreFood Expo",
+      description: "Pameran food & beverage terlengkap di Indonesia. Temukan bahan baku, peralatan, dan peluang bisnis F&B dari ratusan brand.",
+      theme_color: "#ffffff",
+      background_color: "#ffffff",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

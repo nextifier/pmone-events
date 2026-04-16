@@ -97,6 +97,14 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Indonesia Comic Con (ICC)",
+      short_name: "ICC",
+      description: "Ajang pop culture terbesar di Indonesia. Nikmati pengalaman seru bertemu artis internasional, cosplay, komik, dan merchandise eksklusif.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

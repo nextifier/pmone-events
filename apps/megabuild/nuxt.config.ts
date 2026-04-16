@@ -83,6 +83,14 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Megabuild Indonesia",
+      short_name: "Megabuild",
+      description: "Pameran bahan bangunan, arsitektur, konstruksi, dan desain interior terbesar di Indonesia.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

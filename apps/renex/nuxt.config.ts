@@ -82,6 +82,14 @@ export default defineNuxtConfig({
     },
   },
 
+  pwa: {
+    manifest: {
+      name: "Renovation Expo by Megabuild Indonesia",
+      short_name: "RENEX",
+      description: "Pameran renovasi dan desain interior by Megabuild Indonesia. Temukan inspirasi dan solusi terbaik untuk proyek renovasi Anda.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

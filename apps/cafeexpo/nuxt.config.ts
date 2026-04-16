@@ -82,6 +82,14 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Cafe & Brasserie Expo Jakarta (CBE)",
+      short_name: "CBE",
+      description: "Pameran industri kafe dan restoran terbesar di Indonesia. Temukan peralatan, bahan baku, dan peluang bisnis F&B terkini.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

@@ -82,6 +82,14 @@ export default defineNuxtConfig({
     ],
   },
 
+  pwa: {
+    manifest: {
+      name: "Indonesia Coffee Festival (ICF)",
+      short_name: "ICF",
+      description: "Festival kopi terbesar di Indonesia. Jelajahi ragam kopi nusantara, peralatan brewing, dan peluang bisnis di industri kopi.",
+    },
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },
