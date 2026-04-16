@@ -8,7 +8,7 @@ const app = {
     ? "https://indocoffeefestival.com"
     : "http://localhost:3000",
   company: {
-    name: "PT Pameran Kreasi Rasa",
+    name: "PT Panorama Media",
     address:
       "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150",
   },
