@@ -16,6 +16,13 @@
           event information, and general questions.
         </p>
 
+        <p>
+          For assistance related to ticket purchase, ticket delivery issues
+          (including tickets not received), event registration, payment
+          confirmation, invoicing, refund inquiries, and event entry/ID Card,
+          please contact:
+        </p>
+
         <div class="not-prose my-8">
           <div class="grid gap-2.5 sm:grid-cols-2">
             <a

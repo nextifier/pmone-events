@@ -2,106 +2,170 @@
   <div class="pt-6 pb-16 lg:pt-10 lg:pb-24">
     <div class="container">
       <div class="format-html mx-auto">
-        <h1>Ticket Terms and Conditions</h1>
+        <h1>Syarat & Ketentuan Tiket (Ticket Terms & Conditions)</h1>
 
-        <p>Last updated: {{ lastUpdate }}</p>
+        <h2>A. Definisi</h2>
+        <ul>
+          <li><strong>Penyelenggara / Kami:</strong> Panorama Media.</li>
+          <li>
+            <strong>Pengguna / Anda:</strong> setiap individu atau badan usaha
+            yang melakukan pembelian tiket atau registrasi melalui platform
+            kami.
+          </li>
+          <li>
+            <strong>Event</strong> adalah pameran, konferensi, atau acara lain
+            yang diselenggarakan dan/atau dikelola oleh Panorama Media, baik
+            secara mandiri maupun bekerja sama dengan pihak lain, termasuk namun
+            tidak terbatas pada Franchise & License Expo Indonesia (FLEI),
+            Caf&eacute; & Brasserie Expo Indonesia (CBE), Morefood Expo,
+            Megabuild Indonesia, Keramika Indonesia, Indonesia Outing Expo,
+            Indonesia Comic Con, serta event-event lainnya di bawah pengelolaan
+            Panorama Media.
+          </li>
+          <li>
+            <strong>Tiket / ID Card:</strong> bukti pembelian atau registrasi
+            yang memberikan hak akses ke Event.
+          </li>
+        </ul>
 
+        <h2>B. Persetujuan Pengguna</h2>
         <p>
-          By purchasing a ticket for {{ eventTitle }}, you agree to the
-          following terms and conditions. Please read them carefully before
-          completing your purchase.
+          Dengan mengakses website dan menyelesaikan proses pembelian tiket atau
+          registrasi, Pengguna menyatakan telah membaca, memahami, dan
+          menyetujui seluruh Syarat & Ketentuan ini, termasuk Kebijakan Refund
+          dan Kebijakan Privasi yang berlaku.
         </p>
 
-        <h2>1. Ticket Validity</h2>
+        <h2>C. Data Pengguna & Tanggung Jawab</h2>
         <p>
-          Tickets are valid only for the specified event, date, time, and venue.
-          Please ensure you have verified all details before making your
-          purchase.
+          Pengguna bertanggung jawab penuh atas kebenaran, kelengkapan, dan
+          keabsahan seluruh data yang diinput pada saat registrasi atau
+          pembelian. Panorama Media tidak bertanggung jawab atas kendala yang
+          timbul akibat kesalahan atau kelalaian Pengguna dalam mengisi data.
+          Pengguna bertanggung jawab atas keamanan dan keselamatan pribadi
+          selama berada di area Event.
         </p>
 
-        <h2>2. E-Ticket Delivery</h2>
+        <h2>D. Ketentuan Tiket & ID Card</h2>
+        <ol>
+          <li>
+            Tiket dan/atau ID Card hanya berlaku untuk Event, tanggal, dan sesi
+            yang tercantum pada konfirmasi pemesanan.
+          </li>
+          <li>
+            Tiket dan/atau ID Card tidak dapat dipindahtangankan, diperbanyak,
+            atau dijual kembali tanpa persetujuan tertulis dari Panorama Media,
+            kecuali dinyatakan lain secara eksplisit.
+          </li>
+          <li>
+            Panorama Media berhak menolak akses masuk apabila Tiket atau ID Card
+            terbukti tidak sah, digandakan, disalahgunakan, atau digunakan tidak
+            sesuai ketentuan.
+          </li>
+        </ol>
+
+        <h2>E. Ketentuan Pembayaran</h2>
+        <ol>
+          <li>
+            Pembayaran harus diselesaikan dalam batas waktu yang ditentukan pada
+            saat proses checkout. Apabila pembayaran tidak diselesaikan dalam
+            jangka waktu tersebut, sistem berhak membatalkan pesanan secara
+            otomatis.
+          </li>
+          <li>
+            Seluruh pembayaran diproses melalui penyedia layanan pembayaran
+            pihak ketiga. Panorama Media tidak bertanggung jawab atas
+            keterlambatan atau kegagalan pembayaran yang disebabkan oleh pihak
+            bank atau penyedia layanan pembayaran.
+          </li>
+          <li>
+            Biaya tambahan seperti biaya administrasi atau biaya platform (jika
+            ada) akan diinformasikan kepada Pengguna sebelum konfirmasi
+            pembayaran.
+          </li>
+        </ol>
+
+        <h2>F. Dokumentasi & Publikasi</h2>
         <p>
-          Your e-ticket will be delivered via email and WhatsApp to the contact
-          information provided during purchase. Please ensure your contact
-          details are accurate to receive your ticket confirmation.
+          Dengan menghadiri Event dan/atau membeli tiket, Pengguna menyetujui
+          bahwa Panorama Media dapat mengambil foto, video, dan/atau rekaman
+          selama Event berlangsung yang dapat mencakup wajah atau penampilan
+          Pengguna.
+        </p>
+        <p>
+          Materi tersebut dapat digunakan untuk keperluan dokumentasi, promosi,
+          dan pemasaran, termasuk dipublikasikan di media sosial, website, dan
+          materi komunikasi lainnya, tanpa kewajiban kompensasi kepada Pengguna.
         </p>
 
-        <h2>3. Ticket Redemption</h2>
+        <h2>G. Dokumentasi oleh Pihak Ketiga</h2>
         <p>
-          Tickets will be exchanged in the form of badges or wristbands at the
-          venue upon redemption. Please present your e-ticket (digital or
-          printed) at the registration counter.
+          Pengguna memahami bahwa selama Event berlangsung, dokumentasi juga
+          dapat dilakukan oleh pihak ketiga seperti exhibitor, media, atau
+          partner resmi.
         </p>
 
-        <h2>4. No Refunds or Exchanges</h2>
+        <h2>H. Perubahan Event & Keadaan Kahar (Force Majeure)</h2>
         <p>
-          All ticket sales are final. There are no refunds and no exchanges. We
-          encourage you to review your order carefully before confirming your
-          purchase. For more information, please refer to our
-          <nuxt-link :to="localePath('/ticket-refund-and-return-policy')"
-            >Ticket Refund and Return Policy</nuxt-link
-          >.
+          Panorama Media berhak melakukan perubahan terhadap detail Event,
+          termasuk namun tidak terbatas pada jadwal, lokasi, tata letak,
+          exhibitor, pembicara, atau konten acara, apabila diperlukan karena
+          pertimbangan operasional atau keadaan kahar. Perubahan material akan
+          diinformasikan melalui kanal resmi.
         </p>
 
-        <h2>5. Official Ticket Sales</h2>
+        <h2>I. Pembatalan & Refund</h2>
         <p>
-          We are only responsible for tickets that are purchased through our
-          official ticket platform. Any tickets acquired from unauthorized
-          sellers or secondary markets outside our official ticketing platform
-          are done so at your own risk. We cannot guarantee the validity of
-          tickets purchased from third parties.
+          Ketentuan pembatalan dan pengembalian dana (refund) mengikuti
+          Kebijakan Refund yang berlaku untuk masing-masing Event. Pada
+          prinsipnya, tiket bersifat tidak dapat dikembalikan (non-refundable),
+          kecuali dalam kondisi yang secara tegas disebutkan dalam Kebijakan
+          Refund atau diwajibkan oleh peraturan perundang-undangan yang berlaku.
         </p>
 
-        <h2>6. Event Rules and Regulations</h2>
+        <h2>J. Larangan & Penyalahgunaan</h2>
         <p>
-          The ticket holder must follow the event rules and regulations,
-          including codes of conduct or instructions provided by the organizer
-          or venue staff. Failure to comply may result in removal from the event
-          without refund. For more details, please refer to our
-          <nuxt-link :to="localePath('/event-policy')">Event Policy</nuxt-link>.
+          Pengguna dilarang melakukan transaksi fiktif, penyalahgunaan
+          chargeback, penipuan, penjualan tiket tanpa izin, atau tindakan lain
+          yang melanggar hukum maupun Syarat & Ketentuan ini.
         </p>
 
-        <h2>7. Lost or Stolen Tickets</h2>
+        <h2>K. Ketertiban & Hak Penyelenggara</h2>
         <p>
-          Lost and stolen tickets may not be replaced. Please keep your e-ticket
-          secure and do not share it with others.
+          Panorama Media berhak menolak masuk atau mengeluarkan Pengguna dari
+          area Event tanpa pengembalian dana apabila dianggap melanggar
+          peraturan, mengganggu jalannya acara, atau membahayakan pihak lain.
         </p>
 
-        <h2>8. Protecting Your E-Ticket</h2>
+        <h2>L. Pembatasan Tanggung Jawab</h2>
         <p>
-          Do not take photos or screenshots of online e-tickets and upload them
-          to social media. This is to protect your ticket data from being copied
-          or misused by others. Your e-ticket contains unique identifiers that
-          should remain confidential.
+          Sejauh diizinkan oleh hukum yang berlaku, Panorama Media tidak
+          bertanggung jawab atas kerugian tidak langsung, termasuk namun tidak
+          terbatas pada biaya transportasi, akomodasi, atau kerugian komersial
+          lainnya yang timbul akibat kehadiran atau ketidakhadiran Pengguna pada
+          Event.
         </p>
 
-        <h2>9. Non-Transferable Use</h2>
+        <h2>M. Hukum yang Berlaku & Penyelesaian Sengketa</h2>
         <p>
-          Ticket holders must not allow their e-ticket or printed badges or
-          wristbands to be used by anyone else. Any failure to comply is likely
-          to lead to the ticket holder and the person using the e-ticket or
-          printed badges or wristbands being removed from the event without
-          refund.
+          Syarat & Ketentuan ini diatur dan ditafsirkan berdasarkan hukum
+          Republik Indonesia. Setiap sengketa akan diselesaikan terlebih dahulu
+          secara musyawarah. Apabila tidak tercapai, maka akan diselesaikan
+          melalui pengadilan yang berwenang di Jakarta.
         </p>
 
-        <h2>10. Event Changes</h2>
+        <h2>N. Kontak</h2>
         <p>
-          The organizer reserves the right to make changes to the event program,
-          schedule, or venue due to unforeseen circumstances.
-        </p>
-
-        <h2>Contact Us</h2>
-        <p>
-          If you have any questions about these Ticket Terms and Conditions, you
-          can contact us:
+          Untuk pertanyaan terkait Syarat & Ketentuan ini, Pengguna dapat
+          menghubungi kami melalui:
         </p>
         <ul>
           <li>
-            By email:
+            Email:
             <a :href="`mailto:${email}`">{{ email }}</a>
           </li>
           <li>
-            By WhatsApp:
+            WhatsApp:
             <a :href="whatsappLink" target="_blank">{{ whatsappDisplay }}</a>
           </li>
         </ul>
@@ -112,17 +176,14 @@
 
 <script setup>
 usePageMeta(null, {
-  title: "Ticket Terms and Conditions",
+  title: "Syarat & Ketentuan Tiket",
   description:
-    "Read the ticket terms and conditions including ticket validity, e-ticket delivery, redemption process, and usage policies.",
+    "Syarat & Ketentuan Tiket Event Panorama Media untuk pembelian tiket, registrasi event, pembayaran, dan kebijakan lainnya.",
 });
 
-const localePath = useLocalePath();
 const config = useAppConfig();
-const eventTitle = config.event.title;
 const email = config.contact.email;
 const whatsapp = config.contact.whatsapp;
 const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsapp}`;
 const whatsappDisplay = `+${whatsapp.slice(0, 2)} ${whatsapp.slice(2, 5)}-${whatsapp.slice(5, 9)}-${whatsapp.slice(9)}`;
-const lastUpdate = config.settings.terms.lastUpdate;
 </script>

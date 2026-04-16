@@ -2,113 +2,155 @@
   <div class="pt-6 pb-16 lg:pt-10 lg:pb-24">
     <div class="container">
       <div class="format-html mx-auto">
-        <h1>Ticket Refund and Return Policy</h1>
+        <h1>Kebijakan Pengembalian Dana (Refund & Return Policy)</h1>
 
-        <p>Last updated: {{ lastUpdate }}</p>
-
+        <h2>1. Ketentuan Umum</h2>
         <p>
-          This Ticket Refund and Return Policy outlines the terms regarding
-          refunds and returns for tickets purchased for {{ eventTitle }}. Please
-          read this policy carefully before making your purchase.
+          Pada prinsipnya, tiket dan/atau registrasi bersifat tidak dapat
+          dikembalikan (non-refundable) dan tidak dapat ditukar, kecuali dalam
+          kondisi tertentu sebagaimana diatur dalam kebijakan ini atau diwajibkan
+          oleh peraturan perundang-undangan yang berlaku.
         </p>
 
-        <h2>No Refund Policy</h2>
+        <h2>2. Kondisi yang Memenuhi Syarat Refund</h2>
         <p>
-          <strong>All ticket sales are final.</strong> Once a ticket has been
-          purchased, no refunds will be issued under any circumstances,
-          including but not limited to:
-        </p>
-        <ul>
-          <li>Change of personal plans or schedule conflicts</li>
-          <li>Inability to attend the event</li>
-          <li>Duplicate ticket purchases</li>
-          <li>Purchasing the wrong ticket type or quantity</li>
-          <li>Travel or accommodation issues</li>
-          <li>Health-related reasons</li>
-        </ul>
-
-        <h2>No Exchange Policy</h2>
-        <p>
-          Tickets cannot be exchanged for other dates, events, or ticket types.
-          Please ensure you select the correct ticket type and verify all
-          details before completing your purchase.
+          Pengguna dapat mengajukan permohonan pengembalian dana (refund) dalam
+          kondisi berikut:
         </p>
 
-        <h2>No Transfer Policy</h2>
-        <p>
-          Tickets are non-transferable and may not be resold. The original
-          purchaser's name will be registered with the ticket, and valid
-          identification may be required at the venue for entry.
-        </p>
-
-        <h2>Event Cancellation</h2>
-        <p>
-          In the unlikely event that the event is cancelled entirely by the
-          organizer (not postponed or rescheduled), ticket holders may be
-          eligible for a refund or credit at the organizer's discretion.
-          Notification will be provided through the contact information supplied
-          during ticket purchase.
-        </p>
-
-        <h2>Event Postponement or Rescheduling</h2>
-        <p>
-          If the event is postponed or rescheduled to a different date, tickets
-          will remain valid for the new date. No refunds will be issued for
-          postponed or rescheduled events.
-        </p>
-
-        <h2>Force Majeure</h2>
-        <p>
-          In case of force majeure events (including but not limited to natural
-          disasters, pandemics, government regulations, or other circumstances
-          beyond the organizer's control), the organizer reserves the right to
-          modify, postpone, or cancel the event. Refund eligibility in such
-          cases will be determined at the organizer's sole discretion.
-        </p>
-
-        <h2>Chargebacks and Disputes</h2>
-        <p>
-          Initiating a chargeback or payment dispute for a valid ticket purchase
-          is a violation of this policy. Any ticket holder who initiates a
-          chargeback may have their ticket cancelled and be denied entry to the
-          event.
-        </p>
-
-        <h2>Before You Purchase</h2>
-        <p>We encourage all ticket buyers to:</p>
-        <ul>
-          <li>Carefully review event details including date, time, and venue</li>
-          <li>Verify ticket type and quantity before completing purchase</li>
-          <li>Ensure availability to attend on the scheduled date</li>
-          <li>Read all terms and conditions thoroughly</li>
+        <ol>
           <li>
-            Contact us with any questions
-            <strong>before</strong> making a purchase
+            <strong>Event Dibatalkan.</strong> Apabila Event dibatalkan oleh
+            Panorama Media dan tidak dijadwalkan ulang, Pengguna berhak
+            mengajukan refund sesuai dengan ketentuan yang akan diinformasikan
+            oleh Panorama Media.
           </li>
-        </ul>
+          <li>
+            <strong>Pembayaran Ganda (Duplicate Payment).</strong> Apabila
+            terjadi pembayaran ganda untuk satu transaksi yang sama akibat
+            gangguan sistem atau kesalahan teknis, Panorama Media akan melakukan
+            refund atas kelebihan pembayaran setelah dilakukan verifikasi.
+          </li>
+          <li>
+            <strong>Pembayaran Berhasil namun Tiket Tidak Terbit.</strong>
+            Apabila pembayaran dinyatakan berhasil namun Tiket atau ID Card
+            tidak diterbitkan akibat gangguan sistem, Pengguna dapat memilih
+            untuk:
+            <ul>
+              <li>menerima penerbitan ulang tiket/ID Card, atau</li>
+              <li>mengajukan refund sesuai hasil verifikasi.</li>
+            </ul>
+          </li>
+        </ol>
 
-        <h2>Contact Us</h2>
+        <h2>3. Kondisi yang Tidak Memenuhi Syarat Refund</h2>
+        <p>Refund tidak diberikan dalam kondisi berikut:</p>
+        <ol>
+          <li>
+            Pengguna tidak hadir (no-show) pada saat Event berlangsung.
+          </li>
+          <li>
+            Perubahan rencana pribadi Pengguna (termasuk namun tidak terbatas
+            pada jadwal kerja, perjalanan, atau alasan pribadi lainnya).
+          </li>
+          <li>
+            Kesalahan pengisian data oleh Pengguna (nama, email, nomor telepon,
+            dan/atau data lain) setelah tiket atau ID Card diterbitkan dan/atau
+            digunakan.
+          </li>
+          <li>
+            Tiket atau ID Card yang diperoleh dari pihak ketiga yang tidak
+            memiliki otorisasi resmi dari Panorama Media.
+          </li>
+          <li>
+            Dalam hal Event mengalami perubahan jadwal, tiket dan/atau ID Card
+            tetap berlaku pada jadwal terbaru dan tidak dapat dikembalikan,
+            sepanjang Event tetap diselenggarakan.
+          </li>
+          <li>
+            Event tetap diselenggarakan sesuai jadwal namun terjadi kondisi
+            force majeure yang tidak menyebabkan pembatalan Event secara
+            keseluruhan.
+          </li>
+        </ol>
+
+        <h2>4. Ketentuan Nilai Refund</h2>
         <p>
-          If you have any questions about this Refund and Return Policy, please
-          contact us before making your purchase:
+          Refund tidak bersifat 100% (full refund). Jumlah refund yang diterima
+          akan dikurangi oleh:
+        </p>
+        <ul>
+          <li>biaya administrasi dan/atau platform</li>
+          <li>biaya layanan pembayaran (payment gateway)</li>
+          <li>
+            biaya bank (termasuk kartu kredit atau transfer bank seperti BCA)
+          </li>
+          <li>pajak dan/atau biaya lain yang telah timbul dari transaksi</li>
+        </ul>
+        <p>
+          Panorama Media berhak meminta dokumen atau informasi tambahan untuk
+          keperluan verifikasi.
+        </p>
+
+        <h2>5. Tata Cara Pengajuan Refund</h2>
+        <p>
+          Permohonan refund harus diajukan melalui kanal resmi Panorama Media
+          dengan melampirkan informasi berikut:
+        </p>
+        <ul>
+          <li>Nama Event</li>
+          <li>Order ID / Invoice ID</li>
+          <li>Nama Pembeli</li>
+          <li>Email atau nomor telepon yang terdaftar</li>
+          <li>Bukti pembayaran</li>
+          <li>Alasan pengajuan refund</li>
+        </ul>
+        <p>
+          Panorama Media berhak meminta dokumen atau informasi tambahan untuk
+          keperluan verifikasi.
+        </p>
+
+        <h2>6. Proses & Waktu Refund</h2>
+        <ol>
+          <li>
+            Proses verifikasi permohonan refund dilakukan maksimal 5 (lima) hari
+            kerja sejak dokumen dinyatakan lengkap.
+          </li>
+          <li>
+            Proses pengembalian dana dilakukan maksimal 14 (empat belas) hari
+            kerja setelah permohonan refund disetujui, menyesuaikan dengan
+            metode pembayaran dan kebijakan penyedia layanan pembayaran atau
+            bank terkait.
+          </li>
+          <li>
+            Pengembalian dana akan dilakukan ke metode pembayaran yang sama
+            dengan transaksi awal atau ke rekening yang ditentukan oleh Pengguna
+            (apabila diperlukan).
+          </li>
+        </ol>
+
+        <h2>7. Biaya Administrasi</h2>
+        <p>
+          Biaya administrasi, biaya platform, atau biaya layanan lainnya (jika
+          ada) dapat bersifat tidak dapat dikembalikan, kecuali dinyatakan lain
+          secara tertulis oleh Panorama Media.
+        </p>
+
+        <h2>8. Kontak</h2>
+        <p>
+          Untuk pertanyaan atau pengajuan refund, Pengguna dapat menghubungi
+          kami melalui:
         </p>
         <ul>
           <li>
-            By email:
+            Email:
             <a :href="`mailto:${email}`">{{ email }}</a>
           </li>
           <li>
-            By WhatsApp:
+            WhatsApp:
             <a :href="whatsappLink" target="_blank">{{ whatsappDisplay }}</a>
           </li>
         </ul>
-
-        <p>
-          For more information about ticket usage and rules, please refer to our
-          <nuxt-link :to="localePath('/ticket-terms-and-conditions')"
-            >Ticket Terms and Conditions</nuxt-link
-          >.
-        </p>
       </div>
     </div>
   </div>
@@ -116,17 +158,14 @@
 
 <script setup>
 usePageMeta(null, {
-  title: "Ticket Refund and Return Policy",
+  title: "Kebijakan Pengembalian Dana",
   description:
-    "Understand our ticket refund and return policy. All ticket sales are final with no refunds or exchanges.",
+    "Kebijakan pengembalian dana (refund) Panorama Media untuk pembelian tiket dan registrasi event.",
 });
 
-const localePath = useLocalePath();
 const config = useAppConfig();
-const eventTitle = config.event.title;
 const email = config.contact.email;
 const whatsapp = config.contact.whatsapp;
 const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsapp}`;
 const whatsappDisplay = `+${whatsapp.slice(0, 2)} ${whatsapp.slice(2, 5)}-${whatsapp.slice(5, 9)}-${whatsapp.slice(9)}`;
-const lastUpdate = config.settings.terms.lastUpdate;
 </script>

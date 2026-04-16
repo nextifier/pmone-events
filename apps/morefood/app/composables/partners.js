@@ -17,15 +17,31 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+      // {
+      //   category: "In conjunction with",
+      //   noContainer: true,
+      //   directory: "/img/credits/organized-by/",
+      //   list: [
+      //     {
+      //       img: "panorama-media.svg",
+      //       link: "https://panoramamedia.co.id",
+      //     },
+      //   ],
+      // },
+
       {
         category: "In conjunction with",
-        noContainer: true,
-        directory: "/img/credits/organized-by/",
+        directory: "/img/credits/etc/",
         list: [
           {
-            img: "panorama-media.svg",
-            link: "https://panoramamedia.co.id",
+            img: "flei.svg",
           },
+          {
+            img: "cbe.svg",
+          },
+          // {
+          //   img: "morefood.svg",
+          // },
         ],
       },
 

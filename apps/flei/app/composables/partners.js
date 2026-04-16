@@ -14,6 +14,23 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
+      {
+        category: "In conjunction with",
+        directory: "/img/credits/etc/",
+        list: [
+          // {
+          //   img: "flei.svg",
+          // },
+          {
+            img: "cbe.svg",
+          },
+          {
+            img: "morefood.svg",
+          },
+        ],
+      },
+
       {
         category: "Supported by",
         directory: "/img/credits/supported-by/",
