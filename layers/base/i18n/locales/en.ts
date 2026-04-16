@@ -53,7 +53,8 @@ export default {
     "comeBackLater": "Please come back later"
   },
   "brands": {
-    "comingSoon": "Brand list is coming soon. Check back later!"
+    "comingSoon": "Brand list is coming soon. Check back later!",
+    "conjunctionExplore": "Explore brands from {eventName} with your same ticket."
   },
   "rundown": {
     "comingSoon": "Rundown is coming soon. Check back later!",

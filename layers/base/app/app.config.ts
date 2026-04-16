@@ -3,6 +3,7 @@ export default defineAppConfig({
     name: "",
     shortName: "",
     projectUsername: "",
+    dataSourceUsername: "",
     url: "",
     company: {
       name: "",
@@ -36,7 +37,7 @@ export default defineAppConfig({
     offersDescription: "",
     inConjunction: {
       label: "In conjunction with",
-      list: [] as { name: string; url: string; img: string }[],
+      list: [] as { name: string; url: string; img: string; projectUsername?: string }[],
     },
   },
 

@@ -109,7 +109,8 @@ export default {
     "comeBackLater": "Cek lagi nanti"
   },
   "brands": {
-    "comingSoon": "Daftar brand segera hadir. Cek lagi nanti."
+    "comingSoon": "Daftar brand segera hadir. Cek lagi nanti.",
+    "conjunctionExplore": "Jelajahi juga brand-brand dari {eventName} dengan tiket yang sama."
   },
   "rundown": {
     "title": "Rundown",

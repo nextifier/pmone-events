@@ -6,8 +6,9 @@ export default defineEventHandler(async (event) => {
   const timeoutId = setTimeout(() => controller.abort(), 15000);
 
   try {
+    const username = appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
     const data = await $fetch(
-      `${config.public.apiUrl}/api/public/projects/${appConfig.app.projectUsername}/editions`,
+      `${config.public.apiUrl}/api/public/projects/${username}/editions`,
       {
         headers: {
           "X-API-Key": config.pmOneApiKey,

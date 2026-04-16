@@ -45,11 +45,13 @@ const event = {
         name: "Franchise & License Expo Indonesia",
         url: "https://franchise-expo.co.id",
         img: "/img/avatar/flei.svg",
+        projectUsername: "flei",
       },
       {
         name: "More Food Expo Indonesia",
         url: "https://morefoodexpo.com",
         img: "/img/avatar/more-food.svg",
+        projectUsername: "morefood",
       },
     ],
   },

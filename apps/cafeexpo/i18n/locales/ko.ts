@@ -53,7 +53,8 @@ export default {
     "comeBackLater": "조금만 기다려 주세요"
   },
   "brands": {
-    "comingSoon": "브랜드 목록을 준비하고 있어요. 조금만 기다려 주세요!"
+    "comingSoon": "브랜드 목록을 준비하고 있어요. 조금만 기다려 주세요!",
+    "conjunctionExplore": "같은 티켓으로 {eventName}의 브랜드도 둘러보세요."
   },
   "rundown": {
     "title": "Rundown",

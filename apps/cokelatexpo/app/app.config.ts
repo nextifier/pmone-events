@@ -4,6 +4,7 @@ const app = {
   name: "Cokelat Expo Indonesia",
   shortName: "CEI",
   projectUsername: "cei",
+  dataSourceUsername: "cbe",
   url: isProduction ? "https://cokelatexpo.id" : "http://localhost:3000",
   company: {
     name: "PT Panorama Media",
@@ -45,11 +46,13 @@ const event = {
         name: "Franchise & License Expo Indonesia",
         url: "https://franchise-expo.co.id",
         img: "/img/avatar/flei.svg",
+        projectUsername: "flei",
       },
       {
         name: "More Food Expo Indonesia",
         url: "https://morefoodexpo.com",
         img: "/img/avatar/more-food.svg",
+        projectUsername: "morefood",
       },
     ],
   },

@@ -45,11 +45,13 @@ const event = {
         name: "Cafe & Brasserie Expo Indonesia",
         url: "https://cafebrasserieexpo.com",
         img: "/img/avatar/cbe.svg",
+        projectUsername: "cbe",
       },
       {
         name: "More Food Expo Indonesia",
         url: "https://morefoodexpo.com",
         img: "/img/avatar/more-food.svg",
+        projectUsername: "morefood",
       },
     ],
   },

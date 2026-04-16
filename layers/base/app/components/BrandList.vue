@@ -206,7 +206,7 @@
       </div>
 
       <div
-        v-else-if="brands?.length === 0"
+        v-else-if="allBrands?.length === 0"
         class="mt-6 flex flex-col items-center justify-center gap-y-6 text-center"
       >
         <div class="perspective-midrange">
@@ -221,42 +221,94 @@
       </div>
 
       <div v-else>
-        <div v-if="filteredBrands?.length" class="space-y-10">
-          <div
-            class="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-x-4"
-            v-auto-animate="{ duration: 300 }"
-          >
-            <BrandCard
-              v-for="(brand, index) in filteredBrands"
-              :key="index"
-              :brand="brand"
-              :brandBasePath="brandBasePath"
-              :class="{
-                'col-span-2 sm:col-span-1': filteredBrands?.length === 1,
-              }"
-            />
+        <!-- Searching: flat list across all groups -->
+        <div v-if="debouncedSearchInput">
+          <div v-if="filteredBrands?.length" class="space-y-10">
+            <div
+              class="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-x-4"
+              v-auto-animate="{ duration: 300 }"
+            >
+              <BrandCard
+                v-for="(brand, index) in filteredBrands"
+                :key="brand.slug"
+                :brand="brand"
+                :brandBasePath="brandBasePath"
+                :class="{
+                  'col-span-2 sm:col-span-1': filteredBrands?.length === 1,
+                }"
+              />
+            </div>
           </div>
 
-          <div
-            v-if="!searchInput"
-            class="flex flex-col items-center justify-center"
-          >
+          <div v-else class="flex flex-col gap-y-4">
+            <span class="text-4xl font-semibold tracking-tighter sm:text-5xl"
+              >No results found for
+              <span class="font-semibold italic"
+                >{{ debouncedSearchInput }}.</span
+              ></span
+            >
+
+            <span class="text-base tracking-tight sm:text-lg"
+              >Maybe try a different keyword.</span
+            >
+          </div>
+        </div>
+
+        <!-- Not searching: grouped display -->
+        <div v-else class="space-y-10">
+          <template v-for="(group, groupIndex) in brandGroups" :key="groupIndex">
+            <!-- Conjunction separator -->
+            <div
+              v-if="!group.is_primary && group.brands?.length"
+              class="flex items-center gap-3 pt-4 sm:gap-4"
+            >
+              <div class="border-border flex-1 border-t" />
+              <div
+                class="flex items-center gap-2.5 text-center sm:gap-3"
+              >
+                <NuxtImg
+                  v-if="getConjunctionImg(group.project_username)"
+                  :src="getConjunctionImg(group.project_username)"
+                  :alt="group.event_title"
+                  class="bg-muted border-border size-8 rounded-full border"
+                  width="32"
+                  height="32"
+                  loading="lazy"
+                />
+                <span
+                  class="text-muted-foreground text-sm tracking-tight text-balance sm:text-base"
+                >
+                  {{ $t('brands.conjunctionExplore', { eventName: group.event_title }) }}
+                </span>
+              </div>
+              <div class="border-border flex-1 border-t" />
+            </div>
+
+            <!-- Brand grid for this group -->
+            <div
+              v-if="getSortedGroupBrands(group)?.length"
+              class="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-x-4"
+              v-auto-animate="{ duration: 300 }"
+            >
+              <BrandCard
+                v-for="(brand, index) in getSortedGroupBrands(group)"
+                :key="brand.slug"
+                :brand="brand"
+                :brandBasePath="brandBasePath"
+                :class="{
+                  'col-span-2 sm:col-span-1':
+                    getSortedGroupBrands(group)?.length === 1,
+                }"
+              />
+            </div>
+          </template>
+
+          <div class="flex flex-col items-center justify-center">
             <span
               class="text-muted-foreground/20 text-center text-[clamp(2rem,11vw,6rem)] !leading-[1.1] font-semibold tracking-tighter"
               >and many more!</span
             >
           </div>
-        </div>
-
-        <div v-else class="flex flex-col gap-y-4">
-          <span class="text-4xl font-semibold tracking-tighter sm:text-5xl"
-            >No results found for
-            <span class="font-semibold italic">{{ searchInput }}.</span></span
-          >
-
-          <span class="text-base tracking-tight sm:text-lg"
-            >Maybe try a different keyword.</span
-          >
         </div>
       </div>
     </div>
@@ -273,13 +325,30 @@ const props = defineProps({
   },
 });
 
+const { t } = useI18n();
 const content = computed(() => useContentStore().components.brandList);
 const config = useRuntimeConfig();
 const route = useRoute();
 const localePath = useLocalePath();
+const appConfig = useAppConfig();
 
 const searchInput = defineModel({ default: "" });
 const debouncedSearchInput = refDebounced(searchInput, 300);
+
+// Check if this is a brands page (not embedded on homepage)
+const isBrandsPage = computed(() =>
+  route.name?.toString().includes("brands"),
+);
+
+// Check if conjunction events exist
+const hasConjunctions = computed(
+  () => appConfig.event.inConjunction?.list?.length > 0,
+);
+
+// Use conjunction endpoint when on brands page with conjunction events
+const useConjunctionEndpoint = computed(
+  () => isBrandsPage.value && hasConjunctions.value && !props.edition,
+);
 
 // Edition dropdown
 const { data: editions } = await useFetch("/api/editions", {
@@ -323,41 +392,95 @@ const changeSelectedSortOption = (param) => {
 const selectedSortOptionValue = computed(() => selectedSortOption.value.val);
 
 // Fetch brands
-const brandsUrl = computed(() =>
-  props.edition
+const brandsUrl = computed(() => {
+  if (useConjunctionEndpoint.value) {
+    return "/api/exhibitors/with-conjunctions";
+  }
+  return props.edition
     ? `/api/exhibitors/by-edition/${props.edition}`
-    : "/api/exhibitors",
-);
+    : "/api/exhibitors";
+});
 
 const {
-  data: brands,
+  data: rawData,
   refresh,
   pending,
   error,
 } = await useFetch(brandsUrl, {
   server: route.name?.toString().includes("brands") ? true : false,
   lazy: true,
-  key: `fetchExhibitors-${props.edition || "active"}`,
+  key: `fetchExhibitors-${props.edition || "active"}-${useConjunctionEndpoint.value ? "conj" : "single"}`,
   transform: (res) => res.data,
 });
 
-const filteredBrands = computed(() => {
-  // Filtering
-  let results = brands?.value?.filter((brand) => {
+// Brand groups (for grouped display when not searching)
+const brandGroups = computed(() => {
+  if (useConjunctionEndpoint.value && rawData.value?.groups) {
+    return rawData.value.groups;
+  }
+  // Fallback: wrap in single group
+  const brands = rawData.value?.groups
+    ? rawData.value.groups[0]?.brands
+    : rawData.value;
+  return [
+    {
+      is_primary: true,
+      event_title: appConfig.event.title,
+      project_username: appConfig.app.projectUsername,
+      brands: brands || [],
+    },
+  ];
+});
+
+// All brands flattened (for search/filter/sort)
+const allBrands = computed(() => {
+  return brandGroups.value?.flatMap((group) => group.brands || []) || [];
+});
+
+// Sort function reused for both grouped and flat display
+const sortBrands = (brands) => {
+  if (!brands?.length) return brands;
+
+  const sorted = [...brands];
+  if (selectedSortOption.value.val === "brand_name") {
+    sorted.sort((a, b) => a.brand_name.localeCompare(b.brand_name));
+  } else if (selectedSortOption.value.val === "-created_at") {
+    sorted.sort((a, b) => b.created_at.localeCompare(a.created_at));
+  } else if (selectedSortOption.value.val === "booth_number") {
+    sorted.sort((a, b) => {
+      const normalize = (value) => {
+        if (!value) return null;
+        return value
+          .split("&")[0]
+          .replace(/[^\w\s-]/gi, "")
+          .replace(/\s/g, "")
+          .toUpperCase();
+      };
+
+      const boothA = normalize(a.booth_number);
+      const boothB = normalize(b.booth_number);
+
+      if (boothA === null && boothB !== null) return 1;
+      if (boothB === null && boothA !== null) return -1;
+      if (boothA === null && boothB === null) return 0;
+
+      return boothA.localeCompare(boothB, undefined, { numeric: true });
+    });
+  }
+  return sorted;
+};
+
+// Filter function
+const filterBrands = (brands) => {
+  if (!debouncedSearchInput.value) return brands;
+
+  return brands?.filter((brand) => {
+    const search = debouncedSearchInput.value.toLowerCase();
     return (
-      brand.brand_name
-        .toLowerCase()
-        .includes(debouncedSearchInput.value.toLowerCase()) ||
-      brand.company_name
-        ?.toLowerCase()
-        .includes(debouncedSearchInput.value.toLowerCase()) ||
-      brand.brand_description
-        ?.toLowerCase()
-        .includes(debouncedSearchInput.value.toLowerCase()) ||
-      brand.business_categories
-        ?.toString()
-        .toLowerCase()
-        .includes(debouncedSearchInput.value.toLowerCase()) ||
+      brand.brand_name?.toLowerCase().includes(search) ||
+      brand.company_name?.toLowerCase().includes(search) ||
+      brand.brand_description?.toLowerCase().includes(search) ||
+      brand.business_categories?.toString().toLowerCase().includes(search) ||
       brand.booth_number
         ?.replace(/[^\w\s]/gi, "")
         .replace(/\s/g, "")
@@ -370,38 +493,25 @@ const filteredBrands = computed(() => {
         )
     );
   });
+};
 
-  // Sorting
-  if (results?.length) {
-    if (selectedSortOption.value.val === "brand_name") {
-      results.sort((a, b) => a.brand_name.localeCompare(b.brand_name));
-    } else if (selectedSortOption.value.val === "-created_at") {
-      results.sort((a, b) => b.created_at.localeCompare(a.created_at));
-    } else if (selectedSortOption.value.val === "booth_number") {
-      results.sort((a, b) => {
-        const normalize = (value) => {
-          if (!value) return null;
-          return value
-            .split("&")[0]
-            .replace(/[^\w\s-]/gi, "")
-            .replace(/\s/g, "")
-            .toUpperCase();
-        };
-
-        const boothA = normalize(a.booth_number);
-        const boothB = normalize(b.booth_number);
-
-        if (boothA === null && boothB !== null) return 1;
-        if (boothB === null && boothA !== null) return -1;
-        if (boothA === null && boothB === null) return 0;
-
-        return boothA.localeCompare(boothB, undefined, { numeric: true });
-      });
-    }
-  }
-
-  return results;
+// Filtered + sorted brands (flat, for search mode and counts)
+const filteredBrands = computed(() => {
+  return sortBrands(filterBrands(allBrands.value));
 });
+
+// Get sorted brands for a specific group (for grouped display)
+const getSortedGroupBrands = (group) => {
+  return sortBrands(group.brands);
+};
+
+// Get conjunction event image from app config
+const getConjunctionImg = (projectUsername) => {
+  const item = appConfig.event.inConjunction?.list?.find(
+    (c) => c.projectUsername === projectUsername,
+  );
+  return item?.img;
+};
 
 const searchInputEl = ref();
 const { metaSymbol } = useShortcuts();

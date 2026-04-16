@@ -53,7 +53,8 @@ export default {
     "comeBackLater": "また後でご確認ください"
   },
   "brands": {
-    "comingSoon": "ブランド一覧は近日公開です。もう少しお待ちください。"
+    "comingSoon": "ブランド一覧は近日公開です。もう少しお待ちください。",
+    "conjunctionExplore": "{eventName}のブランドも同じチケットで見られます。"
   },
   "rundown": {
     "title": "スケジュール",

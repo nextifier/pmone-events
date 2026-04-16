@@ -53,7 +53,8 @@ export default {
     "comeBackLater": "过段时间再来看看"
   },
   "brands": {
-    "comingSoon": "品牌名单即将公布，过段时间再来看看！"
+    "comingSoon": "品牌名单即将公布，过段时间再来看看！",
+    "conjunctionExplore": "凭同一张门票，一起看看{eventName}的参展品牌。"
   },
   "rundown": {
     "title": "Rundown",

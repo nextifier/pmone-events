@@ -4,6 +4,7 @@ const app = {
   name: "Indonesia Coffee Festival (ICF)",
   shortName: "ICF",
   projectUsername: "icf",
+  dataSourceUsername: "cbe",
   url: isProduction
     ? "https://indocoffeefestival.com"
     : "http://localhost:3000",
@@ -47,11 +48,13 @@ const event = {
         name: "Franchise & License Expo Indonesia",
         url: "https://franchise-expo.co.id",
         img: "/img/avatar/flei.svg",
+        projectUsername: "flei",
       },
       {
         name: "More Food Expo Indonesia",
         url: "https://morefoodexpo.com",
         img: "/img/avatar/more-food.svg",
+        projectUsername: "morefood",
       },
     ],
   },
