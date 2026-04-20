@@ -20,7 +20,7 @@
             <label :for="field.name">{{ field.label }}</label>
 
             <!-- Phone Input -->
-            <PhoneInputField
+            <InputPhone
               v-if="field.type === 'phone'"
               :id="field.name"
               v-model="formState[field.name]"
@@ -149,7 +149,7 @@
           :disabled="isLoading"
           v-ripple
         >
-          <LoadingSpinner v-if="isLoading" class="border-background size-4" />
+          <Spinner v-if="isLoading" class="size-4 text-background" />
           <span>{{ submitLabelText }}</span>
         </button>
       </form>

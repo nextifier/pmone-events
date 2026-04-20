@@ -17,7 +17,7 @@
 
     <div class="@container mx-auto mt-6 max-w-xl">
       <div v-if="pending" class="flex items-center justify-center gap-x-2">
-        <LoadingSpinner class="h-5 border-blue-600 dark:border-white" />
+        <Spinner class="size-5 text-blue-600 dark:text-white" />
         <span class="tracking-tight">{{ $t('ui.loading') }}</span>
       </div>
 

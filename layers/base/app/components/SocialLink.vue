@@ -2,11 +2,14 @@
   <nuxt-link
     :to="to"
     :target="to.startsWith('http') ? '_blank' : ''"
-    class="text-primary hover:bg-muted relative flex size-9 items-center justify-center rounded-xl transition active:scale-98"
+    :class="[
+      'text-primary hover:bg-muted relative flex items-center justify-center rounded-xl transition active:scale-98',
+      buttonSize,
+    ]"
     :aria-label="label"
     v-tippy="label"
   >
-    <Icon :name="iconName" :class="iconClasses" />
+    <Icon :name="iconName" :class="iconClasses || iconSize" />
   </nuxt-link>
 </template>
 
@@ -27,7 +30,20 @@ const props = defineProps({
   },
   iconClasses: {
     type: String,
-    default: "size-4.5",
+    default: "",
+  },
+  size: {
+    type: String,
+    default: "sm",
+    validator: (v) => ["sm", "md", "lg"].includes(v),
   },
 });
+
+const buttonSize = computed(
+  () => ({ sm: "size-9", md: "size-9", lg: "size-9" })[props.size],
+);
+
+const iconSize = computed(
+  () => ({ sm: "size-4.5", md: "size-5", lg: "size-6" })[props.size],
+);
 </script>

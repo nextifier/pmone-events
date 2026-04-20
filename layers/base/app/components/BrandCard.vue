@@ -1,50 +1,35 @@
 <template>
-  <nuxt-link
+  <CardNotch
     :to="localePath(`${props.brandBasePath}/${props.brand.slug}`)"
-    class="bg-muted/60 @container relative isolate flex h-full flex-col gap-4 overflow-hidden rounded-3xl p-4 sm:p-5"
-    @click.native="active = props.brand.slug"
+    auto-pad
+    border-color="var(--color-border)"
+    class="@container h-full"
+    body-class="flex h-full flex-col gap-4 p-4 sm:p-5"
   >
-    <div
-      class="flex flex-col items-center gap-2 text-center @3xs:flex-row @3xs:text-left"
-    >
-      <div
-        class="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-full p-[3px] text-center @3xs:size-18 @3xs:p-[2px] [&.active]:[view-transition-name:brand-avatar]"
-        :class="{
-          'gradient-insta bg-linear-to-tr': hasInstagram,
-          'bg-border': !hasInstagram,
-          active: active === props.brand.slug,
+    <template #notch>
+      <Icon name="hugeicons:arrow-up-right-03" class="size-5" />
+    </template>
+
+    <div class="flex items-center gap-x-3">
+      <Avatar
+        :model="{
+          name: props.brand.brand_name,
+          profile_image: props.brand.brand_logo,
         }"
-      >
-        <Avatar
-          :model="{ name: props.brand.brand_name, profile_image: props.brand.brand_logo }"
-          class="size-full border-muted border-3 bg-white"
-          :colorful="false"
-        />
-      </div>
+        class="size-11"
+        rounded="rounded-full"
+        :colorful="false"
+        :gradient-frame="hasInstagram"
+      />
 
-      <div class="flex flex-col gap-y-1">
-        <div
-          class="text-primary line-clamp-1 font-semibold tracking-tight"
-          v-tippy="props.brand.brand_name"
+      <div class="flex flex-col items-start gap-y-0.5 overflow-hidden">
+        <p class="truncate">{{ props.brand.brand_name }}</p>
+        <p
+          v-if="props.brand.company_name"
+          class="text-muted-foreground truncate text-xs tracking-tight"
         >
-          {{ props.brand.brand_name }}
-        </div>
-
-        <div
-          v-if="props.brand.business_categories?.length"
-          class="text-foreground/70 line-clamp-2 text-xs tracking-tight sm:text-sm @3xs:line-clamp-1"
-          v-tippy="props.brand.business_categories.join(', ')"
-        >
-          <span
-            v-for="(category, index) in props.brand.business_categories"
-            :key="index"
-          >
-            {{ category
-            }}<span v-if="index != props.brand.business_categories.length - 1"
-              >,
-            </span>
-          </span>
-        </div>
+          {{ props.brand.company_name }}
+        </p>
       </div>
     </div>
 
@@ -59,7 +44,9 @@
       >
         <div class="flex items-center gap-1">
           <IconShop class="size-3.5 shrink-0" />
-          <span class="line-clamp-1 text-xs tracking-tight">{{ $t('ui.booth') }}</span>
+          <span class="line-clamp-1 text-xs tracking-tight">{{
+            $t("ui.booth")
+          }}</span>
         </div>
 
         <span class="text-primary line-clamp-1 font-semibold tracking-tight">{{
@@ -102,10 +89,10 @@
       </div>
     </div>
 
-    <div class="mt-auto pt-12 @3xs:pt-8">
+    <div class="mt-auto">
       <div
         v-if="props.showCreatedAt || props.showViewsCount"
-        class="w-[calc(100%-3.5rem)] @3xs:block"
+        class="w-full"
       >
         <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
           <span
@@ -115,14 +102,18 @@
               $dayjs(props.brand.created_at).format('MMMM D, YYYY [at] h:mm A')
             "
           >
-            <span class="hidden sm:inline">{{ $t('ui.created') }} </span>
+            <span class="hidden sm:inline">{{ $t("ui.created") }} </span>
             {{ $dayjs(props.brand.created_at).fromNow() }}
           </span>
 
           <span
             v-if="props.brand.views_count && props.showViewsCount"
             class="text-muted-foreground line-clamp-1 flex items-center gap-x-0.5 text-xs tracking-tight"
-            v-tippy="$t('ui.views', props.brand.views_count, { n: props.brand.views_count })"
+            v-tippy="
+              $t('ui.views', props.brand.views_count, {
+                n: props.brand.views_count,
+              })
+            "
           >
             <Icon name="hugeicons:view" class="size-4" />
             <span>{{ props.brand.views_count }}</span>
@@ -130,9 +121,7 @@
         </div>
       </div>
     </div>
-
-    <InvertedBorderRadius position="bottom-right" />
-  </nuxt-link>
+  </CardNotch>
 </template>
 
 <script setup>
@@ -161,12 +150,10 @@ const props = defineProps({
 });
 
 const localePath = useLocalePath();
-const active = useState();
 
-const config = useRuntimeConfig();
 const { $dayjs } = useNuxtApp();
 
 const hasInstagram = computed(() =>
-  props.brand.links?.some((l) => l.label?.toLowerCase() === "instagram"),
+  props.brand.links?.some((l) => l.url?.includes("instagram.com")),
 );
 </script>

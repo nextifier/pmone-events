@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white text-black dark:bg-gray-950 dark:text-white"
+    class="fixed inset-0 grid place-items-center overflow-auto bg-white text-black dark:bg-gray-950 dark:text-white"
   >
     <div
-      class="container flex flex-col items-center justify-center gap-y-3 text-center"
+      class="container flex flex-col items-center justify-center gap-y-3 px-4 py-8 text-center"
     >
       <span v-if="error.statusCode" class="text-sm">
         {{ error.statusCode }}
@@ -30,13 +30,10 @@
         >{{ error.stack }}</pre
       >
 
-      <button
-        @click="handleError"
-        class="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 flex items-center gap-x-1 rounded-xl px-4 py-3 font-medium tracking-tight transition active:scale-98"
-      >
+      <Button class="mt-4" @click="handleError">
         <Icon name="lucide:arrow-left" class="size-4 shrink-0" />
         <span>Back to home</span>
-      </button>
+      </Button>
     </div>
   </div>
 </template>

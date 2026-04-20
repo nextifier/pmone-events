@@ -1,7 +1,7 @@
 <template>
   <div v-if="brand" class="pt-6 sm:pb-14 lg:pt-8 lg:pb-20">
     <div class="container flex items-center justify-between">
-      <BackButton />
+      <ButtonBack />
 
       <DialogShare :pageTitle="title" />
     </div>
@@ -12,17 +12,18 @@
           <div class="flex flex-col items-center gap-6 xl:flex-row">
             <nuxt-link
               :to="instagramLink?.url || ''"
-              target="_blank"
-              class="flex size-48 shrink-0 items-center justify-center overflow-hidden rounded-full p-[3px] text-center [view-transition-name:brand-avatar] xl:size-32"
-              :class="
-                instagramLink ? 'gradient-insta bg-linear-to-tr' : 'bg-border'
-              "
+              :target="instagramLink ? '_blank' : undefined"
+              class="shrink-0 [view-transition-name:brand-avatar]"
             >
               <Avatar
-                :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
-                class="size-full border-[3px] border-white bg-white dark:border-gray-950"
-                size="md"
+                :model="{
+                  name: brand.brand_name,
+                  profile_image: brand.brand_logo,
+                }"
+                class="size-48 xl:size-32"
+                rounded="rounded-full"
                 :colorful="false"
+                :gradient-frame="!!instagramLink"
               />
             </nuxt-link>
 
@@ -48,6 +49,7 @@
               :to="link.url"
               :iconName="getLinkIcon(link.label)"
               :label="link.label"
+              size="lg"
             />
           </div>
         </div>
@@ -58,7 +60,7 @@
           >
             <div class="flex items-center gap-x-1">
               <IconShop class="size-5 shrink-0" />
-              <span class="tracking-tight">{{ $t('ui.booth') }}</span>
+              <span class="tracking-tight">{{ $t("ui.booth") }}</span>
             </div>
 
             <div class="text-2xl font-semibold tracking-tight">
@@ -71,7 +73,7 @@
           >
             <div class="flex items-center gap-x-1">
               <IconTag class="size-5 shrink-0" />
-              <span class="tracking-tight">{{ $t('ui.categories') }}</span>
+              <span class="tracking-tight">{{ $t("ui.categories") }}</span>
             </div>
 
             <div class="text-base font-semibold tracking-tight">
@@ -87,9 +89,9 @@
           v-if="brand.brand_description"
           class="flex flex-col gap-y-2 rounded-3xl bg-gray-100 px-4 py-6 lg:px-6 lg:py-8 dark:bg-gray-900"
         >
-          <span class="tracking-tight text-gray-500 dark:text-gray-400"
-            >{{ $t('ui.description') }}</span
-          >
+          <span class="tracking-tight text-gray-500 dark:text-gray-400">{{
+            $t("ui.description")
+          }}</span>
           <p class="text-base tracking-tight sm:text-lg">
             {{ brand.brand_description }}
           </p>
@@ -123,21 +125,18 @@
             >
               <nuxt-link
                 :to="instagramLink?.url || ''"
-                target="_blank"
-                class="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-full p-0.5 text-center"
-                :class="
-                  instagramLink
-                    ? 'gradient-insta bg-linear-to-tr'
-                    : 'bg-border'
-                "
+                :target="instagramLink ? '_blank' : undefined"
+                class="shrink-0"
               >
                 <Avatar
                   :model="{
                     name: brand.brand_name,
                     profile_image: brand.brand_logo,
                   }"
-                  class="size-full border-2 border-white bg-white dark:border-gray-950"
+                  class="size-14"
+                  rounded="rounded-full"
                   :colorful="false"
+                  :gradient-frame="!!instagramLink"
                 />
               </nuxt-link>
 
@@ -173,12 +172,9 @@ const config = useRuntimeConfig();
 
 const { $dayjs } = useNuxtApp();
 
-const { data: brand } = await useFetch(
-  `/api/exhibitors/${route.params.slug}`,
-  {
-    transform: (res) => res.data,
-  },
-);
+const { data: brand } = await useFetch(`/api/exhibitors/${route.params.slug}`, {
+  transform: (res) => res.data,
+});
 
 if (!brand.value) {
   throw createError({

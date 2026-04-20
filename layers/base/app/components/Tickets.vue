@@ -138,7 +138,7 @@
                       </div>
                     </div>
 
-                    <LoadingChaoticOrbit
+                    <Spinner
                       v-else
                       class="size-[1lh] translate-y-1 scale-110 text-xs sm:text-sm"
                     />
@@ -261,7 +261,7 @@
                       >{{ $t('ui.soldOut') }}</span
                     >
                     <span v-else>
-                      <LoadingChaoticOrbit class="size-4" />
+                      <Spinner class="size-4" />
                     </span>
                   </nuxt-link>
                 </div>

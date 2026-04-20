@@ -1,6 +1,6 @@
 <template>
   <div class="text-primary flex items-center justify-center">
-    <LoadingChaoticOrbit v-if="!isMounted" class="border-primary size-4" />
+    <Spinner v-if="!isMounted" class="size-4 text-primary" />
 
     <template v-else>
       <div v-if="status === 'upcoming'" class="flex items-center gap-x-1.5">

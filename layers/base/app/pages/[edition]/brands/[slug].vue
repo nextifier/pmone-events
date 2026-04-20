@@ -1,7 +1,7 @@
 <template>
   <div v-if="brand" class="pt-6 sm:pb-14 lg:pt-8 lg:pb-20">
     <div class="container flex items-center justify-between">
-      <BackButton />
+      <ButtonBack />
 
       <DialogShare :pageTitle="title" />
     </div>

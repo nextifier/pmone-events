@@ -1,7 +1,7 @@
 <template>
   <div v-if="guest" class="pt-6 pb-14 lg:pt-8 lg:pb-20">
     <div class="container flex items-center justify-between lg:max-w-screen-lg">
-      <BackButton />
+      <ButtonBack />
 
       <DialogShare :pageTitle="title" />
     </div>
