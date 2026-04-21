@@ -14,14 +14,23 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
       {
         category: "Supported by",
         directory: "/img/credits/endorsed-by/",
         list: [
           {
+            img: "kemenperin.png",
+          },
+          {
+            img: "kemenpu.png",
+          },
+          {
             img: "ekraf.svg",
-            isVector: true,
             link: "https://ekraf.go.id/",
+          },
+          {
+            img: "balai-besar-keramik.png",
           },
           // {
           //   img: "wonderful-indonesia.png",
@@ -29,6 +38,7 @@ export const usePartnerStore = defineStore("partners", {
           // },
         ],
       },
+
       {
         category: "Event Partner",
         directory: "/img/credits/etc/",
@@ -39,21 +49,49 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
       {
         category: "Association Partners",
         directory: "/img/credits/association-partners/",
         list: [
           {
-            img: "aperlindo.png",
-            link: "https://aperlindonesia.wordpress.com/",
+            img: "hdii.png",
+            link: "https://hdii.or.id/",
+          },
+          {
+            img: "iai-jakarta.png",
+            link: "https://iai.or.id/",
+          },
+          {
+            img: "iai-banten.png",
+            link: "https://iai.or.id/",
+          },
+          {
+            img: "rei.png",
+            link: "https://rei.or.id/",
+          },
+          {
+            img: "gapensi.png",
+          },
+          {
+            img: "synergy.png",
+            link: "https://www.synergyhub.id/",
+          },
+          {
+            img: "synergy-developer-indonesia.png",
+            link: "https://www.synergydeveloperindonesia.com/",
+          },
+          {
+            img: "hdmi.png",
+            link: "https://hdmi.or.id/",
           },
           {
             img: "iqsi.png",
             link: "https://www.iqsi.org/",
           },
           {
-            img: "synergy.png",
-            link: "https://www.synergyhub.id/",
+            img: "aperlindo.png",
+            link: "https://aperlindonesia.wordpress.com/",
           },
           {
             img: "perkindo.png",
@@ -64,25 +102,10 @@ export const usePartnerStore = defineStore("partners", {
           //   img: "ipbbi.png",
           //   link: "https://ipbbi.id/",
           // },
-          // {
-          //   img: "hdii.png",
-          //   link: "https://hdii.or.id/",
-          // },
-          // {
-          //   img: "iai-jakarta.png",
-          //   link: "https://iai.or.id/",
-          // },
-          // {
-          //   img: "rei.png",
-          //   link: "https://rei.or.id/",
-          // },
+
           // {
           //   img: "kidi.png",
           //   link: "https://kidi.or.id/",
-          // },
-          // {
-          //   img: "hdmi.png",
-          //   link: "https://hdmi.or.id/",
           // },
 
           // {
@@ -168,56 +191,61 @@ export const usePartnerStore = defineStore("partners", {
       //     },
       //   ],
       // },
-      // {
-      //   category: "Strategic Partners",
-      //   directory: "/img/credits/strategic-partners/",
-      //   list: [
-      //     {
-      //       img: "synergy.png",
-      //       link: "https://www.synergyhub.id/",
-      //     },
-      //     {
-      //       img: "synergy-developer-indonesia.png",
-      //       link: "https://www.synergydeveloperindonesia.com/",
-      //     },
-      //     {
-      //       img: "hiraka.png",
-      //       link: "https://www.hiraka.id/",
-      //     },
-      //     {
-      //       img: "viruma.png",
-      //       link: "https://www.viruma.id/",
-      //     },
-      //     {
-      //       img: "mitrapabrik.png",
-      //       link: "https://mitrapabrik.com/",
-      //     },
-      //     {
-      //       img: "undangin.png",
-      //       link: "https://www.undangin.com/",
-      //     },
-      //     {
-      //       img: "chop-value.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "bamboo-pure.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "rukita.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "suka.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "kopinako-daurbaur.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
+
+      {
+        category: "Strategic Partners",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "f-widayanto.png",
+          },
+          // {
+          //   img: "synergy.png",
+          //   link: "https://www.synergyhub.id/",
+          // },
+          // {
+          //   img: "synergy-developer-indonesia.png",
+          //   link: "https://www.synergydeveloperindonesia.com/",
+          // },
+          // {
+          //   img: "hiraka.png",
+          //   link: "https://www.hiraka.id/",
+          // },
+          // {
+          //   img: "viruma.png",
+          //   link: "https://www.viruma.id/",
+          // },
+          // {
+          //   img: "mitrapabrik.png",
+          //   link: "https://mitrapabrik.com/",
+          // },
+          // {
+          //   img: "undangin.png",
+          //   link: "https://www.undangin.com/",
+          // },
+          // {
+          //   img: "chop-value.png",
+          //   link: "",
+          // },
+          // {
+          //   img: "bamboo-pure.png",
+          //   link: "",
+          // },
+          // {
+          //   img: "rukita.png",
+          //   link: "",
+          // },
+          // {
+          //   img: "suka.png",
+          //   link: "",
+          // },
+          // {
+          //   img: "kopinako-daurbaur.png",
+          //   link: "",
+          // },
+        ],
+      },
+
       // {
       //   category: "Community Partners",
       //   fullWidth: true,
@@ -368,6 +396,10 @@ export const usePartnerStore = defineStore("partners", {
             link: "https://seab.tradelinkmedia.biz/",
           },
           {
+            img: "indonesia-design.png",
+            link: "",
+          },
+          {
             img: "archibuild.png",
             link: "",
           },
@@ -505,6 +537,14 @@ export const usePartnerStore = defineStore("partners", {
           },
           {
             img: "dsign-something.png",
+            link: "",
+          },
+          {
+            img: "ceramics-vietnam.png",
+            link: "",
+          },
+          {
+            img: "inarcons.png",
             link: "",
           },
 
