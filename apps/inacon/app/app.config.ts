@@ -91,7 +91,7 @@ const event = {
   //       img: "/img/avatar/flei.svg",
   //     },
   //     {
-  //       name: "Cafe & Brasserie Expo Indonesia",
+  //       name: "Cafe Brasserie Expo Indonesia",
   //       url: "https://cafebrasserieexpo.com",
   //       img: "/img/avatar/cbe.svg",
   //     },

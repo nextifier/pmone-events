@@ -237,7 +237,7 @@ export const useContentStore = defineStore("content", () => {
       banners: [
         {
           image: "/img/banners/cbe-8th-poster.jpg",
-          subtitle: "Cafe & Brasserie Expo",
+          subtitle: "Cafe Brasserie Expo",
           title: "For the Love of Coffee & More.",
           description:
             "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",

@@ -27,7 +27,7 @@ export const useTicketStore = defineStore("tickets", {
             entrance: "Regular entrance",
             benefits: [
               "Access to Franchise & License Expo Indonesia",
-              "Access to Cafe & Brasserie Expo Jakarta",
+              "Access to Cafe Brasserie Expo Jakarta",
               "Access to More Food Expo Indonesia",
             ],
           },
@@ -50,7 +50,7 @@ export const useTicketStore = defineStore("tickets", {
             entrance: "VIP entrance",
             benefits: [
               "Access to Franchise & License Expo Indonesia",
-              "Access to Cafe & Brasserie Expo Jakarta",
+              "Access to Cafe Brasserie Expo Jakarta",
               "Access to More Food Expo Indonesia",
             ],
           },

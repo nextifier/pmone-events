@@ -16,11 +16,10 @@
             <strong>Event</strong> adalah pameran, konferensi, atau acara lain
             yang diselenggarakan dan/atau dikelola oleh Panorama Media, baik
             secara mandiri maupun bekerja sama dengan pihak lain, termasuk namun
-            tidak terbatas pada Franchise & License Expo Indonesia (FLEI),
-            Caf&eacute; & Brasserie Expo Indonesia (CBE), Morefood Expo,
-            Megabuild Indonesia, Keramika Indonesia, Indonesia Outing Expo,
-            Indonesia Comic Con, serta event-event lainnya di bawah pengelolaan
-            Panorama Media.
+            tidak terbatas pada Franchise & License Expo Indonesia (FLEI), Cafe
+            Brasserie Expo Indonesia (CBE), Morefood Expo, Megabuild Indonesia,
+            Keramika Indonesia, Indonesia Outing Expo, Indonesia Comic Con,
+            serta event-event lainnya di bawah pengelolaan Panorama Media.
           </li>
           <li>
             <strong>Tiket / ID Card:</strong> bukti pembelian atau registrasi

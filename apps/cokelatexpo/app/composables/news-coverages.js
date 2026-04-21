@@ -53,7 +53,7 @@ export const useNewsCoveragesStore = defineStore("newsCoverages", {
       // },
       // {
       //   title:
-      //     "Cokelat Expo Indonesia and Café & Brasserie Expo 2025 Siap Digelar",
+      //     "Cokelat Expo Indonesia and Cafe Brasserie Expo 2025 Siap Digelar",
       //   link: "https://www.republika.co.id/berita/ssh7pg456/indonesia-coffee-festival-and-caf%c3%a9-brasserie-expo-2025-siap-digelar",
       //   isPublished: true,
       //   created_at: "2025-03-02T10:00:00",

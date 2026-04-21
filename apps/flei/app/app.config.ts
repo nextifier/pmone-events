@@ -42,7 +42,7 @@ const event = {
     label: "In conjunction with",
     list: [
       {
-        name: "Cafe & Brasserie Expo Indonesia",
+        name: "Cafe Brasserie Expo Indonesia",
         url: "https://cafebrasserieexpo.com",
         img: "/img/avatar/cbe.svg",
         projectUsername: "cbe",
