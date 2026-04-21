@@ -201,102 +201,125 @@ export const usePartnerStore = defineStore("partners", {
           {
             img: "gastronusa.png",
           },
-          // {
-          //   img: "eventfest.png",
-          // },
-          // {
-          //   img: "hype-event.png",
-          // },
-          // {
-          //   img: "info-musik-kita.png",
-          // },
-          // {
-          //   img: "gac-media.png",
-          // },
+          {
+            img: "bisnis-indonesia.png",
+          },
+          {
+            img: "bisnis.com.png",
+          },
+          {
+            img: "bisnis-muda.png",
+          },
+          {
+            img: "liputan6.png",
+          },
+          {
+            img: "mra.png",
+          },
+          {
+            img: "tempo.png",
+          },
+          {
+            img: "media-indonesia.png",
+          },
+          {
+            img: "kontan.png",
+          },
+          {
+            img: "iswara.png",
+          },
+          {
+            img: "katadata.png",
+          },
+          {
+            img: "the-rockin-life.png",
+          },
+          {
+            img: "hype-event.png",
+          },
+          {
+            img: "jakarta-story.png",
+          },
+          {
+            img: "dunia-mice.png",
+          },
+          {
+            img: "katalog-promosi.png",
+          },
+          {
+            img: "sisi.png",
+          },
+          {
+            img: "whats-new-indonesia.png",
+          },
+          {
+            img: "eventfest.png",
+          },
+          {
+            img: "event-guide.png",
+          },
+          {
+            img: "indonetwork.png",
+          },
+          {
+            img: "indotrading.png",
+          },
+          {
+            img: "gpriority.png",
+          },
+          {
+            img: "infobrand.png",
+          },
+          {
+            img: "geti-media.png",
+          },
+          {
+            img: "info-umkm.png",
+          },
+          {
+            img: "the-phrase.png",
+          },
+          {
+            img: "soul-of-jakarta.png",
+          },
+          {
+            img: "kreen.png",
+          },
+          {
+            img: "urbanvibes.png",
+          },
+          {
+            img: "jejakini.png",
+          },
+          {
+            img: "media-event.png",
+          },
+          {
+            img: "wartausaha.png",
+          },
+          {
+            img: "info-musik-kita.png",
+          },
+          {
+            img: "holopiscom.png",
+          },
+          {
+            img: "bisnis-market.png",
+          },
+          {
+            img: "gac-media.png",
+          },
+
+          /// ###
+
           // {
           //   img: "waralabaku.png",
           // },
-          // {
-          //   img: "gpriority.png",
-          // },
-          // {
-          //   img: "katalog-promosi.png",
-          // },
-          // {
-          //   img: "event-guide.png",
-          // },
-          // {
-          //   img: "bisnis-indonesia.png",
-          // },
-          // {
-          //   img: "bisnis.com.png",
-          // },
-          // {
-          //   img: "bisnis-muda.png",
-          // },
-          // {
-          //   img: "holopiscom.png",
-          // },
-          // {
-          //   img: "jejakini.png",
-          // },
-          // {
-          //   img: "media-event.png",
-          // },
-          // {
-          //   img: "jakarta-story.png",
-          // },
-          // {
-          //   img: "soul-of-jakarta.png",
-          // },
+
           // {
           //   img: "gac-media.png",
           // },
-          // {
-          //   img: "wartausaha.png",
-          // },
-          // {
-          //   img: "whats-new-indonesia.png",
-          // },
-          // {
-          //   img: "infobrand.png",
-          // },
-          // {
-          //   img: "info-umkm.png",
-          // },
-          // {
-          //   img: "urbanvibes.png",
-          // },
-          // {
-          //   img: "indonetwork.png",
-          // },
-          // {
-          //   img: "katadata.png",
-          // },
-          // {
-          //   img: "sisi.png",
-          // },
-          // {
-          //   img: "indotrading.png",
-          // },
-          // {
-          //   img: "kreen.png",
-          // },
-          // {
-          //   img: "geti-media.png",
-          // },
-          // {
-          //   img: "the-phrase.png",
-          // },
-          // {
-          //   img: "liputan6.png",
-          // },
-          // {
-          //   img: "bisnis-market.png",
-          // },
-          // {
-          //   img: "dunia-mice.png",
-          // },
+
           // {
           //   img: "waralabakan.png",
           // },
@@ -317,9 +340,6 @@ export const usePartnerStore = defineStore("partners", {
           // },
           // {
           //   img: "jakarta-globe.png",
-          // },
-          // {
-          //   img: "tempo.png",
           // },
         ],
       },
