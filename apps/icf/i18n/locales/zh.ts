@@ -357,7 +357,7 @@ export default {
     sectionTitle:
       "好消息：你的门票<span class='text-accent'>能解锁更多。</span>",
     sectionDescription:
-      "Indonesia Coffee Festival 是 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a> 的核心板块。",
+      "Indonesia Coffee Festival 是 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a> 的核心板块。",
     sectionDescription2:
       "也就是说，你的门票不只能逛咖啡节。你还能自由进入另外三个风味专区：",
     zones: {

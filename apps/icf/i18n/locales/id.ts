@@ -371,7 +371,7 @@ export default {
     sectionTitle:
       "Kabar Baik. Tiket Kamu <span class='text-accent'>Berlaku Lebih Luas..</span>",
     sectionDescription:
-      "Indonesia Coffee Festival adalah bagian dari event yang lebih besar: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a>.",
+      "Indonesia Coffee Festival adalah bagian dari event yang lebih besar: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a>.",
     sectionDescription2:
       "Jadi tiket kamu bukan cuma buat masuk festival kopi terbesar tahun ini. Kamu juga bisa bebas eksplor tiga zona rasa lainnya:",
     zones: {

@@ -294,7 +294,7 @@ export default {
     title:
       '티켓 한 장으로 <span class="text-accent">세 개 엑스포</span>, <span class="text-accent">나흘간.</span>',
     description:
-      "Cafe Brasserie Expo, FLEI, MoreFood Expo가 JIExpo Kemayoran 한곳에. 4일 동안 마음껏 둘러보세요.",
+      "Cafe n' Brasserie Expo, FLEI, MoreFood Expo가 JIExpo Kemayoran 한곳에. 4일 동안 마음껏 둘러보세요.",
     cta: "티켓 받기",
   },
   mediaCoverage: {
@@ -395,7 +395,7 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe Brasserie Expo Jakarta (CBE)",
+      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
       description:
         "자카르타 CBE에서 수백 개 커피, 차, 와인, 초콜릿 브랜드를 만나보세요. 시음, 워크숍, 대회 등 다채로운 프로그램이 기다려요.",
     },

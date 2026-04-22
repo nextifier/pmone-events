@@ -154,7 +154,7 @@ export default {
     sectionTitle:
       "Good News. Your Ticket <span class='text-accent'>Unlocks More..</span>",
     sectionDescription:
-      "The Indonesia Coffee Festival is the heart of a much bigger event: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a>.",
+      "The Indonesia Coffee Festival is the heart of a much bigger event: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a>.",
     sectionDescription2:
       "This means your pass doesn't just get you into the best coffee party of the year. It also gives you full access to three other flavor zones:",
     zones: {

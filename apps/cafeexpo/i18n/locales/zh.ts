@@ -283,7 +283,7 @@ export default {
     title:
       '一张票，<span class="text-accent">三场展</span>，<span class="text-accent">四天。</span>',
     description:
-      "Cafe Brasserie Expo、FLEI、MoreFood Expo，都在 JIExpo Kemayoran。一票四天，全场通行。",
+      "Cafe n' Brasserie Expo、FLEI、MoreFood Expo，都在 JIExpo Kemayoran。一票四天，全场通行。",
     cta: "领门票",
   },
   mediaCoverage: {
@@ -381,7 +381,7 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe Brasserie Expo Jakarta (CBE)",
+      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
       description:
         "来雅加达 CBE，尝数百个咖啡、茶、葡萄酒、巧克力品牌。品鉴会、工作坊、比赛，全都有。",
     },

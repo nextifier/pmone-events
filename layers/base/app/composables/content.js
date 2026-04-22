@@ -321,7 +321,7 @@ export const useContentStore = defineStore("content", {
           },
           {
             image: "/img/banners/cbe-8th-poster.jpg",
-            subtitle: "Cafe Brasserie Expo Indonesia",
+            subtitle: "Cafe n' Brasserie Expo Indonesia",
             title: "For the Love of Coffee & More.",
             description:
               "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",

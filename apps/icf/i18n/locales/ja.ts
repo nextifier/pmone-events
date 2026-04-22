@@ -370,7 +370,7 @@ export default {
     sectionTitle:
       "うれしいお知らせ。チケット1枚で、<span class='text-accent'>もっと楽しめます。</span>",
     sectionDescription:
-      "Indonesia Coffee Festivalは、大規模イベント <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a> の一部として開催されます。",
+      "Indonesia Coffee Festivalは、大規模イベント <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a> の一部として開催されます。",
     sectionDescription2:
       "つまり、チケットはコーヒーフェスだけでなく、他の3つのフレーバーゾーンにもそのまま入場できます。",
     zones: {

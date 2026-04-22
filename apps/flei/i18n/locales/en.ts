@@ -170,8 +170,8 @@ export default {
       "1": {
         subHeadline: "One Pass, Three Massive Shows!",
         content:
-          "<p>Your pass also gets you into the <strong>Cafe Brasserie Expo Indonesia</strong> and <strong>More Food Expo Indonesia</strong>.</p>",
-        cta: "Discover Cafe Brasserie Expo",
+          "<p>Your pass also gets you into the <strong>Cafe n' Brasserie Expo Indonesia</strong> and <strong>More Food Expo Indonesia</strong>.</p>",
+        cta: "Discover Cafe n' Brasserie Expo",
       },
       "2": {
         subHeadline: "Don't Miss Any Updates!",

@@ -195,7 +195,7 @@ export default {
       "3": {
         title: "三场大展，一张门票",
         description:
-          "你的门票同时可以进入 Franchise & License Expo (FLEI) 和 Cafe Brasserie Expo。更多机会，一站搞定。",
+          "你的门票同时可以进入 Franchise & License Expo (FLEI) 和 Cafe n' Brasserie Expo。更多机会，一站搞定。",
       },
     },
   },
@@ -226,8 +226,8 @@ export default {
       "2": {
         subHeadline: "咖啡爱好者看过来",
         content:
-          "<p>你的门票包含 <strong>Cafe Brasserie Expo</strong> 的入场权。最新的咖啡、烘焙和咖啡馆技术，开咖啡馆的一定要来。</p>",
-        cta: "逛 Cafe Brasserie Expo",
+          "<p>你的门票包含 <strong>Cafe n' Brasserie Expo</strong> 的入场权。最新的咖啡、烘焙和咖啡馆技术，开咖啡馆的一定要来。</p>",
+        cta: "逛 Cafe n' Brasserie Expo",
       },
       "3": {
         subHeadline: "你知道吗？",

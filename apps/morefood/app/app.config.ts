@@ -48,7 +48,7 @@ const event = {
         projectUsername: "flei",
       },
       {
-        name: "Cafe Brasserie Expo Jakarta",
+        name: "Cafe n' Brasserie Expo Jakarta",
         url: "https://cafebrasserieexpo.com",
         img: "/img/avatar/cbe.svg",
         projectUsername: "cbe",

@@ -369,7 +369,7 @@ export default {
     sectionTitle:
       "うれしいお知らせ。チケット1枚で、<span class='text-accent'>もっと楽しめます。</span>",
     sectionDescription:
-      "チョコレートだけでなく、チケットでもっと多くの体験ができます。Cokelat Expoは <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a> の一部で、コーヒー、お茶、ワインのフェスティバルも同時開催しています。",
+      "チョコレートだけでなく、チケットでもっと多くの体験ができます。Cokelat Expoは <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a> の一部で、コーヒー、お茶、ワインのフェスティバルも同時開催しています。",
     sectionDescription2:
       "つまり、チケットはチョコレートの祭典だけでなく、他の3つのフレーバーゾーンにもそのまま入場できます。",
     zones: {

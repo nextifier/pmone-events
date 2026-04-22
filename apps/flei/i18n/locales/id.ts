@@ -146,8 +146,8 @@ export default {
       "1": {
         subHeadline: "Satu Tiket, Tiga Pameran Besar!",
         content:
-          "<p>Tiket kamu juga berlaku untuk <strong>Cafe Brasserie Expo Indonesia</strong> dan <strong>More Food Expo Indonesia</strong>.</p>",
-        cta: "Lihat Cafe Brasserie Expo",
+          "<p>Tiket kamu juga berlaku untuk <strong>Cafe n' Brasserie Expo Indonesia</strong> dan <strong>More Food Expo Indonesia</strong>.</p>",
+        cta: "Lihat Cafe n' Brasserie Expo",
       },
       "2": {
         subHeadline: "Jangan Ketinggalan Info!",

@@ -185,7 +185,7 @@ export default {
       "3": {
         title: "Three Expos, One Ticket",
         description:
-          "Your pass also gets you into the Franchise & License Expo (FLEI) and the Cafe Brasserie Expo. More opportunities, all in one place.",
+          "Your pass also gets you into the Franchise & License Expo (FLEI) and the Cafe n' Brasserie Expo. More opportunities, all in one place.",
       },
     },
   },
@@ -217,8 +217,8 @@ export default {
       "2": {
         subHeadline: "For the Love of Coffee",
         content:
-          "<p>Your ticket includes full access to the <strong>Cafe Brasserie Expo</strong>. Explore the latest in coffee, pastry, and cutting-edge cafe tech. A must-visit for cafe owners!</p>",
-        cta: "Explore Cafe Brasserie Expo",
+          "<p>Your ticket includes full access to the <strong>Cafe n' Brasserie Expo</strong>. Explore the latest in coffee, pastry, and cutting-edge cafe tech. A must-visit for cafe owners!</p>",
+        cta: "Explore Cafe n' Brasserie Expo",
       },
       "3": {
         subHeadline: "Did You Know?",

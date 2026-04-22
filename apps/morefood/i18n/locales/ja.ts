@@ -202,7 +202,7 @@ export default {
       "3": {
         title: "3つのExpo、1枚のチケット",
         description:
-          "お持ちのチケットでFranchise & License Expo (FLEI)とCafe Brasserie Expoにも入場できます。ビジネスチャンスが一か所に集まっています。",
+          "お持ちのチケットでFranchise & License Expo (FLEI)とCafe n' Brasserie Expoにも入場できます。ビジネスチャンスが一か所に集まっています。",
       },
     },
   },
@@ -234,8 +234,8 @@ export default {
       "2": {
         subHeadline: "コーヒー好きの方へ",
         content:
-          "<p>チケットには<strong>Cafe Brasserie Expo</strong>の入場も含まれています。最新のコーヒー、ペストリー、カフェ向けテクノロジーをぜひご覧ください。カフェオーナーの方は必見です。</p>",
-        cta: "Cafe Brasserie Expoを見る",
+          "<p>チケットには<strong>Cafe n' Brasserie Expo</strong>の入場も含まれています。最新のコーヒー、ペストリー、カフェ向けテクノロジーをぜひご覧ください。カフェオーナーの方は必見です。</p>",
+        cta: "Cafe n' Brasserie Expoを見る",
       },
       "3": {
         subHeadline: "ご存知ですか？",

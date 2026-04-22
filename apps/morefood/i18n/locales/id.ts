@@ -160,7 +160,7 @@ export default {
       "3": {
         title: "Tiga Expo, Satu Tiket",
         description:
-          "Tiket kamu juga berlaku untuk Franchise & License Expo (FLEI) dan Cafe Brasserie Expo. Lebih banyak peluang, semuanya di satu tempat.",
+          "Tiket kamu juga berlaku untuk Franchise & License Expo (FLEI) dan Cafe n' Brasserie Expo. Lebih banyak peluang, semuanya di satu tempat.",
       },
     },
   },
@@ -192,8 +192,8 @@ export default {
       "2": {
         subHeadline: "Buat Pecinta Kopi",
         content:
-          "<p>Tiket kamu termasuk akses ke <strong>Cafe Brasserie Expo</strong>. Langsung cek tren kopi, pastry, dan teknologi cafe terkini. Wajib mampir buat pemilik cafe!</p>",
-        cta: "Jelajahi Cafe Brasserie Expo",
+          "<p>Tiket kamu termasuk akses ke <strong>Cafe n' Brasserie Expo</strong>. Langsung cek tren kopi, pastry, dan teknologi cafe terkini. Wajib mampir buat pemilik cafe!</p>",
+        cta: "Jelajahi Cafe n' Brasserie Expo",
       },
       "3": {
         subHeadline: "Tahukah Kamu?",

@@ -358,7 +358,7 @@ export default {
     sectionTitle:
       "好消息：你的门票<span class='text-accent'>能解锁更多。</span>",
     sectionDescription:
-      "来看巧克力的同时，门票还能帮你打开更多大门。Cokelat Expo 是 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a> 的一部分，咖啡、茶、葡萄酒的专题区同样精彩。",
+      "来看巧克力的同时，门票还能帮你打开更多大门。Cokelat Expo 是 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a> 的一部分，咖啡、茶、葡萄酒的专题区同样精彩。",
     sectionDescription2:
       "也就是说，你的门票不只是巧克力展。你还能自由进入另外三个风味专区：",
     zones: {

@@ -366,7 +366,7 @@ export default {
     sectionTitle:
       "반가운 소식. 티켓 한 장으로 <span class='text-accent'>더 많이 즐길 수 있어요.</span>",
     sectionDescription:
-      "초콜릿 말고도 이 티켓으로 즐길 수 있는 게 많아요. Cokelat Expo는 커피, 차, 와인 페스티벌도 함께하는 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a>의 일부예요.",
+      "초콜릿 말고도 이 티켓으로 즐길 수 있는 게 많아요. Cokelat Expo는 커피, 차, 와인 페스티벌도 함께하는 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a>의 일부예요.",
     sectionDescription2:
       "그래서 이 티켓은 초콜릿 행사만을 위한 게 아니에요. 세 가지 플레이버 존에도 자유롭게 입장할 수 있어요:",
     zones: {

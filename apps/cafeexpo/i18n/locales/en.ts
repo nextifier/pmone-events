@@ -281,7 +281,7 @@ export default {
     title:
       'One ticket. <span class="text-accent">Three expos.</span> <span class="text-accent">Four days.</span>',
     description:
-      "Cafe Brasserie Expo, FLEI, and MoreFood Expo, all at JIExpo Kemayoran. One pass covers everything for four days.",
+      "Cafe n' Brasserie Expo, FLEI, and MoreFood Expo, all at JIExpo Kemayoran. One pass covers everything for four days.",
     cta: "Get Ticket",
   },
   mediaCoverage: {
@@ -383,9 +383,9 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe Brasserie Expo Jakarta (CBE)",
+      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
       description:
-        "Join the Cafe Brasserie Expo, a vibrant celebration of the nation's coffee culture. Explore tastings, workshops, competitions, and more. Get your tickets now!",
+        "Join the Cafe n' Brasserie Expo, a vibrant celebration of the nation's coffee culture. Explore tastings, workshops, competitions, and more. Get your tickets now!",
     },
     brands: {
       title: "Brands",

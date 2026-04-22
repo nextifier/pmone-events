@@ -182,8 +182,8 @@ export default {
       "1": {
         subHeadline: "一张票，逛三场展！",
         content:
-          "<p>门票同时可以进入 <strong>Cafe Brasserie Expo Indonesia</strong> 和 <strong>More Food Expo Indonesia</strong>。</p>",
-        cta: "了解 Cafe Brasserie Expo",
+          "<p>门票同时可以进入 <strong>Cafe n' Brasserie Expo Indonesia</strong> 和 <strong>More Food Expo Indonesia</strong>。</p>",
+        cta: "了解 Cafe n' Brasserie Expo",
       },
       "2": {
         subHeadline: "别错过最新动态！",

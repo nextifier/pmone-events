@@ -1,7 +1,7 @@
 const isProduction = process.env.NODE_ENV === "production";
 
 const app = {
-  name: "Cafe Brasserie Expo Jakarta (CBE)",
+  name: "Cafe n' Brasserie Expo Jakarta (CBE)",
   shortName: "CBE",
   projectUsername: "cbe",
   url: isProduction ? "https://cafebrasserieexpo.com" : "http://localhost:3000",
@@ -13,7 +13,7 @@ const app = {
 };
 
 const event = {
-  title: "Cafe Brasserie Expo Jakarta",
+  title: "Cafe n' Brasserie Expo Jakarta",
   edition: {
     value: 8,
     ordinal: "th",

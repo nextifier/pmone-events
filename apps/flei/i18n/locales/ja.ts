@@ -186,8 +186,8 @@ export default {
       "1": {
         subHeadline: "1枚のチケットで3つの展示会へ",
         content:
-          "<p>チケットで<strong>Cafe Brasserie Expo Indonesia</strong>と<strong>More Food Expo Indonesia</strong>にも入場できます。</p>",
-        cta: "Cafe Brasserie Expoを見る",
+          "<p>チケットで<strong>Cafe n' Brasserie Expo Indonesia</strong>と<strong>More Food Expo Indonesia</strong>にも入場できます。</p>",
+        cta: "Cafe n' Brasserie Expoを見る",
       },
       "2": {
         subHeadline: "最新情報をチェック",

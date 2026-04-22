@@ -257,7 +257,7 @@ export default {
     title:
       'Satu tiket. <span class="text-accent">Tiga expo.</span> <span class="text-accent">Empat hari.</span>',
     description:
-      "Cafe Brasserie Expo, FLEI, dan MoreFood Expo, semuanya di JIExpo Kemayoran. Satu tiket buat empat hari penuh.",
+      "Cafe n' Brasserie Expo, FLEI, dan MoreFood Expo, semuanya di JIExpo Kemayoran. Satu tiket buat empat hari penuh.",
     cta: "Dapatkan Tiket",
   },
   mediaCoverage: {
@@ -400,7 +400,7 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe Brasserie Expo Jakarta (CBE)",
+      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
       description:
         "Datang ke CBE Jakarta dan coba ratusan brand kopi, teh, wine, dan cokelat. Ikuti tasting, workshop, kompetisi, dan banyak lagi.",
     },

@@ -367,7 +367,7 @@ export default {
     sectionTitle:
       "반가운 소식. 티켓 한 장으로 <span class='text-accent'>더 많이 즐길 수 있어요.</span>",
     sectionDescription:
-      "Indonesia Coffee Festival은 더 큰 행사인 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a>의 일부예요.",
+      "Indonesia Coffee Festival은 더 큰 행사인 <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a>의 일부예요.",
     sectionDescription2:
       "그래서 이 티켓은 커피 축제만을 위한 게 아니에요. 세 가지 플레이버 존에도 자유롭게 입장할 수 있어요:",
     zones: {

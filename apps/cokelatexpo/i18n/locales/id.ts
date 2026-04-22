@@ -371,7 +371,7 @@ export default {
     sectionTitle:
       "Kabar Baik. Tiket Kamu <span class='text-accent'>Berlaku Lebih Luas..</span>",
     sectionDescription:
-      "Selain cokelat, tiket kamu juga membuka akses ke banyak hal lainnya. Cokelat Expo adalah bagian dari <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe Brasserie Expo Indonesia</a> yang juga menghadirkan festival kopi, teh, dan wine.",
+      "Selain cokelat, tiket kamu juga membuka akses ke banyak hal lainnya. Cokelat Expo adalah bagian dari <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a> yang juga menghadirkan festival kopi, teh, dan wine.",
     sectionDescription2:
       "Jadi tiket kamu bukan cuma buat pameran cokelat terbesar tahun ini. Kamu juga bisa bebas eksplor tiga zona rasa lainnya:",
     zones: {

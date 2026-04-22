@@ -295,7 +295,7 @@ export default {
     title:
       'チケット1枚で、<span class="text-accent">3つのExpo</span>。<span class="text-accent">4日間。</span>',
     description:
-      "Cafe Brasserie Expo、FLEI、MoreFood Expo。JIExpo Kemayoranで4日間、すべて入場できます。",
+      "Cafe n' Brasserie Expo、FLEI、MoreFood Expo。JIExpo Kemayoranで4日間、すべて入場できます。",
     cta: "チケットを取得",
   },
   mediaCoverage: {
@@ -397,7 +397,7 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe Brasserie Expo Jakarta (CBE)",
+      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
       description:
         "ジャカルタのCBEで数百ブランドのコーヒー、紅茶、ワイン、チョコレートを体験。テイスティング、ワークショップ、コンペティションなど盛りだくさんです。",
     },

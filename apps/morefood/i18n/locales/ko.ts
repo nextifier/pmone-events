@@ -199,7 +199,7 @@ export default {
       "3": {
         title: "세 개 Expo, 한 장의 티켓",
         description:
-          "같은 티켓으로 Franchise & License Expo (FLEI)와 Cafe Brasserie Expo도 관람할 수 있어요. 더 많은 기회를 한곳에서 잡으세요.",
+          "같은 티켓으로 Franchise & License Expo (FLEI)와 Cafe n' Brasserie Expo도 관람할 수 있어요. 더 많은 기회를 한곳에서 잡으세요.",
       },
     },
   },
@@ -231,8 +231,8 @@ export default {
       "2": {
         subHeadline: "커피를 좋아하시나요?",
         content:
-          "<p>티켓에 <strong>Cafe Brasserie Expo</strong> 입장도 포함돼 있어요. 최신 커피, 페이스트리, 카페 기술을 직접 확인해 보세요. 카페 오너라면 꼭 들러보세요.</p>",
-        cta: "Cafe Brasserie Expo 보러 가기",
+          "<p>티켓에 <strong>Cafe n' Brasserie Expo</strong> 입장도 포함돼 있어요. 최신 커피, 페이스트리, 카페 기술을 직접 확인해 보세요. 카페 오너라면 꼭 들러보세요.</p>",
+        cta: "Cafe n' Brasserie Expo 보러 가기",
       },
       "3": {
         subHeadline: "알고 계셨나요?",
