@@ -46,6 +46,16 @@ export const usePartnerStore = defineStore("partners", {
       },
 
       {
+        category: "Supported by",
+        directory: "/img/credits/endorsed-by/",
+        list: [
+          {
+            img: "wonderful-indonesia.svg",
+          },
+        ],
+      },
+
+      {
         category: "Supporting Associations & Communities",
         directory: "/img/credits/associations/",
         list: [
