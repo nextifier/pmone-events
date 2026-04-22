@@ -42,10 +42,7 @@ export const usePartnerStore = defineStore("partners", {
       {
         category: "Endorsed by",
         directory: "/img/credits/endorsed-by/",
-        list: [
-          { img: "ekraf.svg", isVector: true },
-          // { img: "kemenperin.png" }
-        ],
+        list: [{ img: "ekraf.svg" }, { img: "kemenperin.png" }],
       },
       // {
       //   category: "Event Partners",
@@ -190,6 +187,9 @@ export const usePartnerStore = defineStore("partners", {
           },
           {
             img: "ubox.png",
+          },
+          {
+            img: "aissential.png",
           },
         ],
       },

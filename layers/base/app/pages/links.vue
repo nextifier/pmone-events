@@ -8,12 +8,12 @@
       <h1
         class="text-center text-4xl leading-[1.25] font-semibold tracking-tighter text-balance text-black sm:text-5xl sm:leading-[1.25] dark:text-white"
       >
-        {{ content.title }}
+        {{ t("pages.links.title") }}
       </h1>
 
       <div class="mt-3 grid grid-cols-1 gap-2.5 lg:mt-6">
         <NuxtLink
-          v-for="(link, index) in content.list"
+          v-for="(link, index) in visibleLinks"
           :key="index"
           :to="link.url"
           :target="link.url.startsWith('http') ? '_blank' : ''"
@@ -53,6 +53,42 @@
 
 <script setup>
 usePageMeta("links");
+
+const { t } = useI18n();
 const localePath = useLocalePath();
-const content = computed(() => useContentStore().components.links);
+
+const links = [
+  {
+    label: "Tickets",
+    url: "/ticket",
+    iconName: "hugeicons:ticket-01",
+  },
+  {
+    label: "Brands",
+    url: "/brands",
+    iconName: "hugeicons:grid-view",
+  },
+  {
+    label: "Rundown",
+    url: "/rundown",
+    iconName: "hugeicons:check-list",
+  },
+];
+
+const { data: activeEvent } = await useFetch("/api/event/active", {
+  key: "links-active-event",
+});
+
+const visibleLinks = computed(() => {
+  const eguideUrl = activeEvent.value?.data?.visitor_eguide?.url;
+  if (!eguideUrl) return links;
+  return [
+    ...links,
+    {
+      label: "Download Visitor E-Guide",
+      url: eguideUrl,
+      iconName: "hugeicons:download-01",
+    },
+  ];
+});
 </script>

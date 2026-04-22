@@ -302,31 +302,6 @@ export const useContentStore = defineStore("content", () => {
       contactTitle: t("faq.contactTitle"),
     },
 
-    links: {
-      title: "Links",
-      list: [
-        {
-          label: "Tickets",
-          url: "/ticket",
-          iconName: "hugeicons:ticket-01",
-        },
-        {
-          label: "Brands",
-          url: "/brands",
-          iconName: "hugeicons:grid-view",
-        },
-        {
-          label: "Rundown",
-          url: "/rundown",
-          iconName: "hugeicons:check-list",
-        },
-        {
-          label: "Download Visitor E-Guide",
-          url: "https://drive.google.com/file/d/13P-JnDlpK4cOOR2Dke5Cn3vgdckTxB4y/view",
-          iconName: "hugeicons:download-04",
-        },
-      ],
-    },
   }));
 
   const getMetaByKey = (key) => pages.value[key] || null;

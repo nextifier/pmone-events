@@ -10,6 +10,8 @@ export default defineNuxtConfig({
     componentInspector: false,
   },
 
+  ignore: ["**/.DS_Store", "**/.DS_Store/**"],
+
   runtimeConfig: {
     pmOneApiKey: process.env.NUXT_PM_ONE_API_KEY || "",
     tiktokAccessTokens: process.env.NUXT_TIKTOK_ACCESS_TOKENS || "",

@@ -390,31 +390,6 @@ export const useContentStore = defineStore("content", {
         contactTitle: "Have any questions? Just send it to us!",
       },
 
-      links: {
-        title: "Links",
-        list: [
-          {
-            label: "Tickets",
-            url: "/ticket",
-            iconName: "hugeicons:ticket-01",
-          },
-          {
-            label: "Brands",
-            url: "/brands",
-            iconName: "hugeicons:grid-view",
-          },
-          {
-            label: "Rundown",
-            url: "/rundown",
-            iconName: "hugeicons:check-list",
-          },
-          {
-            label: "Download Visitor E-Guide",
-            url: "https://drive.google.com/file/d/1_DWoC8vfqPgF5eryMDoEMxKTu3kOs8dH/view?usp=sharing",
-            iconName: "hugeicons:download-04",
-          },
-        ],
-      },
     },
   }),
 

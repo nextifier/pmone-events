@@ -373,26 +373,6 @@ export const useContentStore = defineStore("content", () => {
       contactTitle: t("faq.contactTitle"),
     },
 
-    links: {
-      title: "Links",
-      list: [
-        {
-          label: "Tickets",
-          url: "/ticket",
-          iconName: "hugeicons:ticket-01",
-        },
-        {
-          label: "Brands",
-          url: "/brands",
-          iconName: "hugeicons:grid-view",
-        },
-        {
-          label: "Rundown",
-          url: "/rundown",
-          iconName: "hugeicons:check-list",
-        },
-      ],
-    },
   }));
 
   const getMetaByKey = (key) => pages.value[key] || null;

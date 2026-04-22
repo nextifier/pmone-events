@@ -67,7 +67,7 @@
         target="_blank"
         class="flex items-center gap-x-1 rounded-full p-4 font-semibold tracking-tight text-black transition hover:bg-gray-100 active:scale-95 dark:text-white dark:hover:bg-gray-900"
       >
-        <Icon name="hugeicons:download-03" class="size-5 shrink-0" />
+        <Icon name="hugeicons:download-01" class="size-5 shrink-0" />
         <span>{{ $t("icgp.downloadRules") }}</span>
       </nuxt-link>
     </div>
