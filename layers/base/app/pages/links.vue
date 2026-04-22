@@ -8,6 +8,29 @@
     </div>
 
     <div
+      v-else-if="profileError"
+      class="min-h-screen-offset mx-auto flex max-w-md flex-col items-center justify-center gap-y-3 px-4 text-center"
+    >
+      <Icon
+        name="hugeicons:alert-circle"
+        class="text-muted-foreground size-10 shrink-0"
+      />
+      <div class="space-y-1">
+        <p class="text-base font-medium tracking-tight">Unable to load profile</p>
+        <p class="text-muted-foreground text-sm tracking-tight">
+          {{ profileErrorMessage }}
+        </p>
+      </div>
+      <NuxtLink
+        to="/"
+        class="bg-muted text-foreground hover:bg-border mt-2 flex items-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-medium tracking-tight transition active:scale-98"
+      >
+        <Icon name="hugeicons:home-01" class="size-4 shrink-0" />
+        <span>Back to home</span>
+      </NuxtLink>
+    </div>
+
+    <div
       v-else-if="profile"
       class="min-h-screen-offset mx-auto flex max-w-xl flex-col px-4 pb-16 sm:pt-4"
     >
@@ -98,11 +121,11 @@
           </div>
 
           <div
-            v-if="socialLinks.length > 0"
+            v-if="linkGroups.social.length > 0"
             class="flex flex-wrap gap-2"
           >
             <NuxtLink
-              v-for="link in socialLinks"
+              v-for="link in linkGroups.social"
               :key="link.url || link.id"
               :to="link.url || '#'"
               :target="link.url?.startsWith('http') ? '_blank' : ''"
@@ -117,33 +140,17 @@
 
           <div class="flex flex-col gap-y-3">
             <NuxtLink
-              v-for="link in primaryLinks"
-              :key="link.label"
-              :to="link.url"
-              :target="link.url.startsWith('http') ? '_blank' : ''"
+              v-for="link in stackedLinks"
+              :key="link.key"
+              :to="link.url || '#'"
+              :target="link.url?.startsWith('http') ? '_blank' : ''"
               @click="trackClick(link.label)"
               @contextmenu.prevent
               v-ripple
               class="border-border bg-muted text-primary flex items-center justify-center gap-x-1.5 rounded-xl border p-4 text-center text-base font-medium tracking-tighter transition active:scale-98"
             >
-              <Icon
-                v-if="link.iconName"
-                :name="link.iconName"
-                class="size-5"
-              />
+              <Icon :name="link.iconName" class="size-5 shrink-0" />
               <span>{{ link.label }}</span>
-            </NuxtLink>
-
-            <NuxtLink
-              v-for="link in customLinks"
-              :key="link.url || link.id"
-              :to="link.url || '#'"
-              :target="link.url?.startsWith('http') ? '_blank' : ''"
-              @click="trackClick(link.label)"
-              @contextmenu.prevent
-              class="bg-muted text-foreground hover:bg-border flex h-9 items-center justify-center gap-1.5 rounded-lg px-4 text-sm font-medium tracking-tight transition active:scale-98"
-            >
-              {{ link.label }}
             </NuxtLink>
           </div>
         </div>
@@ -188,13 +195,24 @@ const SOCIAL_ICON_MAP = {
 
 const route = useRoute();
 
-const [{ data: projectData }, { data: activeEvent }] = await Promise.all([
+const [
+  { data: projectData, error: profileError },
+  { data: activeEvent },
+] = await Promise.all([
   useFetch("/api/project/profile", { key: "links-project-profile" }),
   useFetch("/api/event/active", { key: "links-active-event" }),
 ]);
 
-const loading = computed(() => !projectData.value);
+const loading = computed(() => !projectData.value && !profileError.value);
 const profile = computed(() => projectData.value?.data || null);
+
+const profileErrorMessage = computed(() => {
+  if (!profileError.value) return "";
+  const status = profileError.value.statusCode;
+  if (status === 404) return "This event website is not available right now.";
+  if (status === 504) return "The server took too long to respond. Please try again.";
+  return "Something went wrong. Please refresh the page or try again later.";
+});
 
 const hasCoverImage = computed(() => Boolean(profile.value?.cover_image));
 const hasProfileImage = computed(() => Boolean(profile.value?.profile_image));
@@ -229,68 +247,66 @@ const hasContactMethods = computed(() => {
   return phoneNumbers.value.length > 0 || Boolean(profile.value?.email);
 });
 
-const socialLinks = computed(() => {
+const linkGroups = computed(() => {
   const links = profile.value?.links || [];
-  return links.filter((link) => {
-    if (!link?.label) return false;
+  const social = [];
+  const custom = [];
+
+  for (const link of links) {
+    if (!link?.label) continue;
+
     const labelLower = link.label.toLowerCase();
-    if (
-      labelLower === "email" ||
-      labelLower === "whatsapp" ||
-      labelLower.startsWith("whatsapp ")
-    ) {
-      return false;
+    // Skip exact "Email"/"WhatsApp" - rendered in dedicated contact buttons.
+    // Variants like "WhatsApp Sales" flow into custom links.
+    if (labelLower === "email" || labelLower === "whatsapp") continue;
+
+    if (SOCIAL_LABELS.includes(labelLower)) {
+      social.push(link);
+    } else {
+      custom.push(link);
     }
-    return SOCIAL_LABELS.includes(labelLower);
-  });
+  }
+
+  return { social, custom };
 });
 
-const customLinks = computed(() => {
-  const links = profile.value?.links || [];
-  return links.filter((link) => {
-    if (!link?.label) return false;
-    const labelLower = link.label.toLowerCase();
-    if (
-      labelLower === "email" ||
-      labelLower === "whatsapp" ||
-      labelLower.startsWith("whatsapp ")
-    ) {
-      return false;
-    }
-    return !SOCIAL_LABELS.includes(labelLower);
-  });
-});
-
-const primaryLinks = computed(() => {
+const stackedLinks = computed(() => {
   const items = [
-    {
-      label: "Tickets",
-      url: "/ticket",
-      iconName: "hugeicons:ticket-01",
-    },
-    {
-      label: "Brands",
-      url: "/brands",
-      iconName: "hugeicons:grid-view",
-    },
-    {
-      label: "Rundown",
-      url: "/rundown",
-      iconName: "hugeicons:check-list",
-    },
+    { key: "tickets", label: "Tickets", url: "/ticket", iconName: "hugeicons:ticket-01" },
+    { key: "brands", label: "Brands", url: "/brands", iconName: "hugeicons:grid-view" },
+    { key: "rundown", label: "Rundown", url: "/rundown", iconName: "hugeicons:check-list" },
   ];
 
   const eguideUrl = activeEvent.value?.data?.visitor_eguide?.url;
   if (eguideUrl) {
     items.push({
+      key: "eguide",
       label: "Download Visitor E-Guide",
       url: eguideUrl,
       iconName: "hugeicons:download-01",
     });
   }
 
+  for (const link of linkGroups.value.custom) {
+    items.push({
+      key: `custom-${link.id ?? link.url}`,
+      label: link.label,
+      url: link.url || "#",
+      iconName: getCustomLinkIcon(link.label),
+    });
+  }
+
   return items;
 });
+
+const getCustomLinkIcon = (label) => {
+  const lower = label?.toLowerCase() || "";
+  if (lower.startsWith("whatsapp")) return "hugeicons:whatsapp";
+  if (lower.includes("download") || lower.includes("brochure") || lower.includes("catalog")) return "hugeicons:download-01";
+  if (lower.includes("map") || lower.includes("location") || lower.includes("venue")) return "hugeicons:location-01";
+  if (lower.includes("register") || lower.includes("sign up")) return "hugeicons:user-add-01";
+  return "hugeicons:link-04";
+};
 
 const qrCodeUrl = computed(() => {
   if (!import.meta.client) return "";
@@ -307,18 +323,9 @@ const getSocialIcon = (label) =>
 
 const { trackVisit, trackClick } = useProfileTracking(() => profile.value?.id);
 
-onMounted(() => {
-  if (profile.value?.id) {
-    trackVisit();
-  }
+watchEffect(() => {
+  if (profile.value?.id) trackVisit();
 });
-
-watch(
-  () => profile.value?.id,
-  (id) => {
-    if (id) trackVisit();
-  }
-);
 
 usePageMeta(null, {
   title: computed(() => `Links · ${profile.value?.name || ""}`),

@@ -10,14 +10,12 @@ export default defineEventHandler(async (event) => {
   }
 
   const headers = getRequestHeaders(event);
-  const forwardedFor = headers["x-forwarded-for"] || headers["x-real-ip"] || "";
 
   try {
     return await $fetch(`${config.public.apiUrl}/api/track/click`, {
       method: "POST",
       headers: {
         "X-API-Key": config.pmOneApiKey,
-        "X-Forwarded-For": Array.isArray(forwardedFor) ? forwardedFor.join(", ") : forwardedFor,
         "User-Agent": headers["user-agent"] || "",
         Referer: headers.referer || "",
         Accept: "application/json",
