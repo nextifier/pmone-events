@@ -102,7 +102,7 @@
         <div
           class="relative isolate z-10 order-2 -mx-10 flex h-full items-center justify-center md:order-last md:col-span-2 lg:-mx-[40%] xl:order-2 xl:col-span-1"
         >
-          <HeroVisual26th class="w-full lg:w-auto" />
+          <HeroVisual26th class="w-auto" />
         </div>
 
         <div
