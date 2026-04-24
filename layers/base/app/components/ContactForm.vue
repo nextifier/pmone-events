@@ -428,7 +428,8 @@ async function handleSubmit() {
 }
 
 function handleSuccessAction() {
-  uiStore.closeInquiryDialog?.();
+  uiStore.closeContactDialog?.();
+  isSubmitted.value = false;
 }
 
 function handleProductSelect(value) {

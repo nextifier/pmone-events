@@ -1,20 +1,20 @@
 <template>
-  <!--
-    Gunakan scoped slot untuk "mengirim" fungsi goBack ke parent.
-    Ini memberikan fleksibilitas penuh pada parent untuk mendesain UI-nya.
-  -->
   <slot :goBack="goBack">
-    <!--
-      TEMPLATE DEFAULT:
-      Ini akan ditampilkan jika parent tidak menyediakan slot kustom.
-    -->
     <button
       @click="goBack"
-      class="text-primary/80 hover:text-primary flex items-center justify-center gap-x-1 text-sm tracking-tight transition active:scale-98"
+      :class="cn(buttonBackVariants({ variant }), props.class)"
     >
       <Icon name="lucide:arrow-left" class="size-4 shrink-0" />
-      <span v-if="showLabel">Back</span>
-      <KbdGroup v-if="showLabel && shortcutEnabled">
+      <span
+        v-if="showLabel"
+        :class="
+          variant === 'bordered' || variant === 'semiTransparent'
+            ? 'hidden text-sm tracking-tight sm:block'
+            : ''
+        "
+        >Back</span
+      >
+      <KbdGroup v-if="showLabel && shortcutEnabled && variant === 'default'">
         <Kbd>B</Kbd>
       </KbdGroup>
     </button>
@@ -22,7 +22,28 @@
 </template>
 
 <script setup>
-// Prop 'destination' sekarang bersifat opsional.
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const buttonBackVariants = cva(
+  "flex items-center justify-center gap-x-1 transition active:scale-98",
+  {
+    variants: {
+      variant: {
+        default:
+          "text-primary/80 hover:text-primary text-sm tracking-tight",
+        bordered:
+          "text-primary bg-background border-border lg:hover:bg-muted rounded-full border p-3 lg:border-0",
+        semiTransparent:
+          "text-primary bg-background/70 rounded-full border border-white/10 p-3 shadow-lg backdrop-blur-sm lg:hover:bg-background/80",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
 const props = defineProps({
   destination: {
     type: String,
@@ -36,13 +57,28 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  shortcut: {
+    type: Boolean,
+    default: true,
+  },
+  variant: {
+    type: String,
+    default: "default",
+    validator: (v) => ["default", "bordered", "semiTransparent"].includes(v),
+  },
+  class: {
+    type: [String, Array, Object],
+    default: "",
+  },
 });
 
 const router = useRouter();
 const route = useRoute();
 
 const shortcutEnabled = computed(() => {
-  return !/\/posts\/(create|[^/]+\/edit)/.test(route.path);
+  return (
+    props.shortcut && !/\/posts\/(create|[^/]+\/edit)/.test(route.path)
+  );
 });
 
 defineShortcuts({
@@ -52,39 +88,26 @@ defineShortcuts({
   },
 });
 
-// Buat computed property untuk menentukan tujuan fallback secara dinamis.
 const fallbackDestination = computed(() => {
-  // Prioritas 1: Gunakan prop 'destination' jika disediakan secara manual.
   if (props.destination) {
     return props.destination;
   }
-
-  // Prioritas 2: Jika tidak, hitung path induk dari URL saat ini.
-  // Contoh: '/news/some-article' menjadi '/news'
-  const pathSegments = route.path.split("/").filter((p) => p); // Pecah path dan hapus string kosong
-
-  // Jika path hanya memiliki satu segmen (misal: '/news') atau kurang, kembali ke halaman utama.
+  const pathSegments = route.path.split("/").filter((p) => p);
   if (pathSegments.length <= 1) {
     return "/";
   }
-
-  pathSegments.pop(); // Hapus segmen terakhir
-  return "/" + pathSegments.join("/"); // Gabungkan kembali
+  pathSegments.pop();
+  return "/" + pathSegments.join("/");
 });
 
 const goBack = () => {
-  // Jika forceDestination aktif, langsung arahkan ke fallbackDestination
   if (props.forceDestination) {
     router.push(fallbackDestination.value);
     return;
   }
-
-  // Cek apakah ada histori navigasi di dalam sesi browser saat ini.
   if (window?.history?.length > 2) {
-    // Jika ada, kembali ke halaman sebelumnya
     router.back();
   } else {
-    // Jika tidak ada, arahkan ke tujuan fallback yang sudah kita tentukan.
     router.push(fallbackDestination.value);
   }
 };

@@ -24,7 +24,7 @@
               }
             "
           >
-            <span>{{ $t(`nav.${item.label}`) }}</span>
+            <span>{{ tLabel(item.label) }}</span>
           </NuxtLink>
         </NavigationMenuLink>
 
@@ -32,7 +32,7 @@
           v-else
           class="text-muted-foreground hover:bg-muted relative flex h-full items-center justify-center gap-x-1 rounded-2xl py-2 pr-1.5 pl-3 tracking-tight transition select-none active:scale-98"
         >
-          <span>{{ $t(`nav.${item.label}`) }}</span>
+          <span>{{ tLabel(item.label) }}</span>
         </NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul class="flex flex-col gap-y-1">
@@ -56,7 +56,7 @@
                     }
                   "
                 >
-                  <span>{{ $t(`nav.${link.label}`) }}</span>
+                  <span>{{ tLabel(link.label) }}</span>
                 </NuxtLink>
               </NavigationMenuLink>
             </li>
@@ -69,5 +69,11 @@
 
 <script setup>
 const localePath = useLocalePath();
+const { t, te } = useI18n();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
+const tLabel = (label) => {
+  if (!label) return "";
+  const key = `nav.${label}`;
+  return te(key) ? t(key) : label;
+};
 </script>

@@ -14,8 +14,12 @@
         "
         :lqip="post.featured_image?.lqip?.url"
         :alt="post.title"
-        :width="post.featured_image?.md?.width || post.featured_image?.width || 900"
-        :height="post.featured_image?.md?.height || post.featured_image?.height || 600"
+        :width="
+          post.featured_image?.md?.width || post.featured_image?.width || 900
+        "
+        :height="
+          post.featured_image?.md?.height || post.featured_image?.height || 600
+        "
         :style="imageStyle"
         loading="lazy"
         image-class="size-full object-cover"
@@ -35,7 +39,9 @@
         <span v-else></span>
 
         <span v-if="post.reading_time">
-          <span class="font-normal">{{ $t('ui.readingTime', post.reading_time, { n: post.reading_time }) }}</span>
+          <span class="font-normal">{{
+            $t("ui.readingTime", post.reading_time, { n: post.reading_time })
+          }}</span>
         </span>
         <span v-else></span>
       </div>
@@ -84,8 +90,7 @@
                 <img
                   v-if="author.profile_image"
                   :src="
-                    author.profile_image?.sm ||
-                    author.profile_image?.original
+                    author.profile_image?.sm || author.profile_image?.original
                   "
                   class="size-full object-cover"
                   width="40"

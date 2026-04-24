@@ -1,0 +1,163 @@
+@import "../../../../../layers/base/app/assets/css/main.css";
+
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
+
+@theme {
+  /* KV-Brown */
+  --color-kv-brown-50: oklch(0.9681 0.0074 80.72);
+  --color-kv-brown-100: oklch(0.9306 0.0202 84.59);
+  --color-kv-brown-200: oklch(0.9056 0.0391 85.34);
+  --color-kv-brown-300: oklch(0.7469 0.0603 78.65);
+  --color-kv-brown-400: oklch(0.6654 0.0753 73.53);
+  --color-kv-brown-500: oklch(0.6082 0.0746 67.05);
+  --color-kv-brown-600: oklch(0.5327 0.0676 59.13);
+  --color-kv-brown-700: oklch(0.4502 0.0562 49.34);
+  --color-kv-brown-800: oklch(0.4057 0.0465 42.68);
+  --color-kv-brown-900: oklch(0.24 0.0384 38.49);
+  --color-kv-brown-950: oklch(0.16 0.0207 34.52);
+
+  /* Stone palette */
+  --color-gray-50: oklch(0.985 0.001 106.423);
+  --color-gray-100: oklch(0.97 0.001 106.424);
+  --color-gray-200: oklch(0.923 0.003 48.717);
+  --color-gray-300: oklch(0.869 0.005 56.366);
+  --color-gray-400: oklch(0.709 0.01 56.259);
+  --color-gray-500: oklch(0.553 0.013 58.071);
+  --color-gray-600: oklch(0.444 0.011 73.639);
+  --color-gray-700: oklch(0.374 0.01 67.558);
+  --color-gray-800: oklch(0.268 0.007 34.298);
+  --color-gray-900: oklch(0.216 0.006 56.043);
+  --color-gray-950: oklch(0.147 0.004 49.25);
+}
+
+@layer base {
+  :root {
+    --accent: var(--color-kv-brown-900);
+    --accent-foreground: var(--color-white);
+    --accent-brown: var(--color-kv-brown-800);
+    --background: var(--color-kv-brown-50);
+    --muted: var(--color-kv-brown-100);
+    --border: var(--color-gray-300);
+    --popover: var(--color-kv-brown-50);
+  }
+
+  .dark {
+    --accent: var(--color-kv-brown-300);
+    --accent-foreground: var(--color-kv-brown-950);
+    --accent-brown: var(--color-kv-brown-300);
+    --background: var(--color-kv-brown-950);
+    --muted: var(--color-kv-brown-900);
+    --border: var(--color-gray-700);
+    --popover: var(--color-kv-brown-950);
+  }
+}
+
+.section-title {
+  @apply text-foreground text-[clamp(2.5rem,5vw,5rem)] leading-[1.1]! font-normal tracking-[-0.07em] text-balance;
+}
+
+.section-subtitle {
+  @apply inline-block bg-linear-to-r from-red-500 via-orange-600 to-orange-500 bg-clip-text font-semibold tracking-tight text-balance text-transparent dark:from-red-500 dark:via-orange-500 dark:to-yellow-500;
+}
+
+.section-description {
+  @apply text-body max-w-2xl text-base leading-relaxed! tracking-tight text-pretty sm:text-lg;
+}
+
+@utility page-title {
+  @apply text-primary text-xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-2xl;
+}
+
+@utility page-description {
+  @apply text-muted-foreground text-sm tracking-tight;
+}
+
+@utility gradient-accent {
+  background-image:
+    linear-gradient(0deg, var(--color-accent), var(--color-accent)),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}
+
+@utility text-gradient-accent {
+  @apply gradient-accent bg-clip-text text-transparent;
+}
+
+@utility gradient-gold {
+  @apply text-white;
+  background-image:
+    linear-gradient(
+      0deg,
+      #815121 -6.84%,
+      #875926 -5.56%,
+      #996f33 -1.71%,
+      #b6924a 3.43%,
+      #dec368 8.56%,
+      #f1db77 9.85%,
+      #edd470 23.97%,
+      #e1bf5c 44.52%,
+      #cf9e3b 68.91%,
+      #c68e2b 79.19%,
+      #c1892b 90.74%,
+      #b8802b 120.28%
+    ),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}
+
+.frame {
+  @apply bg-muted/50 after:border-border/60 border-border relative isolate flex w-full min-w-0 flex-col rounded-xl border bg-clip-padding before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] before:shadow-[0_1px_2px_1px_--theme(--color-black/4%)] before:content-[''] after:pointer-events-none after:absolute after:-inset-[5px] after:-z-1 after:rounded-[calc(var(--radius-xl)+4px)] after:border after:bg-clip-padding after:backdrop-blur-[1px] after:content-[''];
+}
+
+.frame .frame-header {
+  @apply flex flex-col px-3 py-3 lg:px-5;
+}
+
+.frame .frame-header .frame-title {
+  @apply text-muted-foreground text-sm font-semibold tracking-tight;
+}
+
+.frame .frame-header .frame-description {
+  @apply text-muted-foreground text-sm;
+}
+
+.frame .frame-panel {
+  @apply bg-background -m-px flex min-w-0 flex-1 flex-col gap-1 overflow-x-auto rounded-xl border px-3 py-6 before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] lg:px-5;
+}
+
+.frame .frame-footer {
+  @apply flex flex-col gap-1 px-3 py-4 lg:px-5;
+}
+
+.prose img {
+  @apply my-6 h-auto max-w-full rounded-lg;
+}
+
+.prose figure {
+  @apply my-6;
+}
+
+.prose figcaption {
+  @apply text-muted-foreground mt-2 text-center text-sm italic;
+}

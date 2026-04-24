@@ -23,7 +23,7 @@
             <span
               class="text-muted-foreground px-3 text-xs font-medium tracking-tight uppercase"
             >
-              {{ $t(`nav.${item.label}`) }}
+              {{ tLabel(item.label) }}
             </span>
 
             <div class="mt-3 flex flex-col gap-y-0.5">
@@ -46,7 +46,7 @@
                 "
                 class="text-primary hover:bg-muted rounded-lg px-3 py-1 text-base font-medium tracking-[-0.04em]"
                 active-class="bg-muted text-primary"
-                >{{ $t(`nav.${link.label}`) }}</NuxtLink
+                >{{ tLabel(link.label) }}</NuxtLink
               >
             </div>
           </div>
@@ -71,5 +71,11 @@
 
 <script setup>
 const localePath = useLocalePath();
+const { t, te } = useI18n();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
+const tLabel = (label) => {
+  if (!label) return "";
+  const key = `nav.${label}`;
+  return te(key) ? t(key) : label;
+};
 </script>

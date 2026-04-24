@@ -1,16 +1,21 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
 export const useUiStore = defineStore("ui", {
   state: () => ({
     isEmbedVideoDialogOpen: false,
     embedVideoSrc: null,
 
-    // isInquiryDialogOpen: false,
-
     dialogRundown: {
       isShow: false,
       data: {},
     },
+
+    isContactDialogOpen: false,
+
+    isShortsDialogOpen: false,
+    shortsVideoSrc: null,
+
+    isEventGalleryDialogOpen: false,
   }),
   actions: {
     openEmbedVideoDialog(src) {
@@ -22,13 +27,6 @@ export const useUiStore = defineStore("ui", {
       this.embedVideoSrc = null;
     },
 
-    // openInquiryDialog() {
-    //   this.isInquiryDialogOpen = true;
-    // },
-    // closeInquiryDialog() {
-    //   this.isInquiryDialogOpen = false;
-    // },
-
     setDialogRundown({ isShow, data = {} }) {
       this.dialogRundown = { isShow, data };
     },
@@ -37,6 +35,29 @@ export const useUiStore = defineStore("ui", {
         isShow: false,
         data: {},
       };
+    },
+
+    openContactDialog() {
+      this.isContactDialogOpen = true;
+    },
+    closeContactDialog() {
+      this.isContactDialogOpen = false;
+    },
+
+    openShortsDialog(src) {
+      this.shortsVideoSrc = src;
+      this.isShortsDialogOpen = true;
+    },
+    closeShortsDialog() {
+      this.isShortsDialogOpen = false;
+      this.shortsVideoSrc = null;
+    },
+
+    openEventGalleryDialog() {
+      this.isEventGalleryDialogOpen = true;
+    },
+    closeEventGalleryDialog() {
+      this.isEventGalleryDialogOpen = false;
     },
   },
 });

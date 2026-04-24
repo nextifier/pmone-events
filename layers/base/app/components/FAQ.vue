@@ -1,5 +1,8 @@
 <template>
-  <div class="container grid grid-cols-1 gap-x-8 gap-y-6 lg:grid-cols-2">
+  <div
+    id="faq"
+    class="container grid grid-cols-1 gap-x-8 gap-y-6 lg:grid-cols-2"
+  >
     <div class="flex h-full flex-col justify-between gap-y-8">
       <div
         class="flex flex-col items-center text-center lg:items-start lg:text-left"

@@ -1,0 +1,14 @@
+@import "../../../../../layers/base/app/assets/css/main.css";
+
+@source "../../app.config.ts";
+@source "../../components/**/*.vue";
+@source "../../composables/**/*.js";
+@source "../../pages/**/*.vue";
+
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
+}

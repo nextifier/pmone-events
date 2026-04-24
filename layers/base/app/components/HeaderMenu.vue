@@ -41,19 +41,19 @@
             <div
               class="grid grid-cols-12 gap-x-1 gap-y-10 px-2 pt-6 pb-10 sm:px-8"
             >
-              <div class="col-span-7 flex flex-col gap-y-4 lg:col-span-6">
+              <div
+                v-if="primaryGroup"
+                class="col-span-7 flex flex-col gap-y-4 lg:col-span-6"
+              >
                 <span
                   class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
-                  >{{
-                    $t(`nav.${useAppConfig().routes.dialog[0].label}`)
-                  }}</span
+                  >{{ tLabel(primaryGroup.label) }}</span
                 >
 
                 <div class="flex flex-col gap-y-3">
                   <DialogClose
                     as-child
-                    v-for="(link, index) in useAppConfig().routes.dialog[0]
-                      .links"
+                    v-for="(link, index) in primaryGroup.links"
                     :key="index"
                   >
                     <NuxtLink
@@ -74,7 +74,7 @@
                         }
                       "
                     >
-                      {{ $t(`nav.${link.label}`) }}
+                      {{ tLabel(link.label) }}
                     </NuxtLink>
                   </DialogClose>
                 </div>
@@ -86,13 +86,13 @@
                 <ColorModeButtons />
 
                 <div
-                  v-for="(item, index) in useAppConfig().routes.dialog.slice(1)"
+                  v-for="(item, index) in secondaryGroups"
                   :key="index"
                   class="flex flex-col gap-y-2"
                 >
                   <span
                     class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
-                    >{{ $t(`nav.${item.label}`) }}</span
+                    >{{ tLabel(item.label) }}</span
                   >
 
                   <div class="flex flex-col gap-y-2 sm:gap-y-1">
@@ -119,7 +119,7 @@
                           }
                         "
                       >
-                        {{ $t(`nav.${link.label}`) }}</NuxtLink
+                        {{ tLabel(link.label) }}</NuxtLink
                       >
                     </DialogClose>
                   </div>
@@ -171,7 +171,17 @@ import {
 
 const route = useRoute();
 const localePath = useLocalePath();
+const { t, te } = useI18n();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
+const tLabel = (label) => {
+  if (!label) return "";
+  const key = `nav.${label}`;
+  return te(key) ? t(key) : label;
+};
+
+const dialogGroups = computed(() => useAppConfig().routes?.dialog || []);
+const primaryGroup = computed(() => dialogGroups.value[0] || null);
+const secondaryGroups = computed(() => dialogGroups.value.slice(1));
 
 const props = defineProps({
   open: {
