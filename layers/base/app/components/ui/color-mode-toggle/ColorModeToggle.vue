@@ -39,7 +39,7 @@
     </SwitchRoot>
     <template #content>
       <span class="inline-flex items-center gap-x-1.5 tracking-tight">
-        <span>Toggle Dark Mode</span>
+        <span>{{ $t("header.lightDarkMode") }}</span>
         <kbd class="keyboard-symbol">{{ metaSymbol }} D</kbd>
       </span>
     </template>

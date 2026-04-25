@@ -1,4 +1,7 @@
 export default {
+  "header": {
+    "lightDarkMode": "라이트 / 다크 모드",
+  },
   "ui": {
     "viewAll": "전체 보기",
     "viewAllBrands": "브랜드 전체 보기",
@@ -8,7 +11,6 @@ export default {
     "backToHome": "홈으로 돌아가기",
     "bookSpace": "부스 예약",
     "getTicket": "티켓 받기",
-    "lightDarkMode": "라이트 / 다크 모드",
     "toggleSidebar": "사이드바 열기/닫기",
     "openMenu": "메뉴 열기",
     "toggleFullscreen": "전체 화면 전환",

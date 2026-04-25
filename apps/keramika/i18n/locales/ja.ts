@@ -1,4 +1,7 @@
 export default {
+  "header": {
+    "lightDarkMode": "ライト / ダークモード",
+  },
   "ui": {
     "viewAll": "すべて見る",
     "viewAllBrands": "すべてのブランドを見る",
@@ -8,7 +11,6 @@ export default {
     "backToHome": "ホームに戻る",
     "bookSpace": "ブースを予約",
     "getTicket": "チケットを取得",
-    "lightDarkMode": "ライト / ダークモード",
     "toggleSidebar": "サイドバーの切替",
     "openMenu": "メニューを開く",
     "toggleFullscreen": "フルスクリーンの切替",

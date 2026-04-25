@@ -1,4 +1,7 @@
 export default {
+  "header": {
+    "lightDarkMode": "浅色 / 深色模式",
+  },
   "ui": {
     "viewAll": "查看全部",
     "viewAllBrands": "查看全部 Brand",
@@ -8,7 +11,6 @@ export default {
     "backToHome": "回到首页",
     "bookSpace": "预订展位",
     "getTicket": "领取门票",
-    "lightDarkMode": "浅色 / 深色模式",
     "toggleSidebar": "切换侧栏",
     "openMenu": "菜单",
     "toggleFullscreen": "切换全屏",

@@ -40,10 +40,7 @@
 
     <div v-if="hasNotch" :style="notchStyle">
       <div
-        :class="[
-          'flex size-full items-center justify-center rounded-full transition-transform duration-200 ease-out',
-          isInteractive && 'hover:scale-105 active:scale-98',
-        ]"
+        class="flex size-full items-center justify-center rounded-full"
         :style="notchInnerStyle"
       >
         <slot name="notch" />
@@ -419,7 +416,7 @@ const rootClass = computed(() =>
   cn(
     "relative block",
     isInteractive.value &&
-      "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary focus-visible:rounded-[var(--cn-radius)]",
+      "cursor-pointer transition-transform duration-200 ease-out hover:scale-[1.015] active:scale-[0.995] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary focus-visible:rounded-[var(--cn-radius)]",
     isButton.value && "w-full text-left",
     props.class,
   ),

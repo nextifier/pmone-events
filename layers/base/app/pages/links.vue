@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="loading"
-      class="min-h-screen-offset grid place-items-center"
-    >
+    <div v-if="loading" class="min-h-screen-offset grid place-items-center">
       <Spinner class="size-5 shrink-0" />
     </div>
 
@@ -16,28 +13,40 @@
         class="text-muted-foreground size-10 shrink-0"
       />
       <div class="space-y-1">
-        <p class="text-base font-medium tracking-tight">Unable to load profile</p>
+        <p class="text-base font-medium tracking-tight">
+          Unable to load profile
+        </p>
         <p class="text-muted-foreground text-sm tracking-tight">
           {{ profileErrorMessage }}
         </p>
       </div>
-      <NuxtLink
+      <Button
         to="/"
         class="bg-muted text-foreground hover:bg-border mt-2 flex items-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-medium tracking-tight transition active:scale-98"
       >
         <Icon name="hugeicons:home-01" class="size-4 shrink-0" />
         <span>Back to home</span>
-      </NuxtLink>
+      </Button>
     </div>
 
     <div
       v-else-if="profile"
-      class="min-h-screen-offset mx-auto flex max-w-xl flex-col px-4 pb-16 sm:pt-4"
+      class="min-h-screen-offset mx-auto flex max-w-xl flex-col px-4 pb-12 sm:pt-2"
     >
-      <div class="relative -mx-4">
+      <CardNotch
+        position="bottom-center"
+        size="4rem"
+        gap="0.2rem"
+        card-bg="var(--color-background)"
+        border-color="var(--color-border)"
+        body-class="aspect-[3/1] @container overflow-hidden"
+        class="-mx-3"
+      >
         <div
-          class="aspect-[3/1] outline-primary/5 @container relative flex items-center justify-center overflow-hidden outline -outline-offset-1 sm:rounded-xl"
-          :style="!hasCoverImage && !hasProfileImage ? coverGradientStyle : undefined"
+          class="absolute inset-0 flex items-center justify-center"
+          :style="
+            !hasCoverImage && !hasProfileImage ? coverGradientStyle : undefined
+          "
         >
           <img
             v-if="profile.cover_image?.md"
@@ -57,30 +66,25 @@
             loading="lazy"
           />
         </div>
-      </div>
 
-      <div class="-mt-12 flex grow flex-col justify-between gap-y-8 lg:-mt-16">
+        <template #notch>
+          <Avatar
+            :model="profile"
+            size="md"
+            rounded="rounded-full"
+            :no-tooltip="true"
+            class="size-full"
+          />
+        </template>
+      </CardNotch>
+
+      <div class="mt-4 flex grow flex-col justify-between gap-y-8">
         <div class="flex flex-col gap-y-6">
-          <div class="flex flex-col items-start gap-y-2">
-            <div class="relative isolate">
-              <div class="ring-background rounded-full ring-4">
-                <Avatar
-                  :model="profile"
-                  size="md"
-                  rounded="rounded-full"
-                  :no-tooltip="true"
-                  class="size-24 lg:size-32"
-                />
-              </div>
-            </div>
-
+          <div class="flex flex-col items-center gap-y-2 text-center">
             <div class="space-y-0.5">
               <h1 class="line-clamp-2 text-xl font-semibold tracking-tighter">
                 {{ profile.name }}
               </h1>
-              <p class="text-muted-foreground text-sm tracking-tight">
-                @{{ profile.username }}
-              </p>
             </div>
 
             <p
@@ -90,24 +94,20 @@
               {{ profile.bio }}
             </p>
 
-            <div
-              v-if="hasContactMethods"
-              class="mt-1.5 flex flex-wrap gap-2"
-            >
-              <NuxtLink
+            <div v-if="hasContactMethods" class="mt-1.5 flex flex-wrap gap-2">
+              <Button
                 v-for="phone in phoneNumbers"
                 :key="phone.number"
                 :to="`https://wa.me/${phone.number.replace(/\D/g, '')}`"
-                target="_blank"
                 @click="trackClick(phone.label || 'WhatsApp')"
                 @contextmenu.prevent
                 class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-semibold tracking-tight transition active:scale-98"
               >
                 <Icon name="hugeicons:whatsapp" class="size-4.5 shrink-0" />
                 <span>{{ phone.label || "WhatsApp" }}</span>
-              </NuxtLink>
+              </Button>
 
-              <NuxtLink
+              <Button
                 v-if="profile.email"
                 :to="`mailto:${profile.email}`"
                 @click="trackClick('Email')"
@@ -116,56 +116,39 @@
               >
                 <Icon name="hugeicons:mail-02" class="size-4.5 shrink-0" />
                 <span>Email</span>
-              </NuxtLink>
+              </Button>
             </div>
           </div>
 
-          <div
-            v-if="linkGroups.social.length > 0"
-            class="flex flex-wrap gap-2"
-          >
-            <NuxtLink
+          <div v-if="linkGroups.social.length > 0" class="flex flex-wrap gap-2">
+            <Button
               v-for="link in linkGroups.social"
               :key="link.url || link.id"
               :to="link.url || '#'"
-              :target="link.url?.startsWith('http') ? '_blank' : ''"
               @click="trackClick(link.label)"
               @contextmenu.prevent
               v-tippy="link.label"
               class="bg-muted text-foreground hover:bg-border flex size-12 shrink-0 items-center justify-center rounded-full transition active:scale-98"
             >
               <Icon :name="getSocialIcon(link.label)" class="size-5" />
-            </NuxtLink>
-          </div>
-
-          <div class="flex flex-col gap-y-3">
-            <NuxtLink
-              v-for="link in stackedLinks"
-              :key="link.key"
-              :to="link.url || '#'"
-              :target="link.url?.startsWith('http') ? '_blank' : ''"
-              @click="trackClick(link.label)"
-              @contextmenu.prevent
-              v-ripple
-              class="border-border bg-muted text-primary flex items-center justify-center gap-x-1.5 rounded-xl border p-4 text-center text-base font-medium tracking-tighter transition active:scale-98"
-            >
-              <Icon :name="link.iconName" class="size-5 shrink-0" />
-              <span>{{ link.label }}</span>
-            </NuxtLink>
+            </Button>
           </div>
         </div>
 
-        <div class="mt-auto flex items-end justify-between gap-2 pb-8">
-          <div></div>
-
-          <ClientOnly>
-            <div class="flex flex-col items-end gap-y-3 text-center">
-              <QRCode :url="qrCodeUrl" class="size-24" />
-              <p class="text-muted-foreground text-xs tracking-tight sm:text-sm">
-                {{ qrCodeText }}
-              </p>
-            </div>
-          </ClientOnly>
+        <div class="flex flex-col gap-y-3">
+          <Button
+            variant="outline"
+            class="bg-muted"
+            v-for="link in stackedLinks"
+            :key="link.key"
+            :to="link.url || '#'"
+            @click="trackClick(link.label)"
+            @contextmenu.prevent
+            v-ripple
+          >
+            <Icon :name="link.iconName" class="size-5 shrink-0" />
+            <span>{{ link.label }}</span>
+          </Button>
         </div>
       </div>
     </div>
@@ -195,13 +178,11 @@ const SOCIAL_ICON_MAP = {
 
 const route = useRoute();
 
-const [
-  { data: projectData, error: profileError },
-  { data: activeEvent },
-] = await Promise.all([
-  useFetch("/api/project/profile", { key: "links-project-profile" }),
-  useFetch("/api/event/active", { key: "links-active-event" }),
-]);
+const [{ data: projectData, error: profileError }, { data: activeEvent }] =
+  await Promise.all([
+    useFetch("/api/project/profile", { key: "links-project-profile" }),
+    useFetch("/api/event/active", { key: "links-active-event" }),
+  ]);
 
 const loading = computed(() => !projectData.value && !profileError.value);
 const profile = computed(() => projectData.value?.data || null);
@@ -210,7 +191,8 @@ const profileErrorMessage = computed(() => {
   if (!profileError.value) return "";
   const status = profileError.value.statusCode;
   if (status === 404) return "This event website is not available right now.";
-  if (status === 504) return "The server took too long to respond. Please try again.";
+  if (status === 504)
+    return "The server took too long to respond. Please try again.";
   return "Something went wrong. Please refresh the page or try again later.";
 });
 
@@ -272,9 +254,24 @@ const linkGroups = computed(() => {
 
 const stackedLinks = computed(() => {
   const items = [
-    { key: "tickets", label: "Tickets", url: "/ticket", iconName: "hugeicons:ticket-01" },
-    { key: "brands", label: "Brands", url: "/brands", iconName: "hugeicons:grid-view" },
-    { key: "rundown", label: "Rundown", url: "/rundown", iconName: "hugeicons:check-list" },
+    {
+      key: "tickets",
+      label: "Tickets",
+      url: "/ticket",
+      iconName: "hugeicons:ticket-01",
+    },
+    {
+      key: "brands",
+      label: "Brands",
+      url: "/brands",
+      iconName: "hugeicons:grid-view",
+    },
+    {
+      key: "rundown",
+      label: "Rundown",
+      url: "/rundown",
+      iconName: "hugeicons:check-list",
+    },
   ];
 
   const eguideUrl = activeEvent.value?.data?.visitor_eguide?.url;
@@ -302,9 +299,20 @@ const stackedLinks = computed(() => {
 const getCustomLinkIcon = (label) => {
   const lower = label?.toLowerCase() || "";
   if (lower.startsWith("whatsapp")) return "hugeicons:whatsapp";
-  if (lower.includes("download") || lower.includes("brochure") || lower.includes("catalog")) return "hugeicons:download-01";
-  if (lower.includes("map") || lower.includes("location") || lower.includes("venue")) return "hugeicons:location-01";
-  if (lower.includes("register") || lower.includes("sign up")) return "hugeicons:user-add-01";
+  if (
+    lower.includes("download") ||
+    lower.includes("brochure") ||
+    lower.includes("catalog")
+  )
+    return "hugeicons:download-01";
+  if (
+    lower.includes("map") ||
+    lower.includes("location") ||
+    lower.includes("venue")
+  )
+    return "hugeicons:location-01";
+  if (lower.includes("register") || lower.includes("sign up"))
+    return "hugeicons:user-add-01";
   return "hugeicons:link-04";
 };
 
@@ -314,7 +322,9 @@ const qrCodeUrl = computed(() => {
 });
 
 const qrCodeText = computed(() => {
-  const siteUrl = useAppConfig().app.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const siteUrl = useAppConfig()
+    .app.url.replace(/^https?:\/\//, "")
+    .replace(/\/$/, "");
   return `${siteUrl}${route.path}`;
 });
 

@@ -1,4 +1,7 @@
 export default {
+  header: {
+    lightDarkMode: "Light / Dark Mode",
+  },
   ui: {
     viewAll: "Lihat semua",
     viewAllBrands: "Lihat semua brand",
@@ -8,7 +11,6 @@ export default {
     backToHome: "Ke beranda",
     bookSpace: "Book Space",
     getTicket: "Get Ticket",
-    lightDarkMode: "Light / Dark Mode",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Menu",
     toggleFullscreen: "Toggle Fullscreen",
