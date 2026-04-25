@@ -2,7 +2,7 @@
   <section
     id="hero"
     ref="containerRef"
-    class="from-background to-background relative isolate overflow-hidden bg-linear-to-b via-blue-100/0 lg:bg-radial-[at_25%_25%] dark:via-blue-950/50"
+    class="from-background to-background relative isolate bg-linear-to-b via-blue-100/0 lg:bg-radial-[at_25%_25%] dark:via-blue-950/50"
   >
     <div
       class="from-background to-background/0 absolute inset-x-0 top-0 z-0 h-[20%] bg-linear-to-b"
@@ -11,24 +11,38 @@
       class="from-background to-background/0 absolute inset-x-0 bottom-0 z-0 h-[20%] bg-linear-to-t"
     ></div>
 
-    <!-- <CircularGradientBorder
-      class="pointer-events-none absolute bottom-0 left-0 z-0 size-[600px] rotate-90 lg:size-[30vw]"
-    /> -->
-
-    <div
+    <!-- <div
       class="pointer-events-none absolute bottom-0 left-0 z-0 size-[600px] rotate-90 lg:size-[30vw]"
     >
       <GlowCard variant="crescent" class="size-full" />
+    </div> -->
+
+    <div
+      class="pointer-events-none absolute bottom-0 left-0 z-0 size-[600px] scale-110 rotate-90 lg:size-[30vw]"
+    >
+      <Orb
+        :hoverIntensity="0.5"
+        :rotateOnHover="true"
+        :hue="8"
+        :forceHoverState="false"
+      />
     </div>
 
-    <!-- <CircularGradientBorder
-      class="pointer-events-none absolute top-24 right-0 z-0 size-[700px] rotate-315 lg:top-16 lg:size-[27vw]"
-    /> -->
-
-    <div
+    <!-- <div
       class="pointer-events-none absolute top-24 right-0 z-0 size-[700px] rotate-315 lg:top-16 lg:size-[27vw]"
     >
       <GlowCard variant="crescent" class="size-full" />
+    </div> -->
+
+    <div
+      class="absolute top-24 right-0 z-0 size-[700px] scale-110 rotate-315 lg:top-16 lg:size-[27vw]"
+    >
+      <Orb
+        :hoverIntensity="0.5"
+        :rotateOnHover="true"
+        :hue="8"
+        :forceHoverState="true"
+      />
     </div>
 
     <div class="container-wider relative z-20">
