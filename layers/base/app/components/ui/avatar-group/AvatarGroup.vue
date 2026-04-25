@@ -2,7 +2,13 @@
   <div
     data-slot="avatar-group"
     :style="styleVars"
-    :class="cn('avatar-group isolate flex', firstOnTop && 'avatar-group-first-on-top', props.class)"
+    :class="
+      cn(
+        'avatar-group isolate flex',
+        firstOnTop && 'avatar-group-first-on-top',
+        props.class,
+      )
+    "
     role="group"
     :aria-label="ariaLabel"
   >
@@ -14,7 +20,11 @@
     />
 
     <template v-if="hiddenItems.length > 0">
-      <slot name="overflow" :count="hiddenItems.length" :hiddenItems="hiddenItems">
+      <slot
+        name="overflow"
+        :count="hiddenItems.length"
+        :hiddenItems="hiddenItems"
+      >
         <HoverCard :open-delay="100" :close-delay="150">
           <HoverCardTrigger as-child>
             <button
@@ -37,8 +47,15 @@
                 :key="item.id ?? item.name ?? i"
                 class="flex items-center gap-x-2 rounded-md px-2 py-1"
               >
-                <Avatar :model="item" circle no-tooltip class="size-6 shrink-0" />
-                <span class="text-sm tracking-tight whitespace-nowrap">{{ item.name }}</span>
+                <Avatar
+                  :model="item"
+                  circle
+                  no-tooltip
+                  class="size-6 shrink-0"
+                />
+                <span class="text-sm tracking-tight whitespace-nowrap">{{
+                  item.name
+                }}</span>
               </div>
             </div>
           </HoverCardContent>
@@ -75,7 +92,7 @@ interface AvatarGroupProps {
 const props = withDefaults(defineProps<AvatarGroupProps>(), {
   size: 2.5,
   overlap: 0.2,
-  gap: 2,
+  gap: 2.5,
   firstOnTop: true,
   colorful: true,
   showTooltip: true,
@@ -98,7 +115,9 @@ provide("avatarGroupContext", {
 
 const displayed = computed(() => props.items.slice(0, props.max));
 
-const hiddenItems = computed(() => (props.max == null ? [] : props.items.slice(props.max)));
+const hiddenItems = computed(() =>
+  props.max == null ? [] : props.items.slice(props.max),
+);
 
 const ariaLabel = computed(() => {
   if (props.label) return props.label;
@@ -125,7 +144,9 @@ const styleVars = computed(() => ({
 }
 
 .avatar-group-first-on-top > :deep(*:not(:first-child)) {
-  --_mask-x: calc(var(--avatar-size) * var(--avatar-overlap) - var(--avatar-size) / 2);
+  --_mask-x: calc(
+    var(--avatar-size) * var(--avatar-overlap) - var(--avatar-size) / 2
+  );
 }
 
 .avatar-group:not(.avatar-group-first-on-top) > :deep(*:not(:last-child)) {
@@ -135,12 +156,14 @@ const styleVars = computed(() => ({
 .avatar-group-first-on-top > :deep(*:not(:first-child)),
 .avatar-group:not(.avatar-group-first-on-top) > :deep(*:not(:last-child)) {
   -webkit-mask-image: radial-gradient(
-    circle calc(var(--avatar-size) / 2 + var(--avatar-gap)) at var(--_mask-x) 50%,
+    circle calc(var(--avatar-size) / 2 + var(--avatar-gap)) at var(--_mask-x)
+      50%,
     transparent 99%,
     #000 100%
   );
   mask-image: radial-gradient(
-    circle calc(var(--avatar-size) / 2 + var(--avatar-gap)) at var(--_mask-x) 50%,
+    circle calc(var(--avatar-size) / 2 + var(--avatar-gap)) at var(--_mask-x)
+      50%,
     transparent 99%,
     #000 100%
   );
