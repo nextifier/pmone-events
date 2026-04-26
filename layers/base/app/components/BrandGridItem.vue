@@ -1,16 +1,10 @@
 <template>
-  <CardNotch
+  <NuxtLink
     :to="localePath(`${props.brandBasePath}/${props.brand.slug}`)"
-    auto-pad
-    border-color="var(--color-border)"
-    class="@container h-full hover:scale-100 active:scale-100"
-    body-class="flex h-full flex-col gap-4 p-4 sm:p-5"
+    class="group @container flex h-full flex-col gap-4 p-4 sm:p-5"
+    :aria-label="props.brand.brand_name"
   >
-    <template #notch>
-      <Icon name="hugeicons:arrow-up-right-03" class="size-5" />
-    </template>
-
-    <BrandIdentity :brand="props.brand" avatar-size="md" />
+    <BrandIdentity :brand="props.brand" avatar-size="lg" />
 
     <div
       v-if="props.showBoothNumber || props.showPromotionImages"
@@ -39,6 +33,7 @@
       >
         <div
           v-for="(item, index) in brand.promotions.slice(0, 2)"
+          :key="index"
           class="flex size-16 items-center justify-center overflow-hidden rounded-2xl border-2 border-white bg-white shadow-md nth-2:scale-90 @3xs:nth-2:scale-100"
           :class="{
             '@3xs:odd:-rotate-12 @3xs:even:rotate-12':
@@ -100,35 +95,19 @@
         </div>
       </div>
     </div>
-  </CardNotch>
+  </NuxtLink>
 </template>
 
 <script setup>
 const props = defineProps({
-  brand: Object,
-  brandBasePath: {
-    type: String,
-    default: "/brands",
-  },
-  showCreatedAt: {
-    type: Boolean,
-    default: true,
-  },
-  showViewsCount: {
-    type: Boolean,
-    default: false,
-  },
-  showBoothNumber: {
-    type: Boolean,
-    default: true,
-  },
-  showPromotionImages: {
-    type: Boolean,
-    default: true,
-  },
+  brand: { type: Object, required: true },
+  brandBasePath: { type: String, default: "/brands" },
+  showCreatedAt: { type: Boolean, default: true },
+  showViewsCount: { type: Boolean, default: false },
+  showBoothNumber: { type: Boolean, default: true },
+  showPromotionImages: { type: Boolean, default: true },
 });
 
 const localePath = useLocalePath();
-
 const { $dayjs } = useNuxtApp();
 </script>

@@ -1,42 +1,11 @@
+const ALLOWED_QUERY = ["per_page", "page", "sort"];
+
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
-  const appConfig = useAppConfig();
   const edition = getRouterParam(event, "edition");
   const query = getQuery(event);
-
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000);
-
-  try {
-    const username = appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
-    const data = await $fetch(
-      `${config.public.apiUrl}/api/public/projects/${username}/editions/${edition}/brands`,
-      {
-        headers: {
-          "X-API-Key": config.pmOneApiKey,
-          Accept: "application/json",
-        },
-        query: {
-          per_page: query.per_page || 200,
-          ...query,
-        },
-        signal: controller.signal,
-      },
-    );
-
-    return data;
-  } catch (error: any) {
-    if (error.name === "AbortError") {
-      throw createError({
-        statusCode: 504,
-        message: "Request timeout - API server took too long to respond",
-      });
-    }
-    throw createError({
-      statusCode: error.response?.status || 500,
-      message: error.message || "Failed to fetch brands for edition",
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  return pmOneFetch(`/editions/${edition}/brands`, {
+    query: { per_page: query.per_page || 200, ...query },
+    allowedQueryKeys: ALLOWED_QUERY,
+    errorPrefix: "Fetch brands for edition",
+  });
 });

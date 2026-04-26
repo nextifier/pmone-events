@@ -3,7 +3,6 @@
     <Hero />
     <LazyMegaPropertyIntro />
     <LazyArchitectDesignerAlley />
-    <!-- <LazyBrandPreview /> -->
     <!-- <LazyRundown /> -->
     <LazyAboutEvent />
     <LazyFactsAndFigures />
