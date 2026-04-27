@@ -60,7 +60,15 @@ export const usePartnerStore = defineStore("partners", {
         list: [
           {
             img: "kemendag.png",
-            link: "",
+          },
+          {
+            img: "kementerian-umkm.png",
+          },
+          {
+            img: "kemenpar.png",
+          },
+          {
+            img: "wonderful-indonesia.png",
           },
         ],
       },
@@ -80,6 +88,9 @@ export const usePartnerStore = defineStore("partners", {
           },
           {
             img: "franchise-global.png",
+          },
+          {
+            img: "info-opportunity.png",
           },
         ],
       },
@@ -102,6 +113,18 @@ export const usePartnerStore = defineStore("partners", {
           },
           {
             img: "twdc.png",
+          },
+          {
+            img: "femalepreneur.png",
+          },
+          {
+            img: "sahabat-umkm.png",
+          },
+          {
+            img: "tda.png",
+          },
+          {
+            img: "acteavist-indonesia.png",
           },
         ],
       },
@@ -312,25 +335,34 @@ export const usePartnerStore = defineStore("partners", {
             img: "waralabakan.png",
           },
           {
+            img: "start-franchise.png",
+          },
+          {
             img: "b-universe.png",
           },
           {
             img: "b-tv.png",
           },
           {
-            img: "b-universe.png",
-          },
-          {
             img: "berita-satu.png",
           },
           {
+            img: "berita-satu-com.png",
+          },
+          {
             img: "investor-daily-indonesia.png",
+          },
+          {
+            img: "investor-id.png",
           },
           {
             img: "jakarta-globe.png",
           },
           {
             img: "tempo.png",
+          },
+          {
+            img: "stapo.png",
           },
         ],
       },
