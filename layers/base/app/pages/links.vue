@@ -22,7 +22,7 @@
       </div>
       <Button
         to="/"
-        class="bg-muted text-foreground hover:bg-border mt-2 flex items-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-medium tracking-tight transition active:scale-98"
+        class="bg-muted/70 text-foreground hover:bg-border/70 mt-2 flex items-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-medium tracking-tight active:scale-98"
       >
         <Icon name="hugeicons:home-01" class="size-4 shrink-0" />
         <span>Back to home</span>
@@ -35,8 +35,9 @@
     >
       <CardNotch
         position="bottom-center"
-        size="4rem"
-        gap="0.2rem"
+        size="5rem"
+        gap="0.3rem"
+        radius="1rem"
         card-bg="var(--color-background)"
         border-color="var(--color-border)"
         body-class="aspect-[3/1] @container overflow-hidden"
@@ -78,7 +79,9 @@
         </template>
       </CardNotch>
 
-      <div class="mt-4 flex grow flex-col justify-between gap-y-8">
+      <div
+        class="mt-4 flex grow flex-col justify-between gap-y-8 sm:justify-start"
+      >
         <div class="flex flex-col gap-y-6">
           <div class="flex flex-col items-center gap-y-2 text-center">
             <div class="space-y-0.5">
@@ -94,14 +97,17 @@
               {{ profile.bio }}
             </p>
 
-            <div v-if="hasContactMethods" class="mt-1.5 flex flex-wrap gap-2">
+            <div
+              v-if="hasContactMethods"
+              class="mt-1.5 flex flex-wrap justify-center gap-x-2 gap-y-3"
+            >
               <Button
                 v-for="phone in phoneNumbers"
                 :key="phone.number"
                 :to="`https://wa.me/${phone.number.replace(/\D/g, '')}`"
                 @click="trackClick(phone.label || 'WhatsApp')"
                 @contextmenu.prevent
-                class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-semibold tracking-tight transition active:scale-98"
+                class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-semibold tracking-tight active:scale-98"
               >
                 <Icon name="hugeicons:whatsapp" class="size-4.5 shrink-0" />
                 <span>{{ phone.label || "WhatsApp" }}</span>
@@ -112,7 +118,7 @@
                 :to="`mailto:${profile.email}`"
                 @click="trackClick('Email')"
                 @contextmenu.prevent
-                class="bg-muted text-foreground hover:bg-border flex items-center justify-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-semibold tracking-tight transition active:scale-98"
+                class="bg-muted border-border text-foreground hover:bg-border/70 flex items-center justify-center gap-x-1.5 rounded-lg border px-3 py-2 text-sm font-semibold tracking-tight active:scale-98"
               >
                 <Icon name="hugeicons:mail-02" class="size-4.5 shrink-0" />
                 <span>Email</span>
@@ -120,7 +126,10 @@
             </div>
           </div>
 
-          <div v-if="linkGroups.social.length > 0" class="flex flex-wrap gap-2">
+          <div
+            v-if="linkGroups.social.length > 0"
+            class="flex flex-wrap justify-center gap-2"
+          >
             <Button
               v-for="link in linkGroups.social"
               :key="link.url || link.id"
@@ -128,17 +137,16 @@
               @click="trackClick(link.label)"
               @contextmenu.prevent
               v-tippy="link.label"
-              class="bg-muted text-foreground hover:bg-border flex size-12 shrink-0 items-center justify-center rounded-full transition active:scale-98"
+              class="bg-muted text-foreground hover:bg-border/70 flex size-12 shrink-0 items-center justify-center rounded-full active:scale-98"
             >
               <Icon :name="getSocialIcon(link.label)" class="size-5" />
             </Button>
           </div>
         </div>
 
-        <div class="flex flex-col gap-y-3">
+        <div class="mx-auto flex w-full max-w-[400px] flex-col gap-y-3">
           <Button
-            variant="outline"
-            class="bg-muted"
+            class="bg-muted/70 border-border text-foreground hover:bg-border/70 flex items-center justify-center gap-x-1.5 rounded-md border px-3 py-3 text-base font-semibold tracking-tight active:scale-98"
             v-for="link in stackedLinks"
             :key="link.key"
             :to="link.url || '#'"
@@ -146,7 +154,7 @@
             @contextmenu.prevent
             v-ripple
           >
-            <Icon :name="link.iconName" class="size-5 shrink-0" />
+            <Icon :name="link.iconName" class="size-4.5 shrink-0" />
             <span>{{ link.label }}</span>
           </Button>
         </div>
@@ -238,9 +246,9 @@ const linkGroups = computed(() => {
     if (!link?.label) continue;
 
     const labelLower = link.label.toLowerCase();
-    // Skip exact "Email"/"WhatsApp" - rendered in dedicated contact buttons.
-    // Variants like "WhatsApp Sales" flow into custom links.
-    if (labelLower === "email" || labelLower === "whatsapp") continue;
+    // Email and any WhatsApp variant are already rendered as dedicated
+    // contact buttons at the top via phoneNumbers / profile.email.
+    if (labelLower === "email" || labelLower.startsWith("whatsapp")) continue;
 
     if (SOCIAL_LABELS.includes(labelLower)) {
       social.push(link);

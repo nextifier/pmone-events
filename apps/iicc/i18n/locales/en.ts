@@ -37,6 +37,10 @@ export default {
     "ticketsSoldOut": "Tickets sold out",
     "ticketsComingSoon": "Tickets coming soon",
     "presentedBy": "Presented by",
+    "moderator": "Moderator",
+    "panelists": "Panelists",
+    "speakers": "Speakers",
+    "fieldTrip": "Field Trip",
     "allLocations": "All Locations",
     "selectAProduct": "Select a product",
     "selectAnOption": "Select an option",
@@ -278,6 +282,11 @@ export default {
         "description": "Celebrate the spirit of collaboration at an exclusive evening event featuring entertainment and fine dining."
       }
     }
+  },
+  "rundown": {
+    "title": "Conference Schedule",
+    "description": "Three days of keynotes, panels, networking, and a field trip, all in Yogyakarta.",
+    "day": "Day {n}"
   },
   "agenda": {
     "badge": "Agenda",

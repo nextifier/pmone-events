@@ -70,6 +70,12 @@ export const useContentStore = defineStore("content", {
           "We are gathering commonly asked questions. Please come back later 😉",
         contactTitle: "Have any questions? Just send it to us!",
       },
+
+      rundown: {
+        title: "Conference Schedule",
+        description:
+          "Three days of keynotes, panels, networking, and a field trip, all in Yogyakarta.",
+      },
     },
   }),
 

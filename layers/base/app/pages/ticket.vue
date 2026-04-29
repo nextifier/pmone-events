@@ -87,8 +87,10 @@
       </div>
     </div>
 
-    <TabsRoot
+    <Tabs
       ref="tabsRootRef"
+      variant="underline"
+      swipe
       v-model="activeTab"
       default-value="tickets"
       class="scroll-mt-navbar mt-8 flex w-full flex-col"
@@ -97,50 +99,42 @@
         class="bg-background/95 supports-backdrop-filter:bg-background/90 sticky inset-x-0 top-(--navbar-height-mobile) isolate z-40 lg:top-(--navbar-height-desktop)"
       >
         <TabsList
-          class="scroll-fade-x no-scrollbar border-border/30 flex h-(--navbar-height-mobile) w-full items-center justify-center-safe overflow-x-auto border-b px-4 text-sm backdrop-blur-sm sm:px-0 lg:h-(--navbar-height-desktop)"
+          class="scroll-fade-x no-scrollbar flex h-(--navbar-height-mobile) w-full items-center justify-center-safe overflow-x-auto px-4 backdrop-blur-sm sm:px-0 lg:h-(--navbar-height-desktop)"
         >
-          <TabsIndicator
-            class="absolute bottom-0 left-0 z-0 w-(--reka-tabs-indicator-size) translate-x-(--reka-tabs-indicator-position) transition-all duration-300 ease-in-out"
-          >
-            <div class="bg-primary h-px w-full" />
-          </TabsIndicator>
+          <TabsIndicator />
 
           <TabsTrigger
             v-for="tab in tabList"
             :key="tab.value"
             :value="tab.value"
             @click="scrollToTabsRootTop"
-            class="text-muted-foreground/80 ring-offset-background hover:text-muted-foreground focus-visible:ring-ring data-[state=active]:text-foreground relative z-10 flex shrink-0 items-center justify-center gap-1 truncate rounded-lg px-3 py-1.5 whitespace-nowrap outline-hidden transition-all select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+            class="shrink-0 rounded-lg"
           >
             <Icon :name="tab.iconName" class="size-4 shrink-0" />
-            <span class="text-sm font-medium tracking-tight">{{
-              tab.name
-            }}</span>
+            <span>{{ tab.name }}</span>
           </TabsTrigger>
         </TabsList>
       </div>
 
-      <div ref="swipeContainerRef">
-        <TabsContent
-          v-for="tab in tabList"
-          :key="tab.value"
-          :ref="(el) => (tabContentRefs[tab.value] = el)"
-          :value="tab.value"
-          :forceMount="tab.forceMount"
-          tabindex="-1"
-          class="min-h-[calc(100dvh-var(--navbar-height-mobile)*2)] outline-hidden data-[state=inactive]:hidden"
-          :class="{
-            'pt-6 sm:pt-8': tab.withPadding,
-          }"
-        >
-          <component
-            v-if="activatedTabs[tab.value]"
-            :is="tab.component"
-            v-bind="tab.props"
-          />
-        </TabsContent>
-      </div>
-    </TabsRoot>
+      <TabsContent
+        v-for="tab in tabList"
+        :key="tab.value"
+        :ref="(el) => (tabContentRefs[tab.value] = el)"
+        :value="tab.value"
+        :forceMount="tab.forceMount"
+        tabindex="-1"
+        class="min-h-[calc(100dvh-var(--navbar-height-mobile)*2)] outline-hidden data-[state=inactive]:hidden"
+        :class="{
+          'pt-6 sm:pt-8': tab.withPadding,
+        }"
+      >
+        <component
+          v-if="activatedTabs[tab.value]"
+          :is="tab.component"
+          v-bind="tab.props"
+        />
+      </TabsContent>
+    </Tabs>
 
     <div
       class="xs:right-[calc(var(--spacing)*4+var(--scrollbar-width,0px))] fixed right-[calc(var(--spacing)*3+var(--scrollbar-width,0px))] bottom-8 z-50 sm:right-[calc(var(--spacing)*6+var(--scrollbar-width,0px))] sm:bottom-5 lg:bottom-12 xl:right-[calc(var(--spacing)*12+var(--scrollbar-width,0px))]"
@@ -175,14 +169,7 @@
 </template>
 
 <script setup>
-import { useIntersectionObserver, useSwipe } from "@vueuse/core";
-import {
-  TabsContent,
-  TabsIndicator,
-  TabsList,
-  TabsRoot,
-  TabsTrigger,
-} from "reka-ui";
+import { useIntersectionObserver } from "@vueuse/core";
 
 const { title, description } = usePageMeta("ticket");
 defineOptions({
@@ -221,39 +208,6 @@ useIntersectionObserver(
     threshold: 0,
   },
 );
-
-const swipeContainerRef = ref(null);
-const isSwipeOnExcludedElement = ref(false);
-
-const activeTabIndex = computed(() =>
-  tabList.value.findIndex((tab) => tab.value === activeTab.value),
-);
-
-useSwipe(swipeContainerRef, {
-  onSwipeStart: (e) => {
-    if (e.target.closest("[aria-roledescription='carousel'], .pswp")) {
-      isSwipeOnExcludedElement.value = true;
-      return;
-    }
-  },
-  onSwipeEnd: (e, direction) => {
-    if (["left", "right"].includes(direction)) {
-      if (isSwipeOnExcludedElement.value) {
-        isSwipeOnExcludedElement.value = false;
-        return;
-      }
-
-      const newIndex =
-        direction === "left"
-          ? activeTabIndex.value + 1
-          : activeTabIndex.value - 1;
-      if (newIndex >= 0 && newIndex < tabList.value.length) {
-        activeTab.value = tabList.value[newIndex].value;
-        scrollToTabsRootTop();
-      }
-    }
-  },
-});
 
 import {
   LazyTickets as Tickets,

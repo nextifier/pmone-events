@@ -1,24 +1,70 @@
 <template>
   <section id="rundown" class="container lg:max-w-3xl">
-    <div class="flex flex-col items-center text-center">
-      <h2
-        :class="{
-          'section-title': route.name?.toString().startsWith('rundown'),
-          'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': !['index', 'rundown'].some((n) => route.name?.toString().startsWith(n)),
-        }"
-      >
-        {{ content.title }}
-      </h2>
+    <slot name="header" :content="content">
+      <div class="flex flex-col items-center text-center">
+        <h2
+          :class="{
+            'section-title': route.name?.toString().startsWith('rundown'),
+            'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': !['index', 'rundown'].some((n) => route.name?.toString().startsWith(n)),
+          }"
+        >
+          {{ content.title }}
+        </h2>
 
-      <p class="section-description mt-3">
-        {{ content.description }}
-      </p>
-    </div>
+        <p class="section-description mt-3">
+          {{ content.description }}
+        </p>
+      </div>
+    </slot>
 
     <div class="@container mx-auto mt-6 max-w-xl">
-      <div v-if="pending" class="flex items-center justify-center gap-x-2">
-        <Spinner class="size-5 text-blue-600 dark:text-white" />
-        <span class="tracking-tight">{{ $t('ui.loading') }}</span>
+      <div v-if="pending" class="flex flex-col gap-y-6">
+        <!-- Search bar skeleton (matches the real input row) -->
+        <div v-if="effectiveShowSearch" class="flex gap-1.5">
+          <Skeleton class="h-10 w-full rounded-xl" />
+        </div>
+
+        <!-- Day tabs skeleton (segmented pill, centered) -->
+        <div class="flex flex-col">
+          <div class="flex justify-center">
+            <div class="bg-muted/60 inline-flex items-center gap-1 rounded-full p-1">
+              <div
+                v-for="i in 3"
+                :key="`day-tab-${i}`"
+                class="flex flex-col items-center gap-1 rounded-full px-4 py-1.5"
+              >
+                <Skeleton class="h-4 w-12 rounded" />
+                <Skeleton class="h-3 w-16 rounded" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity item skeletons (10 rows, mirror the real card layout) -->
+          <div class="pt-4">
+            <div class="grid grid-cols-1 gap-1">
+              <div
+                v-for="i in 10"
+                :key="`item-${i}`"
+                class="flex w-full gap-x-2 rounded-2xl p-2 @xl:p-3"
+              >
+                <!-- Time block: w-24 shrink-0 to match the real time range column -->
+                <div class="w-24 shrink-0 pt-0.5 sm:pt-1">
+                  <Skeleton class="h-4 w-20 rounded" />
+                </div>
+
+                <!-- Body -->
+                <div class="min-w-0 flex-1 space-y-1.5">
+                  <Skeleton class="h-5 w-3/4 rounded sm:h-6" />
+                  <Skeleton v-if="i % 3 !== 0" class="h-4 w-1/2 rounded" />
+                  <div class="flex items-center gap-x-1 pt-1">
+                    <Skeleton class="size-4 shrink-0 rounded" />
+                    <Skeleton class="h-3 w-32 rounded" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div
@@ -32,7 +78,7 @@
 
       <div v-else>
         <div v-if="activities?.length" class="flex flex-col gap-y-6">
-          <div class="flex gap-1.5">
+          <div v-if="effectiveShowSearch" class="flex gap-1.5">
             <div class="group relative h-full w-full">
               <input
                 type="text"
@@ -92,7 +138,7 @@
                 <DropdownMenuItem
                   v-for="(location, index) in uniqueLocations"
                   :key="location"
-                  v-slot="{ active, close }"
+                  v-slot="{ active }"
                   as-child
                 >
                   <button
@@ -123,41 +169,40 @@
             </DropdownMenu>
           </div>
 
-          <TabsRoot
+          <Tabs
             v-if="filteredRundownTabs?.length"
-            :default-value="filteredRundownTabs[0]?.label.date"
+            v-model="activeTab"
+            variant="segmented"
             class="flex w-full flex-col"
           >
-            <TabsList
-              class="bg-muted text-muted-foreground/80 relative isolate flex items-center justify-center self-center rounded-xl p-0.5"
-            >
-              <TabsIndicator
-                class="absolute inset-y-0.5 left-0 z-0 w-(--reka-tabs-indicator-size) translate-x-(--reka-tabs-indicator-position) rounded-full transition-all duration-300 ease-in-out"
-              >
-                <div class="bg-background h-full w-full rounded-lg" />
-              </TabsIndicator>
+            <div class="flex justify-center">
+              <TabsList>
+                <TabsIndicator />
 
-              <TabsTrigger
-                v-for="tab in filteredRundownTabs"
-                :key="tab.label.date"
-                :value="tab.label.date"
-                class="ring-offset-background hover:text-muted-foreground focus-visible:ring-ring data-[state=active]:text-primary relative z-10 flex flex-col items-center justify-center gap-0.5 truncate rounded-lg px-3 py-1.5 text-sm font-medium whitespace-nowrap outline-hidden transition-all select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-xs data-[state=active]:shadow-black/5"
-              >
-                <span
-                  class="text-base leading-tight! font-semibold tracking-tighter sm:text-base"
-                  >{{ tab.label.date }}</span
+                <TabsTrigger
+                  v-for="tab in filteredRundownTabs"
+                  :key="tab.value"
+                  :value="tab.value"
+                  class="h-auto py-1.5"
                 >
-                <span
-                  class="text-sm leading-tight! tracking-tight sm:text-sm"
-                  >{{ tab.label.day }}</span
-                >
-              </TabsTrigger>
-            </TabsList>
+                  <span class="flex flex-col items-center gap-0.5 px-1">
+                    <span
+                      class="text-base leading-tight font-semibold tracking-tighter"
+                      >{{ tab.label.dayName }}</span
+                    >
+                    <span
+                      class="text-sm leading-tight tracking-tight sm:text-base"
+                      >{{ tab.label.dateLabel }}</span
+                    >
+                  </span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent
               v-for="tab in filteredRundownTabs"
-              :key="tab.label.date"
-              :value="tab.label.date"
+              :key="tab.value"
+              :value="tab.value"
               class="outline-hidden"
               tabindex="-1"
             >
@@ -166,110 +211,212 @@
                   v-if="tab.activities?.length"
                   class="grid grid-cols-1 gap-1"
                 >
-                  <button
+                  <template
                     v-for="(activity, index) in tab.activities"
-                    :key="index"
-                    class="hover:bg-muted/50 flex w-full cursor-pointer gap-x-2 rounded-2xl p-2 text-left transition active:scale-98 @xl:gap-x-3 @xl:p-4"
-                    @click="
-                      uiStore.setDialogRundown({
-                        isShow: true,
-                        data: activity,
-                      })
-                    "
+                    :key="activity.id ?? index"
                   >
+                    <!-- Section Header (no time, has theme — non-clickable) -->
                     <div
-                      class="flex w-12 shrink-0 flex-col items-center justify-between"
+                      v-if="activity.is_header"
+                      class="border-accent/30 mt-3 mb-1 border-l-2 px-3 py-1"
                     >
                       <span
-                        class="flex w-full items-center justify-center rounded-lg border border-dotted border-gray-300 px-1 py-1 text-center text-xs font-semibold tracking-tight text-black sm:text-sm dark:border-gray-600 dark:text-white"
-                        >{{ activity.start_time }}</span
+                        class="text-base font-semibold tracking-tighter sm:text-lg"
+                        >{{ activity.title }}</span
                       >
-
-                      <span
-                        class="min-h-4 w-px grow border-l border-dotted border-gray-300 dark:border-gray-600"
-                      ></span>
-
-                      <span
-                        class="flex w-full items-center justify-center rounded-lg border border-dotted border-gray-300 px-1 py-1 text-center text-xs font-semibold tracking-tight text-black sm:text-sm dark:border-gray-600 dark:text-white"
-                        >{{ activity.end_time }}</span
+                      <p
+                        v-if="activity.theme"
+                        class="text-muted-foreground mt-0.5 tracking-tight"
                       >
+                        {{ activity.theme }}
+                      </p>
                     </div>
 
-                    <div class="flex grow flex-col py-1">
-                      <div class="text-primary font-semibold tracking-tight">
-                        {{ activity.title }}
+                    <!-- Field Trip Card -->
+                    <component
+                      v-else-if="activity.type === 'field_trip'"
+                      :is="effectiveClickToOpenDialog ? 'button' : 'div'"
+                      :type="effectiveClickToOpenDialog ? 'button' : undefined"
+                      class="border-border/50 bg-muted/30 flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition sm:p-6"
+                      :class="effectiveClickToOpenDialog ? 'hover:bg-muted/50 cursor-pointer active:scale-98' : ''"
+                      @click="effectiveClickToOpenDialog ? openDialog(activity) : null"
+                    >
+                      <div
+                        class="bg-accent/10 text-accent flex size-12 shrink-0 items-center justify-center rounded-xl"
+                      >
+                        <Icon name="hugeicons:bus-01" class="size-6" />
                       </div>
-
-                      <div class="mt-1.5 flex flex-col gap-y-2">
-                        <div
-                          v-if="activity.categories?.length"
-                          class="flex items-center gap-x-1"
-                        >
-                          <IconTag class="h-4 shrink-0" />
-                          <span class="text-xs tracking-tight sm:text-sm">{{
-                            activity.categories.join(", ")
-                          }}</span>
+                      <div class="min-w-0 flex-1">
+                        <div class="flex flex-wrap items-center gap-2">
+                          <h3
+                            class="text-base font-medium tracking-tighter sm:text-lg"
+                          >
+                            {{ activity.title }}
+                          </h3>
+                          <span
+                            class="bg-muted rounded-full px-2 py-0.5 text-sm font-medium tracking-tight"
+                          >
+                            {{ $t('ui.fieldTrip') }}
+                          </span>
                         </div>
+                        <p
+                          v-if="activity.start_time || activity.end_time"
+                          class="mt-1 tracking-tight"
+                        >
+                          {{ formatTimeRange(activity) }}
+                        </p>
+                        <p
+                          v-if="activity.description"
+                          class="mt-1 tracking-tight"
+                          v-html="activity.description"
+                        />
+                      </div>
+                      <div
+                        v-if="activity.poster_image?.sm"
+                        class="hidden w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 sm:block dark:bg-gray-900"
+                      >
+                        <NuxtImg
+                          :src="activity.poster_image.sm"
+                          alt=""
+                          class="h-full w-full object-cover"
+                          sizes="200px"
+                          width="1080"
+                          height="1350"
+                          loading="lazy"
+                          format="webp"
+                        />
+                      </div>
+                    </component>
 
-                        <div class="flex flex-wrap gap-3">
-                          <div class="flex items-center gap-x-1">
-                            <IconCalendar class="h-4 shrink-0" />
-                            <span class="text-xs tracking-tight sm:text-sm">{{
-                              activity.date_string
+                    <!-- Regular / break / custom -->
+                    <component
+                      v-else
+                      :is="effectiveClickToOpenDialog ? 'button' : 'div'"
+                      :type="effectiveClickToOpenDialog ? 'button' : undefined"
+                      class="flex w-full gap-x-2 rounded-2xl p-2 text-left transition @xl:p-3"
+                      :class="effectiveClickToOpenDialog ? 'hover:bg-muted/50 cursor-pointer active:scale-98' : ''"
+                      @click="effectiveClickToOpenDialog ? openDialog(activity) : null"
+                    >
+                      <!-- Time as horizontal range -->
+                      <span
+                        class="w-24 shrink-0 pt-0.5 text-sm tracking-tight tabular-nums sm:pt-1"
+                        >{{ formatTimeRange(activity) }}</span
+                      >
+
+                      <!-- Body -->
+                      <div class="min-w-0 flex-1">
+                        <span
+                          class="text-base font-semibold tracking-tighter sm:text-lg"
+                          >{{ activity.title }}</span
+                        >
+
+                        <p
+                          v-if="activity.speaker_names?.length"
+                          class="mt-0.5 tracking-tight"
+                        >
+                          <span class="font-semibold"
+                            >{{ $t('ui.speakers') }}:</span
+                          >
+                          {{ activity.speaker_names.join(", ") }}
+                        </p>
+
+                        <p
+                          v-if="activity.theme"
+                          class="text-muted-foreground mt-0.5 tracking-tight"
+                        >
+                          {{ activity.theme }}
+                        </p>
+
+                        <p
+                          v-if="activity.subtitle"
+                          class="text-foreground mt-0.5 font-semibold tracking-tight"
+                        >
+                          {{ activity.subtitle }}
+                        </p>
+
+                        <template v-if="effectiveShowAllDetails">
+                          <div
+                            v-if="activity.description"
+                            class="mt-1.5 text-sm leading-relaxed tracking-tight sm:text-base"
+                            v-html="activity.description"
+                          />
+
+                          <p
+                            v-if="activity.moderator"
+                            class="mt-1.5 tracking-tight"
+                          >
+                            <span class="font-semibold"
+                              >{{ $t('ui.moderator') }}:</span
+                            >
+                            {{ activity.moderator }}
+                          </p>
+
+                          <div
+                            v-if="activity.panelist_names?.length"
+                            class="mt-0.5 tracking-tight"
+                          >
+                            <span class="font-semibold"
+                              >{{ $t('ui.panelists') }}:</span
+                            >
+                            <ul
+                              class="mt-1 list-outside list-disc space-y-0.5 pl-4"
+                            >
+                              <li
+                                v-for="(panelist, pIdx) in activity.panelist_names"
+                                :key="pIdx"
+                              >
+                                {{ panelist }}
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div
+                            v-if="activity.categories?.length"
+                            class="mt-1.5 flex items-center gap-x-1"
+                          >
+                            <IconTag class="h-4 shrink-0" />
+                            <span class="text-sm tracking-tight sm:text-base">{{
+                              activity.categories.join(", ")
                             }}</span>
                           </div>
 
-                          <div class="flex items-center gap-x-1">
+                          <div
+                            v-if="activity.location"
+                            class="mt-1 flex items-center gap-x-1"
+                          >
                             <IconLocation class="h-4 shrink-0" />
-                            <span class="text-xs tracking-tight sm:text-sm">{{
+                            <span class="text-sm tracking-tight sm:text-base">{{
                               activity.location
                             }}</span>
                           </div>
-                        </div>
+
+                          <div
+                            v-if="activity.presented_by"
+                            class="text-muted-foreground mt-1.5 text-sm tracking-tight sm:text-base"
+                          >
+                            {{ $t('ui.presentedBy') }} {{ activity.presented_by }}
+                          </div>
+                        </template>
                       </div>
 
+                      <!-- Poster -->
                       <div
-                        v-if="activity.description"
-                        class="mt-1.5 text-sm tracking-tight"
+                        v-if="activity.poster_image?.sm"
+                        class="w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
                       >
-                        <p>{{ activity.description }}</p>
+                        <NuxtImg
+                          :src="activity.poster_image.sm"
+                          alt=""
+                          class="h-full w-full object-cover"
+                          sizes="200px"
+                          width="1080"
+                          height="1350"
+                          loading="lazy"
+                          format="webp"
+                        />
                       </div>
-
-                      <!-- <div
-                        v-if="activity.speakers?.length"
-                        class="mt-1.5 flex items-start gap-x-1"
-                      >
-                        <IconMicrophone class="h-4 shrink-0 sm:mt-0.5" />
-                        <span class="text-sm tracking-tight">{{
-                          activity.speakers.join(", ")
-                        }}</span>
-                      </div> -->
-
-                      <div
-                        v-if="activity.presented_by"
-                        class="text-muted-foreground mt-1.5 text-xs tracking-tight"
-                      >
-                        {{ $t('ui.presentedBy') }} {{ activity.presented_by }}
-                      </div>
-                    </div>
-
-                    <div
-                      v-if="activity.poster_img"
-                      class="w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
-                    >
-                      <NuxtImg
-                        v-if="activity.poster_img?.sm"
-                        :src="`${useAppConfig().app.apiUrl}/${activity.poster_img?.sm}`"
-                        alt=""
-                        class="h-full w-full object-cover"
-                        sizes="200px"
-                        width="1080"
-                        height="1350"
-                        loading="lazy"
-                        format="webp"
-                      />
-                    </div>
-                  </button>
+                    </component>
+                  </template>
                 </div>
 
                 <div
@@ -283,7 +430,7 @@
                 </div>
               </div>
             </TabsContent>
-          </TabsRoot>
+          </Tabs>
 
           <div v-else>
             <span
@@ -292,7 +439,10 @@
             </span>
           </div>
         </div>
-        <div v-else class="mt-6 flex flex-col items-center gap-y-6 text-center">
+        <div
+          v-else
+          class="mt-6 flex flex-col items-center gap-y-6 text-center"
+        >
           <div class="perspective-midrange">
             <RundownEmptyStateImage
               class="shadow-wrapper w-full max-w-80 rounded-md transition duration-300 hover:rotate-x-40"
@@ -309,19 +459,24 @@
 </template>
 
 <script setup>
-import {
-  TabsContent,
-  TabsIndicator,
-  TabsList,
-  TabsRoot,
-  TabsTrigger,
-} from "reka-ui";
 import { refDebounced } from "@vueuse/core";
 
-const content = computed(() => useContentStore().components.rundown);
-const config = useRuntimeConfig();
+const props = defineProps({
+  showSearch: { type: Boolean, default: true },
+  clickToOpenDialog: { type: Boolean, default: true },
+});
+
 const uiStore = useUiStore();
 const route = useRoute();
+const { t, te, locale } = useI18n();
+
+const content = computed(() => {
+  const fromStore = useContentStore().components.rundown;
+  return {
+    title: te("rundown.title") ? t("rundown.title") : fromStore?.title,
+    description: te("rundown.description") ? t("rundown.description") : fromStore?.description,
+  };
+});
 
 const searchInput = ref("");
 const debouncedSearchInput = refDebounced(searchInput, 200);
@@ -332,84 +487,209 @@ const changeSelectedLocation = (location) => {
   selectedLocation.value = location;
 };
 
-// const {
-//   data: activities,
-//   refresh,
-//   pending,
-//   error,
-// } = await useFetch(`${useAppConfig().app.apiUrl}/api/activities`, {
-//   query: {
-//     "filter[is_published]": 1,
-//     sort: "date,start_time",
-//   },
-//   server: ["rundown"].includes(route.name) ? true : false,
-//   lazy: true,
-// });
+// On the dedicated /rundown page we SSR the data so the page is SEO-friendly
+// and renders the final markup on first paint. Embedded usage on other pages
+// (home, etc.) defers fetch until after hydration to avoid mismatches between
+// the SSR render (no data, no pending) and the client's initial hydration
+// (where useFetch would otherwise flip pending → true immediately and re-render
+// a different branch).
+// `@nuxtjs/i18n` suffixes route names with `___<locale>` (e.g. `rundown___en`),
+// so we match by prefix rather than exact equality.
+const isRundownPage = (route.name?.toString() ?? "").startsWith("rundown");
 
-const activities = ref([]);
-const refresh = () => {};
-const pending = ref(0);
-const error = ref(0);
-
-// Extract unique locations
-const uniqueLocations = computed(() => {
-  const locations = activities.value.map((activity) => activity.location);
-  const sortedLocations = [...new Set(locations)].sort(); // Sort locations alphabetically
-  return ["", ...sortedLocations]; // Include an empty string for "All Locations" at the top
+const {
+  data: rundownData,
+  pending,
+  error,
+  execute: executeRundown,
+} = await useFetch("/api/event/rundown", {
+  query: { locale },
+  server: isRundownPage,
+  lazy: !isRundownPage,
+  immediate: isRundownPage,
+  watch: [locale],
 });
 
-// Filter activities by selected location and search query
+if (!isRundownPage && import.meta.client) {
+  onMounted(() => {
+    executeRundown();
+  });
+}
+
+// Always day-first "DD MMM" e.g. "22 Jul"
+function formatDateShort(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = new Intl.DateTimeFormat(locale.value, {
+    month: "short",
+  }).format(d);
+  return `${day} ${month}`;
+}
+
+// Locale-aware weekday: short for English, long for Indonesian (matches typical convention).
+function formatWeekdayShort(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  const opt = locale.value.startsWith("id") ? "long" : "short";
+  return new Intl.DateTimeFormat(locale.value, { weekday: opt }).format(d);
+}
+
+// Build "Day 1" / "Hari 1" from API day_label using i18n key if available
+function formatDayName(dayNumber, fallback) {
+  if (dayNumber == null) return fallback || "";
+  if (te("rundown.day")) {
+    return t("rundown.day", { n: dayNumber });
+  }
+  return fallback || `Day ${dayNumber}`;
+}
+
+// "Day 1 - Wednesday, 22 July 2026" / "Hari 1 - Rabu, 22 Juli 2026"
+function formatDateLong(dateStr, dayName) {
+  if (!dateStr) return dayName || "";
+  const d = new Date(dateStr);
+  const weekday = new Intl.DateTimeFormat(locale.value, { weekday: "long" }).format(d);
+  const day = d.getDate();
+  const month = new Intl.DateTimeFormat(locale.value, { month: "long" }).format(d);
+  const year = d.getFullYear();
+  const dateText = `${weekday}, ${day} ${month} ${year}`;
+  return dayName ? `${dayName} - ${dateText}` : dateText;
+}
+
+function formatTimeRange(activity) {
+  const start = activity.start_time;
+  const end = activity.end_time;
+  if (start && end) return `${start} – ${end}`;
+  if (start) return start;
+  if (end) return end;
+  return "";
+}
+
+function openDialog(activity) {
+  uiStore.setDialogRundown({ isShow: true, data: activity });
+}
+
+const activities = computed(() => {
+  const days = rundownData.value?.data?.days ?? [];
+  return days.flatMap((day) =>
+    day.items.map((item) => ({
+      ...item,
+      day_date: day.date,
+      day_number: day.day_number,
+      day_label: day.day_label,
+      day_name: formatDayName(day.day_number, day.day_label),
+      date_label_short: formatDateShort(day.date),
+      date_label_full: formatDateLong(
+        day.date,
+        formatDayName(day.day_number, day.day_label),
+      ),
+      weekday_short: formatWeekdayShort(day.date),
+      speaker_names: (item.speakers ?? []).map((s) => s?.name).filter(Boolean),
+      panelist_names: (item.panelists ?? []).map((p) => p?.name).filter(Boolean),
+      is_header: !item.start_time && !item.end_time && Boolean(item.theme),
+    })),
+  );
+});
+
+// Settings sourced from /api/projects/{username}/website-settings (admin) and
+// surfaced through the public rundown payload at `data.settings`. The component
+// props remain the local fallback when the API hasn't returned settings yet.
+const remoteSettings = computed(() => rundownData.value?.data?.settings ?? null);
+
+const effectiveShowSearch = computed(() => {
+  if (remoteSettings.value && typeof remoteSettings.value.show_search_bar === "boolean") {
+    return remoteSettings.value.show_search_bar;
+  }
+  return props.showSearch;
+});
+
+const effectiveShowAllDetails = computed(() => {
+  if (
+    remoteSettings.value
+    && typeof remoteSettings.value.show_all_rundown_details === "boolean"
+  ) {
+    return remoteSettings.value.show_all_rundown_details;
+  }
+  return false;
+});
+
+const effectiveClickToOpenDialog = computed(() => {
+  // When details render inline, the dialog is redundant.
+  return !effectiveShowAllDetails.value && props.clickToOpenDialog;
+});
+
+const uniqueLocations = computed(() => {
+  const locations = activities.value.map((a) => a.location).filter((l) => l);
+  const sortedLocations = [...new Set(locations)].sort();
+  return ["", ...sortedLocations];
+});
+
 const filteredActivities = computed(() => {
   let filtered = activities.value;
 
-  // Filter by location if selected
   if (selectedLocation.value) {
-    filtered = filtered.filter(
-      (activity) => activity.location === selectedLocation.value,
-    );
+    filtered = filtered.filter((a) => a.location === selectedLocation.value);
   }
 
-  // Filter by search query
   if (debouncedSearchInput.value) {
-    filtered = filtered.filter((activity) => {
-      const query = debouncedSearchInput.value.toLowerCase();
-      return (
-        activity.title.toLowerCase().includes(query) ||
-        (activity.description &&
-          activity.description.toLowerCase().includes(query)) ||
-        (activity.presented_by &&
-          activity.presented_by.toLowerCase().includes(query)) ||
-        (activity.categories &&
-          activity.categories.some((category) =>
-            category.toLowerCase().includes(query),
-          )) ||
-        (activity.speakers &&
-          activity.speakers.some((speaker) =>
-            speaker.toLowerCase().includes(query),
-          ))
-      );
+    const q = debouncedSearchInput.value.toLowerCase();
+    filtered = filtered.filter((a) => {
+      const haystack = [
+        a.title,
+        a.subtitle,
+        a.theme,
+        a.location,
+        a.presented_by,
+        a.moderator,
+        ...(a.categories ?? []),
+        ...(a.speaker_names ?? []),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(q);
     });
   }
 
   return filtered;
 });
 
-// Group filtered activities into tabs
 const filteredRundownTabs = computed(() => {
-  const groupedByDate = filteredActivities.value.reduce((acc, activity) => {
-    const date = activity.date_string.split(",")[0];
-    const day = activity.date_string.split(",")[1]?.trim();
-
-    if (!acc[date]) {
-      acc[date] = { label: { date, day }, activities: [] };
+  const groups = new Map();
+  for (const activity of filteredActivities.value) {
+    const key = activity.day_date ?? "_unscheduled";
+    if (!groups.has(key)) {
+      groups.set(key, {
+        value: key,
+        label: {
+          dayName: activity.day_name,
+          dateLabel: [activity.weekday_short, activity.date_label_short]
+            .filter(Boolean)
+            .join(", "),
+        },
+        activities: [],
+      });
     }
-    acc[date].activities.push(activity);
-
-    return acc;
-  }, {});
-
-  return Object.values(groupedByDate);
+    groups.get(key).activities.push(activity);
+  }
+  return Array.from(groups.values());
 });
+
+// Active day tab: auto-switch to first available tab when current tab is
+// filtered out (e.g. user types a search term that only matches items on
+// another day).
+const activeTab = ref(null);
+
+watch(
+  filteredRundownTabs,
+  (tabs) => {
+    if (!tabs?.length) return;
+    if (!tabs.some((t) => t.value === activeTab.value)) {
+      activeTab.value = tabs[0].value;
+    }
+  },
+  { immediate: true },
+);
 
 const searchInputEl = ref();
 const { metaSymbol } = useShortcuts();

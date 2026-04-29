@@ -67,7 +67,24 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    urls: ["/"],
+    sources: [],
+    urls: ["/", "/contact", "/terms", "/privacy"],
+  },
+
+  hooks: {
+    "pages:extend"(pages) {
+      const allowedPaths = new Set(["/", "/contact", "/terms", "/privacy"]);
+      const filter = (list) =>
+        list.filter((page) => {
+          if (page.children?.length) {
+            page.children = filter(page.children);
+          }
+          return allowedPaths.has(page.path);
+        });
+      const filtered = filter(pages);
+      pages.length = 0;
+      pages.push(...filtered);
+    },
   },
 
   pwa: {

@@ -113,7 +113,7 @@ const routes = {
   },
   agenda: {
     label: "Agenda",
-    path: "/#agenda",
+    path: "/#rundown",
   },
   tickets: {
     label: "Tickets",

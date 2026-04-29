@@ -37,7 +37,11 @@ export default {
     "ticketsSoldOut": "Tickets sold out",
     "ticketsComingSoon": "Tickets coming soon",
     "presentedBy": "Presented by",
-    "allLocations": "All Locations",
+    "moderator": "Moderator",
+    "panelists": "Panelis",
+    "speakers": "Pembicara",
+    "fieldTrip": "Field Trip",
+    "allLocations": "Semua Lokasi",
     "selectAProduct": "Select a product",
     "selectAnOption": "Select an option",
     "enterYourProductType": "Enter your product type",
@@ -278,6 +282,11 @@ export default {
         "description": "Rayakan semangat kolaborasi dalam acara malam eksklusif yang menampilkan hiburan dan jamuan makan malam istimewa."
       }
     }
+  },
+  "rundown": {
+    "title": "Jadwal Acara",
+    "description": "Tiga hari keynote, diskusi panel, networking, dan field trip, di Yogyakarta.",
+    "day": "Hari {n}"
   },
   "agenda": {
     "badge": "Agenda",

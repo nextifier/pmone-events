@@ -113,6 +113,30 @@ const routes = {
     label: "News",
     path: "/news",
   },
+  ticketTerms: {
+    label: "Ticket Terms and Conditions",
+    path: "/ticket-terms-and-conditions",
+  },
+  ticketRefundPolicy: {
+    label: "Ticket Refund and Return Policy",
+    path: "/ticket-refund-and-return-policy",
+  },
+  eventPolicy: {
+    label: "Event Policy",
+    path: "/event-policy",
+  },
+  terms: {
+    label: "Terms of Service",
+    path: "/terms",
+  },
+  privacy: {
+    label: "Privacy Policy",
+    path: "/privacy",
+  },
+  helpCenter: {
+    label: "Help Center",
+    path: "/help-center",
+  },
 };
 
 const event = {
@@ -203,6 +227,26 @@ export default defineAppConfig({
       // },
     ],
 
-    footer: [],
+    footer: [
+      {
+        label: "Company",
+        links: [routes.about, routes.services, routes.events],
+      },
+      {
+        label: "Resources",
+        links: [routes.faq, routes.news, routes.contact],
+      },
+      {
+        label: "Terms and policies",
+        links: [
+          routes.ticketTerms,
+          routes.ticketRefundPolicy,
+          routes.eventPolicy,
+          routes.terms,
+          routes.privacy,
+          routes.helpCenter,
+        ],
+      },
+    ],
   },
 });
