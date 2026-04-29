@@ -37,9 +37,9 @@ export default {
     "ticketsSoldOut": "Tickets sold out",
     "ticketsComingSoon": "Tickets coming soon",
     "presentedBy": "Presented by",
+    "speakers": "Speakers",
     "moderator": "Moderator",
     "panelists": "Panelists",
-    "speakers": "Speakers",
     "fieldTrip": "Field Trip",
     "allLocations": "All Locations",
     "selectAProduct": "Select a product",
@@ -63,6 +63,9 @@ export default {
     "conjunctionExplore": "Explore brands from {eventName} with your same ticket."
   },
   "rundown": {
+    "title": "Conference Schedule",
+    "description": "Three days of keynotes, panels, networking, and a field trip, all in Yogyakarta.",
+    "day": "Day {n}",
     "comingSoon": "Rundown is coming soon. Check back later!",
     "nothingYet": "Nothing to see here… yet!"
   },
@@ -282,11 +285,6 @@ export default {
         "description": "Celebrate the spirit of collaboration at an exclusive evening event featuring entertainment and fine dining."
       }
     }
-  },
-  "rundown": {
-    "title": "Conference Schedule",
-    "description": "Three days of keynotes, panels, networking, and a field trip, all in Yogyakarta.",
-    "day": "Day {n}"
   },
   "agenda": {
     "badge": "Agenda",

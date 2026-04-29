@@ -37,9 +37,9 @@ export default {
     "ticketsSoldOut": "Tickets sold out",
     "ticketsComingSoon": "Tickets coming soon",
     "presentedBy": "Presented by",
+    "speakers": "Pembicara",
     "moderator": "Moderator",
     "panelists": "Panelis",
-    "speakers": "Pembicara",
     "fieldTrip": "Field Trip",
     "allLocations": "Semua Lokasi",
     "selectAProduct": "Select a product",
@@ -63,8 +63,11 @@ export default {
     "conjunctionExplore": "Explore brands from {eventName} with your same ticket."
   },
   "rundown": {
-    "comingSoon": "Rundown is coming soon. Check back later!",
-    "nothingYet": "Nothing to see here… yet!"
+    "title": "Jadwal Acara",
+    "description": "Tiga hari keynote, diskusi panel, networking, dan field trip, di Yogyakarta.",
+    "day": "Hari {n}",
+    "comingSoon": "Rundown segera hadir. Cek lagi nanti.",
+    "nothingYet": "Belum ada jadwal tersedia."
   },
   "ticket": {
     "agreementPrefix": "By continuing to purchase the ticket, you agree to",
@@ -282,11 +285,6 @@ export default {
         "description": "Rayakan semangat kolaborasi dalam acara malam eksklusif yang menampilkan hiburan dan jamuan makan malam istimewa."
       }
     }
-  },
-  "rundown": {
-    "title": "Jadwal Acara",
-    "description": "Tiga hari keynote, diskusi panel, networking, dan field trip, di Yogyakarta.",
-    "day": "Hari {n}"
   },
   "agenda": {
     "badge": "Agenda",
