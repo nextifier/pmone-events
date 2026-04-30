@@ -173,17 +173,18 @@
             v-if="filteredRundownTabs?.length"
             v-model="activeTab"
             variant="segmented"
+            swipe
             class="flex w-full flex-col"
           >
             <div class="flex justify-center">
-              <TabsList>
+              <TabsList class="scroll-fade-x no-scrollbar w-full max-w-full overflow-x-auto">
                 <TabsIndicator />
 
                 <TabsTrigger
                   v-for="tab in filteredRundownTabs"
                   :key="tab.value"
                   :value="tab.value"
-                  class="h-auto py-1.5"
+                  class="h-auto shrink-0 py-1.5"
                 >
                   <span class="flex flex-col items-center gap-0.5 px-1">
                     <span
@@ -215,18 +216,23 @@
                     v-for="(activity, index) in tab.activities"
                     :key="activity.id ?? index"
                   >
-                    <!-- Section Header (no time, has theme — non-clickable) -->
+                    <!-- Section Header (settings.is_group_header — non-clickable) -->
                     <div
                       v-if="activity.is_header"
-                      class="border-accent/30 mt-3 mb-1 border-l-2 px-3 py-1"
+                      class="border-primary/40 bg-muted/40 mt-4 mb-1 rounded-xl border-l-4 px-4 py-3"
                     >
                       <span
-                        class="text-base font-semibold tracking-tighter sm:text-lg"
-                        >{{ activity.title }}</span
+                        class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
+                      >{{ activity.title }}</span>
+                      <p
+                        v-if="activity.subtitle"
+                        class="text-foreground mt-0.5 text-sm tracking-tight"
                       >
+                        {{ activity.subtitle }}
+                      </p>
                       <p
                         v-if="activity.theme"
-                        class="text-muted-foreground mt-0.5 tracking-tight"
+                        class="text-muted-foreground mt-0.5 text-sm tracking-tight"
                       >
                         {{ activity.theme }}
                       </p>
@@ -297,11 +303,28 @@
                       :class="effectiveClickToOpenDialog ? 'hover:bg-muted/50 cursor-pointer active:scale-98' : ''"
                       @click="effectiveClickToOpenDialog ? openDialog(activity) : null"
                     >
-                      <!-- Time as horizontal range -->
-                      <span
-                        class="w-24 shrink-0 pt-0.5 text-sm tracking-tight tabular-nums sm:pt-1"
-                        >{{ formatTimeRange(activity) }}</span
-                      >
+                      <!-- Time + Poster (left column) -->
+                      <div class="flex w-24 shrink-0 flex-col gap-2">
+                        <span
+                          class="pt-0.5 text-sm tracking-tight tabular-nums sm:pt-1"
+                        >{{ formatTimeRange(activity) }}</span>
+
+                        <div
+                          v-if="activity.poster_image?.sm"
+                          class="w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
+                        >
+                          <NuxtImg
+                            :src="activity.poster_image.sm"
+                            alt=""
+                            class="h-full w-full object-cover"
+                            sizes="200px"
+                            width="1080"
+                            height="1350"
+                            loading="lazy"
+                            format="webp"
+                          />
+                        </div>
+                      </div>
 
                       <!-- Body -->
                       <div class="min-w-0 flex-1">
@@ -310,15 +333,28 @@
                           >{{ activity.title }}</span
                         >
 
-                        <p
-                          v-if="activity.speaker_names?.length"
+                        <div
+                          v-if="activity.speakers_list?.length"
                           class="mt-0.5 tracking-tight"
                         >
-                          <span class="font-semibold"
-                            >{{ $t('ui.speakers') }}:</span
-                          >
-                          {{ activity.speaker_names.join(", ") }}
-                        </p>
+                          <span class="font-semibold">{{ $t('ui.speakers') }}:</span>
+                          <ul class="mt-0.5 space-y-0.5">
+                            <li
+                              v-for="(speaker, sIdx) in activity.speakers_list"
+                              :key="sIdx"
+                            >
+                              <span class="font-medium">{{ speaker.name }}</span>
+                              <span
+                                v-if="speaker.title"
+                                class="text-muted-foreground"
+                              >, {{ speaker.title }}</span>
+                              <span
+                                v-if="speaker.organization"
+                                class="text-muted-foreground"
+                              > - {{ speaker.organization }}</span>
+                            </li>
+                          </ul>
+                        </div>
 
                         <p
                           v-if="activity.theme"
@@ -397,23 +433,6 @@
                             {{ $t('ui.presentedBy') }} {{ activity.presented_by }}
                           </div>
                         </template>
-                      </div>
-
-                      <!-- Poster -->
-                      <div
-                        v-if="activity.poster_image?.sm"
-                        class="w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
-                      >
-                        <NuxtImg
-                          :src="activity.poster_image.sm"
-                          alt=""
-                          class="h-full w-full object-cover"
-                          sizes="200px"
-                          width="1080"
-                          height="1350"
-                          loading="lazy"
-                          format="webp"
-                        />
                       </div>
                     </component>
                   </template>
@@ -556,11 +575,16 @@ function formatDateLong(dateStr, dayName) {
   return dayName ? `${dayName} - ${dateText}` : dateText;
 }
 
+const finishLabel = computed(() => {
+  if (te("rundown.finish")) return t("rundown.finish");
+  return locale.value.startsWith("id") ? "Selesai" : "Finish";
+});
+
 function formatTimeRange(activity) {
   const start = activity.start_time;
   const end = activity.end_time;
-  if (start && end) return `${start} – ${end}`;
-  if (start) return start;
+  if (start && end) return `${start} - ${end}`;
+  if (start) return `${start} - ${finishLabel.value}`;
   if (end) return end;
   return "";
 }
@@ -584,9 +608,16 @@ const activities = computed(() => {
         formatDayName(day.day_number, day.day_label),
       ),
       weekday_short: formatWeekdayShort(day.date),
+      speakers_list: (item.speakers ?? [])
+        .map((s) => ({
+          name: s?.name ?? "",
+          title: s?.title ?? "",
+          organization: s?.organization ?? "",
+        }))
+        .filter((s) => s.name),
       speaker_names: (item.speakers ?? []).map((s) => s?.name).filter(Boolean),
       panelist_names: (item.panelists ?? []).map((p) => p?.name).filter(Boolean),
-      is_header: !item.start_time && !item.end_time && Boolean(item.theme),
+      is_header: Boolean(item.settings?.is_group_header),
     })),
   );
 });
@@ -634,6 +665,11 @@ const filteredActivities = computed(() => {
   if (debouncedSearchInput.value) {
     const q = debouncedSearchInput.value.toLowerCase();
     filtered = filtered.filter((a) => {
+      const speakerHaystack = (a.speakers_list ?? []).flatMap((s) => [
+        s.name,
+        s.title,
+        s.organization,
+      ]);
       const haystack = [
         a.title,
         a.subtitle,
@@ -642,7 +678,7 @@ const filteredActivities = computed(() => {
         a.presented_by,
         a.moderator,
         ...(a.categories ?? []),
-        ...(a.speaker_names ?? []),
+        ...speakerHaystack,
       ]
         .filter(Boolean)
         .join(" ")

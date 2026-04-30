@@ -36,7 +36,7 @@
             <span
               class="text-primary border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
             >
-              {{ activity.start_time || "—" }}
+              {{ activity.start_time || "-" }}
             </span>
 
             <span class="border-primary/25 grow border-b border-dashed"></span>
@@ -44,7 +44,7 @@
             <span
               class="text-primary border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
             >
-              {{ activity.end_time || "—" }}
+              {{ activity.end_time || finishLabel }}
             </span>
           </div>
 
@@ -79,9 +79,22 @@
               }}</span>
             </div>
 
-            <div v-if="speakerNames.length" class="text-base tracking-tight">
+            <div v-if="speakersList.length" class="text-base tracking-tight">
               <span class="font-semibold">{{ $t("ui.speakers") }}:</span>
-              {{ speakerNames.join(", ") }}
+              <ul class="mt-1 space-y-0.5">
+                <li v-for="(speaker, idx) in speakersList" :key="idx">
+                  <span class="font-medium">{{ speaker.name }}</span>
+                  <span v-if="speaker.title" class="text-muted-foreground"
+                    >, {{ speaker.title }}</span
+                  >
+                  <span
+                    v-if="speaker.organization"
+                    class="text-muted-foreground"
+                  >
+                    - {{ speaker.organization }}</span
+                  >
+                </li>
+              </ul>
             </div>
 
             <div v-if="activity.moderator" class="text-base tracking-tight">
@@ -118,16 +131,29 @@
 
 <script setup>
 const uiStore = useUiStore();
+const { t, te, locale } = useI18n();
 
 const activity = computed(() => uiStore.dialogRundown.data ?? {});
 
-const speakerNames = computed(() => {
-  if (Array.isArray(activity.value.speaker_names)) {
-    return activity.value.speaker_names.filter(Boolean);
+const finishLabel = computed(() => {
+  if (te("rundown.finish")) return t("rundown.finish");
+  return locale.value.startsWith("id") ? "Selesai" : "Finish";
+});
+
+const speakersList = computed(() => {
+  if (Array.isArray(activity.value.speakers_list)) {
+    return activity.value.speakers_list;
   }
   return (activity.value.speakers ?? [])
-    .map((s) => (typeof s === "string" ? s : s?.name))
-    .filter(Boolean);
+    .map((s) => {
+      if (typeof s === "string") return { name: s, title: "", organization: "" };
+      return {
+        name: s?.name ?? "",
+        title: s?.title ?? "",
+        organization: s?.organization ?? "",
+      };
+    })
+    .filter((s) => s.name);
 });
 
 const panelistNames = computed(() => {

@@ -5,7 +5,7 @@
     <LazyTopics />
     <LazyPrograms />
     <ClientOnly>
-      <LazyRundown :show-search="false">
+      <LazyRundown v-if="rundownVisible" :show-search="false">
         <template #header>
           <div class="flex flex-col items-center text-center">
             <span
@@ -41,6 +41,7 @@
 const { t } = useI18n();
 const config = useAppConfig();
 const route = useRoute();
+const { visible: rundownVisible } = useRundownVisibility();
 
 const siteUrl = config.app.url;
 const pageUrl = siteUrl + route.path;

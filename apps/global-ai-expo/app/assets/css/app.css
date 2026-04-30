@@ -1,0 +1,40 @@
+@import "../../../../../layers/base/app/assets/css/main.css";
+
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
+
+:root {
+  --accent: #c8633f;
+  --accent-foreground: #f4f1e8;
+}
+
+.dark {
+  --accent: #d97a55;
+  --accent-foreground: #f4f1e8;
+}
+
+.section-subtitle {
+  @apply font-semibold tracking-tighter text-balance text-[#c8633f] dark:text-[#d97a55];
+}
+
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
+.section-title-large {
+  @apply xs:text-6xl xs:leading-[1.1] 3xl:text-8xl 3xl:leading-[1.1] pb-2 text-[12vw] leading-[1.1] font-semibold tracking-tighter text-balance text-[#1B2A41] md:text-7xl md:leading-[1.1] lg:text-[5.5rem] lg:leading-[1.1] dark:bg-linear-to-r dark:from-white dark:to-gray-500 dark:bg-clip-text dark:text-transparent;
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
+}
+
+.gradient-accent,
+.before\:gradient-accent::before,
+.text-gradient-accent {
+  @apply bg-linear-to-r from-[#c8633f] to-[#1B2A41] font-medium tracking-tight;
+}
+
+.text-gradient-accent {
+  @apply bg-clip-text text-transparent;
+}

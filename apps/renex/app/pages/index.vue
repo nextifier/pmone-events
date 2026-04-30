@@ -1,7 +1,9 @@
 <template>
   <div class="space-y-16 pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
-    <!-- <LazyRundown /> -->
+    <ClientOnly>
+      <LazyRundown v-if="rundownVisible" />
+    </ClientOnly>
     <LazyAboutEvent />
     <LazyFactsAndFigures />
     <LazyPartnerships />
@@ -19,4 +21,5 @@
 <script setup>
 usePageMeta("home");
 useEventSchema();
+const { visible: rundownVisible } = useRundownVisibility();
 </script>

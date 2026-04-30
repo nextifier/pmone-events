@@ -3,7 +3,9 @@
     <Hero />
     <LazyMegaPropertyIntro />
     <LazyArchitectDesignerAlley />
-    <!-- <LazyRundown /> -->
+    <ClientOnly>
+      <LazyRundown v-if="rundownVisible" />
+    </ClientOnly>
     <LazyAboutEvent />
     <LazyFactsAndFigures />
     <LazyPartnerships />
@@ -21,4 +23,5 @@
 <script setup>
 usePageMeta("home");
 useEventSchema();
+const { visible: rundownVisible } = useRundownVisibility();
 </script>

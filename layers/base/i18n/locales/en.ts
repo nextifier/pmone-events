@@ -63,7 +63,8 @@ export default {
   },
   "rundown": {
     "comingSoon": "Rundown is coming soon. Check back later!",
-    "nothingYet": "Nothing to see here… yet!"
+    "nothingYet": "Nothing to see here… yet!",
+    "finish": "Finish"
   },
   "ticket": {
     "agreementPrefix": "By continuing to purchase the ticket, you agree to",

@@ -31,6 +31,7 @@
     "dev:iicc": "pnpm --filter @events/iicc dev",
     "dev:panorama-events": "pnpm --filter @events/panorama-events dev",
     "dev:panorama-media": "pnpm --filter @events/panorama-media dev",
+    "dev:global-ai-expo": "pnpm --filter @events/global-ai-expo dev",
     "build:megabuild": "pnpm --filter @events/megabuild build",
     "build:keramika": "pnpm --filter @events/keramika build",
     "build:renex": "pnpm --filter @events/renex build",
@@ -46,6 +47,7 @@
     "build:iicc": "pnpm --filter @events/iicc build",
     "build:panorama-events": "pnpm --filter @events/panorama-events build",
     "build:panorama-media": "pnpm --filter @events/panorama-media build",
+    "build:global-ai-expo": "pnpm --filter @events/global-ai-expo build",
     "build:all": "pnpm -r --filter './apps/*' build"
   }
 }
