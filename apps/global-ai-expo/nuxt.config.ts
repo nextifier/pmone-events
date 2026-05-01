@@ -18,6 +18,23 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
+  fonts: {
+    families: [
+      {
+        name: "Geist",
+        provider: "google",
+        weights: [300, 400, 500, 600, 700],
+        display: "swap",
+      },
+      {
+        name: "Geist Mono",
+        provider: "google",
+        weights: [400, 500],
+        display: "swap",
+      },
+    ],
+  },
+
   site: {
     url: "https://globalaiexpo.com",
     name: "Global AI Expo",
@@ -85,12 +102,18 @@ export default defineNuxtConfig({
       short_name: "GAIExpo",
       description:
         "AI exhibition, conference, startup pavilion, and business matching at Sentul City, November 2026.",
-      theme_color: "#1B2A41",
+      theme_color: "#0A0A0B",
       background_color: "#F4F1E8",
     },
   },
 
   nitro: {
     preset: "cloudflare-pages",
+  },
+
+  vite: {
+    optimizeDeps: {
+      exclude: ["shaders", "shaders/vue", "three"],
+    },
   },
 });

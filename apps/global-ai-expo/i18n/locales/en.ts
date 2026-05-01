@@ -170,54 +170,18 @@ export default {
   },
   hero: {
     countdownLabel: "The floor opens in",
-    subtitle: "Sentul City. November 2026.",
+    eyebrow: "§01 · The expo",
     title: "Where applied AI gets built, bought, and signed.",
     description:
-      "A four-day expo, conference, and dealmaking floor for the AI ecosystem. Eight industry zones, four conference tracks, 100+ startups, and a $100,000 innovation prize.",
-    ctaTicket: "Get Ticket",
-    ctaExhibit: "Book Space",
-    playRecap: "Play Recap",
-    announcement: "Booth bookings are live for early exhibitors.",
-    visitorAnnouncement: "Visitor passes go on sale September 2026.",
-    banners: {
-      "0": {
-        subHeadline: "Booth Bookings Are Open",
-        content:
-          "<p>Reserve a Standard, Premium, or Pavilion booth across eight industry zones. Pricing starts at USD 5,000.</p>",
-        cta: "Book Your Space",
-      },
-      "1": {
-        subHeadline: "Four Conference Tracks",
-        content:
-          "<p>Future of AI, Governance and Ethics, Enterprise Transformation, and Generative AI. Speakers announced as deals close.</p>",
-        cta: "See the Agenda",
-      },
-      "2": {
-        subHeadline: "Startup Pavilion",
-        content:
-          "<p>100+ curated AI startups demo their work to investors and enterprise buyers across four days.</p>",
-        cta: "Apply to Pavilion",
-      },
-      "3": {
-        subHeadline: "USD 100,000 Innovation Prize",
-        content:
-          "<p>Best AI Startup, Best AI Application, AI for Social Impact, AI Robotics Innovation. Applications open mid 2026.</p>",
-        cta: null,
-      },
-      "4": {
-        subHeadline: "Browse Confirmed Exhibitors",
-        content:
-          "<p>Eight zones covering robotics, healthcare, fintech, smart city, manufacturing, autonomous vehicles, energy, and agriculture.</p>",
-        cta: "View Brands",
-      },
-      "5": {
-        subHeadline: "Stay Posted",
-        content:
-          "<p>Speaker drops, exhibitor announcements, and early-bird windows go to LinkedIn first.</p>",
-        cta: "Follow on LinkedIn",
-      },
+      "Asia's epicenter for enterprise AI, from robotics and healthcare to fintech and smart cities. Four days in Sentul, thirty countries on the floor.",
+    metrics: {
+      zones: "Industry zones",
+      startups: "Curated startups",
+      prize: "Innovation prize",
+      countries: "Countries on the floor",
     },
-    instagramTip: "",
+    ctaTicket: "Pre-register",
+    ctaExhibit: "Reserve booth",
   },
   mainPrograms: {
     title:

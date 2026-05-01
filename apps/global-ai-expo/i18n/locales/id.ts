@@ -170,54 +170,18 @@ export default {
   },
   hero: {
     countdownLabel: "Lantai pameran dibuka dalam",
-    subtitle: "Sentul City. November 2026.",
-    title: "Tempat AI dibangun, dibeli, dan ditandatangani.",
+    eyebrow: "§01 · Pameran",
+    title: "Tempat AI terapan dibangun, dibeli, dan ditandatangani.",
     description:
-      "Empat hari pameran, konferensi, dan ruang dealmaking untuk ekosistem AI. Delapan zona industri, empat track konferensi, 100+ startup, dan kompetisi inovasi senilai USD 100.000.",
-    ctaTicket: "Get Ticket",
-    ctaExhibit: "Book Space",
-    playRecap: "Tonton Recap",
-    announcement: "Booking booth sudah dibuka untuk exhibitor early bird.",
-    visitorAnnouncement: "Tiket pengunjung dijual mulai September 2026.",
-    banners: {
-      "0": {
-        subHeadline: "Booking Booth Sudah Dibuka",
-        content:
-          "<p>Pesan booth Standard, Premium, atau Pavilion di delapan zona industri. Harga mulai USD 5.000.</p>",
-        cta: "Book Your Space",
-      },
-      "1": {
-        subHeadline: "Empat Track Konferensi",
-        content:
-          "<p>Future of AI, Governance and Ethics, Enterprise Transformation, dan Generative AI. Daftar pembicara diumumkan bertahap.</p>",
-        cta: "Lihat Agenda",
-      },
-      "2": {
-        subHeadline: "Startup Pavilion",
-        content:
-          "<p>100+ startup AI terkurasi mendemokan produk ke investor dan buyer enterprise selama empat hari.</p>",
-        cta: "Daftar Pavilion",
-      },
-      "3": {
-        subHeadline: "Hadiah Inovasi USD 100.000",
-        content:
-          "<p>Best AI Startup, Best AI Application, AI for Social Impact, AI Robotics Innovation. Pendaftaran dibuka pertengahan 2026.</p>",
-        cta: null,
-      },
-      "4": {
-        subHeadline: "Lihat Daftar Exhibitor",
-        content:
-          "<p>Delapan zona mencakup robotika, kesehatan, fintech, smart city, manufaktur, kendaraan otonom, energi, dan agrikultur.</p>",
-        cta: "Lihat Brands",
-      },
-      "5": {
-        subHeadline: "Pantau Update",
-        content:
-          "<p>Pengumuman pembicara, exhibitor, dan jendela early-bird dirilis lebih dulu di LinkedIn.</p>",
-        cta: "Ikuti di LinkedIn",
-      },
+      "Pusat AI enterprise Asia, dari robotik dan kesehatan hingga fintech dan smart city. Empat hari di Sentul, tiga puluh negara di lantai pameran.",
+    metrics: {
+      zones: "Zona industri",
+      startups: "Startup terkurasi",
+      prize: "Hadiah inovasi",
+      countries: "Negara peserta",
     },
-    instagramTip: "",
+    ctaTicket: "Pra-registrasi",
+    ctaExhibit: "Pesan booth",
   },
   mainPrograms: {
     title:

@@ -88,103 +88,17 @@ export const useContentStore = defineStore("content", () => {
   const components = computed(() => ({
     hero: {
       countdownLabel: t("hero.countdownLabel"),
-      subtitle: t("hero.subtitle"),
+      eyebrow: t("hero.eyebrow"),
       title: t("hero.title"),
       description: t("hero.description"),
-      cta: {},
-      announcements: [
-        {
-          text: t("hero.announcement"),
-          link: "/book-space",
-        },
-        {
-          text: t("hero.visitorAnnouncement"),
-          link: "/ticket",
-        },
+      metrics: [
+        { value: "8", label: t("hero.metrics.zones") },
+        { value: "100+", label: t("hero.metrics.startups") },
+        { value: "$100K", label: t("hero.metrics.prize") },
+        { value: "30+", label: t("hero.metrics.countries") },
       ],
-
-      bannerHero: [
-        {
-          subHeadline: t("hero.banners.0.subHeadline"),
-          content: t("hero.banners.0.content"),
-          img: {
-            src: "/img/banners/cover-1.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.0.cta"),
-            link: "/book-space",
-            openInNewTab: false,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.1.subHeadline"),
-          content: t("hero.banners.1.content"),
-          img: {
-            src: "/img/banners/flei-26th-poster.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.1.cta"),
-            link: "https://franchise-expo.co.id",
-            openInNewTab: true,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.2.subHeadline"),
-          content: t("hero.banners.2.content"),
-          img: {
-            src: "/img/banners/cbe-8th-poster.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.2.cta"),
-            link: "https://cafebrasserieexpo.com/",
-            openInNewTab: true,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.3.subHeadline"),
-          content: t("hero.banners.3.content"),
-          img: {
-            src: "/img/banners/cover-3.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: null,
-        },
-        {
-          subHeadline: t("hero.banners.4.subHeadline"),
-          content: t("hero.banners.4.content"),
-          img: {
-            src: "/img/banners/cover-4.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.4.cta"),
-            link: "/brands",
-            openInNewTab: false,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.5.subHeadline"),
-          content: t("hero.banners.5.content"),
-          img: {
-            src: "/img/banners/cover-5.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.5.cta"),
-            link: "https://www.instagram.com/morefoodexpo.id",
-            openInNewTab: true,
-          },
-        },
-      ],
+      ctaTicket: t("hero.ctaTicket"),
+      ctaExhibit: t("hero.ctaExhibit"),
     },
 
     brandPreview: {
