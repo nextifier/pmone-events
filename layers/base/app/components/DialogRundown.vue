@@ -1,23 +1,32 @@
 <template>
-  <DialogResponsive v-model:open="isOpen" dialog-max-width="600px">
-    <div class="px-4 pt-2 pb-16 sm:px-8 sm:pt-12 sm:pb-12">
+  <DialogResponsive
+    v-model:open="isOpen"
+    dialog-max-width="480px"
+    :close-button-class="
+      hasPoster ? 'bg-black/20 hover:bg-black/40 text-white/80' : ''
+    "
+    :flush-content="hasPoster"
+  >
+    <NuxtImg
+      v-if="hasPoster"
+      :src="activity.poster_image.lg"
+      alt=""
+      class="bg-muted w-full object-cover"
+      sizes="100vw sm:560px"
+      width="1080"
+      height="1350"
+      loading="lazy"
+      format="webp"
+    />
+    <div
+      class="text-foreground px-4 pb-16 sm:px-8 sm:pb-12"
+      :class="hasPoster ? 'pt-4 sm:pt-6' : 'pt-2 sm:pt-12'"
+    >
       <div class="flex flex-col gap-y-4">
-        <NuxtImg
-          v-if="activity.poster_image?.lg"
-          :src="activity.poster_image.lg"
-          alt=""
-          class="bg-muted w-full rounded-xl object-cover"
-          sizes="100vw sm:560px"
-          width="1080"
-          height="1350"
-          loading="lazy"
-          format="webp"
-        />
-
         <div class="flex grow flex-col">
           <div
             v-if="activity.date_label_full"
-            class="text-foreground text-xl font-medium tracking-tight"
+            class="text-xl font-medium tracking-tight"
           >
             {{ activity.date_label_full }}
           </div>
@@ -34,7 +43,7 @@
             class="mt-4 flex items-center"
           >
             <span
-              class="text-primary border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
+              class="border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
             >
               {{ activity.start_time || "-" }}
             </span>
@@ -42,14 +51,14 @@
             <span class="border-primary/25 grow border-b border-dashed"></span>
 
             <span
-              class="text-primary border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
+              class="border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
             >
               {{ activity.end_time || finishLabel }}
             </span>
           </div>
 
           <div
-            class="text-foreground mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl"
+            class="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl"
           >
             {{ activity.title }}
           </div>
@@ -63,7 +72,7 @@
 
           <p
             v-if="activity.subtitle"
-            class="text-foreground mt-2 text-base font-semibold tracking-tight"
+            class="mt-2 text-base font-semibold tracking-tight"
           >
             {{ activity.subtitle }}
           </p>
@@ -79,9 +88,29 @@
               }}</span>
             </div>
 
-            <div v-if="speakersList.length" class="text-base tracking-tight">
+            <div
+              v-if="speakersList.length === 1"
+              class="text-base tracking-tight"
+            >
+              <span class="font-semibold">{{ $t("ui.speaker") }}:&nbsp;</span>
+              <span class="font-medium">{{ speakersList[0].name }}</span>
+              <span v-if="speakersList[0].title" class="text-muted-foreground"
+                >, {{ speakersList[0].title }}</span
+              >
+              <span
+                v-if="speakersList[0].organization"
+                class="text-muted-foreground"
+              >
+                - {{ speakersList[0].organization }}</span
+              >
+            </div>
+
+            <div
+              v-else-if="speakersList.length"
+              class="text-base tracking-tight"
+            >
               <span class="font-semibold">{{ $t("ui.speakers") }}:</span>
-              <ul class="mt-1 space-y-0.5">
+              <ul class="mt-1 list-outside list-disc space-y-0.5 pl-4">
                 <li v-for="(speaker, idx) in speakersList" :key="idx">
                   <span class="font-medium">{{ speaker.name }}</span>
                   <span v-if="speaker.title" class="text-muted-foreground"
@@ -135,6 +164,8 @@ const { t, te, locale } = useI18n();
 
 const activity = computed(() => uiStore.dialogRundown.data ?? {});
 
+const hasPoster = computed(() => !!activity.value.poster_image?.lg);
+
 const finishLabel = computed(() => {
   if (te("rundown.finish")) return t("rundown.finish");
   return locale.value.startsWith("id") ? "Selesai" : "Finish";
@@ -146,7 +177,8 @@ const speakersList = computed(() => {
   }
   return (activity.value.speakers ?? [])
     .map((s) => {
-      if (typeof s === "string") return { name: s, title: "", organization: "" };
+      if (typeof s === "string")
+        return { name: s, title: "", organization: "" };
       return {
         name: s?.name ?? "",
         title: s?.title ?? "",

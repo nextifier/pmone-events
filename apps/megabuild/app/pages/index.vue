@@ -3,9 +3,7 @@
     <Hero />
     <LazyMegaPropertyIntro />
     <LazyArchitectDesignerAlley />
-    <ClientOnly>
-      <LazyRundown v-if="rundownVisible" />
-    </ClientOnly>
+    <LazyRundown v-if="rundownVisible" />
     <LazyAboutEvent />
     <LazyFactsAndFigures />
     <LazyPartnerships />

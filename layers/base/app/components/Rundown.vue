@@ -2,12 +2,7 @@
   <section id="rundown" class="container lg:max-w-3xl">
     <slot name="header" :content="content">
       <div class="flex flex-col items-center text-center">
-        <h2
-          :class="{
-            'section-title': route.name?.toString().startsWith('rundown'),
-            'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': !['index', 'rundown'].some((n) => route.name?.toString().startsWith(n)),
-          }"
-        >
+        <h2 class="section-title">
           {{ content.title }}
         </h2>
 
@@ -27,7 +22,9 @@
         <!-- Day tabs skeleton (segmented pill, centered) -->
         <div class="flex flex-col">
           <div class="flex justify-center">
-            <div class="bg-muted/60 inline-flex items-center gap-1 rounded-full p-1">
+            <div
+              class="bg-muted/60 inline-flex items-center gap-1 rounded-full p-1"
+            >
               <div
                 v-for="i in 3"
                 :key="`day-tab-${i}`"
@@ -71,15 +68,24 @@
         v-else-if="error"
         class="flex items-center justify-center text-center"
       >
-        <span class="text-primary text-2xl font-semibold tracking-tighter"
-          >{{ $t('ui.failedToGetData') }}</span
-        >
+        <span class="text-primary text-2xl font-semibold tracking-tighter">{{
+          $t("ui.failedToGetData")
+        }}</span>
       </div>
 
       <div v-else>
         <div v-if="activities?.length" class="flex flex-col gap-y-6">
-          <div v-if="effectiveShowSearch" class="flex gap-1.5">
-            <div class="group relative h-full w-full">
+          <div
+            v-if="
+              effectiveShowSearch ||
+              (effectiveShowLocationFilter && uniqueLocations.length > 2)
+            "
+            class="flex gap-1.5"
+          >
+            <div
+              v-if="effectiveShowSearch"
+              class="group relative h-full w-full"
+            >
               <input
                 type="text"
                 v-model="searchInput"
@@ -112,7 +118,10 @@
               </button>
             </div>
 
-            <DropdownMenu :modal="false" v-if="uniqueLocations.length > 2">
+            <DropdownMenu
+              :modal="false"
+              v-if="effectiveShowLocationFilter && uniqueLocations.length > 2"
+            >
               <DropdownMenuTrigger as-child>
                 <button
                   class="group flex items-center justify-center gap-x-2.5 rounded-xl tracking-tight"
@@ -122,7 +131,7 @@
                     class="border-border flex h-full w-44 items-center justify-between gap-x-3 rounded-xl border px-3 py-2 transition select-none @xl:w-64"
                   >
                     <span class="truncate text-sm"
-                      >{{ selectedLocation || $t('ui.allLocations') }}
+                      >{{ selectedLocation || $t("ui.allLocations") }}
                     </span>
                     <IconChevronDown
                       class="size-3 shrink-0 transition group-data-[state=open]:rotate-180"
@@ -161,7 +170,7 @@
                       class="absolute top-2 left-2 size-5"
                     />
                     <span class="text-sm">{{
-                      location || $t('ui.allLocations')
+                      location || $t("ui.allLocations")
                     }}</span>
                   </button>
                 </DropdownMenuItem>
@@ -177,7 +186,7 @@
             class="flex w-full flex-col"
           >
             <div class="flex justify-center">
-              <TabsList class="scroll-fade-x no-scrollbar w-full max-w-full overflow-x-auto">
+              <TabsList>
                 <TabsIndicator />
 
                 <TabsTrigger
@@ -186,13 +195,13 @@
                   :value="tab.value"
                   class="h-auto shrink-0 py-1.5"
                 >
-                  <span class="flex flex-col items-center gap-0.5 px-1">
+                  <span class="flex flex-col items-center gap-0.5">
                     <span
                       class="text-base leading-tight font-semibold tracking-tighter"
                       >{{ tab.label.dayName }}</span
                     >
                     <span
-                      class="text-sm leading-tight tracking-tight sm:text-base"
+                      class="text-xs leading-tight tracking-tight sm:text-sm"
                       >{{ tab.label.dateLabel }}</span
                     >
                   </span>
@@ -204,7 +213,7 @@
               v-for="tab in filteredRundownTabs"
               :key="tab.value"
               :value="tab.value"
-              class="outline-hidden"
+              class="text-foreground outline-hidden"
               tabindex="-1"
             >
               <div class="pt-4">
@@ -222,11 +231,12 @@
                       class="border-primary/40 bg-muted/40 mt-4 mb-1 rounded-xl border-l-4 px-4 py-3"
                     >
                       <span
-                        class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
-                      >{{ activity.title }}</span>
+                        class="text-base font-semibold tracking-tighter sm:text-lg"
+                        >{{ activity.title }}</span
+                      >
                       <p
                         v-if="activity.subtitle"
-                        class="text-foreground mt-0.5 text-sm tracking-tight"
+                        class="mt-0.5 text-sm tracking-tight"
                       >
                         {{ activity.subtitle }}
                       </p>
@@ -244,8 +254,14 @@
                       :is="effectiveClickToOpenDialog ? 'button' : 'div'"
                       :type="effectiveClickToOpenDialog ? 'button' : undefined"
                       class="border-border/50 bg-muted/30 flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition sm:p-6"
-                      :class="effectiveClickToOpenDialog ? 'hover:bg-muted/50 cursor-pointer active:scale-98' : ''"
-                      @click="effectiveClickToOpenDialog ? openDialog(activity) : null"
+                      :class="
+                        effectiveClickToOpenDialog
+                          ? 'hover:bg-muted/50 cursor-pointer active:scale-98'
+                          : ''
+                      "
+                      @click="
+                        effectiveClickToOpenDialog ? openDialog(activity) : null
+                      "
                     >
                       <div
                         class="bg-accent/10 text-accent flex size-12 shrink-0 items-center justify-center rounded-xl"
@@ -262,7 +278,7 @@
                           <span
                             class="bg-muted rounded-full px-2 py-0.5 text-sm font-medium tracking-tight"
                           >
-                            {{ $t('ui.fieldTrip') }}
+                            {{ $t("ui.fieldTrip") }}
                           </span>
                         </div>
                         <p
@@ -300,14 +316,21 @@
                       :is="effectiveClickToOpenDialog ? 'button' : 'div'"
                       :type="effectiveClickToOpenDialog ? 'button' : undefined"
                       class="flex w-full gap-x-2 rounded-2xl p-2 text-left transition @xl:p-3"
-                      :class="effectiveClickToOpenDialog ? 'hover:bg-muted/50 cursor-pointer active:scale-98' : ''"
-                      @click="effectiveClickToOpenDialog ? openDialog(activity) : null"
+                      :class="
+                        effectiveClickToOpenDialog
+                          ? 'hover:bg-muted/50 cursor-pointer active:scale-98'
+                          : ''
+                      "
+                      @click="
+                        effectiveClickToOpenDialog ? openDialog(activity) : null
+                      "
                     >
                       <!-- Time + Poster (left column) -->
                       <div class="flex w-24 shrink-0 flex-col gap-2">
                         <span
                           class="pt-0.5 text-sm tracking-tight tabular-nums sm:pt-1"
-                        >{{ formatTimeRange(activity) }}</span>
+                          >{{ formatTimeRange(activity) }}</span
+                        >
 
                         <div
                           v-if="activity.poster_image?.sm"
@@ -333,25 +356,57 @@
                           >{{ activity.title }}</span
                         >
 
-                        <div
-                          v-if="activity.speakers_list?.length"
+                        <p
+                          v-if="activity.speakers_list?.length === 1"
                           class="mt-0.5 tracking-tight"
                         >
-                          <span class="font-semibold">{{ $t('ui.speakers') }}:</span>
-                          <ul class="mt-0.5 space-y-0.5">
+                          <span class="font-semibold"
+                            >{{ $t("ui.speaker") }}:&nbsp;</span
+                          >
+                          <span class="font-medium">{{
+                            activity.speakers_list[0].name
+                          }}</span>
+                          <span
+                            v-if="activity.speakers_list[0].title"
+                            class="text-muted-foreground"
+                            >, {{ activity.speakers_list[0].title }}</span
+                          >
+                          <span
+                            v-if="activity.speakers_list[0].organization"
+                            class="text-muted-foreground"
+                          >
+                            - {{ activity.speakers_list[0].organization }}</span
+                          >
+                        </p>
+
+                        <div
+                          v-else-if="activity.speakers_list?.length"
+                          class="mt-0.5 tracking-tight"
+                        >
+                          <span class="font-semibold"
+                            >{{ $t("ui.speakers") }}:</span
+                          >
+                          <ul
+                            class="mt-1 list-outside list-disc space-y-0.5 pl-4"
+                          >
                             <li
                               v-for="(speaker, sIdx) in activity.speakers_list"
                               :key="sIdx"
                             >
-                              <span class="font-medium">{{ speaker.name }}</span>
+                              <span class="font-medium">{{
+                                speaker.name
+                              }}</span>
                               <span
                                 v-if="speaker.title"
                                 class="text-muted-foreground"
-                              >, {{ speaker.title }}</span>
+                                >, {{ speaker.title }}</span
+                              >
                               <span
                                 v-if="speaker.organization"
                                 class="text-muted-foreground"
-                              > - {{ speaker.organization }}</span>
+                              >
+                                - {{ speaker.organization }}</span
+                              >
                             </li>
                           </ul>
                         </div>
@@ -365,7 +420,7 @@
 
                         <p
                           v-if="activity.subtitle"
-                          class="text-foreground mt-0.5 font-semibold tracking-tight"
+                          class="mt-0.5 font-semibold tracking-tight"
                         >
                           {{ activity.subtitle }}
                         </p>
@@ -382,7 +437,7 @@
                             class="mt-1.5 tracking-tight"
                           >
                             <span class="font-semibold"
-                              >{{ $t('ui.moderator') }}:</span
+                              >{{ $t("ui.moderator") }}:</span
                             >
                             {{ activity.moderator }}
                           </p>
@@ -392,13 +447,15 @@
                             class="mt-0.5 tracking-tight"
                           >
                             <span class="font-semibold"
-                              >{{ $t('ui.panelists') }}:</span
+                              >{{ $t("ui.panelists") }}:</span
                             >
                             <ul
                               class="mt-1 list-outside list-disc space-y-0.5 pl-4"
                             >
                               <li
-                                v-for="(panelist, pIdx) in activity.panelist_names"
+                                v-for="(
+                                  panelist, pIdx
+                                ) in activity.panelist_names"
                                 :key="pIdx"
                               >
                                 {{ panelist }}
@@ -430,7 +487,8 @@
                             v-if="activity.presented_by"
                             class="text-muted-foreground mt-1.5 text-sm tracking-tight sm:text-base"
                           >
-                            {{ $t('ui.presentedBy') }} {{ activity.presented_by }}
+                            {{ $t("ui.presentedBy") }}
+                            {{ activity.presented_by }}
                           </div>
                         </template>
                       </div>
@@ -442,10 +500,9 @@
                   v-else
                   class="flex flex-col items-center justify-center pt-4 text-center"
                 >
-                  <span
-                    class="text-primary text-base font-semibold tracking-tight"
-                    >{{ $t('rundown.comingSoon') }}</span
-                  >
+                  <span class="text-base font-semibold tracking-tight">{{
+                    $t("rundown.comingSoon")
+                  }}</span>
                 </div>
               </div>
             </TabsContent>
@@ -454,14 +511,11 @@
           <div v-else>
             <span
               class="text-primary text-center text-2xl font-semibold tracking-tighter"
-              >{{ $t('rundown.nothingYet') }}
+              >{{ $t("rundown.nothingYet") }}
             </span>
           </div>
         </div>
-        <div
-          v-else
-          class="mt-6 flex flex-col items-center gap-y-6 text-center"
-        >
+        <div v-else class="mt-6 flex flex-col items-center gap-y-6 text-center">
           <div class="perspective-midrange">
             <RundownEmptyStateImage
               class="shadow-wrapper w-full max-w-80 rounded-md transition duration-300 hover:rotate-x-40"
@@ -469,7 +523,7 @@
           </div>
 
           <span class="text-primary text-xl font-semibold tracking-tight"
-            >{{ $t('rundown.comingSoon') }}
+            >{{ $t("rundown.comingSoon") }}
           </span>
         </div>
       </div>
@@ -488,12 +542,16 @@ const props = defineProps({
 const uiStore = useUiStore();
 const route = useRoute();
 const { t, te, locale } = useI18n();
+const appConfig = useAppConfig();
 
 const content = computed(() => {
   const fromStore = useContentStore().components.rundown;
+  const appName = appConfig.app.name;
   return {
     title: te("rundown.title") ? t("rundown.title") : fromStore?.title,
-    description: te("rundown.description") ? t("rundown.description") : fromStore?.description,
+    description: te("rundown.description")
+      ? t("rundown.description", { appName })
+      : fromStore?.description,
   };
 });
 
@@ -535,11 +593,11 @@ if (!isRundownPage && import.meta.client) {
   });
 }
 
-// Always day-first "DD MMM" e.g. "22 Jul"
+// Day-first "D MMM" e.g. "7 May", "22 Jul"
 function formatDateShort(dateStr) {
   if (!dateStr) return "";
   const d = new Date(dateStr);
-  const day = String(d.getDate()).padStart(2, "0");
+  const day = d.getDate();
   const month = new Intl.DateTimeFormat(locale.value, {
     month: "short",
   }).format(d);
@@ -567,9 +625,13 @@ function formatDayName(dayNumber, fallback) {
 function formatDateLong(dateStr, dayName) {
   if (!dateStr) return dayName || "";
   const d = new Date(dateStr);
-  const weekday = new Intl.DateTimeFormat(locale.value, { weekday: "long" }).format(d);
+  const weekday = new Intl.DateTimeFormat(locale.value, {
+    weekday: "long",
+  }).format(d);
   const day = d.getDate();
-  const month = new Intl.DateTimeFormat(locale.value, { month: "long" }).format(d);
+  const month = new Intl.DateTimeFormat(locale.value, { month: "long" }).format(
+    d,
+  );
   const year = d.getFullYear();
   const dateText = `${weekday}, ${day} ${month} ${year}`;
   return dayName ? `${dayName} - ${dateText}` : dateText;
@@ -616,7 +678,9 @@ const activities = computed(() => {
         }))
         .filter((s) => s.name),
       speaker_names: (item.speakers ?? []).map((s) => s?.name).filter(Boolean),
-      panelist_names: (item.panelists ?? []).map((p) => p?.name).filter(Boolean),
+      panelist_names: (item.panelists ?? [])
+        .map((p) => p?.name)
+        .filter(Boolean),
       is_header: Boolean(item.settings?.is_group_header),
     })),
   );
@@ -625,19 +689,34 @@ const activities = computed(() => {
 // Settings sourced from /api/projects/{username}/website-settings (admin) and
 // surfaced through the public rundown payload at `data.settings`. The component
 // props remain the local fallback when the API hasn't returned settings yet.
-const remoteSettings = computed(() => rundownData.value?.data?.settings ?? null);
+const remoteSettings = computed(
+  () => rundownData.value?.data?.settings ?? null,
+);
 
 const effectiveShowSearch = computed(() => {
-  if (remoteSettings.value && typeof remoteSettings.value.show_search_bar === "boolean") {
+  if (
+    remoteSettings.value &&
+    typeof remoteSettings.value.show_search_bar === "boolean"
+  ) {
     return remoteSettings.value.show_search_bar;
   }
   return props.showSearch;
 });
 
+const effectiveShowLocationFilter = computed(() => {
+  if (
+    remoteSettings.value &&
+    typeof remoteSettings.value.show_location_filter === "boolean"
+  ) {
+    return remoteSettings.value.show_location_filter;
+  }
+  return true;
+});
+
 const effectiveShowAllDetails = computed(() => {
   if (
-    remoteSettings.value
-    && typeof remoteSettings.value.show_all_rundown_details === "boolean"
+    remoteSettings.value &&
+    typeof remoteSettings.value.show_all_rundown_details === "boolean"
   ) {
     return remoteSettings.value.show_all_rundown_details;
   }

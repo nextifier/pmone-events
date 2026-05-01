@@ -1,8 +1,11 @@
 /**
  * Reads the `show_rundown_on_home_page` flag from the public rundown payload
- * so consumers can conditionally render the Rundown section on home pages
- * without triggering hydration mismatches. The fetch is client-only and lazy;
- * pair the consumer with a <ClientOnly> wrapper for SSR safety.
+ * so consumers can conditionally render the Rundown section on home pages.
+ *
+ * The fetch is `server: false` + `lazy: true`, so SSR and initial client
+ * hydration both see `data === undefined` (visible = false). The fetch only
+ * fires after mount, then reactively flips visibility — no hydration mismatch,
+ * no <ClientOnly> wrapper needed at the call site.
  *
  * The same `/api/event/rundown` endpoint is used by Rundown.vue itself, so
  * the underlying response is deduped across calls with matching query keys.

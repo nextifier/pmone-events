@@ -4,30 +4,28 @@
     <LazyAbout class="-mt-10" />
     <LazyTopics />
     <LazyPrograms />
-    <ClientOnly>
-      <LazyRundown v-if="rundownVisible" :show-search="false">
-        <template #header>
-          <div class="flex flex-col items-center text-center">
-            <span
-              class="border-primary rounded-full border px-3 py-1.5 text-base font-medium tracking-tighter sm:text-lg"
-              >{{ $t("agenda.badge") }}</span
-            >
-            <h2 class="section-title mt-2">
-              {{ $t("agenda.title")
-              }}<span class="text-gradient-accent">{{
-                $t("agenda.titleAccent")
-              }}</span>
-            </h2>
-            <p class="section-description mt-3 w-full">
-              {{ $t("agenda.description") }}
-            </p>
-            <p class="mt-2 text-sm tracking-tight italic">
-              {{ $t("agenda.draftNotice") }}
-            </p>
-          </div>
-        </template>
-      </LazyRundown>
-    </ClientOnly>
+    <LazyRundown v-if="rundownVisible" :show-search="false">
+      <template #header>
+        <div class="flex flex-col items-center text-center">
+          <span
+            class="border-primary rounded-full border px-3 py-1.5 text-base font-medium tracking-tighter sm:text-lg"
+            >{{ $t("agenda.badge") }}</span
+          >
+          <h2 class="section-title mt-2">
+            {{ $t("agenda.title")
+            }}<span class="text-gradient-accent">{{
+              $t("agenda.titleAccent")
+            }}</span>
+          </h2>
+          <p class="section-description mt-3 w-full">
+            {{ $t("agenda.description") }}
+          </p>
+          <p class="mt-2 text-sm tracking-tight italic">
+            {{ $t("agenda.draftNotice") }}
+          </p>
+        </div>
+      </template>
+    </LazyRundown>
     <LazyWhyAttend />
     <LazyWhoAttends />
     <LazyPastEvents />
