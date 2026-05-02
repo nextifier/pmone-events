@@ -41,6 +41,7 @@ export default {
     "speakers": "Speakers",
     "moderator": "Moderator",
     "panelists": "Panelists",
+    "fieldTrip": "Field Trip",
     "allLocations": "All Locations",
     "selectAProduct": "Select a product",
     "selectAnOption": "Select an option",

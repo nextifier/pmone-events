@@ -3,6 +3,10 @@ export default {
     readingTime: "{n}분 분량",
     ticketsComingSoon: "티켓 곧 오픈돼요",
     sendMessage: "보내기",
+    speaker: "연사",
+    speakers: "연사",
+    moderator: "진행자",
+    panelists: "패널리스트",
   },
   news: {
     noResultsHint: "다른 키워드로 검색해 보세요. 재미있는 글이 있을 거예요!",

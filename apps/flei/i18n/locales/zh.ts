@@ -3,6 +3,10 @@ export default {
     viewAllBrands: "查看全部品牌",
     brands: "品牌",
     booth: "展位",
+    speaker: "演讲嘉宾",
+    speakers: "演讲嘉宾",
+    moderator: "主持人",
+    panelists: "嘉宾",
   },
   news: {
     noResultsFor: "没找到相关结果",

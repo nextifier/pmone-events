@@ -41,6 +41,7 @@ export default {
     speakers: "연사",
     moderator: "진행자",
     panelists: "패널리스트",
+    fieldTrip: "현장 견학",
     allLocations: "전체 장소",
     selectAProduct: "상품을 선택해 주세요",
     selectAnOption: "옵션을 선택해 주세요",

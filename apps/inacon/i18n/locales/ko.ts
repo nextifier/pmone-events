@@ -6,6 +6,10 @@ export default {
     searchPosts: "글 검색",
     ticketsSoldOut: "티켓 매진이에요",
     sendMessage: "보내기",
+    speaker: "연사",
+    speakers: "연사",
+    moderator: "진행자",
+    panelists: "패널리스트",
   },
   news: {
     showingPostsFor: "{total}개 검색 결과",

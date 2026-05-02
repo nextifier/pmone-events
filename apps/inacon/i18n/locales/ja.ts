@@ -16,6 +16,10 @@ export default {
     enterYourProductType: "製品タイプを入力",
     sendMessage: "送信",
     leaveAMessage: "メッセージを入力..",
+    speaker: "登壇者",
+    speakers: "登壇者",
+    moderator: "モデレーター",
+    panelists: "パネリスト",
   },
   news: {
     latestUpdates: "最新ニュース",

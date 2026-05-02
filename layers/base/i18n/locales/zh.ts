@@ -41,6 +41,7 @@ export default {
     speakers: "演讲嘉宾",
     moderator: "主持人",
     panelists: "嘉宾",
+    fieldTrip: "实地考察",
     allLocations: "全部地点",
     selectAProduct: "选择产品",
     selectAnOption: "选择一项",

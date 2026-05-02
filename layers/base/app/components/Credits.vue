@@ -65,13 +65,13 @@
         :to="localePath('/sponsorship-registration')"
         class="bg-muted hover:bg-border text-foreground flex items-center justify-center rounded-lg border border-transparent px-4 py-2 font-semibold tracking-tight transition active:scale-98"
       >
-        {{ $t("credits.becomeSponsor") }}
+        Become a Sponsor
       </NuxtLink>
       <NuxtLink
         :to="localePath('/media-partner-registration')"
         class="bg-muted hover:bg-border text-foreground flex items-center justify-center rounded-lg border border-transparent px-4 py-2 font-semibold tracking-tight transition active:scale-98"
       >
-        {{ $t("credits.joinMediaPartner") }}
+        Join as Media Partner
       </NuxtLink>
     </div>
   </section>

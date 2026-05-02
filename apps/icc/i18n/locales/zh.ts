@@ -7,6 +7,10 @@ export default {
     ticketsSoldOut: "门票售罄",
     enterYourProductType: "输入产品类型",
     leaveAMessage: "写下留言..",
+    speaker: "演讲嘉宾",
+    speakers: "演讲嘉宾",
+    moderator: "主持人",
+    panelists: "嘉宾",
   },
   news: {
     noResultsHint: "换个关键词试试，或者看看别的话题吧。",

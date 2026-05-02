@@ -1,4 +1,10 @@
 export default {
+  ui: {
+    speaker: "登壇者",
+    speakers: "登壇者",
+    moderator: "モデレーター",
+    panelists: "パネリスト",
+  },
   news: {
     noResultsHint:
       "別のキーワードで試してみてください。他の記事もぜひチェックしてみてくださいね。",

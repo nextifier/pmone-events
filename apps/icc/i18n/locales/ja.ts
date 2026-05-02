@@ -10,6 +10,10 @@ export default {
     selectAnOption: "選択してください",
     enterYourProductType: "商品タイプを入力",
     sendMessage: "送信",
+    speaker: "登壇者",
+    speakers: "登壇者",
+    moderator: "モデレーター",
+    panelists: "パネリスト",
   },
   news: {
     latestUpdates: "最新ニュース",

@@ -7,6 +7,10 @@ export default {
     endsIn: "结束倒计时",
     presentedBy: "主办",
     enterYourProductType: "输入产品类型",
+    speaker: "演讲嘉宾",
+    speakers: "演讲嘉宾",
+    moderator: "主持人",
+    panelists: "嘉宾",
   },
   news: {
     noResultsHint: "换个关键词试试吧。",

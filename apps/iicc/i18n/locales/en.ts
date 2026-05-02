@@ -1,5 +1,5 @@
 export default {
-  "header": {
+"header": {
     "lightDarkMode": "Light / Dark Mode",
   },
   "ui": {

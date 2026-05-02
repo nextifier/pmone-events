@@ -1,6 +1,10 @@
 export default {
   ui: {
     viewAllBrands: "查看全部品牌",
+    speaker: "演讲嘉宾",
+    speakers: "演讲嘉宾",
+    moderator: "主持人",
+    panelists: "嘉宾",
   },
   brands: {
     comingSoon: "品牌名单即将公布，过段时间再来看看！",

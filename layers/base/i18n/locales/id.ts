@@ -41,6 +41,7 @@ export default {
     speakers: "Pembicara",
     moderator: "Moderator",
     panelists: "Panelis",
+    fieldTrip: "Kunjungan Lapangan",
     allLocations: "Semua Lokasi",
     selectAProduct: "Pilih produk",
     selectAnOption: "Pilih salah satu",

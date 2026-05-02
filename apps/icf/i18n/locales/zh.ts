@@ -4,6 +4,10 @@ export default {
     brands: "品牌",
     booth: "展位",
     leaveAMessage: "写下留言..",
+    speaker: "演讲嘉宾",
+    speakers: "演讲嘉宾",
+    moderator: "主持人",
+    panelists: "嘉宾",
   },
   news: {
     noResultsFor: "没有找到相关内容",

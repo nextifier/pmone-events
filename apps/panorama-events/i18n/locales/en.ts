@@ -1,5 +1,5 @@
 export default {
-  "header": {
+"header": {
     "lightDarkMode": "Light / Dark Mode",
   },
   "ui": {
@@ -46,7 +46,8 @@ export default {
     "enterYourProductType": "Enter your product type",
     "sendMessage": "Send message",
     "leaveAMessage": "Leave a message..",
-    "youMightAlsoLike": "You might also like"
+    "youMightAlsoLike": "You might also like",
+    "speaker": "Speaker",
   },
   "news": {
     "latestUpdates": "Latest updates",

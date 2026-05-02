@@ -1,4 +1,10 @@
 export default {
+  ui: {
+    speaker: "演讲嘉宾",
+    speakers: "演讲嘉宾",
+    moderator: "主持人",
+    panelists: "嘉宾",
+  },
   rundown: {
     title: "Rundown",
     description: "查看 {appName} 的完整活动日程和节目安排。",

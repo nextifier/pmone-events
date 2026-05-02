@@ -22,6 +22,10 @@ export default {
     sendMessage: "Kirim pesan",
     leaveAMessage: "Tulis pesan di sini..",
     youMightAlsoLike: "Anda mungkin tertarik",
+    speaker: "Pembicara",
+    speakers: "Pembicara",
+    moderator: "Moderator",
+    panelists: "Panelis",
   },
   news: {
     showingPostsFor: "Menampilkan {total} artikel untuk",

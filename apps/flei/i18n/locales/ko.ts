@@ -1,6 +1,10 @@
 export default {
   ui: {
     sendMessage: "보내기",
+    speaker: "연사",
+    speakers: "연사",
+    moderator: "진행자",
+    panelists: "패널리스트",
   },
   news: {
     noResultsHint: "다른 키워드로 검색해 보세요.",

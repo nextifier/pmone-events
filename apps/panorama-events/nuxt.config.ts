@@ -40,7 +40,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    locales: [{ code: "en", language: "en-US", name: "English", file: "en.ts" }],
+    locales: [{ code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] }],
     lazy: true,
     langDir: "../i18n/locales",
     baseUrl: "https://panoramaevents.id",

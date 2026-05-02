@@ -47,6 +47,7 @@ export default {
     sendMessage: "Send message",
     leaveAMessage: "Leave a message..",
     youMightAlsoLike: "You might also like",
+    speaker: "Speaker",
   },
   news: {
     latestUpdates: "Latest updates",

@@ -1,4 +1,10 @@
 export default {
+  ui: {
+    speaker: "연사",
+    speakers: "연사",
+    moderator: "진행자",
+    panelists: "패널리스트",
+  },
   rundown: {
     title: "Rundown",
     description: "{appName}의 행사 일정과 프로그램을 확인해 보세요.",

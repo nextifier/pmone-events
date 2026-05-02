@@ -41,6 +41,7 @@ export default {
     speakers: "登壇者",
     moderator: "モデレーター",
     panelists: "パネリスト",
+    fieldTrip: "現地視察",
     allLocations: "すべてのロケーション",
     selectAProduct: "製品を選択してください",
     selectAnOption: "オプションを選択してください",

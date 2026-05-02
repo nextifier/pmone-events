@@ -50,8 +50,8 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", file: "en.ts" },
-      { code: "id", language: "id-ID", name: "Indonesia", file: "id.ts" },
+      { code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] },
+      { code: "id", language: "id-ID", name: "Indonesia", files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"] },
     ],
     lazy: true,
     langDir: "../i18n/locales",

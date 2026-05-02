@@ -1,6 +1,10 @@
 export default {
   ui: {
     sendMessage: "送信する",
+    speaker: "登壇者",
+    speakers: "登壇者",
+    moderator: "モデレーター",
+    panelists: "パネリスト",
   },
   news: {
     showingPostsFor: "{total}件の記事：",

@@ -1,4 +1,10 @@
 export default {
+  ui: {
+    speaker: "연사",
+    speakers: "연사",
+    moderator: "진행자",
+    panelists: "패널리스트",
+  },
   news: {
     noResultsHint:
       "다른 키워드로 검색해 보세요. 다른 글도 둘러보면 재미있는 걸 찾을 수 있을 거예요!",

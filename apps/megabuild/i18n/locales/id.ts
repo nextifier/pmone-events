@@ -1,4 +1,10 @@
 export default {
+  ui: {
+    speaker: "Pembicara",
+    speakers: "Pembicara",
+    moderator: "Moderator",
+    panelists: "Panelis",
+  },
   rundown: {
     title: "Rundown",
     description:

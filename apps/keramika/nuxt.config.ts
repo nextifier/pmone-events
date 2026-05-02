@@ -59,11 +59,11 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", file: "en.ts" },
-      { code: "id", language: "id-ID", name: "Indonesia", file: "id.ts" },
-      { code: "zh", language: "zh-CN", name: "中文", file: "zh.ts" },
-      { code: "ja", language: "ja-JP", name: "日本語", file: "ja.ts" },
-      { code: "ko", language: "ko-KR", name: "한국어", file: "ko.ts" },
+      { code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] },
+      { code: "id", language: "id-ID", name: "Indonesia", files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"] },
+      { code: "zh", language: "zh-CN", name: "中文", files: ["../../../../layers/base/i18n/locales/zh.ts", "zh.ts"] },
+      { code: "ja", language: "ja-JP", name: "日本語", files: ["../../../../layers/base/i18n/locales/ja.ts", "ja.ts"] },
+      { code: "ko", language: "ko-KR", name: "한국어", files: ["../../../../layers/base/i18n/locales/ko.ts", "ko.ts"] },
     ],
     lazy: true,
     langDir: "../i18n/locales",
