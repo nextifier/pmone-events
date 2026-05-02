@@ -48,6 +48,7 @@ export default {
     sendMessage: "メッセージを送る",
     leaveAMessage: "メッセージをどうぞ..",
     youMightAlsoLike: "こちらもおすすめ",
+    fieldTrip: "フィールドトリップ",
   },
   news: {
     latestUpdates: "最新情報",
@@ -65,6 +66,9 @@ export default {
       "同じチケットで{eventName}のブランドもお楽しみいただけます。",
   },
   rundown: {
+    title: "ランダウン",
+    description: "{appName}のセッションとプログラムの全スケジュールです。",
+    day: "Day {n}",
     comingSoon: "Rundownは近日公開です。もう少しお待ちください。",
     nothingYet: "まだ情報はありません。",
     finish: "終了",
@@ -170,5 +174,21 @@ export default {
     "Organized by": "主催",
     "Supported by": "後援",
     "Franchise Consultant": "フランチャイズコンサルタント",
+  },
+  guests: {
+    comingSoon: "ゲストの発表は近日公開です。",
+    featured: "注目",
+    featuredHeading: "注目",
+    allHeading: "すべて",
+  },
+  pages: {
+    guests: {
+      title: "ゲスト",
+      description: "{appName}に参加するスペシャルゲストをご紹介します。",
+    },
+  },
+  whyVisit: {
+    heading: "参加する理由",
+    subheading: "ご来場をおすすめします",
   },
 };

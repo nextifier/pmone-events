@@ -48,6 +48,7 @@ export default {
     sendMessage: "Kirim",
     leaveAMessage: "Tulis pesan..",
     youMightAlsoLike: "Baca juga",
+    fieldTrip: "Field Trip",
   },
   news: {
     latestUpdates: "Update terbaru",
@@ -64,6 +65,9 @@ export default {
       "Jelajahi brand dari {eventName} dengan tiket yang sama.",
   },
   rundown: {
+    title: "Rundown",
+    description: "Jadwal lengkap sesi dan program di {appName}.",
+    day: "Hari {n}",
     comingSoon: "Rundown segera hadir. Cek lagi nanti!",
     nothingYet: "Belum ada jadwal tersedia.",
     finish: "Selesai",
@@ -167,5 +171,21 @@ export default {
     "Organized by": "Diselenggarakan oleh",
     "Supported by": "Didukung oleh",
     "Franchise Consultant": "Konsultan Franchise",
+  },
+  guests: {
+    comingSoon: "Pengumuman tamu segera hadir.",
+    featured: "Unggulan",
+    featuredHeading: "Unggulan",
+    allHeading: "Semua",
+  },
+  pages: {
+    guests: {
+      title: "Tamu",
+      description: "Kenali tamu spesial yang hadir di {appName}.",
+    },
+  },
+  whyVisit: {
+    heading: "Kenapa Datang",
+    subheading: "Alasan untuk hadir",
   },
 };

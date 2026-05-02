@@ -47,7 +47,8 @@ export default {
     "enterYourProductType": "Enter your product type",
     "sendMessage": "Send message",
     "leaveAMessage": "Leave a message..",
-    "youMightAlsoLike": "You might also like"
+    "youMightAlsoLike": "You might also like",
+    "fieldTrip": "Field Trip"
   },
   "news": {
     "latestUpdates": "Latest updates",
@@ -63,6 +64,9 @@ export default {
     "conjunctionExplore": "Explore brands from {eventName} with your same ticket."
   },
   "rundown": {
+    "title": "Rundown",
+    "description": "Full schedule of sessions and programs at {appName}.",
+    "day": "Day {n}",
     "comingSoon": "Rundown is coming soon. Check back later!",
     "nothingYet": "Nothing to see here… yet!",
     "finish": "Finish"
@@ -159,5 +163,21 @@ export default {
     "Organized by": "Organized by",
     "Supported by": "Supported by",
     "Franchise Consultant": "Franchise Consultant"
+  },
+  "guests": {
+    "comingSoon": "Guest announcements coming soon.",
+    "featured": "Featured",
+    "featuredHeading": "Featured",
+    "allHeading": "All"
+  },
+  "pages": {
+    "guests": {
+      "title": "Guests",
+      "description": "Meet our special guests joining us at {appName}."
+    }
+  },
+  "whyVisit": {
+    "heading": "Why Visit",
+    "subheading": "Reasons to attend"
   }
 };

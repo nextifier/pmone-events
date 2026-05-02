@@ -48,6 +48,7 @@ export default {
     sendMessage: "发送",
     leaveAMessage: "写下你的留言..",
     youMightAlsoLike: "你可能还想看",
+    fieldTrip: "实地考察",
   },
   news: {
     latestUpdates: "最新动态",
@@ -63,6 +64,9 @@ export default {
     conjunctionExplore: "凭同一张门票，畅游 {eventName} 的精彩 Brand。",
   },
   rundown: {
+    title: "日程",
+    description: "{appName} 的完整活动日程。",
+    day: "第 {n} 天",
     comingSoon: "Rundown 即将公布，过段时间再来看看！",
     nothingYet: "还没有日程安排，敬请期待！",
     finish: "结束",
@@ -164,5 +168,21 @@ export default {
     "Organized by": "主办方",
     "Supported by": "支持方",
     "Franchise Consultant": "加盟顾问",
+  },
+  guests: {
+    comingSoon: "嘉宾阵容即将公布，敬请期待。",
+    featured: "重点嘉宾",
+    featuredHeading: "重点嘉宾",
+    allHeading: "全部",
+  },
+  pages: {
+    guests: {
+      title: "嘉宾",
+      description: "认识将出席 {appName} 的特邀嘉宾。",
+    },
+  },
+  whyVisit: {
+    heading: "为什么来参展",
+    subheading: "参展理由",
   },
 };

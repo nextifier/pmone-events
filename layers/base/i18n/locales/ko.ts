@@ -48,6 +48,7 @@ export default {
     sendMessage: "메시지 보내기",
     leaveAMessage: "메시지를 남겨 주세요..",
     youMightAlsoLike: "이런 글도 있어요",
+    fieldTrip: "현장 탐방",
   },
   news: {
     latestUpdates: "최신 소식",
@@ -64,6 +65,9 @@ export default {
     conjunctionExplore: "같은 티켓으로 {eventName}의 브랜드까지 둘러보세요.",
   },
   rundown: {
+    title: "런다운",
+    description: "{appName}의 세션과 프로그램 전체 일정입니다.",
+    day: "Day {n}",
     comingSoon: "Rundown을 준비 중이에요. 조금만 기다려 주세요!",
     nothingYet: "아직 준비 중이에요!",
     finish: "종료",
@@ -167,5 +171,21 @@ export default {
     "Organized by": "주최",
     "Supported by": "후원",
     "Franchise Consultant": "프랜차이즈 컨설턴트",
+  },
+  guests: {
+    comingSoon: "게스트 발표가 곧 공개돼요.",
+    featured: "주목",
+    featuredHeading: "주목",
+    allHeading: "전체",
+  },
+  pages: {
+    guests: {
+      title: "게스트",
+      description: "{appName}에 함께하는 스페셜 게스트를 만나보세요.",
+    },
+  },
+  whyVisit: {
+    heading: "참가 이유",
+    subheading: "이렇게 다릅니다",
   },
 };
