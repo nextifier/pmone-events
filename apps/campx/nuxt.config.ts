@@ -24,8 +24,23 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    locales: [{ code: "en", language: "en-US", name: "English", file: "en.ts" }],
+    lazy: true,
+    langDir: "../i18n/locales",
     baseUrl: "https://campx.id",
+    defaultLocale: "en",
+    strategy: "prefix_except_default",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_locale",
+      redirectOn: "root",
+      alwaysRedirect: false,
+      fallbackLocale: "en",
+    },
     vueI18n: "./i18n.config.ts",
+    compilation: {
+      strictMessage: false,
+    },
   },
 
   gtag: {

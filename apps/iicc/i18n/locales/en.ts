@@ -37,6 +37,7 @@ export default {
     "ticketsSoldOut": "Tickets sold out",
     "ticketsComingSoon": "Tickets coming soon",
     "presentedBy": "Presented by",
+    "speaker": "Speaker",
     "speakers": "Speakers",
     "moderator": "Moderator",
     "panelists": "Panelists",

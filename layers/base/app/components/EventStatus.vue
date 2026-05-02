@@ -7,7 +7,7 @@
         <span class="inline tracking-tighter">
           <Countdown
             :variant="countdownVariant"
-            :textBeforeCountdown="withTextPrefix ? $t('eventStatus.startsIn') : ''"
+            :textBeforeCountdown="prefix || (withTextPrefix ? $t('eventStatus.startsIn') : '')"
             :countdownDate="startTime"
           />
         </span>
@@ -42,6 +42,10 @@ const props = defineProps({
   withTextPrefix: {
     type: Boolean,
     default: true,
+  },
+  prefix: {
+    type: String,
+    default: "",
   },
 });
 

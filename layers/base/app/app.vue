@@ -7,6 +7,7 @@
       <NuxtLoadingIndicator :color="false" class="bg-accent" />
       <NuxtLayout>
         <NuxtPage
+          :page-key="stripLocaleFromPath"
           :keepalive="{
             include: ['brands', 'rundown', 'news', 'ticket'],
           }"
@@ -21,6 +22,17 @@
 <script setup>
 import "vue-sonner/style.css";
 const route = useRoute();
+const { locales } = useI18n();
+
+const localeCodes = computed(() => locales.value.map((l) => l.code));
+
+function stripLocaleFromPath(routeObj) {
+  const match = routeObj.path.match(/^\/([^/]+)(\/.*|\/?$)/);
+  if (match && localeCodes.value.includes(match[1])) {
+    return match[2] || "/";
+  }
+  return routeObj.path;
+}
 
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true });
 useHead(() => ({

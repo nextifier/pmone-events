@@ -228,21 +228,21 @@
                     <!-- Section Header (settings.is_group_header — non-clickable) -->
                     <div
                       v-if="activity.is_header"
-                      class="border-primary/40 bg-muted/40 mt-4 mb-1 rounded-xl border-l-4 px-4 py-3"
+                      class="border-primary mt-6 mb-2 border-l-2 pl-4"
                     >
                       <span
-                        class="text-base font-semibold tracking-tighter sm:text-lg"
+                        class="text-base font-semibold tracking-tighter"
                         >{{ activity.title }}</span
                       >
                       <p
                         v-if="activity.subtitle"
-                        class="mt-0.5 text-sm tracking-tight"
+                        class="mt-1 text-base tracking-tight"
                       >
                         {{ activity.subtitle }}
                       </p>
                       <p
                         v-if="activity.theme"
-                        class="text-muted-foreground mt-0.5 text-sm tracking-tight"
+                        class="mt-1 text-base tracking-tight"
                       >
                         {{ activity.theme }}
                       </p>

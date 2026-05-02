@@ -1,456 +1,343 @@
 export default {
-  "header": {
-    "lightDarkMode": "라이트 / 다크 모드",
+  news: {
+    noResultsHint: "다른 키워드로 검색해 보세요.",
   },
-  "ui": {
-    "viewAll": "전체 보기",
-    "viewAllBrands": "브랜드 전체 보기",
-    "contactUs": "문의하기",
-    "back": "뒤로",
-    "comingSoon": "곧 공개돼요",
-    "backToHome": "홈으로 돌아가기",
-    "bookSpace": "부스 예약",
-    "getTicket": "티켓 받기",
-    "toggleSidebar": "사이드바 열기/닫기",
-    "openMenu": "메뉴 열기",
-    "toggleFullscreen": "전체 화면 전환",
-    "switchLanguage": "언어 변경",
-    "copyright": "저작권",
-    "allRightsReserved": "All rights reserved.",
-    "readingTime": "{n}분 읽기",
-    "loading": "로딩 중",
-    "failedToGetData": "데이터를 불러오지 못했어요.",
-    "search": "검색",
-    "searchPosts": "게시글 검색",
-    "brands": "브랜드",
-    "booth": "부스",
-    "categories": "카테고리",
-    "description": "설명",
-    "created": "작성일",
-    "views": "조회 {n}회",
-    "posted": "게시일",
-    "shareThisPost": "이 글 공유하기",
-    "soldOut": "매진",
-    "startsFrom": "시작가",
-    "startsIn": "시작까지",
-    "endsIn": "종료까지",
-    "ticketsSoldOut": "티켓이 매진됐어요",
-    "ticketsComingSoon": "티켓 곧 오픈해요",
-    "presentedBy": "주관",
-    "speakers": "연사",
-    "moderator": "진행자",
-    "panelists": "패널리스트",
-    "allLocations": "전체 장소",
-    "selectAProduct": "상품을 선택해 주세요",
-    "selectAnOption": "옵션을 선택해 주세요",
-    "enterYourProductType": "상품 유형을 입력해 주세요",
-    "sendMessage": "메시지 보내기",
-    "leaveAMessage": "메시지를 남겨 주세요..",
-    "youMightAlsoLike": "이런 글도 있어요"
+  rundown: {
+    title: "Rundown",
+    description: "{appName}의 행사 일정과 프로그램을 확인하세요.",
   },
-  "news": {
-    "latestUpdates": "최신 소식",
-    "showingPostsFor": "{total}개의 검색 결과",
-    "showingPosts": "총 {total}개의 게시글",
-    "noResultsFor": "검색 결과가 없어요",
-    "noResultsHint": "다른 키워드로 검색해 보세요.",
-    "noPostsYet": "아직 게시글이 없어요",
-    "comeBackLater": "조금만 기다려 주세요"
+  ticket: {
+    agreementAnd: "&",
   },
-  "brands": {
-    "comingSoon": "브랜드 목록을 준비 중이에요. 조금만 기다려 주세요!"
+  contact: {
+    description:
+      "티켓, 출전, 파트너십 등 궁금한 점이 있으면 편하게 문의해 주세요.",
+    successTitle: "감사합니다! 문의가 접수됐어요.",
+    disclaimerDefault:
+      "정확한 Email 주소와 전화번호를 입력해 주세요. 담당자가 곧 연락드릴게요.",
+    disclaimerExhibitor:
+      "걱정 마세요. 양식을 제출해도 바로 전시 참가가 확정되는 건 아니에요. 부스 옵션과 가격 안내를 위해 연락처가 필요해요.",
+    errorSend: "전송에 실패했어요. 다시 시도해 주세요.",
   },
-  "rundown": {
-    "title": "Rundown",
-    "description": "{appName}의 행사 일정과 프로그램을 확인하세요.",
-    "comingSoon": "Rundown을 준비 중이에요. 조금만 기다려 주세요!",
-    "nothingYet": "아직 준비 중이에요!"
+  nav: {
+    Email: "Email",
+    WhatsApp: "WhatsApp",
+    Instagram: "Instagram",
+    Facebook: "Facebook",
+    TikTok: "TikTok",
+    LinkedIn: "LinkedIn",
+    YouTube: "YouTube",
   },
-  "ticket": {
-    "agreementPrefix": "티켓을 구매하면 아래 내용에 동의하게 돼요:",
-    "agreementAnd": "&",
-    "ticketTerms": "티켓 이용약관",
-    "eventPolicy": "행사 정책"
-  },
-  "contact": {
-    "title": "문의하기",
-    "formTitle": "문의 양식",
-    "description": "티켓, 출전, 파트너십 등 궁금한 점이 있으면 편하게 문의해 주세요.",
-    "name": "이름",
-    "jobTitle": "직책",
-    "brandName": "브랜드명",
-    "products": "상품",
-    "email": "Email",
-    "phone": "전화번호 (WhatsApp)",
-    "referralSource": "이 행사를 어떻게 알게 되셨나요?",
-    "message": "메시지",
-    "successTitle": "감사합니다! 문의가 접수됐어요.",
-    "successMessage": "담당자가 Email 또는 WhatsApp으로 빠르게 연락드릴게요.",
-    "successButton": "확인. 홈으로 돌아가기",
-    "disclaimerDefault": "정확한 Email 주소와 전화번호를 입력해 주세요. 담당자가 곧 연락드릴게요.",
-    "disclaimerExhibitor": "걱정 마세요. 양식을 제출해도 바로 전시 참가가 확정되는 건 아니에요. 부스 옵션과 가격 안내를 위해 연락처가 필요해요.",
-    "preferDirectContact": "직접 연락하기",
-    "errorSend": "전송에 실패했어요. 다시 시도해 주세요.",
-    "errorNetwork": "네트워크 오류가 발생했어요. 잠시 후 다시 시도해 주세요."
-  },
-  "sponsorshipRegistration": {
-    "title": "스폰서 등록",
-    "description": "이벤트 스폰서에 관심이 있으신가요? 아래 양식을 작성해 주시면 스폰서십 패키지에 대해 연락드리겠습니다.",
-    "metaDescription": "스폰서가 되어 업계 주요 의사결정자들과 연결하세요. 등록 양식을 작성해 주세요."
-  },
-  "mediaPartnerRegistration": {
-    "title": "미디어 파트너 등록",
-    "description": "미디어 파트너가 되고 싶으신가요? 아래 양식을 작성해 주시면 파트너십 세부사항에 대해 연락드리겠습니다.",
-    "metaDescription": "업계 최대 이벤트를 독점 취재할 기회를 잡으세요. 지금 미디어 파트너로 등록하세요.",
-    "nameLabel": "이름",
-    "mediaNameLabel": "미디어명"
-  },
-  "countdown": {
-    "day": "일",
-    "hour": "시간",
-    "min": "분",
-    "sec": "초"
-  },
-  "eventStatus": {
-    "startsIn": "행사 시작까지 ",
-    "live": "진행 중",
-    "completed": "종료"
-  },
-  "conjunction": {
-    "label": "동시 개최",
-    "and": "및"
-  },
-  "nav": {
-    "Home": "홈",
-    "Brands": "브랜드",
-    "Rundown": "일정",
-    "Programs": "프로그램",
-    "Resources": "정보",
-    "Partners": "파트너",
-    "Contact": "문의",
-    "News": "뉴스",
-    "Ticket": "티켓",
-    "Exhibitor Registration": "전시 참가 신청",
-    "Gallery": "갤러리",
-    "FAQ": "FAQ",
-    "Links": "링크",
-    "Ticket Terms and Conditions": "티켓 이용약관",
-    "Ticket Refund and Return Policy": "티켓 환불 정책",
-    "Event Policy": "행사 정책",
-    "Terms of Service": "이용약관",
-    "Privacy Policy": "개인정보 처리방침",
-    "Help Center": "고객센터",
-    "Sponsorship Registration": "스폰서십 신청",
-    "Media Partner Registration": "미디어 파트너 신청",
-    "Menu": "메뉴",
-    "Get in touch": "연락하기",
-    "Social": "소셜",
-    "Discover": "둘러보기",
-    "For Businesses": "비즈니스",
-    "Terms and policies": "약관 및 정책",
-    "Email": "Email",
-    "WhatsApp": "WhatsApp",
-    "Instagram": "Instagram",
-    "Facebook": "Facebook",
-    "TikTok": "TikTok",
-    "LinkedIn": "LinkedIn",
-    "YouTube": "YouTube"
-  },
-  "partners": {
-    "Organized by": "주최",
-    "Supported by": "후원"
-  },
-  "hero": {
-    "countdownLabel": "Renovation Expo 개막까지:",
-    "title": "<span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">리노베이션</span></span>, <span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">여기서 시작하세요.</span>",
-    "description": "최신 자재를 직접 보고 만져보고, 디자이너에게 바로 상담받고. 리노베이션에 필요한 모든 게 한자리에 있어요.",
-    "announcement": "전시 부스 아직 자리 있어요. 지금 신청하세요!",
-    "banners": {
+  hero: {
+    countdownLabel: "Renovation Expo 개막까지:",
+    title:
+      '<span class="relative inline-block"><span class="bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15"></span><span class="text-outline">리노베이션</span></span>, <span class="gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent">여기서 시작하세요.</span>',
+    description:
+      "최신 자재를 직접 보고 만져보고, 디자이너에게 바로 상담받고. 리노베이션에 필요한 모든 게 한자리에 있어요.",
+    announcement: "전시 부스 아직 자리 있어요. 지금 신청하세요!",
+    banners: {
       "0": {
-        "subHeadline": "리노베이션 정보 한번에 수집!",
-        "content": "<p>수백 개 브랜드, 전문 디자인 상담, 최신 홈 인테리어 트렌드를 전부 만나보세요.</p>",
-        "cta": "티켓 받기"
+        subHeadline: "리노베이션 정보 한번에 수집!",
+        content:
+          "<p>수백 개 브랜드, 전문 디자인 상담, 최신 홈 인테리어 트렌드를 전부 만나보세요.</p>",
+        cta: "티켓 받기",
       },
       "1": {
-        "subHeadline": "Renovation Expo에서 전시하세요!",
-        "content": "<p>리노베이션 자재를 찾고 있는 수천 명의 주택 소유자, 건축가, 디자이너가 방문해요. 직접 어필할 기회예요.</p>",
-        "cta": "부스 예약하기"
+        subHeadline: "Renovation Expo에서 전시하세요!",
+        content:
+          "<p>리노베이션 자재를 찾고 있는 수천 명의 주택 소유자, 건축가, 디자이너가 방문해요. 직접 어필할 기회예요.</p>",
+        cta: "부스 예약하기",
       },
       "2": {
-        "subHeadline": "무료 디자인 & 풍수 상담!",
-        "content": "<p>평면도를 가져오세요. 인테리어 디자이너와 풍수 전문가가 쾌적한 공간 만들기를 도와드려요.</p>",
-        "cta": "전체 프로그램 보기"
+        subHeadline: "무료 디자인 & 풍수 상담!",
+        content:
+          "<p>평면도를 가져오세요. 인테리어 디자이너와 풍수 전문가가 쾌적한 공간 만들기를 도와드려요.</p>",
+        cta: "전체 프로그램 보기",
       },
       "3": {
-        "subHeadline": "놓치지 마세요!",
-        "content": "<p>Instagram 팔로우하면 리노베이션 아이디어, 참가 브랜드 소개, 행사 전 이벤트 소식을 바로 받아볼 수 있어요.</p>",
-        "cta": "{'@'}megabuildindo 팔로우하기"
-      }
+        subHeadline: "놓치지 마세요!",
+        content:
+          "<p>Instagram 팔로우하면 리노베이션 아이디어, 참가 브랜드 소개, 행사 전 이벤트 소식을 바로 받아볼 수 있어요.</p>",
+        cta: "{'@'}megabuildindo 팔로우하기",
+      },
     },
-    "ctaTicket": "티켓 받기",
-    "ctaExhibit": "전시 참가 등록",
-    "playRecap": "하이라이트 보기",
-    "edition": "제{n}회"
+    ctaTicket: "티켓 받기",
+    ctaExhibit: "전시 참가 등록",
+    playRecap: "하이라이트 보기",
+    edition: "제{n}회",
   },
-  "trustedBy": {
-    "title": "Megabuild Indonesia 참가 브랜드 실적"
+  trustedBy: {
+    title: "Megabuild Indonesia 참가 브랜드 실적",
   },
-  "mainPrograms": {
-    "title": "<span class='text-outline'>주요</span> <span class='text-accent'>프로그램</span>",
-    "description": "전시만 있는 게 아니에요. {appName}에서는 워크숍, 브랜드 토크, 디자인 상담 등 다양한 프로그램이 진행돼요.",
-    "items": {
+  mainPrograms: {
+    title:
+      "<span class='text-outline'>주요</span> <span class='text-accent'>프로그램</span>",
+    description:
+      "전시만 있는 게 아니에요. {appName}에서는 워크숍, 브랜드 토크, 디자인 상담 등 다양한 프로그램이 진행돼요.",
+    items: {
       "0": {
-        "title": "Exhibition",
-        "description": ""
+        title: "Exhibition",
+        description: "",
       },
       "1": {
-        "title": "Brand Talks & Talkshow",
-        "description": ""
+        title: "Brand Talks & Talkshow",
+        description: "",
       },
       "2": {
-        "title": "Workshop Series",
-        "description": ""
+        title: "Workshop Series",
+        description: "",
       },
       "3": {
-        "title": "Product Launching",
-        "description": ""
+        title: "Product Launching",
+        description: "",
       },
       "4": {
-        "title": "디자인 & 풍수 컨설팅",
-        "description": ""
+        title: "디자인 & 풍수 컨설팅",
+        description: "",
       },
       "5": {
-        "title": "Inspiration and Experience Zone",
-        "description": ""
+        title: "Inspiration and Experience Zone",
+        description: "",
       },
       "6": {
-        "title": "Business Matching",
-        "description": ""
+        title: "Business Matching",
+        description: "",
       },
       "7": {
-        "title": "Student Visit",
-        "description": ""
+        title: "Student Visit",
+        description: "",
       },
       "8": {
-        "title": "Lucky Draw & Door Prize",
-        "description": ""
+        title: "Lucky Draw & Door Prize",
+        description: "",
       },
       "9": {
-        "title": "연말 대세일",
-        "description": ""
-      }
-    }
-  },
-  "factsAndFigures": {
-    "subtitle": "데이터로 보는 성과",
-    "title": "21회 개최, 수천 기업이 성장한 무대",
-    "description": "21회에 걸친 개최 실적이 증명해요. Megabuild Indonesia는 수천 개 기업이 새로운 비즈니스 기회를 찾은 플랫폼이에요.",
-    "stats": {
-      "visitors": {
-        "label": "총 방문자",
-        "description": "45개국 출신"
+        title: "연말 대세일",
+        description: "",
       },
-      "exhibitors": {
-        "label": "총 전시업체",
-        "description": "25개국 출신"
+    },
+  },
+  factsAndFigures: {
+    subtitle: "데이터로 보는 성과",
+    title: "21회 개최, 수천 기업이 성장한 무대",
+    description:
+      "21회에 걸친 개최 실적이 증명해요. Megabuild Indonesia는 수천 개 기업이 새로운 비즈니스 기회를 찾은 플랫폼이에요.",
+    stats: {
+      visitors: {
+        label: "총 방문자",
+        description: "45개국 출신",
       },
-      "transaction": {
-        "label": "거래 규모"
+      exhibitors: {
+        label: "총 전시업체",
+        description: "25개국 출신",
       },
-      "leads": {
-        "label": "총 비즈니스 리드"
-      }
-    }
-  },
-  "partnerships": {
-    "title": "<span class='text-outline'>함께 </span><span class='text-primary'>성장해요</span>",
-    "description": "{appName}에 참여하고 새로운 비즈니스 기회를 만들어 보세요. 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓힐 수 있어요.",
-    "exhibitor": {
-      "title": "전시업체 등록",
-      "description": "리노베이션·인테리어 제품이 있다면, 구매 의향이 높은 관람객에게 직접 선보이세요.",
-      "cta": "부스 예약하기"
+      transaction: {
+        label: "거래 규모",
+      },
+      leads: {
+        label: "총 비즈니스 리드",
+      },
     },
-    "sponsor": {
-      "title": "스폰서 등록",
-      "description": "건자재·인테리어 업계 핵심 행사의 스폰서로 의사결정자에게 직접 도달하세요.",
-      "cta": "스폰서 문의"
+  },
+  partnerships: {
+    title:
+      "<span class='text-outline'>함께 </span><span class='text-primary'>성장해요</span>",
+    description:
+      "{appName}에 참여하고 새로운 비즈니스 기회를 만들어 보세요. 잠재 파트너를 만나고, 브랜드를 알리고, 네트워크를 넓힐 수 있어요.",
+    exhibitor: {
+      title: "전시업체 등록",
+      description:
+        "리노베이션·인테리어 제품이 있다면, 구매 의향이 높은 관람객에게 직접 선보이세요.",
+      cta: "부스 예약하기",
     },
-    "mediaPartner": {
-      "title": "미디어 파트너 등록",
-      "description": "인도네시아 최대 리노베이션 전시회 독점 취재. 바로 활용 가능한 콘텐츠를 제공해요.",
-      "cta": "미디어 파트너 신청"
+    sponsor: {
+      title: "스폰서 등록",
+      description:
+        "건자재·인테리어 업계 핵심 행사의 스폰서로 의사결정자에게 직접 도달하세요.",
+      cta: "스폰서 문의",
     },
-    "reservedSpace": {
-      "title": "다음 파트너를 위해 이 자리를 비워두고 있어요.",
-      "cta": "파트너 되기"
-    }
+    mediaPartner: {
+      title: "미디어 파트너 등록",
+      description:
+        "인도네시아 최대 리노베이션 전시회 독점 취재. 바로 활용 가능한 콘텐츠를 제공해요.",
+      cta: "미디어 파트너 신청",
+    },
+    reservedSpace: {
+      title: "다음 파트너를 위해 이 자리를 비워두고 있어요.",
+      cta: "파트너 되기",
+    },
   },
-  "visitorCta": {
-    "title": "<span class=\"text-primary\">리노베이션 계획 중이세요?</span><br /><span class=\"text-outline\">필요한 건 전부 여기 있어요.</span>",
-    "description": "온라인에서 하나하나 찾을 필요 없어요. 자재 업체, 디자인 아이디어, 전문가 조언이 한 곳에.",
-    "cta": "티켓 받기"
+  visitorCta: {
+    title:
+      '<span class="text-primary">리노베이션 계획 중이세요?</span><br /><span class="text-outline">필요한 건 전부 여기 있어요.</span>',
+    description:
+      "온라인에서 하나하나 찾을 필요 없어요. 자재 업체, 디자인 아이디어, 전문가 조언이 한 곳에.",
+    cta: "티켓 받기",
   },
-  "mediaCoverage": {
-    "title": "미디어 보도 실적",
-    "description": "주요 매체에서 다룬 {appName} 관련 기사를 확인해 보세요."
+  mediaCoverage: {
+    title: "미디어 보도 실적",
+    description: "주요 매체에서 다룬 {appName} 관련 기사를 확인해 보세요.",
   },
-  "credits": {
-    "becomeSponsor": "스폰서 참여",
-    "joinMediaPartner": "미디어 파트너 신청",
-    "title": "이벤트를 만드는 커뮤니티",
-    "description": "파트너, 스폰서, 미디어의 소중한 지원 덕분에 이 이벤트가 실현됩니다."
+  postSlider: {
+    title: "최신 소식",
+    titleMorePosts: "이런 글도 있어요",
   },
-  "postSlider": {
-    "title": "최신 소식",
-    "titleMorePosts": "이런 글도 있어요"
+  brandPreview: {
+    title: "{appName} 참가 브랜드",
   },
-  "brandPreview": {
-    "title": "{appName} 참가 브랜드"
+  brandList: {
+    title: "브랜드",
+    description:
+      "건축자재, 건축, 인테리어 디자인 분야의 참가 브랜드를 둘러보세요.",
   },
-  "brandList": {
-    "title": "브랜드",
-    "description": "건축자재, 건축, 인테리어 디자인 분야의 참가 브랜드를 둘러보세요."
+  bookSpace: {
+    title: "전시 참가 신청",
+    description:
+      "{appName}에서 부스를 확보하고 수천 명의 관람객에게 브랜드를 선보이세요. 빈자리가 얼마 남지 않았어요.",
   },
-  "bookSpace": {
-    "title": "전시 참가 신청",
-    "description": "{appName}에서 부스를 확보하고 수천 명의 관람객에게 브랜드를 선보이세요. 빈자리가 얼마 남지 않았어요."
-  },
-  "faq": {
-    "title": "자주 묻는 질문",
-    "description": "티켓, 전시 참가, 행사 정보 등 자주 묻는 질문을 모았어요.",
-    "emptyState": "자주 묻는 질문을 정리하고 있어요. 조금만 기다려 주세요.",
-    "contactTitle": "더 궁금한 점이 있으면 편하게 보내주세요!",
-    "items": {
+  faq: {
+    title: "자주 묻는 질문",
+    description: "티켓, 전시 참가, 행사 정보 등 자주 묻는 질문을 모았어요.",
+    emptyState: "자주 묻는 질문을 정리하고 있어요. 조금만 기다려 주세요.",
+    contactTitle: "더 궁금한 점이 있으면 편하게 보내주세요!",
+    items: {
       "0": {
-        "q": "{eventTitle}은(는) 언제, 어디서 열리나요?",
-        "a": "<p>{eventTitle}은(는) <strong>{eventDate}</strong>, <strong>{eventTime}</strong>에 <a href=\"{locationLink}\" target=\"_blank\">{eventLocation}</a>에서 진행돼요.</p>"
+        q: "{eventTitle}은(는) 언제, 어디서 열리나요?",
+        a: '<p>{eventTitle}은(는) <strong>{eventDate}</strong>, <strong>{eventTime}</strong>에 <a href="{locationLink}" target="_blank">{eventLocation}</a>에서 진행돼요.</p>',
       },
       "1": {
-        "q": "티켓은 어떻게 받나요?",
-        "a": "<p>공식 웹사이트의 <a href=\"/ticket\">티켓 받기</a> 버튼을 클릭하고 등록하면 돼요. 전자 티켓이 Email과 WhatsApp으로 발송돼요.</p>"
+        q: "티켓은 어떻게 받나요?",
+        a: '<p>공식 웹사이트의 <a href="/ticket">티켓 받기</a> 버튼을 클릭하고 등록하면 돼요. 전자 티켓이 Email과 WhatsApp으로 발송돼요.</p>',
       },
       "2": {
-        "q": "티켓 가격이 얼마예요?",
-        "a": "<p>티켓 종류와 구매 시기에 따라 달라요. <a href=\"/ticket\">티켓 페이지</a>에서 최신 가격을 확인하세요. 얼리버드 할인도 놓치지 마세요!</p>"
+        q: "티켓 가격이 얼마예요?",
+        a: '<p>티켓 종류와 구매 시기에 따라 달라요. <a href="/ticket">티켓 페이지</a>에서 최신 가격을 확인하세요. 얼리버드 할인도 놓치지 마세요!</p>',
       },
       "3": {
-        "q": "못 가게 되면 환불 받을 수 있나요?",
-        "a": "<p>구매 완료된 티켓은 환불이나 교환이 안 돼요. <a href=\"/ticket-refund-and-return-policy\">티켓 환불 정책</a>을 확인해 주세요.</p>"
+        q: "못 가게 되면 환불 받을 수 있나요?",
+        a: '<p>구매 완료된 티켓은 환불이나 교환이 안 돼요. <a href="/ticket-refund-and-return-policy">티켓 환불 정책</a>을 확인해 주세요.</p>',
       },
       "4": {
-        "q": "행사장에 뭘 가져가야 하나요?",
-        "a": "<p>전자 티켓(디지털 또는 출력본)을 등록 데스크에서 배지나 밴드로 교환해요. 네트워킹을 원하시면 명함도 챙기세요.</p>"
+        q: "행사장에 뭘 가져가야 하나요?",
+        a: "<p>전자 티켓(디지털 또는 출력본)을 등록 데스크에서 배지나 밴드로 교환해요. 네트워킹을 원하시면 명함도 챙기세요.</p>",
       },
       "5": {
-        "q": "누가 참관할 수 있나요?",
-        "a": "<p>누구나 환영해요! 리노베이션 계획 중인 분, 건축가, 인테리어 디자이너, 시공업자, 홈 인테리어에 관심 있는 분 모두 오세요.</p>"
+        q: "누가 참관할 수 있나요?",
+        a: "<p>누구나 환영해요! 리노베이션 계획 중인 분, 건축가, 인테리어 디자이너, 시공업자, 홈 인테리어에 관심 있는 분 모두 오세요.</p>",
       },
       "6": {
-        "q": "어떤 브랜드가 참가하나요?",
-        "a": "<p>건축자재, 인테리어, 가구, 리노베이션 서비스 등 다양한 분야의 브랜드가 참가해요. <a href=\"/brands\">브랜드 페이지</a>에서 최신 목록을 확인하세요.</p>"
+        q: "어떤 브랜드가 참가하나요?",
+        a: '<p>건축자재, 인테리어, 가구, 리노베이션 서비스 등 다양한 분야의 브랜드가 참가해요. <a href="/brands">브랜드 페이지</a>에서 최신 목록을 확인하세요.</p>',
       },
       "7": {
-        "q": "전시 참가는 어떻게 하나요?",
-        "a": "<p><a href=\"/book-space\">전시 참가 신청 페이지</a>에서 신청하시거나, <a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a>으로 문의해 주세요.</p>"
+        q: "전시 참가는 어떻게 하나요?",
+        a: '<p><a href="/book-space">전시 참가 신청 페이지</a>에서 신청하시거나, <a href="{whatsappLink}" target="_blank">WhatsApp</a>으로 문의해 주세요.</p>',
       },
       "8": {
-        "q": "세미나나 워크숍도 있나요?",
-        "a": "<p>네! 브랜드 토크, 워크숍, 디자인 & 풍수 상담 등 다양한 프로그램이 있어요. <a href=\"/rundown\">Rundown 페이지</a>에서 일정을 확인하세요.</p>"
+        q: "세미나나 워크숍도 있나요?",
+        a: '<p>네! 브랜드 토크, 워크숍, 디자인 & 풍수 상담 등 다양한 프로그램이 있어요. <a href="/rundown">Rundown 페이지</a>에서 일정을 확인하세요.</p>',
       },
       "9": {
-        "q": "스폰서나 미디어 파트너는 어떻게 되나요?",
-        "a": "<p><a href=\"{whatsappLink}\" target=\"_blank\">WhatsApp</a> 또는 <a href=\"mailto:{email}\">{email}</a>로 문의해 주세요. 파트너십 상세를 안내해 드릴게요.</p>"
+        q: "스폰서나 미디어 파트너는 어떻게 되나요?",
+        a: '<p><a href="{whatsappLink}" target="_blank">WhatsApp</a> 또는 <a href="mailto:{email}">{email}</a>로 문의해 주세요. 파트너십 상세를 안내해 드릴게요.</p>',
       },
       "10": {
-        "q": "행사장에 주차할 수 있나요?",
-        "a": "<p>네. 다만 피크 시간에는 빨리 찰 수 있으니 일찍 오시는 걸 추천해요. 대중교통도 편리해요.</p>"
+        q: "행사장에 주차할 수 있나요?",
+        a: "<p>네. 다만 피크 시간에는 빨리 찰 수 있으니 일찍 오시는 걸 추천해요. 대중교통도 편리해요.</p>",
       },
       "11": {
-        "q": "사진이나 영상 촬영이 가능한가요?",
-        "a": "<p>개인 용도의 촬영은 가능해요. 상업 촬영은 주최 측 허가가 필요해요. <a href=\"/event-policy\">행사 정책</a>을 확인해 주세요.</p>"
+        q: "사진이나 영상 촬영이 가능한가요?",
+        a: '<p>개인 용도의 촬영은 가능해요. 상업 촬영은 주최 측 허가가 필요해요. <a href="/event-policy">행사 정책</a>을 확인해 주세요.</p>',
       },
       "12": {
-        "q": "행사장에서 지켜야 할 규칙이 있나요?",
-        "a": "<p>행사 스태프와 보안 요원의 안내를 따라 주세요. 방문 전 <a href=\"/event-policy\">행사 정책</a>을 읽어보시면 좋아요.</p>"
+        q: "행사장에서 지켜야 할 규칙이 있나요?",
+        a: '<p>행사 스태프와 보안 요원의 안내를 따라 주세요. 방문 전 <a href="/event-policy">행사 정책</a>을 읽어보시면 좋아요.</p>',
       },
       "13": {
-        "q": "행사 소식은 어떻게 받나요?",
-        "a": "<p>Instagram <a href=\"https://www.instagram.com/{instagram}\" target=\"_blank\">{'@'}{instagram}</a>을 팔로우하세요. <a href=\"/news\">News 페이지</a>에서도 최신 소식을 확인할 수 있어요.</p>"
+        q: "행사 소식은 어떻게 받나요?",
+        a: '<p>Instagram <a href="https://www.instagram.com/{instagram}" target="_blank">{\'@\'}{instagram}</a>을 팔로우하세요. <a href="/news">News 페이지</a>에서도 최신 소식을 확인할 수 있어요.</p>',
       },
       "14": {
-        "q": "주최 측에 어떻게 연락하나요?",
-        "a": "<p>아래 방법으로 연락해 주세요:</p><ul><li>WhatsApp: <a href=\"{whatsappLink}\" target=\"_blank\">여기를 클릭</a></li><li>Email: <a href=\"mailto:{email}\">{email}</a></li></ul><p><a href=\"/help-center\">고객센터</a>에서 더 많은 정보를 찾을 수 있어요.</p>"
-      }
-    }
+        q: "주최 측에 어떻게 연락하나요?",
+        a: '<p>아래 방법으로 연락해 주세요:</p><ul><li>WhatsApp: <a href="{whatsappLink}" target="_blank">여기를 클릭</a></li><li>Email: <a href="mailto:{email}">{email}</a></li></ul><p><a href="/help-center">고객센터</a>에서 더 많은 정보를 찾을 수 있어요.</p>',
+      },
+    },
   },
-  "pages": {
-    "home": {
-      "title": "Renovation Expo - Megabuild Indonesia: 건축자재, 건축, 시공 및 인테리어 디자인 전시회",
-      "description": "MEGABUILD Indonesia. 건축자재, 건축, 인테리어 디자인 최신 트렌드가 모이는 인도네시아 최대 전시회."
+  pages: {
+    home: {
+      title:
+        "Renovation Expo - Megabuild Indonesia: 건축자재, 건축, 시공 및 인테리어 디자인 전시회",
+      description:
+        "MEGABUILD Indonesia. 건축자재, 건축, 인테리어 디자인 최신 트렌드가 모이는 인도네시아 최대 전시회.",
     },
-    "brands": {
-      "title": "브랜드",
-      "description": "건축자재, 건축, 인테리어 디자인 분야의 참가 브랜드를 둘러보세요."
+    brands: {
+      title: "브랜드",
+      description:
+        "건축자재, 건축, 인테리어 디자인 분야의 참가 브랜드를 둘러보세요.",
     },
-    "rundown": {
-      "title": "Rundown",
-      "description": "{appName}의 행사 일정과 프로그램을 확인하세요."
+    rundown: {
+      title: "Rundown",
+      description: "{appName}의 행사 일정과 프로그램을 확인하세요.",
     },
-    "programs": {
-      "title": "주요 프로그램",
-      "description": "{appName}의 전시, 브랜드 토크, 워크숍, 디자인 상담 등 주요 프로그램."
+    programs: {
+      title: "주요 프로그램",
+      description:
+        "{appName}의 전시, 브랜드 토크, 워크숍, 디자인 상담 등 주요 프로그램.",
     },
-    "contact": {
-      "title": "문의하기",
-      "description": "티켓, 출전, 파트너십 등 궁금한 점이 있으면 문의해 주세요."
+    contact: {
+      title: "문의하기",
+      description: "티켓, 출전, 파트너십 등 궁금한 점이 있으면 문의해 주세요.",
     },
-    "bookSpace": {
-      "title": "부스 예약하기",
-      "description": "{appName}에서 부스를 확보하고 관람객에게 브랜드를 선보이세요."
+    bookSpace: {
+      title: "부스 예약하기",
+      description:
+        "{appName}에서 부스를 확보하고 관람객에게 브랜드를 선보이세요.",
     },
-    "ticket": {
-      "title": "티켓 받기",
-      "description": "{appName} 입장 티켓. 일정, 장소, 티켓 옵션을 한눈에 확인하세요."
+    ticket: {
+      title: "티켓 받기",
+      description:
+        "{appName} 입장 티켓. 일정, 장소, 티켓 옵션을 한눈에 확인하세요.",
     },
-    "gallery": {
-      "title": "Gallery",
-      "description": "지난 {appName}의 하이라이트를 사진으로 만나보세요."
+    gallery: {
+      title: "Gallery",
+      description: "지난 {appName}의 하이라이트를 사진으로 만나보세요.",
     },
-    "faq": {
-      "title": "FAQ",
-      "description": "{appName}의 자주 묻는 질문. 티켓, 행사, 파트너십 정보."
+    faq: {
+      title: "FAQ",
+      description: "{appName}의 자주 묻는 질문. 티켓, 행사, 파트너십 정보.",
     },
-    "links": {
-      "title": "Links",
-      "description": "주요 링크 모음."
+    links: {
+      title: "Links",
+      description: "주요 링크 모음.",
     },
-    "news": {
-      "title": "News",
-      "description": "건축자재 및 인테리어 업계 최신 소식과 이벤트 정보."
+    news: {
+      title: "News",
+      description: "건축자재 및 인테리어 업계 최신 소식과 이벤트 정보.",
     },
-    "ticketPolicy": {
-      "title": "티켓 정책",
-      "description": "{appName} 티켓 종류, 가격, 환불 안내."
+    ticketPolicy: {
+      title: "티켓 정책",
+      description: "{appName} 티켓 종류, 가격, 환불 안내.",
     },
-    "eventPolicy": {
-      "title": "행사 정책",
-      "description": "{appName}의 참가자 및 전시 참가사를 위한 규정과 안내."
+    eventPolicy: {
+      title: "행사 정책",
+      description: "{appName}의 참가자 및 전시 참가사를 위한 규정과 안내.",
     },
-    "partners": {
-      "title": "파트너",
-      "description": "파트너, 스폰서, 미디어의 지원에 감사드려요."
+    partners: {
+      title: "파트너",
+      description: "파트너, 스폰서, 미디어의 지원에 감사드려요.",
     },
-    "terms": {
-      "title": "이용약관",
-      "description": ""
+    terms: {
+      title: "이용약관",
+      description: "",
     },
-    "privacy": {
-      "title": "개인정보 처리방침",
-      "description": ""
+    privacy: {
+      title: "개인정보 처리방침",
+      description: "",
     },
-    "winner": {
-      "title": "랜덤 추첨기",
-      "description": "이름을 입력하고 슬롯을 돌려 공정하게 당첨자를 뽑아보세요. 콘테스트, 경품 이벤트에 딱이에요!"
-    }
-  }
+    winner: {
+      title: "랜덤 추첨기",
+      description:
+        "이름을 입력하고 슬롯을 돌려 공정하게 당첨자를 뽑아보세요. 콘테스트, 경품 이벤트에 딱이에요!",
+    },
+  },
 };
