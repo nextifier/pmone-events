@@ -15,13 +15,28 @@ export default defineEventHandler(async (event) => {
       Accept: "application/json",
     };
 
-    // Resolve the active event slug, then fetch its rundown
-    const activeEvent = await $fetch<{ data: { slug: string } }>(
-      `${config.public.apiUrl}/api/public/projects/${username}/events/active`,
-      { headers, signal: controller.signal },
-    );
+    const baseOpts = { headers, signal: controller.signal };
 
-    const eventSlug = activeEvent?.data?.slug;
+    // Resolve event slug. Prefer the project's active event; fall back to the
+    // most recent event by start_date so the rundown still renders even when
+    // no event is currently flagged is_active=true. Only when neither exists
+    // do we return an empty payload so the component shows its empty state
+    // instead of a generic fetch-error UI.
+    const active = await $fetch<{ data: { slug: string } }>(
+      `${config.public.apiUrl}/api/public/projects/${username}/events/active`,
+      baseOpts,
+    ).catch(() => null);
+
+    let eventSlug = active?.data?.slug;
+
+    if (!eventSlug) {
+      const latest = await $fetch<{ data: Array<{ slug: string }> }>(
+        `${config.public.apiUrl}/api/public/projects/${username}/events`,
+        { ...baseOpts, query: { per_page: 1, sort: "-start_date" } },
+      ).catch(() => null);
+      eventSlug = latest?.data?.[0]?.slug;
+    }
+
     if (!eventSlug) {
       return { data: { days: [] } };
     }
@@ -29,9 +44,8 @@ export default defineEventHandler(async (event) => {
     const rundown = await $fetch(
       `${config.public.apiUrl}/api/public/projects/${username}/events/${eventSlug}/rundown`,
       {
-        headers,
+        ...baseOpts,
         query: { locale },
-        signal: controller.signal,
       },
     );
 

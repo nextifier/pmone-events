@@ -14,7 +14,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+if (import.meta.client) {
+  gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+}
 
 export interface SplitTextProps {
   text: string;

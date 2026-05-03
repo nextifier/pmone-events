@@ -43,5 +43,17 @@ const props = defineProps({
   error: Object,
 });
 
+if (import.meta.server) {
+  const event = useRequestEvent();
+  if (event) setResponseStatus(event, props.error?.statusCode || 500);
+}
+
+useSeoMeta({
+  titleTemplate: null,
+  title:
+    props.error?.statusCode === 404 ? "Page not found" : "Something went wrong",
+  robots: "noindex, nofollow",
+});
+
 const handleError = () => clearError({ redirect: "/" });
 </script>

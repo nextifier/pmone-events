@@ -27,6 +27,7 @@ const props = withDefaults(
       "[aria-roledescription='carousel']",
       ".pswp",
       "[role='tablist']",
+      "[data-slot='table-container']",
     ],
   },
 );

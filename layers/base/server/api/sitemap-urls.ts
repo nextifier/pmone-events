@@ -12,25 +12,31 @@ interface BlogResponse {
 export default defineSitemapEventHandler(async () => {
   const config = useRuntimeConfig();
 
-  const response = await $fetch<BlogResponse>(
-    `${config.public.apiUrl}/api/public/blog/posts`,
-    {
-      headers: {
-        "X-API-Key": config.pmOneApiKey,
-        Accept: "application/json",
+  try {
+    const response = await $fetch<BlogResponse>(
+      `${config.public.apiUrl}/api/public/blog/posts`,
+      {
+        headers: {
+          "X-API-Key": config.pmOneApiKey,
+          Accept: "application/json",
+        },
+        query: {
+          per_page: 1000,
+          sort: "-published_at",
+          author: config.public.blogUsernames,
+        },
+        timeout: 15000,
       },
-      query: {
-        per_page: 1000,
-        sort: "-published_at",
-        author: config.public.blogUsernames,
-      },
-    },
-  );
+    );
 
-  const posts = response.data.map((post) => ({
-    loc: `/news/${post.slug}`,
-    lastmod: post.updated_at,
-  }));
+    const posts = response.data.map((post) => ({
+      loc: `/news/${post.slug}`,
+      lastmod: post.updated_at,
+    }));
 
-  return [...posts];
+    return [...posts];
+  } catch (error) {
+    console.error("[sitemap-urls] failed to fetch blog posts:", error);
+    return [];
+  }
 });
