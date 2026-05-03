@@ -43,6 +43,10 @@ const props = defineProps({
   error: Object,
 });
 
+const headline = computed(() =>
+  props.error?.statusCode === 404 ? "Page not found" : "Something went wrong",
+);
+
 if (import.meta.server) {
   const event = useRequestEvent();
   if (event) setResponseStatus(event, props.error?.statusCode || 500);
@@ -50,8 +54,7 @@ if (import.meta.server) {
 
 useSeoMeta({
   titleTemplate: null,
-  title:
-    props.error?.statusCode === 404 ? "Page not found" : "Something went wrong",
+  title: headline.value,
   robots: "noindex, nofollow",
 });
 
