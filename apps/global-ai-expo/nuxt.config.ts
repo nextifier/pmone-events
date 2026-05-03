@@ -18,8 +18,14 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
+  image: {
+    provider: process.env.NODE_ENV === "production" ? "ipx" : "ipx",
+    quality: 85,
+    format: ["webp"],
+  },
+
   site: {
-    url: "https://globalaiexpo.com",
+    url: "https://global-ai-expo.pages.dev",
     name: "Global AI Expo",
   },
 

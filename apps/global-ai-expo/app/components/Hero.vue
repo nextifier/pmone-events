@@ -1,8 +1,8 @@
 <template>
   <section id="hero" ref="containerRef" class="relative isolate">
-    <div class="container-wider relative z-20">
+    <div class="min-h-screen-offset grid grid-cols-1">
       <div
-        class="min-h-screen-offset relative isolate grid grid-cols-1 gap-y-6 pt-6 md:grid-cols-2 md:items-end md:pt-0 xl:grid-cols-3"
+        class="container-wider relative isolate grid grow grid-cols-1 gap-y-6 pt-6 md:grid-cols-2 md:items-end md:pt-0 xl:grid-cols-3"
       >
         <div
           class="relative z-20 order-first flex h-full flex-col justify-between gap-y-6 sm:gap-y-12 md:pt-6 lg:pb-10 2xl:pt-10 2xl:pb-16"
@@ -22,7 +22,7 @@
             />
           </div>
 
-          <div class="flex flex-col items-start gap-y-4">
+          <div class="flex flex-col items-start gap-y-4 xl:translate-y-[30%]">
             <AvatarGroup
               :items="brands"
               :size="3"
@@ -41,7 +41,7 @@
         <div
           class="relative isolate z-10 order-2 flex h-full origin-bottom flex-col items-center justify-end md:order-last md:col-span-2 xl:order-2 xl:col-span-1 xl:scale-140"
         >
-          <NuxtImg
+          <!-- <NuxtImg
             src="/img/kv/futuristic-humanoid-robot 1000px.png"
             alt=""
             width="1000"
@@ -49,7 +49,7 @@
             sizes="400px sm:1000px"
             class="h-auto w-full translate-x-[5%]"
             format="webp"
-          />
+          /> -->
         </div>
 
         <div
@@ -66,51 +66,46 @@
                 eight industry zones.
               </div>
 
-              <Button size="lg">Register</Button>
+              <Button to="/ticket" size="lg" class="text-lg">Register</Button>
             </div>
-            <!-- <div
-              class="relative isolate z-10 flex flex-col items-center gap-y-4 text-center md:items-end md:text-right"
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 px-2 sm:mt-0">
+        <div class="origin-bottom -skew-y-10">
+          <div
+            class="container-wider text-foreground mb-3 text-3xl font-semibold tracking-tighter sm:text-4xl"
+          >
+            {{ event.date }}
+          </div>
+          <div
+            class="relative isolate min-h-[400px] w-full rounded-2xl [clip-path:inset(-100vh_0_0_0)]"
+          >
+            <NuxtImg
+              src="/img/kv/futuristic-humanoid-robot 1000px.png"
+              alt=""
+              width="1000"
+              height="1029"
+              sizes="400px sm:1000px"
+              class="absolute bottom-0 left-1/2 z-10 h-auto w-full max-w-[400px] translate-x-[-45%] scale-120 skew-y-10 sm:max-w-[40%]"
+              format="webp"
+            />
+
+            <div
+              id="animate-this"
+              class="bg-primary absolute inset-0 z-0 overflow-hidden rounded-2xl transition-[clip-path] delay-[600ms] duration-[1600ms] ease-[cubic-bezier(0.65,0,0.35,1)] [clip-path:inset(0_0_0_0)] starting:[clip-path:inset(0_100%_0_0)]"
             >
-              <div v-if="event.edition?.value" class="flex">
-                <span
-                  class="text-primary bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
-                  >{{
-                    $t("hero.edition", {
-                      n: event.edition.value,
-                      ordinal: event.edition.ordinal,
-                    })
-                  }}</span
-                >
-              </div>
-
-              <div
-                class="text-primary relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
-              >
-                <span
-                  class="relative isolate flex flex-col items-center text-7xl !leading-[1] font-semibold tracking-tighter text-balance md:items-end 2xl:text-8xl"
-                >
-                  <span>{{ event.dateOnly }}</span>
-                  <span>{{ event.month }}</span>
-                  <span>{{ event.year }}</span>
-                </span>
-                <nuxt-link
-                  :to="event.locationLink ?? ''"
-                  target="_blank"
-                  class="mt-4 text-xl font-bold tracking-tighter text-balance decoration-dotted underline-offset-4 hover:underline"
-                  >{{ event.location }}</nuxt-link
-                >
-                <span
-                  v-if="event.hall"
-                  class="mt-2 line-clamp-1 text-sm tracking-tight"
-                  >{{ event.hall }}</span
-                >
-              </div>
-
-              <InConjunction
-                v-if="event?.inConjunction?.list?.length"
-                class="flex flex-col items-center text-center md:items-end md:text-right"
+              <img
+                src="/img/kv/holographic-waves.jpg"
+                class="size-full object-cover"
               />
-            </div> -->
+            </div>
+          </div>
+          <div
+            class="container-wider text-foreground mt-3 text-right text-3xl font-semibold tracking-tighter sm:text-4xl"
+          >
+            {{ event.location }}
           </div>
         </div>
       </div>
