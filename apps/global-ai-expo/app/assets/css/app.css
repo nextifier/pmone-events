@@ -3,19 +3,53 @@
 @source "../../components/**/*.vue";
 @source "../../pages/**/*.vue";
 
-@theme {
-  --color-ink: #0a0a0b;
-  --color-paper: #f4f1e8;
-  --color-paper-alt: #e8e4d7;
-  --color-muted-brand: #6b6960;
+:root {
+  --accent: var(--color-cyan-600);
+  --accent-foreground: var(--color-white);
+}
 
-  --color-cobalt: #1e3cff;
-  --color-magenta: #ff2bb0;
-  --color-violet: #7b2bff;
-  --color-amber-brand: #ffd23f;
-  --color-ember: #ff7a1f;
-  --color-cyan-brand: #00e0c7;
+.dark {
+  --foreground: oklch(95.8% 0.012 91.52);
+  --primary: oklch(95.8% 0.012 91.52);
+  --accent: var(--color-cyan-500);
+  --accent-foreground: var(--color-white);
+}
 
-  --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+.section-subtitle {
+  @apply font-semibold tracking-tighter text-balance text-red-600 dark:text-red-400;
+}
+
+.section-title {
+  @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
+}
+
+.section-title-large {
+  @apply xs:text-6xl xs:leading-[1.1] 3xl:text-8xl 3xl:leading-[1.1] pb-2 text-[12vw] leading-[1.1] font-semibold tracking-tighter text-balance text-black md:text-7xl md:leading-[1.1] lg:text-[5.5rem] lg:leading-[1.1] dark:bg-linear-to-r dark:from-white dark:to-gray-500 dark:bg-clip-text dark:text-transparent;
+}
+
+.section-description {
+  @apply text-body max-w-xl text-base !leading-relaxed tracking-tight text-pretty sm:text-lg;
+}
+
+.gradient-accent,
+.before\:gradient-accent::before,
+.text-gradient-accent {
+  background-image:
+    linear-gradient(0deg, var(--color-accent), var(--color-accent)),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 52.79%, #ffffff 95.95%),
+    linear-gradient(
+      76.82deg,
+      #576265 11.6%,
+      #9ea1a1 25.31%,
+      #848b8a 48.06%,
+      #576265 55.72%,
+      #576265 77.23%,
+      #757a7b 85.34%,
+      #576265 91.31%
+    );
+  background-blend-mode: color, overlay, normal;
+}
+
+.text-gradient-accent {
+  @apply bg-clip-text text-transparent;
 }

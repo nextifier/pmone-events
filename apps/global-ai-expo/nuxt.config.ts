@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      siteUrl: "https://globalaiexpo.com",
+      siteUrl: "https://global-ai-expo.pages.dev",
       blogUsernames: "global-ai-expo",
     },
   },
@@ -18,23 +18,6 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
-  fonts: {
-    families: [
-      {
-        name: "Geist",
-        provider: "google",
-        weights: [300, 400, 500, 600, 700],
-        display: "swap",
-      },
-      {
-        name: "Geist Mono",
-        provider: "google",
-        weights: [400, 500],
-        display: "swap",
-      },
-    ],
-  },
-
   site: {
     url: "https://globalaiexpo.com",
     name: "Global AI Expo",
@@ -44,18 +27,28 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
-  gtag: {
-    tags: [{ id: "G-PLACEHOLDER" }],
-  },
+  // gtag: {
+  //   tags: [{ id: "G-PLACEHOLDER" }],
+  // },
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] },
-      { code: "id", language: "id-ID", name: "Indonesia", files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"] },
+      {
+        code: "en",
+        language: "en-US",
+        name: "English",
+        files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"],
+      },
+      {
+        code: "id",
+        language: "id-ID",
+        name: "Indonesia",
+        files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"],
+      },
     ],
     lazy: true,
     langDir: "../i18n/locales",
-    baseUrl: "https://globalaiexpo.com",
+    baseUrl: "https://global-ai-expo.pages.dev",
     defaultLocale: "en",
     strategy: "prefix_except_default",
     detectBrowserLanguage: {

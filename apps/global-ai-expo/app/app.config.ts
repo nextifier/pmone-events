@@ -4,9 +4,11 @@ const app = {
   name: "Global AI Expo",
   shortName: "Global AI Expo",
   projectUsername: "global-ai-expo",
-  url: isProduction ? "https://globalaiexpo.com" : "http://localhost:3000",
+  url: isProduction
+    ? "https://global-ai-expo.pages.dev"
+    : "http://localhost:3000",
   company: {
-    name: "PT Panorama Media",
+    name: "Global AI Expo",
     address:
       "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150",
   },
@@ -50,7 +52,7 @@ const settings = {
     logoClass: "h-6 text-primary",
   },
   footer: {
-    logoClass: "h-8 text-primary",
+    logoClass: "h-12 text-primary",
   },
   ticket: {
     tabs: {
