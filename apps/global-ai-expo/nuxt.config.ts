@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://global-ai-expo.pages.dev",
-      blogUsernames: "global-ai-expo",
+      blogUsernames: "globalaiexpo",
     },
   },
 

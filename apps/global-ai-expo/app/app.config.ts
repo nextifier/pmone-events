@@ -3,7 +3,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const app = {
   name: "Global AI Expo",
   shortName: "Global AI Expo",
-  projectUsername: "global-ai-expo",
+  projectUsername: "globalaiexpo",
   url: isProduction
     ? "https://global-ai-expo.pages.dev"
     : "http://localhost:3000",
