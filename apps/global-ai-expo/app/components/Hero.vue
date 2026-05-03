@@ -75,7 +75,7 @@
       <div class="mt-16 px-1 sm:mt-0 sm:px-2">
         <div class="origin-bottom -skew-y-10">
           <div
-            class="container-wider text-foreground mb-3 text-3xl font-semibold tracking-tighter sm:text-4xl"
+            class="container-wider text-foreground mb-10 text-3xl font-semibold tracking-tighter sm:mb-3 sm:text-4xl"
           >
             {{ event.date }}
           </div>
@@ -93,12 +93,49 @@
             />
 
             <div
-              class="bg-primary ease-out-swift absolute inset-0 z-0 overflow-hidden rounded-3xl transition-[clip-path] delay-[600ms] duration-[2000ms] [clip-path:inset(0_0_0_0)] sm:rounded-4xl starting:[clip-path:inset(0_100%_0_0)]"
+              :class="[
+                'bg-primary ease-out-swift absolute inset-0 z-0 overflow-hidden rounded-3xl transition-[clip-path] duration-[2000ms] sm:rounded-4xl',
+                shaderReady
+                  ? '[clip-path:inset(0_0_0_0)]'
+                  : '[clip-path:inset(0_100%_0_0)]',
+              ]"
             >
-              <img
-                src="/img/kv/holographic-waves.jpg"
-                class="size-full object-cover"
-              />
+              <Shader class="size-full" @ready="shaderReady = true">
+                <Swirl
+                  :blend="59"
+                  color-a="#00fff7"
+                  color-b="#0066ff"
+                  color-space="oklch"
+                  :detail="4.1"
+                />
+                <Blob
+                  :center="{
+                    x: 0.85,
+                    y: 0.55,
+                  }"
+                  color-a="#ff35c2"
+                  color-b="#ffaa00"
+                  color-space="oklch"
+                  :deformation="1"
+                  :highlight-intensity="0.8"
+                  :highlight-z="0.8"
+                  :size="0.54"
+                  :softness="1"
+                  :visible="true"
+                />
+                <WaveDistortion
+                  :angle="127"
+                  edges="mirror"
+                  :frequency="30"
+                  :speed="4.9"
+                  :strength="0.7"
+                  :visible="true"
+                  wave-type="triangle"
+                />
+                <ChromaticAberration :strength="0.02" :visible="true" />
+                <FilmGrain :strength="0.15" :visible="true" />
+                <Liquify />
+              </Shader>
             </div>
           </div>
           <div
@@ -113,8 +150,19 @@
 </template>
 
 <script setup>
+import {
+  Shader,
+  Blob,
+  ChromaticAberration,
+  FilmGrain,
+  Liquify,
+  Swirl,
+  WaveDistortion,
+} from "shaders/vue";
+
 const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.hero);
+const shaderReady = ref(false);
 const event = useAppConfig().event;
 const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
