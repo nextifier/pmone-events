@@ -42,7 +42,7 @@
           class="relative isolate z-10 order-2 flex h-full origin-bottom flex-col items-center justify-end md:order-last md:col-span-2 xl:order-2 xl:col-span-1 xl:scale-140"
         >
           <!-- <NuxtImg
-            src="/img/kv/futuristic-humanoid-robot 1000px.png"
+            src="/img/kv/futuristic-humanoid-robot-1000px.png"
             alt=""
             width="1000"
             height="1029"
@@ -72,7 +72,7 @@
         </div>
       </div>
 
-      <div class="mt-16 px-2 sm:mt-0">
+      <div class="mt-16 px-1 sm:mt-0 sm:px-2">
         <div class="origin-bottom -skew-y-10">
           <div
             class="container-wider text-foreground mb-3 text-3xl font-semibold tracking-tighter sm:text-4xl"
@@ -80,10 +80,10 @@
             {{ event.date }}
           </div>
           <div
-            class="relative isolate min-h-[400px] w-full rounded-2xl [clip-path:inset(-100vh_0_0_0)]"
+            class="relative isolate min-h-[400px] w-full rounded-3xl [clip-path:inset(-100vh_0_0_0)] sm:rounded-4xl"
           >
             <NuxtImg
-              src="/img/kv/futuristic-humanoid-robot 1000px.png"
+              src="/img/kv/futuristic-humanoid-robot-1000px.png"
               alt=""
               width="1000"
               height="1029"
@@ -93,8 +93,7 @@
             />
 
             <div
-              id="animate-this"
-              class="bg-primary absolute inset-0 z-0 overflow-hidden rounded-2xl transition-[clip-path] delay-[600ms] duration-[1600ms] ease-[cubic-bezier(0.65,0,0.35,1)] [clip-path:inset(0_0_0_0)] starting:[clip-path:inset(0_100%_0_0)]"
+              class="bg-primary ease-out-swift absolute inset-0 z-0 overflow-hidden rounded-3xl transition-[clip-path] delay-[600ms] duration-[2000ms] [clip-path:inset(0_0_0_0)] sm:rounded-4xl starting:[clip-path:inset(0_100%_0_0)]"
             >
               <img
                 src="/img/kv/holographic-waves.jpg"
