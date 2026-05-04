@@ -15,24 +15,24 @@ const app = {
 };
 
 const event = {
-  title: "Global AI Expo",
+  title: "Global AI Expo 2026",
   edition: {
     value: 1,
     ordinal: "st",
   },
-  poster: "/img/tickets/poster.jpg",
+  poster: "/img/tickets/global-ai-expo-poster.jpg",
   status: "upcoming", // Available values: "upcoming", "live", "completed"
   // TODO: confirm exact dates with organizer
-  startTime: "November 11, 2026 09:00:00",
-  endTime: "November 14, 2026 21:00:00",
-  date: "November 11-14, 2026",
-  dateOnly: "11-14",
+  startTime: "November 20, 2026 09:00:00",
+  endTime: "November 22, 2026 21:00:00",
+  date: "November 20-22, 2026",
+  dateOnly: "20-22",
   month: "November",
   year: "2026",
-  time: "9 AM - 9 PM",
+  time: "10 AM - 9 PM",
   location: "Sentul City, Bogor, Indonesia",
   locationShort: "Sentul City, Bogor",
-  locationLink: "https://maps.app.goo.gl/sentul-city-placeholder",
+  locationLink: "https://maps.app.goo.gl/vYQ2LBQjFmCyo19L9",
   hall: "",
   teaserVideoId: "",
   profileImage: "/img/tickets/poster.jpg",

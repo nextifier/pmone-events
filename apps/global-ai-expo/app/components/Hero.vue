@@ -2,10 +2,10 @@
   <section id="hero" ref="containerRef" class="relative isolate">
     <div class="min-h-screen-offset grid grid-cols-1">
       <div
-        class="container-wider relative isolate grid grow grid-cols-1 gap-y-6 pt-6 md:grid-cols-2 md:items-end md:pt-0 xl:grid-cols-3"
+        class="container-wider relative isolate grid grow grid-cols-1 gap-y-6 pt-6 md:grid-cols-2 md:items-start md:pt-0 xl:grid-cols-3 xl:-space-y-[20%]"
       >
         <div
-          class="relative z-20 order-first flex h-full flex-col justify-between gap-y-6 sm:gap-y-12 md:pt-6 lg:pb-10 2xl:pt-10 2xl:pb-16"
+          class="relative z-20 order-first flex flex-col justify-between gap-y-6 sm:gap-y-12 md:pt-6 lg:pb-10 2xl:pt-10 2xl:pb-16"
         >
           <div class="flex flex-col items-start gap-y-2.5">
             <span class="text-foreground text-base tracking-tight">
@@ -22,7 +22,7 @@
             />
           </div>
 
-          <div class="flex flex-col items-start gap-y-4 xl:translate-y-[30%]">
+          <div class="flex flex-col items-start gap-y-4">
             <AvatarGroup
               :items="brands"
               :size="3"
@@ -31,36 +31,24 @@
               label="Featured AI brands"
             />
             <h1
-              class="text-foreground text-3xl font-normal tracking-[-0.06em] text-balance sm:text-5xl xl:text-6xl"
+              class="text-foreground text-[8.5vw] leading-[1.15]! font-normal tracking-[-0.06em] text-balance sm:text-5xl xl:text-6xl"
             >
               Meet the builders shipping applied AI across Asia.
             </h1>
           </div>
         </div>
 
-        <div
-          class="relative isolate z-10 order-2 flex h-full origin-bottom flex-col items-center justify-end md:order-last md:col-span-2 xl:order-2 xl:col-span-1 xl:scale-140"
-        >
-          <!-- <NuxtImg
-            src="/img/kv/futuristic-humanoid-robot-1000px.png"
-            alt=""
-            width="1000"
-            height="1029"
-            sizes="400px sm:1000px"
-            class="h-auto w-full translate-x-[5%]"
-            format="webp"
-          /> -->
-        </div>
+        <div class="order-2 md:col-span-2 xl:order-2 xl:col-span-1"></div>
 
         <div
-          class="relative z-30 order-3 h-full md:order-2 md:pt-6 lg:pb-10 xl:order-last 2xl:pt-10 2xl:pb-16"
+          class="relative z-30 order-3 h-auto md:order-2 md:pt-6 lg:pb-10 xl:order-last 2xl:pt-10 2xl:pb-16"
         >
           <div
             class="relative ml-auto flex size-full flex-col justify-between gap-y-6"
           >
             <div class="flex flex-col items-end gap-y-3">
               <div
-                class="text-foreground text-right text-2xl font-semibold tracking-tighter text-balance"
+                class="text-foreground text-right text-2xl font-medium tracking-tighter text-balance"
               >
                 200+ companies demoing AI products already in production, across
                 eight industry zones.
@@ -75,20 +63,20 @@
       <div class="mt-16 px-1 sm:mt-0 sm:px-2">
         <div class="origin-bottom -skew-y-10">
           <div
-            class="container-wider text-foreground mb-10 text-3xl font-semibold tracking-tighter sm:mb-3 sm:text-4xl"
+            class="container-wider text-foreground mb-3 text-3xl font-semibold tracking-tighter sm:text-4xl"
           >
             {{ event.date }}
           </div>
           <div
-            class="relative isolate min-h-[400px] w-full rounded-3xl [clip-path:inset(-100vh_0_0_0)] sm:rounded-4xl"
+            class="relative isolate min-h-[400px] w-full rounded-3xl [clip-path:inset(-100vh_-100vw_0_-100vw)] sm:rounded-4xl"
           >
             <NuxtImg
-              src="/img/kv/futuristic-humanoid-robot-1000px.png"
+              src="/img/kv/humanoid-robots.png"
               alt=""
               width="1000"
-              height="1029"
+              height="877"
               sizes="400px sm:1000px"
-              class="absolute bottom-0 left-1/2 z-10 h-auto w-full max-w-[400px] translate-x-[-45%] scale-120 skew-y-10 sm:max-w-[40%]"
+              class="absolute bottom-0 left-1/2 z-10 h-auto w-full max-w-[400px] translate-x-[-45%] scale-140 skew-y-10 sm:max-w-[40%] 2xl:scale-120"
               format="webp"
             />
 

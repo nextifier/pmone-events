@@ -1,11 +1,11 @@
 <template>
   <div class="space-y-16 overflow-hidden pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
-    <!-- <LazyRundown v-if="rundownVisible" /> -->
+    <LazyRundown v-if="rundownVisible" />
     <!-- <LazyAboutEvent /> -->
-    <!-- <LazyPartnerships /> -->
-    <!-- <LazyVisitorCta /> -->
-    <!-- <LazyCredits class="container flex flex-col items-center text-center" /> -->
+    <LazyPartnerships />
+    <LazyVisitorCta />
+    <LazyCredits class="container flex flex-col items-center text-center" />
     <!-- <TextFit
       tag="span"
       text="Meet. Greet. Eat."
@@ -15,7 +15,7 @@
     <!-- <LazyBlogPostSlider
       :headline="useContentStore().components.postSlider.title.default"
     /> -->
-    <!-- <LazyFAQ tag="h2" /> -->
+    <LazyFAQ tag="h2" />
     <FAB />
   </div>
 </template>
