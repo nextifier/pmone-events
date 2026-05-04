@@ -233,10 +233,9 @@ export default {
     },
   },
   partnerships: {
-    title:
-      "<span class='text-outline'>Get on </span><span class='text-accent'>the floor</span>",
+    title: "Become a <span class='text-primary'>Part of our Story</span>",
     description:
-      "Three ways to plug into Global AI Expo: take a booth, sponsor the event, or partner as media. Each track gets its own brief and pricing deck.",
+      "Take your business to the next level by participating in {appName}. Meet potential partners, gain exposure, and grow your network.",
     exhibitor: {
       title: "Register as Exhibitor",
       description:
@@ -247,13 +246,13 @@ export default {
       title: "Become a Sponsor",
       description:
         "Silver to Title tiers, with stage time, branded zones, and access to curated business matching. Decks shared on request.",
-      cta: "Request Sponsor Deck",
+      cta: "Sponsor us",
     },
     mediaPartner: {
       title: "Media Partnership",
       description:
         "Editorial, broadcast, and creator partnerships for the AI beat. Press credentials open six weeks before the event.",
-      cta: "Apply as Media",
+      cta: "Join as Media",
     },
     reservedSpace: {
       title: "Looking for a custom partnership? Talk to the team.",
@@ -272,9 +271,9 @@ export default {
     description: "Selected coverage of {appName} from outlets across the AI beat.",
   },
   credits: {
-    title: "The people behind the event",
+    title: "Meet the Community Behind the Event",
     description:
-      "Organizers, sponsors, and partners working to bring Global AI Expo to Sentul City.",
+      "This event is brought to life by the amazing support of our partners, sponsors, and media.",
   },
   postSlider: {
     title: "Latest updates",
@@ -294,9 +293,9 @@ export default {
       "Pick a zone, pick a tier, talk to sales. Booth pricing starts at $5,000 standard, $12,000 premium, $30,000 pavilion. Sales will follow up with availability and floor placement.",
   },
   faq: {
-    title: "Frequently asked questions",
+    title: "Frequently Asked Questions",
     description:
-      "Tickets, booths, sponsorship, media access, and travel. If your question is not here, send it to us.",
+      "Find answers to common questions about our event, tickets, exhibitors, and more.",
     emptyState: "We are still gathering questions. Check back later.",
     contactTitle: "Question not covered? Send it to us.",
     items: {

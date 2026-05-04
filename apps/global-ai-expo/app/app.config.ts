@@ -91,7 +91,10 @@ const contact = {
 const social = {
   // TODO: replace with real handles
   instagram: "globalaiexpo",
+  facebook: "globalaiexpo",
+  tiktok: "globalaiexpo",
   linkedin: "global-ai-expo",
+  youtube: "globalaiexpo",
 };
 
 const contactLinks = {
@@ -111,10 +114,25 @@ const socialLinks = {
     path: `https://www.instagram.com/${social.instagram}`,
     iconName: "hugeicons:instagram",
   },
+  facebook: {
+    label: "Facebook",
+    path: `https://www.facebook.com/${social.facebook}`,
+    iconName: "hugeicons:facebook-01",
+  },
+  tiktok: {
+    label: "TikTok",
+    path: `https://tiktok.com/@${social.tiktok}`,
+    iconName: "hugeicons:tiktok",
+  },
   linkedin: {
     label: "LinkedIn",
     path: `https://www.linkedin.com/company/${social.linkedin}`,
     iconName: "hugeicons:linkedin-01",
+  },
+  youtube: {
+    label: "YouTube",
+    path: `https://www.youtube.com/@${social.youtube}`,
+    iconName: "hugeicons:youtube",
   },
 };
 

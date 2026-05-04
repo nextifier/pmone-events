@@ -218,33 +218,33 @@ export const useContentStore = defineStore("content", () => {
       },
       banners: [
         {
-          image: "/img/banners/cbe-8th-poster.jpg",
-          subtitle: "Cafe n' Brasserie Expo Jakarta",
-          title: "For the Love of Coffee & More.",
+          image: "/img/banners/cover-1.jpg",
+          subtitle: "Global AI Expo Conference",
+          title: "Four Tracks. Sixty Sessions. One Roof.",
           description:
-            "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",
+            "Enterprise AI, robotics, healthcare AI, and policy. Single ticket covers all four conference rooms across four days.",
           accentColor: {
-            light: "#795548",
-            dark: "#a1887f",
+            light: "#2563eb",
+            dark: "#60a5fa",
           },
           cta: {
-            label: "Explore CBE",
-            link: "https://cafebrasserieexpo.com/",
+            label: "See speakers",
+            link: "/rundown",
           },
         },
         {
-          image: "/img/banners/flei-26th-poster.jpg",
-          subtitle: "Franchise & License Expo Indonesia",
-          title: "Your Entrepreneurial Journey Starts Here.",
+          image: "/img/banners/cover-2.jpg",
+          subtitle: "Startup Pavilion",
+          title: "100+ Startups. USD 100K Prize Pool.",
           description:
-            "Looking to start your own business? Discover hundreds of proven franchise opportunities from top local and international brands. Find your future venture!",
+            "Asia's largest applied AI startup floor. Live pitches, investor matching, and a prize pool for breakout teams.",
           accentColor: {
-            light: "#0891b2",
-            dark: "#06b6d4",
+            light: "#9333ea",
+            dark: "#c084fc",
           },
           cta: {
-            label: "Explore FLEI",
-            link: "https://franchise-expo.co.id",
+            label: "Explore startups",
+            link: "/programs",
           },
         },
       ],

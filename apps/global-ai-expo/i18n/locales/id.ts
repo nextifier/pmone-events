@@ -175,9 +175,9 @@ export default {
   },
   partnerships: {
     title:
-      "<span class='text-outline'>Ambil tempat </span><span class='text-accent'>di lantai utama</span>",
+      "<span class='text-outline'>Gabung </span><span class='text-primary'>Bareng Kami</span>",
     description:
-      "Tiga jalur partisipasi di Global AI Expo: ambil booth, jadi sponsor, atau partner sebagai media. Tiap jalur punya brief dan deck harga sendiri.",
+      "Ikut {appName} untuk bertemu calon partner, tampil di depan ribuan pengunjung, dan perluas jaringan bisnis kamu.",
     exhibitor: {
       title: "Daftar sebagai Exhibitor",
       description:
@@ -188,13 +188,13 @@ export default {
       title: "Jadi Sponsor",
       description:
         "Tier Silver sampai Title Sponsor. Termasuk slot panggung, branded zone, dan akses business matching kurasi.",
-      cta: "Minta Deck Sponsor",
+      cta: "Daftar Sponsor",
     },
     mediaPartner: {
       title: "Media Partner",
       description:
         "Kerja sama editorial, broadcast, dan kreator untuk liputan AI. Akreditasi pers dibuka enam minggu sebelum event.",
-      cta: "Daftar sebagai Media",
+      cta: "Gabung sebagai Media",
     },
     reservedSpace: {
       title: "Butuh skema partnership khusus? Bicarakan dengan tim kami.",
@@ -203,7 +203,7 @@ export default {
   },
   visitorCta: {
     title:
-      "<span class='text-outline'>Recap tidak cukup. </span><span class='text-accent'>Datanglah langsung.</span>",
+      "<span class='text-outline'>Recap tidak cukup. </span><span class='text-accent'>Datang langsung.</span>",
     description:
       "Video panel dan rangkuman tidak menangkap percakapan di sela acara, tempat banyak deal bermula. Ambil pass, jelajahi lantai utama.",
     cta: "Get Ticket",
@@ -213,9 +213,9 @@ export default {
     description: "Liputan terpilih tentang {appName} dari berbagai outlet AI.",
   },
   credits: {
-    title: "Tim di balik event",
+    title: "Komunitas di Balik Event Ini",
     description:
-      "Penyelenggara, sponsor, dan partner yang bekerja menghadirkan Global AI Expo di Sentul City.",
+      "Event ini hadir berkat dukungan luar biasa dari partner, sponsor, dan media kami.",
   },
   postSlider: {
     title: "Update terbaru",
@@ -235,9 +235,9 @@ export default {
       "Pilih zona, pilih tier, lalu bicara dengan sales. Standard mulai USD 5.000, Premium USD 12.000, Pavilion USD 30.000. Tim sales akan mengirim opsi tata letak dan ketersediaan.",
   },
   faq: {
-    title: "Pertanyaan umum",
+    title: "Pertanyaan yang Sering Diajukan",
     description:
-      "Soal tiket, booth, sponsorship, akses media, dan akomodasi. Kalau pertanyaan Anda belum ada di sini, kirimkan langsung ke tim.",
+      "Jawaban untuk pertanyaan seputar event, tiket, exhibitor, dan info lainnya.",
     emptyState: "Tim masih mengumpulkan pertanyaan. Cek kembali nanti.",
     contactTitle: "Pertanyaan Anda belum ada di sini? Kirim ke kami.",
     items: {

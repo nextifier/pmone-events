@@ -76,7 +76,7 @@
               width="1000"
               height="877"
               sizes="400px sm:1000px"
-              class="absolute bottom-0 left-1/2 z-10 h-auto w-full max-w-[400px] translate-x-[-45%] scale-140 skew-y-10 sm:max-w-[40%] 2xl:scale-120"
+              class="absolute bottom-0 left-1/2 z-10 h-auto w-full max-w-[400px] translate-x-[-45%] scale-135 skew-y-10 sm:max-w-[40%] 2xl:scale-120"
               format="webp"
             />
 
