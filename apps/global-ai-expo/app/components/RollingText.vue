@@ -44,11 +44,11 @@ const props = withDefaults(defineProps<Props>(), {
 const containerRef = ref<HTMLDivElement | null>(null);
 const tubeRef = ref<HTMLDivElement | null>(null);
 const lineRefs = ref<HTMLHeadingElement[]>([]);
-const splittersRef = ref<SplitText[]>([]);
-const timelineRef = ref<gsap.core.Timeline | null>(null);
-const ctxRef = ref<gsap.Context | null>(null);
 const isReady = ref(false);
 
+let splitters: SplitText[] = [];
+let timeline: gsap.core.Timeline | null = null;
+let ctx: gsap.Context | null = null;
 let resizeTimer: ReturnType<typeof setTimeout> | null = null;
 let intersectionObserver: IntersectionObserver | null = null;
 let motionMediaQuery: MediaQueryList | null = null;
@@ -56,16 +56,16 @@ let isInView = false;
 let prefersReducedMotion = false;
 
 const teardown = () => {
-  if (timelineRef.value) {
-    timelineRef.value.kill();
-    timelineRef.value = null;
+  if (timeline) {
+    timeline.kill();
+    timeline = null;
   }
-  if (ctxRef.value) {
-    ctxRef.value.revert();
-    ctxRef.value = null;
+  if (ctx) {
+    ctx.revert();
+    ctx = null;
   }
-  splittersRef.value.forEach((s) => s.revert());
-  splittersRef.value = [];
+  splitters.forEach((s) => s.revert());
+  splitters = [];
 };
 
 const fitFontSize = () => {
@@ -114,7 +114,7 @@ const init = () => {
     transformStyle: "preserve-3d",
   });
 
-  splittersRef.value = lineRefs.value.map(
+  splitters = lineRefs.value.map(
     (line) =>
       new SplitText(line, {
         type: "chars",
@@ -124,9 +124,9 @@ const init = () => {
 
   isReady.value = true;
 
-  ctxRef.value = gsap.context(() => {
+  ctx = gsap.context(() => {
     const tl = gsap.timeline({ repeat: -1, paused: !isInView });
-    splittersRef.value.forEach((split, index) => {
+    splitters.forEach((split, index) => {
       tl.fromTo(
         split.chars,
         { rotationX: -90 },
@@ -140,7 +140,7 @@ const init = () => {
         index * props.lineOffset,
       );
     });
-    timelineRef.value = tl;
+    timeline = tl;
   }, containerRef.value);
 };
 
@@ -159,10 +159,9 @@ const setupVisibilityObserver = () => {
       const entry = entries[0];
       if (!entry) return;
       isInView = entry.isIntersecting;
-      const tl = timelineRef.value;
-      if (!tl) return;
-      if (isInView) tl.play();
-      else tl.pause();
+      if (!timeline) return;
+      if (isInView) timeline.play();
+      else timeline.pause();
     },
     { threshold: 0, rootMargin: "200px 0px" },
   );

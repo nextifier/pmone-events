@@ -40,7 +40,7 @@ const event = {
     "An AI exhibition, conference, startup pavilion, and business matching platform at Sentul City. Targeting 200 to 500 exhibitors and 20,000 to 50,000 visitors from 30+ countries.",
   offersName: "Global AI Expo Ticket",
   offersDescription:
-    "Visitor passes for the four-day expo. Early-bird pricing opens later this year.",
+    "Visitor passes for the three-day expo. Early-bird pricing opens later this year.",
   inConjunction: {
     label: "In conjunction with",
     list: [],
@@ -153,6 +153,10 @@ const routes = {
     label: "Programs",
     path: "/programs",
   },
+  speakers: {
+    label: "Speakers",
+    path: "/speakers",
+  },
   ticket: {
     label: "Ticket",
     path: "/ticket",
@@ -231,6 +235,7 @@ export default defineAppConfig({
   routes: {
     header: [
       routes.home,
+      routes.speakers,
       routes.brands,
       routes.rundown,
       routes.programs,
@@ -248,6 +253,7 @@ export default defineAppConfig({
         label: "Menu",
         links: [
           routes.home,
+          routes.speakers,
           routes.brands,
           routes.rundown,
           routes.programs,
@@ -276,6 +282,7 @@ export default defineAppConfig({
       {
         label: "Discover",
         links: [
+          routes.speakers,
           routes.brands,
           routes.rundown,
           routes.programs,

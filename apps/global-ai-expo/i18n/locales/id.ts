@@ -99,23 +99,55 @@ export default {
   },
   about: {
     sectionTitle:
-      "<span class='text-outline'>Forum AI yang fokus </span><span class='text-accent'>pada implementasi nyata</span>",
+      "<span class='text-outline'>Tiga hari, </span><span class='text-accent'>delapan zona, </span><span class='text-outline'>satu lantai AI.</span>",
     forgetBoring: "Lebih dari sekadar keynote",
+    lead: "Selama tiga hari di Sentul, pembeli dan pengembang AI Asia berkumpul di lantai yang sama. Demo jalan langsung, kontrak ditutup di tempat, percakapan tidak berhenti di kartu nama.",
     paragraph1:
-      "Global AI Expo adalah pertemuan empat hari di Sentul City untuk pelaku industri AI: pengembang, pembeli, regulator, dan investor. Lantai pameran terbagi menjadi delapan zona industri: robotika, kesehatan, fintech, smart city, manufaktur, kendaraan otonom, energi, dan agrikultur.",
+      "Lantai utama dibagi delapan zona, satu zona satu vertikal: robotika, kesehatan, fintech, smart city, manufaktur, kendaraan otonom, energi, agrikultur. Pilih zona yang cocok dengan use case Anda, lalu langsung temui vendor yang sudah biasa mengerjakannya.",
     paragraph2:
-      "Target peserta 200 sampai 500 exhibitor, 20.000 sampai 50.000 pengunjung, dari 30+ negara. Vendor software, produsen robotika, cloud provider, dan perusahaan chip AI sedang dalam proses outreach. Daftar konfirmasi diumumkan bertahap.",
+      "Target 200 sampai 500 perusahaan tampil. 20 ribu sampai 50 ribu pengunjung lewat pintu. Outreach sedang berjalan ke vendor software, produsen robotika, cloud provider, dan perusahaan chip dari tiga puluh negara. Daftar exhibitor diperbarui setiap kontrak baru ditutup.",
     paragraph3:
-      "Program berjalan di empat track konferensi (Future of AI, Governance and Ethics, Enterprise Transformation, Generative AI), Startup Pavilion dengan 100+ booth, dan platform business matching yang mempertemukan buyer dengan supplier yang sudah terkurasi.",
+      "Konferensi jalan empat track paralel: Future of AI, Governance and Ethics, Enterprise Transformation, Generative AI. Seratus lebih founder mengisi Startup Pavilion, sebagian raising sebagian jualan. Platform business matching menjadwalkan pertemuan tiga puluh menit antara buyer dan supplier terkurasi, jadi Anda tidak perlu mulai dari nol.",
     paragraph4:
-      "Kalau tim Anda sedang menerapkan AI ke produksi, mencari supplier, mendanai startup, atau menyusun regulasi, ini ruang yang tepat untuk berdiskusi.",
+      "Kalau Anda bangun AI, beli untuk perusahaan, biayai, atau menyusun aturannya, orang yang relevan ada di Sentul minggu itu.",
+    stats: {
+      zones: "Zona industri",
+      prize: "Hadiah inovasi",
+      startups: "Startup terkurasi",
+      countries: "Negara",
+    },
+  },
+  whyVisit: {
+    heading: "Kenapa datang",
+    subheading: "Empat hal yang Anda bawa pulang dari Sentul",
+    items: {
+      "0": {
+        title: "AI yang bisa dibeli Senin pagi",
+        description:
+          "Setiap sistem di lantai pameran sudah jalan di customer. Anda pulang membawa nomor vendor, bukan slide deck.",
+      },
+      "1": {
+        title: "Bertemu orang yang tepat",
+        description:
+          "Kirim shortlist sebelum berangkat. Tim kami isi kalender Anda dengan vendor, founder, dan partner yang sesuai. Tidak perlu adu kartu nama.",
+      },
+      "2": {
+        title: "Tempat cek-cek besar ditulis",
+        description:
+          "Seratus founder pitching di panggung. Hadiah USD 100.000. Investor jalan di lantai dengan modal siap. Kalau Anda sedang raising, ini ruangnya.",
+      },
+      "3": {
+        title: "Satu pass, semua lantai",
+        description:
+          "Konferensi, pameran, startup pavilion, business matching. Satu visitor pass membuka semuanya. Tidak ada upgrade, tidak ada yang ditahan.",
+      },
+    },
   },
   hero: {
     countdownLabel: "Lantai pameran dibuka dalam",
-    eyebrow: "§01 · Pameran",
     title: "Tempat AI terapan dibangun, dibeli, dan ditandatangani.",
     description:
-      "Pusat AI enterprise Asia, dari robotik dan kesehatan hingga fintech dan smart city. Empat hari di Sentul, tiga puluh negara di lantai pameran.",
+      "Pusat AI enterprise Asia, dari robotik dan kesehatan hingga fintech dan smart city. Tiga hari di Sentul, tiga puluh negara di lantai pameran.",
     metrics: {
       zones: "Zona industri",
       startups: "Startup terkurasi",
@@ -149,7 +181,7 @@ export default {
       "3": {
         title: "Smart City AI",
         description:
-          "Lalu lintas, keamanan publik, utilitas, dan layanan warga. Zona ini menjadi tempat delegasi pemerintah daerah selama empat hari.",
+          "Lalu lintas, keamanan publik, utilitas, dan layanan warga. Zona ini menjadi tempat delegasi pemerintah daerah selama tiga hari.",
       },
       "4": {
         title: "Manufacturing AI",
@@ -223,6 +255,7 @@ export default {
   },
   brandPreview: {
     title: "Brand yang akan hadir di {appName}",
+    empty: "Daftar peserta sedang difinalisasi. Pantau terus halaman ini ya.",
   },
   brandList: {
     title: "Brands",
@@ -255,7 +288,7 @@ export default {
       },
       "3": {
         q: "Berapa harga booth exhibitor?",
-        a: "<p>Booth Standard: USD 5.000. Premium: USD 12.000. Pavilion: USD 30.000. Harga mencakup empat hari penyelenggaraan. Tim sales akan membagikan denah dan ketersediaan zona setelah Anda mengirim permintaan.</p>",
+        a: "<p>Booth Standard: USD 5.000. Premium: USD 12.000. Pavilion: USD 30.000. Harga mencakup tiga hari penyelenggaraan. Tim sales akan membagikan denah dan ketersediaan zona setelah Anda mengirim permintaan.</p>",
       },
       "4": {
         q: "Tier sponsorship apa saja yang tersedia?",
@@ -283,11 +316,23 @@ export default {
       },
     },
   },
+  speakers: {
+    title: "Pembicara",
+    description:
+      "Periset, founder, dan praktisi yang ikut menentukan arah AI terapan dekade ini.",
+    comingSoon: "Daftar pembicara segera diumumkan menjelang event.",
+    featured: "Unggulan",
+  },
   pages: {
     home: {
       title: "Global AI Expo",
       description:
-        "Pameran AI, konferensi, dan ruang dealmaking selama empat hari di Sentul City, November 2026. Delapan zona industri, empat track konferensi, 100+ startup, prize pool USD 100.000.",
+        "Pameran AI, konferensi, dan ruang dealmaking selama tiga hari di Sentul City, 20-22 November 2026. Delapan zona industri, empat track konferensi, 100+ startup, prize pool USD 100.000.",
+    },
+    speakers: {
+      title: "Pembicara",
+      description:
+        "Kenali para pembicara yang mengisi track konferensi di Global AI Expo 2026.",
     },
     brands: {
       title: "Brands",

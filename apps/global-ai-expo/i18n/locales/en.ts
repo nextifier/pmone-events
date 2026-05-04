@@ -158,23 +158,55 @@ export default {
   },
   about: {
     sectionTitle:
-      "<span class='text-outline'>An AI summit built for </span><span class='text-accent'>real deployments</span>",
+      "<span class='text-outline'>Three days, </span><span class='text-accent'>eight zones, </span><span class='text-outline'>one AI floor.</span>",
     forgetBoring: "Beyond the keynote",
+    lead: "For three days in Sentul, Asia's AI buyers and builders share one floor. Demos run live, contracts close on the spot, and the side conversations do not stop at the badge.",
     paragraph1:
-      "Global AI Expo is a four-day gathering at Sentul City for the people building, buying, regulating, and investing in applied AI. The floor is organized around eight industry zones: robotics, healthcare, fintech, smart city, manufacturing, autonomous vehicles, energy, and agriculture.",
+      "The floor splits into eight zones, each one a vertical: robotics, healthcare, fintech, smart city, manufacturing, autonomous vehicles, energy, agriculture. Pick the zone that matches your use case, walk straight to vendors who already serve it.",
     paragraph2:
-      "Targeting 200 to 500 exhibitors, 20,000 to 50,000 visitors, and 30+ countries on one floor. Software vendors, robotics manufacturers, cloud providers, and chip companies are in active outreach. Confirmed lineup goes live as deals close.",
+      "Two hundred to five hundred companies on the floor. Twenty to fifty thousand visitors through the doors. Outreach is open with software vendors, robotics makers, cloud providers, and chip companies across thirty countries. The exhibitor list updates as contracts close.",
     paragraph3:
-      "Programming runs across four conference tracks (Future of AI, Governance and Ethics, Enterprise Transformation, Generative AI), a 100+ booth Startup Pavilion, and a curated business matching platform that puts buyers in front of pre-vetted suppliers.",
+      "Four conference tracks run in parallel: Future of AI, Governance and Ethics, Enterprise Transformation, Generative AI. A hundred plus founders work the Startup Pavilion, half raising, half selling. Business matching books thirty minute meetings between buyers and pre-vetted suppliers, so you skip the cold approach.",
     paragraph4:
-      "If your team is shipping AI to production, sourcing it, funding it, or writing the rules around it, this is where the conversations happen.",
+      "If you build, buy, fund, or regulate AI, the people you need are in Sentul that week.",
+    stats: {
+      zones: "Industry zones",
+      prize: "Prize pool",
+      startups: "Curated startups",
+      countries: "Countries",
+    },
+  },
+  whyVisit: {
+    heading: "Why walk the floor",
+    subheading: "What three days in Sentul gets you",
+    items: {
+      "0": {
+        title: "AI you can buy on Monday",
+        description:
+          "Every system on the floor is already running at paying customers. You leave with vendors to call, not slide decks to forget.",
+      },
+      "1": {
+        title: "Meet the right room",
+        description:
+          "Send your shortlist before you arrive. We book your calendar with vendors, founders, and partners who actually fit. No business card hunt.",
+      },
+      "2": {
+        title: "Where the checks get written",
+        description:
+          "A hundred founders raising on stage. USD 100,000 in prize money. Investors walking the floor with capital ready. If you build, this is the room.",
+      },
+      "3": {
+        title: "One pass, every floor",
+        description:
+          "Conference, exhibition, startup pavilion, business matching. A single visitor pass unlocks all of it. No upgrades, nothing held back.",
+      },
+    },
   },
   hero: {
     countdownLabel: "The floor opens in",
-    eyebrow: "§01 · The expo",
     title: "Where applied AI gets built, bought, and signed.",
     description:
-      "Asia's epicenter for enterprise AI, from robotics and healthcare to fintech and smart cities. Four days in Sentul, thirty countries on the floor.",
+      "Asia's epicenter for enterprise AI, from robotics and healthcare to fintech and smart cities. Three days in Sentul, thirty countries on the floor.",
     metrics: {
       zones: "Industry zones",
       startups: "Curated startups",
@@ -193,7 +225,7 @@ export default {
       "0": {
         title: "AI Robotics",
         description:
-          "Industrial arms, humanoids, warehouse automation, and edge robotics. Live demo runs scheduled across all four days.",
+          "Industrial arms, humanoids, warehouse automation, and edge robotics. Live demo runs scheduled across all three days.",
       },
       "1": {
         title: "Healthcare AI",
@@ -208,7 +240,7 @@ export default {
       "3": {
         title: "Smart City AI",
         description:
-          "Traffic, public safety, utilities, and citizen services. The zone hosts municipal delegations across the four-day run.",
+          "Traffic, public safety, utilities, and citizen services. The zone hosts municipal delegations across the three-day run.",
       },
       "4": {
         title: "Manufacturing AI",
@@ -281,6 +313,7 @@ export default {
   },
   brandPreview: {
     title: "Brands confirmed for {appName}",
+    empty: "Exhibitor lineup is being finalized. Check back soon.",
   },
   brandList: {
     title: "Brands",
@@ -313,7 +346,7 @@ export default {
       },
       "3": {
         q: "What does an exhibitor booth cost?",
-        a: "<p>Standard booth: USD 5,000. Premium booth: USD 12,000. Pavilion booth: USD 30,000. Pricing covers the four-day run. Sales will share floor plans and zone availability after you submit a request.</p>",
+        a: "<p>Standard booth: USD 5,000. Premium booth: USD 12,000. Pavilion booth: USD 30,000. Pricing covers the three-day run. Sales will share floor plans and zone availability after you submit a request.</p>",
       },
       "4": {
         q: "What sponsorship tiers are available?",
@@ -341,11 +374,23 @@ export default {
       },
     },
   },
+  speakers: {
+    title: "Speakers",
+    description:
+      "Researchers, founders, and operators shaping the next decade of applied AI.",
+    comingSoon: "Speaker lineup drops closer to the event. Check back soon.",
+    featured: "Featured",
+  },
   pages: {
     home: {
       title: "Global AI Expo",
       description:
-        "Four-day applied AI exhibition, conference, and dealmaking floor at Sentul City, November 2026. Eight industry zones, four conference tracks, 100+ startups, USD 100,000 prize pool.",
+        "Three-day applied AI exhibition, conference, and dealmaking floor at Sentul City, November 20-22, 2026. Eight industry zones, four conference tracks, 100+ startups, USD 100,000 prize pool.",
+    },
+    speakers: {
+      title: "Speakers",
+      description:
+        "Meet the speakers headlining the conference tracks at Global AI Expo 2026.",
     },
     brands: {
       title: "Brands",

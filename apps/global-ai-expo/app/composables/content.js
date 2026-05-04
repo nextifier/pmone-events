@@ -81,6 +81,11 @@ export const useContentStore = defineStore("content", () => {
       title: t("pages.winner.title"),
       description: t("pages.winner.description"),
     },
+    speakers: {
+      title: t("pages.speakers.title"),
+      description: t("pages.speakers.description"),
+      ogImage: "/og/og-home.jpg",
+    },
   }));
 
   const config = useAppConfig();
@@ -88,7 +93,6 @@ export const useContentStore = defineStore("content", () => {
   const components = computed(() => ({
     hero: {
       countdownLabel: t("hero.countdownLabel"),
-      eyebrow: t("hero.eyebrow"),
       title: t("hero.title"),
       description: t("hero.description"),
       metrics: [
@@ -123,42 +127,42 @@ export const useContentStore = defineStore("content", () => {
       list: [
         {
           title: t("mainPrograms.items.0.title"),
-          image: "/img/programs/program-1.jpg",
+          iconName: "hugeicons:robotic",
           description: t("mainPrograms.items.0.description"),
         },
         {
           title: t("mainPrograms.items.1.title"),
-          image: "/img/programs/program-2.jpg",
+          iconName: "hugeicons:stethoscope",
           description: t("mainPrograms.items.1.description"),
         },
         {
           title: t("mainPrograms.items.2.title"),
-          image: "/img/programs/program-3.jpg",
+          iconName: "hugeicons:coins-dollar",
           description: t("mainPrograms.items.2.description"),
         },
         {
           title: t("mainPrograms.items.3.title"),
-          image: "/img/programs/program-4.jpg",
+          iconName: "hugeicons:city-03",
           description: t("mainPrograms.items.3.description"),
         },
         {
           title: t("mainPrograms.items.4.title"),
-          image: "/img/programs/program-5.jpg",
+          iconName: "hugeicons:factory-02",
           description: t("mainPrograms.items.4.description"),
         },
         {
           title: t("mainPrograms.items.5.title"),
-          image: "/img/programs/program-6.jpg",
+          iconName: "hugeicons:car-03",
           description: t("mainPrograms.items.5.description"),
         },
         {
           title: t("mainPrograms.items.6.title"),
-          image: "/img/programs/program-7.jpg",
+          iconName: "hugeicons:solar-energy",
           description: t("mainPrograms.items.6.description"),
         },
         {
           title: t("mainPrograms.items.7.title"),
-          image: "/img/programs/program-8.jpg",
+          iconName: "hugeicons:plant-02",
           description: t("mainPrograms.items.7.description"),
         },
       ],
@@ -222,7 +226,7 @@ export const useContentStore = defineStore("content", () => {
           subtitle: "Global AI Expo Conference",
           title: "Four Tracks. Sixty Sessions. One Roof.",
           description:
-            "Enterprise AI, robotics, healthcare AI, and policy. Single ticket covers all four conference rooms across four days.",
+            "Enterprise AI, robotics, healthcare AI, and policy. Single ticket covers all four conference rooms across three days.",
           accentColor: {
             light: "#2563eb",
             dark: "#60a5fa",

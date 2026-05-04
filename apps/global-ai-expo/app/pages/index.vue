@@ -1,10 +1,10 @@
 <template>
   <div class="space-y-16 overflow-hidden pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
-    <!-- <LazySpeakers /> -->
-    <!-- <LazyBrandPreview /> -->
-    <!-- <LazyRundown v-if="rundownVisible" /> -->
-    <!-- <LazyAboutEvent /> -->
+    <LazySpeakers class="pt-8" />
+    <LazyBrandPreview />
+    <LazyRundown v-if="rundownVisible" />
+    <LazyAboutEvent />
     <LazyPartnerships />
     <LazyVisitorCta />
     <LazyCredits class="container flex flex-col items-center text-center" />
