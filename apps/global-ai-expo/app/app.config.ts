@@ -83,9 +83,9 @@ const settings = {
 
 const contact = {
   // TODO: replace with real channels once provisioned
-  email: "globalaiexpo@panoramamedia.co.id",
-  whatsapp: "6281190083305",
-  whatsappMarketing: "6281190083305",
+  email: "hello@levenium.com",
+  whatsapp: "6287883653918",
+  whatsappMarketing: "6287883653918",
 };
 
 const social = {
@@ -220,6 +220,10 @@ const routes = {
   mediaPartner: {
     label: "Media Partner Registration",
     path: "/media-partner-registration",
+  },
+  brandGuidelines: {
+    label: "Brand Guidelines",
+    path: "/brand-guidelines",
   },
 };
 
