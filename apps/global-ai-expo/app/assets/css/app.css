@@ -16,7 +16,7 @@
 }
 
 .section-subtitle {
-  @apply font-semibold tracking-tighter text-balance text-red-600 dark:text-red-400;
+  @apply font-semibold tracking-tighter text-balance text-blue-600 dark:text-blue-400;
 }
 
 .section-title {
