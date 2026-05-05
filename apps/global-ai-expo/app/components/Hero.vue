@@ -82,7 +82,7 @@
 
             <div
               :class="[
-                'bg-primary ease-out-swift absolute inset-0 z-0 overflow-hidden rounded-3xl transition-[clip-path] duration-[2000ms] sm:rounded-4xl',
+                'bg-primary absolute inset-0 z-0 overflow-hidden rounded-3xl transition-[clip-path] delay-[500ms] duration-[2000ms] ease-in-out sm:rounded-4xl',
                 shaderReady
                   ? '[clip-path:inset(0_0_0_0)]'
                   : '[clip-path:inset(0_100%_0_0)]',
