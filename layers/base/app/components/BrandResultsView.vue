@@ -73,7 +73,7 @@
       </div>
 
       <template v-else>
-        <div v-if="mounted.table" v-show="viewMode === 'table'">
+        <div v-if="viewMode === 'table'">
           <TableData
             v-if="filteredBrands?.length"
             :data="filteredBrands"
@@ -103,7 +103,7 @@
           </div>
         </div>
 
-        <div v-if="mounted.grid" v-show="viewMode === 'grid'">
+        <div v-if="viewMode === 'grid'">
           <div v-if="debouncedSearchInput">
             <GridFill
               v-if="filteredBrands?.length"
@@ -161,7 +161,7 @@
           </div>
         </div>
 
-        <div v-if="mounted.card" v-show="viewMode === 'card'">
+        <div v-if="viewMode === 'card'">
           <div v-if="debouncedSearchInput">
             <div
               v-if="filteredBrands?.length"
@@ -225,7 +225,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import GridFill from "./ui/grid-fill/GridFill.vue";
 
 const props = defineProps({
@@ -249,21 +249,4 @@ const errorDetail = computed(() => {
   if (!err) return null;
   return err.statusMessage || err.message || null;
 });
-
-// Lazy-mount each view on first visit, then keep it in DOM and toggle
-// visibility via v-show — switch back becomes pure CSS, zero mount cost.
-const mounted = ref({
-  grid: props.viewMode === "grid",
-  card: props.viewMode === "card",
-  table: props.viewMode === "table",
-});
-
-watch(
-  () => props.viewMode,
-  (mode) => {
-    if (mode && !mounted.value[mode]) {
-      mounted.value[mode] = true;
-    }
-  },
-);
 </script>

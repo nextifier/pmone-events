@@ -63,6 +63,9 @@ export default {
     "comingSoon": "Brand list is coming soon. Check back later!",
     "conjunctionExplore": "Explore brands from {eventName} with your same ticket."
   },
+  "brandPreview": {
+    "empty": "No featured brands yet. Check back soon."
+  },
   "rundown": {
     "comingSoon": "Rundown is coming soon. Check back later!",
     "nothingYet": "Nothing to see here… yet!",

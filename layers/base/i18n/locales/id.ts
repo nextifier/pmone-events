@@ -64,6 +64,9 @@ export default {
     conjunctionExplore:
       "Jelajahi brand dari {eventName} dengan tiket yang sama.",
   },
+  brandPreview: {
+    empty: "Belum ada brand unggulan. Pantau terus, ya.",
+  },
   rundown: {
     comingSoon: "Rundown segera hadir. Cek lagi nanti!",
     nothingYet: "Belum ada jadwal tersedia.",

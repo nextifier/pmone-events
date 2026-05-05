@@ -63,6 +63,9 @@ export default {
     comingSoon: "Brand 名单即将公布，过段时间再来看看！",
     conjunctionExplore: "凭同一张门票，畅游 {eventName} 的精彩 Brand。",
   },
+  brandPreview: {
+    empty: "精选 Brand 即将登场，敬请期待。",
+  },
   rundown: {
     comingSoon: "Rundown 即将公布，过段时间再来看看！",
     nothingYet: "还没有日程安排，敬请期待！",

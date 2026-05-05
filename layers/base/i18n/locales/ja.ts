@@ -65,6 +65,9 @@ export default {
     conjunctionExplore:
       "同じチケットで{eventName}のブランドもお楽しみいただけます。",
   },
+  brandPreview: {
+    empty: "注目ブランドはまだありません。もう少しお待ちください。",
+  },
   rundown: {
     comingSoon: "Rundownは近日公開です。もう少しお待ちください。",
     nothingYet: "まだ情報はありません。",

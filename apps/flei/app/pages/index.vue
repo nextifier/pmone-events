@@ -1,6 +1,7 @@
 <template>
   <div class="relative space-y-16 overflow-hidden pb-10 lg:space-y-24 lg:pb-16">
     <Hero />
+    <LazyBrandPreview v-if="brandPreviewVisible" />
     <LazyRundown v-if="rundownVisible" />
     <LazyAboutEvent />
     <LazyPartnerships />
@@ -19,6 +20,7 @@
 usePageMeta("home");
 useEventSchema();
 const { visible: rundownVisible } = useRundownVisibility();
+const { visible: brandPreviewVisible } = useBrandPreviewVisibility();
 definePageMeta({
   colorMode: "dark",
 });

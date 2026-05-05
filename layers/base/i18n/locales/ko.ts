@@ -64,6 +64,9 @@ export default {
     comingSoon: "브랜드 목록을 준비 중이에요. 조금만 기다려 주세요!",
     conjunctionExplore: "같은 티켓으로 {eventName}의 브랜드까지 둘러보세요.",
   },
+  brandPreview: {
+    empty: "선보일 브랜드를 준비 중이에요. 곧 만나보실 수 있어요.",
+  },
   rundown: {
     comingSoon: "Rundown을 준비 중이에요. 조금만 기다려 주세요!",
     nothingYet: "아직 준비 중이에요!",

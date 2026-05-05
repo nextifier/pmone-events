@@ -2,7 +2,7 @@
   <div class="space-y-16 overflow-hidden pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
     <LazySpeakers class="pt-8" />
-    <LazyBrandPreview />
+    <LazyBrandPreview v-if="brandPreviewVisible" />
     <LazyRundown v-if="rundownVisible" />
     <LazyAboutEvent />
     <LazyPartnerships />
@@ -27,4 +27,5 @@
 usePageMeta("home");
 useEventSchema();
 const { visible: rundownVisible } = useRundownVisibility();
+const { visible: brandPreviewVisible } = useBrandPreviewVisibility();
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div class="space-y-16 pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
+    <LazyBrandPreview v-if="brandPreviewVisible" />
     <LazyMegaPropertyIntro />
     <LazyArchitectDesignerAlley />
     <LazyRundown v-if="rundownVisible" />
@@ -22,4 +23,5 @@
 usePageMeta("home");
 useEventSchema();
 const { visible: rundownVisible } = useRundownVisibility();
+const { visible: brandPreviewVisible } = useBrandPreviewVisibility();
 </script>
