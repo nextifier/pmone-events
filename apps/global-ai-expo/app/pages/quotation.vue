@@ -10,7 +10,7 @@
       >
         <div
           :class="[
-            'absolute inset-0 transition-[clip-path] duration-[1400ms] ease-out delay-200',
+            'absolute inset-0 transition-[clip-path] delay-200 duration-[1400ms] ease-out',
             revealed
               ? '[clip-path:inset(0_0_0_0)]'
               : '[clip-path:inset(0_100%_0_0)]',
@@ -75,8 +75,7 @@
           <p
             class="max-w-xl text-base !leading-relaxed font-medium tracking-tight text-pretty text-white sm:text-lg lg:text-xl"
           >
-            Beautiful design. Simple to update. Goes live the same hour you
-            pay.
+            Beautiful design. Simple to update. Goes live the same hour you pay.
           </p>
 
           <div
@@ -121,7 +120,9 @@
             'border-l': idx === 1 || idx === 3,
           }"
         >
-          <span class="text-muted-foreground text-sm font-medium tracking-tight">
+          <span
+            class="text-muted-foreground text-sm font-medium tracking-tight"
+          >
             {{ item.label }}
           </span>
           <span class="text-foreground text-base font-medium tracking-tighter">
@@ -134,24 +135,30 @@
     <section id="overview" class="container space-y-6 lg:space-y-8">
       <div class="flex flex-col gap-y-3">
         <span class="section-subtitle">01 · How it's priced</span>
-        <h2 class="section-title">Pay once to launch. Pay monthly to keep it running.</h2>
+        <h2 class="section-title">
+          Pay once to launch. Pay monthly to keep it running.
+        </h2>
         <p class="section-description">
           One payment makes the site yours. The monthly covers hosting and the
           tools you'll use to update it.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        <article
-          class="border-primary/10 bg-background flex flex-col gap-y-6 rounded-3xl border p-8 sm:p-10"
-        >
+      <div
+        class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:grid-cols-2"
+      >
+        <div class="flex flex-col gap-y-6 p-8 sm:p-10">
           <div class="flex flex-col gap-y-3">
             <span class="section-subtitle">One-time</span>
-            <h3 class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl">
+            <h3
+              class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
+            >
               Website Build &amp; Launch
             </h3>
             <div class="flex items-baseline gap-x-2">
-              <span class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl">
+              <span
+                class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
+              >
                 Rp 17.000.000
               </span>
               <span class="text-muted-foreground text-sm tracking-tight">
@@ -164,36 +171,32 @@
             <li
               v-for="bullet in overviewBuild"
               :key="bullet"
-              class="text-body flex items-start gap-x-3 text-base !leading-relaxed tracking-tight"
+              class="section-description flex items-start gap-x-3"
             >
               <Icon
                 name="hugeicons:tick-02"
-                class="text-foreground mt-1 size-4 shrink-0"
+                class="text-foreground mt-1.5 size-4 shrink-0"
               />
               <span>{{ bullet }}</span>
             </li>
           </ul>
+        </div>
 
-          <a
-            href="#build"
-            class="text-foreground hover:text-foreground/80 mt-auto inline-flex items-center gap-x-1.5 text-sm font-medium tracking-tight transition-colors"
-          >
-            What's inside
-            <Icon name="hugeicons:arrow-down-01" class="size-4" />
-          </a>
-        </article>
-
-        <article
-          class="border-primary/10 bg-background flex flex-col gap-y-6 rounded-3xl border p-8 sm:p-10"
+        <div
+          class="border-primary/10 flex flex-col gap-y-6 border-t p-8 sm:p-10 lg:border-t-0 lg:border-l"
         >
           <div class="flex flex-col gap-y-3">
             <span class="section-subtitle">Monthly</span>
-            <h3 class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl">
+            <h3
+              class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
+            >
               Hosting &amp; Event Management Platform
             </h3>
             <div class="flex flex-col gap-y-3">
               <div class="flex items-baseline gap-x-2">
-                <span class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl">
+                <span
+                  class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
+                >
                   Rp 1.700.000
                 </span>
                 <span class="text-muted-foreground text-sm tracking-tight">
@@ -201,7 +204,7 @@
                 </span>
               </div>
               <div
-                class="bg-accent/10 text-accent inline-flex w-fit items-center gap-x-2 rounded-full px-3 py-1.5 text-sm font-medium tracking-tight"
+                class="bg-success/10 text-success-foreground inline-flex w-fit items-center gap-x-2 rounded-full px-3 py-1.5 text-sm font-medium tracking-tight"
               >
                 <Icon name="hugeicons:tag-01" class="size-4" />
                 Pay yearly: Rp 1.275.000/mo, 3 months free
@@ -213,24 +216,16 @@
             <li
               v-for="bullet in overviewPlatform"
               :key="bullet"
-              class="text-body flex items-start gap-x-3 text-base !leading-relaxed tracking-tight"
+              class="section-description flex items-start gap-x-3"
             >
               <Icon
                 name="hugeicons:tick-02"
-                class="text-foreground mt-1 size-4 shrink-0"
+                class="text-foreground mt-1.5 size-4 shrink-0"
               />
               <span>{{ bullet }}</span>
             </li>
           </ul>
-
-          <a
-            href="#platform"
-            class="text-foreground hover:text-foreground/80 mt-auto inline-flex items-center gap-x-1.5 text-sm font-medium tracking-tight transition-colors"
-          >
-            What's inside
-            <Icon name="hugeicons:arrow-down-01" class="size-4" />
-          </a>
-        </article>
+        </div>
       </div>
     </section>
 
@@ -239,8 +234,8 @@
         <span class="section-subtitle">02 · Inside the build</span>
         <h2 class="section-title">What's in the build.</h2>
         <p class="section-description">
-          Built around your event. Looks right on every screen. Ready the
-          moment it goes live.
+          Built around your event. Looks right on every screen. Ready the moment
+          it goes live.
         </p>
       </div>
 
@@ -263,12 +258,14 @@
             >
               <Icon :name="group.icon" class="size-5" />
             </div>
-            <h3 class="text-foreground text-xl font-semibold tracking-tighter sm:text-2xl">
+            <h3
+              class="text-foreground text-xl font-semibold tracking-tighter sm:text-2xl"
+            >
               {{ group.title }}
             </h3>
           </div>
 
-          <p class="text-body text-base !leading-relaxed tracking-tight">
+          <p class="section-description">
             {{ group.body }}
           </p>
         </div>
@@ -304,12 +301,14 @@
             >
               <Icon :name="group.icon" class="size-5" />
             </div>
-            <h3 class="text-foreground text-xl font-semibold tracking-tighter sm:text-2xl">
+            <h3
+              class="text-foreground text-xl font-semibold tracking-tighter sm:text-2xl"
+            >
               {{ group.title }}
             </h3>
           </div>
 
-          <p class="text-body text-base !leading-relaxed tracking-tight">
+          <p class="section-description">
             {{ group.body }}
           </p>
         </div>
@@ -321,15 +320,15 @@
         <span class="section-subtitle">04 · Revisions</span>
         <h2 class="section-title">Revisions, kept simple.</h2>
         <p class="section-description">
-          Small fixes are always free. Big rework is included three times,
-          then capped per round.
+          Small fixes are always free. Big rework is included three times, then
+          capped per round.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <article
-          class="border-primary/10 bg-background flex flex-col gap-y-4 rounded-3xl border p-8"
-        >
+      <div
+        class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border sm:grid-cols-2"
+      >
+        <div class="flex flex-col gap-y-4 p-6 sm:p-8">
           <div
             class="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-full"
           >
@@ -338,14 +337,14 @@
           <h3 class="text-foreground text-2xl font-semibold tracking-tighter">
             Major changes
           </h3>
-          <p class="text-body text-base !leading-relaxed tracking-tight">
+          <p class="section-description">
             Three included. Layout shifts, new key visuals, structural rework.
             After three, Rp 2.000.000 each.
           </p>
-        </article>
+        </div>
 
-        <article
-          class="border-primary/10 bg-background flex flex-col gap-y-4 rounded-3xl border p-8"
+        <div
+          class="border-primary/10 flex flex-col gap-y-4 border-t p-6 sm:border-t-0 sm:border-l sm:p-8"
         >
           <div
             class="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-full"
@@ -355,112 +354,92 @@
           <h3 class="text-foreground text-2xl font-semibold tracking-tighter">
             Small fixes
           </h3>
-          <p class="text-body text-base !leading-relaxed tracking-tight">
+          <p class="section-description">
             Always free. Edit text, swap a photo, tweak a color. Before launch
             and after.
           </p>
-        </article>
+        </div>
       </div>
     </section>
 
-    <section id="timeline" class="container space-y-6 lg:space-y-8">
-      <div class="flex flex-col gap-y-3">
-        <span class="section-subtitle">05 · How it goes live</span>
-        <h2 class="section-title">From chat to live, in four steps.</h2>
-        <p class="section-description">
-          A short customization round, your review, then live the moment your
-          payment lands.
-        </p>
-      </div>
+    <div class="container grid grid-cols-1 gap-x-2 gap-y-4 lg:grid-cols-2">
+      <section id="exclusions" class="space-y-6 lg:space-y-8">
+        <div class="flex flex-col gap-y-3">
+          <span class="section-subtitle">05 · Not included</span>
+          <h2 class="section-title">Not included in the package.</h2>
+          <p class="section-description">
+            Listed upfront so there are no surprises later.
+          </p>
+        </div>
 
-      <div
-        class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:grid-cols-4"
-      >
         <div
-          v-for="(step, idx) in timelineSteps"
-          :key="step.title"
-          class="border-primary/10 flex flex-col gap-y-3 p-6 sm:p-8"
-          :class="[idx > 0 ? 'border-t lg:border-t-0 lg:border-l' : '']"
+          class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border"
         >
-          <span
-            class="text-muted-foreground text-sm font-medium tracking-tighter"
+          <div
+            v-for="(item, idx) in exclusions"
+            :key="item"
+            class="border-primary/10 flex items-start gap-x-3 p-5 sm:p-6"
+            :class="[idx > 0 ? 'border-t' : '']"
           >
-            Step 0{{ idx + 1 }}
-          </span>
-          <h3 class="text-foreground text-xl font-semibold tracking-tighter sm:text-2xl">
-            {{ step.title }}
-          </h3>
-          <p class="text-body text-sm !leading-relaxed tracking-tight">
-            {{ step.body }}
+            <Icon
+              name="hugeicons:cancel-01"
+              class="text-muted-foreground mt-1 size-4 shrink-0"
+            />
+            <span
+              class="text-foreground text-base !leading-snug tracking-tight"
+            >
+              {{ item }}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section id="terms" class="space-y-6 lg:space-y-8">
+        <div class="flex flex-col gap-y-3">
+          <span class="section-subtitle">06 · The fine print</span>
+          <h2 class="section-title">Good to know.</h2>
+          <p class="section-description">
+            The basics on payment, ownership, and support.
           </p>
         </div>
-      </div>
-    </section>
 
-    <section id="exclusions" class="container space-y-6 lg:space-y-8">
-      <div class="flex flex-col gap-y-3">
-        <span class="section-subtitle">06 · Not included</span>
-        <h2 class="section-title">What you'll handle separately.</h2>
-        <p class="section-description">
-          Listed upfront so there are no surprises later.
-        </p>
-      </div>
-
-      <div
-        class="bg-foreground/[0.03] grid grid-cols-1 gap-x-8 gap-y-4 rounded-3xl p-8 sm:p-12 md:grid-cols-2"
-      >
         <div
-          v-for="item in exclusions"
-          :key="item"
-          class="flex items-start gap-x-3"
+          class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border"
         >
-          <Icon
-            name="hugeicons:cancel-01"
-            class="text-muted-foreground mt-1 size-4 shrink-0"
-          />
-          <span class="text-foreground text-base !leading-snug tracking-tight">
-            {{ item }}
-          </span>
+          <div
+            v-for="(term, idx) in terms"
+            :key="term.title"
+            class="border-primary/10 flex flex-col gap-y-3 p-5 sm:p-6"
+            :class="[idx > 0 ? 'border-t' : '']"
+          >
+            <Icon :name="term.icon" class="text-foreground size-5" />
+            <h3 class="text-foreground text-lg font-semibold tracking-tighter">
+              {{ term.title }}
+            </h3>
+            <p class="section-description">
+              {{ term.body }}
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="terms" class="container space-y-6 lg:space-y-8">
-      <div class="flex flex-col gap-y-3">
-        <span class="section-subtitle">07 · The fine print</span>
-        <h2 class="section-title">Good to know.</h2>
-      </div>
-
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <article
-          v-for="term in terms"
-          :key="term.title"
-          class="border-primary/10 bg-background flex flex-col gap-y-3 rounded-3xl border p-6 sm:p-8"
-        >
-          <Icon :name="term.icon" class="text-foreground size-5" />
-          <h3 class="text-foreground text-lg font-semibold tracking-tighter">
-            {{ term.title }}
-          </h3>
-          <p class="text-body text-sm !leading-relaxed tracking-tight">
-            {{ term.body }}
-          </p>
-        </article>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <section id="contact" class="container">
       <div
-        class="bg-primary text-primary-foreground relative isolate flex flex-col items-center gap-y-6 overflow-hidden rounded-3xl p-8 text-center sm:flex-row sm:items-end sm:justify-between sm:gap-x-10 sm:p-12 sm:text-left"
+        class="bg-primary text-primary-foreground relative isolate flex flex-col items-center gap-y-6 overflow-hidden rounded-3xl px-4 py-10 text-center sm:flex-row sm:items-end sm:justify-between sm:gap-x-10 sm:px-12 sm:py-16 sm:text-left"
       >
         <div class="flex flex-col gap-y-3">
           <span class="text-sm font-medium tracking-tight sm:text-base">
-            Last step.
+            Let's start.
           </span>
           <h2 class="text-3xl font-semibold tracking-tighter sm:text-4xl">
-            Send your domain. We'll send a kickoff plan.
+            Tell us about your event.
           </h2>
-          <p class="max-w-md text-base leading-relaxed tracking-tight sm:text-lg">
-            Tell us the name and a rough launch date. Same-week answer.
+          <p
+            class="max-w-md text-base !leading-relaxed tracking-tight sm:text-lg"
+          >
+            We'll send a kickoff plan the same week. No domain yet? We'll help
+            you buy and set it up, free.
           </p>
         </div>
 
@@ -621,25 +600,6 @@ const platformGroups = [
     title: "AI helper, built in",
     icon: "hugeicons:ai-chat-02",
     body: "A chat assistant for drafting copy, summarizing content, and quick answers. Right inside the dashboard.",
-  },
-];
-
-const timelineSteps = [
-  {
-    title: "Talk",
-    body: "One call. We learn the event, the audience, and the feel you want visitors to leave with.",
-  },
-  {
-    title: "Tailor",
-    body: "We adapt the site to your name, brand, and content. Usually a few days.",
-  },
-  {
-    title: "Review",
-    body: "You check everything on a private link. Free fixes until it feels right.",
-  },
-  {
-    title: "Launch",
-    body: "Pay, and the site goes live the same hour. On your domain. With a walkthrough.",
   },
 ];
 
