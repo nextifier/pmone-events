@@ -21,7 +21,7 @@
     <LazyFAQ tag="h2" />
     <FAB />
 
-    <div class="fixed inset-x-0 bottom-8 flex items-center justify-center">
+    <!-- <div class="fixed inset-x-0 bottom-8 flex items-center justify-center">
       <div
         class="bg-primary text-primary-foreground no-scrollbar scroll-fade-x flex min-w-fit gap-1 overflow-x-auto rounded-full p-1"
       >
@@ -43,7 +43,7 @@
           Quotation</NuxtLink
         >
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
