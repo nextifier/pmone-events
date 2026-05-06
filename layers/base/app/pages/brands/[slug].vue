@@ -14,6 +14,7 @@
               :to="instagramLink?.url || ''"
               :target="instagramLink ? '_blank' : undefined"
               class="shrink-0 [view-transition-name:brand-avatar]"
+              @click="instagramLink && trackClick('Instagram')"
             >
               <Avatar
                 :model="{
@@ -50,6 +51,7 @@
               :iconName="getLinkIcon(link.label)"
               :label="link.label"
               size="lg"
+              @click="trackClick(link.label)"
             />
           </div>
         </div>
@@ -127,6 +129,7 @@
                 :to="instagramLink?.url || ''"
                 :target="instagramLink ? '_blank' : undefined"
                 class="shrink-0"
+                @click="instagramLink && trackClick('Instagram')"
               >
                 <Avatar
                   :model="{
@@ -145,6 +148,7 @@
                   :to="instagramLink?.url || ''"
                   target="_blank"
                   class="font-semibold tracking-tight"
+                  @click="instagramLink && trackClick('Instagram')"
                   >{{ instagramUsername ?? brand.brand_name }}</nuxt-link
                 >
 
@@ -216,6 +220,14 @@ const instagramUsername = computed(() => {
   if (!instagramLink.value) return null;
   const path = new URL(instagramLink.value.url).pathname.replace(/\//g, "");
   return path || null;
+});
+
+const { trackVisit, trackClick } = useBrandTracking(
+  () => brand.value?.brand_event_id,
+);
+
+watchEffect(() => {
+  if (brand.value?.brand_event_id) trackVisit();
 });
 
 const router = useRouter();
