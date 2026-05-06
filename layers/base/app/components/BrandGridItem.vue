@@ -12,7 +12,7 @@
     >
       <div
         v-if="props.showBoothNumber"
-        class="bg-border/50 flex flex-col items-center justify-center gap-1 rounded-xl p-2.5 sm:h-full sm:rounded-2xl"
+        class="bg-muted flex flex-col items-center justify-center gap-1 rounded-xl p-2.5 sm:h-full sm:rounded-2xl"
         v-tippy="props.brand.booth_number"
       >
         <div class="flex items-center gap-1">
@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <div class="mt-auto">
+    <!-- <div class="mt-auto">
       <div
         v-if="props.showCreatedAt || props.showViewsCount"
         class="w-full"
@@ -94,7 +94,7 @@
           </span>
         </div>
       </div>
-    </div>
+    </div> -->
   </NuxtLink>
 </template>
 

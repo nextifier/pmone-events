@@ -12,7 +12,10 @@
     />
 
     <div class="flex flex-col items-start gap-y-0.5 overflow-hidden">
-      <p class="truncate" :class="nameClass">
+      <p
+        class="text-foreground truncate font-medium tracking-tight"
+        :class="nameClass"
+      >
         {{ brand.brand_name }}
       </p>
       <p
