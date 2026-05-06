@@ -15,9 +15,9 @@
       :stagger="0.2"
       :line-offset="1.2"
     />
-    <!-- <LazyBlogPostSlider
+    <LazyBlogPostSlider
       :headline="useContentStore().components.postSlider.title.default"
-    /> -->
+    />
     <LazyFAQ tag="h2" />
     <FAB />
 
