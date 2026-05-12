@@ -89,14 +89,12 @@
 
         <div
           v-if="brand.brand_description"
-          class="flex flex-col gap-y-2 rounded-3xl bg-gray-100 px-4 py-6 lg:px-6 lg:py-8 dark:bg-gray-900"
+          class="border-border flex flex-col gap-y-2 rounded-2xl border px-4 py-6 lg:px-6 lg:py-8"
         >
           <span class="tracking-tight text-gray-500 dark:text-gray-400">{{
             $t("ui.description")
           }}</span>
-          <p class="text-base tracking-tight sm:text-lg">
-            {{ brand.brand_description }}
-          </p>
+          <div v-html="brand.brand_description" class="format-html" />
         </div>
       </div>
     </div>
