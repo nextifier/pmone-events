@@ -1,33 +1,25 @@
 <template>
   <div class="sm:container-wider">
     <div class="gallery-container">
-      <client-only>
-        <vue-picture-swipe
-          :items="imageObjects"
-          @open="hideScrollbar"
-          @close="showScrollbar"
-        ></vue-picture-swipe>
-      </client-only>
+      <Lightbox
+        :items="items"
+        alt="Gallery"
+        grid-class="grid grid-cols-2 gap-1 sm:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+        item-class="aspect-square sm:aspect-4/3"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
+import { Lightbox } from "@/components/ui/lightbox";
+
 const gallery = useGalleryStore();
 
-const imageObjects = gallery.images.map((image) => ({
-  src: `/img/gallery/${image}`,
-  thumbnail: `/img/gallery/thumb/${image}`,
-  filename: image,
-  w: 1600,
-  h: 900,
+const items = gallery.images.map((image) => ({
+  sm: `/img/gallery/thumb/${image}`,
+  md: `/img/gallery/${image}`,
+  lg: `/img/gallery/${image}`,
+  url: `/img/gallery/${image}`,
 }));
-
-const hideScrollbar = () => {
-  document.querySelector("html").classList.add("no-scrollbar");
-};
-
-const showScrollbar = () => {
-  document.querySelector("html").classList.remove("no-scrollbar");
-};
 </script>

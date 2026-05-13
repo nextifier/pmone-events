@@ -66,7 +66,6 @@ export default defineNuxtConfig({
         "gsap/SplitText",
         "gsap/Flip",
         "vue-scrollto",
-        "vue3-picture-swipe",
         "@number-flow/vue",
         "vue-tippy",
         "v-wave",

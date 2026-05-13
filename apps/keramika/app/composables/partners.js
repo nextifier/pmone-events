@@ -14,6 +14,7 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
       {
         category: "Co-organized by",
         directory: "/img/credits/association-partners/",
@@ -107,15 +108,21 @@ export const usePartnerStore = defineStore("partners", {
             img: "perkindo.png",
             link: "https://perkindo.org/",
           },
+          {
+            img: "bcmea.svg",
+          },
+          {
+            img: "gbci.png",
+            link: "https://gbcindonesia.org/",
+          },
+          {
+            img: "kidi.png",
+            link: "https://kidi.or.id/",
+          },
 
           // {
           //   img: "ipbbi.png",
           //   link: "https://ipbbi.id/",
-          // },
-
-          // {
-          //   img: "kidi.png",
-          //   link: "https://kidi.or.id/",
           // },
 
           // {
@@ -138,10 +145,7 @@ export const usePartnerStore = defineStore("partners", {
           //   img: "aki.png",
           //   link: "https://aki.or.id/",
           // },
-          // {
-          //   img: "gbci.png",
-          //   link: "https://gbcindonesia.org/",
-          // },
+
           // {
           //   img: "inkindo.png",
           //   link: "https://www.inkindo.org/",
@@ -309,16 +313,16 @@ export const usePartnerStore = defineStore("partners", {
       //     },
       //   ],
       // },
-      // {
-      //   category: "Official Ticketing Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "undangin.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
+      {
+        category: "Official Ticketing Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "undangin.png",
+            link: "",
+          },
+        ],
+      },
       // {
       //   category: "Official Internet Partner",
       //   directory: "/img/credits/etc/",
@@ -349,16 +353,16 @@ export const usePartnerStore = defineStore("partners", {
       //     },
       //   ],
       // },
-      // {
-      //   category: "Official Contractor Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "cityneon.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
+      {
+        category: "Official Contractor Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "cityneon.png",
+            link: "",
+          },
+        ],
+      },
       {
         category: "Official Freight Forwarders",
         directory: "/img/credits/etc/",
@@ -557,15 +561,18 @@ export const usePartnerStore = defineStore("partners", {
             img: "inarcons.png",
             link: "",
           },
+          {
+            img: "arsifista.png",
+            link: "",
+          },
+          {
+            img: "tender-indonesia.png",
+            link: "https://www.tender-indonesia.com/tender_home/",
+          },
 
           // {
           //   img: "detik.png",
           //   link: "https://detik.com/",
-          // },
-
-          // {
-          //   img: "tender-indonesia.png",
-          //   link: "https://www.tender-indonesia.com/tender_home/",
           // },
 
           // {

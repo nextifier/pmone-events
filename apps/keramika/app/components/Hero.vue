@@ -18,8 +18,10 @@
         <div
           class="relative z-20 order-first flex h-full flex-col justify-between gap-y-6 sm:gap-y-12 md:pt-6 lg:pb-10 2xl:pt-10 2xl:pb-16"
         >
-          <div class="flex flex-wrap items-center gap-1">
-            <span class="tracking-tight">{{ content.countdownLabel }}</span>
+          <div class="flex flex-col items-start gap-1">
+            <span v-if="eventStatus === 'upcoming'" class="tracking-tight">{{
+              content.countdownLabel
+            }}</span>
 
             <EventStatus
               countdownVariant="inline-with-boxes"
@@ -156,5 +158,6 @@ const content = computed(() => useContentStore().components.hero);
 const event = useAppConfig().event;
 const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
+const { status: eventStatus } = useEventStatus(eventStartTime, eventEndTime);
 const uiStore = useUiStore();
 </script>
