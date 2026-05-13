@@ -12,8 +12,6 @@
 </template>
 
 <script setup>
-import { Lightbox } from "@/components/ui/lightbox";
-
 const gallery = useGalleryStore();
 
 const items = gallery.images.map((image) => ({
