@@ -119,16 +119,20 @@ export const usePartnerStore = defineStore("partners", {
             img: "kidi.png",
             link: "https://kidi.or.id/",
           },
+          {
+            img: "iali.png",
+            link: "",
+          },
+          {
+            img: "aki.png",
+            link: "https://aki.or.id/",
+          },
 
           // {
           //   img: "ipbbi.png",
           //   link: "https://ipbbi.id/",
           // },
 
-          // {
-          //   img: "iali.png",
-          //   link: "",
-          // },
           // {
           //   img: "htii.png",
           //   link: "https://htii.or.id/",
@@ -140,10 +144,6 @@ export const usePartnerStore = defineStore("partners", {
           // {
           //   img: "asaki.png",
           //   link: "https://asaki.or.id/",
-          // },
-          // {
-          //   img: "aki.png",
-          //   link: "https://aki.or.id/",
           // },
 
           // {
@@ -212,6 +212,10 @@ export const usePartnerStore = defineStore("partners", {
         list: [
           {
             img: "f-widayanto.png",
+          },
+          {
+            img: "indonesia-design.png",
+            link: "",
           },
           // {
           //   img: "synergy.png",
@@ -313,6 +317,16 @@ export const usePartnerStore = defineStore("partners", {
       //     },
       //   ],
       // },
+      {
+        category: "Official Hydration Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "cleo.png",
+            link: "",
+          },
+        ],
+      },
       {
         category: "Official Ticketing Partner",
         directory: "/img/credits/etc/",
@@ -416,18 +430,6 @@ export const usePartnerStore = defineStore("partners", {
           {
             img: "archibuild.png",
             link: "",
-          },
-          {
-            img: "archify.png",
-            link: "https://www.archify.com/",
-          },
-          {
-            img: "archinesia.png",
-            link: "https://archinesia.com/",
-          },
-          {
-            img: "bci-central.png",
-            link: "https://www.bcicentral.com/id/",
           },
           {
             img: "belirumah.png",
@@ -569,6 +571,34 @@ export const usePartnerStore = defineStore("partners", {
             img: "tender-indonesia.png",
             link: "https://www.tender-indonesia.com/tender_home/",
           },
+          {
+            img: "hubexo.png",
+          },
+          {
+            img: "homepoint.png",
+          },
+          {
+            img: "info-sayembara.png",
+          },
+          {
+            img: "cts-network-new.png",
+          },
+          {
+            img: "nirsekala.png",
+          },
+
+          // {
+          //   img: "archify.png",
+          //   link: "https://www.archify.com/",
+          // },
+          // {
+          //   img: "archinesia.png",
+          //   link: "https://archinesia.com/",
+          // },
+          // {
+          //   img: "bci-central.png",
+          //   link: "https://www.bcicentral.com/id/",
+          // },
 
           // {
           //   img: "detik.png",
