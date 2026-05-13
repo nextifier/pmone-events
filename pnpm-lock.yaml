@@ -321,9 +321,6 @@ importers:
       vue-tippy:
         specifier: ^6.7.1
         version: 6.7.1(vue@3.5.30(typescript@5.9.3))
-      vue3-picture-swipe:
-        specifier: ^3.0.6
-        version: 3.0.6
 
 packages:
 
@@ -6623,9 +6620,6 @@ packages:
 
   vue3-disqus@1.0.7:
     resolution: {integrity: sha512-6aidR9tU9lBbB8Ib8zZ0+wQks7a9X7g7vzuqwLvcf+PKTzumxST9UbNXRf8/D2KprChf5qEnt2qtf9Bev6AMUw==}
-
-  vue3-picture-swipe@3.0.6:
-    resolution: {integrity: sha512-tCoWJr5cXZMk8hlycPPdo9UCl5m3ZChDVdDhHdiJedtkTZL6H0wYV6mZvL8Lz6e80kpiIXxsoltJobcePnKB0A==}
 
   vue@3.5.30:
     resolution: {integrity: sha512-hTHLc6VNZyzzEH/l7PFGjpcTvUgiaPK5mdLkbjrTeWSRcEfxFrv56g/XckIYlE9ckuobsdwqd5mk2g1sBkMewg==}
@@ -13754,8 +13748,6 @@ snapshots:
       vue: 3.5.30(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
-
-  vue3-picture-swipe@3.0.6: {}
 
   vue@3.5.30(typescript@5.9.3):
     dependencies:
