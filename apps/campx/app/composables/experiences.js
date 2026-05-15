@@ -279,7 +279,7 @@ export const useExperienceStore = defineStore("experiences", {
       {
         title: "Jetski Experience: Pacu Adrenalin di Atas Air!",
         slug: "jetski-experience",
-        status: "Available",
+        status: "Maintenance",
         categories: ["Activity"],
         shortDescription:
           "Rasakan sensasi kecepatan di atas danau Jatiluhur. Siap basah-basahan dan seru-seruan bareng teman?",
@@ -326,7 +326,7 @@ export const useExperienceStore = defineStore("experiences", {
       {
         title: "Jetcar Experience: Mobil Sport di Atas Air!",
         slug: "jetcar-experience",
-        status: "Available",
+        status: "Maintenance",
         categories: ["Activity"],
         shortDescription:
           "Bukan jetski biasa! Kendarai mobil sport keren yang bisa meluncur di atas danau. Sensasi unik yang wajib dicoba!",
