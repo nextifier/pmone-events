@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
 import { computed, ref, watch, type HTMLAttributes } from "vue";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
 import type { LightboxImageSource, LightboxThumbnailKey } from "./interface";
 import { pickAlt, pickImageSrc, useLightbox } from "./useLightbox";
 
@@ -59,9 +59,9 @@ const isZoomed = computed(() => state.isZoomed.value && isActive.value);
     "
     @click.stop
   >
-    <Skeleton
+    <Spinner
       v-if="status === 'loading'"
-      class="absolute inset-x-12 inset-y-8 rounded-lg sm:inset-x-24 sm:inset-y-12 bg-white/5"
+      class="absolute size-8 text-white/70"
     />
 
     <div
