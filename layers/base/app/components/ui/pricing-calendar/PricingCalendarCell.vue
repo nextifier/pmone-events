@@ -17,7 +17,8 @@ const forwardedProps = useForwardProps(delegatedProps);
     data-slot="pricing-calendar-cell"
     :class="
       cn(
-        '[&:has([data-selected])]:bg-primary relative p-0 text-center text-sm focus-within:relative focus-within:z-20 first:[&:has([data-selected])]:rounded-l-md last:[&:has([data-selected])]:rounded-r-md [&:has([data-selected][data-selection-end])]:rounded-r-md [&:has([data-selected][data-selection-start])]:rounded-l-md',
+        '[&:has([data-selected])]:bg-accent relative p-0 text-center text-sm focus-within:relative focus-within:z-20 first:[&:has([data-selected])]:rounded-l-md last:[&:has([data-selected])]:rounded-r-md [&:has([data-selected][data-selection-end])]:rounded-r-md [&:has([data-selected][data-selection-start])]:rounded-l-md',
+        'has-data-[outside-view]:invisible',
         props.class
       )
     "

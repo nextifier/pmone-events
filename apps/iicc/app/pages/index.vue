@@ -26,6 +26,7 @@
         </div>
       </template>
     </LazyRundown>
+    <LazyHotels v-if="hotelSectionVisible" />
     <LazyWhyAttend />
     <LazyWhoAttends />
     <LazyPastEvents />
@@ -40,6 +41,7 @@ const { t } = useI18n();
 const config = useAppConfig();
 const route = useRoute();
 const { visible: rundownVisible } = useRundownVisibility();
+const { visible: hotelSectionVisible } = useHotelSectionVisibility();
 
 const siteUrl = config.app.url;
 const pageUrl = siteUrl + route.path;

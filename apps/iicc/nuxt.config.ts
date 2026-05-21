@@ -68,18 +68,28 @@ export default defineNuxtConfig({
 
   sitemap: {
     sources: [],
-    urls: ["/", "/contact", "/terms", "/privacy"],
+    urls: ["/", "/contact", "/terms", "/privacy", "/hotels"],
   },
 
   hooks: {
     "pages:extend"(pages) {
-      const allowedPaths = new Set(["/", "/contact", "/terms", "/privacy"]);
+      const allowedPaths = new Set([
+        "/",
+        "/contact",
+        "/terms",
+        "/privacy",
+        "/hotels",
+      ]);
+      // `/hotels` plus every nested hotel route (detail, booking, reservation,
+      // success) — the listing and the booking flow are exposed as a set.
+      const isAllowed = (path) =>
+        allowedPaths.has(path) || path.startsWith("/hotels/");
       const filter = (list) =>
         list.filter((page) => {
           if (page.children?.length) {
             page.children = filter(page.children);
           }
-          return allowedPaths.has(page.path);
+          return isAllowed(page.path);
         });
       const filtered = filter(pages);
       pages.length = 0;

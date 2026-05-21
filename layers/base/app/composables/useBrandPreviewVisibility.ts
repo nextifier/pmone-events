@@ -7,9 +7,13 @@
  * initial client hydration both see `data === undefined` (visible = false).
  * The fetch only fires after mount, then reactively flips visibility — no
  * hydration mismatch, no <ClientOnly> wrapper needed at the call site.
+ *
+ * Visiting `?show-brands=true` force-shows the section regardless of the
+ * project setting — see useForceShow.
  */
 export function useBrandPreviewVisibility() {
   const { locale } = useI18n();
+  const forced = useForceShow("show-brands");
 
   const { data } = useFetch<{
     data?: {
@@ -26,8 +30,9 @@ export function useBrandPreviewVisibility() {
 
   const visible = computed(
     () =>
+      forced.value ||
       data.value?.data?.settings?.brands?.show_brand_preview_on_home_page ===
-      true,
+        true,
   );
 
   return { visible };

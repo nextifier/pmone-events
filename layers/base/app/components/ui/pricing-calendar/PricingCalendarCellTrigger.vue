@@ -41,15 +41,17 @@ const showSkeleton = computed(() => !!loading?.value && !cell.value);
     :class="
       cn(
         buttonVariants({ variant: 'ghost' }),
-        'group relative flex size-12 cursor-pointer flex-col items-center justify-center gap-1 p-0 font-normal aria-selected:opacity-100',
-        '[&[data-today]:not([data-selected])]:bg-muted [&[data-today]:not([data-selected])]:text-foreground',
-        'data-[selected]:text-primary-foreground data-[selected]:hover:text-primary-foreground data-[selected]:focus:text-primary-foreground data-[selected]:opacity-100',
-        'data-[selection-start]:bg-primary data-[selection-start]:text-primary-foreground data-[selection-start]:hover:bg-primary data-[selection-start]:hover:text-primary-foreground data-[selection-start]:focus:bg-primary data-[selection-start]:focus:text-primary-foreground',
-        'data-[selection-end]:bg-primary data-[selection-end]:text-primary-foreground data-[selection-end]:hover:bg-primary data-[selection-end]:hover:text-primary-foreground data-[selection-end]:focus:bg-primary data-[selection-end]:focus:text-primary-foreground',
+        'group p-0 font-normal data-[selected]:opacity-100',
+        '[&[data-today]:not([data-selected])]:bg-accent [&[data-today]:not([data-selected])]:text-accent-foreground',
+        // Every selected cell — endpoints AND the middle of the range — paints
+        // a solid primary background so the range reads as one continuous bar.
+        // Without this the middle cells would only inherit the cell-wrapper's
+        // bg-accent and look noticeably lighter than the endpoints.
+        'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
+        'data-[outside-view]:text-muted-foreground',
         'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
         'data-[unavailable]:text-destructive-foreground data-[unavailable]:line-through',
-        'data-[outside-view]:text-muted-foreground data-[outside-view]:opacity-50',
-        'data-[today]:after:bg-primary data-[today]:data-[selected]:after:bg-primary-foreground data-[today]:after:absolute data-[today]:after:bottom-[3px] data-[today]:after:left-1/2 data-[today]:after:size-[3px] data-[today]:after:-translate-x-1/2 data-[today]:after:rounded-full',
+        'flex size-12 flex-col items-center justify-center gap-1 data-[outside-view]:invisible',
         props.class
       )
     "
@@ -63,9 +65,9 @@ const showSkeleton = computed(() => !!loading?.value && !cell.value);
       v-else-if="priceLabel"
       class="text-[11px] leading-none font-medium"
       :class="{
-        'text-success-foreground group-data-[selection-start]:text-primary-foreground/80 group-data-[selection-end]:text-primary-foreground/80 group-data-[selected]:text-primary-foreground/80':
+        'text-success-foreground group-data-[selection-start]:text-primary-foreground group-data-[selection-end]:text-primary-foreground group-data-[selected]:text-primary-foreground':
           isGoodPrice,
-        'text-muted-foreground group-data-[selection-start]:text-primary-foreground/70 group-data-[selection-end]:text-primary-foreground/70 group-data-[selected]:text-primary-foreground/70':
+        'text-muted-foreground group-data-[selection-start]:text-primary-foreground group-data-[selection-end]:text-primary-foreground group-data-[selected]:text-primary-foreground':
           !isGoodPrice,
       }"
     >

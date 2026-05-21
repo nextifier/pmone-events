@@ -3,6 +3,7 @@
     <Hero />
     <LazyBrandPreview v-if="brandPreviewVisible" />
     <LazyRundown v-if="rundownVisible" />
+    <LazyHotels v-if="hotelSectionVisible" />
     <LazyAboutEvent />
     <LazyPartnerships />
     <LazyVisitorCta />
@@ -22,4 +23,5 @@ useEventSchema();
 useHead({ bodyAttrs: { class: "theme-brown" } });
 const { visible: rundownVisible } = useRundownVisibility();
 const { visible: brandPreviewVisible } = useBrandPreviewVisibility();
+const { visible: hotelSectionVisible } = useHotelSectionVisibility();
 </script>

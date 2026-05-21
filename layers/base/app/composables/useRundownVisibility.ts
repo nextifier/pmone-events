@@ -9,9 +9,13 @@
  *
  * The same `/api/event/rundown` endpoint is used by Rundown.vue itself, so
  * the underlying response is deduped across calls with matching query keys.
+ *
+ * Visiting `?show-rundown=true` force-shows the section regardless of the
+ * project setting — see useForceShow.
  */
 export function useRundownVisibility() {
   const { locale } = useI18n();
+  const forced = useForceShow("show-rundown");
 
   const { data } = useFetch<{
     data?: { settings?: { show_rundown_on_home_page?: boolean } };
@@ -23,7 +27,9 @@ export function useRundownVisibility() {
   });
 
   const visible = computed(
-    () => data.value?.data?.settings?.show_rundown_on_home_page === true,
+    () =>
+      forced.value ||
+      data.value?.data?.settings?.show_rundown_on_home_page === true,
   );
 
   return { visible };

@@ -118,7 +118,7 @@ watch(
     :weekStartsOn="1"
     :is-date-disabled="isDateDisabledMerged"
     :number-of-months="numberOfMonths"
-    :class="cn('p-3', props.class)"
+    :class="cn('rounded-md border p-3', props.class)"
     v-bind="forwarded"
   >
     <PricingCalendarHeader>

@@ -5,6 +5,7 @@
     <LazyMegaPropertyIntro />
     <LazyArchitectDesignerAlley />
     <LazyRundown v-if="rundownVisible" />
+    <LazyHotels v-if="hotelSectionVisible" />
     <LazyAboutEvent />
     <LazyFactsAndFigures />
     <LazyPartnerships />
@@ -24,4 +25,5 @@ usePageMeta("home");
 useEventSchema();
 const { visible: rundownVisible } = useRundownVisibility();
 const { visible: brandPreviewVisible } = useBrandPreviewVisibility();
+const { visible: hotelSectionVisible } = useHotelSectionVisibility();
 </script>

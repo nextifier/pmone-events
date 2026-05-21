@@ -3,6 +3,7 @@
     <Hero />
     <LazyBrandPreview v-if="brandPreviewVisible" />
     <LazyRundown v-if="rundownVisible" />
+    <LazyHotels v-if="hotelSectionVisible" />
     <LazyAboutEvent />
     <LazyPartnerships />
     <LazyVisitorCta />
@@ -21,6 +22,7 @@ usePageMeta("home");
 useEventSchema();
 const { visible: rundownVisible } = useRundownVisibility();
 const { visible: brandPreviewVisible } = useBrandPreviewVisibility();
+const { visible: hotelSectionVisible } = useHotelSectionVisibility();
 definePageMeta({
   colorMode: "dark",
 });
