@@ -26,11 +26,13 @@
         </div>
       </template>
     </LazyRundown>
-    <LazyHotels v-if="hotelSectionVisible" />
     <LazyWhyAttend />
     <LazyWhoAttends />
     <LazyPastEvents />
     <LazyTickets />
+    <div v-if="hotelSectionVisible" class="container">
+      <LazyHotels />
+    </div>
     <LazyFAQ />
     <LazyCredits class="container flex flex-col items-center text-center" />
   </div>
