@@ -44,14 +44,13 @@
               <div class="col-span-7 flex flex-col gap-y-4 lg:col-span-6">
                 <span
                   class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
-                  >{{ useAppConfig().routes.dialog[0].label }}</span
+                  >{{ dialogGroups[0]?.label }}</span
                 >
 
                 <div class="flex flex-col gap-y-3">
                   <DialogClose
                     as-child
-                    v-for="(link, index) in useAppConfig().routes.dialog[0]
-                      .links"
+                    v-for="(link, index) in dialogGroups[0]?.links ?? []"
                     :key="index"
                   >
                     <!-- Link dengan hash -->
@@ -87,7 +86,7 @@
                 <ColorModeButtons />
 
                 <div
-                  v-for="(item, index) in useAppConfig().routes.dialog.slice(1)"
+                  v-for="(item, index) in dialogGroups.slice(1)"
                   :key="index"
                   class="flex flex-col gap-y-2"
                 >
@@ -166,6 +165,9 @@ const appConfig = useAppConfig();
 const { t } = useI18n();
 const localePath = useLocalePath();
 const route = useRoute();
+
+const dialogRoutes = useDynamicHeaderRoutes("dialog");
+const dialogGroups = computed(() => dialogRoutes.value || []);
 
 const props = defineProps({
   open: {

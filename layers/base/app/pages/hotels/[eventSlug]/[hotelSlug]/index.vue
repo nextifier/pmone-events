@@ -206,7 +206,7 @@ import { useBookingStore } from "../../../../stores/booking";
 import { toast } from "vue-sonner";
 import { computed, onMounted, ref, watch } from "vue";
 
-definePageMeta({ layout: "default" });
+definePageMeta({ layout: "default", noFooter: true });
 
 const route = useRoute();
 const router = useRouter();
@@ -414,6 +414,9 @@ const ALLOWED_PAYMENT_HOSTS = [
   "checkout-staging.xendit.co",
   "invoice.xendit.co",
   "invoice-staging.xendit.co",
+  // Xendit Sessions (Payment Link) hosted checkout uses xen.to short links
+  // (dev.xen.to in test mode). The endsWith check covers any *.xen.to host.
+  "xen.to",
 ];
 
 function isAllowedPaymentUrl(url) {

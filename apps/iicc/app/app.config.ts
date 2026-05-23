@@ -154,7 +154,7 @@ export default defineAppConfig({
 
   routes: {
     header: [
-      // routes.home,
+      routes.home,
       routes.about,
       // routes.whyAttend,
       routes.topics,

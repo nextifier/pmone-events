@@ -40,6 +40,7 @@
     --muted: var(--color-kv-brown-100);
     --border: var(--color-gray-300);
     --popover: var(--color-kv-brown-50);
+    --card: var(--color-kv-brown-50);
   }
 
   .dark {
@@ -50,6 +51,7 @@
     --muted: var(--color-kv-brown-900);
     --border: var(--color-gray-700);
     --popover: var(--color-kv-brown-950);
+    --card: var(--color-kv-brown-950);
   }
 }
 

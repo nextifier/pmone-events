@@ -26,7 +26,7 @@ const event = {
   dateOnly: "4-7",
   month: "June",
   year: "2026",
-  time: "10 AM - 9 PM",
+  time: "10 AM - 7 PM",
   location: "Nusantara International Convention Exhibition (NICE), PIK 2",
   locationShort: "NICE PiK 2",
   locationLink: "https://maps.app.goo.gl/V6N3r7vxD1BMn9pi8",

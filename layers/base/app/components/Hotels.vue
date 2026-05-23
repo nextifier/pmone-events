@@ -99,7 +99,7 @@
             :to="`/hotels/${group.event.slug}/${hotel.slug}`"
             class="grid grid-cols-1 gap-y-2 tracking-tight"
           >
-            <div class="bg-muted relative aspect-19/20 overflow-hidden rounded-2xl">
+            <div class="bg-muted aspect-19/20 overflow-hidden rounded-2xl">
               <img
                 v-if="hotel.featured?.md"
                 :src="hotel.featured.md"
@@ -109,36 +109,33 @@
                 decoding="async"
               />
               <div v-else class="from-muted to-muted/40 size-full bg-gradient-to-br" />
-              <span
-                v-if="hotel.star_rating"
-                class="absolute top-2 left-2 inline-flex items-center gap-1 rounded-full bg-black/20 px-2 py-0.5 text-xs font-medium tracking-tight text-white backdrop-blur-sm"
-              >
-                <Icon name="material-symbols:star-rounded" class="size-3.5" />
-                {{ hotel.star_rating }}
-              </span>
             </div>
             <div class="flex flex-1 flex-col gap-1">
               <h4 class="line-clamp-2 text-sm font-semibold tracking-tighter sm:text-base">
                 {{ hotel.name }}
               </h4>
               <p
-                class="text-muted-foreground flex items-center gap-1.5 text-xs tracking-tight sm:text-sm"
+                v-if="hotel.star_rating"
+                class="text-muted-foreground flex items-center gap-1 text-xs tracking-tight sm:text-sm"
               >
-                <Icon name="hugeicons:location-04" class="size-3.5 shrink-0" />
-                <span class="truncate">{{ [hotel.city].filter(Boolean).join(", ") }}</span>
+                <Icon
+                  name="material-symbols:star-rounded"
+                  class="text-foreground size-4 shrink-0"
+                />
+                {{ hotel.star_rating }}-star
+              </p>
+              <p class="text-muted-foreground truncate text-xs tracking-tight sm:text-sm">
+                {{ [hotel.city].filter(Boolean).join(", ") }}
               </p>
               <p
-                v-if="hotelHighlights(hotel).length"
-                class="text-muted-foreground line-clamp-1 text-xs tracking-tight sm:text-sm"
+                v-if="cheapestRate(hotel)"
+                class="text-muted-foreground truncate text-xs tracking-tight sm:text-sm"
               >
-                {{ hotelHighlights(hotel).join(" · ") }}
-              </p>
-              <p v-if="cheapestRate(hotel)" class="mt-0.5 text-sm tracking-tight">
-                <span class="text-muted-foreground">From </span>
-                <span class="text-foreground font-semibold">
+                <span>From </span>
+                <span class="text-foreground text-sm font-semibold tracking-tighter sm:text-base">
                   Rp{{ formatRupiah(cheapestRate(hotel)) }}
                 </span>
-                <span class="text-muted-foreground"> / night</span>
+                <span> / night</span>
               </p>
             </div>
           </NuxtLink>
@@ -180,21 +177,6 @@ const cheapestRate = (hotel) => {
     return null;
   }
   return Math.min(...hotel.room_types.map((r) => r.base_rate));
-};
-
-const hotelHighlights = (hotel) => {
-  const highlights = [];
-  const rooms = hotel.room_types ?? [];
-  if (rooms.length && rooms.every((r) => r.breakfast_included)) {
-    highlights.push("Breakfast included");
-  }
-  if (hotel.transfer_options?.length) {
-    highlights.push("Airport transfer");
-  }
-  for (const facility of hotel.facilities ?? []) {
-    highlights.push(facility);
-  }
-  return highlights.slice(0, 3);
 };
 
 const eventVenue = (ev) => [ev.location, ev.hall].filter(Boolean).join(" · ");

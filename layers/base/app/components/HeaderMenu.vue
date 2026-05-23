@@ -179,7 +179,8 @@ const tLabel = (label) => {
   return te(key) ? t(key) : label;
 };
 
-const dialogGroups = computed(() => useAppConfig().routes?.dialog || []);
+const dialogRoutes = useDynamicHeaderRoutes("dialog");
+const dialogGroups = computed(() => dialogRoutes.value || []);
 const primaryGroup = computed(() => dialogGroups.value[0] || null);
 const secondaryGroups = computed(() => dialogGroups.value.slice(1));
 

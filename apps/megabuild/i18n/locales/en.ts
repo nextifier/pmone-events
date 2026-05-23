@@ -157,7 +157,8 @@ export default {
   },
   hero: {
     countdownLabel: "The expo opens in:",
-    title: "Accelerating Transformation in the Built Environment",
+    title:
+      "Indonesia’s Integrated Platform for Building, Interior Design, and Property Ecosystem.",
     description:
       "The enhanced edition of building materials, interior design, architecture, and construction exhibition & conference in Indonesia.",
     announcement: "Space is still available for exhibitors",

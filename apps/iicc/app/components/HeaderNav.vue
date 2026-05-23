@@ -2,7 +2,7 @@
   <NavigationMenu :disable-hover-trigger="true">
     <NavigationMenuList>
       <NavigationMenuItem
-        v-for="(item, index) in useAppConfig().routes.header"
+        v-for="(item, index) in headerRoutes"
         :key="index"
         class="relative"
       >
@@ -75,6 +75,7 @@
 
 <script setup>
 const localePath = useLocalePath();
+const headerRoutes = useDynamicHeaderRoutes("header");
 
 // Offset untuk scroll (negatif supaya section tidak terpotong header)
 const SCROLL_OFFSET = -100;

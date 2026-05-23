@@ -2,7 +2,7 @@
   <NavigationMenu :disable-hover-trigger="true">
     <NavigationMenuList>
       <NavigationMenuItem
-        v-for="(item, index) in useAppConfig().routes.header"
+        v-for="(item, index) in headerRoutes"
         :key="index"
         class="relative"
       >
@@ -76,4 +76,6 @@ const tLabel = (label) => {
   const key = `nav.${label}`;
   return te(key) ? t(key) : label;
 };
+
+const headerRoutes = useDynamicHeaderRoutes("header");
 </script>
