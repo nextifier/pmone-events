@@ -1,24 +1,6 @@
 <template>
   <div class="mx-auto max-w-6xl px-4 pt-4 pb-24 lg:pb-12">
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink as-child>
-            <NuxtLink to="/hotels">Hotels</NuxtLink>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>{{ hotel?.event?.title ?? "Event" }}</BreadcrumbPage>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>{{ hotel?.name ?? "Hotel" }}</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
-
-    <div v-if="pending && !hotel" class="mt-4 space-y-6">
+    <div v-if="pending && !hotel" class="space-y-6">
       <!-- Hero skeleton -->
       <div class="grid items-start gap-4 sm:grid-cols-[200px_1fr]">
         <Skeleton class="aspect-video w-full rounded-xl sm:h-32 sm:aspect-auto" />
@@ -71,7 +53,7 @@
     </Empty>
 
     <ClientOnly v-else>
-      <div class="mt-4 space-y-4">
+      <div class="space-y-4">
         <HotelHeroCollapsible :hotel="hotel" :collapsed="bookingStore.currentStep > 1" />
         <BookingStepper
           v-model:step="currentStep"
@@ -187,14 +169,6 @@ import BookingSummary from "../../../../components/hotels/BookingSummary.vue";
 import HotelHeroCollapsible from "../../../../components/hotels/HotelHeroCollapsible.vue";
 import MobileBottomCTA from "../../../../components/hotels/MobileBottomCTA.vue";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../../../../components/ui/breadcrumb";
-import {
   Empty,
   EmptyContent,
   EmptyDescription,
@@ -207,7 +181,7 @@ import { useBookingStore } from "../../../../stores/booking";
 import { toast } from "vue-sonner";
 import { computed, onMounted, ref, watch } from "vue";
 
-definePageMeta({ layout: "default", noFooter: true });
+definePageMeta({ layout: "default" });
 
 const route = useRoute();
 const router = useRouter();
@@ -525,7 +499,14 @@ async function handleSubmit() {
 
     if (result?.magic_link_token) {
       bookingStore.reset();
-      await navigateTo(`/hotels/reservation/${result.magic_link_token}`);
+      // Components (SDK key issued, no hosted payment URL) → dedicated
+      // checkout page that mounts the inline Xendit Components SDK.
+      // Other flows (paid-on-arrival, retry-needed) fall back to the full
+      // reservation detail page where the user can see status + retry.
+      const target = result.components_sdk_key
+        ? `/hotels/checkout/${result.magic_link_token}`
+        : `/hotels/reservation/${result.magic_link_token}`;
+      await navigateTo(target);
       return;
     }
 
