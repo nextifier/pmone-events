@@ -181,7 +181,7 @@ import { useBookingStore } from "../../../../stores/booking";
 import { toast } from "vue-sonner";
 import { computed, onMounted, ref, watch } from "vue";
 
-definePageMeta({ layout: "default" });
+definePageMeta({ layout: "default", noFooter: true });
 
 const route = useRoute();
 const router = useRouter();
@@ -499,14 +499,7 @@ async function handleSubmit() {
 
     if (result?.magic_link_token) {
       bookingStore.reset();
-      // Components (SDK key issued, no hosted payment URL) → dedicated
-      // checkout page that mounts the inline Xendit Components SDK.
-      // Other flows (paid-on-arrival, retry-needed) fall back to the full
-      // reservation detail page where the user can see status + retry.
-      const target = result.components_sdk_key
-        ? `/hotels/checkout/${result.magic_link_token}`
-        : `/hotels/reservation/${result.magic_link_token}`;
-      await navigateTo(target);
+      await navigateTo(`/hotels/reservation/${result.magic_link_token}`);
       return;
     }
 
