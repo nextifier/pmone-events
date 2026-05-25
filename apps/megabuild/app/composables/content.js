@@ -123,6 +123,7 @@ export const useContentStore = defineStore("content", () => {
             srcFull: "/img/banners/banner-hero/mb-banner-bondall.jpg",
             alt: "Bondall",
           },
+          // link: "",
         },
         {
           adImage: {

@@ -132,6 +132,7 @@ export const useContentStore = defineStore("content", () => {
             srcFull: "/img/banners/banner-hero/km-banner-alila.jpg",
             alt: "Alila",
           },
+          // link: "",
         },
         {
           adImage: {

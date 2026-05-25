@@ -10,7 +10,7 @@
           placeholder="Search any brand or category"
         />
 
-        <IconSearch
+        <Icon name="hugeicons:search-01"
           class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-gray-400 peer-focus:text-gray-400"
         />
 

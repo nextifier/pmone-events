@@ -70,25 +70,28 @@
     <div class="mt-6 h-8">
       <div
         v-if="canScrollPrev || canScrollNext"
-        class="container flex h-full justify-end gap-2"
+        class="container flex h-full justify-end"
       >
-        <button
-          @click="scrollPrev"
-          :disabled="!canScrollPrev"
-          class="bg-muted hover:bg-border text-primary flex aspect-square h-full items-center justify-center rounded-md transition active:scale-95"
-          aria-label="previous"
-        >
-          <Icon name="lucide:arrow-left" class="size-4" />
-        </button>
-
-        <button
-          @click="scrollNext"
-          :disabled="!canScrollNext"
-          class="bg-muted hover:bg-border text-primary flex aspect-square h-full items-center justify-center rounded-md transition active:scale-95"
-          aria-label="next"
-        >
-          <Icon name="lucide:arrow-right" class="size-4" />
-        </button>
+        <ButtonGroup>
+          <Button
+            variant="outline"
+            size="iconSm"
+            :disabled="!canScrollPrev"
+            aria-label="previous"
+            @click="scrollPrev"
+          >
+            <Icon name="lucide:arrow-left" class="size-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="iconSm"
+            :disabled="!canScrollNext"
+            aria-label="next"
+            @click="scrollNext"
+          >
+            <Icon name="lucide:arrow-right" class="size-4" />
+          </Button>
+        </ButtonGroup>
       </div>
     </div>
   </Carousel>

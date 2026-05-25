@@ -5,7 +5,7 @@
     :alt="''"
   >
     <template #caption>
-      <AdCaptionWithLink />
+      <AdCaption />
     </template>
     <template #trigger="{ openAt }">
       <Carousel
@@ -36,11 +36,11 @@
               v-if="!item.adImage"
               :to="lp(item.cta?.link ?? '')"
               :target="item.cta?.link?.startsWith('http') ? '_blank' : ''"
-              class="text-foreground outline-inside flex h-full items-center rounded-2xl bg-white/3 backdrop-blur-lg"
+              class="text-foreground outline-inside flex h-full items-center rounded-lg bg-white/3 backdrop-blur-lg sm:rounded-2xl"
             >
               <div
                 v-if="item.img"
-                class="flex h-full w-24 shrink-0 items-center justify-center overflow-hidden rounded-l-2xl bg-white/6"
+                class="flex h-full w-24 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/6 sm:rounded-l-2xl"
               >
                 <NuxtImg
                   :src="item.img.src"
@@ -78,9 +78,14 @@
               </div>
             </nuxt-link>
 
-            <div
-              v-else
-              class="outline-inside bg-muted/70 relative isolate overflow-hidden rounded-2xl"
+            <CardNotch
+              v-else-if="item.link"
+              size="2.5rem"
+              gap="5px"
+              radius="1rem"
+              border-color="var(--color-border)"
+              card-bg="var(--color-muted)"
+              body-class="overflow-hidden outline-inside"
             >
               <button
                 type="button"
@@ -97,51 +102,83 @@
                   class="size-full object-cover"
                 />
               </button>
+              <template #notch>
+                <a
+                  :href="item.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  :aria-label="`Open ${item.adImage.alt || 'banner'} link`"
+                  class="bg-muted text-foreground hover:bg-border border-border flex size-full items-center justify-center rounded-full border"
+                >
+                  <Icon name="lucide:arrow-up-right" class="size-4" />
+                </a>
+              </template>
+            </CardNotch>
 
-              <a
-                v-if="item.link"
-                :href="item.link"
-                target="_blank"
-                rel="noopener noreferrer"
-                @click.stop
-                class="absolute right-2 bottom-2 flex size-8 items-center justify-center rounded-md bg-black/40 text-white backdrop-blur-md transition hover:bg-black/60 active:scale-95"
-                aria-label="Open link in new tab"
+            <div
+              v-else
+              class="outline-inside bg-muted/70 relative isolate overflow-hidden rounded-lg sm:rounded-2xl"
+            >
+              <button
+                type="button"
+                class="block aspect-[1920/480] w-full cursor-zoom-in"
+                :aria-label="item.adImage.alt || 'Open banner'"
+                @click="openAt(adIndexFor(index))"
               >
-                <Icon name="lucide:external-link" class="size-4" />
-              </a>
+                <NuxtImg
+                  :src="item.adImage.src"
+                  :alt="item.adImage.alt ?? ''"
+                  sizes="sm:100vw md:50vw lg:480px"
+                  loading="lazy"
+                  format="webp"
+                  class="size-full object-cover"
+                />
+              </button>
             </div>
           </CarouselItem>
         </CarouselContent>
 
-        <div class="mt-2.5 flex items-center justify-end gap-1.5">
-          <button
-            @click="scrollPrev"
-            :disabled="!canScrollPrev"
-            class="dark:bg-primary/5 border-primary/8 hover:bg-background/40 dark:hover:bg-primary/10 text-primary flex size-8 items-center justify-center rounded-md border backdrop-blur-md transition active:scale-95"
-            aria-label="previous"
-          >
-            <Icon name="lucide:arrow-left" class="size-4" />
-          </button>
+        <div class="mt-2.5 flex justify-end">
+          <ButtonGroup>
+            <Button
+              variant="outline"
+              size="iconSm"
+              aria-label="previous"
+              :disabled="!canScrollPrev"
+              class="text-foreground hover:bg-primary/5 active:bg-primary/10 bg-transparent"
+              @click="scrollPrev"
+            >
+              <Icon name="lucide:arrow-left" class="size-4" />
+            </Button>
 
-          <button
-            @click="scrollNext"
-            :disabled="!canScrollNext"
-            class="dark:bg-primary/5 border-primary/8 hover:bg-background/40 dark:hover:bg-primary/10 text-primary flex size-8 items-center justify-center rounded-md border backdrop-blur-md transition active:scale-95"
-            aria-label="next"
-          >
-            <Icon name="lucide:arrow-right" class="size-4" />
-          </button>
+            <Button
+              variant="outline"
+              size="iconSm"
+              aria-label="next"
+              :disabled="!canScrollNext"
+              class="text-foreground hover:bg-primary/5 active:bg-primary/10 bg-transparent"
+              @click="scrollNext"
+            >
+              <Icon name="lucide:arrow-right" class="size-4" />
+            </Button>
 
-          <button
-            @click="toggleAutoplay"
-            class="dark:bg-primary/5 border-primary/8 hover:bg-background/40 dark:hover:bg-primary/10 text-primary flex size-8 items-center justify-center rounded-md border backdrop-blur-md transition active:scale-95"
-            aria-label="Toggle autoplay"
-          >
-            <Icon
-              :name="isPlaying ? 'lucide:pause' : 'lucide:play'"
-              class="size-4"
-            />
-          </button>
+            <Button
+              variant="outline"
+              size="iconSm"
+              aria-label="Toggle autoplay"
+              class="text-foreground hover:bg-primary/5 active:bg-primary/10 bg-transparent"
+              @click="toggleAutoplay"
+            >
+              <Icon
+                :name="
+                  isPlaying
+                    ? 'material-symbols:pause'
+                    : 'material-symbols:play-arrow'
+                "
+                class="size-4"
+              />
+            </Button>
+          </ButtonGroup>
         </div>
       </Carousel>
     </template>
@@ -149,49 +186,24 @@
 </template>
 
 <script setup>
-import { defineComponent, h, resolveComponent } from "vue";
+import { defineComponent, h } from "vue";
 import Autoplay from "embla-carousel-autoplay";
 import { Lightbox, useLightbox } from "./ui/lightbox";
 
-const AdCaptionWithLink = defineComponent({
-  name: "AdCaptionWithLink",
+const AdCaption = defineComponent({
+  name: "AdCaption",
   setup() {
     const { current } = useLightbox();
     return () => {
-      const item = current.value;
-      if (!item) return null;
-      const caption = item.caption || "";
-      const link = item.link || "";
-      if (!caption && !link) return null;
-      const IconCmp = resolveComponent("Icon");
+      const caption = current.value?.caption || "";
+      if (!caption) return null;
       return h(
-        "div",
+        "p",
         {
           class:
-            "mx-auto flex max-w-3xl flex-col items-center gap-2 px-4 text-center text-sm tracking-tight text-white/85 sm:text-base",
+            "pointer-events-none mx-auto max-w-3xl px-4 text-center text-sm tracking-tight text-white/85 sm:text-base",
         },
-        [
-          caption ? h("p", { class: "pointer-events-none" }, caption) : null,
-          link
-            ? h(
-                "a",
-                {
-                  href: link,
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                  class:
-                    "inline-flex items-center gap-1.5 rounded-md bg-white/10 px-3 py-1.5 text-xs font-medium tracking-tight text-white backdrop-blur-md transition hover:bg-white/20 sm:text-sm",
-                },
-                [
-                  h("span", "Visit link"),
-                  h(IconCmp, {
-                    name: "lucide:external-link",
-                    class: "size-3.5",
-                  }),
-                ],
-              )
-            : null,
-        ].filter(Boolean),
+        caption,
       );
     };
   },
@@ -270,7 +282,6 @@ const lightboxItems = computed(() =>
         sm: item.adImage.src,
         alt: item.adImage.alt ?? "",
         caption: item.adImage.caption ?? "",
-        link: item.link ?? "",
       };
     }),
 );
