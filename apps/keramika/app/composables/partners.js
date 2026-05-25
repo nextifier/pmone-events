@@ -65,6 +65,10 @@ export const usePartnerStore = defineStore("partners", {
         category: "Association Partners",
         directory: "/img/credits/association-partners/",
         list: [
+          // {
+          //   img: "asaki.png",
+          //   link: "https://asaki.or.id/",
+          // },
           {
             img: "hdii.png",
             link: "https://hdii.or.id/",
@@ -217,6 +221,13 @@ export const usePartnerStore = defineStore("partners", {
             img: "indonesia-design.png",
             link: "",
           },
+          {
+            img: "pik-tourism-board.png",
+          },
+          {
+            img: "tender-indonesia.png",
+          },
+
           // {
           //   img: "synergy.png",
           //   link: "https://www.synergyhub.id/",
@@ -297,26 +308,44 @@ export const usePartnerStore = defineStore("partners", {
       //     },
       //   ],
       // },
-      // {
-      //   category: "Official Hotel Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "the1o1.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: "Official Logistic Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "lalamove.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
+      {
+        category: "Official Hotel Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "the1o1.png",
+          },
+          {
+            img: "hotel-osaka.png",
+          },
+          {
+            img: "swissotel-jakarta.png",
+          },
+          {
+            img: "hotel-golden-tulip-essential.png",
+          },
+        ],
+      },
+      {
+        category: "Official Logistic Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "lalamove.png",
+            link: "",
+          },
+        ],
+      },
+      {
+        category: "Official Transportation Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "grab.png",
+            link: "",
+          },
+        ],
+      },
       {
         category: "Official Hydration Partner",
         directory: "/img/credits/etc/",
@@ -586,6 +615,24 @@ export const usePartnerStore = defineStore("partners", {
           {
             img: "nirsekala.png",
           },
+          {
+            img: "arswow.png",
+          },
+          {
+            img: "bisnis-market.png",
+          },
+          {
+            img: "indonetwork.png",
+            link: "https://en.indonetwork.co.id/",
+          },
+          {
+            img: "katalog-promosi.png",
+            link: "",
+          },
+          {
+            img: "ecohomes.png",
+            link: "https://ecohomes.id/",
+          },
 
           // {
           //   img: "archify.png",
@@ -608,10 +655,6 @@ export const usePartnerStore = defineStore("partners", {
           // {
           //   img: "asrinesia.png",
           //   link: "https://asrinesia.com/",
-          // },
-          // {
-          //   img: "indonetwork.png",
-          //   link: "https://en.indonetwork.co.id/",
           // },
 
           // {
@@ -662,10 +705,6 @@ export const usePartnerStore = defineStore("partners", {
           // },
 
           // {
-          //   img: "katalog-promosi.png",
-          //   link: "",
-          // },
-          // {
           //   img: "koloni-arsitektur.png",
           //   link: "",
           // },
@@ -705,10 +744,7 @@ export const usePartnerStore = defineStore("partners", {
           // {
           //   img: "dunia-mice.png",
           // },
-          // {
-          //   img: "ecohomes.png",
-          //   link: "https://ecohomes.id/",
-          // },
+
           // {
           //   img: "industri-konstruksi.png",
           // },
