@@ -110,28 +110,69 @@ export const useContentStore = defineStore("content", () => {
             link: "/ticket",
           },
         },
+        // {
+        //   subHeadline: t("hero.banners.1.subHeadline"),
+        //   content: t("hero.banners.1.content"),
+        //   cta: {
+        //     label: t("hero.banners.1.cta"),
+        //     link: "/book-space",
+        //   },
+        // },
+        // {
+        //   subHeadline: t("hero.banners.3.subHeadline"),
+        //   content: t("hero.banners.3.content"),
+        //   cta: {
+        //     label: t("hero.banners.3.cta"),
+        //     link: "https://www.instagram.com/keramikaid",
+        //   },
+        // },
         {
-          subHeadline: t("hero.banners.1.subHeadline"),
-          content: t("hero.banners.1.content"),
-          cta: {
-            label: t("hero.banners.1.cta"),
-            link: "/book-space",
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-alila-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-alila.jpg",
+            alt: "Alila",
           },
         },
         {
-          subHeadline: t("hero.banners.2.subHeadline"),
-          content: t("hero.banners.2.content"),
-          cta: {
-            label: t("hero.banners.2.cta"),
-            link: "/programs",
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-arna-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-arna.jpg",
+            alt: "Arna",
           },
         },
         {
-          subHeadline: t("hero.banners.3.subHeadline"),
-          content: t("hero.banners.3.content"),
-          cta: {
-            label: t("hero.banners.3.cta"),
-            link: "https://www.instagram.com/keramikaid",
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-atena-tile-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-atena-tile.jpg",
+            alt: "Atena Tile",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-keda-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-keda.jpg",
+            alt: "Keda",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-kia-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-kia.jpg",
+            alt: "KIA",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-milan-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-milan.jpg",
+            alt: "Milan",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-quadra-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-quadra.jpg",
+            alt: "Quadra",
           },
         },
       ],
@@ -372,7 +413,6 @@ export const useContentStore = defineStore("content", () => {
       emptyStateDescription: t("faq.emptyState"),
       contactTitle: t("faq.contactTitle"),
     },
-
   }));
 
   const getMetaByKey = (key) => pages.value[key] || null;

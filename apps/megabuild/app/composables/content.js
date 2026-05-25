@@ -109,12 +109,68 @@ export const useContentStore = defineStore("content", () => {
             link: "/book-space",
           },
         },
+        // {
+        //   subHeadline: t("hero.banners.1.subHeadline"),
+        //   content: t("hero.banners.1.content"),
+        //   cta: {
+        //     label: t("hero.banners.1.cta"),
+        //     link: "https://www.instagram.com/megabuildindo",
+        //   },
+        // },
         {
-          subHeadline: t("hero.banners.1.subHeadline"),
-          content: t("hero.banners.1.content"),
-          cta: {
-            label: t("hero.banners.1.cta"),
-            link: "https://www.instagram.com/megabuildindo",
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-bondall-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-bondall.jpg",
+            alt: "Bondall",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-enchating-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-enchating.jpg",
+            alt: "Enchating",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-fabrica-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-fabrica.jpg",
+            alt: "Fabrica",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-fujisan-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-fujisan.jpg",
+            alt: "Fujisan",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-inti-solar-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-inti-solar.jpg",
+            alt: "Inti Solar",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-kayu-asri-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-kayu-asri.jpg",
+            alt: "Kayu Asri",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-mevval-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-mevval.jpeg",
+            alt: "Mevval",
+          },
+        },
+        {
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-vas-lighting-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-vas-lighting.jpg",
+            alt: "VAS Lighting",
           },
         },
       ],
@@ -351,7 +407,6 @@ export const useContentStore = defineStore("content", () => {
       emptyStateDescription: t("faq.emptyState"),
       contactTitle: t("faq.contactTitle"),
     },
-
   }));
 
   const getMetaByKey = (key) => pages.value[key] || null;
