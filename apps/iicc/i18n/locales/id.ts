@@ -703,4 +703,105 @@ export default {
     description:
       "Momen terbaik dari edisi-edisi sebelumnya. Lihat koneksi yang terjalin, ilmu yang dibagikan, dan komunitas yang terus tumbuh di setiap acara.",
   },
+  whyYogyakarta: {
+    badge: "Kenapa Jogja",
+    title: "Tujuan yang sepadan ",
+    titleAccent: "dengan perjalanan",
+    description:
+      "Konferensi ini kebetulan digelar di salah satu kota budaya paling istimewa di Asia Tenggara. Tiga hari soal kakao, tiga hari di jantung Pulau Jawa.",
+    reasons: {
+      heritage: {
+        title: "Jantung warisan budaya Indonesia",
+        icon: "hugeicons:building-03",
+        description:
+          "Dua situs Warisan Dunia UNESCO yang bisa dicapai kurang dari sejam. Keraton aktif di pusat kota. Batik, perak, dan kulit yang masih dikerjakan tangan setiap hari.",
+      },
+      cocoaCountry: {
+        title: "Negeri kakao, dekat dari Jogja",
+        icon: "hugeicons:plant-01",
+        description:
+          "Indonesia produsen kakao terbesar ketiga di dunia. Dari Jogja, Anda dekat dengan para pembuat bean to bar yang mendefinisikan ulang cokelat asal Indonesia.",
+      },
+      access: {
+        title: "Ramah untuk tamu internasional",
+        icon: "hugeicons:airplane-01",
+        description:
+          "Bandara Internasional Yogyakarta terhubung langsung ke kota-kota Asia utama. Bahasa Inggris lazim di sektor hospitality. Mudah dijelajahi, enak dinikmati.",
+      },
+      hospitality: {
+        title: "Kota paling murah hati di Indonesia",
+        icon: "hugeicons:agreement-01",
+        description:
+          "Jogja terkenal seantero negeri karena keramahannya yang tidak terburu-buru dan terasa personal. Pelayanannya tulus, bukan sekadar prosedur.",
+      },
+    },
+    experiences: {
+      heading: "Yang bisa dilakukan ",
+      headingAccent: "di sela sesi",
+      description:
+        "Enam tempat yang sayang dilewatkan. Sebagian besar tak sampai sejam dari venue.",
+      items: {
+        borobudur: {
+          title: "Candi Borobudur",
+          meta: "1 jam berkendara · UNESCO",
+          description:
+            "Candi Buddha terbesar di dunia. Paling memukau saat matahari terbit, ketika lembah di bawahnya masih berselimut kabut.",
+          alt: "Candi Borobudur di bawah langit biru di Jawa Tengah",
+        },
+        prambanan: {
+          title: "Candi Prambanan",
+          meta: "45 menit berkendara · UNESCO",
+          description:
+            "Kompleks candi Hindu dari abad ke-9. Saksikan pertunjukan sendratari Ramayana di panggung terbuka pada malam bulan purnama.",
+          alt: "Siluet menara Candi Prambanan saat matahari terbenam",
+        },
+        kraton: {
+          title: "Keraton & Taman Sari",
+          meta: "15 menit berkendara · Istana raja",
+          description:
+            "Istana Sultan dan istana air tua, keduanya masih lekat dengan keraton yang aktif hingga hari ini.",
+          alt: "Kolam Taman Sari, istana air di Yogyakarta",
+        },
+        malioboro: {
+          title: "Jalan Malioboro",
+          meta: "10 menit berkendara · Budaya & belanja",
+          description:
+            "Jalan paling ikonik di Jogja. Toko batik, warung tengah malam, dan andong yang melintasi rute yang sama dari generasi ke generasi.",
+          alt: "Andong melintas di Jalan Malioboro, Yogyakarta",
+        },
+        chocolate: {
+          title: "Cokelat & kopi lokal",
+          meta: "Sekota · Bean to bar",
+          description:
+            "Para pembuat cokelat lokal dan roaster specialty yang membawa biji kakao asal Indonesia ke kancah dunia.",
+          alt: "Buah kakao tergantung di dahan pohon",
+        },
+        merapi: {
+          title: "Gunung Merapi",
+          meta: "45 menit berkendara · Alam",
+          description:
+            "Gunung berapi paling aktif di Indonesia. Tur jeep menyusuri jalur lava lama. Sisi selatan menyajikan matahari terbit yang setimpal dengan bangun pagi.",
+          alt: "Lereng Gunung Merapi diselimuti awan",
+        },
+      },
+    },
+    cta: {
+      heading: "Tempat menginap, ",
+      headingAccent: "cara berkeliling.",
+      description:
+        "Dua hal yang bisa membuat perjalanan lebih ringan. Pilih yang Anda butuhkan.",
+      hotels: {
+        title: "Hotel di sekitar venue",
+        description:
+          "Tempat menginap dekat Hotel Tentrem. Dari premium hingga ekonomis, semuanya mudah dijangkau.",
+        cta: "Lihat pilihan hotel",
+      },
+      itinerary: {
+        title: "Itinerari & transportasi khusus",
+        description:
+          "Atur kunjungan candi, perjalanan ke kebun kakao, atau rute lebih panjang. Tim kami merancang jadwal dan biaya sesuai tanggal Anda.",
+        cta: "Hubungi kami",
+      },
+    },
+  },
 };

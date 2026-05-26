@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen-offset container pt-6 pb-16">
-    <Hotels tag="h1" />
+    <Hotels tag="h1" :show-event-header="false" />
   </div>
 </template>
 

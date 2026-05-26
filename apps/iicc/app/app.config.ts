@@ -123,6 +123,10 @@ const routes = {
     label: "FAQs",
     path: "/#faq",
   },
+  whyYogyakarta: {
+    label: "Why Jogja",
+    path: "/#why-yogyakarta",
+  },
   contact: {
     label: "Contact",
     path: "/contact",
@@ -159,6 +163,7 @@ export default defineAppConfig({
       // routes.whyAttend,
       routes.topics,
       routes.agenda,
+      routes.whyYogyakarta,
       routes.tickets,
       routes.faq,
       routes.contact,
@@ -172,6 +177,7 @@ export default defineAppConfig({
           routes.about,
           routes.topics,
           routes.agenda,
+          routes.whyYogyakarta,
           routes.tickets,
           routes.faq,
           routes.contact,

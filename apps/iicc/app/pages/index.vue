@@ -28,12 +28,13 @@
     </LazyRundown>
     <LazyWhyAttend />
     <LazyWhoAttends />
-    <LazyPastEvents />
+    <LazyWhyYogyakarta />
     <LazyTickets />
     <div v-if="hotelSectionVisible" class="container">
-      <LazyHotels />
+      <LazyHotels :show-event-header="false" />
     </div>
     <LazyFAQ />
+    <LazyPastEvents />
     <LazyCredits class="container flex flex-col items-center text-center" />
   </div>
 </template>

@@ -647,5 +647,91 @@ export default {
     "title": "Relive the ",
     "titleAccent": "Moments",
     "description": "Highlights from our previous editions. See the connections made, knowledge shared, and community that grows with each event."
+  },
+  "whyYogyakarta": {
+    "badge": "Why Yogyakarta",
+    "title": "A destination worth ",
+    "titleAccent": "the trip",
+    "description": "The conference happens to land in one of Southeast Asia's most distinctive cultural cities. Three days in cocoa, three days in Java's heart.",
+    "reasons": {
+      "heritage": {
+        "title": "Heart of Indonesian heritage",
+        "icon": "hugeicons:building-03",
+        "description": "Two UNESCO World Heritage sites within an hour. A living royal court at the city center. Batik, silver, and leather, still made by hand every day."
+      },
+      "cocoaCountry": {
+        "title": "Cocoa country, close at hand",
+        "icon": "hugeicons:plant-01",
+        "description": "Indonesia is the world's third largest cocoa producer. From Yogyakarta you're a short drive from bean to bar makers redefining origin chocolate."
+      },
+      "access": {
+        "title": "Built for international visitors",
+        "icon": "hugeicons:airplane-01",
+        "description": "Yogyakarta International Airport connects directly to regional hubs. English is widely spoken in hospitality. Easy to navigate, simple to enjoy."
+      },
+      "hospitality": {
+        "title": "Indonesia's most generous city",
+        "icon": "hugeicons:agreement-01",
+        "description": "Yogya is known across the country for hospitality that feels unhurried and personal. Service runs on warmth, not just process."
+      }
+    },
+    "experiences": {
+      "heading": "What to do ",
+      "headingAccent": "between sessions",
+      "description": "Six places worth the detour. Most are under an hour from the venue.",
+      "items": {
+        "borobudur": {
+          "title": "Borobudur Temple",
+          "meta": "1 hour drive · UNESCO",
+          "description": "The world's largest Buddhist temple. Best at sunrise, when the valley below is still under mist.",
+          "alt": "Borobudur Temple under blue sky in Central Java"
+        },
+        "prambanan": {
+          "title": "Prambanan Temple",
+          "meta": "45 min drive · UNESCO",
+          "description": "A 9th century Hindu temple complex. Catch the open air Ramayana ballet on full moon evenings.",
+          "alt": "Prambanan Temple spires silhouetted against sunset"
+        },
+        "kraton": {
+          "title": "Kraton & Taman Sari",
+          "meta": "15 min drive · Royal palace",
+          "description": "The Sultan's Palace and the old water castle, both still tied to a working royal court.",
+          "alt": "Taman Sari water castle pool in Yogyakarta"
+        },
+        "malioboro": {
+          "title": "Malioboro Street",
+          "meta": "10 min drive · Culture & shopping",
+          "description": "Yogya's most famous street. Batik shops, late night warung, and the andong horse carriages that have run the same route for generations.",
+          "alt": "Andong horse carriage on Malioboro Street, Yogyakarta"
+        },
+        "chocolate": {
+          "title": "Chocolate & coffee scene",
+          "meta": "Citywide · Bean to bar",
+          "description": "Local chocolate makers and specialty roasters putting Indonesian origin beans on the international map.",
+          "alt": "Cocoa pods hanging from a tree branch"
+        },
+        "merapi": {
+          "title": "Mount Merapi",
+          "meta": "45 min drive · Nature",
+          "description": "Indonesia's most active volcano. Jeep tours follow the old lava routes. The sunrise from the south face is worth the early start.",
+          "alt": "Mount Merapi volcanic slopes covered in clouds"
+        }
+      }
+    },
+    "cta": {
+      "heading": "Where to stay, ",
+      "headingAccent": "how to get around.",
+      "description": "Two ways to make the trip easier. Pick what you need.",
+      "hotels": {
+        "title": "Hotels around the venue",
+        "description": "Where to stay close to Hotel Tentrem. From premium to practical, all within easy reach.",
+        "cta": "Browse hotels"
+      },
+      "itinerary": {
+        "title": "Custom itinerary & transport",
+        "description": "Plan temple visits, plantation trips, or longer routes. Our team builds the schedule and pricing around your dates.",
+        "cta": "Get in touch"
+      }
+    }
   }
 };

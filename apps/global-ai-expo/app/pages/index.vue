@@ -4,7 +4,7 @@
     <LazySpeakers class="pt-8" />
     <LazyBrandPreview v-if="brandPreviewVisible" />
     <LazyRundown v-if="rundownVisible" />
-    <LazyHotels v-if="hotelSectionVisible" />
+    <LazyHotels v-if="hotelSectionVisible" :show-event-header="false" />
     <LazyAboutEvent />
     <LazyPartnerships />
     <LazyVisitorCta />
