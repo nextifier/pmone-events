@@ -7,21 +7,30 @@
       class="flex h-full items-center transition-all duration-300"
       :class="isHomePage ? 'container-wider' : 'container'"
     >
-      <NuxtLink
-        to="https://askindo.id"
-        aria-label="Back to ASKINDO Home Page"
-        v-ripple
-        class="bg-muted sm:hover:bg-muted flex items-center gap-x-1.5 rounded-full p-1 transition sm:bg-transparent sm:pr-3"
-      >
-        <div class="bg-muted flex size-8 items-center justify-center rounded-full">
-          <Icon name="hugeicons:arrow-left-02" class="size-5 shrink-0" />
-        </div>
-        <LogoMarkAskindo class="h-8" />
-        <span
-          class="text-foreground hidden text-2xl font-semibold tracking-normal sm:block"
-          >ASKINDO</span
+      <div class="flex items-center gap-x-2">
+        <Button
+          to="https://askindo.id"
+          variant="outline"
+          size="iconSm"
+          aria-label="Back to ASKINDO Home Page"
         >
-      </NuxtLink>
+          <Icon name="hugeicons:arrow-left-02" class="size-5 shrink-0" />
+        </Button>
+
+        <NuxtLink
+          :to="localePath('/')"
+          variant="outline"
+          aria-label="ASKINDO Home"
+          class="flex items-center gap-x-1.5"
+          @click="$scrollToTopIfCurrentPageIs(localePath('/'))"
+        >
+          <LogoMarkAskindo class="h-8 shrink-0" />
+          <span
+            class="text-foreground hidden text-xl font-semibold tracking-normal sm:inline"
+            >ASKINDO</span
+          >
+        </NuxtLink>
+      </div>
 
       <div class="ml-auto flex h-full items-center gap-x-6">
         <HeaderNav
@@ -29,14 +38,23 @@
         />
 
         <div class="flex h-full shrink-0 items-center gap-x-1.5">
-          <button
-            type="button"
-            @click="handleRegisterClick"
-            class="hover:bg-accent/80 bg-accent text-accent-foreground flex items-center justify-center rounded-lg px-3 py-1.5 font-medium tracking-tight select-none active:scale-98"
-            v-ripple
+          <Button
+            v-if="hotelVisible"
+            :to="localePath('/hotels')"
+            variant="secondary"
+            size="sm"
+            class="hidden xl:inline-flex"
           >
-            Register
-          </button>
+            {{ $t("hotels.bookNow") }}
+          </Button>
+
+          <Button
+            size="sm"
+            class="bg-accent text-accent-foreground hover:bg-accent/80"
+            @click="handleBuyTicket"
+          >
+            {{ $t("tickets.buyNow") }}
+          </Button>
 
           <LanguageSwitcher />
 
@@ -56,8 +74,9 @@ const route = useRoute();
 const isHomePage = computed(() => route.path === "/" || route.path === "/id");
 
 const isMenuOpen = ref(false);
+const { visible: hotelVisible } = useHotelSectionVisibility();
 
-const handleRegisterClick = () => {
+const handleBuyTicket = () => {
   if (appConfig.ticket?.status !== "available") {
     return;
   }

@@ -80,7 +80,13 @@
 <script setup>
 const localePath = useLocalePath();
 const route = useRoute();
-const headerRoutes = useDynamicHeaderRoutes("header");
+const dynamicHeaderRoutes = useDynamicHeaderRoutes("header");
+// Hotels dipindah ke action buttons di Header.vue, jadi exclude dari nav center
+const headerRoutes = computed(() =>
+  dynamicHeaderRoutes.value.filter(
+    (item) => !("path" in item) || item.path !== "/hotels"
+  )
+);
 
 // Offset untuk scroll (negatif supaya section tidak terpotong header)
 const SCROLL_OFFSET = -100;
@@ -113,7 +119,7 @@ const handleContextMenu = (event, item) => {
 };
 
 // ScrollSpy: lacak section yang sedang in-view di home page
-const activeSection = ref(null);
+const activeSection = ref("hero");
 const homePath = computed(() => localePath("/"));
 const isHome = computed(() => route.path === homePath.value);
 

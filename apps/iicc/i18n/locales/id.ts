@@ -696,6 +696,9 @@ export default {
       },
     },
   },
+  hotels: {
+    bookNow: "Pesan Hotel",
+  },
   pastEvents: {
     badge: "Edisi Sebelumnya",
     title: "Kenangan dari ",
@@ -800,7 +803,7 @@ export default {
         title: "Itinerari & transportasi khusus",
         description:
           "Atur kunjungan candi, perjalanan ke kebun kakao, atau rute lebih panjang. Tim kami merancang jadwal dan biaya sesuai tanggal Anda.",
-        cta: "Hubungi kami",
+        cta: "Rancang perjalanan Anda",
       },
     },
   },

@@ -164,7 +164,6 @@ export default defineAppConfig({
       routes.topics,
       routes.agenda,
       routes.whyYogyakarta,
-      routes.tickets,
       routes.faq,
       routes.contact,
     ],

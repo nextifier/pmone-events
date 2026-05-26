@@ -127,6 +127,8 @@ export const useContentStore = defineStore("content", () => {
         //   },
         // },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-alila-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-alila.jpg",
@@ -135,6 +137,8 @@ export const useContentStore = defineStore("content", () => {
           // link: "",
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-arna-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-arna.jpg",
@@ -142,6 +146,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-atena-tile-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-atena-tile.jpg",
@@ -149,6 +155,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-keda-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-keda.jpg",
@@ -156,6 +164,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-kia-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-kia.jpg",
@@ -163,6 +173,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-milan-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-milan.jpg",
@@ -170,6 +182,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-quadra-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-quadra.jpg",

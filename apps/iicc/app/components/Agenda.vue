@@ -72,7 +72,7 @@
                   class="border-border/50 bg-muted/30 flex items-start gap-4 rounded-2xl border p-4 sm:p-6"
                 >
                   <div
-                    class="bg-accent/10 text-accent flex size-12 shrink-0 items-center justify-center rounded-xl"
+                    class="bg-muted text-accent flex size-12 shrink-0 items-center justify-center rounded-xl"
                   >
                     <Icon name="hugeicons:bus-01" class="size-6" />
                   </div>

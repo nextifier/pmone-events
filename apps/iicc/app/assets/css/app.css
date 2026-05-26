@@ -38,6 +38,7 @@
     --accent-brown: var(--color-kv-brown-800);
     --background: var(--color-kv-brown-50);
     --muted: var(--color-kv-brown-100);
+    --secondary: var(--color-kv-brown-100);
     --border: var(--color-gray-300);
     --popover: var(--color-kv-brown-50);
     --card: var(--color-kv-brown-50);
@@ -49,6 +50,7 @@
     --accent-brown: var(--color-kv-brown-300);
     --background: var(--color-kv-brown-950);
     --muted: var(--color-kv-brown-900);
+    --secondary: var(--color-kv-brown-900);
     --border: var(--color-gray-700);
     --popover: var(--color-kv-brown-950);
     --card: var(--color-kv-brown-950);

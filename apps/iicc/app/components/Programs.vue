@@ -27,7 +27,7 @@
           class="border-border/50 bg-muted/30 flex flex-col items-start rounded-2xl border px-4 py-8"
         >
           <div
-            class="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-xl"
+            class="bg-muted text-accent flex size-12 items-center justify-center rounded-xl"
           >
             <Icon :name="program.icon" class="size-6" />
           </div>

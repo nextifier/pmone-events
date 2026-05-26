@@ -118,6 +118,8 @@ export const useContentStore = defineStore("content", () => {
         //   },
         // },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-bondall-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-bondall.jpg",
@@ -126,6 +128,8 @@ export const useContentStore = defineStore("content", () => {
           // link: "",
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-enchating-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-enchating.jpg",
@@ -133,6 +137,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-fabrica-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-fabrica.jpg",
@@ -140,6 +146,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-fujisan-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-fujisan.jpg",
@@ -147,6 +155,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-inti-solar-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-inti-solar.jpg",
@@ -154,6 +164,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-kayu-asri-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-kayu-asri.jpg",
@@ -161,6 +173,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-mevval-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-mevval.jpeg",
@@ -168,6 +182,8 @@ export const useContentStore = defineStore("content", () => {
           },
         },
         {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-vas-lighting-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-vas-lighting.jpg",

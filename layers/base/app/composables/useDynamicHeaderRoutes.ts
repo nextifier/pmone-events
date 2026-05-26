@@ -48,6 +48,14 @@ export function useDynamicHeaderRoutes(
         next.splice(rundownIdx + 1, 0, hotelsLink);
         return next;
       }
+      const ticketsIdx = list.findIndex(
+        (l) => l.path === "/#tickets" || l.path === "/tickets",
+      );
+      if (ticketsIdx >= 0) {
+        const next = list.slice();
+        next.splice(ticketsIdx + 1, 0, hotelsLink);
+        return next;
+      }
       const contactIdx = list.findIndex((l) => l.path === "/contact");
       if (contactIdx >= 0) {
         const next = list.slice();
@@ -70,6 +78,14 @@ export function useDynamicHeaderRoutes(
       if (rundownIdx >= 0) {
         const next = flat.slice();
         next.splice(rundownIdx + 1, 0, hotelsLink);
+        return next;
+      }
+      const ticketsIdx = flat.findIndex(
+        (i) => "path" in i && (i.path === "/#tickets" || i.path === "/tickets"),
+      );
+      if (ticketsIdx >= 0) {
+        const next = flat.slice();
+        next.splice(ticketsIdx + 1, 0, hotelsLink);
         return next;
       }
       const contactIdx = flat.findIndex(

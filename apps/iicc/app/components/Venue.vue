@@ -48,7 +48,7 @@
               :key="feature.title"
               class="group flex items-start gap-5"
             >
-              <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent transition-all duration-500 group-hover:bg-accent group-hover:text-accent-foreground">
+              <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-muted text-accent transition-all duration-500 group-hover:bg-accent group-hover:text-accent-foreground">
                 <Icon :name="feature.icon" class="size-5" />
               </div>
               <div>

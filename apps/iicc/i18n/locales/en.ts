@@ -642,6 +642,9 @@ export default {
       }
     }
   },
+  "hotels": {
+    "bookNow": "Book Hotel"
+  },
   "pastEvents": {
     "badge": "Previous Editions",
     "title": "Relive the ",
@@ -730,7 +733,7 @@ export default {
       "itinerary": {
         "title": "Custom itinerary & transport",
         "description": "Plan temple visits, plantation trips, or longer routes. Our team builds the schedule and pricing around your dates.",
-        "cta": "Get in touch"
+        "cta": "Build your trip"
       }
     }
   }

@@ -75,9 +75,9 @@
             />
           </div>
 
-          <div class="mt-4 flex flex-col gap-y-1 px-1">
+          <div class="mt-2.5 flex flex-col gap-y-1 px-1 sm:mt-4">
             <h3
-              class="text-foreground text-xl font-medium tracking-tighter text-balance sm:text-xl"
+              class="text-foreground text-lg leading-snug font-medium tracking-tight text-balance sm:text-xl"
             >
               {{ experience.title }}
             </h3>
@@ -108,7 +108,7 @@
           class="border-border/50 bg-muted/30 relative grid rounded-2xl border p-6 sm:p-8 md:row-span-4 md:grid-rows-subgrid"
         >
           <div
-            class="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-xl"
+            class="bg-muted text-accent flex size-12 items-center justify-center rounded-xl"
           >
             <Icon name="hugeicons:hotel-01" class="size-5" />
           </div>
@@ -137,7 +137,7 @@
           class="border-border/50 bg-muted/30 relative grid rounded-2xl border p-6 sm:p-8 md:row-span-4 md:grid-rows-subgrid"
         >
           <div
-            class="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-xl"
+            class="bg-muted text-accent flex size-12 items-center justify-center rounded-xl"
           >
             <Icon name="hugeicons:route-01" class="size-5" />
           </div>

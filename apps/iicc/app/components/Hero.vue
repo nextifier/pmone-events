@@ -46,23 +46,22 @@
             {{ $t("hero.description") }}
           </p>
 
-          <div class="mt-5 flex gap-2 md:flex-wrap md:gap-3">
-            <button
-              type="button"
-              @click="handleRegisterClick"
-              class="bg-accent text-accent-foreground hover:bg-accent/80 flex items-center justify-center rounded-xl px-5 py-2.5 font-medium tracking-tight transition active:scale-98"
-              v-ripple
+          <div class="mt-5 flex flex-wrap gap-2 md:gap-3">
+            <Button
+              size="lg"
+              class="bg-accent text-accent-foreground hover:bg-accent/80"
+              @click="handleBuyTicket"
             >
-              {{ $t("nav.register") }}
-            </button>
-
-            <nuxt-link
-              :to="localePath('/')"
-              v-scroll-to="{ el: '#about', offset: -100 }"
-              class="hover:bg-muted text-primary flex items-center justify-center rounded-xl px-5 py-2.5 font-medium tracking-tight transition active:scale-98"
-              v-ripple
-              >{{ $t("hero.exploreMore") }}</nuxt-link
+              {{ $t("tickets.buyNow") }}
+            </Button>
+            <Button
+              v-if="hotelVisible"
+              :to="localePath('/hotels')"
+              variant="secondary"
+              size="lg"
             >
+              {{ $t("hotels.bookNow") }}
+            </Button>
           </div>
         </div>
 
@@ -137,6 +136,7 @@ const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
 const { t } = useI18n();
 const localePath = useLocalePath();
+const { visible: hotelVisible } = useHotelSectionVisibility();
 
 // Image animation refs
 const imageContainerRef = ref(null);
@@ -273,7 +273,7 @@ onMounted(async () => {
   initImageAnimation();
 });
 
-const handleRegisterClick = () => {
+const handleBuyTicket = () => {
   if (appConfig.ticket.status !== "available") {
     toast.info(t("tickets.notAvailable"));
     return;

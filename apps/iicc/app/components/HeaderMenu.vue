@@ -133,15 +133,25 @@
         </ScrollArea>
 
         <div
-          class="xs:px-4 absolute inset-x-0 bottom-0 grid h-16 w-full grid-cols-1 gap-2 px-2 pb-4 sm:px-8"
+          class="xs:px-4 absolute inset-x-0 bottom-0 flex h-16 w-full gap-2 px-2 pb-4 sm:px-8"
         >
-          <button
-            type="button"
-            @click="handleRegisterClick"
-            class="bg-primary text-primary-foreground flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none hover:scale-101 active:scale-95"
+          <Button
+            size="lg"
+            class="bg-accent text-accent-foreground hover:bg-accent/80 h-full flex-1"
+            @click="handleBuyTicket"
           >
-            {{ useAppConfig().routes.visitorRegistration.label }}
-          </button>
+            {{ $t("tickets.buyNow") }}
+          </Button>
+          <Button
+            v-if="hotelVisible"
+            :to="localePath('/hotels')"
+            variant="secondary"
+            size="lg"
+            class="h-full flex-1"
+            @click="isOpen = false"
+          >
+            {{ $t("hotels.bookNow") }}
+          </Button>
         </div>
       </DialogContent>
     </DialogPortal>
@@ -168,6 +178,7 @@ const route = useRoute();
 
 const dialogRoutes = useDynamicHeaderRoutes("dialog");
 const dialogGroups = computed(() => dialogRoutes.value || []);
+const { visible: hotelVisible } = useHotelSectionVisibility();
 
 const props = defineProps({
   open: {
@@ -217,7 +228,7 @@ const handleContextMenu = (event, item) => {
   }
 };
 
-const handleRegisterClick = () => {
+const handleBuyTicket = () => {
   if (appConfig.ticket.status !== "available") {
     toast.info(t("tickets.notAvailable"));
     return;
