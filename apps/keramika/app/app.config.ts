@@ -42,6 +42,7 @@ const event = {
     label: "In conjunction with",
     list: [
       {
+        projectUsername: "megabuild",
         name: "Megabuild Indonesia",
         url: "https://megabuild.co.id",
         img: "/img/avatar/megabuild.svg",

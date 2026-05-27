@@ -42,6 +42,7 @@ const event = {
     label: "In conjunction with",
     list: [
       {
+        projectUsername: "keramika",
         name: "Keramika Indonesia",
         url: "https://keramika.co.id",
         img: "/img/avatar/keramika.svg",

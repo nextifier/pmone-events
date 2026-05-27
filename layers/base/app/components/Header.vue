@@ -22,6 +22,16 @@
         />
       </nuxt-link>
 
+      <Transition name="header-edition">
+        <div
+          v-if="showEditionPicker"
+          key="brands-edition"
+          class="ml-3 flex"
+        >
+          <HeaderBrandsEditionPicker :editions="editions" />
+        </div>
+      </Transition>
+
       <div class="ml-auto flex h-full items-center gap-x-6">
         <HeaderNav
           class="hidden xl:absolute xl:left-1/2 xl:flex xl:-translate-x-1/2"
@@ -101,6 +111,27 @@
   </header>
 </template>
 
+<style scoped>
+.header-edition-enter-active {
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.header-edition-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+.header-edition-enter-from {
+  opacity: 0;
+  transform: translateX(-10px) scale(0.9);
+}
+.header-edition-leave-to {
+  opacity: 0;
+  transform: translateX(-6px) scale(0.92);
+}
+</style>
+
 <script setup>
 import { useSidebar } from "@/components/ui/sidebar/utils";
 const { toggleSidebar, open, isMobile } = useSidebar();
@@ -110,6 +141,19 @@ const localePath = useLocalePath();
 const { metaSymbol } = useShortcuts();
 
 const isMenuOpen = ref(false);
+
+const isBrandsRoute = computed(() => {
+  const baseName = (route.name?.toString() ?? "").split("___")[0];
+  return baseName === "brands" || baseName === "edition-brands";
+});
+
+const { data: editions } = useFetch("/api/editions", {
+  transform: (res) => res.data,
+});
+
+const showEditionPicker = computed(
+  () => isBrandsRoute.value && (editions.value?.length ?? 0) > 1,
+);
 
 function toggleFullScreen() {
   const elem = document.documentElement; // Target the entire document

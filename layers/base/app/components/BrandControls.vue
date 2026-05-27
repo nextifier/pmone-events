@@ -1,290 +1,220 @@
 <template>
-  <div class="mx-auto mt-6 flex w-full max-w-5xl flex-col gap-4 sm:mt-8">
-    <div class="mx-auto w-full max-w-xl">
-      <div class="group relative w-full">
+  <div
+    class="sticky inset-x-0 top-(--navbar-height-mobile) z-50 flex h-(--navbar-height-mobile) items-center justify-center text-sm lg:top-(--navbar-height-desktop) lg:h-(--navbar-height-desktop)"
+  >
+    <ButtonGroup
+      class="mx-auto flex w-full max-w-2xl items-center rounded-2xl p-2 backdrop-blur-sm"
+    >
+      <InputGroup class="bg-background grow">
+        <InputGroupAddon align="inline-start">
+          <Icon name="hugeicons:search-01" class="text-gray-400" />
+        </InputGroupAddon>
         <input
           ref="searchInputEl"
           v-model="searchInput"
           type="text"
-          class="input-base peer h-11 px-10 py-2 text-sm tracking-tight"
+          data-slot="input-group-control"
           placeholder="Search any brand or category"
+          class="placeholder:text-muted-foreground/70 flex h-full w-full min-w-0 flex-1 rounded-none border-0 bg-transparent px-2 text-sm tracking-tight outline-none"
         />
+        <InputGroupAddon align="inline-end">
+          <kbd v-if="!searchInput" class="keyboard-symbol">
+            {{ metaSymbol }} K
+          </kbd>
+          <InputGroupButton
+            v-else
+            size="icon-xs"
+            variant="ghost"
+            aria-label="Clear search"
+            @click="
+              searchInput = '';
+              searchInputEl?.focus();
+            "
+          >
+            <IconClose class="size-3" />
+          </InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
 
-        <Icon name="hugeicons:search-01"
-          class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-gray-400 peer-focus:text-gray-400"
-        />
+      <Popover>
+        <PopoverTrigger as-child>
+          <Button
+            variant="outline"
+            size="icon"
+            class="relative shrink-0 grow-0 sm:w-auto sm:gap-1.5 sm:px-3"
+            aria-label="Filter"
+          >
+            <Icon
+              name="hugeicons:filter-horizontal"
+              class="text-muted-foreground size-4 shrink-0"
+            />
+            <span class="hidden sm:inline">Filter</span>
+            <span
+              v-if="totalActiveFilters > 0"
+              class="bg-primary text-primary-foreground absolute -top-1.5 -right-1.5 inline-flex size-5 items-center justify-center rounded-full text-[11px] font-medium tracking-tight"
+            >
+              {{ totalActiveFilters }}
+            </span>
+          </Button>
+        </PopoverTrigger>
 
-        <span
-          id="shortcut-key"
-          class="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 items-center justify-center gap-x-0.5 peer-placeholder-shown:flex peer-focus-within:hidden"
+        <PopoverContent
+          align="end"
+          class="max-h-[60vh] w-72 space-y-4 overflow-y-auto rounded-lg px-1 py-4"
         >
-          <kbd class="keyboard-symbol">{{ metaSymbol }} K</kbd>
-        </span>
+          <div v-if="availableEvents.length > 1">
+            <div class="flex items-center justify-between">
+              <DropdownMenuLabel>Events</DropdownMenuLabel>
+              <button
+                v-if="selectedEvents.length > 0"
+                class="text-primary hover:text-primary/80 px-3 text-xs tracking-tight transition"
+                @click="$emit('clear-events')"
+              >
+                Clear
+              </button>
+            </div>
+            <div class="space-y-0">
+              <label
+                v-for="(event, index) in availableEvents"
+                :key="event.projectUsername"
+                :for="`event-filter-${index}`"
+                class="hover:bg-muted/70 flex cursor-pointer items-center gap-x-2 rounded-md px-3 py-1"
+              >
+                <Checkbox
+                  :id="`event-filter-${index}`"
+                  :model-value="selectedEvents.includes(event.projectUsername)"
+                  @update:model-value="
+                    toggleEventFilter(event.projectUsername, $event)
+                  "
+                />
+                <NuxtImg
+                  v-if="event.img"
+                  :src="event.img"
+                  :alt="event.title"
+                  width="20"
+                  height="20"
+                  loading="lazy"
+                  class="bg-muted border-border size-5 shrink-0 rounded-full border object-cover"
+                />
+                <div
+                  v-else
+                  class="bg-muted border-border size-5 shrink-0 rounded-full border"
+                />
+                <span class="grow truncate text-sm tracking-tight">
+                  {{ event.title }}
+                </span>
+                <span class="text-muted-foreground text-xs tabular-nums">
+                  {{ event.count }}
+                </span>
+              </label>
+            </div>
+          </div>
 
-        <button
-          id="clear-input"
-          type="button"
-          @click="
-            searchInput = '';
-            searchInputEl?.focus();
-          "
-          class="absolute top-1/2 right-3 flex size-6 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 transition-colors peer-placeholder-shown:hidden hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800"
+          <div>
+            <div class="flex items-center justify-between">
+              <DropdownMenuLabel>Categories</DropdownMenuLabel>
+              <button
+                v-if="selectedCategories.length > 0"
+                class="text-primary hover:text-primary/80 px-3 text-xs tracking-tight transition"
+                @click="$emit('clear-categories')"
+              >
+                Clear
+              </button>
+            </div>
+
+            <div
+              v-if="availableCategories.length === 0"
+              class="text-muted-foreground text-sm"
+            >
+              No categories available.
+            </div>
+
+            <div v-else>
+              <label
+                v-for="(item, index) in availableCategories"
+                :key="item.name"
+                :for="`category-filter-${index}`"
+                class="hover:bg-muted/70 flex cursor-pointer items-center gap-x-2 rounded-md px-3 py-1"
+              >
+                <Checkbox
+                  :id="`category-filter-${index}`"
+                  :model-value="selectedCategories.includes(item.name)"
+                  @update:model-value="toggleCategoryFilter(item.name, $event)"
+                />
+                <span class="grow truncate text-sm tracking-tight">
+                  {{ item.name }}
+                </span>
+                <span class="text-muted-foreground text-xs tabular-nums">
+                  {{ item.count }}
+                </span>
+              </label>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+
+      <DropdownMenu :modal="false">
+        <DropdownMenuTrigger as-child>
+          <Button
+            variant="outline"
+            size="icon"
+            :class="[
+              'shrink-0 grow-0 max-sm:!rounded-r-md sm:w-auto sm:gap-1.5 sm:px-3',
+              viewMode === 'table' ? 'pointer-events-none invisible' : '',
+            ]"
+            aria-label="Sort by"
+          >
+            <Icon
+              name="hugeicons:arrow-up-down"
+              class="text-muted-foreground size-4 shrink-0"
+            />
+            <span class="hidden sm:inline">Sort</span>
+          </Button>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent
+          align="end"
+          class="flex w-44 flex-col rounded-lg px-1 py-2"
         >
-          <IconClose class="h-3" />
-        </button>
-      </div>
-    </div>
+          <DropdownMenuLabel> Sort by </DropdownMenuLabel>
+          <DropdownMenuItem
+            v-for="(item, index) in sortOptions"
+            :key="index"
+            v-slot="{ active }"
+            as-child
+          >
+            <button
+              :aria-label="`Sort by ${item.label}`"
+              class="relative flex w-full cursor-pointer items-center gap-x-4 rounded-md py-2 pr-4 pl-8 tracking-tight text-black ring-black ring-offset-2 ring-offset-white transition hover:bg-gray-100 hover:text-black focus-visible:ring-1 focus-visible:outline-hidden active:scale-98 dark:text-white dark:ring-white dark:ring-offset-gray-950 dark:hover:bg-gray-900 dark:hover:text-white"
+              :class="{
+                'bg-gray-100 text-black dark:bg-gray-900 dark:text-white':
+                  selectedSortOption?.val === item.val && !active,
+                'bg-blue-600 text-white dark:bg-blue-600 dark:text-white':
+                  active,
+              }"
+              @click="changeSelectedSortOption(item)"
+            >
+              <IconCheck
+                v-if="selectedSortOption?.val === item.val"
+                class="absolute top-1/2 left-2 size-5 -translate-y-1/2"
+              />
+              <span class="text-sm">{{ item.label }}</span>
+            </button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
-    <div
-      class="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-3 sm:gap-y-2"
-    >
-      <div
-        class="flex flex-wrap items-center justify-center gap-2 sm:justify-start"
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label="Refresh data"
+        class="hidden shrink-0 grow-0 sm:flex"
+        v-tippy="'Refresh'"
+        @click="$emit('refresh')"
       >
-        <DropdownMenu v-if="editions?.length > 1" :modal="false">
-          <DropdownMenuTrigger as-child>
-            <button
-              class="group border-border hover:bg-muted/40 flex h-10 items-center gap-x-2 rounded-lg border px-3 tracking-tight transition"
-              aria-label="Edition"
-            >
-              <Icon
-                name="hugeicons:calendar-03"
-                class="text-muted-foreground size-4 shrink-0"
-              />
-              <span class="truncate text-sm">{{
-                selectedEdition
-                  ? `${selectedEdition.edition_label} edition`
-                  : "Edition"
-              }}</span>
-              <IconChevronDown
-                class="text-muted-foreground size-3 shrink-0 transition group-data-[state=open]:rotate-180"
-              />
-            </button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent
-            align="start"
-            class="flex w-44 flex-col gap-y-1 rounded-lg px-1 py-2"
-          >
-            <DropdownMenuItem
-              v-for="(item, index) in editions"
-              :key="index"
-              v-slot="{ active }"
-              as-child
-            >
-              <button
-                :aria-label="item.title"
-                class="relative flex w-full cursor-pointer items-center gap-x-4 rounded-md py-2 pr-4 pl-8 tracking-tight text-black ring-black ring-offset-2 ring-offset-white transition hover:bg-gray-100 hover:text-black focus-visible:ring-1 focus-visible:outline-hidden active:scale-98 dark:text-white dark:ring-white dark:ring-offset-gray-950 dark:hover:bg-gray-900 dark:hover:text-white"
-                :class="{
-                  'bg-gray-100 text-black dark:bg-gray-900 dark:text-white':
-                    selectedEdition?.edition_number === item.edition_number &&
-                    !active,
-                  'bg-blue-600 text-white dark:bg-blue-600 dark:text-white':
-                    active,
-                }"
-                @click="changeEdition(item)"
-              >
-                <IconCheck
-                  v-if="selectedEdition?.edition_number === item.edition_number"
-                  class="absolute top-1/2 left-2 size-5 -translate-y-1/2"
-                />
-                <div class="flex flex-col items-start gap-y-0.5">
-                  <span class="text-sm">{{ item.edition_label }} Edition</span>
-                  <span class="text-xs opacity-60 sm:text-sm">{{
-                    item.date_label
-                  }}</span>
-                </div>
-              </button>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Popover>
-          <PopoverTrigger as-child>
-            <button
-              class="group border-border hover:bg-muted/40 relative flex h-10 items-center gap-x-2 rounded-lg border px-3 tracking-tight transition"
-              aria-label="Filter"
-            >
-              <Icon
-                name="hugeicons:filter-horizontal"
-                class="text-muted-foreground size-4 shrink-0"
-              />
-              <span class="truncate text-sm">Filter</span>
-              <span
-                v-if="totalActiveFilters > 0"
-                class="bg-primary text-primary-foreground absolute -top-1.5 -right-1.5 inline-flex size-5 items-center justify-center rounded-full text-[11px] font-medium tracking-tight"
-              >
-                {{ totalActiveFilters }}
-              </span>
-            </button>
-          </PopoverTrigger>
-
-          <PopoverContent
-            align="start"
-            class="max-h-[60vh] w-72 space-y-4 overflow-y-auto rounded-lg px-1 py-4"
-          >
-            <div v-if="availableEvents.length > 1" class="space-y-1.5">
-              <div class="flex items-center justify-between px-3">
-                <div
-                  class="text-muted-foreground text-xs font-medium tracking-tight"
-                >
-                  Events
-                </div>
-                <button
-                  v-if="selectedEvents.length > 0"
-                  class="text-primary hover:text-primary/80 text-xs tracking-tight transition"
-                  @click="$emit('clear-events')"
-                >
-                  Clear
-                </button>
-              </div>
-              <div class="space-y-0">
-                <label
-                  v-for="(event, index) in availableEvents"
-                  :key="event.projectUsername"
-                  :for="`event-filter-${index}`"
-                  class="hover:bg-muted/70 flex cursor-pointer items-center gap-x-2 rounded-md px-3 py-1"
-                >
-                  <Checkbox
-                    :id="`event-filter-${index}`"
-                    :model-value="selectedEvents.includes(event.projectUsername)"
-                    @update:model-value="
-                      toggleEventFilter(event.projectUsername, $event)
-                    "
-                  />
-                  <NuxtImg
-                    v-if="event.img"
-                    :src="event.img"
-                    :alt="event.title"
-                    width="20"
-                    height="20"
-                    loading="lazy"
-                    class="bg-muted border-border size-5 shrink-0 rounded-full border object-cover"
-                  />
-                  <div
-                    v-else
-                    class="bg-muted border-border size-5 shrink-0 rounded-full border"
-                  />
-                  <span class="grow truncate text-sm tracking-tight">
-                    {{ event.title }}
-                  </span>
-                  <span class="text-muted-foreground text-xs tabular-nums">
-                    {{ event.count }}
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between px-3">
-                <div
-                  class="text-muted-foreground text-xs font-medium tracking-tight"
-                >
-                  Categories
-                </div>
-                <button
-                  v-if="selectedCategories.length > 0"
-                  class="text-primary hover:text-primary/80 text-xs tracking-tight transition"
-                  @click="$emit('clear-categories')"
-                >
-                  Clear
-                </button>
-              </div>
-
-              <div
-                v-if="availableCategories.length === 0"
-                class="text-muted-foreground text-sm"
-              >
-                No categories available.
-              </div>
-
-              <div v-else class="space-y-0">
-                <label
-                  v-for="(item, index) in availableCategories"
-                  :key="item.name"
-                  :for="`category-filter-${index}`"
-                  class="hover:bg-muted/70 flex cursor-pointer items-center gap-x-2 rounded-md px-3 py-1"
-                >
-                  <Checkbox
-                    :id="`category-filter-${index}`"
-                    :model-value="selectedCategories.includes(item.name)"
-                    @update:model-value="toggleCategoryFilter(item.name, $event)"
-                  />
-                  <span class="grow truncate text-sm tracking-tight">
-                    {{ item.name }}
-                  </span>
-                  <span class="text-muted-foreground text-xs tabular-nums">
-                    {{ item.count }}
-                  </span>
-                </label>
-              </div>
-            </div>
-          </PopoverContent>
-        </Popover>
-
-        <div :class="viewMode === 'table' ? 'pointer-events-none invisible' : ''">
-          <DropdownMenu :modal="false">
-            <DropdownMenuTrigger as-child>
-              <button
-                class="group border-border hover:bg-muted/40 flex h-10 items-center gap-x-2 rounded-lg border px-3 tracking-tight transition"
-                aria-label="Sort by"
-              >
-                <IconSort class="text-muted-foreground size-4 shrink-0" />
-                <span class="truncate text-sm">{{
-                  selectedSortOption?.label
-                }}</span>
-                <IconChevronDown
-                  class="text-muted-foreground size-3 shrink-0 transition group-data-[state=open]:rotate-180"
-                />
-              </button>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent
-              align="start"
-              class="flex w-44 flex-col gap-y-1 rounded-lg px-1 py-2"
-            >
-              <DropdownMenuItem
-                v-for="(item, index) in sortOptions"
-                :key="index"
-                v-slot="{ active }"
-                as-child
-              >
-                <button
-                  :aria-label="`Sort by ${item.label}`"
-                  class="relative flex w-full cursor-pointer items-center gap-x-4 rounded-md py-2 pr-4 pl-8 tracking-tight text-black ring-black ring-offset-2 ring-offset-white transition hover:bg-gray-100 hover:text-black focus-visible:ring-1 focus-visible:outline-hidden active:scale-98 dark:text-white dark:ring-white dark:ring-offset-gray-950 dark:hover:bg-gray-900 dark:hover:text-white"
-                  :class="{
-                    'bg-gray-100 text-black dark:bg-gray-900 dark:text-white':
-                      selectedSortOption?.val === item.val && !active,
-                    'bg-blue-600 text-white dark:bg-blue-600 dark:text-white':
-                      active,
-                  }"
-                  @click="changeSelectedSortOption(item)"
-                >
-                  <IconCheck
-                    v-if="selectedSortOption?.val === item.val"
-                    class="absolute top-1/2 left-2 size-5 -translate-y-1/2"
-                  />
-                  <span class="text-sm">{{ item.label }}</span>
-                </button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-center gap-2 sm:justify-end">
-        <button
-          aria-label="Refresh data"
-          @click="$emit('refresh')"
-          class="text-muted-foreground hover:bg-muted flex size-10 shrink-0 items-center justify-center rounded-lg transition active:scale-98"
-          v-tippy="'Refresh'"
-        >
-          <IconRefresh class="size-4" :class="{ 'animate-spin': pending }" />
-        </button>
-
-        <BrandViewSwitcher v-model="viewMode" />
-      </div>
-    </div>
+        <IconRefresh class="size-4" :class="{ 'animate-spin': pending }" />
+      </Button>
+    </ButtonGroup>
   </div>
 </template>
 
@@ -292,9 +222,6 @@
 import { ref } from "vue";
 
 defineProps({
-  editions: { type: Array, default: () => [] },
-  selectedEdition: { type: Object, default: null },
-  changeEdition: { type: Function, required: true },
   availableEvents: { type: Array, default: () => [] },
   availableCategories: { type: Array, default: () => [] },
   selectedEvents: { type: Array, default: () => [] },
@@ -306,12 +233,12 @@ defineProps({
   selectedSortOption: { type: Object, default: null },
   changeSelectedSortOption: { type: Function, required: true },
   pending: { type: Boolean, default: false },
+  viewMode: { type: String, default: "grid" },
 });
 
 defineEmits(["refresh", "clear-events", "clear-categories"]);
 
 const searchInput = defineModel("searchInput", { type: String, default: "" });
-const viewMode = defineModel("viewMode", { type: String, default: "grid" });
 
 const searchInputEl = ref();
 const { metaSymbol } = useShortcuts();

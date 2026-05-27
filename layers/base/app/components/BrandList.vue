@@ -1,30 +1,28 @@
 <template>
-  <div class="container-wider">
-    <div class="flex flex-col items-center text-center">
-      <h2
-        :class="{
-          'section-title': route.name?.toString().includes('brands'),
-          'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl': ![
-            'index',
-            'brands',
-            'edition-brands',
-          ].some((n) => route.name?.toString().startsWith(n)),
-        }"
-      >
-        {{ content.title }}
-      </h2>
+  <div>
+    <div class="container-wider">
+      <div class="flex flex-col items-center text-center">
+        <h2
+          :class="{
+            'section-title': route.name?.toString().includes('brands'),
+            'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl':
+              !['index', 'brands', 'edition-brands'].some((n) =>
+                route.name?.toString().startsWith(n),
+              ),
+          }"
+        >
+          {{ content.title }}
+        </h2>
 
-      <p class="section-description mt-1">
-        {{ content.description }}
-      </p>
+        <p class="section-description mt-1">
+          {{ content.description }}
+        </p>
+      </div>
     </div>
 
     <BrandControls
+      class="mt-6 sm:mt-8"
       v-model:search-input="searchInput"
-      v-model:view-mode="viewMode"
-      :editions="editions"
-      :selected-edition="selectedEdition"
-      :change-edition="changeEdition"
       :available-events="availableEvents"
       :available-categories="availableCategories"
       :selected-events="selectedEvents"
@@ -36,25 +34,28 @@
       :selected-sort-option="selectedSortOption"
       :change-selected-sort-option="changeSelectedSortOption"
       :pending="pending"
+      :view-mode="viewMode"
       @refresh="refresh()"
       @clear-events="selectedEvents = []"
       @clear-categories="selectedCategories = []"
     />
 
-    <BrandResultsView
-      class="mt-3"
-      :pending="pending"
-      :error="error"
-      :view-mode="viewMode"
-      :all-brands="allBrands"
-      :filtered-brands="filteredBrands"
-      :brand-groups="brandGroups"
-      :grouped-filtered-sorted="groupedFilteredSorted"
-      :debounced-search-input="debouncedSearchInput"
-      :brand-base-path="brandBasePath"
-      :get-conjunction-img="getConjunctionImg"
-      :brand-table-columns="brandTableColumns"
-    />
+    <div class="container-wider">
+      <BrandResultsView
+        v-model:view-mode="viewMode"
+        class="mt-6"
+        :pending="pending"
+        :error="error"
+        :all-brands="allBrands"
+        :filtered-brands="filteredBrands"
+        :brand-groups="brandGroups"
+        :grouped-filtered-sorted="groupedFilteredSorted"
+        :debounced-search-input="debouncedSearchInput"
+        :brand-base-path="brandBasePath"
+        :get-conjunction-img="getConjunctionImg"
+        :brand-table-columns="brandTableColumns"
+      />
+    </div>
   </div>
 </template>
 

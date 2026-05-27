@@ -1,15 +1,19 @@
 <template>
   <div>
-    <div
-      v-if="filteredBrands"
-      class="text-muted-foreground text-sm tracking-tight"
-    >
-      Showing {{ filteredBrands.length }} brand<span
-        v-if="filteredBrands.length !== 1"
-        >s</span
+    <div class="flex items-center justify-between gap-x-2.5">
+      <div
+        v-if="filteredBrands"
+        class="text-muted-foreground text-sm tracking-tight"
       >
+        Showing {{ filteredBrands.length }} brand<span
+          v-if="filteredBrands.length !== 1"
+          >s</span
+        >
+      </div>
+      <div v-else class="skeleton h-4 w-36"></div>
+
+      <BrandViewSwitcher v-model="viewMode" />
     </div>
-    <div v-else class="skeleton h-4 w-36"></div>
 
     <div class="mt-4">
       <div v-if="pending">
@@ -231,7 +235,6 @@ import GridFill from "./ui/grid-fill/GridFill.vue";
 const props = defineProps({
   pending: { type: Boolean, default: false },
   error: { type: [Object, null], default: null },
-  viewMode: { type: String, default: "grid" },
   allBrands: { type: Array, default: () => [] },
   filteredBrands: { type: Array, default: () => [] },
   brandGroups: { type: Array, default: () => [] },
@@ -241,6 +244,8 @@ const props = defineProps({
   getConjunctionImg: { type: Function, required: true },
   brandTableColumns: { type: Array, default: () => [] },
 });
+
+const viewMode = defineModel("viewMode", { type: String, default: "grid" });
 
 const groupedBrandsAt = (idx) => props.groupedFilteredSorted.get(idx);
 
