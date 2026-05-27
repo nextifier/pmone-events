@@ -219,8 +219,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
 defineProps({
   availableEvents: { type: Array, default: () => [] },
   availableCategories: { type: Array, default: () => [] },
