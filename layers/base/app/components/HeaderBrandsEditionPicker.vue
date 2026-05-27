@@ -4,10 +4,10 @@
       <Button
         variant="secondary"
         size="sm"
-        class="group rounded-full"
+        class="group h-7! rounded-full pr-1.5! pl-2!"
         aria-label="Edition"
       >
-        <span class="tracking-tight">{{
+        <span class="font-medium tracking-tight">{{
           selectedEdition?.edition_label ?? "Edition"
         }}</span>
         <IconChevronDown
@@ -31,7 +31,8 @@
           class="relative flex w-full cursor-pointer items-center gap-x-4 rounded-md py-2 pr-4 pl-8 tracking-tight text-black ring-black ring-offset-2 ring-offset-white transition hover:bg-gray-100 hover:text-black focus-visible:ring-1 focus-visible:outline-hidden active:scale-98 dark:text-white dark:ring-white dark:ring-offset-gray-950 dark:hover:bg-gray-900 dark:hover:text-white"
           :class="{
             'bg-gray-100 text-black dark:bg-gray-900 dark:text-white':
-              selectedEdition?.edition_number === item.edition_number && !active,
+              selectedEdition?.edition_number === item.edition_number &&
+              !active,
             'bg-blue-600 text-white dark:bg-blue-600 dark:text-white': active,
           }"
           @click="changeEdition(item)"

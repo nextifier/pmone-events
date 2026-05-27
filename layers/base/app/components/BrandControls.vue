@@ -3,7 +3,7 @@
     class="sticky inset-x-0 top-(--navbar-height-mobile) z-50 flex h-(--navbar-height-mobile) items-center justify-center text-sm lg:top-(--navbar-height-desktop) lg:h-(--navbar-height-desktop)"
   >
     <ButtonGroup
-      class="mx-auto flex w-full max-w-2xl items-center rounded-2xl p-2 backdrop-blur-sm"
+      class="border-border/30 bg-background/95 supports-backdrop-filter:bg-background/90 mx-auto flex h-full w-full max-w-2xl items-center px-4 backdrop-blur-sm sm:rounded-b-2xl sm:px-2.5"
     >
       <InputGroup class="bg-background grow">
         <InputGroupAddon align="inline-start">
@@ -212,7 +212,11 @@
         v-tippy="'Refresh'"
         @click="$emit('refresh')"
       >
-        <IconRefresh class="size-4" :class="{ 'animate-spin': pending }" />
+        <Icon
+          name="hugeicons:reload"
+          class="size-4"
+          :class="{ 'animate-spin': pending }"
+        />
       </Button>
     </ButtonGroup>
   </div>

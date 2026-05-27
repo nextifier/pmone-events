@@ -1,5 +1,5 @@
 <template>
-  <div id="programs-page" class="min-h-screen-offset pt-6 pb-16">
+  <div id="programs-page" class="min-h-screen-offset pt-4 pb-16">
     <MainPrograms />
   </div>
 </template>

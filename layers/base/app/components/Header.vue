@@ -23,11 +23,7 @@
       </nuxt-link>
 
       <Transition name="header-edition">
-        <div
-          v-if="showEditionPicker"
-          key="brands-edition"
-          class="ml-3 flex"
-        >
+        <div v-if="showEditionPicker" key="brands-edition" class="ml-2 flex">
           <HeaderBrandsEditionPicker :editions="editions" />
         </div>
       </Transition>

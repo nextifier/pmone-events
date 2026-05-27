@@ -14,14 +14,14 @@
           {{ content.title }}
         </h2>
 
-        <p class="section-description mt-1">
+        <p class="section-description mt-1.5 max-w-2xl!">
           {{ content.description }}
         </p>
       </div>
     </div>
 
     <BrandControls
-      class="mt-6 sm:mt-8"
+      class="mt-4"
       v-model:search-input="searchInput"
       :available-events="availableEvents"
       :available-categories="availableCategories"
