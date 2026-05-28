@@ -19,8 +19,3 @@ export const normalizeBoothNumber = (value) => {
     .replace(/\s/g, "")
     .toUpperCase();
 };
-
-export const displayBrandName = (name) =>
-  (name || "")
-    .toLowerCase()
-    .replace(/\b\w/g, (char) => char.toUpperCase());

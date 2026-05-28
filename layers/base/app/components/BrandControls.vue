@@ -41,7 +41,7 @@
           <Button
             variant="outline"
             size="icon"
-            class="relative shrink-0 grow-0 sm:w-auto sm:gap-1.5 sm:px-3"
+            class="relative shrink-0 grow-0 sm:w-auto sm:gap-1.5 sm:pr-3 sm:pl-2.5"
             aria-label="Filter"
           >
             <Icon
@@ -158,10 +158,8 @@
           <Button
             variant="outline"
             size="icon"
-            :class="[
-              'shrink-0 grow-0 max-sm:!rounded-r-md sm:w-auto sm:gap-1.5 sm:px-3',
-              viewMode === 'table' ? 'pointer-events-none invisible' : '',
-            ]"
+            class="shrink-0 grow-0 max-sm:rounded-r-md! sm:w-auto sm:gap-1.5 sm:pr-3 sm:pl-2.5"
+            :disabled="viewMode === 'table'"
             aria-label="Sort by"
           >
             <Icon

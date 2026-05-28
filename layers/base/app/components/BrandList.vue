@@ -53,7 +53,7 @@
         :debounced-search-input="debouncedSearchInput"
         :brand-base-path="brandBasePath"
         :get-conjunction-img="getConjunctionImg"
-        :brand-table-columns="brandTableColumns"
+        :show-project-column="showProjectColumn"
       />
     </div>
   </div>
@@ -82,10 +82,7 @@ const {
   totalActiveFilters,
   toggleCategoryFilter,
   toggleEventFilter,
-  editions,
-  selectedEdition,
   brandBasePath,
-  changeEdition,
   pending,
   error,
   refresh,
@@ -98,8 +95,4 @@ const {
   getConjunctionImg,
   showProjectColumn,
 } = useBrandsListing({ edition: toRef(props, "edition") });
-
-const { columns: brandTableColumns } = useBrandTableColumns(brandBasePath, {
-  showProjectColumn,
-});
 </script>

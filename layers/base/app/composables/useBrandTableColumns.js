@@ -1,13 +1,9 @@
 import { h } from "vue";
-import BrandTableNameCell from "../components/BrandTableNameCell.vue";
 import { findInstagram, normalizeBoothNumber } from "./useBrandHelpers";
 
-export const useBrandTableColumns = (brandBasePath, options = {}) => {
+export const useBrandTableColumns = (options = {}) => {
   const { $dayjs } = useNuxtApp();
-  const { showProjectColumn } = options;
-
-  const resolveBasePath = () =>
-    typeof brandBasePath === "string" ? brandBasePath : brandBasePath?.value || "/brands";
+  const { showProjectColumn, nameCell } = options;
 
   const isProjectColumnVisible = () =>
     typeof showProjectColumn === "boolean"
@@ -26,17 +22,10 @@ export const useBrandTableColumns = (brandBasePath, options = {}) => {
         enableHiding: false,
         sortingFn: (a, b) =>
           (a.original.brand_name || "").localeCompare(b.original.brand_name || ""),
-        cell: ({ row }) =>
-          h(
-            "div",
-            { class: "pl-3" },
-            [
-              h(BrandTableNameCell, {
-                brand: row.original,
-                brandBasePath: resolveBasePath(),
-              }),
-            ],
-          ),
+        cell: (ctx) =>
+          typeof nameCell === "function"
+            ? nameCell(ctx)
+            : h("span", { class: "pl-3 text-sm tracking-tight" }, ctx.row.original.brand_name || "-"),
       },
       {
         accessorKey: "booth_number",
@@ -96,7 +85,7 @@ export const useBrandTableColumns = (brandBasePath, options = {}) => {
         enableSorting: false,
         enableHiding: true,
         cell: ({ row }) => {
-          const instagram = findInstagram(row.original.links);
+          const instagram = findInstagram(row.original);
           if (!instagram) {
             return h("span", { class: "text-muted-foreground/50 text-sm" }, "-");
           }
