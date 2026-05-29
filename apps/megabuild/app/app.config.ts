@@ -247,7 +247,7 @@ export default defineAppConfig({
   routes: {
     header: [
       routes.home,
-      routes.megaProperty,
+      // routes.megaProperty,
       routes.brands,
       routes.rundown,
       routes.programs,
@@ -264,7 +264,7 @@ export default defineAppConfig({
         label: "Menu",
         links: [
           routes.home,
-          routes.megaProperty,
+          // routes.megaProperty,
           routes.brands,
           routes.rundown,
           routes.programs,
@@ -292,7 +292,7 @@ export default defineAppConfig({
       {
         label: "Discover",
         links: [
-          routes.megaProperty,
+          // routes.megaProperty,
           routes.brands,
           routes.rundown,
           routes.programs,

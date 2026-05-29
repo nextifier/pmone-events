@@ -130,6 +130,26 @@ export const useContentStore = defineStore("content", () => {
           startTime: "2026-05-25T00:00:00+07:00",
           endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-garuda-tile-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-garuda-tile.jpg",
+            alt: "Garuda Tile",
+          },
+          // link: "",
+        },
+        {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
+          adImage: {
+            src: "/img/banners/banner-hero/conversions/km-banner-indogress-sm.jpg",
+            srcFull: "/img/banners/banner-hero/km-banner-indogress.jpg",
+            alt: "Indogress",
+          },
+          // link: "",
+        },
+        {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
+          adImage: {
             src: "/img/banners/banner-hero/conversions/km-banner-alila-sm.jpg",
             srcFull: "/img/banners/banner-hero/km-banner-alila.jpg",
             alt: "Alila",

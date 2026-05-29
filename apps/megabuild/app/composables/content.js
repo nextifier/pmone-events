@@ -121,6 +121,16 @@ export const useContentStore = defineStore("content", () => {
           startTime: "2026-05-25T00:00:00+07:00",
           endTime: "2026-06-09T23:59:59+07:00",
           adImage: {
+            src: "/img/banners/banner-hero/conversions/mb-banner-seyven-sm.jpg",
+            srcFull: "/img/banners/banner-hero/mb-banner-seyven.jpg",
+            alt: "Seyven",
+          },
+          // link: "",
+        },
+        {
+          startTime: "2026-05-25T00:00:00+07:00",
+          endTime: "2026-06-09T23:59:59+07:00",
+          adImage: {
             src: "/img/banners/banner-hero/conversions/mb-banner-bondall-sm.jpg",
             srcFull: "/img/banners/banner-hero/mb-banner-bondall.jpg",
             alt: "Bondall",
