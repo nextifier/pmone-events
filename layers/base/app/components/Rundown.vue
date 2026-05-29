@@ -182,12 +182,17 @@
             v-if="filteredRundownTabs?.length"
             v-model="activeTab"
             variant="segmented"
-            swipe
+            swipeable
             class="flex w-full flex-col"
           >
             <div class="flex justify-center">
               <TabsList>
-                <TabsIndicator />
+                <TabsIndicator
+                  class="supports-[animation-timeline:--x]:hidden"
+                />
+                <TabsSelectionIndicator
+                  class="rounded-lg ring-1 ring-border/40"
+                />
 
                 <TabsTrigger
                   v-for="tab in filteredRundownTabs"
@@ -209,14 +214,15 @@
               </TabsList>
             </div>
 
-            <TabsContent
-              v-for="tab in filteredRundownTabs"
-              :key="tab.value"
-              :value="tab.value"
-              class="text-foreground outline-hidden"
-              tabindex="-1"
-            >
-              <div class="pt-4">
+            <TabsCarousel>
+              <TabsCarouselPanel
+                v-for="tab in filteredRundownTabs"
+                :key="tab.value"
+                :value="tab.value"
+                class="text-foreground outline-hidden"
+                tabindex="-1"
+              >
+                <div class="pt-4">
                 <div
                   v-if="tab.activities?.length"
                   class="grid grid-cols-1 gap-1"
@@ -504,8 +510,9 @@
                     $t("rundown.comingSoon")
                   }}</span>
                 </div>
-              </div>
-            </TabsContent>
+                </div>
+              </TabsCarouselPanel>
+            </TabsCarousel>
           </Tabs>
 
           <div v-else>
