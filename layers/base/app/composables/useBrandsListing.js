@@ -124,15 +124,24 @@ export const useBrandsListing = (opts = {}) => {
   const {
     data: rawData,
     refresh,
-    pending,
+    pending: fetchPending,
     error,
   } = useFetch(brandsUrl, {
     lazy: true,
+    server: false, // client-only: keeps SSR HTML/payload small; SEO via sitemap
     key: `fetchExhibitors-${editionValue.value || "active"}-${
       useConjunctionEndpoint.value ? "conj" : "single"
     }`,
     transform: (res) => (res?.data ? markRaw(res.data) : res?.data),
   });
+
+  // Loading until the first response lands. With server:false the fetch runs
+  // only on the client, so during SSR + the initial client tick rawData is null
+  // while fetchPending may be false — treat that as loading (show skeleton, not
+  // the empty state). A genuine empty result sets rawData to [] (truthy).
+  const isLoading = computed(
+    () => fetchPending.value || (rawData.value == null && !error.value),
+  );
 
   // ----- Brand groups (metadata injected once at fetch level) -----
   const allBrandGroups = computed(() => {
@@ -334,7 +343,7 @@ export const useBrandsListing = (opts = {}) => {
     changeEdition,
 
     // data
-    pending,
+    pending: isLoading,
     error,
     refresh,
     allBrandGroups,

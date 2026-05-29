@@ -300,11 +300,35 @@ const scrollToTabsRootTop = async (event, newActiveTabValue) => {
 
   await nextTick();
 
-  if (tabsRootRef.value) {
-    tabsRootRef.value.$el.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+  const el = tabsRootRef.value?.$el;
+  if (!el) return;
+
+  // Tab Brands memuat konten secara async sehingga tinggi dokumen melonjak. Bila
+  // smooth-scroll berjalan saat itu, animasinya terganggu reflow lalu overshoot
+  // dan berhenti tidak di atas tab. Maka khusus Brands: tunggu sampai tinggi
+  // dokumen BENAR-BENAR stabil (lewati fase skeleton pra-data yang sempat
+  // "stabil"), baru smooth-scroll SEKALI. Tab lain langsung smooth-scroll.
+  if (typeof window !== "undefined" && activeTab.value === "brands") {
+    let lastHeight = -1;
+    let stableTicks = 0;
+    const start = Date.now();
+    const scrollWhenStable = () => {
+      const h = document.documentElement.scrollHeight;
+      stableTicks = h === lastHeight ? stableTicks + 1 : 0;
+      lastHeight = h;
+      const elapsed = Date.now() - start;
+      // butuh 4 tick sama (~200ms tanpa perubahan) DAN minimal 450ms terlewati
+      // supaya tidak ter-trigger oleh skeleton yang stabil sebelum data datang.
+      if ((stableTicks >= 4 && elapsed >= 450) || elapsed > 1600) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        setTimeout(scrollWhenStable, 50);
+      }
+    };
+    scrollWhenStable();
+    return;
   }
+
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 </script>

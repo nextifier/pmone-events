@@ -1,10 +1,7 @@
 <template>
   <SidebarProvider>
     <SidebarInset>
-      <Header
-        v-if="!route?.meta?.noHeader"
-        :class="route?.meta?.headerClass"
-      />
+      <Header v-if="!route?.meta?.noHeader" :class="route?.meta?.headerClass" />
       <main class="flex-auto">
         <slot />
       </main>
@@ -12,7 +9,9 @@
       <Footer
         v-if="
           !route?.meta?.noFooter &&
-          !['links', 'winner'].some((n) => route?.name?.toString().startsWith(n))
+          !['brands', 'brands-slug', 'links', 'winner'].some((n) =>
+            route?.name?.toString().startsWith(n),
+          )
         "
       />
 

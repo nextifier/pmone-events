@@ -40,7 +40,10 @@
       @clear-categories="selectedCategories = []"
     />
 
-    <div class="container-wider">
+    <div
+      ref="resultsRef"
+      class="container-wider scroll-mt-[calc(var(--navbar-height-mobile)*2)] [overflow-anchor:none] lg:scroll-mt-[calc(var(--navbar-height-desktop)*2)]"
+    >
       <BrandResultsView
         v-model:view-mode="viewMode"
         class="mt-6"
@@ -95,4 +98,22 @@ const {
   getConjunctionImg,
   showProjectColumn,
 } = useBrandsListing({ edition: toRef(props, "edition") });
+
+// Pull results into view when search/filter changes, so a virtualized,
+// shortened result set isn't left below the fold after the user has scrolled.
+const resultsRef = ref(null);
+
+const scrollToResults = () => {
+  if (typeof window === "undefined" || !resultsRef.value) return;
+  // Only pull up when the results have already scrolled above the viewport top.
+  // scroll-margin-top on the element lands them just below the sticky controls,
+  // so the browser resolves the offset (no manual sticky math needed).
+  if (resultsRef.value.getBoundingClientRect().top < 0) {
+    resultsRef.value.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
+watch([debouncedSearchInput, selectedCategories, selectedEvents], () => {
+  nextTick(scrollToResults);
+});
 </script>
