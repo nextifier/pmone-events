@@ -4,61 +4,102 @@
       <h2 class="section-title">{{ content.title }}</h2>
     </div>
 
-    <div v-if="pending" class="mt-10 flex justify-center">
-      <Skeleton class="h-[22em] w-full max-w-3xl rounded-3xl" />
+    <!-- Grid wrapper: full-bleed di mobile (sama seperti /brands), contained + rounded di sm+ -->
+    <div
+      v-if="pending || brandsWithLogo.length"
+      ref="wrapRef"
+      class="mt-10 mx-[calc(50%_-_50vw)] sm:mx-0"
+    >
+      <!-- Loading: skeleton grid mengikuti bentuk final (selalu penuh, tanpa cell kosong) -->
+      <GridFill
+        v-if="pending"
+        :count="targetCols * targetRows"
+        :min-col-width="false"
+        :cols="targetCols"
+        class="overflow-hidden sm:rounded-2xl"
+      >
+        <div
+          v-for="n in targetCols * targetRows"
+          :key="n"
+          class="flex flex-col items-center px-2 pt-6 pb-6"
+        >
+          <Skeleton class="size-16 rounded-full" />
+          <Skeleton class="mt-3 h-4 w-24" />
+          <Skeleton class="mt-2 h-3 w-16" />
+        </div>
+      </GridFill>
+
+      <!-- Grid brand -->
+      <template v-else>
+        <GridFill
+          :count="layout.brands.length"
+          :min-col-width="false"
+          :cols="layout.cols"
+          class="overflow-hidden sm:rounded-2xl"
+        >
+          <NuxtLink
+            v-for="brand in layout.brands"
+            :key="brand.slug"
+            :to="localePath(`/brands/${brand.slug}`)"
+            :aria-label="brand.brand_name"
+            class="group hover:bg-muted/40 flex flex-col items-center overflow-hidden px-2 pt-6 pb-6 transition-colors"
+          >
+            <Avatar
+              :model="{
+                name: brand.brand_name,
+                profile_image: brand.brand_logo,
+              }"
+              class="size-16 transition-transform duration-300 group-hover:scale-105"
+              rounded="rounded-full"
+              :colorful="false"
+              :gradient-frame="hasInstagram(brand)"
+            />
+
+            <p
+              class="text-foreground mt-3 line-clamp-2 min-h-[2.5em] px-2 text-center leading-tight font-medium tracking-tight text-balance"
+            >
+              {{ brand.brand_name }}
+            </p>
+
+            <p
+              v-if="brand.business_categories?.length"
+              class="text-muted-foreground mt-1 line-clamp-2 px-2 text-center text-xs tracking-tight sm:text-sm"
+            >
+              {{ brand.business_categories.join(", ") }}
+            </p>
+          </NuxtLink>
+        </GridFill>
+      </template>
     </div>
 
+    <!-- Empty state -->
     <div
-      v-else-if="!brandsWithLogo.length"
+      v-else
       class="text-muted-foreground mt-10 flex justify-center text-sm tracking-tight"
     >
       {{ $t("brandPreview.empty") }}
     </div>
 
-    <Carousel3d
-      v-else
-      :items="brandsWithLogo"
-      card-width="clamp(13em, 28vw, 17em)"
-      card-aspect="1/1"
-      :click-to-toggle="false"
-      :clip-overflow="false"
-      class="[min-height:16em]"
-      aria-label="Brand preview carousel"
+    <!-- Tombol -->
+    <div
+      v-if="!pending && brandsWithLogo.length"
+      class="mt-8 flex justify-center"
     >
-      <template #item="{ item }">
-        <NuxtLink
-          :to="localePath(`/brands/${item.slug}`)"
-          class="group flex h-full flex-col items-center justify-center gap-3 p-4 text-center"
-        >
-          <Avatar
-            :model="{ name: item.brand_name, profile_image: item.brand_logo }"
-            class="size-24 transition-transform duration-300 group-hover:scale-105"
-            rounded="rounded-full"
-            :colorful="false"
-            gradient-frame
-          />
-
-          <div class="flex flex-col gap-1">
-            <h3
-              class="line-clamp-2 text-base font-semibold tracking-tight sm:text-lg"
-            >
-              {{ item.brand_name }}
-            </h3>
-
-            <p
-              v-if="primaryCategory(item)"
-              class="text-muted-foreground line-clamp-1 text-xs tracking-tight"
-            >
-              {{ primaryCategory(item) }}
-            </p>
-          </div>
-        </NuxtLink>
-      </template>
-    </Carousel3d>
+      <Button :to="localePath('/brands')" size="lg" class="active:scale-95">
+        <span>{{ $t("ui.viewAllBrands") }}</span>
+        <Icon name="lucide:arrow-right" />
+      </Button>
+    </div>
   </section>
 </template>
 
 <script setup>
+import { useElementSize } from "@vueuse/core";
+import { hasInstagram } from "../composables/useBrandHelpers";
+
+// Batas atas kandidat brand (cukup untuk mengisi penuh sampai layar lebar).
+const PREVIEW_MAX = 36;
+
 const contentStore = useContentStore();
 const localePath = useLocalePath();
 
@@ -78,9 +119,35 @@ const brandsWithLogo = computed(() => {
       if (typeof logo === "object") return Object.keys(logo).length > 0;
       return Boolean(logo);
     })
-    .slice(0, 12);
+    .slice(0, PREVIEW_MAX);
 });
 
-const primaryCategory = (b) =>
-  Array.isArray(b.business_categories) ? b.business_categories[0] : null;
+// Kolom dikontrol manual (auto-fit GridFill dimatikan) supaya grid SELALU
+// penuh: jumlah brand = kelipatan kolom, tanpa filler/cell kosong.
+// Lebar diukur dari wrapper grid (full-bleed di mobile -> ~100vw).
+const wrapRef = ref(null);
+const { width } = useElementSize(wrapRef);
+
+const targetCols = computed(() => {
+  const w = width.value;
+  if (!w) return 3;
+  if (w < 640) return 3; // mobile: 3 kolom
+  if (w < 960) return 4;
+  if (w < 1200) return 5;
+  return 6;
+});
+
+const targetRows = computed(() => (targetCols.value <= 4 ? 5 : 4));
+
+// Kolom efektif + daftar brand yang tampil; panjangnya selalu kelipatan kolom
+// sehingga setiap baris terisi penuh oleh brand asli (tidak ada cell kosong).
+const layout = computed(() => {
+  const total = brandsWithLogo.value.length;
+  if (!total) return { cols: targetCols.value, brands: [] };
+  // Brand lebih sedikit dari kolom: kecilkan kolom agar satu baris tetap penuh.
+  const cols = Math.min(targetCols.value, total);
+  const fullRows = Math.floor(total / cols); // minimal 1
+  const rows = Math.max(1, Math.min(targetRows.value, fullRows));
+  return { cols, brands: brandsWithLogo.value.slice(0, rows * cols) };
+});
 </script>

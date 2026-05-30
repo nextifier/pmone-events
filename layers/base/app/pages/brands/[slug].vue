@@ -1,170 +1,288 @@
 <template>
-  <div v-if="brand" class="pt-6 sm:pb-14 lg:pt-8 lg:pb-20">
-    <div class="container flex items-center justify-between">
-      <ButtonBack />
+  <div class="pt-6 pb-14 lg:pt-8 lg:pb-24">
+    <!-- Utility bar: back + share -->
+    <div class="container">
+      <div class="flex h-9 items-center justify-between">
+        <ButtonBack />
 
-      <DialogShare :pageTitle="title" />
+        <DialogShare :pageTitle="title" />
+      </div>
+
+      <Separator class="mt-6 lg:mt-8" />
     </div>
 
-    <div class="container mt-6 lg:mt-12">
-      <div class="grid grid-cols-1 items-start gap-6 xl:grid-cols-3">
-        <div class="flex flex-col items-center gap-6 xl:items-start">
-          <div class="flex flex-col items-center gap-6 xl:flex-row">
-            <nuxt-link
-              :to="instagramLink?.url || ''"
+    <!-- Loading skeleton (mirrors the masthead layout) -->
+    <div v-if="pending && !brand" class="container mt-10 lg:mt-16">
+      <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+        <div
+          class="flex flex-col items-center gap-4 lg:col-span-4 lg:items-start"
+        >
+          <Skeleton class="size-40 rounded-full lg:size-44" />
+        </div>
+
+        <div class="flex flex-col gap-4 lg:col-span-8">
+          <Skeleton class="h-12 w-3/4 rounded-2xl lg:h-16" />
+          <Skeleton class="h-5 w-1/3" />
+          <div class="flex gap-1.5 pt-1">
+            <Skeleton class="size-10 rounded-full" />
+            <Skeleton class="size-10 rounded-full" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <template v-else-if="brand">
+      <!-- Identity masthead -->
+      <header class="container mt-10 lg:mt-16">
+        <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+          <!-- Left rail: avatar -->
+          <div
+            class="flex flex-col items-center gap-4 lg:col-span-4 lg:items-start"
+          >
+            <component
+              :is="instagramLink ? 'nuxt-link' : 'div'"
+              :to="instagramLink ? instagramLink.url : undefined"
               :target="instagramLink ? '_blank' : undefined"
               class="shrink-0 [view-transition-name:brand-avatar]"
               @click="instagramLink && trackClick('Instagram')"
             >
+              <!-- With Instagram: avatar links out -->
               <Avatar
-                :model="{
-                  name: brand.brand_name,
-                  profile_image: brand.brand_logo,
-                }"
-                class="size-48 xl:size-32"
+                v-if="instagramLink"
+                :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
+                size="xl"
+                class="size-40 lg:size-44"
                 rounded="rounded-full"
                 :colorful="false"
-                :gradient-frame="!!instagramLink"
+                :gradient-frame="true"
               />
-            </nuxt-link>
 
-            <div
-              class="flex flex-col items-center gap-y-2 text-center xl:items-start xl:text-left"
-            >
-              <h1
-                class="text-3xl leading-[1.2]! font-semibold tracking-tight text-black xl:text-3xl dark:text-white"
+              <!-- No Instagram: avatar opens the logo in a Lightbox -->
+              <Lightbox
+                v-else-if="brand.brand_logo"
+                :items="logoLightboxItems"
+                fullKey="xl"
+                :show-thumbnails="false"
+                :show-counter="false"
               >
-                {{ brand.brand_name }}
-              </h1>
+                <template #trigger="{ open }">
+                  <button
+                    type="button"
+                    class="block rounded-full focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                    @click="open"
+                  >
+                    <Avatar
+                      :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
+                      size="xl"
+                      class="size-40 lg:size-44"
+                      rounded="rounded-full"
+                      :colorful="false"
+                    />
+                  </button>
+                </template>
+              </Lightbox>
 
-              <span v-if="brand.company_name" class="text-xs sm:text-sm">{{
-                brand.company_name
-              }}</span>
-            </div>
+              <!-- No Instagram, no logo: plain initials avatar -->
+              <Avatar
+                v-else
+                :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
+                size="xl"
+                class="size-40 lg:size-44"
+                rounded="rounded-full"
+                :colorful="false"
+              />
+            </component>
           </div>
 
-          <div v-if="brand.links?.length" class="flex gap-2">
-            <SocialLink
-              v-for="link in brand.links"
-              :key="link.label"
-              :to="link.url"
-              :iconName="getLinkIcon(link.label)"
-              :label="link.label"
-              size="lg"
-              @click="trackClick(link.label)"
-            />
+          <!-- Right column: identity -->
+          <div
+            class="reveal flex flex-col gap-3 lg:col-span-8"
+            :class="{ in: mounted }"
+          >
+            <h1
+              class="text-balance text-4xl leading-[0.95] font-semibold tracking-tighter text-foreground sm:text-5xl lg:text-6xl"
+            >
+              {{ brand.brand_name }}
+            </h1>
+
+            <p
+              v-if="brand.company_name"
+              class="text-lg tracking-tight text-muted-foreground lg:text-xl"
+            >
+              {{ brand.company_name }}
+            </p>
+
+            <!-- Social links -->
+            <div v-if="brand.links?.length" class="flex flex-wrap gap-1 pt-2">
+              <SocialLink
+                v-for="link in brand.links"
+                :key="link.label"
+                :to="link.url"
+                :iconName="getLinkIcon(link.label)"
+                :label="link.label"
+                size="lg"
+                @click="trackClick(link.label)"
+              />
+            </div>
           </div>
         </div>
+      </header>
 
-        <div class="grid grid-cols-2 gap-2 xl:order-last">
-          <div
-            class="flex flex-col gap-y-2 rounded-3xl bg-indigo-600 px-4 py-6 text-white lg:px-6 lg:py-8"
-          >
-            <div class="flex items-center gap-x-1">
-              <IconShop class="size-5 shrink-0" />
-              <span class="tracking-tight">{{ $t("ui.booth") }}</span>
-            </div>
-
-            <div class="text-2xl font-semibold tracking-tight">
-              {{ brand.booth_number || "-" }}
-            </div>
-          </div>
-
-          <div
-            class="flex flex-col gap-y-2 rounded-3xl bg-lime-300 px-4 py-6 text-black lg:px-6 lg:py-8"
-          >
-            <div class="flex items-center gap-x-1">
-              <IconTag class="size-5 shrink-0" />
-              <span class="tracking-tight">{{ $t("ui.categories") }}</span>
-            </div>
-
-            <div class="text-base font-semibold tracking-tight">
-              <span v-if="brand.business_categories.length">{{
-                brand.business_categories.join(", ")
-              }}</span>
-              <span v-else>-</span>
-            </div>
-          </div>
-        </div>
-
-        <div
-          v-if="brand.brand_description"
-          class="border-border flex flex-col gap-y-2 rounded-2xl border px-4 py-6 lg:px-6 lg:py-8"
+      <!-- Facts grid: booth + categories -->
+      <section v-if="factCount > 0" class="container mt-10 lg:mt-14">
+        <GridFill
+          :count="factCount"
+          :cols="1"
+          min-col-width="240px"
+          rounded="2xl"
         >
-          <span class="tracking-tight text-gray-500 dark:text-gray-400">{{
-            $t("ui.description")
-          }}</span>
-          <div v-html="brand.brand_description" class="format-html" />
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-6 sm:container lg:mt-10">
-      <div
-        v-if="brand.promotions?.length"
-        class="grid grid-cols-1 gap-x-4 sm:grid-cols-2 sm:gap-y-4 xl:grid-cols-3"
-      >
-        <div v-for="(promo, promoIndex) in brand.promotions" :key="promoIndex">
           <div
-            v-for="(image, imgIndex) in promo.images"
-            :key="`${promoIndex}-${imgIndex}`"
+            v-if="brand.booth_number"
+            class="flex min-h-28 flex-col justify-between gap-2 px-5 py-6 lg:py-7"
           >
-            <div
-              class="overflow-hidden bg-gray-100 sm:rounded-2xl dark:bg-gray-900"
+            <span class="text-sm tracking-tight text-muted-foreground">
+              {{ $t("ui.booth") }}
+            </span>
+            <span
+              class="text-3xl font-semibold tracking-tighter text-accent lg:text-4xl"
             >
-              <img
-                :src="image.xl"
-                :alt="image.alt || ''"
-                class="h-full w-full object-contain"
-                loading="lazy"
-              />
+              {{ brand.booth_number }}
+            </span>
+          </div>
+
+          <div
+            v-if="brand.business_categories?.length"
+            class="flex min-h-28 flex-col justify-between gap-2 px-5 py-6 lg:py-7"
+          >
+            <span class="text-sm tracking-tight text-muted-foreground">
+              {{ $t("ui.categories") }}
+            </span>
+            <div class="flex flex-wrap gap-1.5">
+              <Badge
+                v-for="category in brand.business_categories"
+                :key="category"
+                variant="outline"
+              >
+                {{ category }}
+              </Badge>
+            </div>
+          </div>
+        </GridFill>
+      </section>
+
+      <!-- Lead paragraph: brand_description -->
+      <section v-if="brand.brand_description" class="container mt-10 lg:mt-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          <div class="lg:col-span-7 lg:col-start-5">
+            <div class="mb-3 flex items-center gap-3">
+              <span class="h-px w-8 bg-accent" />
+              <span class="text-sm tracking-tight text-muted-foreground">
+                {{ $t("ui.description") }}
+              </span>
             </div>
 
-            <div
-              class="flex items-start gap-x-2.5 pt-3 pr-4 pb-8 pl-2 sm:px-0 sm:pt-4"
+            <div v-html="brand.brand_description" class="format-html" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Promotions feed: per-post Lightbox cards -->
+      <section v-if="hasPromotions" class="container mt-12 lg:mt-20">
+        <div class="mx-auto max-w-2xl lg:mx-0 lg:ml-[33.333%]">
+          <div class="mb-8 flex items-center gap-3">
+            <span class="h-px w-8 bg-accent" />
+            <span class="text-sm tracking-tight text-muted-foreground">
+              {{ instagramUsername ?? brand.brand_name }}
+            </span>
+          </div>
+
+          <div class="space-y-10">
+            <article
+              v-for="(promo, promoIndex) in postsWithImages"
+              :key="promoIndex"
+              ref="postRefs"
+              class="reveal-up"
             >
-              <nuxt-link
-                :to="instagramLink?.url || ''"
-                :target="instagramLink ? '_blank' : undefined"
-                class="shrink-0"
-                @click="instagramLink && trackClick('Instagram')"
-              >
-                <Avatar
-                  :model="{
-                    name: brand.brand_name,
-                    profile_image: brand.brand_logo,
-                  }"
-                  class="size-14"
-                  rounded="rounded-full"
-                  :colorful="false"
-                  :gradient-frame="!!instagramLink"
-                />
-              </nuxt-link>
-
-              <div class="text-primary flex flex-col gap-y-1 pt-1.5">
-                <nuxt-link
-                  :to="instagramLink?.url || ''"
-                  target="_blank"
-                  class="font-semibold tracking-tight"
+              <!-- Post head -->
+              <div class="mb-3 flex items-center gap-3">
+                <component
+                  :is="instagramLink ? 'nuxt-link' : 'div'"
+                  :to="instagramLink ? instagramLink.url : undefined"
+                  :target="instagramLink ? '_blank' : undefined"
+                  class="shrink-0"
                   @click="instagramLink && trackClick('Instagram')"
-                  >{{ instagramUsername ?? brand.brand_name }}</nuxt-link
                 >
+                  <Avatar
+                    :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
+                    size="sm"
+                    class="size-9"
+                    rounded="rounded-full"
+                    :colorful="false"
+                    :gradient-frame="!!instagramLink"
+                  />
+                </component>
 
-                <div v-if="promo.caption" class="tracking-tight">
-                  {{ promo.caption }}
-                </div>
+                <component
+                  :is="instagramLink ? 'nuxt-link' : 'span'"
+                  :to="instagramLink ? instagramLink.url : undefined"
+                  :target="instagramLink ? '_blank' : undefined"
+                  class="font-semibold tracking-tight text-foreground"
+                  @click="instagramLink && trackClick('Instagram')"
+                >
+                  {{ instagramUsername ?? brand.brand_name }}
+                </component>
 
                 <span
-                  class="text-xs tracking-tight text-gray-500 dark:text-gray-400"
+                  v-if="promo.created_at"
+                  class="ml-auto text-sm tracking-tight text-muted-foreground"
                 >
                   {{ $dayjs(promo.created_at).fromNow() }}
                 </span>
               </div>
-            </div>
+
+              <!-- Media: each post is its own Lightbox grid -->
+              <Lightbox
+                :items="promo.images"
+                thumbnailKey="md"
+                fullKey="xl"
+                :first-spans-large="promo.images.length > 2"
+                :limit="promo.images.length > 5 ? 5 : null"
+                :gridClass="promoGridClass(promo.images.length)"
+                rounded="rounded-2xl"
+                class="gap-1.5"
+                show-caption
+                show-counter
+                show-thumbnails
+              />
+
+              <!-- Caption -->
+              <p
+                v-if="promo.caption"
+                class="mt-3 text-sm tracking-tight text-foreground lg:text-base"
+              >
+                <component
+                  :is="instagramLink ? 'nuxt-link' : 'span'"
+                  :to="instagramLink ? instagramLink.url : undefined"
+                  :target="instagramLink ? '_blank' : undefined"
+                  class="mr-1.5 font-semibold tracking-tight"
+                  @click="instagramLink && trackClick('Instagram')"
+                >
+                  {{ instagramUsername ?? brand.brand_name }}
+                </component>
+                {{ promo.caption }}
+              </p>
+            </article>
           </div>
         </div>
+      </section>
+
+      <!-- Minimal state: a brand with only a name -->
+      <div v-if="isNameOnly" class="container mt-10 lg:mt-16">
+        <Button to="/brands" variant="outline" size="lg">
+          {{ $t("ui.viewAllBrands") }}
+        </Button>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -174,7 +292,10 @@ const config = useRuntimeConfig();
 
 const { $dayjs } = useNuxtApp();
 
-const { data: brand } = await useFetch(`/api/exhibitors/${route.params.slug}`, {
+const {
+  data: brand,
+  pending,
+} = await useFetch(`/api/exhibitors/${route.params.slug}`, {
   transform: (res) => res.data,
 });
 
@@ -216,8 +337,12 @@ const instagramLink = computed(() =>
 
 const instagramUsername = computed(() => {
   if (!instagramLink.value) return null;
-  const path = new URL(instagramLink.value.url).pathname.replace(/\//g, "");
-  return path || null;
+  try {
+    const path = new URL(instagramLink.value.url).pathname.replace(/\//g, "");
+    return path || null;
+  } catch {
+    return null;
+  }
 });
 
 const { trackVisit, trackClick } = useBrandTracking(
@@ -236,4 +361,121 @@ defineShortcuts({
     },
   },
 });
+
+// --- Design-specific derived state ---
+
+// Single-item Lightbox for the brand logo (when no Instagram link exists).
+const logoLightboxItems = computed(() =>
+  brand.value?.brand_logo ? [brand.value.brand_logo] : [],
+);
+
+// Promotion posts that actually carry images (the only ones we render).
+const postsWithImages = computed(
+  () => brand.value?.promotions?.filter((p) => p.images?.length) ?? [],
+);
+
+const hasPromotions = computed(() => postsWithImages.value.length > 0);
+
+// Per-post grid class by image count.
+const promoGridClass = (count) => {
+  if (count <= 1) return "grid grid-cols-1";
+  return "grid grid-cols-2 gap-1.5";
+};
+
+// Facts grid cell count, computed from present facts only.
+const factCount = computed(() => {
+  if (!brand.value) return 0;
+  let count = 0;
+  if (brand.value.booth_number) count++;
+  if (brand.value.business_categories?.length) count++;
+  return count;
+});
+
+// A brand carrying nothing but its name (and maybe a logo).
+const isNameOnly = computed(
+  () =>
+    !!brand.value &&
+    !brand.value.brand_description &&
+    !hasPromotions.value &&
+    factCount.value === 0 &&
+    !brand.value.links?.length,
+);
+
+// --- Restrained reveal motion (CSS-driven, reduced-motion safe) ---
+const mounted = ref(false);
+const postRefs = ref([]);
+let observer = null;
+
+onMounted(() => {
+  requestAnimationFrame(() => {
+    mounted.value = true;
+  });
+
+  if (typeof IntersectionObserver !== "undefined") {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.1 },
+    );
+
+    nextTick(() => {
+      (postRefs.value || []).forEach((el) => el && observer.observe(el));
+    });
+  } else {
+    // No IntersectionObserver: reveal every post immediately.
+    nextTick(() => {
+      (postRefs.value || []).forEach((el) => el && el.classList.add("in"));
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+  observer = null;
+});
 </script>
+
+<style scoped>
+.reveal {
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.4s ease-out;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.4s ease-out;
+}
+
+.reveal-up.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.in,
+  .reveal-up,
+  .reveal-up.in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+</style>
