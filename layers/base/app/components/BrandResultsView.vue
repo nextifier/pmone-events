@@ -58,6 +58,13 @@
               :columns="brandTableColumns"
               :initial-sorting="[{ id: 'brand_name', desc: false }]"
             />
+
+            <!-- "and many more!" flourish, mirroring the grid/card footer:
+                 shown while browsing the full list, never on a search. -->
+            <div v-if="!debouncedSearchInput" class="pt-8">
+              <BrandAndManyMore />
+            </div>
+
             <template #fallback>
               <BrandTableSkeleton />
             </template>

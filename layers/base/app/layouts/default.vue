@@ -9,8 +9,8 @@
       <Footer
         v-if="
           !route?.meta?.noFooter &&
-          !['brands', 'brands-slug', 'links', 'winner'].some((n) =>
-            route?.name?.toString().startsWith(n),
+          !['brands', 'links', 'winner'].some((n) =>
+            route?.name?.toString().includes(n),
           )
         "
       />

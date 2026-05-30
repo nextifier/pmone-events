@@ -29,6 +29,15 @@
             brand-base-path="/brands"
           />
         </CarouselItem>
+
+        <!-- Trailing spacer slide: leaves the last card the same gutter the
+             first card gets from `carousel-px` (embla bounds scroll to the last
+             slide, so the track's trailing padding alone never shows). -->
+        <div
+          aria-hidden="true"
+          class="row-span-4 justify-self-start"
+          :style="{ width: `${edgeInset}px` }"
+        />
       </CarouselContent>
 
       <div class="mt-6 h-8">
@@ -91,7 +100,10 @@ const edgeInset = ref(16);
 const updateEdgeInset = () => {
   const w = document.documentElement.clientWidth;
   const maxWidth = [1600, 1500, 1280, 1024, 768, 640, 540].find((bp) => w >= bp);
-  edgeInset.value = maxWidth ? (w - maxWidth) / 2 + 16 : 16;
+  const inset = maxWidth ? (w - maxWidth) / 2 + 16 : 16;
+  // Subtract the `gap-x-2` (8px) that sits between the last card and the spacer,
+  // so the trailing gutter matches the leading inset exactly.
+  edgeInset.value = Math.max(0, inset - 8);
 };
 
 onMounted(() => {

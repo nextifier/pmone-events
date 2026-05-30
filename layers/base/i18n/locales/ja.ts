@@ -69,6 +69,12 @@ export default {
   brandPreview: {
     empty: "注目ブランドはまだありません。もう少しお待ちください。",
   },
+  brandEvent: {
+    heading: "{brandName}に会場で会おう",
+    body: "会期中にぜひ立ち寄って、{brandName}の出展内容を実際に見て、スタッフと直接話してみてください。",
+    bodyWithBooth: "{brandName}はブース{booth}でお待ちしています。立ち寄って展示を見て、スタッフと直接話してみてください。",
+    cta: "チケットを手に入れる",
+  },
   rundown: {
     comingSoon: "Rundownは近日公開です。もう少しお待ちください。",
     nothingYet: "まだ情報はありません。",

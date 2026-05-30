@@ -141,11 +141,4 @@ usePageMeta("", {
 });
 
 const router = useRouter();
-defineShortcuts({
-  escape: {
-    handler: async () => {
-      router.back();
-    },
-  },
-});
 </script>

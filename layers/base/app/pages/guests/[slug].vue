@@ -104,11 +104,7 @@ usePageMeta("", {
   description: () => guest.value?.organization || "",
 });
 
-defineShortcuts({
-  escape: {
-    handler: () => router.back(),
-  },
-});
+
 
 function iconForLabel(label) {
   const map = {

@@ -1,9 +1,13 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
-    <span
-      class="text-muted-foreground/20 text-center text-[clamp(2rem,11vw,6rem)] !leading-[1.1] font-semibold tracking-tighter"
-    >
-      and many more!
-    </span>
+  <div class="relative isolate pb-8 sm:pb-0">
+    <TextFit
+      tag="span"
+      text="and many more!"
+      text-classes="leading-[1.1] text-outline text-center font-semibold tracking-tighter"
+    />
+
+    <div
+      class="from-background absolute inset-x-0 bottom-0 z-20 h-full bg-linear-to-t to-transparent"
+    ></div>
   </div>
 </template>

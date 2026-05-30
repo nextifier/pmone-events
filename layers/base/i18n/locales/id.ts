@@ -68,6 +68,12 @@ export default {
   brandPreview: {
     empty: "Belum ada brand unggulan. Pantau terus, ya.",
   },
+  brandEvent: {
+    heading: "Ketemu {brandName} langsung di acara",
+    body: "Mampir pas acara berlangsung, lihat langsung yang dibawa {brandName} dan ngobrol langsung sama timnya.",
+    bodyWithBooth: "Cari {brandName} di booth {booth}. Mampir buat lihat yang mereka pamerkan dan ngobrol langsung sama timnya.",
+    cta: "Ambil tiketmu",
+  },
   rundown: {
     comingSoon: "Rundown segera hadir. Cek lagi nanti!",
     nothingYet: "Belum ada jadwal tersedia.",

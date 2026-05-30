@@ -67,6 +67,12 @@ export default {
   brandPreview: {
     empty: "精选 Brand 即将登场，敬请期待。",
   },
+  brandEvent: {
+    heading: "来现场见见 {brandName}",
+    body: "展会期间过来逛逛，亲眼看看 {brandName} 带来了什么，和团队当面聊聊。",
+    bodyWithBooth: "{brandName} 在 {booth} 号展位等你。过来看看他们的展示，和团队当面聊聊。",
+    cta: "立即购票",
+  },
   rundown: {
     comingSoon: "Rundown 即将公布，过段时间再来看看！",
     nothingYet: "还没有日程安排，敬请期待！",

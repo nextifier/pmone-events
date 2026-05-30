@@ -68,6 +68,12 @@ export default {
   brandPreview: {
     empty: "선보일 브랜드를 준비 중이에요. 곧 만나보실 수 있어요.",
   },
+  brandEvent: {
+    heading: "현장에서 {brandName}을(를) 만나보세요",
+    body: "행사 기간에 들러서 {brandName}이(가) 준비한 것을 직접 보고 담당자와 이야기 나눠보세요.",
+    bodyWithBooth: "{brandName}은(는) {booth} 부스에 있습니다. 들러서 전시를 보고 담당자와 직접 이야기 나눠보세요.",
+    cta: "티켓 받기",
+  },
   rundown: {
     comingSoon: "Rundown을 준비 중이에요. 조금만 기다려 주세요!",
     nothingYet: "아직 준비 중이에요!",

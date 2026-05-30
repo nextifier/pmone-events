@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-8 pt-4 pb-20">
+  <div class="space-y-4 pt-4 pb-20">
     <!-- Top bar: back + share (matching icon buttons) -->
     <div class="container flex items-center justify-between">
       <ButtonBack destination="/brands" v-slot="{ goBack }">
@@ -35,7 +35,7 @@
 
     <template v-else-if="brand">
       <div class="container">
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12">
+        <div class="grid grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-12">
           <!-- Left rail: identity + facts (centered on mobile, top-left on desktop) -->
           <div
             class="lg:no-scrollbar flex flex-col items-center py-0 text-center *:shrink-0 lg:sticky lg:top-24 lg:col-span-6 lg:max-h-[calc(100dvh-6rem)] lg:items-start lg:self-start lg:overflow-y-auto lg:text-left"
@@ -100,7 +100,7 @@
             <!-- Links -->
             <div
               v-if="brand.links?.length"
-              class="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 lg:justify-start"
+              class="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 lg:justify-start"
             >
               <SocialLink
                 v-for="link in brand.links"
@@ -120,7 +120,7 @@
               :cols="2"
               min-col-width="150px"
               rounded="xl"
-              class="mt-4 w-full"
+              class="mt-8 w-full text-left"
             >
               <div
                 v-if="brand.booth_number"
@@ -228,20 +228,54 @@
                   </span>
                 </div>
 
-                <!-- Media: each post is its own Lightbox grid -->
+                <!-- Media: uncropped thumbnails that open the fullscreen viewer -->
                 <Lightbox
                   :items="promo.images"
-                  thumbnailKey="md"
                   fullKey="xl"
-                  :first-spans-large="promo.images.length > 2"
-                  :limit="promo.images.length > 5 ? 5 : null"
-                  :gridClass="promoGridClass(promo.images.length)"
                   rounded="rounded-2xl"
-                  class="gap-1.5"
                   show-caption
                   show-counter
                   show-thumbnails
-                />
+                >
+                  <template #trigger="{ openAt }">
+                    <!-- Single image: full width at its natural ratio -->
+                    <button
+                      v-if="promo.images.length === 1"
+                      type="button"
+                      class="bg-muted block w-full cursor-zoom-in overflow-hidden rounded-2xl"
+                      @click="openAt(0)"
+                    >
+                      <img
+                        :src="promoThumbSrc(promo.images[0])"
+                        :alt="promoThumbAlt(promo.images[0], 0)"
+                        class="h-auto w-full"
+                        decoding="async"
+                        draggable="false"
+                      />
+                    </button>
+
+                    <!-- Multiple images: masonry columns so each image keeps
+                         its natural ratio (no crop), stays fully rounded, and
+                         leaves no muted gaps from equal-height grid rows. -->
+                    <div v-else class="columns-2 gap-1.5">
+                      <button
+                        v-for="(image, imageIndex) in promo.images"
+                        :key="imageIndex"
+                        type="button"
+                        class="mb-1.5 block w-full cursor-zoom-in break-inside-avoid overflow-hidden rounded-2xl"
+                        @click="openAt(imageIndex)"
+                      >
+                        <img
+                          :src="promoThumbSrc(image)"
+                          :alt="promoThumbAlt(image, imageIndex)"
+                          class="h-auto w-full"
+                          decoding="async"
+                          draggable="false"
+                        />
+                      </button>
+                    </div>
+                  </template>
+                </Lightbox>
 
                 <!-- Caption -->
                 <p
@@ -274,45 +308,63 @@
           </div>
         </div>
 
-        <!-- Event context -->
-        <!-- <div v-if="brand.event_title" class="mt-6 flex items-center gap-x-2.5">
+        <section
+          v-if="hasEventInvite"
+          class="mx-auto mt-16 w-full max-w-6xl lg:mt-24"
+        >
           <div
-            class="bg-muted aspect-[4/5] w-20 shrink-0 overflow-hidden rounded-lg"
+            class="grid grid-cols-1 gap-y-6 lg:grid-cols-2 lg:items-center lg:gap-x-12"
           >
-            <img
-              v-if="brand.event_poster"
-              :src="brand.event_poster.md || brand.event_poster.sm"
-              :alt="brand.event_poster.alt || brand.event_title"
-              class="size-full object-cover"
-              loading="lazy"
-            />
-          </div>
+            <div v-if="event.poster">
+              <NuxtImg
+                :src="event.poster"
+                :alt="eventInfo.title"
+                class="outline-inside w-full rounded-xl sm:rounded-2xl"
+                sizes="100vw sm:800px"
+                width="1080"
+                height="1350"
+                loading="lazy"
+                format="webp"
+              />
+            </div>
 
-          <div class="flex flex-col gap-y-1 text-left">
-            <span class="text-foreground font-medium tracking-tight">
-              {{ brand.event_title }}
-            </span>
-            <span
-              v-if="
-                brand.event_date_label ||
-                brand.event_location ||
-                brand.event_hall
-              "
-              class="text-muted-foreground text-sm tracking-tight"
-            >
-              <template
-                v-for="(part, i) in [
-                  brand.event_date_label,
-                  brand.event_location,
-                  brand.event_hall,
-                ].filter(Boolean)"
-                :key="i"
+            <div class="flex flex-col items-start text-left">
+              <h2
+                class="text-foreground mt-1 text-3xl leading-[1.25] font-semibold tracking-tighter text-balance sm:mt-2 sm:text-4xl xl:text-5xl"
               >
-                <span v-if="i > 0" class="px-1.5">·</span>{{ part }}
-              </template>
-            </span>
+                {{ $t("brandEvent.heading", { brandName: brand.brand_name }) }}
+              </h2>
+
+              <p class="mt-2.5 text-base tracking-tight text-pretty sm:text-lg">
+                {{
+                  brand.booth_number
+                    ? $t("brandEvent.bodyWithBooth", {
+                        brandName: brand.brand_name,
+                        booth: brand.booth_number,
+                      })
+                    : $t("brandEvent.body", { brandName: brand.brand_name })
+                }}
+              </p>
+
+              <WhenAndWhere
+                class="mt-5"
+                :date="event.date"
+                :time="event.time"
+                :location="event.location"
+                :locationLink="event.locationLink"
+                :hall="event.hall"
+              />
+
+              <Button
+                :to="localePath('/ticket')"
+                size="lg"
+                class="mt-6 active:scale-98"
+              >
+                <span>{{ $t("brandEvent.cta") }}</span>
+              </Button>
+            </div>
           </div>
-        </div> -->
+        </section>
       </div>
 
       <!-- Related brands -->
@@ -323,9 +375,12 @@
 
 <script setup>
 const route = useRoute();
-const config = useRuntimeConfig();
 
 const { $dayjs } = useNuxtApp();
+
+// Event facts for the invite section, same source /ticket reads.
+const event = useAppConfig().event;
+const localePath = useLocalePath();
 
 const { data: brand, pending } = await useFetch(
   `/api/exhibitors/${route.params.slug}`,
@@ -341,8 +396,8 @@ if (!brand.value) {
   });
 }
 
-const title = ref(brand?.value?.brand_name) ?? "";
-const description = brand?.value?.brand_description ?? "";
+const title = computed(() => brand.value?.brand_name ?? "");
+const description = computed(() => brand.value?.brand_description ?? "");
 
 usePageMeta("", {
   title: title,
@@ -356,6 +411,89 @@ const humanizeKey = (key) =>
     .trim()
     .replace(/^\w/, (c) => c.toUpperCase());
 
+// Keys whose values are expected to be currency amounts (investment fee, price, etc).
+const CURRENCY_KEY_RE =
+  /(?:investment_?fee|^fee$|price|harga|biaya|investasi)/i;
+
+// Compact Indonesian magnitude scale. Order matters: largest first.
+const RUPIAH_SCALE = [
+  { value: 1_000_000_000_000, unit: "triliun" },
+  { value: 1_000_000_000, unit: "miliar" },
+  { value: 1_000_000, unit: "juta" },
+];
+
+// Render a single integer rupiah amount as "Rp500 juta" / "Rp1,5 miliar".
+// Returns null when the amount is below 1 juta (caller keeps the original token).
+const compactRupiah = (amount) => {
+  if (!Number.isFinite(amount) || amount < 1_000_000) return null;
+  const scale = RUPIAH_SCALE.find((s) => amount >= s.value);
+  if (!scale) return null;
+  // Two decimals max, drop trailing zeros, comma as the Indonesian decimal mark.
+  const compact = (amount / scale.value)
+    .toFixed(2)
+    .replace(/\.?0+$/, "")
+    .replace(".", ",");
+  return `Rp${compact} ${scale.unit}`;
+};
+
+// Turn a single token into a compact rupiah string when it looks like an amount.
+// A token qualifies if it carries an "Rp" marker OR is a bare number >= 1.000.000.
+// Anything else (or anything unparseable) is returned untouched.
+const formatRupiahToken = (token, keyIsCurrency) => {
+  if (token == null) return token;
+  const raw = String(token);
+  const trimmed = raw.trim();
+  if (!trimmed) return raw;
+
+  const hasRp = /rp/i.test(trimmed);
+  // Strip currency marker + dot thousand separators, keep an optional decimal comma.
+  const digits = trimmed
+    .replace(/rp/gi, "")
+    .replace(/\./g, "")
+    .replace(/\s/g, "");
+  const normalized = digits.replace(",", ".");
+  const amount = Number(normalized);
+
+  // Only act on currency-shaped tokens: an Rp marker, a currency-typed key,
+  // or a bare magnitude that is clearly money (>= 1 juta).
+  const looksLikeMoney = hasRp || keyIsCurrency || amount >= 1_000_000;
+  if (!looksLikeMoney) return raw;
+
+  const compact = compactRupiah(amount);
+  return compact ?? raw; // unparseable / sub-juta -> keep original token
+};
+
+// Format a custom-field value: null-safe, preserves prefixes and ranges.
+// - Leading comparator/prefix (">", "<", "±", "mulai dari", "from") is kept.
+// - "A - B" ranges are formatted on both sides.
+const formatCurrencyValue = (value, key) => {
+  if (value == null) return value;
+  const str = String(value);
+  if (!str.trim()) return str;
+
+  const keyIsCurrency = CURRENCY_KEY_RE.test(String(key ?? ""));
+
+  // Quick reject: nothing money-shaped here, leave the field alone entirely.
+  const hasRp = /rp/i.test(str);
+  const hasBigNumber = /\d{1,3}(?:\.\d{3})+|\d{7,}/.test(str);
+  if (!hasRp && !keyIsCurrency && !hasBigNumber) return str;
+
+  // Capture a leading textual/symbolic prefix and re-attach it after formatting.
+  const prefixMatch = str.match(/^\s*(>=|<=|>|<|±|~|mulai dari|from)\s*/i);
+  const prefix = prefixMatch ? prefixMatch[0].trimEnd() + " " : "";
+  const body = prefixMatch ? str.slice(prefixMatch[0].length) : str;
+
+  // Range "A - B" (spaced hyphen without surrounding digits-glue).
+  const rangeParts = body.split(/\s+-\s+/);
+  if (rangeParts.length === 2) {
+    const left = formatRupiahToken(rangeParts[0], keyIsCurrency);
+    const right = formatRupiahToken(rangeParts[1], keyIsCurrency);
+    return `${prefix}${left} - ${right}`;
+  }
+
+  return `${prefix}${formatRupiahToken(body, keyIsCurrency)}`;
+};
+
 const customFields = computed(() => {
   const fields = brand.value?.custom_fields;
   if (!fields || typeof fields !== "object") return [];
@@ -366,7 +504,8 @@ const customFields = computed(() => {
     .map(([key, value]) => ({
       key,
       label: humanizeKey(key),
-      value: String(value),
+      // Compact rupiah for currency-shaped values; everything else stays as-is.
+      value: formatCurrencyValue(value, key),
     }));
 });
 
@@ -410,13 +549,6 @@ watchEffect(() => {
 });
 
 const router = useRouter();
-defineShortcuts({
-  escape: {
-    handler: async () => {
-      router.back();
-    },
-  },
-});
 
 // --- Design-specific derived state ---
 
@@ -432,11 +564,44 @@ const postsWithImages = computed(
 
 const hasPromotions = computed(() => postsWithImages.value.length > 0);
 
-// Per-post grid class by image count.
-const promoGridClass = (count) => {
-  if (count <= 1) return "grid grid-cols-1";
-  return "grid grid-cols-2 gap-1.5";
-};
+// Uncropped promo thumbnail src. Thumbnails display at most ~660px wide so lg
+// is plenty (the fullscreen viewer still uses xl). These load eagerly in the
+// template: a not-yet-loaded h-auto image collapses to 0px in the masonry,
+// which would suppress native lazy-loading entirely.
+const promoThumbSrc = (image) =>
+  image?.lg || image?.md || image?.xl || image?.sm || image?.url || "";
+
+// Alt text for a promo thumbnail, with safe fallbacks.
+const promoThumbAlt = (image, i) =>
+  image?.alt || `${brand.value?.brand_name ?? "Brand"} promotion ${i + 1}`;
+
+// Event facts for the invite. The brand payload carries a nicely formatted date
+// label, name, and location; app.config fills in what it lacks (location link,
+// opening hours). Brand data wins when both exist so the snapshot stays per-brand.
+const eventInfo = computed(() => ({
+  title: brand.value?.event_title || event.title,
+  date: brand.value?.event_date_label || event.date,
+  time: event.time,
+  location: brand.value?.event_location || event.location,
+  locationLink: event.locationLink,
+  hall: brand.value?.event_hall || event.hall,
+}));
+
+// Number of fact cells the GridFill will hold (drives its filler count).
+const eventFactCount = computed(
+  () =>
+    [
+      eventInfo.value.date,
+      eventInfo.value.time,
+      eventInfo.value.location,
+      eventInfo.value.hall,
+    ].filter(Boolean).length,
+);
+
+// Render the section only when there is a real event with something to show.
+const hasEventInvite = computed(
+  () => !!eventInfo.value.title && (!!event.poster || eventFactCount.value > 0),
+);
 
 // Facts count, computed from present facts only.
 const factCount = computed(() => {

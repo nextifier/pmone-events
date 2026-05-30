@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen-offset pt-4 pb-16">
+  <div class="min-h-screen-offset pt-4">
     <BrandList />
   </div>
 </template>

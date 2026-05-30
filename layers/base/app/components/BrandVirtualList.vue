@@ -1,8 +1,5 @@
 <template>
-  <div
-    ref="containerRef"
-    :class="!isCard && 'mx-[calc(50%_-_50vw)] sm:mx-0'"
-  >
+  <div ref="containerRef" :class="!isCard && 'mx-[calc(50%_-_50vw)] sm:mx-0'">
     <div
       :style="{ height: `${totalSize}px`, width: '100%', position: 'relative' }"
     >
@@ -28,7 +25,7 @@
         </div>
 
         <!-- Footer "and many more" -->
-        <div v-else-if="item.row?.kind === 'footer'" class="pt-10">
+        <div v-else-if="item.row?.kind === 'footer'" class="pt-8">
           <BrandAndManyMore />
         </div>
 

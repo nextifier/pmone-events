@@ -67,6 +67,12 @@ export default {
   "brandPreview": {
     "empty": "No featured brands yet. Check back soon."
   },
+  "brandEvent": {
+    "heading": "Meet {brandName} in person",
+    "body": "Stop by during the show to see what {brandName} is bringing and talk with the team directly.",
+    "bodyWithBooth": "Find {brandName} at booth {booth}. Drop by to see what they are showing and chat with the team in person.",
+    "cta": "Get your ticket"
+  },
   "rundown": {
     "comingSoon": "Rundown is coming soon. Check back later!",
     "nothingYet": "Nothing to see here… yet!",
