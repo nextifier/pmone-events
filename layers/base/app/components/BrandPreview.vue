@@ -105,8 +105,10 @@ const localePath = useLocalePath();
 
 const content = computed(() => contentStore.components.brandPreview);
 
+// Fetch the full active set (not just a page) so the score sort below picks the
+// globally highest-scoring brands, not merely the highest within the first page.
 const { data, pending } = await useAsyncData("brand-preview", () =>
-  $fetch("/api/exhibitors", { query: { per_page: 60 } }).catch(() => null),
+  $fetch("/api/exhibitors", { query: { per_page: 200 } }).catch(() => null),
 );
 
 const brandsWithLogo = computed(() => {
@@ -119,6 +121,7 @@ const brandsWithLogo = computed(() => {
       if (typeof logo === "object") return Object.keys(logo).length > 0;
       return Boolean(logo);
     })
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
     .slice(0, PREVIEW_MAX);
 });
 

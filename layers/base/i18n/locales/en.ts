@@ -5,6 +5,7 @@ export default {
   "ui": {
     "viewAll": "View all",
     "viewAllBrands": "View all brands",
+    "relatedBrands": "More brands to explore",
     "contactUs": "Contact us",
     "back": "Back",
     "comingSoon": "Coming soon",

@@ -5,6 +5,7 @@ export default {
   ui: {
     viewAll: "すべて見る",
     viewAllBrands: "すべてのブランドを見る",
+    relatedBrands: "他のブランドも見る",
     contactUs: "お問い合わせ",
     back: "戻る",
     comingSoon: "近日公開",

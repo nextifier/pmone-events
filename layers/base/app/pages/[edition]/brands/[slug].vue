@@ -19,7 +19,10 @@
               "
             >
               <Avatar
-                :model="{ name: brand.brand_name, profile_image: brand.brand_logo }"
+                :model="{
+                  name: brand.brand_name,
+                  profile_image: brand.brand_logo,
+                }"
                 class="size-full border-[3px] border-white bg-white dark:border-gray-950"
                 size="md"
                 :colorful="false"
@@ -58,7 +61,7 @@
           >
             <div class="flex items-center gap-x-1">
               <IconShop class="size-5 shrink-0" />
-              <span class="tracking-tight">{{ $t('ui.booth') }}</span>
+              <span class="tracking-tight">{{ $t("ui.booth") }}</span>
             </div>
 
             <div class="text-2xl font-semibold tracking-tight">
@@ -71,7 +74,7 @@
           >
             <div class="flex items-center gap-x-1">
               <IconTag class="size-5 shrink-0" />
-              <span class="tracking-tight">{{ $t('ui.categories') }}</span>
+              <span class="tracking-tight">{{ $t("ui.categories") }}</span>
             </div>
 
             <div class="text-base font-semibold tracking-tight">
@@ -87,9 +90,9 @@
           v-if="brand.brand_description"
           class="flex flex-col gap-y-2 rounded-3xl bg-gray-100 px-4 py-6 lg:px-6 lg:py-8 dark:bg-gray-900"
         >
-          <span class="tracking-tight text-gray-500 dark:text-gray-400"
-            >{{ $t('ui.description') }}</span
-          >
+          <span class="tracking-tight text-gray-500 dark:text-gray-400">{{
+            $t("ui.description")
+          }}</span>
           <p class="text-base tracking-tight sm:text-lg">
             {{ brand.brand_description }}
           </p>
@@ -126,9 +129,7 @@
                 target="_blank"
                 class="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-full p-0.5 text-center"
                 :class="
-                  instagramLink
-                    ? 'gradient-insta bg-linear-to-tr'
-                    : 'bg-border'
+                  instagramLink ? 'gradient-insta bg-linear-to-tr' : 'bg-border'
                 "
               >
                 <Avatar

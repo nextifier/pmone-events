@@ -2,10 +2,10 @@
   <div class="space-y-16 pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
     <LazyBrandPreview v-if="brandPreviewVisible" />
-    <LazyMegaPropertyIntro />
-    <LazyArchitectDesignerAlley />
     <LazyRundown v-if="rundownVisible" />
     <LazyHotels v-if="hotelSectionVisible" :show-event-header="false" />
+    <LazyMegaPropertyIntro />
+    <LazyArchitectDesignerAlley />
     <LazyAboutEvent />
     <LazyFactsAndFigures />
     <LazyPartnerships />

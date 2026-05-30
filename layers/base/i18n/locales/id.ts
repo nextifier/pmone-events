@@ -5,6 +5,7 @@ export default {
   ui: {
     viewAll: "Lihat semua",
     viewAllBrands: "Lihat semua brand",
+    relatedBrands: "Jelajahi brand lainnya",
     contactUs: "Hubungi kami",
     back: "Kembali",
     comingSoon: "Coming soon",

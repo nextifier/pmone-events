@@ -600,6 +600,18 @@
   }
 }
 
+/*
+ * Container-aligned inset for GRID carousels (grid-flow-col + auto-cols).
+ * Unlike carousel-mx (per-item margins for flex carousels), this applies the
+ * inset as horizontal padding on the embla track itself. In a grid, a
+ * first/last-item margin resolves "100%" against the fixed column track,
+ * collapsing the item; padding on the container resolves "100%" against the
+ * viewport, so the leading card lines up with `.container` (same calc values).
+ */
+.carousel-px {
+  @apply px-4 xs:px-[calc((100%-(540px-(1rem*2)))/2)] sm:px-[calc((100%-(640px-(1rem*2)))/2)] md:px-[calc((100%-(768px-(1rem*2)))/2)] lg:px-[calc((100%-(1024px-(1rem*2)))/2)] xl:px-[calc((100%-(1280px-(1rem*2)))/2)] 2xl:px-[calc((100%-(1500px-(1rem*2)))/2)] 3xl:px-[calc((100%-(1600px-(1rem*2)))/2)];
+}
+
 @utility format-html {
   @apply prose dark:prose-invert prose-h1:font-semibold! prose-headings:font-medium! prose-strong:font-semibold prose-headings:tracking-tighter sm:prose-lg prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-muted-foreground prose-img:w-full prose-img:my-0 prose-figure:mt-2 prose-figure:mb-0 prose-headings:not-first:mt-[1.5em] prose-headings:mb-[0.5em] prose-p:not-first:mt-[1em] prose-p:not-last:mb-[1em] prose-ul:my-[1em] prose-p:first:mt-0 prose-p:last:mb-0 text-foreground dark:text-body max-w-2xl tracking-[-0.015em] wrap-break-word;
 

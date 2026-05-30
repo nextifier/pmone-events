@@ -5,6 +5,7 @@ export default {
   ui: {
     viewAll: "查看全部",
     viewAllBrands: "查看全部 Brand",
+    relatedBrands: "探索更多 Brand",
     contactUs: "联系我们",
     back: "返回",
     comingSoon: "即将推出",

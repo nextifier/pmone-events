@@ -6,6 +6,7 @@ import {
 } from "./useBrandHelpers";
 
 const SORT_OPTIONS = [
+  { label: "Recommended", val: "score" },
   { label: "Brand Name", val: "brand_name" },
   { label: "Booth Number", val: "booth_number" },
   { label: "Last Created", val: "-created_at" },
@@ -259,7 +260,13 @@ export const useBrandsListing = (opts = {}) => {
     if (!brands?.length) return brands;
     const sorted = [...brands];
     const val = selectedSortOption.value?.val;
-    if (val === "brand_name") {
+    if (val === "score") {
+      sorted.sort((a, b) => {
+        const diff = (b.score ?? 0) - (a.score ?? 0);
+        if (diff !== 0) return diff;
+        return (a.brand_name || "").localeCompare(b.brand_name || "");
+      });
+    } else if (val === "brand_name") {
       sorted.sort((a, b) =>
         (a.brand_name || "").localeCompare(b.brand_name || ""),
       );
