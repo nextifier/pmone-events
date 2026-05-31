@@ -4,8 +4,8 @@
       <Lightbox
         :items="items"
         alt="Gallery"
-        grid-class="grid grid-cols-2 gap-1 sm:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
-        item-class="aspect-square sm:aspect-4/3"
+        grid-class="grid grid-cols-1 gap-1 sm:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+        item-class="aspect-auto sm:aspect-4/3"
       />
     </div>
   </div>

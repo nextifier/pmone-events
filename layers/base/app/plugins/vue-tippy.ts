@@ -1,10 +1,9 @@
 import VueTippy from "vue-tippy";
 import type { TippyPluginOptions } from "vue-tippy";
 
-import "tippy.js/animations/scale.css";
+// Only "shift-away" is actually used (see defaultProps.animation below). The
+// other three animation stylesheets were render-blocking dead weight.
 import "tippy.js/animations/shift-away.css";
-import "tippy.js/animations/shift-toward.css";
-import "tippy.js/animations/perspective.css";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(VueTippy, {

@@ -35,7 +35,7 @@
               'h-20 xl:h-24': partner.list.length <= 10,
               'h-18 xl:h-20': partner.list.length > 10,
             }"
-            aria-label="Partner logo"
+            :aria-label="item.link ? item.name || 'Partner logo' : undefined"
           >
             <NuxtImg
               :src="`${partner.directory}${item.img}`"

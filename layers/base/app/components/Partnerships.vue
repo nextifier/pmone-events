@@ -65,6 +65,7 @@
           <nuxt-link
             :to="lp(item.link)"
             :target="item.link.startsWith('http') ? '_blank' : ''"
+            :aria-label="item.title"
             class="bg-muted aspect-square w-full shrink-0 overflow-hidden rounded-xl lg:size-32"
           >
             <NuxtImg

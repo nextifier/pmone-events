@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch, useTemplateRef } from "vue";
+import { onMounted, onUnmounted, ref, useTemplateRef } from "vue";
 import { Renderer, Program, Mesh, Triangle, Vec3 } from "ogl";
 
 interface OrbProps {
@@ -17,6 +17,25 @@ const props = withDefaults(defineProps<OrbProps>(), {
 });
 
 const ctnDom = useTemplateRef<HTMLDivElement>("ctnDom");
+
+// `ready` gates the fade-in: the canvas stays invisible until the deferred WebGL
+// init has actually painted, so the hero never flashes an empty box.
+const ready = ref(false);
+
+// Render-gating: only burn GPU/main-thread on the noise shader while the orb is
+// actually on-screen and the tab is visible. Honour reduced-motion too.
+const isVisible = ref(true);
+const documentVisibility = useDocumentVisibility();
+const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+const isMobile = useMediaQuery("(max-width: 768px)");
+
+useIntersectionObserver(
+  ctnDom,
+  ([entry]) => {
+    isVisible.value = entry?.isIntersecting ?? true;
+  },
+  { threshold: 0 },
+);
 
 const vert = /* glsl */ `
     precision highp float;
@@ -212,7 +231,10 @@ const setupAnimation = () => {
 
   function resize() {
     if (!container) return;
-    const dpr = window.devicePixelRatio || 1;
+    // Cap DPR: this is a fill-rate-bound noise shader, so rendering at full 3x/4x
+    // DPR costs ~9-16x the fragment work for negligible visual gain. On mobile
+    // (weak GPUs, where PageSpeed is measured) clamp to 1; desktop keeps 2.
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile.value ? 1 : 2);
     const width = container.clientWidth;
     const height = container.clientHeight;
     renderer.setSize(width * dpr, height * dpr);
@@ -229,8 +251,12 @@ const setupAnimation = () => {
 
   let targetHover = 0;
   let lastTime = 0;
+  let lastRender = 0;
   let currentRot = 0;
   const rotationSpeed = 0.3;
+  // Cap the noise shader at ~30fps. It's an ambient background, so half the
+  // frames are imperceptible but cut the sustained GPU/main-thread cost in half.
+  const frameInterval = 1000 / 30;
 
   const handleMouseMove = (e: MouseEvent) => {
     const rect = container.getBoundingClientRect();
@@ -261,6 +287,20 @@ const setupAnimation = () => {
   let rafId: number;
   const update = (t: number) => {
     rafId = requestAnimationFrame(update);
+
+    // Skip the expensive WebGL render when off-screen or the tab is hidden.
+    // RAF keeps ticking (negligible cost) so rendering resumes instantly.
+    const offscreen =
+      !isVisible.value || documentVisibility.value === "hidden";
+    if (offscreen) {
+      lastTime = t; // avoid a dt spike on resume
+      return;
+    }
+
+    // Throttle to ~30fps.
+    if (t - lastRender < frameInterval) return;
+    lastRender = t;
+
     const dt = (t - lastTime) * 0.001;
     lastTime = t;
     program.uniforms.iTime.value = t * 0.001;
@@ -277,6 +317,12 @@ const setupAnimation = () => {
     program.uniforms.rot.value = currentRot;
 
     renderer.render({ scene: mesh });
+    ready.value = true; // first painted frame -> fade in
+
+    // Reduced-motion: paint one static frame, then stop animating.
+    if (reducedMotion.value) {
+      cancelAnimationFrame(rafId);
+    }
   };
   rafId = requestAnimationFrame(update);
 
@@ -290,30 +336,45 @@ const setupAnimation = () => {
   };
 };
 
+let idleHandle: number | undefined;
+let idleTimeout: ReturnType<typeof setTimeout> | undefined;
+
 onMounted(() => {
-  setupAnimation();
+  // Defer the heavy WebGL init until the browser is idle (after first paint /
+  // the LCP+TBT window PageSpeed measures), so the noise shader never competes
+  // with hydration. The orb is a decorative background; a ~1s late fade-in is
+  // imperceptible but keeps the critical path clear.
+  const start = () => {
+    if (!cleanupAnimation) setupAnimation();
+  };
+  if (typeof window.requestIdleCallback === "function") {
+    idleHandle = window.requestIdleCallback(start, { timeout: 2500 });
+  } else {
+    idleTimeout = setTimeout(start, 1200);
+  }
 });
 
 onUnmounted(() => {
+  if (idleHandle && typeof window.cancelIdleCallback === "function") {
+    window.cancelIdleCallback(idleHandle);
+  }
+  if (idleTimeout) clearTimeout(idleTimeout);
   if (cleanupAnimation) {
     cleanupAnimation();
     cleanupAnimation = null;
   }
 });
 
-watch(
-  () => props,
-  () => {
-    if (cleanupAnimation) {
-      cleanupAnimation();
-      cleanupAnimation = null;
-    }
-    setupAnimation();
-  },
-  { deep: true },
-);
+// NOTE: the previous `watch(() => props, ..., { deep: true })` was removed. It
+// tore down and rebuilt the entire GL context/geometry/listeners on every prop
+// access, causing TBT spikes + flicker. All props (hue, hoverIntensity,
+// rotateOnHover, forceHoverState) are already read live inside the RAF loop.
 </script>
 
 <template>
-  <div ref="ctnDom" class="size-full" />
+  <div
+    ref="ctnDom"
+    class="size-full transition-opacity duration-1000 ease-out"
+    :class="ready ? 'opacity-100' : 'opacity-0'"
+  />
 </template>

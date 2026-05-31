@@ -94,7 +94,8 @@
                 :placeholder="$t('ui.search')"
               />
 
-              <Icon name="hugeicons:search-01"
+              <Icon
+                name="hugeicons:search-01"
                 class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400 peer-focus:text-gray-400"
               />
 
@@ -191,7 +192,7 @@
                   class="supports-[animation-timeline:--x]:hidden"
                 />
                 <TabsSelectionIndicator
-                  class="rounded-lg ring-1 ring-border/40"
+                  class="ring-border/40 rounded-lg ring-1"
                 />
 
                 <TabsTrigger
@@ -223,124 +224,89 @@
                 tabindex="-1"
               >
                 <div class="pt-4">
-                <div
-                  v-if="tab.activities?.length"
-                  class="grid grid-cols-1 gap-1"
-                >
-                  <template
-                    v-for="(activity, index) in tab.activities"
-                    :key="activity.id ?? index"
+                  <div
+                    v-if="tab.activities?.length"
+                    class="grid grid-cols-1 gap-1"
                   >
-                    <!-- Section Header (settings.is_group_header — non-clickable) -->
-                    <div
-                      v-if="activity.is_header"
-                      class="border-primary mt-6 mb-2 border-l-2 pl-4"
+                    <template
+                      v-for="(activity, index) in tab.activities"
+                      :key="activity.id ?? index"
                     >
-                      <span
-                        class="text-base font-semibold tracking-tighter"
-                        >{{ activity.title }}</span
-                      >
-                      <p
-                        v-if="activity.subtitle"
-                        class="mt-1 text-base tracking-tight"
-                      >
-                        {{ activity.subtitle }}
-                      </p>
-                      <p
-                        v-if="activity.theme"
-                        class="mt-1 text-base tracking-tight"
-                      >
-                        {{ activity.theme }}
-                      </p>
-                    </div>
-
-                    <!-- Field Trip Card -->
-                    <component
-                      v-else-if="activity.type === 'field_trip'"
-                      :is="effectiveClickToOpenDialog ? 'button' : 'div'"
-                      :type="effectiveClickToOpenDialog ? 'button' : undefined"
-                      class="border-border/50 bg-muted/30 flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition sm:p-6"
-                      :class="
-                        effectiveClickToOpenDialog
-                          ? 'hover:bg-muted/50 cursor-pointer active:scale-98'
-                          : ''
-                      "
-                      @click="
-                        effectiveClickToOpenDialog ? openDialog(activity) : null
-                      "
-                    >
+                      <!-- Section Header (settings.is_group_header — non-clickable) -->
                       <div
-                        class="bg-accent/10 text-accent flex size-12 shrink-0 items-center justify-center rounded-xl"
+                        v-if="activity.is_header"
+                        class="border-primary mt-6 mb-2 border-l-2 pl-4"
                       >
-                        <Icon name="hugeicons:bus-01" class="size-6" />
-                      </div>
-                      <div class="min-w-0 flex-1">
-                        <div class="flex flex-wrap items-center gap-2">
-                          <h3
-                            class="text-base font-medium tracking-tighter sm:text-lg"
-                          >
-                            {{ activity.title }}
-                          </h3>
-                          <span
-                            class="bg-muted rounded-full px-2 py-0.5 text-sm font-medium tracking-tight"
-                          >
-                            {{ $t("ui.fieldTrip") }}
-                          </span>
-                        </div>
-                        <p
-                          v-if="activity.start_time || activity.end_time"
-                          class="mt-1 tracking-tight"
+                        <span
+                          class="text-base font-semibold tracking-tighter"
+                          >{{ activity.title }}</span
                         >
-                          {{ formatTimeRange(activity) }}
+                        <p
+                          v-if="activity.subtitle"
+                          class="mt-1 text-base tracking-tight"
+                        >
+                          {{ activity.subtitle }}
                         </p>
                         <p
-                          v-if="activity.description"
-                          class="mt-1 tracking-tight"
-                          v-html="activity.description"
-                        />
-                      </div>
-                      <div
-                        v-if="activity.poster_image?.sm"
-                        class="hidden w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 sm:block dark:bg-gray-900"
-                      >
-                        <NuxtImg
-                          :src="activity.poster_image.sm"
-                          alt=""
-                          class="h-full w-full object-cover"
-                          sizes="200px"
-                          width="1080"
-                          height="1350"
-                          loading="lazy"
-                          format="webp"
-                        />
-                      </div>
-                    </component>
-
-                    <!-- Regular / break / custom -->
-                    <component
-                      v-else
-                      :is="effectiveClickToOpenDialog ? 'button' : 'div'"
-                      :type="effectiveClickToOpenDialog ? 'button' : undefined"
-                      class="flex w-full gap-x-2 rounded-2xl p-2 text-left transition @xl:p-3"
-                      :class="
-                        effectiveClickToOpenDialog
-                          ? 'hover:bg-muted/50 cursor-pointer active:scale-98'
-                          : ''
-                      "
-                      @click="
-                        effectiveClickToOpenDialog ? openDialog(activity) : null
-                      "
-                    >
-                      <!-- Time + Poster (left column) -->
-                      <div class="flex w-24 shrink-0 flex-col gap-2">
-                        <span
-                          class="pt-0.5 text-sm tracking-tight tabular-nums sm:pt-1"
-                          >{{ formatTimeRange(activity) }}</span
+                          v-if="activity.theme"
+                          class="mt-1 text-base tracking-tight"
                         >
+                          {{ activity.theme }}
+                        </p>
+                      </div>
 
+                      <!-- Field Trip Card -->
+                      <component
+                        v-else-if="activity.type === 'field_trip'"
+                        :is="effectiveClickToOpenDialog ? 'button' : 'div'"
+                        :type="
+                          effectiveClickToOpenDialog ? 'button' : undefined
+                        "
+                        class="border-border/50 bg-muted/30 flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition sm:p-6"
+                        :class="
+                          effectiveClickToOpenDialog
+                            ? 'hover:bg-muted/50 cursor-pointer active:scale-98'
+                            : ''
+                        "
+                        @click="
+                          effectiveClickToOpenDialog
+                            ? openDialog(activity)
+                            : null
+                        "
+                      >
+                        <div
+                          class="bg-accent/10 text-accent flex size-12 shrink-0 items-center justify-center rounded-xl"
+                        >
+                          <Icon name="hugeicons:bus-01" class="size-6" />
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <div class="flex flex-wrap items-center gap-2">
+                            <h3
+                              class="text-base font-medium tracking-tighter sm:text-lg"
+                            >
+                              {{ activity.title }}
+                            </h3>
+                            <span
+                              class="bg-muted rounded-full px-2 py-0.5 text-sm font-medium tracking-tight"
+                            >
+                              {{ $t("ui.fieldTrip") }}
+                            </span>
+                          </div>
+                          <p
+                            v-if="activity.start_time || activity.end_time"
+                            class="mt-1 tracking-tight"
+                          >
+                            {{ formatTimeRange(activity) }}
+                          </p>
+                          <p
+                            v-if="activity.description"
+                            class="mt-1 tracking-tight"
+                            v-html="activity.description"
+                          />
+                        </div>
                         <div
                           v-if="activity.poster_image?.sm"
-                          class="w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
+                          class="hidden w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 sm:block dark:bg-gray-900"
                         >
                           <NuxtImg
                             :src="activity.poster_image.sm"
@@ -353,163 +319,211 @@
                             format="webp"
                           />
                         </div>
-                      </div>
+                      </component>
 
-                      <!-- Body -->
-                      <div class="min-w-0 flex-1">
-                        <span
-                          class="text-base font-semibold tracking-tighter sm:text-lg"
-                          >{{ activity.title }}</span
-                        >
-
-                        <p
-                          v-if="activity.speakers_list?.length === 1"
-                          class="mt-0.5 tracking-tight"
-                        >
-                          <span class="font-semibold"
-                            >{{ $t("ui.speaker") }}:&nbsp;</span
-                          >
-                          <span class="font-medium">{{
-                            activity.speakers_list[0].name
-                          }}</span>
+                      <!-- Regular / break / custom -->
+                      <component
+                        v-else
+                        :is="effectiveClickToOpenDialog ? 'button' : 'div'"
+                        :type="
+                          effectiveClickToOpenDialog ? 'button' : undefined
+                        "
+                        class="flex w-full gap-x-2 rounded-2xl p-2 text-left transition @xl:p-3"
+                        :class="
+                          effectiveClickToOpenDialog
+                            ? 'hover:bg-muted/50 cursor-pointer active:scale-98'
+                            : ''
+                        "
+                        @click="
+                          effectiveClickToOpenDialog
+                            ? openDialog(activity)
+                            : null
+                        "
+                      >
+                        <!-- Time + Poster (left column) -->
+                        <div class="flex w-24 shrink-0 flex-col gap-2">
                           <span
-                            v-if="activity.speakers_list[0].title"
-                            class="text-muted-foreground"
-                            >, {{ activity.speakers_list[0].title }}</span
+                            class="pt-0.5 text-sm tracking-tight tabular-nums sm:pt-1"
+                            >{{ formatTimeRange(activity) }}</span
                           >
-                          <span
-                            v-if="activity.speakers_list[0].organization"
-                            class="text-muted-foreground"
-                          >
-                            - {{ activity.speakers_list[0].organization }}</span
-                          >
-                        </p>
 
-                        <div
-                          v-else-if="activity.speakers_list?.length"
-                          class="mt-0.5 tracking-tight"
-                        >
-                          <span class="font-semibold"
-                            >{{ $t("ui.speakers") }}:</span
+                          <div
+                            v-if="activity.poster_image?.sm"
+                            class="w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
                           >
-                          <ul
-                            class="mt-1 list-outside list-disc space-y-0.5 pl-4"
-                          >
-                            <li
-                              v-for="(speaker, sIdx) in activity.speakers_list"
-                              :key="sIdx"
-                            >
-                              <span class="font-medium">{{
-                                speaker.name
-                              }}</span>
-                              <span
-                                v-if="speaker.title"
-                                class="text-muted-foreground"
-                                >, {{ speaker.title }}</span
-                              >
-                              <span
-                                v-if="speaker.organization"
-                                class="text-muted-foreground"
-                              >
-                                - {{ speaker.organization }}</span
-                              >
-                            </li>
-                          </ul>
+                            <NuxtImg
+                              :src="activity.poster_image.sm"
+                              alt=""
+                              class="h-full w-full object-cover"
+                              sizes="200px"
+                              width="1080"
+                              height="1350"
+                              loading="lazy"
+                              format="webp"
+                            />
+                          </div>
                         </div>
 
-                        <p
-                          v-if="activity.theme"
-                          class="text-muted-foreground mt-0.5 tracking-tight"
-                        >
-                          {{ activity.theme }}
-                        </p>
-
-                        <p
-                          v-if="activity.subtitle"
-                          class="mt-0.5 font-semibold tracking-tight"
-                        >
-                          {{ activity.subtitle }}
-                        </p>
-
-                        <template v-if="effectiveShowAllDetails">
-                          <div
-                            v-if="activity.description"
-                            class="mt-1.5 text-sm leading-relaxed tracking-tight sm:text-base"
-                            v-html="activity.description"
-                          />
+                        <!-- Body -->
+                        <div class="min-w-0 flex-1">
+                          <span
+                            class="text-base font-semibold tracking-tighter sm:text-lg"
+                            >{{ activity.title }}</span
+                          >
 
                           <p
-                            v-if="activity.moderator"
-                            class="mt-1.5 tracking-tight"
-                          >
-                            <span class="font-semibold"
-                              >{{ $t("ui.moderator") }}:</span
-                            >
-                            {{ activity.moderator }}
-                          </p>
-
-                          <div
-                            v-if="activity.panelist_names?.length"
+                            v-if="activity.speakers_list?.length === 1"
                             class="mt-0.5 tracking-tight"
                           >
                             <span class="font-semibold"
-                              >{{ $t("ui.panelists") }}:</span
+                              >{{ $t("ui.speaker") }}:&nbsp;</span
+                            >
+                            <span class="font-medium">{{
+                              activity.speakers_list[0].name
+                            }}</span>
+                            <span
+                              v-if="activity.speakers_list[0].title"
+                              class="text-muted-foreground"
+                              >, {{ activity.speakers_list[0].title }}</span
+                            >
+                            <span
+                              v-if="activity.speakers_list[0].organization"
+                              class="text-muted-foreground"
+                            >
+                              -
+                              {{ activity.speakers_list[0].organization }}</span
+                            >
+                          </p>
+
+                          <div
+                            v-else-if="activity.speakers_list?.length"
+                            class="mt-0.5 tracking-tight"
+                          >
+                            <span class="font-semibold"
+                              >{{ $t("ui.speakers") }}:</span
                             >
                             <ul
                               class="mt-1 list-outside list-disc space-y-0.5 pl-4"
                             >
                               <li
                                 v-for="(
-                                  panelist, pIdx
-                                ) in activity.panelist_names"
-                                :key="pIdx"
+                                  speaker, sIdx
+                                ) in activity.speakers_list"
+                                :key="sIdx"
                               >
-                                {{ panelist }}
+                                <span class="font-medium">{{
+                                  speaker.name
+                                }}</span>
+                                <span
+                                  v-if="speaker.title"
+                                  class="text-muted-foreground"
+                                  >, {{ speaker.title }}</span
+                                >
+                                <span
+                                  v-if="speaker.organization"
+                                  class="text-muted-foreground"
+                                >
+                                  - {{ speaker.organization }}</span
+                                >
                               </li>
                             </ul>
                           </div>
 
-                          <div
-                            v-if="activity.categories?.length"
-                            class="mt-1.5 flex items-center gap-x-1"
+                          <p
+                            v-if="activity.theme"
+                            class="text-muted-foreground mt-0.5 tracking-tight"
                           >
-                            <IconTag class="h-4 shrink-0" />
-                            <span class="text-sm tracking-tight sm:text-base">{{
-                              activity.categories.join(", ")
-                            }}</span>
-                          </div>
+                            {{ activity.theme }}
+                          </p>
 
-                          <div
-                            v-if="activity.location"
-                            class="mt-1 flex items-center gap-x-1"
+                          <p
+                            v-if="activity.subtitle"
+                            class="mt-0.5 font-semibold tracking-tight"
                           >
-                            <IconLocation class="h-4 shrink-0" />
-                            <span class="text-sm tracking-tight sm:text-base">{{
-                              activity.location
-                            }}</span>
-                          </div>
+                            {{ activity.subtitle }}
+                          </p>
 
-                          <div
-                            v-if="activity.presented_by"
-                            class="text-muted-foreground mt-1.5 text-sm tracking-tight sm:text-base"
-                          >
-                            {{ $t("ui.presentedBy") }}
-                            {{ activity.presented_by }}
-                          </div>
-                        </template>
-                      </div>
-                    </component>
-                  </template>
-                </div>
+                          <template v-if="effectiveShowAllDetails">
+                            <div
+                              v-if="activity.description"
+                              class="mt-1.5 text-sm leading-relaxed tracking-tight sm:text-base"
+                              v-html="activity.description"
+                            />
 
-                <div
-                  v-else
-                  class="flex flex-col items-center justify-center pt-4 text-center"
-                >
-                  <span class="text-base font-semibold tracking-tight">{{
-                    $t("rundown.comingSoon")
-                  }}</span>
-                </div>
+                            <p
+                              v-if="activity.moderator"
+                              class="mt-1.5 tracking-tight"
+                            >
+                              <span class="font-semibold"
+                                >{{ $t("ui.moderator") }}:</span
+                              >
+                              {{ activity.moderator }}
+                            </p>
+
+                            <div
+                              v-if="activity.panelist_names?.length"
+                              class="mt-0.5 tracking-tight"
+                            >
+                              <span class="font-semibold"
+                                >{{ $t("ui.panelists") }}:</span
+                              >
+                              <ul
+                                class="mt-1 list-outside list-disc space-y-0.5 pl-4"
+                              >
+                                <li
+                                  v-for="(
+                                    panelist, pIdx
+                                  ) in activity.panelist_names"
+                                  :key="pIdx"
+                                >
+                                  {{ panelist }}
+                                </li>
+                              </ul>
+                            </div>
+
+                            <div
+                              v-if="activity.categories?.length"
+                              class="mt-1.5 flex items-center gap-x-1"
+                            >
+                              <IconTag class="h-4 shrink-0" />
+                              <span
+                                class="text-sm tracking-tight sm:text-base"
+                                >{{ activity.categories.join(", ") }}</span
+                              >
+                            </div>
+
+                            <div
+                              v-if="activity.location"
+                              class="mt-1 flex items-center gap-x-1"
+                            >
+                              <IconLocation class="h-4 shrink-0" />
+                              <span
+                                class="text-sm tracking-tight sm:text-base"
+                                >{{ activity.location }}</span
+                              >
+                            </div>
+
+                            <div
+                              v-if="activity.presented_by"
+                              class="text-muted-foreground mt-1.5 text-sm tracking-tight sm:text-base"
+                            >
+                              {{ $t("ui.presentedBy") }}
+                              {{ activity.presented_by }}
+                            </div>
+                          </template>
+                        </div>
+                      </component>
+                    </template>
+                  </div>
+
+                  <div
+                    v-else
+                    class="flex flex-col items-center justify-center pt-4 text-center"
+                  >
+                    <span class="text-base font-semibold tracking-tight">{{
+                      $t("rundown.comingSoon")
+                    }}</span>
+                  </div>
                 </div>
               </TabsCarouselPanel>
             </TabsCarousel>

@@ -8,7 +8,7 @@
     <div
       v-if="pending || brandsWithLogo.length"
       ref="wrapRef"
-      class="mt-10 mx-[calc(50%_-_50vw)] sm:mx-0"
+      class="mx-[calc(50%_-_50vw)] mt-10 sm:mx-0"
     >
       <!-- Loading: skeleton grid mengikuti bentuk final (selalu penuh, tanpa cell kosong) -->
       <GridFill
@@ -41,8 +41,7 @@
             v-for="brand in layout.brands"
             :key="brand.slug"
             :to="localePath(`/brands/${brand.slug}`)"
-            :aria-label="brand.brand_name"
-            class="group hover:bg-muted/40 flex flex-col items-center overflow-hidden px-2 pt-6 pb-6 transition-colors"
+            class="group hover:bg-pattern-diagonal flex flex-col items-center overflow-hidden px-2 pt-6 pb-6 transition-colors"
           >
             <Avatar
               :model="{
@@ -107,7 +106,9 @@ const content = computed(() => contentStore.components.brandPreview);
 
 // Fetch the full active set (not just a page) so the score sort below picks the
 // globally highest-scoring brands, not merely the highest within the first page.
-const { data, pending } = await useAsyncData("brand-preview", () =>
+// Lazy + non-blocking: the skeleton (GridFill pending) holds the layout while
+// data streams in, so this never blocks first paint.
+const { data, pending } = useLazyAsyncData("brand-preview", () =>
   $fetch("/api/exhibitors", { query: { per_page: 200 } }).catch(() => null),
 );
 

@@ -27,11 +27,18 @@ export default <RouterConfig>{
     const stripLocale = (name: unknown) =>
       typeof name === "string" ? name.split("___")[0] : "";
 
+    // Pertahankan scroll hanya saat berpindah dalam "halaman" yang sama: route
+    // name sama, path beda, TAPI dynamic params identik (mis. tab/view-switch
+    // yang mengubah path tanpa mengubah param). Navigasi antar dynamic param
+    // (mis. /brands/[slug-a] -> /brands/[slug-b], klik related brand) adalah
+    // konten yang berbeda dan HARUS reset ke atas, jadi sengaja TIDAK kena blok
+    // ini -> jatuh ke savedPosition (back/forward) atau { top: 0 }.
     if (
       to.name &&
       from.name &&
       stripLocale(to.name) === stripLocale(from.name) &&
-      to.path !== from.path
+      to.path !== from.path &&
+      JSON.stringify(to.params) === JSON.stringify(from.params)
     ) {
       return false;
     }

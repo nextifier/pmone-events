@@ -45,6 +45,15 @@ export default defineNuxtConfig({
           sizes: "180x180",
           href: "/icons/apple-touch-icon.png",
         },
+        // Preload the variable font used for the hero headline (LCP text). The
+        // crossorigin attr is required so this matches the CORS font fetch.
+        {
+          rel: "preload",
+          as: "font",
+          type: "font/woff2",
+          href: "/fonts/MinusOne-VF.woff2",
+          crossorigin: "",
+        },
       ],
       script: [],
     },
@@ -98,7 +107,15 @@ export default defineNuxtConfig({
     "nuxt-gtag",
     "@formkit/auto-animate/nuxt",
     "@vite-pwa/nuxt",
+    "nuxt-vitalizer",
   ],
+
+  vitalizer: {
+    // Strip the <link rel="prefetch"> tags Nuxt emits for every dynamic-import
+    // chunk. They download JS the current page never runs (PageSpeed: "Reduce
+    // unused JavaScript"). Navigation still works — chunks load on demand.
+    disablePrefetchLinks: true,
+  },
 
   fonts: {
     families: [

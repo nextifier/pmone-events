@@ -609,7 +609,7 @@
  * viewport, so the leading card lines up with `.container` (same calc values).
  */
 .carousel-px {
-  @apply px-4 xs:px-[calc((100%-(540px-(1rem*2)))/2)] sm:px-[calc((100%-(640px-(1rem*2)))/2)] md:px-[calc((100%-(768px-(1rem*2)))/2)] lg:px-[calc((100%-(1024px-(1rem*2)))/2)] xl:px-[calc((100%-(1280px-(1rem*2)))/2)] 2xl:px-[calc((100%-(1500px-(1rem*2)))/2)] 3xl:px-[calc((100%-(1600px-(1rem*2)))/2)];
+  @apply xs:px-[calc((100%-(540px-(1rem*2)))/2)] 3xl:px-[calc((100%-(1600px-(1rem*2)))/2)] px-4 sm:px-[calc((100%-(640px-(1rem*2)))/2)] md:px-[calc((100%-(768px-(1rem*2)))/2)] lg:px-[calc((100%-(1024px-(1rem*2)))/2)] xl:px-[calc((100%-(1280px-(1rem*2)))/2)] 2xl:px-[calc((100%-(1500px-(1rem*2)))/2)];
 }
 
 @utility format-html {
@@ -772,22 +772,6 @@
 
 @utility outline-inside {
   @apply outline-primary/10 outline -outline-offset-1;
-}
-
-.gallery-container .my-gallery {
-  @apply 3xl:grid-cols-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3;
-
-  & .gallery-thumbnail {
-    @apply bg-muted mx-0.5 my-0.5 aspect-1600/1067;
-
-    & img {
-      @apply size-full object-cover;
-    }
-  }
-}
-
-img.pswp__img {
-  @apply object-contain;
 }
 
 @utility page-title {

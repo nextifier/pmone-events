@@ -37,11 +37,19 @@
         class="size-full translate-y-[5%]"
       >
         <template #item="{ item, index }">
-          <img
+          <!-- Cloudflare provider transforms to webp on the custom domain.
+               First frame is the LCP candidate: eager + high priority + preload. -->
+          <NuxtImg
             :src="item.image"
             :alt="item.text || `Hero gallery ${index + 1}`"
+            width="800"
+            height="1000"
+            sizes="320px md:400px"
+            format="webp"
             class="block size-full object-cover"
-            loading="lazy"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="index === 0 ? 'high' : 'low'"
+            :preload="index === 0"
           />
         </template>
       </Carousel3d>
