@@ -251,12 +251,8 @@ const setupAnimation = () => {
 
   let targetHover = 0;
   let lastTime = 0;
-  let lastRender = 0;
   let currentRot = 0;
   const rotationSpeed = 0.3;
-  // Cap the noise shader at ~30fps. It's an ambient background, so half the
-  // frames are imperceptible but cut the sustained GPU/main-thread cost in half.
-  const frameInterval = 1000 / 30;
 
   const handleMouseMove = (e: MouseEvent) => {
     const rect = container.getBoundingClientRect();
@@ -296,10 +292,6 @@ const setupAnimation = () => {
       lastTime = t; // avoid a dt spike on resume
       return;
     }
-
-    // Throttle to ~30fps.
-    if (t - lastRender < frameInterval) return;
-    lastRender = t;
 
     const dt = (t - lastTime) * 0.001;
     lastTime = t;

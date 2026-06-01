@@ -124,7 +124,7 @@ const routes = {
     path: "/#faq",
   },
   whyYogyakarta: {
-    label: "Why Jogja",
+    label: "Visit Yogyakarta",
     path: "/#why-yogyakarta",
   },
   contact: {

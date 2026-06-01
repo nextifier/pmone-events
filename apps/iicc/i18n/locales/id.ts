@@ -707,7 +707,7 @@ export default {
       "Momen terbaik dari edisi-edisi sebelumnya. Lihat koneksi yang terjalin, ilmu yang dibagikan, dan komunitas yang terus tumbuh di setiap acara.",
   },
   whyYogyakarta: {
-    badge: "Kenapa Jogja",
+    badge: "Kenapa Yogyakarta",
     title: "Tujuan yang sepadan ",
     titleAccent: "dengan perjalanan",
     description:
@@ -720,10 +720,10 @@ export default {
           "Dua situs Warisan Dunia UNESCO yang bisa dicapai kurang dari sejam. Keraton aktif di pusat kota. Batik, perak, dan kulit yang masih dikerjakan tangan setiap hari.",
       },
       cocoaCountry: {
-        title: "Negeri kakao, dekat dari Jogja",
+        title: "Negeri kakao, dekat dari Yogyakarta",
         icon: "hugeicons:plant-01",
         description:
-          "Indonesia produsen kakao terbesar ketiga di dunia. Dari Jogja, Anda dekat dengan para pembuat bean to bar yang mendefinisikan ulang cokelat asal Indonesia.",
+          "Indonesia produsen kakao terbesar ketiga di dunia. Dari Yogyakarta, Anda dekat dengan para pembuat bean to bar yang mendefinisikan ulang cokelat asal Indonesia.",
       },
       access: {
         title: "Ramah untuk tamu internasional",
@@ -735,7 +735,7 @@ export default {
         title: "Kota paling murah hati di Indonesia",
         icon: "hugeicons:agreement-01",
         description:
-          "Jogja terkenal seantero negeri karena keramahannya yang tidak terburu-buru dan terasa personal. Pelayanannya tulus, bukan sekadar prosedur.",
+          "Yogyakarta terkenal seantero negeri karena keramahannya yang tidak terburu-buru dan terasa personal. Pelayanannya tulus, bukan sekadar prosedur.",
       },
     },
     experiences: {
@@ -769,7 +769,7 @@ export default {
           title: "Jalan Malioboro",
           meta: "10 menit berkendara · Budaya & belanja",
           description:
-            "Jalan paling ikonik di Jogja. Toko batik, warung tengah malam, dan andong yang melintasi rute yang sama dari generasi ke generasi.",
+            "Jalan paling ikonik di Yogyakarta. Toko batik, warung tengah malam, dan andong yang melintasi rute yang sama dari generasi ke generasi.",
           alt: "Andong melintas di Jalan Malioboro, Yogyakarta",
         },
         chocolate: {
