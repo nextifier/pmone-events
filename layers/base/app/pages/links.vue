@@ -134,6 +134,7 @@
               v-for="link in linkGroups.social"
               :key="link.url || link.id"
               :to="link.url || '#'"
+              :aria-label="link.label"
               @click="trackClick(link.label)"
               @contextmenu.prevent
               v-tippy="link.label"
@@ -347,5 +348,10 @@ watchEffect(() => {
 
 usePageMeta(null, {
   title: computed(() => `Links · ${profile.value?.name || ""}`),
+  description: computed(
+    () =>
+      profile.value?.bio ||
+      `Find tickets, brands, the rundown, and other essential links for ${profile.value?.name || useAppConfig().app.name}.`,
+  ),
 });
 </script>

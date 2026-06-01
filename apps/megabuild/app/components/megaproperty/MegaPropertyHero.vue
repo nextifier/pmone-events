@@ -11,6 +11,7 @@
         >
           <NuxtImg
             src="/img/mp-hero-2.jpg"
+            alt=""
             class="relative z-10 aspect-4/3 translate-y-[10%] -rotate-6 rounded-xl ring-2 ring-white transition-transform duration-300 ease-out hover:z-30 hover:scale-125 hover:rotate-0"
             sizes="200px sm:320px"
             width="1080"
@@ -20,6 +21,7 @@
           />
           <NuxtImg
             src="/img/mp-hero-1.jpg"
+            alt=""
             class="relative z-20 aspect-4/3 scale-110 rounded-xl shadow-2xl ring-2 ring-white transition-transform duration-300 ease-out hover:z-30 hover:scale-125 hover:rotate-0"
             sizes="200px sm:320px"
             width="1080"
@@ -29,6 +31,7 @@
           />
           <NuxtImg
             src="/img/mp-hero-3.jpg"
+            alt=""
             class="relative z-10 aspect-4/3 translate-y-[10%] rotate-6 rounded-xl ring-2 ring-white transition-transform duration-300 ease-out hover:z-30 hover:scale-125 hover:rotate-0"
             sizes="200px sm:320px"
             width="1080"

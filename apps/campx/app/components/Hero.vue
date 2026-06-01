@@ -98,9 +98,11 @@
         <div
           class="relative order-2 h-full md:order-last md:col-span-2 md:max-w-md xl:order-2 xl:col-span-1 xl:max-w-none"
         >
-          <div
+          <button
+            type="button"
             @click="togglePlayPause"
-            class="bg-primary/5 group relative aspect-9/16 size-full cursor-pointer overflow-hidden rounded-xl"
+            aria-label="Play/pause video"
+            class="block appearance-none bg-primary/5 group relative aspect-9/16 size-full cursor-pointer overflow-hidden rounded-xl"
           >
             <video
               ref="videoRef"
@@ -146,7 +148,7 @@
                 />
               </div>
             </div>
-          </div>
+          </button>
         </div>
 
         <div class="order-3 h-full md:order-2 md:pt-10 xl:order-last">
@@ -238,7 +240,6 @@ onMounted(() => {
             if (!isManuallyPaused.value) {
               video.play().catch((e) => {
                 // Autoplay might be blocked, that's okay
-                console.debug("Video autoplay prevented:", e.message);
               });
               isPlaying.value = true;
             }
@@ -246,7 +247,7 @@ onMounted(() => {
         } else if (!isManuallyPaused.value) {
           video
             .play()
-            .catch((e) => console.debug("Video play prevented:", e.message));
+            .catch(() => {});
           isPlaying.value = true;
         }
       } else {

@@ -16,11 +16,11 @@
         {{ error.statusMessage }}
       </h1>
 
-      <p v-if="error.message" class="mx-auto mt-1 max-w-2xl text-balance">
+      <p class="mx-auto mt-1 max-w-2xl text-balance">
         {{
           error.statusCode === 404
             ? "We couldn’t find the page you’re looking for. It might have moved, been renamed, or maybe it never existed in the first place."
-            : error.message
+            : "Something went wrong on our end. Please try again in a moment."
         }}
       </p>
 

@@ -92,6 +92,7 @@
                 ref="searchInputEl"
                 class="input-base peer h-10 px-9 py-2 text-sm tracking-tight"
                 :placeholder="$t('ui.search')"
+                :aria-label="$t('ui.search')"
               />
 
               <Icon
@@ -109,6 +110,7 @@
               <button
                 id="clear-input"
                 type="button"
+                aria-label="Clear search"
                 @click="
                   searchInput = '';
                   $refs.searchInputEl.focus();

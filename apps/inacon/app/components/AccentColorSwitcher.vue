@@ -10,6 +10,7 @@
       v-for="(item, index) in accentColorOptions"
       @click="accentColor = item"
       :key="index"
+      :aria-label="`Set accent color to ${item.name}`"
       class="flex items-center justify-center rounded-full transition"
       :class="{
         '': item?.name === accentColor?.name,

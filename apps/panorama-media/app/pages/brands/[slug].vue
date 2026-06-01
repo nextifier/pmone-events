@@ -233,6 +233,7 @@
           <a
             :href="brand.website"
             target="_blank"
+            rel="noopener noreferrer"
             class="text-primary hover:underline"
             >{{ brand.website.replace("https://", "") }}</a
           >

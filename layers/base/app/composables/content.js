@@ -71,11 +71,11 @@ export const useContentStore = defineStore("content", {
       },
       terms: {
         title: `Terms of Service`,
-        description: ``,
+        description: `Read the Terms of Service for ${useAppConfig().app.name}, covering the rules and conditions for using our website and services.`,
       },
       privacy: {
         title: `Privacy Policy`,
-        description: ``,
+        description: `Read the Privacy Policy for ${useAppConfig().app.name} and learn how we collect, use, and protect your personal information.`,
       },
       winner: {
         title: `Random Winner Generator`,

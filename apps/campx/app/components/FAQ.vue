@@ -1,6 +1,6 @@
 <template>
   <div class="container flex flex-col items-center lg:max-w-(--breakpoint-sm)">
-    <h1 class="section-title text-center font-semibold">{{ content.title }}</h1>
+    <h2 class="section-title text-center font-semibold">{{ content.title }}</h2>
 
     <div v-if="faq?.list?.length" class="mt-6 flex w-full flex-col gap-y-3">
       <Accordion type="single" collapsible>

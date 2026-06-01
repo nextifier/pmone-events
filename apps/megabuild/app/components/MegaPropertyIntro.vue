@@ -40,6 +40,7 @@
 
       <NuxtImg
         src="/img/megaproperty-indonesia.jpg"
+        alt="MegaProperty Indonesia exhibition showcase"
         class="bg-muted outline-inside rounded-2xl"
         width="1440"
         height="1920"

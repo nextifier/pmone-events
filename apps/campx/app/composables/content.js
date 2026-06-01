@@ -15,11 +15,11 @@ export const useContentStore = defineStore("content", {
       },
       terms: {
         title: `Terms of Service`,
-        description: ``,
+        description: `Baca Syarat & Ketentuan penggunaan layanan dan website CampX Holiday Park Jatiluhur.`,
       },
       privacy: {
         title: `Privacy Policy`,
-        description: ``,
+        description: `Pelajari cara CampX Holiday Park Jatiluhur mengumpulkan, menggunakan, dan melindungi data pribadi Anda.`,
       },
     },
 

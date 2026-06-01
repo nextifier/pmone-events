@@ -9,6 +9,7 @@
           <LogoIcgp class="h-full w-auto text-black dark:text-white" />
           <NuxtImg
             src="/img/logo/logo-wcs-indonesia.svg"
+            alt="World Cosplay Summit Indonesia"
             class="pointer-events-none h-full w-auto select-none"
             width="742"
             height="642"
@@ -19,6 +20,7 @@
         <div v-else class="relative isolate z-0 -mb-[100px] lg:-mb-[160px]">
           <NuxtImg
             src="/img/mascots/mascot-clash.png"
+            alt=""
             class="pointer-events-none h-auto w-[200px] select-none lg:w-[320px]"
             sizes="600px"
             width="818"
@@ -118,6 +120,7 @@
               >
                 <NuxtImg
                   :src="item.organizer.img"
+                  :alt="item.organizer.name"
                   class="h-full w-full"
                   width="100"
                   height="100"

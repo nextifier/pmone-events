@@ -16,6 +16,7 @@
       >
         <NuxtImg
           src="/img/mascots/mascot-clash-3.png"
+          alt=""
           class="pointer-events-none z-0 w-[160px] select-none lg:w-[240px]"
           width="400"
           height="851"

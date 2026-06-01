@@ -152,7 +152,7 @@ const isDialogOpen = computed({
 
 const config = useRuntimeConfig();
 const title = `${event.title}`;
-const description = "";
+const description = `${event.title}: a corporate outing${event.client?.name ? ` for ${event.client.name}` : ""}${event.venue ? ` at ${event.venue}` : ""}, designed and organized by Panorama Events.`;
 
 usePageMeta("", {
   title: title,

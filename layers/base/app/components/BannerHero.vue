@@ -257,6 +257,18 @@ const items = computed(() => useContentStore().components.hero.bannerHero);
 
 const { now } = useCurrentTime();
 
+// The module-level `now` is frozen on the server (it only starts ticking on the
+// client in onMounted), so filtering time-windowed banners against it during SSR
+// can yield a different set than the client's first render -> Vue logs
+// "Hydration completed but contains mismatches" (a console error that costs the
+// Best-Practices score). Gate the time filter behind mount: SSR and the first
+// client render both show every item (deterministic, identical markup), then the
+// window filter kicks in after hydration.
+const isMounted = ref(false);
+onMounted(() => {
+  isMounted.value = true;
+});
+
 const isWithinWindow = (item) => {
   if (!item) return false;
   const start = item.startTime ? new Date(item.startTime) : null;
@@ -267,7 +279,9 @@ const isWithinWindow = (item) => {
   return true;
 };
 
-const visibleItems = computed(() => items.value.filter(isWithinWindow));
+const visibleItems = computed(() =>
+  isMounted.value ? items.value.filter(isWithinWindow) : items.value,
+);
 
 const lightboxItems = computed(() =>
   visibleItems.value

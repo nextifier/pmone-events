@@ -162,7 +162,9 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    disallow: ["/terms", "/privacy", "/winner"],
+    // /winner is a utility tool (random winner generator), intentionally kept
+    // out of search. Terms & Privacy are crawlable so they can score SEO 100.
+    disallow: ["/winner"],
   },
 
   sitemap: {
@@ -227,13 +229,18 @@ export default defineNuxtConfig({
     },
     workbox: {
       cleanupOutdatedCaches: true,
+      // autoUpdate memaksa skipWaiting+clientsClaim true (vite-plugin-pwa), lalu
+      // auto-reload halaman saat SW baru aktif → transisi build ditangani reload
+      // + plugin chunkReload.client.js sebagai jaring pengaman.
       skipWaiting: true,
       clientsClaim: true,
       navigateFallback: null,
-      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      // JANGAN precache html: route SSR selalu fresh dari network → referensi
+      // chunk selalu current. Cegah SW serve HTML basi yang nunjuk chunk lama (404).
+      globPatterns: ["**/*.{js,css,png,svg,ico}"],
     },
     injectManifest: {
-      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      globPatterns: ["**/*.{js,css,png,svg,ico}"],
     },
     client: {
       installPrompt: true,

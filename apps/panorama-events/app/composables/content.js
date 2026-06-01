@@ -35,11 +35,11 @@ export const useContentStore = defineStore("content", {
       },
       terms: {
         title: `Terms of Service`,
-        description: ``,
+        description: `Read the Terms of Service for Panorama Events, covering the rules and conditions for using our corporate outing services and website.`,
       },
       privacy: {
         title: `Privacy Policy`,
-        description: ``,
+        description: `Read the Privacy Policy for Panorama Events and learn how we collect, use, and protect your personal information.`,
       },
     },
 

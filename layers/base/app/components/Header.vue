@@ -59,6 +59,7 @@
             <button
               data-sidebar="trigger"
               data-slot="sidebar-trigger"
+              aria-label="Toggle Sidebar"
               class="text-primary hover:bg-muted flex size-8 items-center justify-center rounded-lg"
               @click="toggleSidebar"
             >

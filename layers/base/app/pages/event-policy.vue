@@ -143,7 +143,7 @@
           </li>
           <li>
             By WhatsApp:
-            <a :href="whatsappLink" target="_blank">{{ whatsappDisplay }}</a>
+            <a :href="whatsappLink" target="_blank" rel="noopener noreferrer">{{ whatsappDisplay }}</a>
           </li>
         </ul>
       </div>

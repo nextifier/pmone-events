@@ -47,9 +47,9 @@
               <LogoITFAcronym class="h-9" />
             </div>
 
-            <h6 class="font-display mt-12 text-4xl">
+            <h3 class="font-display mt-12 text-4xl">
               {{ $t("about.zones.tea.title") }}
-            </h6>
+            </h3>
             <p class="mt-2 text-base font-medium tracking-tight">
               {{ $t("about.zones.tea.description") }}
             </p>
@@ -91,9 +91,9 @@
               <LogoIWFAcronym class="h-9" />
             </div>
 
-            <h6 class="font-display mt-12 text-4xl">
+            <h3 class="font-display mt-12 text-4xl">
               {{ $t("about.zones.wine.title") }}
-            </h6>
+            </h3>
             <p class="mt-2 text-base font-medium tracking-tight">
               {{ $t("about.zones.wine.description") }}
             </p>
@@ -135,9 +135,9 @@
               <LogoCEIAcronym class="h-9" />
             </div>
 
-            <h6 class="font-display mt-12 text-4xl">
+            <h3 class="font-display mt-12 text-4xl">
               {{ $t("about.zones.chocolate.title") }}
-            </h6>
+            </h3>
             <p class="mt-2 text-base font-medium tracking-tight">
               {{ $t("about.zones.chocolate.description") }}
             </p>

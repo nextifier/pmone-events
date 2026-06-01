@@ -22,6 +22,7 @@
         >
           <NuxtImg
             src="/img/outing-img.jpeg"
+            alt="Outing experience at CampX Jatiluhur"
             class="bg-muted pointer-events-none size-full rounded-xl object-cover select-none"
             width="867"
             height="1156"

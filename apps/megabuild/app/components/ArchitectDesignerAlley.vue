@@ -5,6 +5,7 @@
     >
       <NuxtImg
         src="/img/architect-and-interior-design-alley.jpg"
+        alt="Architect and Interior Design Alley at Megabuild Indonesia"
         class="bg-muted outline-inside rounded-2xl md:order-last"
         width="1440"
         height="1918"

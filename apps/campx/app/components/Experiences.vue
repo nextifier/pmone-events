@@ -2,7 +2,7 @@
   <section id="experiences" class="space-y-8 lg:space-y-16">
     <div v-for="(category, index) in categories" :key="index">
       <div class="container">
-        <h1 class="section-title">{{ category.title }}</h1>
+        <h2 class="section-title">{{ category.title }}</h2>
         <p v-if="category.description" class="section-description mt-2">
           {{ category.description }}
         </p>

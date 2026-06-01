@@ -5,14 +5,15 @@
     :class="{ 'is-ready': isReady }"
   >
     <div ref="tubeRef" class="rolling-text-tube">
-      <h1
+      <div
         v-for="i in props.lines"
         :key="i"
         ref="lineRefs"
+        aria-hidden="true"
         class="rolling-text-line text-foreground font-medium tracking-[-0.06em]"
       >
         {{ props.text }}
-      </h1>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +44,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const containerRef = ref<HTMLDivElement | null>(null);
 const tubeRef = ref<HTMLDivElement | null>(null);
-const lineRefs = ref<HTMLHeadingElement[]>([]);
+const lineRefs = ref<HTMLDivElement[]>([]);
 const isReady = ref(false);
 
 let splitters: SplitText[] = [];

@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div class="flex flex-col items-center text-center">
-      <h1 class="section-title">{{ $t("icgp.wallOfFame") }}</h1>
+      <h2 class="section-title">{{ $t("icgp.wallOfFame") }}</h2>
 
       <p
         class="mt-2 text-lg tracking-tight text-black sm:text-xl dark:text-white"
@@ -63,6 +63,7 @@
               >
                 <NuxtImg
                   :src="item.img"
+                  :alt="item.title"
                   class="h-full w-full object-cover"
                   width="1620"
                   height="1080"
@@ -107,6 +108,7 @@
             >
               <NuxtImg
                 :src="item.img"
+                :alt="item.title"
                 class="h-full w-full object-cover"
                 width="1620"
                 height="1080"

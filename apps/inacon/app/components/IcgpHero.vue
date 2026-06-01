@@ -5,6 +5,7 @@
         <LogoIcgp class="h-full w-auto text-black dark:text-white" />
         <NuxtImg
           src="/img/logo/logo-wcs-indonesia.svg"
+          alt="World Cosplay Summit Indonesia"
           class="pointer-events-none h-full w-auto select-none"
           width="742"
           height="642"

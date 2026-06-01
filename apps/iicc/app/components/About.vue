@@ -7,6 +7,7 @@
         <div class="-mx-4 sm:mx-0">
           <NuxtImg
             src="/img/about-img.jpg"
+            alt="About IICC"
             class="bg-muted size-full object-cover"
             width="1080"
             height="1350"

@@ -134,7 +134,7 @@
             v-if="experience.rundown?.length"
             class="mt-8 flex flex-col gap-y-4"
           >
-            <h6 class="font-semibold tracking-tight">Rundown</h6>
+            <h3 class="font-semibold tracking-tight">Rundown</h3>
 
             <div class="grid gap-y-8">
               <div

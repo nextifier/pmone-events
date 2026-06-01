@@ -45,6 +45,7 @@
 
     <div class="flex flex-col gap-y-10">
       <div v-if="faq?.list?.length" class="flex w-full flex-col gap-y-3">
+        <h2 class="sr-only">{{ content.title }}</h2>
         <Accordion type="single" collapsible>
           <AccordionItem
             v-for="(item, index) in faq.list"

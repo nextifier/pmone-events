@@ -91,6 +91,7 @@
                   )
                 "
                 v-ripple
+                aria-label="Play teaser video"
               >
                 <Icon
                   name="material-symbols:play-arrow-rounded"

@@ -79,6 +79,7 @@
               class="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full transition delay-1000 duration-800 ease-out starting:scale-0 starting:opacity-0"
             >
               <button
+                aria-label="Play teaser video"
                 class="flex size-16 items-center justify-center rounded-full bg-white/30 text-white shadow-xl outline -outline-offset-6 outline-white transition hover:bg-white/60 active:scale-98"
                 @click="
                   uiStore.openEmbedVideoDialog(

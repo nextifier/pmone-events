@@ -7,10 +7,10 @@
         >✨</span
       >
 
-      <h1 class="section-title mt-1">
+      <h2 class="section-title mt-1">
         Discover Unforgettable
         <span class="text-gradient-accent">Moments</span>
-      </h1>
+      </h2>
     </div>
 
     <LazyEventSlider :events="events" class="mt-6" />

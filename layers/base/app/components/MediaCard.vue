@@ -28,6 +28,7 @@
       <nuxt-link
         :to="item.link ?? ''"
         target="_blank"
+        :aria-label="item.title ? `Read more: ${item.title}` : 'Read more'"
         class="bg-muted text-primary hover:bg-border flex size-12 shrink-0 translate-x-2 items-center justify-center rounded-full transition active:scale-98"
         v-ripple
       >

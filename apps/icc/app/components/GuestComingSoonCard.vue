@@ -43,6 +43,7 @@
         <nuxt-link
           :to="`https://www.instagram.com/${useAppConfig().social.instagram}`"
           target="_blank"
+          aria-label="Follow us on Instagram"
           class="hover:bg-opacity-80 dark:hover:bg-opacity-80 flex aspect-square w-11 flex-shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-full bg-black text-center text-white transition active:scale-95 sm:w-14 dark:bg-white dark:text-black"
         >
           <IconInstagram class="h-5" />

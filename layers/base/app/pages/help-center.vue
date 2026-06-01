@@ -119,7 +119,7 @@
           <li>Event time: {{ eventTime }}</li>
           <li>
             Venue:
-            <a :href="locationLink" target="_blank">{{ location }}</a>
+            <a :href="locationLink" target="_blank" rel="noopener noreferrer">{{ location }}</a>
           </li>
         </ul>
 

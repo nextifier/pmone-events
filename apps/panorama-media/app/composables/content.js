@@ -5,40 +5,40 @@ export const useContentStore = defineStore("content", {
     pages: {
       home: {
         title: `Panorama Media`,
-        description: ``,
+        description: `Panorama Media is an Indonesian event solutions company creating trade exhibitions, pop culture events, corporate events, and live entertainment.`,
         withoutTitleTemplate: true,
       },
       about: {
         title: `About`,
-        description: ``,
+        description: `Learn about Panorama Media, the team and experience behind some of Indonesia's largest exhibitions, festivals, and corporate events.`,
       },
       products: {
         title: `Products`,
-        description: ``,
+        description: `Explore the products and services offered by Panorama Media, from trade exhibitions to corporate events and live entertainment.`,
       },
       events: {
         title: `Events`,
-        description: ``,
+        description: `Discover events organized by Panorama Media, including trade exhibitions, pop culture festivals, and corporate gatherings across Indonesia.`,
       },
       contact: {
         title: `Contact`,
-        description: ``,
+        description: `Get in touch with Panorama Media to discuss your next exhibition, festival, corporate event, or live entertainment project.`,
       },
       faq: {
         title: `FAQ`,
-        description: ``,
+        description: `Find answers to common questions about Panorama Media, our events, services, and how to work with us.`,
       },
       news: {
         title: `News`,
-        description: ``,
+        description: `Read the latest news, updates, and stories from Panorama Media and its events across Indonesia.`,
       },
       terms: {
         title: `Terms of Service`,
-        description: ``,
+        description: `Read the Terms of Service for Panorama Media, covering the rules and conditions for using our website and services.`,
       },
       privacy: {
         title: `Privacy Policy`,
-        description: ``,
+        description: `Read the Privacy Policy for Panorama Media and learn how we collect, use, and protect your personal information.`,
       },
       bookSpace: {
         title: `Book Your Space`,

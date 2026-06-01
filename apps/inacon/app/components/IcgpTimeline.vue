@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <h1 class="section-title text-center">{{ $t("icgp.timelineTitle") }}</h1>
+    <h2 class="section-title text-center">{{ $t("icgp.timelineTitle") }}</h2>
 
     <Stepper
       orientation="vertical"
