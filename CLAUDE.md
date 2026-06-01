@@ -330,3 +330,15 @@ Beberapa event awalnya di repo terpisah (referensi jika butuh file original):
 - Image optimization: Cloudflare provider (prod), ipx (dev), quality 85, webp format
 - Navigation dikonfigurasi via `routes` di `app.config.ts` (header, dialog, footer arrays)
 - Event status: `"upcoming"` | `"live"` | `"completed"` | `""`
+
+## Shaders (GPU/WebGPU section backgrounds)
+
+Shader-backed sections (gradient/noise/aurora/glass/distortion backgrounds) pakai library `shaders`. Panduan lengkap ada di **user-level `shaders` skill** (auto-aktif saat request menyebut shader) — berisi prop schema (`component-index.md`), preset catalog, guides, dan langkah setup section-only. Reference implementation penuh (gallery/editor/docs) ada di repo `pmone` (`~/Herd/pmone/frontend`).
+
+One-time setup (sections only, TANPA gallery/editor/docs):
+- Install `shaders` di `layers/base` (bundle saat build, devDependency cukup).
+- Copy `ShaderCanvas.vue` + `ShaderTree.vue` dari repo pmone (`~/Herd/pmone/frontend/app/components/shaders/`) ke `layers/base/app/components/shaders/`. Dua file ini self-contained (tanpa dependency registry/editor/export).
+- `nuxt.config`: `vite.optimizeDeps.exclude: ["shaders","shaders/vue"]`; JANGAN static-import `shaders/vue`; tetap client-only.
+- Render via `<ShaderCanvas :config="{ components: [...] }" class="absolute inset-0 -z-10" />` — selalu lewat `ShaderCanvas` (telemetry-off + ClientOnly built-in), JANGAN raw `<Shader>`.
+- Preset: copy `data/presets/<id>.json` dari pmone (field `.config` = tree `{ components }`), atau inline config dari `component-index.md` di skill.
+- Verifikasi tiap section di dev server — package me-validate prop saat render.
