@@ -30,7 +30,7 @@ const event = {
   location: "Nusantara International Convention Exhibition (NICE), PIK 2",
   locationShort: "NICE PiK 2",
   locationLink: "https://maps.app.goo.gl/V6N3r7vxD1BMn9pi8",
-  // hall: "Hall B",
+  hall: "Hall 5, 6, 7",
   teaserVideoId: "",
   profileImage: "/img/avatar/megabuild.svg",
   description:
