@@ -41,22 +41,11 @@ export const usePartnerStore = defineStore("partners", {
             link: "https://ekraf.go.id/",
           },
           {
-            img: "balai-besar-keramik.png",
-          },
-          // {
-          //   img: "wonderful-indonesia.png",
-          //   link: "",
-          // },
-        ],
-      },
-
-      {
-        category: "Event Partner",
-        directory: "/img/credits/etc/",
-        list: [
-          {
-            img: "foshan-uniceramics-expo.png",
+            img: "wonderful-indonesia.png",
             link: "",
+          },
+          {
+            img: "balai-besar-keramik.png",
           },
         ],
       },
@@ -87,6 +76,10 @@ export const usePartnerStore = defineStore("partners", {
           },
           {
             img: "gapensi.png",
+          },
+          {
+            img: "ipbbi.png",
+            link: "https://ipbbi.id/",
           },
           {
             img: "synergy.png",
@@ -131,11 +124,9 @@ export const usePartnerStore = defineStore("partners", {
             img: "aki.png",
             link: "https://aki.or.id/",
           },
-
-          // {
-          //   img: "ipbbi.png",
-          //   link: "https://ipbbi.id/",
-          // },
+          {
+            img: "taitra.png",
+          },
 
           // {
           //   img: "htii.png",
@@ -172,43 +163,6 @@ export const usePartnerStore = defineStore("partners", {
           // },
         ],
       },
-      // {
-      //   category: "Green Haven Sponsors",
-      //   directory: "/img/credits/green-haven-sponsors/",
-      //   list: [
-      //     {
-      //       img: "bardi.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "duma.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "onda.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "pureve.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "dekkson.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: "Retail Sponsor",
-      //   fullWidth: true,
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "germany-brilliant.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
 
       {
         category: "Strategic Partners",
@@ -216,10 +170,6 @@ export const usePartnerStore = defineStore("partners", {
         list: [
           {
             img: "f-widayanto.png",
-          },
-          {
-            img: "indonesia-design.png",
-            link: "",
           },
           {
             img: "pik-tourism-board.png",
@@ -275,73 +225,42 @@ export const usePartnerStore = defineStore("partners", {
         ],
       },
 
-      // {
-      //   category: "Community Partners",
-      //   fullWidth: true,
-      //   directory: "/img/credits/community-partners/",
-      //   list: [
-      //     {
-      //       img: "archilantis.png",
-      //       link: "https://archilantis.com/",
-      //     },
-      //     {
-      //       img: "koloni.png",
-      //       link: "https://www.instagram.com/koloniarsitektur/",
-      //     },
-      //     {
-      //       img: "ilumarta.png",
-      //       link: "",
-      //     },
-      //     {
-      //       img: "connext.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: "Official Technology Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "v2.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
       {
-        category: "Official Hotel Partner",
+        category: "Event Partner",
         directory: "/img/credits/etc/",
         list: [
           {
-            img: "the1o1.png",
-          },
-          {
-            img: "hotel-osaka.png",
-          },
-          {
-            img: "swissotel-jakarta.png",
-          },
-          {
-            img: "hotel-golden-tulip-essential.png",
-          },
-        ],
-      },
-      {
-        category: "Official Logistic Partner",
-        directory: "/img/credits/etc/",
-        list: [
-          {
-            img: "lalamove.png",
+            img: "foshan-uniceramics-expo.png",
             link: "",
           },
         ],
       },
+
       {
-        category: "Official Transportation Partner",
+        category: "Official Installation Partner",
         directory: "/img/credits/etc/",
         list: [
           {
-            img: "grab.png",
+            img: "indonesia-design.png",
+          },
+          {
+            img: "karindo.png",
+          },
+          {
+            img: "ellogrin.png",
+          },
+          {
+            img: "cendrawasih.png",
+          },
+        ],
+      },
+
+      {
+        category: "Official Internet Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "biznet.png",
             link: "",
           },
         ],
@@ -356,6 +275,17 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
+      {
+        category: "Official Logistic Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "lalamove.png",
+            link: "",
+          },
+        ],
+      },
       {
         category: "Official Ticketing Partner",
         directory: "/img/credits/etc/",
@@ -366,36 +296,18 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
-      // {
-      //   category: "Official Internet Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "biznet.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: "Official Furniture Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "furnisia.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: "Sound System Partner",
-      //   directory: "/img/credits/etc/",
-      //   list: [
-      //     {
-      //       img: "jbl-pro.png",
-      //       link: "",
-      //     },
-      //   ],
-      // },
+
+      {
+        category: "Official Transportation Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "grab.png",
+            link: "",
+          },
+        ],
+      },
+
       {
         category: "Official Contractor Partner",
         directory: "/img/credits/etc/",
@@ -406,6 +318,17 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
+      {
+        category: "Official LED Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "karindo.png",
+          },
+        ],
+      },
+
       {
         category: "Official Freight Forwarders",
         directory: "/img/credits/etc/",
@@ -424,6 +347,36 @@ export const usePartnerStore = defineStore("partners", {
           },
         ],
       },
+
+      {
+        category: "Official Hotel Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "the1o1.png",
+          },
+          // {
+          //   img: "hotel-osaka.png",
+          // },
+          {
+            img: "swissotel-jakarta.png",
+          },
+          {
+            img: "hotel-golden-tulip-essential.png",
+          },
+        ],
+      },
+
+      {
+        category: "Official Business Lounge Partner",
+        directory: "/img/credits/etc/",
+        list: [
+          {
+            img: "rukita.png",
+          },
+        ],
+      },
+
       // {
       //   category: "Official Medical Partner",
       //   directory: "/img/credits/etc/",
@@ -449,13 +402,14 @@ export const usePartnerStore = defineStore("partners", {
         directory: "/img/credits/media-partners/",
         list: [
           {
-            img: "seab.png",
-            link: "https://seab.tradelinkmedia.biz/",
-          },
-          {
             img: "indonesia-design.png",
             link: "",
           },
+          {
+            img: "seab.png",
+            link: "https://seab.tradelinkmedia.biz/",
+          },
+
           {
             img: "archibuild.png",
             link: "",
@@ -632,6 +586,15 @@ export const usePartnerStore = defineStore("partners", {
           {
             img: "ecohomes.png",
             link: "https://ecohomes.id/",
+          },
+          {
+            img: "gpriority.png",
+          },
+          {
+            img: "glcc.png",
+          },
+          {
+            img: "liputan6.png",
           },
 
           // {
