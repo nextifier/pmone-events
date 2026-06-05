@@ -91,10 +91,10 @@ export const useContentStore = defineStore("content", () => {
       description: t("hero.description"),
       cta: {},
       announcements: [
-        {
-          text: t("hero.announcement"),
-          link: "/book-space",
-        },
+        // {
+        //   text: t("hero.announcement"),
+        //   link: "/book-space",
+        // },
         {
           text: t("hero.visitorAnnouncement"),
           link: "/ticket",
