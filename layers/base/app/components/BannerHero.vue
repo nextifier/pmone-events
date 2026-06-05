@@ -1,9 +1,10 @@
 <template>
-  <Lightbox
-    :items="lightboxItems"
-    :show-thumbnails="lightboxItems.length > 1"
-    :alt="''"
-  >
+  <div v-if="items.length" :class="$attrs.class">
+    <Lightbox
+      :items="lightboxItems"
+      :show-thumbnails="lightboxItems.length > 1"
+      :alt="''"
+    >
     <template #caption>
       <AdCaption />
     </template>
@@ -32,11 +33,13 @@
             :key="index"
             class="basis-full pl-2"
           >
-            <nuxt-link
+            <component
+              :is="item.cta?.link ? NuxtLink : 'div'"
               v-if="!item.adImage"
-              :to="lp(item.cta?.link ?? '')"
-              :target="item.cta?.link?.startsWith('http') ? '_blank' : ''"
+              :to="item.cta?.link ? lp(item.cta.link) : undefined"
+              :target="item.cta?.link?.startsWith('http') ? '_blank' : undefined"
               class="text-foreground outline-inside flex h-full items-center rounded-lg bg-white/3 backdrop-blur-lg sm:rounded-2xl"
+              @click="item.cta?.link && trackClick(item.id, item.subHeadline || item.cta?.label || 'banner')"
             >
               <div
                 v-if="item.img"
@@ -76,7 +79,7 @@
                   <Icon name="lucide:arrow-right" class="size-3.5" />
                 </button>
               </div>
-            </nuxt-link>
+            </component>
 
             <CardNotch
               v-else-if="item.link"
@@ -89,7 +92,7 @@
             >
               <button
                 type="button"
-                class="block aspect-[1920/480] w-full cursor-zoom-in"
+                :class="['block w-full cursor-zoom-in', aspectClass(item)]"
                 :aria-label="item.adImage.alt || 'Open banner'"
                 @click="openAt(adIndexFor(index))"
               >
@@ -109,6 +112,7 @@
                   rel="noopener noreferrer"
                   :aria-label="`Open ${item.adImage.alt || 'banner'} link`"
                   class="bg-muted text-foreground hover:bg-border border-border flex size-full items-center justify-center rounded-full border"
+                  @click="trackClick(item.id, item.adImage.alt || 'banner')"
                 >
                   <Icon name="lucide:arrow-up-right" class="size-4" />
                 </a>
@@ -121,7 +125,7 @@
             >
               <button
                 type="button"
-                class="block aspect-[1920/480] w-full cursor-zoom-in"
+                :class="['block w-full cursor-zoom-in', aspectClass(item)]"
                 :aria-label="item.adImage.alt || 'Open banner'"
                 @click="openAt(adIndexFor(index))"
               >
@@ -182,13 +186,19 @@
         </div>
       </Carousel>
     </template>
-  </Lightbox>
+    </Lightbox>
+  </div>
 </template>
 
 <script setup>
 import { defineComponent, h } from "vue";
 import Autoplay from "embla-carousel-autoplay";
 import { Lightbox, useLightbox } from "./ui/lightbox";
+
+defineOptions({ inheritAttrs: false });
+
+const NuxtLink = resolveComponent("NuxtLink");
+const { trackImpression, trackClick } = useBannerTracking();
 
 const AdCaption = defineComponent({
   name: "AdCaption",
@@ -214,6 +224,11 @@ const isPlaying = ref(false);
 
 const setApi = (api) => {
   emblaApi.value = api;
+
+  // Impression tracking: count the banner shown on each slide (deduped per id).
+  emblaApi.value.on("select", trackCurrentImpression);
+  emblaApi.value.on("reInit", trackCurrentImpression);
+  trackCurrentImpression();
 
   const autoplay = emblaApi.value.plugins().autoplay;
   if (!autoplay) return;
@@ -247,13 +262,32 @@ onUnmounted(() => {
     emblaApi.value.off("autoplay:play");
     emblaApi.value.off("autoplay:stop");
     emblaApi.value.off("reInit");
+    emblaApi.value.off("select");
   }
 });
 
 const localePath = useLocalePath();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
-const items = computed(() => useContentStore().components.hero.bannerHero);
+// Banners are managed in PM One (project-level) and served by the public API.
+// The nitro adapter at `/api/banners` injects this site's project_slug + API key.
+const { data: bannerData } = await useFetch("/api/banners", {
+  query: { placement: "hero" },
+  key: "banner-hero-banners",
+  default: () => [],
+  transform: (res) => res?.data ?? [],
+});
+const items = computed(() => bannerData.value ?? []);
+
+const aspectClass = (item) =>
+  ({
+    "1:1": "aspect-square",
+    "16:9": "aspect-video",
+    "9:16": "aspect-[9/16]",
+    "4:5": "aspect-[4/5]",
+    "2:1": "aspect-[2/1]",
+    "4:1": "aspect-[1920/480]",
+  })[item.aspectRatio] ?? "aspect-[1920/480]";
 
 const { now } = useCurrentTime();
 
@@ -282,6 +316,14 @@ const isWithinWindow = (item) => {
 const visibleItems = computed(() =>
   isMounted.value ? items.value.filter(isWithinWindow) : items.value,
 );
+
+// Track an impression for the banner on the currently selected carousel slide.
+function trackCurrentImpression() {
+  const api = emblaApi.value;
+  if (!api) return;
+  const item = visibleItems.value[api.selectedScrollSnap()];
+  if (item?.id) trackImpression(item.id);
+}
 
 const lightboxItems = computed(() =>
   visibleItems.value
