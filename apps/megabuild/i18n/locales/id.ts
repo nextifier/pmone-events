@@ -4,6 +4,7 @@ export default {
     speakers: "Pembicara",
     moderator: "Moderator",
     panelists: "Panelis",
+    getTicket: "Dapatkan Tiket Gratis",
   },
   rundown: {
     title: "Rundown",
@@ -48,7 +49,7 @@ export default {
         cta: "Follow {'@'}megabuildindo",
       },
     },
-    ctaTicket: "Dapatkan tiket",
+    ctaTicket: "Dapatkan tiket gratis",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
@@ -207,7 +208,7 @@ export default {
       '<span class="text-primary">Lagi cari material buat proyek rumah?</span><br /><span class="">Semuanya kumpul di sini.</span>',
     description:
       "Ratusan brand bahan bangunan, sanitary, kitchen, sampai smart home dalam satu pameran. Bandingkan langsung, tanya ke ahlinya, pulang bawa solusi yang siap dipakai.",
-    cta: "Dapatkan Tiket",
+    cta: "Dapatkan Tiket Gratis",
   },
   mediaCoverage: {
     title: "Liputan Media",
@@ -236,7 +237,7 @@ export default {
       },
       "1": {
         q: "Bagaimana cara mendapatkan tiket?",
-        a: '<p>Langsung lewat website resmi kami. Klik tombol <a href="/ticket">Get Ticket</a> dan ikuti proses registrasinya. E-ticket dikirim ke email dan WhatsApp kamu setelah pembayaran.</p>',
+        a: '<p>Langsung lewat website resmi kami. Klik tombol <a href="/ticket">Dapatkan Tiket Gratis</a> dan ikuti proses registrasinya. E-ticket dikirim ke email dan WhatsApp kamu setelah pembayaran.</p>',
       },
       "2": {
         q: "Berapa harga tiketnya?",
@@ -403,7 +404,7 @@ export default {
       title2: "Dream it! Live it!",
       description:
         "Pameran properti yang mempertemukan developer, investor, arsitek, dan profesional industri dalam satu platform.",
-      ctaTicket: "Dapatkan Tiket",
+      ctaTicket: "Dapatkan Tiket Gratis",
       ctaExhibit: "Saya Mau Exhibit",
       tagline: "Ekosistem bangunan & properti terbesar di Indonesia.",
     },

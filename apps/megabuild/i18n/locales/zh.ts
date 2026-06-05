@@ -4,6 +4,7 @@ export default {
     speakers: "演讲嘉宾",
     moderator: "主持人",
     panelists: "嘉宾",
+    getTicket: "免费领取门票",
   },
   rundown: {
     title: "Rundown",
@@ -45,7 +46,7 @@ export default {
         cta: "关注 {'@'}megabuildindo",
       },
     },
-    ctaTicket: "领取门票",
+    ctaTicket: "免费领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
@@ -199,7 +200,7 @@ export default {
       '<span class="text-primary">盖房子要用的材料，</span><br /><span class="">这里都能找到。</span>',
     description:
       "数百个品牌齐聚一堂，从建材、厨房、卫浴到智能家居。现场比较实物，直接和厂商聊。",
-    cta: "领取门票",
+    cta: "免费领取门票",
   },
   mediaCoverage: {
     title: "媒体报道",
@@ -225,7 +226,7 @@ export default {
       },
       "1": {
         q: "怎么买票？",
-        a: '<p>在官方网站就可以。点 <a href="/ticket">Get Ticket</a> 按钮，按流程注册。电子门票会发到你的 Email 和 WhatsApp。</p>',
+        a: '<p>在官方网站就可以。点 <a href="/ticket">免费领取门票</a> 按钮，按流程注册。电子门票会发到你的 Email 和 WhatsApp。</p>',
       },
       "2": {
         q: "门票多少钱？",
@@ -375,7 +376,7 @@ export default {
       title2: "Dream it! Live it!",
       description:
         "印尼房地产精品展，汇聚头部开发商、投资人、建筑师和行业专业人士，一个平台搞定所有对接。",
-      ctaTicket: "领取门票",
+      ctaTicket: "免费领取门票",
       ctaExhibit: "参展报名",
       tagline: "印尼最大的建筑与房地产一体化生态平台。",
     },

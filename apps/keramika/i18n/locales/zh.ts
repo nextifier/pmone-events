@@ -4,6 +4,7 @@ export default {
     speakers: "演讲嘉宾",
     moderator: "主持人",
     panelists: "嘉宾",
+    getTicket: "免费领取门票",
   },
   news: {
     noResultsHint: "换个关键词试试，或者看看其他话题吧。",
@@ -39,7 +40,7 @@ export default {
         subHeadline: "东盟领先的陶瓷行业展览会",
         content:
           "<p>数百家陶瓷品牌齐聚一堂。最新技术、材料、设计趋势，现场一次看个够。还有专家咨询。</p>",
-        cta: "领取门票",
+        cta: "免费领取门票",
       },
       "1": {
         subHeadline: "在 Keramika 展示你的品牌",
@@ -63,7 +64,7 @@ export default {
     title:
       '东盟领先的<span class="gradient-accent bg-clip-text font-semibold text-transparent">陶瓷</span>行业展览会',
     description: "在 ASEAN 领先的陶瓷产业展上，探索最新技术、材料和设计趋势。",
-    ctaTicket: "领取门票",
+    ctaTicket: "免费领取门票",
     ctaExhibit: "参展报名",
     playRecap: "观看精彩回顾",
     edition: "第{n}届",
@@ -225,7 +226,7 @@ export default {
       '<span class="text-primary">选瓷砖，</span><br /><span class="">还是亲眼看过再决定。</span>',
     description:
       "亲手摸纹理，在自然光下看花色，价格直接问厂家。数百个国内外品牌的瓷砖、石材、卫浴产品，一次看个够。",
-    cta: "领取门票",
+    cta: "免费领取门票",
   },
   mediaCoverage: {
     title: "行业媒体报道",
@@ -251,7 +252,7 @@ export default {
       },
       "1": {
         q: "怎么获取门票？",
-        a: '<p>通过我们的官方网站就可以。点击 <a href="/ticket">Get Ticket</a> 按钮，按流程完成注册。电子门票会发送到你的 Email 和 WhatsApp。</p>',
+        a: '<p>通过我们的官方网站就可以。点击 <a href="/ticket">免费领取门票</a> 按钮，按流程完成注册。电子门票会发送到你的 Email 和 WhatsApp。</p>',
       },
       "2": {
         q: "门票多少钱？",

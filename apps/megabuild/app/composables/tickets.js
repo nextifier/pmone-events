@@ -19,7 +19,7 @@ export const useTicketStore = defineStore("tickets", {
             showEndCountdownLabel: false,
             status: "", // empty string, Coming Soon, Available, Sold out
             disableLink: true,
-            button_label: "Get Ticket",
+            button_label: "Get Free Ticket",
             button_url: "https://panorama.undangin.com/ticket/26299",
             price: "FREE",
             label: "Registration",

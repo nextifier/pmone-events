@@ -10,7 +10,7 @@ export default {
     comingSoon: "Coming soon",
     backToHome: "Back to home",
     bookSpace: "Book Space",
-    getTicket: "Get Ticket",
+    getTicket: "Get Free Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
     toggleFullscreen: "Toggle Fullscreen",
@@ -177,7 +177,7 @@ export default {
         cta: "Follow {'@'}megabuildindo",
       },
     },
-    ctaTicket: "Get ticket",
+    ctaTicket: "Get free ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",
     edition: "{n}{ordinal} edition",
@@ -336,7 +336,7 @@ export default {
       '<span class="text-primary">Building something?</span><br /><span class="">Find every material under one roof.</span>',
     description:
       "Hundreds of brands across construction, kitchen, sanitary, and smart home. Compare options side by side, talk straight with the makers, and walk out knowing exactly what fits your build.",
-    cta: "Get Ticket",
+    cta: "Get Free Ticket",
   },
   mediaCoverage: {
     title: "Recognized by Industry Voices",
@@ -371,7 +371,7 @@ export default {
       },
       "1": {
         q: "How do I get tickets to attend the event?",
-        a: '<p>You can get your tickets through our official website. Simply click the <a href="/ticket">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>',
+        a: '<p>You can get your tickets through our official website. Simply click the <a href="/ticket">Get Free Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>',
       },
       "2": {
         q: "How much does a ticket cost?",
@@ -539,7 +539,7 @@ export default {
       title2: "Dream it! Live it!",
       description:
         "Premier real estate exhibition that brings together leading property developers, investors, architects, and industry professionals in one dynamic platform.",
-      ctaTicket: "Get ticket",
+      ctaTicket: "Get free ticket",
       ctaExhibit: "I want to exhibit",
       tagline: "Indonesia's largest integrated building & property ecosystem.",
     },

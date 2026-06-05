@@ -4,6 +4,7 @@ export default {
     speakers: "登壇者",
     moderator: "モデレーター",
     panelists: "パネリスト",
+    getTicket: "無料チケットを取得",
   },
   rundown: {
     title: "Rundown",
@@ -40,7 +41,7 @@ export default {
         subHeadline: "ASEANを代表するセラミクス産業展",
         content:
           "<p>数百のセラミクスブランドが一堂に集結。最新技術、素材、デザイントレンドを直接体感できます。専門家への相談も。</p>",
-        cta: "チケットを取得",
+        cta: "無料チケットを取得",
       },
       "1": {
         subHeadline: "Keramikaで、あなたのブランドを発信",
@@ -65,7 +66,7 @@ export default {
       'ASEAN最大の<span class="gradient-accent bg-clip-text font-semibold text-transparent">セラミックス</span>産業展',
     description:
       "ASEANを代表するセラミックス産業展で、最新技術・素材・デザインを体感してください。",
-    ctaTicket: "チケット取得",
+    ctaTicket: "無料チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
@@ -231,7 +232,7 @@ export default {
       '<span class="text-primary">タイル選びは、</span><br /><span class="">実物を見てから決めたい。</span>',
     description:
       "質感を手で確かめて、自然光の下で柄を確認。価格はメーカーに直接聞けます。国内外の数百ブランドのタイル、石材、サニタリーが集まります。",
-    cta: "チケットを取得",
+    cta: "無料チケットを取得",
   },
   mediaCoverage: {
     title: "メディアでの紹介",
@@ -259,7 +260,7 @@ export default {
       },
       "1": {
         q: "チケットはどうやって入手できますか？",
-        a: '<p>公式サイトからお求めいただけます。<a href="/ticket">チケットを取得</a>ボタンをクリックして、登録手続きを行ってください。購入後、EチケットがメールとWhatsAppに届きます。</p>',
+        a: '<p>公式サイトからお求めいただけます。<a href="/ticket">無料チケットを取得</a>ボタンをクリックして、登録手続きを行ってください。購入後、EチケットがメールとWhatsAppに届きます。</p>',
       },
       "2": {
         q: "チケットの料金はいくらですか？",

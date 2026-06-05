@@ -10,7 +10,7 @@ export default {
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
     "bookSpace": "Book Space",
-    "getTicket": "Get Ticket",
+    "getTicket": "Get Free Ticket",
     "toggleSidebar": "Toggle Sidebar",
     "openMenu": "Open Menu",
     "toggleFullscreen": "Toggle Fullscreen",
@@ -156,7 +156,7 @@ export default {
       "0": {
         "subHeadline": "ASEAN's Leading Ceramics Industry Exhibition",
         "content": "<p>Discover the latest technology, solutions, materials and design trends from hundreds of leading ceramic brands. Get access to expert consultations and exclusive insights.</p>",
-        "cta": "Get Your Ticket"
+        "cta": "Get Your Free Ticket"
       },
       "1": {
         "subHeadline": "Showcase Your Innovation at Keramika!",
@@ -176,7 +176,7 @@ export default {
     },
     "title": "ASEAN's Leading <span class=\"gradient-accent bg-clip-text font-semibold text-transparent\">Ceramics</span> Industry Exhibition",
     "description": "Be inspired by the latest technology, solutions, materials and design trends from ASEAN's leading ceramics industry exhibition.",
-    "ctaTicket": "Get ticket",
+    "ctaTicket": "Get free ticket",
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition"
@@ -313,7 +313,7 @@ export default {
   "visitorCta": {
     "title": "<span class=\"text-primary\">Picking tiles for your space?</span><br /><span class=\"\">See them in person first.</span>",
     "description": "Feel the texture, check the pattern under real light, and get pricing straight from the supplier. Hundreds of tile, stone, and sanitary collections from local and international brands.",
-    "cta": "Get Ticket"
+    "cta": "Get Free Ticket"
   },
   "mediaCoverage": {
     "title": "Recognized by Industry Voices",
@@ -343,7 +343,7 @@ export default {
       },
       "1": {
         "q": "How do I get tickets to attend the event?",
-        "a": "<p>You can get your tickets through our official website. Simply click the <a href=\"/ticket\">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>"
+        "a": "<p>You can get your tickets through our official website. Simply click the <a href=\"/ticket\">Get Free Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>"
       },
       "2": {
         "q": "How much does a ticket cost?",

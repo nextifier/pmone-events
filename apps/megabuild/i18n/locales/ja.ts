@@ -4,6 +4,7 @@ export default {
     speakers: "登壇者",
     moderator: "モデレーター",
     panelists: "パネリスト",
+    getTicket: "無料チケットを取得",
   },
   rundown: {
     title: "Rundown",
@@ -48,7 +49,7 @@ export default {
         cta: "{'@'}megabuildindoをフォロー",
       },
     },
-    ctaTicket: "チケット取得",
+    ctaTicket: "無料チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
@@ -207,7 +208,7 @@ export default {
       '<span class="text-primary">家づくりの材料探し、</span><br /><span class="">ここで全部そろいます。</span>',
     description:
       "建材、キッチン、サニタリー、スマートホームまで、数百のブランドが一堂に。実物を見比べて、メーカーに直接質問できる場所です。",
-    cta: "チケットを取得",
+    cta: "無料チケットを取得",
   },
   mediaCoverage: {
     title: "メディア掲載",
@@ -235,7 +236,7 @@ export default {
       },
       "1": {
         q: "チケットはどこで入手できますか？",
-        a: '<p>公式サイトからお求めいただけます。<a href="/ticket">チケットを取得</a>ボタンをクリックして登録してください。購入後、EチケットがEmailとWhatsAppに届きます。</p>',
+        a: '<p>公式サイトからお求めいただけます。<a href="/ticket">無料チケットを取得</a>ボタンをクリックして登録してください。購入後、EチケットがEmailとWhatsAppに届きます。</p>',
       },
       "2": {
         q: "チケットの料金はいくらですか？",
@@ -398,7 +399,7 @@ export default {
       title2: "Dream it! Live it!",
       description:
         "不動産デベロッパー、投資家、建築家、業界プロフェッショナルが一堂に会する不動産展示会。物件探しから投資相談まで、ここで完結します。",
-      ctaTicket: "チケット取得",
+      ctaTicket: "無料チケット取得",
       ctaExhibit: "出展したい",
       tagline: "インドネシア最大の建築・不動産エコシステム。",
     },

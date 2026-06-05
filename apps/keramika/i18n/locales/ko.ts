@@ -4,6 +4,7 @@ export default {
     speakers: "연사",
     moderator: "진행자",
     panelists: "패널리스트",
+    getTicket: "무료 티켓 받기",
   },
   news: {
     noResultsHint:
@@ -43,7 +44,7 @@ export default {
         subHeadline: "아세안 대표 세라믹 산업 전시회",
         content:
           "<p>수백 개 세라믹 브랜드가 한자리에. 최신 기술, 소재, 디자인 트렌드를 직접 확인하세요. 전문가 상담도 가능해요.</p>",
-        cta: "티켓 받기",
+        cta: "무료 티켓 받기",
       },
       "1": {
         subHeadline: "Keramika에서 브랜드를 알리세요",
@@ -68,7 +69,7 @@ export default {
       'ASEAN 최대 <span class="gradient-accent bg-clip-text font-semibold text-transparent">세라믹</span> 산업 전시회',
     description:
       "ASEAN 최대 세라믹 산업 전시회에서 최신 기술, 소재, 디자인 트렌드를 만나세요.",
-    ctaTicket: "티켓 받기",
+    ctaTicket: "무료 티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
@@ -233,7 +234,7 @@ export default {
       '<span class="text-primary">타일 고를 땐,</span><br /><span class="">직접 보고 정하는 게 답이에요.</span>',
     description:
       "질감을 만져보고, 자연광 아래서 무늬를 확인하고, 가격은 업체에 바로 물어보세요. 국내외 수백 개 브랜드의 타일, 석재, 위생도기를 한자리에서.",
-    cta: "티켓 받기",
+    cta: "무료 티켓 받기",
   },
   mediaCoverage: {
     title: "미디어가 주목한 행사",
@@ -260,7 +261,7 @@ export default {
       },
       "1": {
         q: "티켓은 어떻게 받나요?",
-        a: '<p>공식 웹사이트에서 받을 수 있어요. <a href="/ticket">티켓 받기</a> 버튼을 클릭하고 등록하면 돼요. 전자 티켓은 Email과 WhatsApp으로 보내드려요.</p>',
+        a: '<p>공식 웹사이트에서 받을 수 있어요. <a href="/ticket">무료 티켓 받기</a> 버튼을 클릭하고 등록하면 돼요. 전자 티켓은 Email과 WhatsApp으로 보내드려요.</p>',
       },
       "2": {
         q: "티켓 가격이 얼마예요?",

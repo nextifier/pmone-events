@@ -4,6 +4,7 @@ export default {
     speakers: "Pembicara",
     moderator: "Moderator",
     panelists: "Panelis",
+    getTicket: "Dapatkan Tiket Gratis",
   },
   eventStatus: {
     startsIn: "Event dimulai dalam",
@@ -37,7 +38,7 @@ export default {
         subHeadline: "Pameran Industri Keramik Terbesar di ASEAN",
         content:
           "<p>Ratusan brand keramik unggulan, semua di satu tempat. Lihat langsung teknologi, material, dan tren desain terbaru. Plus, konsultasi dengan para ahlinya.</p>",
-        cta: "Dapatkan Tiket",
+        cta: "Dapatkan Tiket Gratis",
       },
       "1": {
         subHeadline: "Tampilkan Brand Kamu di Keramika!",
@@ -62,7 +63,7 @@ export default {
       'Pameran Industri <span class="gradient-accent bg-clip-text font-semibold text-transparent">Keramik</span> Terbesar di ASEAN',
     description:
       "Temukan teknologi, solusi, material, dan tren desain terbaru dari pameran industri keramik terbesar di ASEAN.",
-    ctaTicket: "Dapatkan tiket",
+    ctaTicket: "Dapatkan tiket gratis",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
@@ -228,7 +229,7 @@ export default {
       '<span class="text-primary">Lagi pilih keramik buat rumah?</span><br /><span class="">Lihat aslinya dulu sebelum beli.</span>',
     description:
       "Pegang sendiri teksturnya, cek motifnya di bawah cahaya asli, tanya harga langsung ke supplier. Ratusan koleksi keramik, granit, dan sanitary dari brand lokal sampai impor.",
-    cta: "Dapatkan Tiket",
+    cta: "Dapatkan Tiket Gratis",
   },
   mediaCoverage: {
     title: "Liputan Media & Komunitas",
@@ -257,7 +258,7 @@ export default {
       },
       "1": {
         q: "Bagaimana cara mendapatkan tiket pameran keramik?",
-        a: '<p>Tiket dapat diperoleh melalui website resmi kami. Cukup klik tombol <a href="/ticket">Get Ticket</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp Anda setelah pembelian.</p>',
+        a: '<p>Tiket dapat diperoleh melalui website resmi kami. Cukup klik tombol <a href="/ticket">Dapatkan Tiket Gratis</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp Anda setelah pembelian.</p>',
       },
       "2": {
         q: "Berapa harga tiketnya?",

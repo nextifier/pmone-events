@@ -4,6 +4,7 @@ export default {
     speakers: "연사",
     moderator: "진행자",
     panelists: "패널리스트",
+    getTicket: "무료 티켓 받기",
   },
   rundown: {
     title: "Rundown",
@@ -47,7 +48,7 @@ export default {
         cta: "{'@'}megabuildindo 팔로우하기",
       },
     },
-    ctaTicket: "티켓 받기",
+    ctaTicket: "무료 티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
@@ -205,7 +206,7 @@ export default {
       '<span class="text-primary">집 짓는 데 필요한 자재,</span><br /><span class="">여기 다 있어요.</span>',
     description:
       "건자재, 주방, 욕실, 스마트홈까지 수백 개 브랜드가 한자리에. 실물을 직접 보고, 담당자에게 바로 물어보세요.",
-    cta: "티켓 받기",
+    cta: "무료 티켓 받기",
   },
   mediaCoverage: {
     title: "미디어 보도",
@@ -232,7 +233,7 @@ export default {
       },
       "1": {
         q: "티켓은 어떻게 받나요?",
-        a: '<p>공식 웹사이트에서 받을 수 있어요. <a href="/ticket">티켓 받기</a> 버튼을 클릭하고 등록하면 돼요. 전자 티켓은 Email과 WhatsApp으로 보내드려요.</p>',
+        a: '<p>공식 웹사이트에서 받을 수 있어요. <a href="/ticket">무료 티켓 받기</a> 버튼을 클릭하고 등록하면 돼요. 전자 티켓은 Email과 WhatsApp으로 보내드려요.</p>',
       },
       "2": {
         q: "티켓 가격이 얼마예요?",
@@ -393,7 +394,7 @@ export default {
       title2: "Dream it! Live it!",
       description:
         "디벨로퍼, 투자자, 건축가, 업계 전문가가 한자리에 모이는 인도네시아 부동산 전시회입니다.",
-      ctaTicket: "티켓 받기",
+      ctaTicket: "무료 티켓 받기",
       ctaExhibit: "전시 참가 등록",
       tagline: "인도네시아 최대 건축·부동산 통합 플랫폼.",
     },
