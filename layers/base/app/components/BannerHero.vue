@@ -29,7 +29,7 @@
       >
         <CarouselContent class="-ml-2 *:select-none">
           <CarouselItem
-            v-for="(item, index) in visibleItems"
+            v-for="(item, index) in displayItems"
             :key="index"
             class="basis-full pl-2"
           >
@@ -45,13 +45,13 @@
                 v-if="item.img"
                 class="flex h-full w-24 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/6 sm:rounded-l-2xl"
               >
-                <NuxtImg
+                <img
                   :src="item.img.src"
-                  sizes="200px"
+                  alt=""
                   :width="item.img.w"
                   :height="item.img.h"
                   loading="lazy"
-                  format="webp"
+                  decoding="async"
                   class="size-full object-cover"
                 />
               </div>
@@ -96,12 +96,13 @@
                 :aria-label="item.adImage.alt || 'Open banner'"
                 @click="openAt(adIndexFor(index))"
               >
-                <NuxtImg
+                <img
                   :src="item.adImage.src"
+                  :srcset="item.adImage.srcset"
+                  sizes="(min-width: 1280px) 33vw, 100vw"
                   :alt="item.adImage.alt ?? ''"
-                  sizes="sm:100vw md:50vw lg:480px"
                   loading="lazy"
-                  format="webp"
+                  decoding="async"
                   class="size-full object-cover"
                 />
               </button>
@@ -129,12 +130,13 @@
                 :aria-label="item.adImage.alt || 'Open banner'"
                 @click="openAt(adIndexFor(index))"
               >
-                <NuxtImg
+                <img
                   :src="item.adImage.src"
+                  :srcset="item.adImage.srcset"
+                  sizes="(min-width: 1280px) 33vw, 100vw"
                   :alt="item.adImage.alt ?? ''"
-                  sizes="sm:100vw md:50vw lg:480px"
                   loading="lazy"
-                  format="webp"
+                  decoding="async"
                   class="size-full object-cover"
                 />
               </button>
@@ -226,9 +228,11 @@ const setApi = (api) => {
   emblaApi.value = api;
 
   // Impression tracking: count the banner shown on each slide (deduped per id).
+  // The initial / post-rotation slide-0 impression is fired by the displayItems
+  // watcher below — the per-load rotation swaps slide content in place (keys are
+  // indices) so embla emits no select/reInit for it.
   emblaApi.value.on("select", trackCurrentImpression);
   emblaApi.value.on("reInit", trackCurrentImpression);
-  trackCurrentImpression();
 
   const autoplay = emblaApi.value.plugins().autoplay;
   if (!autoplay) return;
@@ -299,8 +303,16 @@ const { now } = useCurrentTime();
 // client render both show every item (deterministic, identical markup), then the
 // window filter kicks in after hydration.
 const isMounted = ref(false);
+
+// Per page-load offset used to rotate the ad-image subsequence (see displayItems)
+// so each paid ad gets a fair share of the prime slots over time. Set client-only
+// in onMounted so SSR and the first client render stay deterministic (offset 0 =
+// curated order) -> no hydration mismatch, same gate as the time-window filter.
+const rotationOffset = ref(0);
+
 onMounted(() => {
   isMounted.value = true;
+  rotationOffset.value = Math.floor(Math.random() * 100000);
 });
 
 const isWithinWindow = (item) => {
@@ -317,25 +329,56 @@ const visibleItems = computed(() =>
   isMounted.value ? items.value.filter(isWithinWindow) : items.value,
 );
 
+// Fairness: cyclically rotate only the ad-image banners (items carrying `adImage`)
+// by the per-load offset, keeping every non-ad item (text / announcement) pinned at
+// its curated index. Each ad thus rotates through the slots over many page loads,
+// so the prime first-impression slot is shared evenly instead of always going to
+// whichever ad sits earliest in sort_order.
+const isAdItem = (item) => !!item?.adImage;
+
+const rotateAds = (list, offset) => {
+  const ads = list.filter(isAdItem);
+  if (ads.length <= 1) return list;
+  const shift = offset % ads.length;
+  const rotated = ads.map((_, i) => ads[(i + shift) % ads.length]);
+  let k = 0;
+  return list.map((item) => (isAdItem(item) ? rotated[k++] : item));
+};
+
+const displayItems = computed(() => rotateAds(visibleItems.value, rotationOffset.value));
+
 // Track an impression for the banner on the currently selected carousel slide.
 function trackCurrentImpression() {
   const api = emblaApi.value;
   if (!api) return;
-  const item = visibleItems.value[api.selectedScrollSnap()];
+  const item = displayItems.value[api.selectedScrollSnap()];
   if (item?.id) trackImpression(item.id);
 }
 
+// The displayed set changes on mount (rotation offset applied + time-window filter)
+// and whenever the window adds/removes a banner. With index keys the carousel keeps
+// its current snap and only swaps slide content, so embla fires no select/reInit —
+// track the now-current slide explicitly. flush:'post' so the DOM/snap reflect the
+// new order first.
+watch(displayItems, () => trackCurrentImpression(), { flush: "post" });
+
+// On phones, the lightbox loads the medium (~1200px) image instead of the full
+// (~1920px) original so opening it stays fast; larger screens get the full image.
+const isLargeScreen = useMediaQuery("(min-width: 768px)");
+
 const lightboxItems = computed(() =>
-  visibleItems.value
+  displayItems.value
     .filter((item) => item.adImage)
     .map((item) => {
       const full = item.adImage.srcFull ?? item.adImage.src;
+      const medium = item.adImage.src;
+      const display = isLargeScreen.value ? full : medium;
       return {
-        url: full,
-        xl: full,
-        lg: full,
-        md: item.adImage.src,
-        sm: item.adImage.src,
+        url: display,
+        xl: display,
+        lg: display,
+        md: medium,
+        sm: medium,
         alt: item.adImage.alt ?? "",
         caption: item.adImage.caption ?? "",
       };
@@ -344,9 +387,9 @@ const lightboxItems = computed(() =>
 
 const adIndexFor = (index) => {
   let counter = 0;
-  for (let i = 0; i < visibleItems.value.length; i++) {
+  for (let i = 0; i < displayItems.value.length; i++) {
     if (i === index) return counter;
-    if (visibleItems.value[i].adImage) counter++;
+    if (displayItems.value[i].adImage) counter++;
   }
   return -1;
 };
