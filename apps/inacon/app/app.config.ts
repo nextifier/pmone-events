@@ -145,7 +145,7 @@ const settings = {
 
 const contact = {
   email: "inacon@panoramamedia.co.id",
-  whatsapp: "6281119220005",
+  whatsapp: "6281110529526",
   whatsappMarketing: "6281119220018",
 };
 
