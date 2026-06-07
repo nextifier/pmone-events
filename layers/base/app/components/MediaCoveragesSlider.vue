@@ -71,6 +71,7 @@
 
 <script setup>
 const localePath = useLocalePath();
-const news = useNewsCoveragesStore().list;
+const { data: mediaCoverageData } = await useMediaCoverages();
+const news = computed(() => mediaCoverageData.value?.data ?? []);
 const content = computed(() => useContentStore().components.mediaCoverage);
 </script>

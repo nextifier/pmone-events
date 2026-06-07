@@ -1,7 +1,7 @@
 <template>
   <section
     id="main-programs"
-    v-if="content.list?.length"
+    v-if="list.length"
     class="overflow-hidden"
   >
     <div class="container">
@@ -20,21 +20,33 @@
     <div v-if="route.name?.toString().startsWith('programs')" class="container mt-10">
       <div
         class="grid gap-x-2 gap-y-3 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-y-8"
-        :class="content.list[0].image ? 'grid-cols-2' : 'grid-cols-1'"
+        :class="list[0].image ? 'grid-cols-2' : 'grid-cols-1'"
       >
         <MainProgramCard
-          v-for="(program, index) in content.list"
+          v-for="(program, index) in list"
           :key="index"
           :program="program"
         />
       </div>
     </div>
 
-    <MainProgramSlider v-else class="mt-10" :programs="content.list" />
+    <MainProgramSlider v-else class="mt-10" :programs="list" />
   </section>
 </template>
 
 <script setup>
 const route = useRoute();
+const { locale } = useI18n();
+
 const content = computed(() => useContentStore().components.mainPrograms);
+
+// Program items are managed in PM One and fetched per active event + locale.
+// The section heading (title/description) still comes from i18n.
+const { data: programsData } = await useFetch("/api/event/programs", {
+  query: { locale },
+  watch: [locale],
+  default: () => ({ data: [] }),
+});
+
+const list = computed(() => programsData.value?.data ?? []);
 </script>

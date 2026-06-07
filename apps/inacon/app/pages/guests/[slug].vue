@@ -122,15 +122,18 @@
 const localePath = useLocalePath();
 const config = useRuntimeConfig();
 const route = useRoute();
-const guests = useGuestStore();
-const guest = guests.getGuestBySlug(route.params.slug);
 
-if (!guest) {
+const { data } = await useGuest(route.params.slug);
+const raw = data.value?.data ?? null;
+
+if (!raw) {
   throw createError({
     statusCode: 404,
     statusMessage: "Page not found",
   });
 }
+
+const guest = mapGuestFromApi(raw);
 
 const title = `Meet ${guest.name} at ${useAppConfig().event.title} on ${useAppConfig().event.date} at ${useAppConfig().event.location}`;
 const description = `Meet ${guest.name} at ${useAppConfig().event.title} on ${useAppConfig().event.date} at ${useAppConfig().event.location}`;

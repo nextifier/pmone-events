@@ -44,11 +44,11 @@
     </div>
 
     <div class="flex flex-col gap-y-10">
-      <div v-if="faq?.list?.length" class="flex w-full flex-col gap-y-3">
+      <div v-if="list.length" class="flex w-full flex-col gap-y-3">
         <h2 class="sr-only">{{ content.title }}</h2>
         <Accordion type="single" collapsible>
           <AccordionItem
-            v-for="(item, index) in faq.list"
+            v-for="(item, index) in list"
             :key="index"
             :value="`faq-item-${index}`"
           >
@@ -95,6 +95,49 @@ const props = defineProps({
 });
 
 const localePath = useLocalePath();
+const { locale } = useI18n();
 const content = computed(() => useContentStore().components.faq);
-const faq = useFAQStore();
+
+// FAQ items are managed in PM One and fetched per active event + locale, with
+// {{tokens}} resolved server-side from the event/project context. The section
+// heading (title/description/contactTitle) still comes from i18n.
+const { data: faqData } = await useFetch("/api/event/faq", {
+  query: { locale },
+  watch: [locale],
+  default: () => ({ data: [] }),
+});
+
+const list = computed(() => faqData.value?.data ?? []);
+
+// FAQPage structured data (Google Rich Results), sourced from the same API list
+// so it always matches what is displayed.
+function stripHtml(html) {
+  return String(html ?? "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: computed(() => {
+        if (!list.value.length) return "{}";
+        return JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: list.value.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: stripHtml(item.a),
+            },
+          })),
+        });
+      }),
+    },
+  ],
+});
 </script>

@@ -7,16 +7,10 @@
 export function useEventSchema() {
   const config = useAppConfig();
   const siteUrl = useRuntimeConfig().public.siteUrl;
-  const faq = useFAQStore();
   const ticketStore = useTicketStore();
 
   // --- sameAs: only active social platforms ---
   const sameAs = Object.values(config.socialLinks).map((link) => link.path);
-
-  // --- Strip HTML tags, replacing with spaces to prevent text run-together ---
-  function stripHtml(html) {
-    return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-  }
 
   // --- Parse date string like "May 7, 2026 10:00:00" to ISO 8601 +07:00 ---
   function toSchemaDate(dateStr) {
@@ -128,35 +122,10 @@ export function useEventSchema() {
     offers,
   };
 
-  // --- FAQPage schema (raw JSON-LD for Google Rich Results detection) ---
-  const faqList = unref(faq.list);
-  const faqSchema =
-    faqList && faqList.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqList.map((item) => ({
-            "@type": "Question",
-            name: item.q,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: stripHtml(item.a),
-            },
-          })),
-        }
-      : undefined;
-
   // --- Inject raw JSON-LD via useHead (bypasses @unhead/schema-org normalization) ---
-  const scripts = [
-    { type: "application/ld+json", innerHTML: JSON.stringify(eventSchema) },
-  ];
-
-  if (faqSchema) {
-    scripts.push({
-      type: "application/ld+json",
-      innerHTML: JSON.stringify(faqSchema),
-    });
-  }
-
-  useHead({ script: scripts });
+  // FAQPage schema is emitted by <FAQ /> on the /faq page from the PM One API
+  // data, so it is not duplicated here.
+  useHead({
+    script: [{ type: "application/ld+json", innerHTML: JSON.stringify(eventSchema) }],
+  });
 }

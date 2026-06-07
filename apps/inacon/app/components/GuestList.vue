@@ -72,5 +72,9 @@
 <script setup>
 const route = useRoute();
 const getRouteBaseName = useRouteBaseName();
-const guests = useGuestStore().list.filter((guest) => guest.isPublished);
+
+const { data } = await useGuests();
+const guests = computed(() =>
+  (data.value?.data ?? []).map(mapGuestFromApi),
+);
 </script>

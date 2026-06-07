@@ -174,7 +174,8 @@ export const useBrandsStore = defineStore("brands", {
           youtube: "https://www.youtube.com/@megabuildindo",
         },
         hero: {
-          headline: "Indonesia's construction industry. One address. Four days.",
+          headline:
+            "Indonesia's construction industry. One address. Four days.",
           subheadline:
             "Where architects meet manufacturers. Contractors find suppliers. And deals get done months before ground breaks.",
           description:
@@ -355,7 +356,7 @@ export const useBrandsStore = defineStore("brands", {
           subheadline:
             "Indonesia's longest-running franchise and business opportunity expo.",
           description:
-            'Started before "franchise" was a common word in Indonesia. Now it\'s where thousands of aspiring entrepreneurs find their first business every year.\n\nNot just fast food. Not just retail. If there\'s a proven business model, it\'s probably here.',
+            "Started before \"franchise\" was a common word in Indonesia. Now it's where thousands of aspiring entrepreneurs find their first business every year.\n\nNot just fast food. Not just retail. If there's a proven business model, it's probably here.",
         },
         categories: [
           {
@@ -417,7 +418,8 @@ export const useBrandsStore = defineStore("brands", {
         hero: {
           headline:
             "For people building cafe businesses. Not just dreaming about them.",
-          subheadline: "Equipment, beans, concepts, tech. Plus four festivals in one.",
+          subheadline:
+            "Equipment, beans, concepts, tech. Plus four festivals in one.",
           description:
             "Where serious cafe owners find their next espresso machine, discover new suppliers, and learn what's actually working in the market.\n\nNo fluff. Just the equipment, ingredients, and knowledge to run a cafe that lasts.",
         },
@@ -611,7 +613,7 @@ export const useBrandsStore = defineStore("brands", {
         companyName: "PT Ekspresi Generasi Kreatif",
         website: "https://indonesiacomiccon.com",
         email: "icc@panoramamedia.co.id",
-        whatsapp: "6281119220005",
+        whatsapp: "6281110529526",
         socials: {
           instagram: "indocomiccon",
           x: "https://x.com/indocomicconx",
@@ -672,13 +674,14 @@ export const useBrandsStore = defineStore("brands", {
         companyName: "PT Ekspresi Generasi Kreatif",
         website: "https://indonesiaanimecon.com",
         email: "inacon@panoramamedia.co.id",
-        whatsapp: "6281119220005",
+        whatsapp: "6281110529526",
         socials: {
           instagram: "indoanimecon",
         },
         hero: {
           headline: "Your favorite universe. Real for a weekend.",
-          subheadline: "Anime, manga, cosplay, and the community that lives for it.",
+          subheadline:
+            "Anime, manga, cosplay, and the community that lives for it.",
           description:
             "Three days of Japanese pop culture. Anime screenings, manga artists, cosplay showcases, idol performances. 50,000 people who finally don't need to explain their interests.\n\nNow merged with Indonesia Comic Con. East meets West, one epic celebration.",
         },
