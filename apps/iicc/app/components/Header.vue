@@ -9,6 +9,7 @@
     >
       <div class="flex items-center gap-x-2">
         <Button
+          v-if="isHomePage"
           to="https://askindo.id"
           variant="outline"
           size="iconSm"
