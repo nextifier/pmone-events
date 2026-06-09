@@ -1,5 +1,5 @@
 <template>
-  <section id="credits">
+  <section v-if="partners.length" id="credits">
     <h2 class="section-title">{{ content.title }}</h2>
     <p class="mt-3 text-base tracking-tight text-pretty sm:text-lg">
       {{ content.description }}
@@ -37,14 +37,14 @@
             }"
             :aria-label="item.link ? item.name || 'Partner logo' : undefined"
           >
-            <NuxtImg
-              :src="`${partner.directory}${item.img}`"
+            <img
+              :src="item.img"
               :alt="item.name ?? ''"
               class="object-contain select-none dark:brightness-90 dark:contrast-200 dark:grayscale dark:invert-[75%] dark:group-hover:filter-none"
               width="300"
               height="200"
               loading="lazy"
-              :format="item.img.endsWith('.svg') ? '' : 'webp'"
+              decoding="async"
             />
           </component>
         </div>
@@ -81,5 +81,11 @@
 import { NuxtLink } from "#components";
 const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.credits);
-const partners = computed(() => usePartnerStore().partnerCategories);
+
+// Partners are managed in PM One and fetched per active event (the server route
+// resolves active->latest and maps the API shape to this component's old shape).
+const { data: partnersData } = await useFetch("/api/event/partners", {
+  default: () => ({ data: [] }),
+});
+const partners = computed(() => partnersData.value?.data ?? []);
 </script>

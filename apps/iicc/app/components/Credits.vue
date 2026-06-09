@@ -1,5 +1,5 @@
 <template>
-  <section id="credits">
+  <section v-if="partners.length" id="credits">
     <h2 class="section-title">Meet the Community Behind the Event</h2>
     <p class="mt-3 text-base tracking-tight text-pretty sm:text-lg">
       This event is brought to life by the amazing support of our partners,
@@ -38,14 +38,14 @@
             }"
             aria-label="Partner logo"
           >
-            <NuxtImg
-              :src="`${partner.directory}${item.img}`"
+            <img
+              :src="item.img"
               :alt="item.name ?? ''"
               class="object-contain select-none dark:brightness-90 dark:contrast-200 dark:grayscale dark:invert-[75%] dark:group-hover:filter-none"
               width="300"
               height="200"
               loading="lazy"
-              :format="item.img.endsWith('.svg') ? '' : 'webp'"
+              decoding="async"
             />
           </component>
         </div>
@@ -66,5 +66,8 @@
 <script setup>
 import { NuxtLink } from "#components";
 const content = useContentStore().components.credits;
-const partners = new usePartnerStore().partnerCategories;
+const { data: partnersData } = await useFetch("/api/event/partners", {
+  default: () => ({ data: [] }),
+});
+const partners = computed(() => partnersData.value?.data ?? []);
 </script>
