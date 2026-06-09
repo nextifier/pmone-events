@@ -65,38 +65,6 @@ export default {
     title: "<span>Program Utama</span>",
     description:
       "Kompetisi langsung, workshop hands-on, dan tasting sepuasnya. Setiap momen di festival ini dirancang agar kamu pulang membawa pengalaman baru.",
-    items: {
-      "0": {
-        title: "Kompetisi Live",
-        description:
-          "Barista, brewer, dan chef terbaik Indonesia adu skill di panggung utama. Energinya menular, talentanya luar biasa.",
-      },
-      "1": {
-        title: "Tasting Bar",
-        description:
-          "Coba ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Kopi favorit baru kamu ada di antara mereka.",
-      },
-      "2": {
-        title: "Workshop Hands-On",
-        description:
-          "Belajar langsung dari expert. Wine tasting, teknik brew, dan flavor pairing, semuanya bisa kamu coba sendiri. Kursi terbatas.",
-      },
-      "3": {
-        title: "Bean-to-Bar Demo",
-        description:
-          "Lihat proses pembuatan cokelat dari awal sampai akhir. Dari biji kakao sederhana menjadi cokelat batangan yang bikin ketagihan.",
-      },
-      "4": {
-        title: "Industry Talks",
-        description:
-          "Diskusi langsung bersama praktisi soal masa depan kafe, sustainability di F&B, dan tren yang wajib kamu tahu.",
-      },
-      "5": {
-        title: "Live Music & DJ",
-        description:
-          "Band dan DJ menemani kamu sepanjang hari. Menikmati kopi sambil mendengarkan musik, suasana festival yang sempurna.",
-      },
-    },
   },
   partnerships: {
     title:

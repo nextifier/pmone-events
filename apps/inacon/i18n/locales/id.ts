@@ -75,44 +75,6 @@ export default {
     title: "Program Utama",
     description:
       "Dari panggung cosplay sampai meet & greet, dari gaming tournament sampai talkshow eksklusif. Ini program-program yang bikin {appName} wajib dikunjungi.",
-    items: {
-      "0": {
-        title: "Exhibition",
-      },
-      "1": {
-        title: "Main Guest Talkshow",
-      },
-      "2": {
-        title: "Meet & Greet",
-      },
-      "3": {
-        title: "Cosplay Parade",
-      },
-      "4": {
-        title: "Cosplay Competition",
-      },
-      "5": {
-        title: "Gaming Competition",
-      },
-      "6": {
-        title: "Movie Panel",
-      },
-      "7": {
-        title: "Portfolio Review",
-      },
-      "8": {
-        title: "Creator Workshop",
-      },
-      "9": {
-        title: "Toys Auction",
-      },
-      "10": {
-        title: "Stamp Rally",
-      },
-      "11": {
-        title: "Live Performance",
-      },
-    },
   },
   partnerships: {
     title: "Gabung Bareng Kami",

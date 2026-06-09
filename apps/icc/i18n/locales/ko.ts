@@ -79,44 +79,6 @@ export default {
     title: "주요 프로그램",
     description:
       "전시, 토크쇼, 코스프레 대회까지. {appName}을 놓칠 수 없는 이유가 여기 있어요.",
-    items: {
-      "0": {
-        title: "Exhibition",
-      },
-      "1": {
-        title: "Main Guest Talkshow",
-      },
-      "2": {
-        title: "Meet & Greet",
-      },
-      "3": {
-        title: "Cosplay Parade",
-      },
-      "4": {
-        title: "Cosplay Competition",
-      },
-      "5": {
-        title: "Gaming Competition",
-      },
-      "6": {
-        title: "Movie Panel",
-      },
-      "7": {
-        title: "Portfolio Review",
-      },
-      "8": {
-        title: "Creator Workshop",
-      },
-      "9": {
-        title: "Toys Auction",
-      },
-      "10": {
-        title: "Stamp Rally",
-      },
-      "11": {
-        title: "Live Performance",
-      },
-    },
   },
   partnerships: {
     title: "함께해요",

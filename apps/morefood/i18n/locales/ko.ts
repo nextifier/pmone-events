@@ -133,48 +133,6 @@ export default {
       "<span class='text-outline'>주요</span> <span class='text-accent'>프로그램</span>",
     description:
       "세미나, 라이브 쿠킹, 비즈니스 매칭까지. 박람회 곳곳에 비즈니스에 도움이 되는 프로그램을 준비했어요. 그냥 구경만 하지 마세요.",
-    items: {
-      "0": {
-        title: "The Global Marketplace",
-        description:
-          "행사의 핵심 공간이에요. 20,000m²에 전 세계 1,200개 이상의 전시사가 참가해요. 새로운 제품, 식재료, 기술을 한곳에서 비교하고 살펴볼 수 있어요.",
-      },
-      "1": {
-        title: "MoreFood Talks: 산업 서밋",
-        description:
-          "업계 리더, 시장 분석가, 성공한 기업가가 직접 경험과 인사이트를 공유해요. F&B의 미래, Halal 시장 트렌드, 지속 가능한 비즈니스 전략을 다뤄요.",
-      },
-      "2": {
-        title: "Launch Pad: 이노베이션 스테이지",
-        description:
-          "신제품 공개를 가장 먼저 볼 수 있는 전용 무대예요. 혁신적인 푸드테크부터 새로운 맛까지, 시장에 나오기 전에 직접 확인할 수 있어요.",
-      },
-      "3": {
-        title: "The Inspiration Zone",
-        description:
-          "직접 체험할 수 있는 인터랙티브 공간이에요. 감각적인 디스플레이, 독특한 푸드 페어링, 새로운 카페 컨셉과 매장 레이아웃 아이디어를 얻을 수 있어요.",
-      },
-      "4": {
-        title: "Business Matching Service",
-        description:
-          "사전 검증된 바이어와 1:1 미팅을 연결해 드려요. 불필요한 과정 없이 핵심만 바로 이야기할 수 있어요.",
-      },
-      "5": {
-        title: "Chef's Table: 라이브 쿠킹 데모",
-        description:
-          "유명 셰프가 전시사의 식재료로 직접 요리하는 걸 볼 수 있어요. 레시피 아이디어도 얻고, 무료 시식도 즐겨보세요.",
-      },
-      "6": {
-        title: "Creator's Hub: KOL 라이브 스트림",
-        description:
-          "인기 푸드 인플루언서와 크리에이터가 Creator's Hub에서 생중계해요. 트렌드를 발굴하고, 브랜드 오너를 인터뷰하는 현장을 함께 즐겨보세요.",
-      },
-      "7": {
-        title: "Halal 시장 워크숍",
-        description:
-          "Halal 시장 진출을 위한 실전 워크숍이에요. 인도네시아 Halal 인증 절차부터 무슬림 소비자 마케팅 전략까지 전문가에게 직접 배울 수 있어요. 좌석 한정이에요.",
-      },
-    },
   },
   partnerships: {
     title:

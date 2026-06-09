@@ -221,48 +221,6 @@ export default {
       "<span class='text-outline'>Eight industry</span> <span class='text-accent'>zones</span>",
     description:
       "The exhibition floor is split into eight zones so buyers can find the right vendors fast. Each zone has its own programming, demos, and matchmaking slots.",
-    items: {
-      "0": {
-        title: "AI Robotics",
-        description:
-          "Industrial arms, humanoids, warehouse automation, and edge robotics. Live demo runs scheduled across all three days.",
-      },
-      "1": {
-        title: "Healthcare AI",
-        description:
-          "Diagnostics, drug discovery, hospital operations, and patient-facing tools from teams already deployed in clinical settings.",
-      },
-      "2": {
-        title: "Fintech AI",
-        description:
-          "Risk scoring, fraud detection, KYC automation, and AI-native trading. Built for banks, insurers, and digital lenders.",
-      },
-      "3": {
-        title: "Smart City AI",
-        description:
-          "Traffic, public safety, utilities, and citizen services. The zone hosts municipal delegations across the three-day run.",
-      },
-      "4": {
-        title: "Manufacturing AI",
-        description:
-          "Predictive maintenance, quality inspection, supply chain forecasting, and factory floor copilots from system integrators.",
-      },
-      "5": {
-        title: "Autonomous Vehicles",
-        description:
-          "AV stacks, sensor suites, simulation platforms, and fleet operations. Test rides scheduled with selected exhibitors.",
-      },
-      "6": {
-        title: "AI and Energy",
-        description:
-          "Grid optimization, renewables forecasting, asset monitoring, and AI for oil and gas operations.",
-      },
-      "7": {
-        title: "AI and Agriculture",
-        description:
-          "Precision farming, satellite analytics, livestock monitoring, and post-harvest logistics for ASEAN scale operations.",
-      },
-    },
   },
   partnerships: {
     title: "Become a <span class='text-primary'>Part of our Story</span>",

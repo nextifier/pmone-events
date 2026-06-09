@@ -186,48 +186,6 @@ export default {
   "mainPrograms": {
     "title": "<span class='text-outline'>Main</span> <span class='text-accent'>Programs</span>",
     "description": "Explore the main programs at {appName}, including exhibitions, business conferences, seminars, and business matching. Gain insights and network with industry experts.",
-    "items": {
-      "0": {
-        "title": "Exhibition",
-        "description": ""
-      },
-      "1": {
-        "title": "Brand Talks & Talkshow",
-        "description": ""
-      },
-      "2": {
-        "title": "Workshop Series",
-        "description": ""
-      },
-      "3": {
-        "title": "Product Launching",
-        "description": ""
-      },
-      "4": {
-        "title": "Design and Fengshui Consultation",
-        "description": ""
-      },
-      "5": {
-        "title": "Inspiration and Experience Zone",
-        "description": ""
-      },
-      "6": {
-        "title": "Business Matching",
-        "description": ""
-      },
-      "7": {
-        "title": "Student Visit",
-        "description": ""
-      },
-      "8": {
-        "title": "Lucky Draw & Door Prize",
-        "description": ""
-      },
-      "9": {
-        "title": "Year-end Great Sale",
-        "description": ""
-      }
-    }
   },
   "factsAndFigures": {
     "subtitle": "Facts & Figures",

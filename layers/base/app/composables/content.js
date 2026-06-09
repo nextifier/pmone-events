@@ -99,29 +99,6 @@ export const useContentStore = defineStore("content", {
             link: "/book-space",
           },
         ],
-
-        bannerHero: [
-          {
-            subHeadline: "Exhibit at Megabuild Indonesia!",
-            content: `
-              <p>Position your brand in front of thousands of homeowners, architects, and designers. Let's build success together.</p>
-            `,
-            cta: {
-              label: "Book Your Space Now",
-              link: "/book-space",
-            },
-          },
-          {
-            subHeadline: "Stay Inspired, Stay Updated!",
-            content: `
-            <p>Follow our Instagram for daily building-related inspiration, exhibitor spotlights, and special giveaways leading up to the event. Don't miss a single update!</p>
-          `,
-            cta: {
-              label: "Follow @megabuildindo",
-              link: "https://www.instagram.com/megabuildindo",
-            },
-          },
-        ],
       },
 
       trustedBy: {
@@ -148,89 +125,6 @@ export const useContentStore = defineStore("content", {
       mainPrograms: {
         title: `<span class=''>Main</span> <span class='text-accent'>Programs</span>`,
         description: `Explore the main programs at ${useAppConfig().app.name}, including exhibitions, business conferences, seminars, and business matching. Gain insights and network with industry experts.`,
-        list: [
-          {
-            title: "Exhibition",
-            description:
-              "Discover the latest innovations in building materials, architecture, construction, and interior design from Indonesia's leading manufacturers and international brands.",
-          },
-          {
-            title: "Opening Ceremony",
-            description:
-              "Join the grand opening of Megabuild Indonesia, inaugurated by government officials and attended by distinguished guests from institutions, associations, communities, and media.",
-          },
-          {
-            title: "Megabuild Conference",
-            description:
-              "Dive into relevant building and construction industry topics. Featuring expert speakers and industry leaders, this conference runs on the first and second days of the exhibition.",
-          },
-          {
-            title: "Seminars, Forum, Talkshows",
-            description:
-              "Featuring media partners and industry experts, these sessions attract architects, designers, contractors, and developers with valuable insights and industry discussions.",
-          },
-          {
-            title: "1O1 - Business Matching",
-            description:
-              "Connecting building material manufacturers with importers, distributors, and project owners. We link suppliers of materials, technology, and equipment with buyers across the region.",
-          },
-          {
-            title: "Power Networking Night",
-            description:
-              "An evening dinner and networking session for company owners, top management, association leaders, and all industry stakeholders. Build connections that lead to meaningful collaborations for the future.",
-          },
-          {
-            title: "Hosted Buyer Program",
-            description:
-              "We're bringing in targeted buyers and partners from across the ASEAN region to connect with exhibitors. Accommodation fully covered by the organizer for qualified industry players.",
-          },
-          {
-            title:
-              "Building Contractors & Property Developers Members Gathering",
-            description:
-              "A collaborative event with the Indonesian Real Estate Association and Indonesian Contractors Association, bringing members together for networking and knowledge-sharing during the exhibition.",
-          },
-          {
-            title: "The Beauty of Indonesia Ceramics Installation",
-            description:
-              "A curated showcase highlighting the finest designs from Indonesian ceramics, from floor tiles and sanitaryware to roofing products and tableware. See the best of local craftsmanship in one place.",
-          },
-          {
-            title: "Professional & Student Visit",
-            description:
-              "Inviting architects, interior designers, consultants, contractors, design students, and lecturers to explore the exhibition and discover the latest in building materials and design innovation.",
-          },
-          {
-            title: "Brand Talks",
-            description:
-              "Podcast-style sessions discussing the latest products, designs, technologies, and innovations from participating brands. Each brand gets a dedicated spotlight to share their story.",
-          },
-          {
-            title: "Designer Workshops",
-            description:
-              "Partnering with Ikatan Arsitek Indonesia and Himpunan Interior Desainer Indonesia to deliver workshops, training, and educational programs that add real value for their members attending the exhibition.",
-          },
-          {
-            title: "Jakarta Design Week 2026",
-            description:
-              "In collaboration with Ikatan Arsitek Indonesia and DKI Jakarta Provincial Government, this event brings forums and conferences tackling architectural challenges and innovations shaping the city's future.",
-          },
-          {
-            title: "Floor & Wall Tile Installation Competition",
-            description:
-              "Tile installers compete using products from exhibitors. Showcase your skills and craftsmanship for a chance to win cash prizes and recognition in the industry.",
-          },
-          {
-            title: "Megabuild Awards 2026",
-            description:
-              "Recognizing excellence in Indonesia's building materials and design industry. In partnership with HDII, IAI, and GBCI, we honor outstanding achievements in categories like Best Design, Innovation, Sustainability, and more.",
-          },
-          {
-            title: "Megabuild Best Booth",
-            description:
-              "Celebrating booth creativity across four categories: large booths (>108 sqm), medium booths (50-108 sqm), small booths (<50 sqm), and the Favorite Booth chosen by popular vote.",
-          },
-        ],
       },
 
       factsAndFigures: {

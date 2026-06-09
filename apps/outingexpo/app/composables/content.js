@@ -97,40 +97,6 @@ export const useContentStore = defineStore("content", () => {
           link: "/book-space",
         },
       ],
-      bannerHero: [
-        {
-          subHeadline: t("hero.banners.0.subHeadline"),
-          content: t("hero.banners.0.content"),
-          cta: {
-            label: t("hero.banners.0.cta"),
-            link: "/ticket",
-          },
-        },
-        {
-          subHeadline: t("hero.banners.1.subHeadline"),
-          content: t("hero.banners.1.content"),
-          cta: {
-            label: t("hero.banners.1.cta"),
-            link: "/book-space",
-          },
-        },
-        {
-          subHeadline: t("hero.banners.2.subHeadline"),
-          content: t("hero.banners.2.content"),
-          cta: {
-            label: t("hero.banners.2.cta"),
-            link: "/programs",
-          },
-        },
-        {
-          subHeadline: t("hero.banners.3.subHeadline"),
-          content: t("hero.banners.3.content"),
-          cta: {
-            label: t("hero.banners.3.cta"),
-            link: "https://www.instagram.com/indooutingexpo",
-          },
-        },
-      ],
     },
 
     brandPreview: {
@@ -150,33 +116,6 @@ export const useContentStore = defineStore("content", () => {
     mainPrograms: {
       title: t("mainPrograms.title"),
       description: t("mainPrograms.description", { appName }),
-      list: [
-        {
-          title: t("mainPrograms.items.0.title"),
-          image: "/img/programs/program-1.jpg",
-          description: t("mainPrograms.items.0.description"),
-        },
-        {
-          title: t("mainPrograms.items.1.title"),
-          image: "/img/programs/program-2.jpg",
-          description: t("mainPrograms.items.1.description"),
-        },
-        {
-          title: t("mainPrograms.items.2.title"),
-          image: "/img/programs/program-3.jpg",
-          description: t("mainPrograms.items.2.description"),
-        },
-        {
-          title: t("mainPrograms.items.3.title"),
-          image: "/img/programs/program-4.jpg",
-          description: t("mainPrograms.items.3.description"),
-        },
-        {
-          title: t("mainPrograms.items.4.title"),
-          image: "/img/programs/program-5.jpg",
-          description: t("mainPrograms.items.4.description"),
-        },
-      ],
     },
 
     partnerships: {

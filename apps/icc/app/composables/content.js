@@ -134,17 +134,6 @@ export const useContentStore = defineStore("content", () => {
           link: "/book-space",
         },
       ],
-      bannerHero: [
-        {
-          subHeadline: t("hero.banners.0.subHeadline"),
-          content: t("hero.banners.0.content"),
-          img: "",
-          cta: {
-            label: t("hero.banners.0.cta"),
-            link: "/book-space",
-          },
-        },
-      ],
     },
 
     brandPreview: {
@@ -168,68 +157,6 @@ export const useContentStore = defineStore("content", () => {
       description: t("mainPrograms.description", {
         appName: config.event.title,
       }),
-      list: [
-        {
-          title: t("mainPrograms.items.0.title"),
-          image: "/img/programs/main-programs/exhibition.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.1.title"),
-          image: "/img/programs/main-programs/main-guest-talkshow.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.2.title"),
-          image: "/img/programs/main-programs/meet-and-greet.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.3.title"),
-          image: "/img/programs/main-programs/cosplay-parade.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.4.title"),
-          image: "/img/programs/main-programs/cosplay-competition.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.5.title"),
-          image: "/img/programs/main-programs/gaming-competition.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.6.title"),
-          image: "/img/programs/main-programs/movie-panel.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.7.title"),
-          image: "/img/programs/main-programs/portfolio-review.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.8.title"),
-          image: "/img/programs/main-programs/creator-workshop.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.9.title"),
-          image: "/img/programs/main-programs/toys-auction.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.10.title"),
-          image: "/img/programs/main-programs/stamp-rally.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.11.title"),
-          image: "/img/programs/main-programs/live-performance.jpg",
-          description: "",
-        },
-      ],
     },
 
     partnerships: {

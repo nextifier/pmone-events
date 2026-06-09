@@ -84,38 +84,6 @@ export default {
       "<span class='text-outline'>核心</span> <span class='text-accent'>项目</span>",
     description:
       "不只是展览。{appName} 还有商业大会、一对一辅导、精准对接等实用项目。",
-    items: {
-      "0": {
-        title: "Business Conference",
-        description:
-          'FLEI 的主舞台。"Grab-Run-Grow" 系列分享会，一线 CEO 和创始人讲他们的真实打法。不是理论，是经验。',
-      },
-      "1": {
-        title: "Business Coaching",
-        description:
-          "经营上碰到难题？和行业专家面对面，免费一对一咨询。带着具体问题来，拿着解决方案走。",
-      },
-      "2": {
-        title: "Business Matching",
-        description:
-          "来之前就能预约参展商和投资人的会面。到了现场不用瞎逛，直奔目标。",
-      },
-      "3": {
-        title: "Practical Masterclasses",
-        description:
-          "数字营销、运营优化、品牌管理，跟每天做这些事的人学实战技能。名额有限。",
-      },
-      "4": {
-        title: "Ecopreneur Challenge",
-        description:
-          "有绿色商业创意？上台给投资人看。拿专家点评，争奖金，让你的可持续项目被更多人知道。",
-      },
-      "5": {
-        title: "Inspiration Stage",
-        description:
-          "白手起家的创始人讲真话。踩过的坑、用过的招、走过的路。不是鸡汤，是真实经历。",
-      },
-    },
   },
   businessSegments: {
     title: "<span class='text-outline'>业务</span> 板块",

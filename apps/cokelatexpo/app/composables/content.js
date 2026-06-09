@@ -101,32 +101,6 @@ export const useContentStore = defineStore("content", () => {
           link: "/ticket",
         },
       ],
-      bannerHero: [
-        {
-          subHeadline: t("hero.banners.0.subHeadline"),
-          content: t("hero.banners.0.content"),
-          cta: {
-            label: t("hero.banners.0.cta"),
-            link: "/book-space",
-          },
-        },
-        {
-          subHeadline: t("hero.banners.1.subHeadline"),
-          content: t("hero.banners.1.content"),
-          cta: {
-            label: t("hero.banners.1.cta"),
-            link: "https://franchise-expo.co.id",
-          },
-        },
-        {
-          subHeadline: t("hero.banners.2.subHeadline"),
-          content: t("hero.banners.2.content"),
-          cta: {
-            label: t("hero.banners.2.cta"),
-            link: "https://www.instagram.com/cafebrasserieexpo",
-          },
-        },
-      ],
     },
 
     brandPreview: {
@@ -148,38 +122,6 @@ export const useContentStore = defineStore("content", () => {
     mainPrograms: {
       title: t("mainPrograms.title"),
       description: t("mainPrograms.description"),
-      list: [
-        {
-          title: t("mainPrograms.items.0.title"),
-          iconName: "hugeicons:champion",
-          description: t("mainPrograms.items.0.description"),
-        },
-        {
-          title: t("mainPrograms.items.1.title"),
-          iconName: "hugeicons:coffee-01",
-          description: t("mainPrograms.items.1.description"),
-        },
-        {
-          title: t("mainPrograms.items.2.title"),
-          iconName: "hugeicons:coffee-beans",
-          description: t("mainPrograms.items.2.description"),
-        },
-        {
-          title: t("mainPrograms.items.3.title"),
-          iconName: "hugeicons:chocolate",
-          description: t("mainPrograms.items.3.description"),
-        },
-        {
-          title: t("mainPrograms.items.4.title"),
-          iconName: "hugeicons:mic-01",
-          description: t("mainPrograms.items.4.description"),
-        },
-        {
-          title: t("mainPrograms.items.5.title"),
-          iconName: "hugeicons:music-note-01",
-          description: t("mainPrograms.items.5.description"),
-        },
-      ],
     },
 
     partnerships: {

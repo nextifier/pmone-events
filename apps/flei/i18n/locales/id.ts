@@ -70,38 +70,6 @@ export default {
       "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
     description:
       "Bukan hanya pameran. Ada konferensi bisnis, sesi coaching, hingga business matching yang bisa kamu ikuti di {appName}.",
-    items: {
-      "0": {
-        title: "Business Conference",
-        description:
-          'Panggung utama FLEI. Sesi "Grab-Run-Grow" menghadirkan CEO dan founder yang sharing strategi bisnis mereka secara terbuka. Bukan teori, tapi pengalaman langsung.',
-      },
-      "1": {
-        title: "Business Coaching",
-        description:
-          "Punya pertanyaan soal bisnis yang belum terjawab? Konsultasi gratis satu-satu dengan para praktisi. Bawa masalah spesifik kamu, pulang bawa solusi.",
-      },
-      "2": {
-        title: "Business Matching",
-        description:
-          "Jadwalkan meeting dengan exhibitor atau investor sebelum datang ke venue. Tidak perlu buang waktu keliling tanpa arah, langsung bertemu orang yang tepat.",
-      },
-      "3": {
-        title: "Practical Masterclasses",
-        description:
-          "Workshop yang fokus ke skill praktis: digital marketing, efisiensi operasional, brand management. Langsung dari orang-orang yang tiap hari menjalankannya. Kursi terbatas.",
-      },
-      "4": {
-        title: "Ecopreneur Challenge",
-        description:
-          "Punya ide bisnis sustainable? Presentasikan ke investor, dapat feedback dari expert, dan rebut hadiah untuk membantu mewujudkan bisnis ramah lingkungan kamu.",
-      },
-      "5": {
-        title: "Inspiration Stage",
-        description:
-          "Dengar langsung dari founder yang membangun bisnis dari nol. Cerita gagal, strategi yang berhasil, dan pelajaran yang tidak ada di buku mana pun.",
-      },
-    },
   },
   businessSegments: {
     title: "<span class='text-outline'>Segmen</span> Bisnis",

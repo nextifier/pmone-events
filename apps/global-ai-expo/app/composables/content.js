@@ -124,48 +124,6 @@ export const useContentStore = defineStore("content", () => {
     mainPrograms: {
       title: t("mainPrograms.title"),
       description: t("mainPrograms.description"),
-      list: [
-        {
-          title: t("mainPrograms.items.0.title"),
-          iconName: "hugeicons:robotic",
-          description: t("mainPrograms.items.0.description"),
-        },
-        {
-          title: t("mainPrograms.items.1.title"),
-          iconName: "hugeicons:stethoscope",
-          description: t("mainPrograms.items.1.description"),
-        },
-        {
-          title: t("mainPrograms.items.2.title"),
-          iconName: "hugeicons:coins-dollar",
-          description: t("mainPrograms.items.2.description"),
-        },
-        {
-          title: t("mainPrograms.items.3.title"),
-          iconName: "hugeicons:city-03",
-          description: t("mainPrograms.items.3.description"),
-        },
-        {
-          title: t("mainPrograms.items.4.title"),
-          iconName: "hugeicons:factory-02",
-          description: t("mainPrograms.items.4.description"),
-        },
-        {
-          title: t("mainPrograms.items.5.title"),
-          iconName: "hugeicons:car-03",
-          description: t("mainPrograms.items.5.description"),
-        },
-        {
-          title: t("mainPrograms.items.6.title"),
-          iconName: "hugeicons:solar-energy",
-          description: t("mainPrograms.items.6.description"),
-        },
-        {
-          title: t("mainPrograms.items.7.title"),
-          iconName: "hugeicons:plant-02",
-          description: t("mainPrograms.items.7.description"),
-        },
-      ],
     },
 
     partnerships: {

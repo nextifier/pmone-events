@@ -252,48 +252,6 @@ export default {
       "<span class='text-outline'>Main</span> <span class='text-accent'>Programs</span>",
     description:
       "Every corner of the expo is an opportunity to learn, connect, and get inspired. We've designed a full schedule of programs to help you get the most out of your visit.",
-    items: {
-      "0": {
-        title: "The Global Marketplace",
-        description:
-          "This is the heart of the event. Explore 20,000m² of space packed with over 1,200 exhibitors from around the world. Discover thousands of new products, ingredients, and technologies, all under one roof.",
-      },
-      "1": {
-        title: "MoreFood Talks: Industry Summits",
-        description:
-          "Gain a competitive edge with insights from top industry leaders, market analysts, and successful entrepreneurs. Our conference series covers the future of F&B, Halal market trends, and sustainable business practices.",
-      },
-      "2": {
-        title: "Launch Pad: The Innovation Stage",
-        description:
-          "Be the first to witness the unveiling of brand-new products. Our dedicated Launch Pad stage is where innovative brands debut their latest creations, from groundbreaking food tech to exciting new flavors.",
-      },
-      "3": {
-        title: "The Inspiration Zone",
-        description:
-          "A hands-on, interactive area designed to spark your creativity. Engage with sensory displays, discover unique food pairings, and get inspired by innovative cafe concepts and retail layouts.",
-      },
-      "4": {
-        title: "Business Matching Service",
-        description:
-          "Let us play cupid. We'll connect you with pre-vetted buyers for focused, productive meetings that get straight to the point.",
-      },
-      "5": {
-        title: "Chef's Table: Live Cooking Demos",
-        description:
-          "See, smell, and taste the future. Renowned chefs take to the stage to transform exhibitors' products into culinary masterpieces. Get front-row seats to live cooking, recipe ideas, and delicious free samples.",
-      },
-      "6": {
-        title: "Creator's Hub: KOL Live Streams",
-        description:
-          "Feel the buzz! Top food influencers and content creators will be broadcasting live from our Creator's Hub. Watch them discover trends, interview brand owners, and share the excitement with millions online.",
-      },
-      "7": {
-        title: "Halal Market Workshops",
-        description:
-          "Your practical guide to succeeding in the Halal market. Join our expert-led workshops covering everything from the Halal certification process in Indonesia to marketing strategies for reaching Muslim consumers. Limited seats available.",
-      },
-    },
   },
   partnerships: {
     title:

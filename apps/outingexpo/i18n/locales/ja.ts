@@ -113,33 +113,6 @@ export default {
       "<span class='text-outline'>メイン</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">プログラム</span>",
     description:
       "カンファレンス、HRフォーラム、ビジネスマッチング、体験ゾーン。{appName}が企業リーダーと業界プロフェッショナルに向けて設計した主要プログラムです。",
-    items: {
-      "0": {
-        title: "Inspiration Talk Series",
-        description:
-          "エンゲージメントの最新トレンド、企業文化、アウティング＆インセンティブ戦略をテーマにしたインスピレーション・セッション。",
-      },
-      "1": {
-        title: "Corporate Insights",
-        description:
-          "HRリーダー・企業経営層向けの戦略カンファレンス。テーマ：人材開発、エンゲージメント改革、インセンティブトラベル。",
-      },
-      "2": {
-        title: "Business Matching Lounge",
-        description:
-          "HR担当者・意思決定者とアウティングパートナー、体験型ソリューション企業をつなぐ1対1のマッチングミーティング。",
-      },
-      "3": {
-        title: "HR Forum & Future Talk",
-        description:
-          "人材戦略、働き方改革、メンタルウェルビーイング、次世代インセンティブ＆リワード施策をテーマにしたフォーラム。",
-      },
-      "4": {
-        title: "Experience Trial Zones",
-        description:
-          "出展者のチームビルディングプログラム、アウトドアアクティビティ、体験型ソリューションを実際に試せるアクティベーション・エリア。",
-      },
-    },
   },
   partnerships: {
     title:

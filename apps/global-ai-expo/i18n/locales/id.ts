@@ -162,48 +162,6 @@ export default {
       "<span class='text-outline'>Delapan zona</span> <span class='text-accent'>industri</span>",
     description:
       "Lantai pameran terbagi menjadi delapan zona supaya buyer cepat menemukan vendor yang relevan. Tiap zona punya programming, sesi demo, dan slot matchmaking sendiri.",
-    items: {
-      "0": {
-        title: "AI Robotics",
-        description:
-          "Lengan industri, robot humanoid, otomasi gudang, dan robotika edge. Sesi demo dijadwalkan tiap hari.",
-      },
-      "1": {
-        title: "Healthcare AI",
-        description:
-          "Diagnostik, penemuan obat, operasional rumah sakit, dan tools untuk pasien dari tim yang sudah deploy di klinis.",
-      },
-      "2": {
-        title: "Fintech AI",
-        description:
-          "Risk scoring, fraud detection, otomasi KYC, dan trading berbasis AI. Dirancang untuk bank, asuransi, dan digital lender.",
-      },
-      "3": {
-        title: "Smart City AI",
-        description:
-          "Lalu lintas, keamanan publik, utilitas, dan layanan warga. Zona ini menjadi tempat delegasi pemerintah daerah selama tiga hari.",
-      },
-      "4": {
-        title: "Manufacturing AI",
-        description:
-          "Predictive maintenance, quality inspection, forecasting supply chain, dan copilot lantai pabrik dari system integrator.",
-      },
-      "5": {
-        title: "Autonomous Vehicles",
-        description:
-          "AV stack, sensor suite, platform simulasi, dan operasional armada. Test ride bisa diatur dengan exhibitor terpilih.",
-      },
-      "6": {
-        title: "AI dan Energi",
-        description:
-          "Optimasi jaringan listrik, forecasting energi terbarukan, asset monitoring, dan AI untuk operasi minyak dan gas.",
-      },
-      "7": {
-        title: "AI dan Agrikultur",
-        description:
-          "Precision farming, analitik satelit, monitoring ternak, dan logistik pasca panen untuk skala ASEAN.",
-      },
-    },
   },
   partnerships: {
     title:

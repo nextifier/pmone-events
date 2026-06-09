@@ -98,44 +98,6 @@ export default {
     title: "核心项目",
     description:
       "Cosplay 大赛、嘉宾脱口秀、游戏竞技、创作者工坊……这些就是你不能错过 {appName} 的理由。",
-    items: {
-      "0": {
-        title: "Exhibition",
-      },
-      "1": {
-        title: "主嘉宾脱口秀",
-      },
-      "2": {
-        title: "Meet & Greet",
-      },
-      "3": {
-        title: "Cosplay 巡游",
-      },
-      "4": {
-        title: "Cosplay 大赛",
-      },
-      "5": {
-        title: "游戏竞技",
-      },
-      "6": {
-        title: "Movie Panel",
-      },
-      "7": {
-        title: "作品集点评",
-      },
-      "8": {
-        title: "创作者工坊",
-      },
-      "9": {
-        title: "玩具拍卖",
-      },
-      "10": {
-        title: "Stamp Rally",
-      },
-      "11": {
-        title: "现场演出",
-      },
-    },
   },
   partnerships: {
     title: "加入我们",

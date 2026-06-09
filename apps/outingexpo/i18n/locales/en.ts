@@ -210,28 +210,6 @@ export default {
   "mainPrograms": {
     "title": "<span class='text-outline'>Main</span> <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Programs</span>",
     "description": "Conferences, HR forums, business matching, and experience zones. These are the flagship programs at {appName}, built for corporate leaders and industry professionals.",
-    "items": {
-      "0": {
-        "title": "Inspiration Talk Series",
-        "description": "Sessions on engagement trends, company culture, and outing & incentive strategy."
-      },
-      "1": {
-        "title": "Corporate Insights",
-        "description": "Strategic conference for HR and corporate leaders. Topics: people development, engagement transformation, incentive travel."
-      },
-      "2": {
-        "title": "Business Matching Lounge",
-        "description": "Curated 1-on-1 meetings connecting HR & decision makers with outing partners and experiential solutions."
-      },
-      "3": {
-        "title": "HR Forum & Future Talk",
-        "description": "Forum on people strategy, workforce transformation, mental well-being, and modern incentive & recognition approaches."
-      },
-      "4": {
-        "title": "Experience Trial Zones",
-        "description": "Hands-on activation area. Try team building programs, outdoor activities, and experience-based solutions from exhibitors."
-      }
-    }
   },
   "partnerships": {
     "title": "<span class='text-outline'>Become a </span><span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Part of IOITE</span>",

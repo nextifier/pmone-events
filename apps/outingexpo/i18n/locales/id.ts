@@ -95,33 +95,6 @@ export default {
       "<span class='text-outline'>Program</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">Utama</span>",
     description:
       "Konferensi, forum HR, business matching, dan experience zone. Ini program-program unggulan di {appName} yang dirancang untuk corporate leaders dan pelaku industri.",
-    items: {
-      "0": {
-        title: "Inspiration Talk Series",
-        description:
-          "Sesi inspiratif seputar tren engagement, budaya perusahaan, dan strategi outing & incentive.",
-      },
-      "1": {
-        title: "Corporate Insights",
-        description:
-          "Konferensi strategis untuk HR dan corporate leaders. Topik: people development, engagement transformation, incentive travel.",
-      },
-      "2": {
-        title: "Business Matching Lounge",
-        description:
-          "Meeting 1-on-1 terkurasi yang mempertemukan HR & decision makers dengan partner outing dan experiential solutions.",
-      },
-      "3": {
-        title: "HR Forum & Future Talk",
-        description:
-          "Forum unggulan tentang people strategy, workforce transformation, mental well-being, dan pendekatan incentive modern.",
-      },
-      "4": {
-        title: "Experience Trial Zones",
-        description:
-          "Area aktivasi langsung. Coba sendiri program team building, aktivitas outdoor, dan experience-based solutions dari para exhibitor.",
-      },
-    },
   },
   partnerships: {
     title:

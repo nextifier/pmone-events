@@ -93,38 +93,6 @@ export default {
     title: "<span>Program Utama</span>",
     description:
       "Di sinilah semuanya terjadi. Kompetisi live, workshop hands-on, dan tasting sepuasnya. Setiap momen di CBE punya cerita sendiri.",
-    items: {
-      "0": {
-        title: "Live Competitions",
-        description:
-          "Saksikan barista, brewer, dan chef terbaik adu skill di panggung utama. Energinya beda. Talentanya luar biasa.",
-      },
-      "1": {
-        title: "Tasting Bars",
-        description:
-          "Coba ratusan produk dari exhibitor kopi, teh, wine, dan cokelat. Temukan rasa favorit baru kamu. Gratis semua.",
-      },
-      "2": {
-        title: "Hands-On Workshops",
-        description:
-          "Belajar tasting wine, bikin kopi sempurna, atau padukan rasa. Langsung dipandu ahlinya. Kursi terbatas, daftar cepat.",
-      },
-      "3": {
-        title: "Bean-to-Bar Demos",
-        description:
-          "Lihat langsung bagaimana biji kakao berubah jadi cokelat batangan. Para pengrajin artisan akan demo prosesnya di depan kamu.",
-      },
-      "4": {
-        title: "Industry Talks",
-        description:
-          "Obrolan santai bareng para profesional soal tren kafe, sustainability, dan apa yang lagi happening di industri F&B.",
-      },
-      "5": {
-        title: "Live Music & DJs",
-        description:
-          "Live band dan DJ sepanjang hari. Background music yang bikin pengalaman jelajah CBE makin seru.",
-      },
-    },
   },
   partnerships: {
     title:

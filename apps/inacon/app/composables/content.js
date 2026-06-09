@@ -139,43 +139,6 @@ export const useContentStore = defineStore("content", () => {
         },
       ],
 
-      bannerHero: [
-        {
-          subHeadline: t("hero.banners.0.subHeadline"),
-          content: t("hero.banners.0.content"),
-          img: {
-            src: "/img/banners/hero/banner-thumb-x.png",
-            w: 400,
-            h: 500,
-          },
-        },
-
-        {
-          subHeadline: t("hero.banners.1.subHeadline"),
-          content: t("hero.banners.1.content"),
-          img: {
-            src: "/img/banners/hero/banner-thumb-mascots.png",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.1.cta"),
-            link: "https://indonesiacomiccon.com",
-            openInNewTab: true,
-          },
-        },
-
-        {
-          subHeadline: t("hero.banners.2.subHeadline"),
-          content: t("hero.banners.2.content"),
-          img: "",
-          cta: {
-            label: t("hero.banners.2.cta"),
-            link: "/book-space",
-            openInNewTab: false,
-          },
-        },
-      ],
     },
 
     brandPreview: {
@@ -197,68 +160,6 @@ export const useContentStore = defineStore("content", () => {
     mainPrograms: {
       title: t("mainPrograms.title"),
       description: t("mainPrograms.description", { appName }),
-      list: [
-        {
-          title: t("mainPrograms.items.0.title"),
-          image: "/img/programs/main-programs/exhibition.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.1.title"),
-          image: "/img/programs/main-programs/main-guest-talkshow.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.2.title"),
-          image: "/img/programs/main-programs/meet-and-greet.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.3.title"),
-          image: "/img/programs/main-programs/cosplay-parade.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.4.title"),
-          image: "/img/programs/main-programs/cosplay-competition.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.5.title"),
-          image: "/img/programs/main-programs/gaming-competition.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.6.title"),
-          image: "/img/programs/main-programs/movie-panel.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.7.title"),
-          image: "/img/programs/main-programs/portfolio-review.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.8.title"),
-          image: "/img/programs/main-programs/creator-workshop.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.9.title"),
-          image: "/img/programs/main-programs/toys-auction.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.10.title"),
-          image: "/img/programs/main-programs/stamp-rally.jpg",
-          description: "",
-        },
-        {
-          title: t("mainPrograms.items.11.title"),
-          image: "/img/programs/main-programs/live-performance.jpg",
-          description: "",
-        },
-      ],
     },
 
     partnerships: {

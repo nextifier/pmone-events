@@ -52,13 +52,7 @@ export default {
     "youMightAlsoLike": "You might also like"
   },
   "news": {
-    "latestUpdates": "Latest updates",
-    "showingPostsFor": "Showing {total} posts for",
-    "showingPosts": "Showing {total} posts",
-    "noResultsFor": "No results found for",
-    "noResultsHint": "Maybe try a different keyword, or explore other topics. We're sure you'll find something awesome!",
-    "noPostsYet": "No posts yet",
-    "comeBackLater": "Please come back later"
+    "latestUpdates": "Latest updates"
   },
   "brands": {
     "comingSoon": "Brand list is coming soon. Check back later!",
@@ -130,35 +124,6 @@ export default {
   "conjunction": {
     "label": "In conjunction with",
     "and": "and"
-  },
-  "nav": {
-    "Home": "Home",
-    "Brands": "Brands",
-    "Rundown": "Rundown",
-    "Programs": "Programs",
-    "Resources": "Resources",
-    "Partners": "Partners",
-    "Contact": "Contact",
-    "News": "News",
-    "Ticket": "Ticket",
-    "Exhibitor Registration": "Exhibitor Registration",
-    "Gallery": "Gallery",
-    "FAQ": "FAQ",
-    "Links": "Links",
-    "Ticket Terms and Conditions": "Ticket Terms and Conditions",
-    "Ticket Refund and Return Policy": "Ticket Refund and Return Policy",
-    "Event Policy": "Event Policy",
-    "Terms of Service": "Terms of Service",
-    "Privacy Policy": "Privacy Policy",
-    "Help Center": "Help Center",
-    "Sponsorship Registration": "Sponsorship Registration",
-    "Media Partner Registration": "Media Partner Registration",
-    "Menu": "Menu",
-    "Get in touch": "Get in touch",
-    "Social": "Social",
-    "Discover": "Discover",
-    "For Businesses": "For Businesses",
-    "Terms and policies": "Terms and policies"
   },
   "credits": {
     "becomeSponsor": "Become a Sponsor",

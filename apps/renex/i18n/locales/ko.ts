@@ -80,48 +80,6 @@ export default {
       "<span class='text-outline'>주요</span> <span class='text-accent'>프로그램</span>",
     description:
       "전시만 있는 게 아니에요. {appName}에서는 워크숍, 브랜드 토크, 디자인 상담 등 다양한 프로그램이 진행돼요.",
-    items: {
-      "0": {
-        title: "Exhibition",
-        description: "",
-      },
-      "1": {
-        title: "Brand Talks & Talkshow",
-        description: "",
-      },
-      "2": {
-        title: "Workshop Series",
-        description: "",
-      },
-      "3": {
-        title: "Product Launching",
-        description: "",
-      },
-      "4": {
-        title: "디자인 & 풍수 컨설팅",
-        description: "",
-      },
-      "5": {
-        title: "Inspiration and Experience Zone",
-        description: "",
-      },
-      "6": {
-        title: "Business Matching",
-        description: "",
-      },
-      "7": {
-        title: "Student Visit",
-        description: "",
-      },
-      "8": {
-        title: "Lucky Draw & Door Prize",
-        description: "",
-      },
-      "9": {
-        title: "연말 대세일",
-        description: "",
-      },
-    },
   },
   factsAndFigures: {
     subtitle: "데이터로 보는 성과",

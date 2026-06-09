@@ -74,48 +74,6 @@ export default {
       "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
     description:
       "Selain pameran, ada workshop, brand talks, konsultasi desain, dan banyak lagi di {appName}. Semua bisa kamu ikuti.",
-    items: {
-      "0": {
-        title: "Exhibition",
-        description: "",
-      },
-      "1": {
-        title: "Brand Talks & Talkshow",
-        description: "",
-      },
-      "2": {
-        title: "Workshop Series",
-        description: "",
-      },
-      "3": {
-        title: "Product Launching",
-        description: "",
-      },
-      "4": {
-        title: "Konsultasi Desain dan Fengshui",
-        description: "",
-      },
-      "5": {
-        title: "Inspiration and Experience Zone",
-        description: "",
-      },
-      "6": {
-        title: "Business Matching",
-        description: "",
-      },
-      "7": {
-        title: "Student Visit",
-        description: "",
-      },
-      "8": {
-        title: "Lucky Draw & Door Prize",
-        description: "",
-      },
-      "9": {
-        title: "Year-end Great Sale",
-        description: "",
-      },
-    },
   },
   factsAndFigures: {
     subtitle: "Fakta & Angka",

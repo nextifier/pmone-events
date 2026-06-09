@@ -223,38 +223,6 @@ export default {
     title: "<span>Main Programs</span>",
     description:
       "This is where the real action happens. We've packed the schedule with live competitions, hands-on workshops, and endless tastings to make sure every moment of your visit is filled with energy and inspiration.",
-    items: {
-      "0": {
-        title: "Live Competitions",
-        description:
-          "Feel the adrenaline! Watch the nation's best baristas, brewers, and chefs battle it out for glory on the main stage. The energy is infectious, the talent is unreal.",
-      },
-      "1": {
-        title: "Tasting Bars",
-        description:
-          "Sample hundreds of products from coffee, tea, wine, and chocolate exhibitors. Your next favorite flavor is somewhere in here.",
-      },
-      "2": {
-        title: "Hands-On Workshops",
-        description:
-          "Don't just watch! Participate! Learn to taste wine like a pro, brew the perfect cup, or pair flavors in our intimate, expert-led sessions. Limited seats available.",
-      },
-      "3": {
-        title: "Bean-to-Bar Demos",
-        description:
-          "Witness the magic of chocolate making, right before your eyes. Our artisan makers will show you how a simple cacao bean transforms into a delicious bar.",
-      },
-      "4": {
-        title: "Industry Talks",
-        description:
-          "Get the inside scoop from the pros. Join casual talks about the future of cafe culture, sustainability in F&B, and the trends you need to know about now.",
-      },
-      "5": {
-        title: "Live Music & DJs",
-        description:
-          "The soundtrack to your flavor journey. We'll have live bands and DJs spinning great tunes throughout the day to keep the good vibes flowing.",
-      },
-    },
   },
   partnerships: {
     title: "Become a <span class='text-primary'>Part of our Story</span>",

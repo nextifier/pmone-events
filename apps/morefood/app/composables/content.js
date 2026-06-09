@@ -103,88 +103,6 @@ export const useContentStore = defineStore("content", () => {
         },
       ],
 
-      bannerHero: [
-        {
-          subHeadline: t("hero.banners.0.subHeadline"),
-          content: t("hero.banners.0.content"),
-          img: {
-            src: "/img/banners/cover-1.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.0.cta"),
-            link: "/book-space",
-            openInNewTab: false,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.1.subHeadline"),
-          content: t("hero.banners.1.content"),
-          img: {
-            src: "/img/banners/flei-26th-poster.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.1.cta"),
-            link: "https://franchise-expo.co.id",
-            openInNewTab: true,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.2.subHeadline"),
-          content: t("hero.banners.2.content"),
-          img: {
-            src: "/img/banners/cbe-8th-poster.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.2.cta"),
-            link: "https://cafebrasserieexpo.com/",
-            openInNewTab: true,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.3.subHeadline"),
-          content: t("hero.banners.3.content"),
-          img: {
-            src: "/img/banners/cover-3.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: null,
-        },
-        {
-          subHeadline: t("hero.banners.4.subHeadline"),
-          content: t("hero.banners.4.content"),
-          img: {
-            src: "/img/banners/cover-4.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.4.cta"),
-            link: "/brands",
-            openInNewTab: false,
-          },
-        },
-        {
-          subHeadline: t("hero.banners.5.subHeadline"),
-          content: t("hero.banners.5.content"),
-          img: {
-            src: "/img/banners/cover-5.jpg",
-            w: 400,
-            h: 500,
-          },
-          cta: {
-            label: t("hero.banners.5.cta"),
-            link: "https://www.instagram.com/morefoodexpo.id",
-            openInNewTab: true,
-          },
-        },
-      ],
     },
 
     brandPreview: {
@@ -206,48 +124,6 @@ export const useContentStore = defineStore("content", () => {
     mainPrograms: {
       title: t("mainPrograms.title"),
       description: t("mainPrograms.description"),
-      list: [
-        {
-          title: t("mainPrograms.items.0.title"),
-          image: "/img/programs/program-1.jpg",
-          description: t("mainPrograms.items.0.description"),
-        },
-        {
-          title: t("mainPrograms.items.1.title"),
-          image: "/img/programs/program-2.jpg",
-          description: t("mainPrograms.items.1.description"),
-        },
-        {
-          title: t("mainPrograms.items.2.title"),
-          image: "/img/programs/program-3.jpg",
-          description: t("mainPrograms.items.2.description"),
-        },
-        {
-          title: t("mainPrograms.items.3.title"),
-          image: "/img/programs/program-4.jpg",
-          description: t("mainPrograms.items.3.description"),
-        },
-        {
-          title: t("mainPrograms.items.4.title"),
-          image: "/img/programs/program-5.jpg",
-          description: t("mainPrograms.items.4.description"),
-        },
-        {
-          title: t("mainPrograms.items.5.title"),
-          image: "/img/programs/program-6.jpg",
-          description: t("mainPrograms.items.5.description"),
-        },
-        {
-          title: t("mainPrograms.items.6.title"),
-          image: "/img/programs/program-7.jpg",
-          description: t("mainPrograms.items.6.description"),
-        },
-        {
-          title: t("mainPrograms.items.7.title"),
-          image: "/img/programs/program-8.jpg",
-          description: t("mainPrograms.items.7.description"),
-        },
-      ],
     },
 
     partnerships: {

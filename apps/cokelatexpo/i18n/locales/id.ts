@@ -62,38 +62,6 @@ export default {
     title: "<span>Program Utama</span>",
     description:
       "Kompetisi live, workshop praktik, dan tasting sepuasnya. Semua sudah kami siapkan supaya setiap momen kunjungan kamu berkesan.",
-    items: {
-      "0": {
-        title: "Live Competitions",
-        description:
-          "Barista, brewer, dan chef terbaik adu skill di panggung utama. Seru buat ditonton, energinya beda.",
-      },
-      "1": {
-        title: "Tasting Bars",
-        description:
-          "Cicipi ratusan produk kopi, teh, wine, dan cokelat dari para exhibitor. Rasa favorit baru kamu ada di antara mereka.",
-      },
-      "2": {
-        title: "Hands-On Workshops",
-        description:
-          "Bukan cuma nonton. Belajar tasting wine, seduh kopi, atau padukan rasa di sesi yang dipandu langsung oleh ahlinya. Kursi terbatas.",
-      },
-      "3": {
-        title: "Bean-to-Bar Demos",
-        description:
-          "Lihat langsung proses biji kakao jadi cokelat batangan. Artisan maker kami tunjukkan setiap tahapnya di depan mata kamu.",
-      },
-      "4": {
-        title: "Industry Talks",
-        description:
-          "Obrolan santai bareng para ahli soal tren kafe, sustainability di F&B, dan insight yang perlu kamu tahu.",
-      },
-      "5": {
-        title: "Live Music & DJs",
-        description:
-          "Live band dan DJ menemani sepanjang hari. Supaya suasana makin menyenangkan sambil menjelajahi pameran.",
-      },
-    },
   },
   partnerships: {
     title:

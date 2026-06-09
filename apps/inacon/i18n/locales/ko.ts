@@ -99,44 +99,6 @@ export default {
     title: "주요 프로그램",
     description:
       "코스프레 대회, 게스트 토크쇼, 게임 대회, 아티스트 워크숍까지. {appName}을 꼭 가야 하는 이유가 여기 있어요.",
-    items: {
-      "0": {
-        title: "Exhibition",
-      },
-      "1": {
-        title: "메인 게스트 토크쇼",
-      },
-      "2": {
-        title: "Meet & Greet",
-      },
-      "3": {
-        title: "코스프레 퍼레이드",
-      },
-      "4": {
-        title: "코스프레 대회",
-      },
-      "5": {
-        title: "게임 대회",
-      },
-      "6": {
-        title: "Movie Panel",
-      },
-      "7": {
-        title: "포트폴리오 리뷰",
-      },
-      "8": {
-        title: "크리에이터 워크숍",
-      },
-      "9": {
-        title: "토이 경매",
-      },
-      "10": {
-        title: "스탬프 랠리",
-      },
-      "11": {
-        title: "라이브 공연",
-      },
-    },
   },
   partnerships: {
     title: "함께해요",

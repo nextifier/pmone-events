@@ -85,48 +85,6 @@ export default {
       "<span class='text-outline'>核心</span> <span class='text-accent'>项目</span>",
     description:
       "不只是展览。{appName} 还有工作坊、品牌分享、设计咨询等丰富活动，全部可以参加。",
-    items: {
-      "0": {
-        title: "Exhibition",
-        description: "",
-      },
-      "1": {
-        title: "Brand Talks & Talkshow",
-        description: "",
-      },
-      "2": {
-        title: "Workshop Series",
-        description: "",
-      },
-      "3": {
-        title: "Product Launching",
-        description: "",
-      },
-      "4": {
-        title: "设计与风水咨询",
-        description: "",
-      },
-      "5": {
-        title: "Inspiration and Experience Zone",
-        description: "",
-      },
-      "6": {
-        title: "Business Matching",
-        description: "",
-      },
-      "7": {
-        title: "Student Visit",
-        description: "",
-      },
-      "8": {
-        title: "Lucky Draw & Door Prize",
-        description: "",
-      },
-      "9": {
-        title: "年末大促",
-        description: "",
-      },
-    },
   },
   factsAndFigures: {
     subtitle: "数据与成果",

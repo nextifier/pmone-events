@@ -126,48 +126,6 @@ export default {
       "<span class='text-outline'>Program</span> <span class='text-accent'>Utama</span>",
     description:
       "Bukan cuma booth dan brosur. MoreFood Expo punya panggung demo masak, sesi business matching, sampai workshop pasar Halal. Datang buat satu, pulang bawa banyak.",
-    items: {
-      "0": {
-        title: "The Global Marketplace",
-        description:
-          "Ini jantung dari food exhibition terbesar di Indonesia. Area 20.000m² diisi 1.200+ exhibitor dari berbagai negara. Ribuan produk, bahan baku, dan teknologi F&B bisa kamu temukan langsung di sini.",
-      },
-      "1": {
-        title: "MoreFood Talks: Industry Summits",
-        description:
-          "Dengerin langsung dari pemimpin industri, analis pasar, dan pengusaha sukses. Topiknya mulai dari masa depan F&B, tren pasar Halal, sampai strategi bisnis yang sustainable.",
-      },
-      "2": {
-        title: "Launch Pad: The Innovation Stage",
-        description:
-          "Panggung khusus buat brand yang mau launching produk baru. Dari food tech sampai rasa-rasa baru, kamu bisa lihat duluan sebelum yang lain.",
-      },
-      "3": {
-        title: "The Inspiration Zone",
-        description:
-          "Area interaktif yang bisa langsung kamu coba. Ada display sensorik, food pairing yang tidak biasa, dan konsep-konsep cafe dan retail yang bisa jadi referensi.",
-      },
-      "4": {
-        title: "Business Matching Service",
-        description:
-          "Kamu tidak perlu cari sendiri. Kami bantu jodohkan kamu dengan buyer yang sudah terverifikasi. Meeting-nya fokus dan langsung ke inti.",
-      },
-      "5": {
-        title: "Chef's Table: Live Cooking Demos",
-        description:
-          "Chef ternama naik panggung, mengolah produk exhibitor jadi masakan yang menggugah selera. Bisa nonton live, dapat ide resep, plus sampel gratis.",
-      },
-      "6": {
-        title: "Creator's Hub: KOL Live Streams",
-        description:
-          "Food influencer dan content creator top bakal siaran langsung dari Creator's Hub. Mereka eksplor tren, interview brand, dan share keseruan ke jutaan viewers online.",
-      },
-      "7": {
-        title: "Halal Market Workshops",
-        description:
-          "Workshop praktis soal pasar Halal. Bahas mulai dari proses sertifikasi Halal di Indonesia sampai cara marketing ke konsumen Muslim. Tempat terbatas.",
-      },
-    },
   },
   partnerships: {
     title:

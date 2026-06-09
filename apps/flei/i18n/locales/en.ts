@@ -198,38 +198,6 @@ export default {
       "<span class='text-outline'>Main</span> <span class='text-accent'>Programs</span>",
     description:
       "Explore the main programs at {appName}, including exhibitions, business conferences, seminars, and business matching. Gain insights and network with industry experts.",
-    items: {
-      "0": {
-        title: "Business Conference",
-        description:
-          'This is our main stage, where the biggest ideas and latest industry trends come to life. Join our "Grab-Run-Grow" sessions featuring top CEOs and founders who will share their playbooks for success in today\'s market.',
-      },
-      "1": {
-        title: "Business Coaching",
-        description:
-          "Got specific questions about any area of the business world? Sit down with our panel of experts for free, one-on-one consultations. Get personalized advice and solve the real-world challenges your business is facing.",
-      },
-      "2": {
-        title: "Business Matching",
-        description:
-          "Why leave networking to chance? Our platform lets you find and schedule meetings with the right exhibitors and investors before you even arrive. Walk in with a plan, walk out with potential partners.",
-      },
-      "3": {
-        title: "Practical Masterclasses",
-        description:
-          "Go beyond theory in these deep-dive workshops. Learn actionable skills in digital marketing, operational efficiency, and brand management directly from leaders who practice it every day. Limited seats available.",
-      },
-      "4": {
-        title: "Ecopreneur Challenge",
-        description:
-          "Have a brilliant, sustainable business idea? This is your stage. Showcase your vision in front of investors, get expert feedback, and compete for prizes that can help launch your green venture into the spotlight.",
-      },
-      "5": {
-        title: "Inspiration Stage",
-        description:
-          "Hear the unfiltered stories, the struggles, and the strategies from founders who have built their empires from the ground up. Get motivated, learn from their journeys, and ignite your own ambition.",
-      },
-    },
   },
   businessSegments: {
     title: "<span class='text-outline'>Business</span> Segments",

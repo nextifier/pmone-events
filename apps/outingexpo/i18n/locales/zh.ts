@@ -114,32 +114,6 @@ export default {
       "<span class='text-outline'>核心</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">项目</span>",
     description:
       "行业论坛、HR 峰会、精准对接、现场体验区。以下是 {appName} 为企业管理层和行业从业者精心打造的核心项目。",
-    items: {
-      "0": {
-        title: "Inspiration Talk Series",
-        description: "聚焦员工激励趋势、企业文化建设和团建策略的启发式分享。",
-      },
-      "1": {
-        title: "Corporate Insights",
-        description:
-          "面向 HR 和企业管理层的战略论坛，议题涵盖人才发展、组织变革和激励旅行。",
-      },
-      "2": {
-        title: "Business Matching Lounge",
-        description:
-          "精心匹配的一对一商务会谈，让 HR 和采购决策者直接对接团建及体验式服务供应商。",
-      },
-      "3": {
-        title: "HR Forum & Future Talk",
-        description:
-          "聚焦人才战略、组织转型、员工心理健康和新型激励方式的旗舰论坛。",
-      },
-      "4": {
-        title: "Experience Trial Zones",
-        description:
-          "现场体验区。亲身试玩参展商提供的团队拓展、户外项目和体验式企业活动方案。",
-      },
-    },
   },
   partnerships: {
     title:

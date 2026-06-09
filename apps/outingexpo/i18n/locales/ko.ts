@@ -108,33 +108,6 @@ export default {
       "<span class='text-outline'>주요</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">프로그램</span>",
     description:
       "컨퍼런스, HR 포럼, 비즈니스 매칭, 체험존까지. {appName}이 기업 리더와 업계 전문가를 위해 준비한 핵심 프로그램을 소개합니다.",
-    items: {
-      "0": {
-        title: "Inspiration Talk Series",
-        description:
-          "인게이지먼트 트렌드, 기업 문화, 아웃팅 & 인센티브 전략에 관한 영감 넘치는 세션.",
-      },
-      "1": {
-        title: "Corporate Insights",
-        description:
-          "HR과 기업 리더를 위한 전략 컨퍼런스. 인재 개발, 인게이지먼트 혁신, 인센티브 여행이 주요 주제입니다.",
-      },
-      "2": {
-        title: "Business Matching Lounge",
-        description:
-          "HR 담당자 및 의사결정권자와 아웃팅 파트너, 체험 솔루션 업체를 연결하는 1:1 맞춤 미팅.",
-      },
-      "3": {
-        title: "HR Forum & Future Talk",
-        description:
-          "인재 전략, 조직 혁신, 정신 건강, 차세대 인센티브 및 리워드 접근법을 논의하는 핵심 포럼.",
-      },
-      "4": {
-        title: "Experience Trial Zones",
-        description:
-          "현장 체험 공간. 팀빌딩 프로그램, 아웃도어 액티비티, 체험형 솔루션을 직접 경험해 보세요.",
-      },
-    },
   },
   partnerships: {
     title:

@@ -135,48 +135,6 @@ export default {
       "<span class='text-outline'>核心</span> <span class='text-accent'>项目</span>",
     description:
       "讲座、现场烹饪、商务配对……展区的每个角落都有料。别光逛，带点实用的回去。",
-    items: {
-      "0": {
-        title: "The Global Marketplace",
-        description:
-          "活动的核心区域。20,000m² 展区汇聚全球 1,200+ 展商。新产品、原料、技术设备，一站式比较和采购。",
-      },
-      "1": {
-        title: "MoreFood Talks: 行业峰会",
-        description:
-          "行业领袖、市场分析师、成功创业者登台分享。主题覆盖 F&B 未来趋势、Halal 市场走向和可持续经营策略。",
-      },
-      "2": {
-        title: "Launch Pad: 创新舞台",
-        description:
-          "新品首发的专属舞台。创新品牌在这里发布最新产品，从食品科技到全新口味，第一时间看到。",
-      },
-      "3": {
-        title: "The Inspiration Zone",
-        description:
-          "可以动手体验的互动区。感官展示、创意食物搭配、新型咖啡馆概念和零售布局，都能给你带来实际的灵感。",
-      },
-      "4": {
-        title: "Business Matching Service",
-        description:
-          "我们帮你牵线。跟经过筛选的优质买家 1 对 1 会面，直奔主题，不浪费时间。",
-      },
-      "5": {
-        title: "Chef's Table: 现场烹饪秀",
-        description:
-          "知名大厨登台，用展商的食材现场做菜。看完还能拿到菜谱灵感和免费试吃。",
-      },
-      "6": {
-        title: "Creator's Hub: KOL 直播间",
-        description:
-          "头部美食博主和内容创作者在 Creator's Hub 进行直播。看他们发掘趋势、采访品牌主理人，把现场的热度传给线上百万观众。",
-      },
-      "7": {
-        title: "Halal 市场工作坊",
-        description:
-          "做 Halal 市场的实操课。从印尼 Halal 认证流程到针对穆斯林消费者的营销打法，专家手把手教。名额有限。",
-      },
-    },
   },
   partnerships: {
     title:

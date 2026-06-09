@@ -101,35 +101,6 @@ export default {
   mainPrograms: {
     title: "<span>核心项目</span>",
     description: "现场比赛、动手工作坊、无限品鉴。CBE 每个时段都有看点。",
-    items: {
-      "0": {
-        title: "Live Competitions",
-        description:
-          "顶尖咖啡师、冲泡师、大厨在主舞台上一决高下。现场氛围和水准，亲眼看才知道。",
-      },
-      "1": {
-        title: "Tasting Bars",
-        description:
-          "咖啡、茶、葡萄酒、巧克力参展商的产品，现场都能尝。你的下一个最爱说不定就在这里。",
-      },
-      "2": {
-        title: "Hands-On Workshops",
-        description: "跟着专家学品酒、冲咖啡、搭风味。小班教学，名额有限。",
-      },
-      "3": {
-        title: "Bean-to-Bar Demos",
-        description: "看手工匠人现场演示可可豆变巧克力的全过程。",
-      },
-      "4": {
-        title: "Industry Talks",
-        description:
-          "跟业内人聊咖啡馆趋势、可持续发展、行业动向。轻松的对话，实在的干货。",
-      },
-      "5": {
-        title: "Live Music & DJs",
-        description: "现场乐队和 DJ 全天陪你。边逛边听，氛围拉满。",
-      },
-    },
   },
   partnerships: {
     title:

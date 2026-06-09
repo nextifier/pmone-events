@@ -81,44 +81,6 @@ export default {
     title: "核心项目",
     description:
       "展览、脱口秀、Cosplay 大赛……{appName}不能错过的理由都在这里。",
-    items: {
-      "0": {
-        title: "Exhibition",
-      },
-      "1": {
-        title: "Main Guest Talkshow",
-      },
-      "2": {
-        title: "Meet & Greet",
-      },
-      "3": {
-        title: "Cosplay Parade",
-      },
-      "4": {
-        title: "Cosplay Competition",
-      },
-      "5": {
-        title: "Gaming Competition",
-      },
-      "6": {
-        title: "Movie Panel",
-      },
-      "7": {
-        title: "Portfolio Review",
-      },
-      "8": {
-        title: "Creator Workshop",
-      },
-      "9": {
-        title: "Toys Auction",
-      },
-      "10": {
-        title: "Stamp Rally",
-      },
-      "11": {
-        title: "Live Performance",
-      },
-    },
   },
   partnerships: {
     title: "一起来搞事",

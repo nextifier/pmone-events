@@ -86,48 +86,6 @@ export default {
       "<span class='text-outline'>メイン</span> <span class='text-accent'>プログラム</span>",
     description:
       "展示会だけじゃない。{appName}ではワークショップ、ブランドトーク、デザイン相談など多彩なプログラムを開催しています。",
-    items: {
-      "0": {
-        title: "Exhibition",
-        description: "",
-      },
-      "1": {
-        title: "Brand Talks & Talkshow",
-        description: "",
-      },
-      "2": {
-        title: "Workshop Series",
-        description: "",
-      },
-      "3": {
-        title: "Product Launching",
-        description: "",
-      },
-      "4": {
-        title: "デザイン＆風水コンサルテーション",
-        description: "",
-      },
-      "5": {
-        title: "Inspiration and Experience Zone",
-        description: "",
-      },
-      "6": {
-        title: "Business Matching",
-        description: "",
-      },
-      "7": {
-        title: "Student Visit",
-        description: "",
-      },
-      "8": {
-        title: "Lucky Draw & Door Prize",
-        description: "",
-      },
-      "9": {
-        title: "年末セール",
-        description: "",
-      },
-    },
   },
   factsAndFigures: {
     subtitle: "データで見る実績",

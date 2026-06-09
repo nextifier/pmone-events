@@ -77,37 +77,6 @@ export default {
     title: "<span>核心项目</span>",
     description:
       "现场比赛、动手工坊、无限品鉴。我们把每个时段都安排得满满的，让你来了就不想走。",
-    items: {
-      "0": {
-        title: "Live Competitions",
-        description:
-          "顶级咖啡师、酿酒师和大厨在主舞台上巅峰对决。现场看比赛，气氛完全不一样。",
-      },
-      "1": {
-        title: "Tasting Bars",
-        description:
-          "现场品尝咖啡、茶、葡萄酒和巧克力参展商的产品。你的下一个心头好，说不定就在这里。",
-      },
-      "2": {
-        title: "Hands-On Workshops",
-        description:
-          "自己动手试。跟专家学品酒、冲咖啡、搭配风味。名额有限，先到先得。",
-      },
-      "3": {
-        title: "Bean-to-Bar Demos",
-        description:
-          "看一颗可可豆怎么一步步变成巧克力。手工匠人现场演示全过程。",
-      },
-      "4": {
-        title: "Industry Talks",
-        description:
-          "咖啡馆文化的未来、F&B 可持续发展、值得关注的趋势。轻松聊，干货多。",
-      },
-      "5": {
-        title: "Live Music & DJs",
-        description: "全天现场乐队和 DJ 打碟。听着好音乐逛展，心情更好。",
-      },
-    },
   },
   partnerships: {
     title:
