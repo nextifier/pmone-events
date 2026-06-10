@@ -1,5 +1,5 @@
 <template>
-  <div
+  <section
     id="faq"
     class="container grid grid-cols-1 gap-x-8 gap-y-6 lg:grid-cols-2"
   >
@@ -86,7 +86,7 @@
         </nuxt-link>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>

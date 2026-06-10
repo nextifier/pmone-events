@@ -49,7 +49,10 @@ export default <RouterConfig>{
       );
       return savedPosition;
     }
-    if (to.hash) return { el: to.hash };
+    // Scroll-ke-hash ditangani plugin `hashScroll.client.ts` (lihat alasannya di
+    // sana: scrollBehavior tidak jalan saat hard-load awal). Jangan scroll di
+    // sini supaya tidak dobel.
+    if (to.hash) return false;
     return { top: 0 };
   },
 };

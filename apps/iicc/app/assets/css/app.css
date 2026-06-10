@@ -55,6 +55,16 @@
     --popover: var(--color-kv-brown-950);
     --card: var(--color-kv-brown-950);
   }
+
+  /* Samakan offset scroll-ke-section antara buka URL /#section (ditangani
+     plugin hashScroll.client.ts yang membaca scroll-margin-top) dan klik nav
+     (HeaderNav/HeaderMenu pakai vue-scrollto SCROLL_OFFSET = -100). Base layer
+     memberi section scroll-mt-navbar (56px); di iicc nav-nya pakai 100px, jadi
+     override agar keduanya berhenti di posisi yang sama (100px dari atas).
+     Jika SCROLL_OFFSET di HeaderNav/HeaderMenu diubah, samakan nilai ini. */
+  section {
+    scroll-margin-top: 100px;
+  }
 }
 
 .section-title {
