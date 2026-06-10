@@ -3,24 +3,25 @@
     <div v-if="items.length" class="gallery-container">
       <Lightbox :items="items" alt="Gallery" thumbnail-key="sm" full-key="xl">
         <template #trigger="{ openAt }">
-          <!-- Masonry (CSS columns): photos keep their native aspect ratio, never cropped. -->
-          <div class="columns-2 gap-1 sm:columns-3 lg:columns-4">
+          <!-- Grid (left-to-right): each tile is cropped to the event's chosen
+               aspect ratio (PM One setting, default 1:1) via object-cover. -->
+          <div class="grid grid-cols-2 gap-1 sm:grid-cols-3 lg:grid-cols-4">
             <button
               v-for="(item, i) in items"
               :key="item.id ?? i"
               type="button"
-              class="bg-muted mb-1 block w-full cursor-zoom-in overflow-hidden rounded break-inside-avoid"
+              class="bg-muted block w-full cursor-zoom-in overflow-hidden rounded"
+              :style="{ aspectRatio }"
               @click="openAt(i)"
             >
-              <img
+              <BlurImage
                 :src="item.sm || item.url"
+                :lqip="item.lqip"
                 :alt="item.alt || 'Gallery'"
-                :width="item.width || undefined"
-                :height="item.height || undefined"
                 loading="lazy"
                 decoding="async"
                 draggable="false"
-                class="h-auto w-full"
+                image-class="h-full w-full object-cover"
               />
             </button>
           </div>
@@ -39,4 +40,9 @@ const { data: galleryData } = await useFetch("/api/event/gallery", {
 });
 
 const items = computed(() => galleryData.value?.data ?? []);
+
+// Aspect ratio comes from PM One (event setting), e.g. "4:5" -> CSS "4 / 5".
+const aspectRatio = computed(() =>
+  (galleryData.value?.meta?.aspect_ratio || "1:1").replace(":", " / ")
+);
 </script>
