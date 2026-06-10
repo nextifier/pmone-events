@@ -36,32 +36,6 @@ export default {
     countdownLabel: "開催まであと",
     announcement: "出展ブースの空きがあります",
     visitorAnnouncement: "来場者登録の受付を開始しました!",
-    banners: {
-      "0": {
-        subHeadline: "ASEANを代表するセラミクス産業展",
-        content:
-          "<p>数百のセラミクスブランドが一堂に集結。最新技術、素材、デザイントレンドを直接体感できます。専門家への相談も。</p>",
-        cta: "無料チケットを取得",
-      },
-      "1": {
-        subHeadline: "Keramikaで、あなたのブランドを発信",
-        content:
-          "<p>数千人の業界プロフェッショナル、建築家、バイヤーが来場します。ビジネスネットワークを広げるチャンスです。</p>",
-        cta: "今すぐブースを予約",
-      },
-      "2": {
-        subHeadline: "カンファレンス＆セミナー",
-        content:
-          "<p>サステナブルセラミクス、最新テクノロジー、業界の今後について、専門家やリーダーと直接ディスカッション。</p>",
-        cta: "プログラムを見る",
-      },
-      "3": {
-        subHeadline: "最新情報をお見逃しなく",
-        content:
-          "<p>SNSをフォローして、出展者情報やイベント限定コンテンツをいち早くチェックしてください。</p>",
-        cta: "{'@'}keramikaidをフォロー",
-      },
-    },
     title:
       'ASEAN最大の<span class="gradient-accent bg-clip-text font-semibold text-transparent">セラミックス</span>産業展',
     description:

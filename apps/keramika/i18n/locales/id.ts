@@ -33,32 +33,6 @@ export default {
     countdownLabel: "Pameran dimulai dalam",
     announcement: "Slot exhibitor masih tersedia!",
     visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
-    banners: {
-      "0": {
-        subHeadline: "Pameran Industri Keramik Terbesar di ASEAN",
-        content:
-          "<p>Ratusan brand keramik unggulan, semua di satu tempat. Lihat langsung teknologi, material, dan tren desain terbaru. Plus, konsultasi dengan para ahlinya.</p>",
-        cta: "Dapatkan Tiket Gratis",
-      },
-      "1": {
-        subHeadline: "Tampilkan Brand Kamu di Keramika!",
-        content:
-          "<p>Ribuan profesional industri, arsitek, dan buyer akan hadir. Ini kesempatan untuk memperluas jaringan dan menunjukkan produk Anda langsung ke decision-maker.</p>",
-        cta: "Pesan Space Sekarang",
-      },
-      "2": {
-        subHeadline: "Konferensi & Seminar Keramik",
-        content:
-          "<p>Dengarkan langsung insight dari para ahli dan pemimpin industri soal keramik berkelanjutan, teknologi baru, dan arah masa depan industri.</p>",
-        cta: "Lihat Program Acara",
-      },
-      "3": {
-        subHeadline: "Jangan Ketinggalan Info!",
-        content:
-          "<p>Follow media sosial kami untuk mendapatkan update soal inovasi keramik, highlight exhibitor, dan info eksklusif menjelang pameran.</p>",
-        cta: "Follow {'@'}keramikaid",
-      },
-    },
     title:
       'Pameran Industri <span class="gradient-accent bg-clip-text font-semibold text-transparent">Keramik</span> Terbesar di ASEAN',
     description:

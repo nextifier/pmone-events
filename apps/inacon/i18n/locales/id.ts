@@ -47,25 +47,6 @@ export default {
     description:
       "Guest internasional, cosplay kece, exclusive merch, artist alley, dan ribuan fans yang satu frekuensi sama kamu. Ini bukan cuma event, ini rumah kamu.",
     announcement: "Slot booth masih tersedia untuk exhibitor",
-    banners: {
-      "0": {
-        subHeadline: "Fun fact!",
-        content:
-          '<p>Huruf "X" di "ICC X INACON" punya dua arti: crossover antara ICC dan INACON, sekaligus perayaan 10 tahun (X) ICC sejak 2015!</p>',
-      },
-      "1": {
-        subHeadline: "Kenalan sama Captain Sultan",
-        content:
-          "<p>Kaito Arjuna & Kirana Yumi bergabung dengan Captain Sultan dari ICC.</p>",
-        cta: "Discover ICC",
-      },
-      "2": {
-        subHeadline: "Registrasi Tenant",
-        content:
-          "<p>Jangkau ribuan fans anime, cosplayer, dan kolektor di crossover event terbesar Indonesia!</p>",
-        cta: "Book Space",
-      },
-    },
     ctaTicket: "Beli Tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

@@ -55,26 +55,6 @@ export default {
     edition: "제{n}회",
     announcement: "전시 부스 자리 있어요",
     visitorAnnouncement: "관람객 등록이 시작됐어요!",
-    banners: {
-      "0": {
-        subHeadline: "자신 있는 F&B 제품이 있으세요?",
-        content:
-          "<p>23,000명 이상의 F&B 전문가, 카페 사장님, 미식가들이 모여요. 당신의 브랜드를 직접 맛보게 할 수 있는 무대예요.</p>",
-        cta: "브랜드 선보이기",
-      },
-      "1": {
-        subHeadline: "좋아하는 일로 돈 벌기",
-        content:
-          "<p>이 티켓으로 옆에 있는 <strong>Franchise & License Expo Indonesia (FLEI)</strong>와 <strong>More Food Expo Indonesia</strong>도 입장할 수 있어요. F&B 사업을 시작하고 키우는 방법을 알아보세요.</p>",
-        cta: "FLEI 보러 가기",
-      },
-      "2": {
-        subHeadline: "놓치지 마세요!",
-        content:
-          "<p>Instagram을 팔로우하면 참가 브랜드 미리보기, 경품 이벤트, 비하인드 소식을 먼저 받아볼 수 있어요.</p>",
-        cta: "{'@'}cafebrasserieexpo 팔로우",
-      },
-    },
   },
   about: {
     title: "<span class='text-accent'>맛있는 건</span> 다 여기에.",

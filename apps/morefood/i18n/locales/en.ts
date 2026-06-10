@@ -207,43 +207,6 @@ export default {
     playRecap: "Play Recap",
     announcement: "Space is still available for exhibitors",
     visitorAnnouncement: "Visitor Registration Is Now Open!",
-    banners: {
-      "0": {
-        subHeadline: "Exhibitor Registration Is Open!",
-        content:
-          "<p>Showcase your brand to over 30,000+ buyers, distributors, and F&B professionals. This is your chance to shine in one of Southeast Asia's biggest food markets.</p>",
-        cta: "Book Your Space Now",
-      },
-      "1": {
-        subHeadline: "Three Expos, One Ticket!",
-        content:
-          "<p>Your pass also gets you into the <strong>Franchise & License Expo (FLEI)</strong>. Discover even more business models and opportunities, all in one place.</p>",
-        cta: "Discover FLEI",
-      },
-      "2": {
-        subHeadline: "For the Love of Coffee",
-        content:
-          "<p>Your ticket includes full access to the <strong>Cafe n' Brasserie Expo</strong>. Explore the latest in coffee, pastry, and cutting-edge cafe tech. A must-visit for cafe owners!</p>",
-        cta: "Explore Cafe n' Brasserie Expo",
-      },
-      "3": {
-        subHeadline: "Did You Know?",
-        content:
-          "<p>Indonesia is the world's largest Halal food consumption market! It's a multi-billion dollar opportunity waiting for the right products. Are you ready?</p>",
-      },
-      "4": {
-        subHeadline: "Pro Tip for Visitors",
-        content:
-          "<p>Wear your most comfortable shoes! With over 20,000m² of space and 1,200+ exhibitors to explore, you'll be doing a lot of walking (and even more tasting!).</p>",
-        cta: "See Who's Exhibiting",
-      },
-      "5": {
-        subHeadline: "Early Bird Tickets Are Coming!",
-        content:
-          "<p>Want to get the best price for your ticket? Follow us on social media to be the first to know when our Early Bird promo launches. Don't miss out!</p>",
-        cta: "Follow Us on Instagram",
-      },
-    },
     instagramTip:
       'Tip: All the spoilers and important info are on Instagram. Make sure you\'re following <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>!',
   },

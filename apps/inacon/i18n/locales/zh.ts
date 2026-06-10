@@ -70,25 +70,6 @@ export default {
     description:
       "海外嘉宾、限定周边、Cosplay 巡游、游戏竞技，还有几千个和你一样的粉丝。宅在家不如来现场。",
     announcement: "参展展位仍有空位",
-    banners: {
-      "0": {
-        subHeadline: "你知道吗？",
-        content:
-          '<p>"ICC X INACON" 里的 "X" 有双重含义：ICC 和 INACON 的联动 + ICC 自 2015 年以来的第十年（X = 罗马数字 10）！</p>',
-      },
-      "1": {
-        subHeadline: "认识 Captain Sultan",
-        content:
-          "<p>Kaito Arjuna 和 Kirana Yumi 与 ICC 的 Captain Sultan 强强联手。</p>",
-        cta: "了解 ICC",
-      },
-      "2": {
-        subHeadline: "参展商报名",
-        content:
-          "<p>在印尼最大的联动活动上，把你的品牌介绍给数千名动漫粉丝和收藏家！</p>",
-        cta: "预订展位",
-      },
-    },
     ctaTicket: "购票",
     ctaExhibit: "参展报名",
     playRecap: "看看上届精彩",

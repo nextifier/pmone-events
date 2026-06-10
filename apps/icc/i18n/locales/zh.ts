@@ -64,14 +64,6 @@ export default {
     description:
       "漫画、潮玩、电影、游戏、Cosplay。ICC 十年来一直是流行文化的家。今年十月，十周年，你一定要来。",
     announcement: "参展展位仍有空位",
-    banners: {
-      "0": {
-        subHeadline: "参展商招募中",
-        content:
-          "<p>在印尼最大的流行文化盛会上，让数万粉丝和收藏家认识你的品牌！</p>",
-        cta: "预订展位",
-      },
-    },
     ctaTicket: "买票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

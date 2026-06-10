@@ -12,23 +12,15 @@ export default {
     "backToHome": "Back to home",
     "bookSpace": "Book Space",
     "getTicket": "Get Ticket",
-    "toggleSidebar": "Toggle Sidebar",
-    "openMenu": "Open Menu",
-    "toggleFullscreen": "Toggle Fullscreen",
-    "switchLanguage": "Switch Language",
     "copyright": "Copyright",
-    "allRightsReserved": "All rights reserved.",
     "readingTime": "{n} min read | {n} mins read",
     "loading": "Loading",
     "failedToGetData": "Failed to get the data.",
     "search": "Search",
-    "searchPosts": "Search posts",
     "brands": "Brands",
     "booth": "Booth",
     "categories": "Categories",
     "description": "Description",
-    "created": "Created",
-    "views": "{n} views",
     "posted": "Posted",
     "shareThisPost": "Share this post",
     "soldOut": "Sold out",
@@ -55,7 +47,6 @@ export default {
     "latestUpdates": "Latest updates"
   },
   "brands": {
-    "comingSoon": "Brand list is coming soon. Check back later!",
     "conjunctionExplore": "Explore brands from {eventName} with your same ticket."
   },
   "brandPreview": {

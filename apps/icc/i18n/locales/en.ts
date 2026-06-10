@@ -164,13 +164,6 @@ export default {
     "title": "A DECADE OF POP CULTURE FIESTA",
     "description": "Indonesia Comic Con has been the home for comics, toys, movies, games, and cosplay. This October, we're celebrating a decade of pop culture, and you're invited.",
     "announcement": "Space is still available for exhibitors",
-    "banners": {
-      "0": {
-        "subHeadline": "Tenant Registration",
-        "content": "<p>Connect your brand with thousands of pop culture fans and collectors at Indonesia's largest pop culture event!</p>",
-        "cta": "Book Space"
-      }
-    },
     "ctaTicket": "Get Ticket",
     "ctaExhibit": "Book Space",
     "playRecap": "Play Recap",

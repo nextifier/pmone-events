@@ -73,26 +73,6 @@ export default {
       "国内トップクラスのロースターが一堂に集結。気になるコーヒーを片っ端からテイスティングして、とっておきの一杯を見つけてください。",
     announcement: "出展ブースの空きがあります",
     visitorAnnouncement: "来場者登録の受付を開始しました!",
-    banners: {
-      "0": {
-        subHeadline: "自慢の商品、ありますか？",
-        content:
-          "<p>23,000人以上のF&Bプロフェッショナル、カフェオーナー、フーディーが来場します。あなたの商品を直接味わってもらえるチャンスです。</p>",
-        cta: "出展について見る",
-      },
-      "1": {
-        subHeadline: "好きなことが仕事になる",
-        content:
-          "<p>入場チケットで、隣の<strong>Franchise & License Expo Indonesia (FLEI)</strong>と<strong>More Food Expo Indonesia</strong>にもそのまま入れます。</p>",
-        cta: "FLEIを見る",
-      },
-      "2": {
-        subHeadline: "最新情報をお見逃しなく",
-        content:
-          "<p>Instagramをフォローすると、注目の出展者、プレゼント企画、舞台裏の様子をいち早くチェックできます。</p>",
-        cta: "{'@'}indocoffeefestをフォロー",
-      },
-    },
     ctaTicket: "チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",

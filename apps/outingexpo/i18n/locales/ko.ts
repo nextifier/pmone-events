@@ -72,32 +72,6 @@ export default {
     description:
       "기업 인게이지먼트와 인센티브 여행을 위한 비즈니스 플랫폼. 100+ 브랜드, HR 컨퍼런스, 비즈니스 매칭이 한곳에 모입니다.",
     announcement: "전시 부스 아직 자리 있어요",
-    banners: {
-      "0": {
-        subHeadline: "티켓 한 장으로 4일간 전 프로그램 이용 가능.",
-        content:
-          "<p>아웃팅, 인센티브 여행, 기업 인게이지먼트 솔루션을 제공하는 100개 이상의 브랜드를 만나보세요. 무료 입장. 지금 등록하고 배지를 확보하세요.</p>",
-        cta: "지금 등록하기",
-      },
-      "1": {
-        subHeadline: "규모 3배 확대. 목표 방문객 25,000명 이상.",
-        content:
-          "<p>2025년에는 70개 이상의 기업에서 10,000명 이상이 참관했습니다. 올해는 규모가 3배로 커집니다. 기업 의사결정권자 앞에 브랜드를 선보이세요.</p>",
-        cta: "부스 예약하기",
-      },
-      "2": {
-        subHeadline: "팀의 역량을 한 단계 끌어올릴 컨퍼런스와 포럼.",
-        content:
-          "<p>Inspiration Talk Series, Corporate Insights, HR Forum, Business Matching Lounge. HR과 기업 리더를 위해 엄선된 프로그램입니다.</p>",
-        cta: "전체 프로그램 보기",
-      },
-      "3": {
-        subHeadline: "최신 소식을 놓치지 마세요!",
-        content:
-          "<p>Instagram을 팔로우하면 참가사 정보, 행사 프로그램, 기업 인게이지먼트 및 인센티브 여행 관련 인사이트를 받아볼 수 있어요.</p>",
-        cta: "{'@'}indooutingexpo 팔로우하기",
-      },
-    },
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

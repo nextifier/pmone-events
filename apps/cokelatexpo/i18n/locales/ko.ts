@@ -50,26 +50,6 @@ export default {
       "산지의 흙, 만든 사람의 손길, 거기서 나오는 맛. 여기서만 만날 수 있는 초콜릿을 직접 경험해 보세요.",
     announcement: "전시 부스 자리 있어요",
     visitorAnnouncement: "관람객 등록이 시작됐어요!",
-    banners: {
-      "0": {
-        subHeadline: "맛있는 제품이 있으세요?",
-        content:
-          "<p>23,000명 이상의 F&B 전문가, 카페 오너, 미식가가 찾아와요. 브랜드를 직접 맛보게 하고 알릴 수 있는 기회예요.</p>",
-        cta: "브랜드 선보이기",
-      },
-      "1": {
-        subHeadline: "좋아하는 걸 사업으로",
-        content:
-          "<p>이 티켓으로 옆에 있는 <strong>Franchise & License Expo Indonesia (FLEI)</strong>와 <strong>More Food Expo Indonesia</strong>에도 입장할 수 있어요. F&B 사업을 시작하는 법을 배워보세요.</p>",
-        cta: "FLEI 알아보기",
-      },
-      "2": {
-        subHeadline: "놓치지 마세요!",
-        content:
-          "<p>Instagram을 팔로우하면 참가 브랜드 미리보기, 경품 이벤트, 비하인드 소식을 가장 먼저 받아볼 수 있어요.</p>",
-        cta: "{'@'}cafebrasserieexpo 팔로우하기",
-      },
-    },
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

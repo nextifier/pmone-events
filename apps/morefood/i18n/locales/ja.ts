@@ -90,43 +90,6 @@ export default {
     playRecap: "ダイジェストを見る",
     announcement: "出展ブースの空きあり",
     visitorAnnouncement: "来場者登録の受付を開始しました!",
-    banners: {
-      "0": {
-        subHeadline: "出展者の募集を開始しました",
-        content:
-          "<p>30,000人以上のバイヤー、ディストリビューター、F&Bプロフェッショナルにブランドをアピールしませんか。東南アジア有数のフードマーケットへの出展チャンスです。</p>",
-        cta: "今すぐブースを予約",
-      },
-      "1": {
-        subHeadline: "3つのExpo、1枚のチケット",
-        content:
-          "<p>お持ちのチケットで<strong>Franchise & License Expo (FLEI)</strong>にも入場できます。フランチャイズビジネスの可能性も一緒にチェックしてみてください。</p>",
-        cta: "FLEIを見る",
-      },
-      "2": {
-        subHeadline: "コーヒー好きの方へ",
-        content:
-          "<p>チケットには<strong>Cafe n' Brasserie Expo</strong>の入場も含まれています。最新のコーヒー、ペストリー、カフェ向けテクノロジーをぜひご覧ください。カフェオーナーの方は必見です。</p>",
-        cta: "Cafe n' Brasserie Expoを見る",
-      },
-      "3": {
-        subHeadline: "ご存知ですか？",
-        content:
-          "<p>インドネシアは世界最大のHalal食品消費市場です。数十億ドル規模の市場が、まだまだ新しい製品を求めています。</p>",
-      },
-      "4": {
-        subHeadline: "来場のコツ",
-        content:
-          "<p>歩きやすい靴でお越しください。20,000m²の会場に1,200以上の出展者が集結。たくさん歩いて、たくさん試食してください。</p>",
-        cta: "出展者をチェック",
-      },
-      "5": {
-        subHeadline: "早割チケットがまもなく登場",
-        content:
-          "<p>お得にチケットを手に入れたい方は、SNSをフォローしてください。Early Bird販売開始時にいち早くお知らせします。</p>",
-        cta: "Instagramをフォロー",
-      },
-    },
     instagramTip:
       'Tip: 最新情報はすべてInstagramで発信しています。<a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>をフォローしてくださいね。',
   },

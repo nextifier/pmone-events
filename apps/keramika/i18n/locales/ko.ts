@@ -39,32 +39,6 @@ export default {
     countdownLabel: "개최까지",
     announcement: "전시 부스 아직 자리 있어요",
     visitorAnnouncement: "관람객 등록이 시작됐어요!",
-    banners: {
-      "0": {
-        subHeadline: "아세안 대표 세라믹 산업 전시회",
-        content:
-          "<p>수백 개 세라믹 브랜드가 한자리에. 최신 기술, 소재, 디자인 트렌드를 직접 확인하세요. 전문가 상담도 가능해요.</p>",
-        cta: "무료 티켓 받기",
-      },
-      "1": {
-        subHeadline: "Keramika에서 브랜드를 알리세요",
-        content:
-          "<p>수천 명의 업계 전문가, 건축가, 바이어가 방문해요. 비즈니스 네트워크를 넓힐 수 있는 기회예요.</p>",
-        cta: "부스 예약하기",
-      },
-      "2": {
-        subHeadline: "컨퍼런스 & 세미나",
-        content:
-          "<p>지속가능 세라믹, 최신 기술, 업계 미래 트렌드에 대해 전문가들과 직접 이야기 나눠보세요.</p>",
-        cta: "프로그램 보기",
-      },
-      "3": {
-        subHeadline: "최신 소식 놓치지 마세요",
-        content:
-          "<p>SNS를 팔로우하면 참가사 소식, 행사 하이라이트, 독점 정보를 가장 먼저 받아볼 수 있어요.</p>",
-        cta: "{'@'}keramikaid 팔로우하기",
-      },
-    },
     title:
       'ASEAN 최대 <span class="gradient-accent bg-clip-text font-semibold text-transparent">세라믹</span> 산업 전시회',
     description:

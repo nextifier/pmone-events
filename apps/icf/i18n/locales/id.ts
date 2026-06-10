@@ -36,26 +36,6 @@ export default {
       "Ratusan roaster terbaik ada di sini. Kopi andalan baru kamu tinggal selangkah. Datang, coba satu per satu, dan temukan sendiri favoritmu.",
     announcement: "Slot Exhibitor Masih Tersedia",
     visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
-    banners: {
-      "0": {
-        subHeadline: "Punya Produk yang Bikin Ketagihan?",
-        content:
-          "<p>Langsung ketemu 23.000+ profesional F&B, pemilik kafe, dan pecinta kuliner. Panggung yang pas buat brand kamu dicicipi dan dibicarakan banyak orang.</p>",
-        cta: "Pamerkan Brand Kamu",
-      },
-      "1": {
-        subHeadline: "Passion Ketemu Peluang",
-        content:
-          "<p>Satu tiket berlaku juga untuk <strong>Franchise & License Expo Indonesia (FLEI)</strong> dan <strong>More Food Expo Indonesia</strong> di sebelah.</p>",
-        cta: "Lihat FLEI",
-      },
-      "2": {
-        subHeadline: "Jangan Sampai Ketinggalan!",
-        content:
-          "<p>Follow Instagram kami untuk mendapatkan info eksklusif seputar exhibitor, giveaway menarik, dan behind-the-scenes yang sayang untuk dilewatkan.</p>",
-        cta: "Follow {'@'}indocoffeefest",
-      },
-    },
     ctaTicket: "Dapatkan tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

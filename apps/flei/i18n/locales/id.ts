@@ -38,26 +38,6 @@ export default {
     edition: "Edisi ke-{n}",
     announcement: "Slot Exhibitor Masih Tersedia!",
     visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
-    banners: {
-      "0": {
-        subHeadline: "Pendaftaran Exhibitor Dibuka!",
-        content:
-          "<p>Pamerkan brand kamu di edisi ke-26, JIExpo Kemayoran. Langsung terhubung dengan 14.000+ pengunjung berkualitas.</p>",
-        cta: "Pesan Space Sekarang",
-      },
-      "1": {
-        subHeadline: "Satu Tiket, Tiga Pameran Besar!",
-        content:
-          "<p>Tiket kamu juga berlaku untuk <strong>Cafe n' Brasserie Expo Indonesia</strong> dan <strong>More Food Expo Indonesia</strong>.</p>",
-        cta: "Lihat Cafe n' Brasserie Expo",
-      },
-      "2": {
-        subHeadline: "Jangan Ketinggalan Info!",
-        content:
-          "<p>Follow Instagram kami untuk info exhibitor, pembicara, dan promo spesial. Jadi yang pertama tahu!</p>",
-        cta: "Follow {'@'}fleiexpoid",
-      },
-    },
   },
   about: {
     title:

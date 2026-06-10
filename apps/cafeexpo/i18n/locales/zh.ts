@@ -47,26 +47,6 @@ export default {
     edition: "第{n}届",
     announcement: "展位还有空位",
     visitorAnnouncement: "观众注册现已开放!",
-    banners: {
-      "0": {
-        subHeadline: "有好产品？",
-        content:
-          "<p>23,000+ F&B 从业者、咖啡馆老板和吃货都会来。把你的品牌直接送到他们嘴边。</p>",
-        cta: "展示你的品牌",
-      },
-      "1": {
-        subHeadline: "把热爱变成生意",
-        content:
-          "<p>这张门票还能进旁边的 <strong>Franchise & License Expo Indonesia (FLEI)</strong> 和 <strong>More Food Expo Indonesia</strong>。学学怎么把 F&B 爱好做成事业。</p>",
-        cta: "了解 FLEI",
-      },
-      "2": {
-        subHeadline: "别错过！",
-        content:
-          "<p>关注我们的 Instagram，提前看参展品牌、抢专属福利、了解幕后故事。</p>",
-        cta: "关注 {'@'}cafebrasserieexpo",
-      },
-    },
   },
   about: {
     title: "<span class='text-accent'>好吃的</span>，都在这。",

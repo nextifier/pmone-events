@@ -35,32 +35,6 @@ export default {
     countdownLabel: "开展倒计时",
     announcement: "参展 Booth 仍有空位",
     visitorAnnouncement: "观众注册现已开放!",
-    banners: {
-      "0": {
-        subHeadline: "东盟领先的陶瓷行业展览会",
-        content:
-          "<p>数百家陶瓷品牌齐聚一堂。最新技术、材料、设计趋势，现场一次看个够。还有专家咨询。</p>",
-        cta: "免费领取门票",
-      },
-      "1": {
-        subHeadline: "在 Keramika 展示你的品牌",
-        content:
-          "<p>数千名行业专家、建筑师、采购决策者将到场。拓展商业网络，让你的品牌被更多人看到。</p>",
-        cta: "立即预订展位",
-      },
-      "2": {
-        subHeadline: "行业会议与研讨会",
-        content:
-          "<p>和行业大咖面对面聊可持续陶瓷、前沿技术，以及行业接下来的走向。</p>",
-        cta: "查看活动项目",
-      },
-      "3": {
-        subHeadline: "别错过行业动态",
-        content:
-          "<p>关注我们的社交媒体，第一时间获取参展品牌信息、活动亮点和独家内容。</p>",
-        cta: "关注 {'@'}keramikaid",
-      },
-    },
     title:
       '东盟领先的<span class="gradient-accent bg-clip-text font-semibold text-transparent">陶瓷</span>行业展览会',
     description: "在 ASEAN 领先的陶瓷产业展上，探索最新技术、材料和设计趋势。",

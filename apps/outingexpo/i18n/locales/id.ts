@@ -59,32 +59,6 @@ export default {
     description:
       "Platform bisnis untuk corporate engagement dan incentive travel. 100+ brand, konferensi HR, business matching, semuanya di satu tempat.",
     announcement: "Slot exhibitor masih tersedia!",
-    banners: {
-      "0": {
-        subHeadline: "Satu tiket. Akses ke seluruh pameran 4 hari.",
-        content:
-          "<p>Temui 100+ brand penyedia outing, incentive travel, dan corporate engagement. Gratis masuk. Daftar sekarang dan amankan badge kamu.</p>",
-        cta: "Daftar Sekarang",
-      },
-      "1": {
-        subHeadline: "3x lebih besar. 25,000+ target pengunjung.",
-        content:
-          "<p>Edisi 2025 dihadiri 10,000+ pengunjung dari 70+ perusahaan. Tahun ini skalanya 3x lipat. Tampilkan brand kamu di depan corporate decision makers.</p>",
-        cta: "Pesan Booth Sekarang",
-      },
-      "2": {
-        subHeadline: "Konferensi & forum yang bikin tim kamu naik level.",
-        content:
-          "<p>Inspiration Talk Series, Corporate Insights, HR Forum, dan Business Matching Lounge. Program terkurasi untuk HR dan corporate leaders.</p>",
-        cta: "Lihat Semua Program",
-      },
-      "3": {
-        subHeadline: "Jangan sampai ketinggalan update-nya!",
-        content:
-          "<p>Follow Instagram kami untuk info exhibitor, program acara, dan insight seputar corporate engagement dan incentive travel.</p>",
-        cta: "Follow {'@'}indooutingexpo",
-      },
-    },
     ctaTicket: "Dapatkan tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

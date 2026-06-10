@@ -48,26 +48,6 @@ export default {
       "产地的风土，匠人的手艺，最终成就独一无二的味道。来这里，亲口尝尝有什么不同。",
     announcement: "参展展位仍有空位",
     visitorAnnouncement: "观众注册现已开放!",
-    banners: {
-      "0": {
-        subHeadline: "你的产品够好吃吗？",
-        content:
-          "<p>直接面对 23,000+ F&B 从业者、咖啡馆老板和美食爱好者。让你的品牌被品尝，被记住。</p>",
-        cta: "展示你的品牌",
-      },
-      "1": {
-        subHeadline: "把爱好做成生意",
-        content:
-          "<p>门票同时可以进入旁边的 <strong>Franchise & License Expo Indonesia (FLEI)</strong> 和 <strong>More Food Expo Indonesia</strong>。了解怎么把 F&B 热情变成实际的事业。</p>",
-        cta: "了解 FLEI",
-      },
-      "2": {
-        subHeadline: "别错过！",
-        content:
-          "<p>关注我们的 Instagram，第一时间看到参展商预告、专属福利和幕后花絮。</p>",
-        cta: "关注 {'@'}cafebrasserieexpo",
-      },
-    },
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

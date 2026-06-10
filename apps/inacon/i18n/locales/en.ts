@@ -165,22 +165,6 @@ export default {
     "title": "Your Epic Pop Culture Crossover is Here!",
     "description": "Gear up for two awesome days packed with international guests, exclusive drops, epic cosplay, and thousands of other fans just like you. This is your party!",
     "announcement": "Space is still available for exhibitors",
-    "banners": {
-      "0": {
-        "subHeadline": "Did you know?",
-        "content": "<p>The \"X\" in \"ICC X INACON\" marks both our epic crossover with INACON and our legendary 10th (X) anniversary since ICC's journey began in 2015!</p>"
-      },
-      "1": {
-        "subHeadline": "Meet Captain Sultan",
-        "content": "<p>Kaito Arjuna & Kirana Yumi joins forces with ICC's Captain Sultan.</p>",
-        "cta": "Discover ICC"
-      },
-      "2": {
-        "subHeadline": "Tenant Registration",
-        "content": "<p>Connect your brand with thousands of pop culture fans and collectors at Indonesia's largest crossover event!</p>",
-        "cta": "Book Space"
-      }
-    },
     "ctaTicket": "Get Ticket",
     "ctaExhibit": "Book Space",
     "playRecap": "Play Recap",

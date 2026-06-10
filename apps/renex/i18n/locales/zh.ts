@@ -48,30 +48,6 @@ export default {
     description:
       "亲手触摸最新材料、面对面咨询设计师。装修需要的一切，一站搞定。",
     announcement: "参展展位仍有空位，立即报名！",
-    banners: {
-      "0": {
-        subHeadline: "一次看够装修好物！",
-        content: "<p>数百个品牌、设计咨询、最新家居趋势，全部体验。</p>",
-        cta: "领取门票",
-      },
-      "1": {
-        subHeadline: "来 Renovation Expo 参展吧！",
-        content:
-          "<p>数千名正在找材料的业主、建筑师和设计师现场看展。直接展示你的品牌和产品。</p>",
-        cta: "立即预订展位",
-      },
-      "2": {
-        subHeadline: "免费设计 & 风水咨询！",
-        content: "<p>带上户型图！专业设计师和风水师现场为你量身定制方案。</p>",
-        cta: "查看全部活动",
-      },
-      "3": {
-        subHeadline: "别错过最新消息！",
-        content:
-          "<p>关注我们的 Instagram，每天获取装修灵感、参展品牌介绍和专属福利。</p>",
-        cta: "关注 {'@'}megabuildindo",
-      },
-    },
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

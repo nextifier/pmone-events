@@ -163,20 +163,6 @@ export default {
       "The enhanced edition of building materials, interior design, architecture, and construction exhibition & conference in Indonesia.",
     announcement: "Space is still available for exhibitors",
     visitorAnnouncement: "Visitor Registration Is Now Open!",
-    banners: {
-      "0": {
-        subHeadline: "Exhibit at Megabuild Indonesia!",
-        content:
-          "<p>Position your brand in front of thousands of homeowners, architects, and designers. Let's build success together.</p>",
-        cta: "Book Your Space Now",
-      },
-      "1": {
-        subHeadline: "Stay Inspired, Stay Updated!",
-        content:
-          "<p>Follow our Instagram for daily building-related inspiration, exhibitor spotlights, and special giveaways leading up to the event. Don't miss a single update!</p>",
-        cta: "Follow {'@'}megabuildindo",
-      },
-    },
     ctaTicket: "Get free ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",

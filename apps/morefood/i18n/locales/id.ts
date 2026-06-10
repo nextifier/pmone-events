@@ -81,43 +81,6 @@ export default {
     playRecap: "Tonton Recap",
     announcement: "Slot Exhibitor Masih Tersedia!",
     visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
-    banners: {
-      "0": {
-        subHeadline: "Pendaftaran Exhibitor Dibuka!",
-        content:
-          "<p>Pamerkan brand kamu ke 30.000+ buyer, distributor, dan profesional F&B di MoreFood Expo. Kesempatan besar buat unjuk produk di salah satu F&B Expo terbesar di Asia Tenggara.</p>",
-        cta: "Pesan Space Sekarang",
-      },
-      "1": {
-        subHeadline: "Tiga Expo, Satu Tiket!",
-        content:
-          "<p>Tiket kamu juga berlaku untuk <strong>Franchise & License Expo (FLEI)</strong>. Sekalian eksplorasi peluang bisnis franchise di tempat yang sama.</p>",
-        cta: "Lihat FLEI",
-      },
-      "2": {
-        subHeadline: "Buat Pecinta Kopi",
-        content:
-          "<p>Tiket kamu termasuk akses ke <strong>Cafe n' Brasserie Expo</strong>. Langsung cek tren kopi, pastry, dan teknologi cafe terkini. Wajib mampir buat pemilik cafe!</p>",
-        cta: "Jelajahi Cafe n' Brasserie Expo",
-      },
-      "3": {
-        subHeadline: "Tahukah Kamu?",
-        content:
-          "<p>Indonesia adalah pasar konsumsi makanan Halal terbesar di dunia. Peluang miliaran dolar yang masih terbuka lebar. Sudah siap masuk?</p>",
-      },
-      "4": {
-        subHeadline: "Tips buat Pengunjung",
-        content:
-          "<p>Pakai sepatu yang nyaman! Area pamerannya 20.000m² dengan 1.200+ exhibitor. Siap-siap banyak jalan dan banyak mencicipi.</p>",
-        cta: "Lihat Siapa Aja yang Pameran",
-      },
-      "5": {
-        subHeadline: "Tiket Early Bird Segera Hadir!",
-        content:
-          "<p>Mau harga tiket paling murah? Follow media sosial kami supaya tidak ketinggalan waktu promo Early Bird dibuka.</p>",
-        cta: "Follow Kami di Instagram",
-      },
-    },
     instagramTip:
       'Tip: Semua bocoran dan info penting ada di Instagram. Pastikan kamu follow <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>!',
   },

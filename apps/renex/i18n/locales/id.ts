@@ -35,32 +35,6 @@ export default {
     description:
       "Lihat langsung ratusan pilihan material, konsultasi dengan desainer, dan rencanakan renovasi rumahmu di satu tempat.",
     announcement: "Booth masih tersedia. Daftar sekarang!",
-    banners: {
-      "0": {
-        subHeadline: "Inspirasi Tanpa Batas!",
-        content:
-          "<p>Ratusan brand, konsultasi desain, dan tren home improvement terbaru. Semuanya bisa kamu akses di sini.</p>",
-        cta: "Dapatkan Tiket",
-      },
-      "1": {
-        subHeadline: "Pameran di Renovation Expo!",
-        content:
-          "<p>Ribuan pemilik rumah, arsitek, dan desainer hadir mencari produk renovasi. Ini kesempatan kamu tampil langsung di depan mereka.</p>",
-        cta: "Pesan Booth Sekarang",
-      },
-      "2": {
-        subHeadline: "Konsultasi Desain & Fengshui Gratis!",
-        content:
-          "<p>Bawa denah rumahmu! Desainer interior dan ahli Fengshui siap memberi saran personal untuk ruang yang nyaman dan fungsional.</p>",
-        cta: "Lihat Semua Program",
-      },
-      "3": {
-        subHeadline: "Jangan Sampai Ketinggalan!",
-        content:
-          "<p>Follow Instagram kami untuk inspirasi renovasi harian, info brand peserta, dan giveaway spesial menjelang acara!</p>",
-        cta: "Follow {'@'}megabuildindo",
-      },
-    },
     ctaTicket: "Dapatkan tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

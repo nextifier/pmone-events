@@ -53,26 +53,6 @@ export default {
     edition: "第{n}届",
     announcement: "参展展位仍有空位",
     visitorAnnouncement: "观众注册现已开放!",
-    banners: {
-      "0": {
-        subHeadline: "参展商报名已开启！",
-        content:
-          "<p>第26届 FLEI，地点 JIExpo Kemayoran。直接面对 14,000+ 优质观众展示你的品牌。</p>",
-        cta: "立即预订展位",
-      },
-      "1": {
-        subHeadline: "一张票，逛三场展！",
-        content:
-          "<p>门票同时可以进入 <strong>Cafe n' Brasserie Expo Indonesia</strong> 和 <strong>More Food Expo Indonesia</strong>。</p>",
-        cta: "了解 Cafe n' Brasserie Expo",
-      },
-      "2": {
-        subHeadline: "别错过最新动态！",
-        content:
-          "<p>关注 Instagram，第一时间获取参展品牌、嘉宾和优惠信息。</p>",
-        cta: "关注 {'@'}fleiexpoid",
-      },
-    },
   },
   about: {
     title: "<span class='text-accent'>几百个商业机会</span>都在一个场馆里。",

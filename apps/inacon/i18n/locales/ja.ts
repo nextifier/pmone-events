@@ -90,25 +90,6 @@ export default {
     description:
       "海外ゲスト、限定グッズ、コスプレ、ゲーム大会、そして同じ作品を愛する仲間たち。好きなものに囲まれる最高の週末がやってくる。",
     announcement: "出展ブースまだ空きあり",
-    banners: {
-      "0": {
-        subHeadline: "豆知識",
-        content:
-          "<p>「ICC X INACON」の「X」には2つの意味が。ICCとINACONのクロスオーバーと、2015年から10年目（X＝ローマ数字で10）の記念！</p>",
-      },
-      "1": {
-        subHeadline: "Captain Sultanに会おう",
-        content:
-          "<p>Kaito ArjunaとKirana YumiがICCのCaptain Sultanと合流。</p>",
-        cta: "ICCをチェック",
-      },
-      "2": {
-        subHeadline: "出展者募集中",
-        content:
-          "<p>インドネシア最大のクロスオーバーイベントで、アニメファンやコレクターにブランドを届けよう！</p>",
-        cta: "ブース予約",
-      },
-    },
     ctaTicket: "チケット購入",
     ctaExhibit: "出展登録",
     playRecap: "前回のハイライト",

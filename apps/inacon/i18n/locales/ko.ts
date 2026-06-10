@@ -71,25 +71,6 @@ export default {
     description:
       "해외 게스트, 한정판 굿즈, 코스프레, 게임 대회, 그리고 나랑 같은 팬 수천 명. 오타쿠라면 빠질 수 없는 축제예요.",
     announcement: "참가사 부스 아직 자리 있어요",
-    banners: {
-      "0": {
-        subHeadline: "알고 계셨나요?",
-        content:
-          '<p>"ICC X INACON"의 "X"에는 두 가지 뜻이 있어요. ICC와 INACON의 크로스오버, 그리고 2015년에 시작된 ICC의 10주년(X=로마숫자 10) 기념!</p>',
-      },
-      "1": {
-        subHeadline: "Captain Sultan을 만나보세요",
-        content:
-          "<p>Kaito Arjuna와 Kirana Yumi가 ICC의 Captain Sultan과 합류해요.</p>",
-        cta: "ICC 알아보기",
-      },
-      "2": {
-        subHeadline: "참가사 등록",
-        content:
-          "<p>인도네시아 최대 크로스오버 이벤트에서 수천 명의 애니메 팬과 컬렉터에게 브랜드를 알리세요!</p>",
-        cta: "부스 예약하기",
-      },
-    },
     ctaTicket: "티켓 구매",
     ctaExhibit: "참가 신청",
     playRecap: "하이라이트 보기",

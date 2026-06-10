@@ -37,26 +37,6 @@ export default {
     edition: "Edisi ke-{n}",
     announcement: "Slot Exhibitor Masih Tersedia!",
     visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
-    banners: {
-      "0": {
-        subHeadline: "Punya Produk F&B?",
-        content:
-          "<p>Ketemu langsung 23.000+ profesional F&B, pemilik kafe, dan pecinta kuliner. Tempat yang pas buat brand kamu dicicipi dan dibicarakan banyak orang.</p>",
-        cta: "Pamerkan Brand Kamu",
-      },
-      "1": {
-        subHeadline: "Dari Hobi Jadi Cuan",
-        content:
-          "<p>Tiket kamu juga berlaku untuk <strong>Franchise & License Expo Indonesia (FLEI)</strong> dan <strong>More Food Expo Indonesia</strong> di sebelah. Cocok buat kamu yang mau belajar scale up bisnis F&B.</p>",
-        cta: "Lihat FLEI",
-      },
-      "2": {
-        subHeadline: "Jangan Sampai Kelewatan!",
-        content:
-          "<p>Follow Instagram kami buat lihat sneak peek exhibitor, giveaway, dan behind-the-scenes CBE. Sayang kalau dilewatkan!</p>",
-        cta: "Follow {'@'}cafebrasserieexpo",
-      },
-    },
   },
   about: {
     title:

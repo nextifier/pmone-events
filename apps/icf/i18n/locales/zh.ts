@@ -52,26 +52,6 @@ export default {
       "印尼顶尖的咖啡烘焙师都在这。来逛逛，一杯一杯试，找到属于你的那一杯。",
     announcement: "参展展位仍有空位",
     visitorAnnouncement: "观众注册现已开放!",
-    banners: {
-      "0": {
-        subHeadline: "有好产品？",
-        content:
-          "<p>23,000+ F&B 从业者、咖啡馆老板和美食爱好者都会来。让你的品牌被尝到、被记住。</p>",
-        cta: "展示你的品牌",
-      },
-      "1": {
-        subHeadline: "爱好也能变生意",
-        content:
-          "<p>凭入场券还能进旁边的 <strong>Franchise & License Expo Indonesia (FLEI)</strong> 和 <strong>More Food Expo Indonesia</strong>。</p>",
-        cta: "了解 FLEI",
-      },
-      "2": {
-        subHeadline: "别错过任何动态",
-        content:
-          "<p>关注我们的 Instagram，提前了解参展品牌、专属福利和幕后花絮。</p>",
-        cta: "关注 {'@'}indocoffeefest",
-      },
-    },
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

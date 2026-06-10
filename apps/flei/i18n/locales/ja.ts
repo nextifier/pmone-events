@@ -50,26 +50,6 @@ export default {
     edition: "第{n}回",
     announcement: "出展ブースに空きがあります",
     visitorAnnouncement: "来場者登録の受付を開始しました!",
-    banners: {
-      "0": {
-        subHeadline: "出展者の募集を開始しました",
-        content:
-          "<p>第26回を迎えるFLEI、会場はJIExpo Kemayoran。14,000人以上の来場者にブランドを直接アピールできます。</p>",
-        cta: "ブースを予約する",
-      },
-      "1": {
-        subHeadline: "1枚のチケットで3つの展示会へ",
-        content:
-          "<p>チケットで<strong>Cafe n' Brasserie Expo Indonesia</strong>と<strong>More Food Expo Indonesia</strong>にも入場できます。</p>",
-        cta: "Cafe n' Brasserie Expoを見る",
-      },
-      "2": {
-        subHeadline: "最新情報をチェック",
-        content:
-          "<p>Instagramをフォローして、出展ブランド・スピーカー・限定プロモーションの情報をいち早く入手しましょう。</p>",
-        cta: "{'@'}fleiexpoidをフォロー",
-      },
-    },
   },
   about: {
     title:

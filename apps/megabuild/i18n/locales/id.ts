@@ -35,20 +35,6 @@ export default {
       "Ratusan brand bahan bangunan, arsitektur, dan interior design ada di satu tempat. Datang, bandingkan, langsung deal.",
     announcement: "Slot Exhibitor Masih Tersedia!",
     visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
-    banners: {
-      "0": {
-        subHeadline: "Pamerkan Brand Kamu di Megabuild Indonesia!",
-        content:
-          "<p>Tampil di depan ribuan pemilik rumah, arsitek, dan desainer. Ayo, kembangkan bisnis bersama kami.</p>",
-        cta: "Pesan Space Sekarang",
-      },
-      "1": {
-        subHeadline: "Jangan Sampai Ketinggalan!",
-        content:
-          "<p>Follow Instagram kami untuk mendapatkan inspirasi harian, berkenalan dengan exhibitor, dan info giveaway spesial sebelum event dimulai.</p>",
-        cta: "Follow {'@'}megabuildindo",
-      },
-    },
     ctaTicket: "Dapatkan tiket gratis",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

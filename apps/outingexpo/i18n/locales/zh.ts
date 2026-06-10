@@ -78,32 +78,6 @@ export default {
     description:
       "企业团建与激励旅行的商务平台。100+ 品牌、HR 行业论坛、精准商务对接，尽在一站。",
     announcement: "参展展位仍有空位",
-    banners: {
-      "0": {
-        subHeadline: "一张门票，畅览4天全场展会。",
-        content:
-          "<p>现场汇集 100+ 团建、激励旅行和企业活动服务商。免费入场，立即注册锁定参观名额。</p>",
-        cta: "立即注册",
-      },
-      "1": {
-        subHeadline: "规模扩大3倍，目标观众 25,000+。",
-        content:
-          "<p>2025 年展会吸引超过 10,000 名观众，来自 70 多家企业。今年规模翻三倍。把你的品牌展示在企业决策者面前。</p>",
-        cta: "立即预订展位",
-      },
-      "2": {
-        subHeadline: "让团队再上一个台阶的行业论坛。",
-        content:
-          "<p>Inspiration Talk Series、Corporate Insights、HR Forum、Business Matching Lounge，为 HR 和企业管理层量身打造。</p>",
-        cta: "查看全部项目",
-      },
-      "3": {
-        subHeadline: "别错过最新消息！",
-        content:
-          "<p>关注我们的 Instagram，获取参展商动态、活动预告，以及企业团建与激励旅行的行业洞察。</p>",
-        cta: "关注 {'@'}indooutingexpo",
-      },
-    },
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

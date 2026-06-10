@@ -68,26 +68,6 @@ export default {
       "産地の土、作り手の手仕事、そこから生まれる味わい。ここでしか出会えないチョコレートの世界を体験してください。",
     announcement: "出展ブースの空きあり",
     visitorAnnouncement: "来場者登録の受付を開始しました!",
-    banners: {
-      "0": {
-        subHeadline: "自慢の商品がありますか？",
-        content:
-          "<p>23,000人以上のF&Bプロフェッショナル、カフェオーナー、グルメ愛好家が来場します。ブランドを直接アピールできる場です。</p>",
-        cta: "ブランドを出展する",
-      },
-      "1": {
-        subHeadline: "好きなことをビジネスに",
-        content:
-          "<p>このチケットで隣の<strong>Franchise & License Expo Indonesia (FLEI)</strong>と<strong>More Food Expo Indonesia</strong>にも入場できます。F&Bビジネスの始め方を学べます。</p>",
-        cta: "FLEIを見る",
-      },
-      "2": {
-        subHeadline: "最新情報をお届け",
-        content:
-          "<p>Instagramをフォローして、注目の出展者情報、プレゼント企画、イベントの裏側をチェックしてください。</p>",
-        cta: "{'@'}cafebrasserieexpoをフォロー",
-      },
-    },
     ctaTicket: "チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",

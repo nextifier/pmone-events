@@ -88,43 +88,6 @@ export default {
     playRecap: "하이라이트 영상 보기",
     announcement: "전시 부스 아직 자리 있어요",
     visitorAnnouncement: "관람객 등록이 시작됐어요!",
-    banners: {
-      "0": {
-        subHeadline: "전시 참가 신청 오픈!",
-        content:
-          "<p>30,000명 이상의 바이어, 유통사, F&B 전문가에게 브랜드를 선보이세요. 동남아시아 주요 식품 시장에 진출할 기회예요.</p>",
-        cta: "부스 예약하기",
-      },
-      "1": {
-        subHeadline: "세 개 Expo, 한 장의 티켓!",
-        content:
-          "<p>같은 티켓으로 <strong>Franchise & License Expo (FLEI)</strong>도 관람할 수 있어요. 프랜차이즈 비즈니스 기회도 함께 살펴보세요.</p>",
-        cta: "FLEI 보러 가기",
-      },
-      "2": {
-        subHeadline: "커피를 좋아하시나요?",
-        content:
-          "<p>티켓에 <strong>Cafe n' Brasserie Expo</strong> 입장도 포함돼 있어요. 최신 커피, 페이스트리, 카페 기술을 직접 확인해 보세요. 카페 오너라면 꼭 들러보세요.</p>",
-        cta: "Cafe n' Brasserie Expo 보러 가기",
-      },
-      "3": {
-        subHeadline: "알고 계셨나요?",
-        content:
-          "<p>인도네시아는 세계 최대 Halal 식품 소비 시장이에요. 수십억 달러 규모의 시장이 아직 새로운 제품을 기다리고 있어요.</p>",
-      },
-      "4": {
-        subHeadline: "관람 꿀팁",
-        content:
-          "<p>편한 신발을 신고 오세요! 20,000m² 규모에 1,200개 이상의 부스가 있어서 많이 걷게 돼요. 시식도 많이 할 수 있어요.</p>",
-        cta: "참가 브랜드 보기",
-      },
-      "5": {
-        subHeadline: "얼리버드 티켓 곧 오픈!",
-        content:
-          "<p>가장 좋은 가격에 티켓을 받고 싶으세요? SNS를 팔로우하면 Early Bird 오픈 소식을 가장 먼저 받아볼 수 있어요.</p>",
-        cta: "Instagram 팔로우하기",
-      },
-    },
     instagramTip:
       'Tip: 최신 소식은 모두 Instagram에서 확인하세요. <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a> 팔로우하세요!',
   },

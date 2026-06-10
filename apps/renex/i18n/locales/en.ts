@@ -153,28 +153,6 @@ export default {
     "title": "The <span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">Blueprint</span></span> for Your <span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">Home Renovation.</span>",
     "description": "Take control of your renovation. Touch and feel the latest materials, get direct advice from designers, and build your project with total confidence.",
     "announcement": "Space is still available for exhibitors",
-    "banners": {
-      "0": {
-        "subHeadline": "Your Pass to a Better Home!",
-        "content": "<p>Get access to the complete blueprint for your renovation: hundreds of brands, expert design consultations, and the latest trends in home improvement.</p>",
-        "cta": "Claim Your Pass"
-      },
-      "1": {
-        "subHeadline": "Exhibit at Renovation Expo!",
-        "content": "<p>Position your brand in front of thousands of homeowners, architects, and designers who are actively sourcing for their next renovation project. Let's build success together.</p>",
-        "cta": "Book Your Space Now"
-      },
-      "2": {
-        "subHeadline": "Free Design & Fengshui Consultation!",
-        "content": "<p>Bring your floor plan! Get personalized advice from professional interior designers and Fengshui experts to create a harmonious and functional space.</p>",
-        "cta": "See All Event Highlights"
-      },
-      "3": {
-        "subHeadline": "Stay Inspired, Stay Updated!",
-        "content": "<p>Follow our Instagram for daily renovation inspiration, exhibitor spotlights, and special giveaways leading up to the event. Don't miss a single update!</p>",
-        "cta": "Follow {'@'}megabuildindo"
-      }
-    },
     "ctaTicket": "Get ticket",
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",

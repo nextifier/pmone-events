@@ -34,20 +34,6 @@ export default {
       "인도네시아 최대 건자재·인테리어 디자인·건축·건설 전시회 & 컨퍼런스.",
     announcement: "전시 부스 아직 자리 있어요",
     visitorAnnouncement: "관람객 등록이 시작됐어요!",
-    banners: {
-      "0": {
-        subHeadline: "Megabuild Indonesia에 참가하세요!",
-        content:
-          "<p>수천 명의 주택 소유자, 건축가, 디자이너에게 브랜드를 알리세요. 함께 성장해 가요.</p>",
-        cta: "부스 예약하기",
-      },
-      "1": {
-        subHeadline: "최신 소식 놓치지 마세요!",
-        content:
-          "<p>Instagram을 팔로우하면 건축 관련 영감, 참가 브랜드 소개, 행사 전 특별 이벤트 소식을 가장 먼저 받아볼 수 있어요.</p>",
-        cta: "{'@'}megabuildindo 팔로우하기",
-      },
-    },
     ctaTicket: "무료 티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

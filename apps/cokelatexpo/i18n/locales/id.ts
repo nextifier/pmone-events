@@ -33,26 +33,6 @@ export default {
       "Setiap cokelat punya kisah. Dari kebun kakao, dari tangan pembuat, sampai ke lidah kamu. Datang, cicipi, dan temukan sendiri bedanya.",
     announcement: "Slot exhibitor masih tersedia",
     visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
-    banners: {
-      "0": {
-        subHeadline: "Punya Produk yang Bikin Nagih?",
-        content:
-          "<p>Bertemu langsung dengan 23.000+ profesional F&B, pemilik kafe, dan pecinta kuliner. Tempat yang tepat buat brand kamu dicicipi dan dibicarakan.</p>",
-        cta: "Pamerkan Brand Kamu",
-      },
-      "1": {
-        subHeadline: "Hobi Bisa Jadi Bisnis",
-        content:
-          "<p>Tiket kamu juga berlaku untuk <strong>Franchise & License Expo Indonesia (FLEI)</strong> dan <strong>More Food Expo Indonesia</strong> di sebelah. Cocok buat belajar cara mengubah passion F&B jadi bisnis yang jalan.</p>",
-        cta: "Lihat FLEI",
-      },
-      "2": {
-        subHeadline: "Jangan Ketinggalan!",
-        content:
-          "<p>Follow Instagram kami untuk update terbaru soal exhibitor, giveaway, dan behind the scenes. Sayang kalau dilewatkan.</p>",
-        cta: "Follow {'@'}cafebrasserieexpo",
-      },
-    },
     ctaTicket: "Dapatkan tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

@@ -45,14 +45,6 @@ export default {
     description:
       "Sepuluh tahun jadi rumah buat komik, toys, film, game, dan cosplay. Oktober ini, ICC rayain satu dekade. Dan kamu harus ada.",
     announcement: "Slot booth exhibitor masih tersedia",
-    banners: {
-      "0": {
-        subHeadline: "Registrasi Tenant",
-        content:
-          "<p>Pamerkan brand kamu ke ribuan fans pop culture dan kolektor di event terbesar se-Indonesia!</p>",
-        cta: "Book Space",
-      },
-    },
     ctaTicket: "Beli Tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

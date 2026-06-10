@@ -166,26 +166,6 @@ export default {
     edition: "{n}{ordinal} edition",
     announcement: "Space is still available for exhibitors",
     visitorAnnouncement: "Visitor Registration Is Now Open!",
-    banners: {
-      "0": {
-        subHeadline: "Exhibitor Registration Is Open!",
-        content:
-          "<p>Showcase your brand at our milestone 26th edition in Indonesia's most-hyped venue, JIExpo Kemayoran. Connect with over 14,000+ quality buyers.</p>",
-        cta: "Book Your Space Now",
-      },
-      "1": {
-        subHeadline: "One Pass, Three Massive Shows!",
-        content:
-          "<p>Your pass also gets you into the <strong>Cafe n' Brasserie Expo Indonesia</strong> and <strong>More Food Expo Indonesia</strong>.</p>",
-        cta: "Discover Cafe n' Brasserie Expo",
-      },
-      "2": {
-        subHeadline: "Don't Miss Any Updates!",
-        content:
-          "<p>Follow us on Instagram for the latest exhibitor reveals, speaker announcements, and special promos. Be the first to know what's happening!</p>",
-        cta: "Follow {'@'}fleiexpoid",
-      },
-    },
   },
   about: {
     title:

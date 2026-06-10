@@ -35,20 +35,6 @@ export default {
       "インドネシア最大級の建材・インテリアデザイン・建築・建設の展示会＆カンファレンス。",
     announcement: "出展スペースはまだ空きがあります",
     visitorAnnouncement: "来場者登録の受付を開始しました!",
-    banners: {
-      "0": {
-        subHeadline: "Megabuild Indonesia に出展しませんか",
-        content:
-          "<p>住宅オーナー、建築家、デザイナーが数千人規模で来場します。あなたのブランドを直接アピールしましょう。</p>",
-        cta: "今すぐブースを予約",
-      },
-      "1": {
-        subHeadline: "最新情報をお届けします",
-        content:
-          "<p>Instagramをフォローして、建築関連のインスピレーションや出展ブランド紹介、開催前の特別プレゼント情報をチェックしてください。</p>",
-        cta: "{'@'}megabuildindoをフォロー",
-      },
-    },
     ctaTicket: "無料チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",

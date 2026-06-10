@@ -180,28 +180,6 @@ export default {
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
     "description": "The business platform for corporate engagement and incentive travel. 100+ brands, HR conferences, business matching, all in one venue.",
     "announcement": "Space is still available for exhibitors",
-    "banners": {
-      "0": {
-        "subHeadline": "One ticket. Full access to the 4-day expo.",
-        "content": "<p>Meet 100+ brands offering outing, incentive travel, and corporate engagement solutions. Free entry. Register now and secure your badge.</p>",
-        "cta": "Register Now"
-      },
-      "1": {
-        "subHeadline": "3x bigger. Targeting 25,000+ visitors.",
-        "content": "<p>The 2025 edition attracted 10,000+ visitors from 70+ companies. This year the scale triples. Put your brand in front of corporate decision makers.</p>",
-        "cta": "Book Your Space Now"
-      },
-      "2": {
-        "subHeadline": "Conferences and forums that level up your team.",
-        "content": "<p>Inspiration Talk Series, Corporate Insights, HR Forum, and Business Matching Lounge. Curated programs for HR and corporate leaders.</p>",
-        "cta": "See All Programs"
-      },
-      "3": {
-        "subHeadline": "Stay in the loop.",
-        "content": "<p>Follow our Instagram for exhibitor updates, event programs, and insights on corporate engagement and incentive travel.</p>",
-        "cta": "Follow {'@'}indooutingexpo"
-      }
-    },
     "ctaTicket": "Get ticket",
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",

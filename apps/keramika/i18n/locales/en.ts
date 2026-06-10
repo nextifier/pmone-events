@@ -152,28 +152,6 @@ export default {
     "countdownLabel": "The event starts in",
     "announcement": "Space is still available for exhibitors",
     "visitorAnnouncement": "Visitor Registration Is Now Open!",
-    "banners": {
-      "0": {
-        "subHeadline": "ASEAN's Leading Ceramics Industry Exhibition",
-        "content": "<p>Discover the latest technology, solutions, materials and design trends from hundreds of leading ceramic brands. Get access to expert consultations and exclusive insights.</p>",
-        "cta": "Get Your Free Ticket"
-      },
-      "1": {
-        "subHeadline": "Showcase Your Innovation at Keramika!",
-        "content": "<p>Position your brand in front of thousands of industry professionals, architects, and decision-makers. Connect with key players and expand your business network.</p>",
-        "cta": "Book Your Space Now"
-      },
-      "2": {
-        "subHeadline": "Explore Conferences & Seminars",
-        "content": "<p>Join industry leaders and experts in insightful discussions about sustainable ceramics, cutting-edge technology, and future trends shaping the ceramic industry.</p>",
-        "cta": "See Event Programs"
-      },
-      "3": {
-        "subHeadline": "Stay Connected with Industry Updates!",
-        "content": "<p>Follow our social media for the latest ceramic innovations, exhibitor highlights, and exclusive updates leading up to the event. Be part of the conversation!</p>",
-        "cta": "Follow {'@'}keramikaid"
-      }
-    },
     "title": "ASEAN's Leading <span class=\"gradient-accent bg-clip-text font-semibold text-transparent\">Ceramics</span> Industry Exhibition",
     "description": "Be inspired by the latest technology, solutions, materials and design trends from ASEAN's leading ceramics industry exhibition.",
     "ctaTicket": "Get free ticket",

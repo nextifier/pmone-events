@@ -192,26 +192,6 @@ export default {
       "With so many great roasters here, your new go-to coffee is waiting to be found. Come explore, taste around, and discover it for yourself.",
     announcement: "Space is still available for exhibitors",
     visitorAnnouncement: "Visitor Registration Is Now Open!",
-    banners: {
-      "0": {
-        subHeadline: "Got a Delicious Product?",
-        content:
-          "<p>Connect with over 23,000+ F&B professionals, cafe owners, and passionate foodies. This is the perfect stage to get your brand tasted and talked about.</p>",
-        cta: "Showcase Your Brand",
-      },
-      "1": {
-        subHeadline: "Passion Meets Profit",
-        content:
-          "<p>Your pass also unlocks the <strong>Franchise & License Expo Indonesia (FLEI)</strong> and <strong>More Food Expo Indonesia</strong> next door.</p>",
-        cta: "Discover FLEI",
-      },
-      "2": {
-        subHeadline: "Don't Miss a Drop!",
-        content:
-          "<p>Follow us on Instagram for sneak peeks of our coolest exhibitors, special giveaways, and all the behind-the-scenes action. You won't want to miss it.</p>",
-        cta: "Follow {'@'}indocoffeefest",
-      },
-    },
     ctaTicket: "Get ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",

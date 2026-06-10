@@ -32,20 +32,6 @@ export default {
     description: "印尼规模最大的建材、室内设计、建筑与施工展览会暨行业峰会。",
     announcement: "参展 Booth 仍有空位",
     visitorAnnouncement: "观众注册现已开放!",
-    banners: {
-      "0": {
-        subHeadline: "来 Megabuild Indonesia 展示你的品牌！",
-        content:
-          "<p>数千位业主、建筑师和设计师到场参观。把你的品牌直接展示给他们。</p>",
-        cta: "立即预订展位",
-      },
-      "1": {
-        subHeadline: "别错过任何动态！",
-        content:
-          "<p>关注我们的 Instagram，每天获取建材灵感、参展品牌精选和活动前的独家福利。</p>",
-        cta: "关注 {'@'}megabuildindo",
-      },
-    },
     ctaTicket: "免费领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

@@ -62,14 +62,6 @@ export default {
     description:
       "만화, 장난감, 영화, 게임, 코스프레. ICC는 10년간 팝 컬처의 홈이었어요. 이번 10월, 10주년을 함께 축하해요.",
     announcement: "전시 부스 자리 있어요",
-    banners: {
-      "0": {
-        subHeadline: "참가사 모집 중",
-        content:
-          "<p>인도네시아 최대 팝 컬처 행사에서 수천 명의 팬과 컬렉터에게 브랜드를 알려보세요!</p>",
-        cta: "부스 예약",
-      },
-    },
     ctaTicket: "티켓 구매",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

@@ -90,43 +90,6 @@ export default {
     playRecap: "看回顾视频",
     announcement: "参展展位仍有空位",
     visitorAnnouncement: "观众注册现已开放!",
-    banners: {
-      "0": {
-        subHeadline: "参展商报名已开启",
-        content:
-          "<p>向 30,000+ 买家、经销商和 F&B 专业人士展示你的品牌。这是进入东南亚最大食品市场之一的好机会。</p>",
-        cta: "立即预订展位",
-      },
-      "1": {
-        subHeadline: "三场大展，一张门票",
-        content:
-          "<p>你的门票同时可以进入 <strong>Franchise & License Expo (FLEI)</strong>。顺便看看加盟连锁的商业机会。</p>",
-        cta: "了解 FLEI",
-      },
-      "2": {
-        subHeadline: "咖啡爱好者看过来",
-        content:
-          "<p>你的门票包含 <strong>Cafe n' Brasserie Expo</strong> 的入场权。最新的咖啡、烘焙和咖啡馆技术，开咖啡馆的一定要来。</p>",
-        cta: "逛 Cafe n' Brasserie Expo",
-      },
-      "3": {
-        subHeadline: "你知道吗？",
-        content:
-          "<p>印尼是全球最大的 Halal 食品消费市场。数十亿美元的市场还在等待更多好产品。</p>",
-      },
-      "4": {
-        subHeadline: "观展小贴士",
-        content:
-          "<p>穿上最舒服的鞋！20,000m² 展区加上 1,200+ 展商，你会走很多路，尝更多好东西。</p>",
-        cta: "看看谁在参展",
-      },
-      "5": {
-        subHeadline: "早鸟票即将开售",
-        content:
-          "<p>想拿最优惠的票价？关注我们的社交媒体，Early Bird 开售时第一时间通知你。</p>",
-        cta: "关注我们的 Instagram",
-      },
-    },
     instagramTip:
       'Tip: 所有最新消息都在 Instagram 上。快关注 <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>！',
   },

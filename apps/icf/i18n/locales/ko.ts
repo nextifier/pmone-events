@@ -52,26 +52,6 @@ export default {
       "인도네시아 최고의 로스터들이 한자리에 모였어요. 직접 맛보고, 비교하고, 나만의 커피를 찾아보세요.",
     announcement: "전시 부스 아직 자리 있어요",
     visitorAnnouncement: "관람객 등록이 시작됐어요!",
-    banners: {
-      "0": {
-        subHeadline: "맛있는 제품이 있으세요?",
-        content:
-          "<p>23,000명 이상의 F&B 전문가, 카페 오너, 미식가가 찾아와요. 브랜드를 맛보게 하고 입소문을 만들 수 있는 무대예요.</p>",
-        cta: "브랜드 출전하기",
-      },
-      "1": {
-        subHeadline: "좋아하는 일로 수익까지",
-        content:
-          "<p>이 티켓으로 옆에서 열리는 <strong>Franchise & License Expo Indonesia (FLEI)</strong>와 <strong>More Food Expo Indonesia</strong>에도 입장할 수 있어요.</p>",
-        cta: "FLEI 보러 가기",
-      },
-      "2": {
-        subHeadline: "소식 놓치지 마세요!",
-        content:
-          "<p>Instagram을 팔로우하면 참가 브랜드 미리보기, 경품 이벤트, 비하인드 소식을 가장 먼저 받을 수 있어요.</p>",
-        cta: "{'@'}indocoffeefest 팔로우하기",
-      },
-    },
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",
