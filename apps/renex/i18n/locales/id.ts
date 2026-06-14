@@ -34,7 +34,6 @@ export default {
       'Mulai <span class="relative inline-block"><span class="bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15"></span><span class="text-outline">Renovasi</span></span> Rumahmu, <span class="gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent">Tanpa Ragu.</span>',
     description:
       "Lihat langsung ratusan pilihan material, konsultasi dengan desainer, dan rencanakan renovasi rumahmu di satu tempat.",
-    announcement: "Booth masih tersedia. Daftar sekarang!",
     ctaTicket: "Dapatkan tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

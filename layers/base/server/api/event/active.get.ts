@@ -6,7 +6,9 @@ export default defineEventHandler(async (event) => {
   const timeoutId = setTimeout(() => controller.abort(), 15000);
 
   try {
-    const username = appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
+    // Event identity is per-app (its own project), even when brands/blog are
+    // sourced from a shared dataSourceUsername (e.g. icf/cokelat -> cbe).
+    const username = appConfig.app.projectUsername;
     const data = await $fetch(
       `${config.public.apiUrl}/api/public/projects/${username}/events/active`,
       {

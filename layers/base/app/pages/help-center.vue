@@ -150,14 +150,21 @@ usePageMeta(null, {
 
 const localePath = useLocalePath();
 const config = useAppConfig();
-const eventTitle = config.event.title;
-const email = config.contact.email;
-const whatsapp = config.contact.whatsapp;
+const event = useEvent();
+const eventTitle = computed(() => event.title);
 const shortName = config.app.shortName;
-const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsapp}&text=Halo, ${shortName}!`;
-const whatsappDisplay = `+${whatsapp.slice(0, 2)} ${whatsapp.slice(2, 5)}-${whatsapp.slice(5, 9)}-${whatsapp.slice(9)}`;
-const eventDate = config.event.date;
-const eventTime = config.event.time;
-const location = config.event.location;
-const locationLink = config.event.locationLink;
+// Contact email + WhatsApp now come from PM One.
+const profile = useProjectProfile();
+const email = computed(() => profile.email);
+const whatsappLink = computed(
+  () => `https://api.whatsapp.com/send?phone=${profile.whatsappNumber}&text=Halo, ${shortName}!`,
+);
+const whatsappDisplay = computed(() => {
+  const n = profile.whatsappNumber;
+  return n ? `+${n.slice(0, 2)} ${n.slice(2, 5)}-${n.slice(5, 9)}-${n.slice(9)}` : "";
+});
+const eventDate = computed(() => event.date);
+const eventTime = computed(() => event.time);
+const location = computed(() => event.location);
+const locationLink = computed(() => event.locationLink);
 </script>

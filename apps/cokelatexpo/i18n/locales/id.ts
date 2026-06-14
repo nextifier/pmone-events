@@ -31,8 +31,6 @@ export default {
     title: "Ada Cerita di Balik Setiap Gigitan.",
     description:
       "Setiap cokelat punya kisah. Dari kebun kakao, dari tangan pembuat, sampai ke lidah kamu. Datang, cicipi, dan temukan sendiri bedanya.",
-    announcement: "Slot exhibitor masih tersedia",
-    visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
     ctaTicket: "Dapatkan tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

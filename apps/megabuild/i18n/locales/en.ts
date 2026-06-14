@@ -161,8 +161,6 @@ export default {
       "Indonesia’s Integrated Platform for Building, Interior Design, and Property Ecosystem.",
     description:
       "The enhanced edition of building materials, interior design, architecture, and construction exhibition & conference in Indonesia.",
-    announcement: "Space is still available for exhibitors",
-    visitorAnnouncement: "Visitor Registration Is Now Open!",
     ctaTicket: "Get free ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",

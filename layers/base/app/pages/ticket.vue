@@ -4,40 +4,57 @@
       class="grid grid-cols-1 gap-4 sm:container sm:max-w-6xl lg:grid-cols-12 lg:gap-10"
     >
       <div class="px-1 sm:px-0 lg:col-span-5">
-        <div
-          class="bg-muted relative isolate aspect-4/5 w-full overflow-hidden rounded-xl sm:rounded-2xl"
+        <Lightbox
+          :items="posterItems"
+          :show-thumbnails="false"
+          full-key="xl"
+          alt="Event poster"
         >
-          <NuxtImg
-            :src="event.poster"
-            :alt="event.title"
-            class="relative z-10 size-full object-cover select-none"
-            sizes="100vw sm:800px"
-            width="1080"
-            height="1350"
-            loading="lazy"
-            format="webp"
-          />
-
-          <div
-            v-if="event.teaserVideoId"
-            class="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-blur-sm transition delay-1000 duration-800 ease-out starting:scale-0 starting:opacity-0"
-          >
-            <button
-              class="flex size-16 items-center justify-center rounded-full bg-white/30 text-white shadow-xl outline -outline-offset-6 outline-white transition hover:bg-white/60 active:scale-98"
-              @click="
-                uiStore.openEmbedVideoDialog(
-                  `https://www.youtube.com/embed/${event.teaserVideoId}`,
-                )
-              "
-              v-ripple
+          <template #trigger="{ openAt }">
+            <div
+              class="bg-muted relative isolate aspect-4/5 w-full overflow-hidden rounded-xl sm:rounded-2xl"
             >
-              <Icon
-                name="material-symbols:play-arrow-rounded"
-                class="size-8 shrink-0"
-              />
-            </button>
-          </div>
-        </div>
+              <button
+                v-if="event.posterImage"
+                type="button"
+                class="absolute inset-0 z-10 cursor-zoom-in"
+                aria-label="View event poster"
+                @click="openAt(0)"
+              >
+                <BlurImage
+                  :src="
+                    event.posterImage.lg ||
+                    event.posterImage.md ||
+                    event.posterImage.url
+                  "
+                  :lqip="event.posterImage.lqip || ''"
+                  :alt="event.title"
+                  image-class="size-full object-cover select-none"
+                />
+              </button>
+
+              <div
+                v-if="event.teaserVideoId"
+                class="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-blur-sm transition delay-1000 duration-800 ease-out starting:scale-0 starting:opacity-0"
+              >
+                <button
+                  class="flex size-16 items-center justify-center rounded-full bg-white/30 text-white shadow-xl outline -outline-offset-6 outline-white transition hover:bg-white/60 active:scale-98"
+                  @click="
+                    uiStore.openEmbedVideoDialog(
+                      `https://www.youtube.com/embed/${event.teaserVideoId}`,
+                    )
+                  "
+                  v-ripple
+                >
+                  <Icon
+                    name="material-symbols:play-arrow-rounded"
+                    class="size-8 shrink-0"
+                  />
+                </button>
+              </div>
+            </div>
+          </template>
+        </Lightbox>
       </div>
 
       <div class="px-4 sm:px-0 lg:col-span-7 lg:pt-6">
@@ -69,8 +86,6 @@
                 edition</span
               >
             </div>
-
-            <SponsoredBy />
 
             <InConjunction />
           </div>
@@ -176,8 +191,27 @@ defineOptions({
   name: "ticket",
 });
 
-const event = useAppConfig().event;
+const event = useEvent();
 const uiStore = useUiStore();
+
+// Ticket poster: display a smaller conversion (lg) for fast load; the Lightbox
+// shows the larger xl version. Sourced from PM One (already optimized), so no
+// NuxtImg/Cloudflare re-optimization.
+const posterItems = computed(() => {
+  const p = event.posterImage;
+  if (!p) return [];
+  return [
+    {
+      sm: p.md || p.url,
+      md: p.md || p.url,
+      lg: p.lg || p.url,
+      xl: p.xl || p.lg || p.url,
+      url: p.url,
+      lqip: p.lqip,
+      alt: event.title,
+    },
+  ];
+});
 const tickets = useTicketStore();
 const allTickets = tickets.categories;
 
@@ -218,12 +252,14 @@ import {
   LazyGallery,
 } from "#components";
 
-const tabSettings = useAppConfig().settings.ticket.tabs;
+// Ticket tabs visibility now comes from PM One (website settings).
+const projectSettings = useProjectSettings();
+const tabSettings = computed(() => projectSettings.ticketTabs);
 
 const tabList = computed(() => {
   const tabs = [];
 
-  if (tabSettings.showTickets) {
+  if (tabSettings.value.showTickets) {
     tabs.push({
       name: "Tickets",
       value: "tickets",
@@ -234,7 +270,7 @@ const tabList = computed(() => {
       props: { tickets: allTickets },
     });
   }
-  if (tabSettings.showGuests) {
+  if (tabSettings.value.showGuests) {
     tabs.push({
       name: "Guests",
       value: "guests",
@@ -245,7 +281,7 @@ const tabList = computed(() => {
       props: {},
     });
   }
-  if (tabSettings.showBrands) {
+  if (tabSettings.value.showBrands) {
     tabs.push({
       name: "Brands",
       value: "brands",
@@ -256,7 +292,7 @@ const tabList = computed(() => {
       props: {},
     });
   }
-  if (tabSettings.showRundown) {
+  if (tabSettings.value.showRundown) {
     tabs.push({
       name: "Rundown",
       value: "rundown",
@@ -267,7 +303,7 @@ const tabList = computed(() => {
       props: {},
     });
   }
-  if (tabSettings.showAbout) {
+  if (tabSettings.value.showAbout) {
     tabs.push({
       name: "About",
       value: "about",
@@ -278,7 +314,7 @@ const tabList = computed(() => {
       props: {},
     });
   }
-  if (tabSettings.showPhotos) {
+  if (tabSettings.value.showPhotos) {
     tabs.push({
       name: "Photos",
       value: "photos",

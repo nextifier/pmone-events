@@ -90,12 +90,6 @@ export const useContentStore = defineStore("content", () => {
       title: t("hero.title"),
       description: t("hero.description"),
       cta: {},
-      announcements: [
-        {
-          text: t("hero.announcement"),
-          link: "/book-space",
-        },
-      ],
     },
 
     trustedBy: {
@@ -163,7 +157,6 @@ export const useContentStore = defineStore("content", () => {
         title: t("partnerships.reservedSpace.title"),
         cta: {
           label: t("partnerships.reservedSpace.cta"),
-          url: `https://api.whatsapp.com/send?phone=${config.contact.whatsapp}&text=Halo, ${config.app.shortName}!`,
         },
       },
     },
@@ -181,53 +174,6 @@ export const useContentStore = defineStore("content", () => {
         iconName: "hugeicons:ticket-01",
         url: "/ticket",
       },
-      banners: [
-        // {
-        //   image: "/img/banners/indooutingexpo-2025-poster.jpg",
-        //   subtitle: "Indonesia Outing Expo",
-        //   title: "Escape the Office, Build the Team.",
-        //   description:
-        //     "Discover unique destinations and activities for your next corporate gathering, team building event, or group getaway. Plan your escape here!",
-        //   accentColor: {
-        //     light: "#0284c7",
-        //     dark: "#38bdf8",
-        //   },
-        //   cta: {
-        //     label: "Explore IOE",
-        //     link: "https://indooutingexpo.co.id/",
-        //   },
-        // },
-        {
-          image: "/img/banners/cbe-8th-poster.jpg",
-          subtitle: "Cafe n' Brasserie Expo",
-          title: "For the Love of Coffee & More.",
-          description:
-            "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",
-          accentColor: {
-            light: "#795548",
-            dark: "#a1887f",
-          },
-          cta: {
-            label: "Explore CBE",
-            link: "https://cafebrasserieexpo.com/",
-          },
-        },
-        {
-          image: "/img/banners/flei-26th-poster.jpg",
-          subtitle: "Franchise & License Expo Indonesia",
-          title: "Your Entrepreneurial Journey Starts Here.",
-          description:
-            "Looking to start your own business? Discover hundreds of proven franchise opportunities from top local and international brands. Find your future venture!",
-          accentColor: {
-            light: "#0891b2",
-            dark: "#06b6d4",
-          },
-          cta: {
-            label: "Explore FLEI",
-            link: "https://franchise-expo.co.id",
-          },
-        },
-      ],
     },
 
     mediaCoverage: {

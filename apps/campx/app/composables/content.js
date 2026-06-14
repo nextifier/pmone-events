@@ -24,15 +24,7 @@ export const useContentStore = defineStore("content", {
     },
 
     components: {
-      hero: {
-        // announcements: [
-        //   {
-        //     text: `...`,
-        //     link: "/jetcar-experience",
-        //   },
-        // ],
-
-      },
+      hero: {},
 
       postSlider: {
         title: {

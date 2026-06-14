@@ -87,13 +87,14 @@
                     toggleEventFilter(event.projectUsername, $event)
                   "
                 />
-                <NuxtImg
+                <img
                   v-if="event.img"
                   :src="event.img"
                   :alt="event.title"
                   width="20"
                   height="20"
                   loading="lazy"
+                  decoding="async"
                   class="bg-muted border-border size-5 shrink-0 rounded-full border object-cover"
                 />
                 <div

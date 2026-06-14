@@ -151,7 +151,7 @@ import {
 const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.hero);
 const shaderReady = ref(false);
-const event = useAppConfig().event;
+const event = useEvent();
 const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
 const uiStore = useUiStore();

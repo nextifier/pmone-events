@@ -69,7 +69,6 @@ export default {
     title: "动漫迷的两天狂欢，就在这里！",
     description:
       "海外嘉宾、限定周边、Cosplay 巡游、游戏竞技，还有几千个和你一样的粉丝。宅在家不如来现场。",
-    announcement: "参展展位仍有空位",
     ctaTicket: "购票",
     ctaExhibit: "参展报名",
     playRecap: "看看上届精彩",

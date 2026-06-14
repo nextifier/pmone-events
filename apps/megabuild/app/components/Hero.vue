@@ -165,7 +165,7 @@
 
 <script setup>
 const content = computed(() => useContentStore().components.hero);
-const event = useAppConfig().event;
+const event = useEvent();
 const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
 const { status: eventStatus } = useEventStatus(eventStartTime, eventEndTime);

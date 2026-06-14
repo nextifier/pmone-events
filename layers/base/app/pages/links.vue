@@ -33,51 +33,82 @@
       v-else-if="profile"
       class="min-h-screen-offset mx-auto flex max-w-xl flex-col px-4 pb-12 sm:pt-2"
     >
-      <CardNotch
-        position="bottom-center"
-        size="5rem"
-        gap="0.3rem"
-        radius="1rem"
-        card-bg="var(--color-background)"
-        border-color="var(--color-border)"
-        body-class="aspect-[3/1] @container overflow-hidden"
-        class="-mx-3"
+      <Lightbox
+        :items="profileImageItems"
+        :show-thumbnails="false"
+        :show-counter="false"
+        :show-download="false"
+        :show-caption="false"
+        full-key="xl"
+        :alt="profile.name"
       >
-        <div
-          class="absolute inset-0 flex items-center justify-center"
-          :style="
-            !hasCoverImage && !hasProfileImage ? coverGradientStyle : undefined
-          "
-        >
-          <img
-            v-if="profile.cover_image?.md"
-            :src="profile.cover_image.md"
-            :alt="`${profile.name} cover`"
-            class="size-full object-cover"
-            width="1500"
-            height="500"
-            loading="lazy"
-          />
+        <template #trigger="{ openAt }">
+          <CardNotch
+            v-if="hasCoverImage"
+            position="bottom-center"
+            size="5rem"
+            gap="0.3rem"
+            radius="1rem"
+            card-bg="var(--color-background)"
+            border-color="var(--color-border)"
+            body-class="aspect-[3/1] @container overflow-hidden"
+            class="-mx-3"
+          >
+            <div class="absolute inset-0 flex items-center justify-center">
+              <img
+                :src="profile.cover_image.md"
+                :alt="`${profile.name} cover`"
+                class="size-full object-cover"
+                width="1500"
+                height="500"
+                loading="lazy"
+              />
+            </div>
 
-          <img
-            v-else-if="profile.profile_image?.sm"
-            :src="profile.profile_image.sm"
-            alt=""
-            class="size-full scale-150 object-cover blur-[80px]"
-            loading="lazy"
-          />
-        </div>
+            <template #notch>
+              <component
+                :is="hasProfileImage ? 'button' : 'div'"
+                :type="hasProfileImage ? 'button' : undefined"
+                :aria-label="
+                  hasProfileImage ? `View ${profile.name} logo` : undefined
+                "
+                class="size-full rounded-full"
+                :class="hasProfileImage ? 'cursor-zoom-in' : ''"
+                @click="hasProfileImage && openAt(0)"
+              >
+                <Avatar
+                  :model="profile"
+                  size="md"
+                  rounded="rounded-full"
+                  :no-tooltip="true"
+                  class="size-full"
+                />
+              </component>
+            </template>
+          </CardNotch>
 
-        <template #notch>
-          <Avatar
-            :model="profile"
-            size="md"
-            rounded="rounded-full"
-            :no-tooltip="true"
-            class="size-full"
-          />
+          <div v-else class="flex justify-center pt-2 lg:pt-8">
+            <component
+              :is="hasProfileImage ? 'button' : 'div'"
+              :type="hasProfileImage ? 'button' : undefined"
+              :aria-label="
+                hasProfileImage ? `View ${profile.name} logo` : undefined
+              "
+              :class="hasProfileImage ? 'cursor-zoom-in' : ''"
+              @click="hasProfileImage && openAt(0)"
+            >
+              <Avatar
+                :model="profile"
+                size="md"
+                rounded="rounded-full"
+                :gradient-frame="true"
+                :no-tooltip="true"
+                class="size-20 before:-inset-[5px]!"
+              />
+            </component>
+          </div>
         </template>
-      </CardNotch>
+      </Lightbox>
 
       <div
         class="mt-4 flex grow flex-col justify-between gap-y-8 sm:justify-start"
@@ -190,7 +221,7 @@ const route = useRoute();
 const [{ data: projectData, error: profileError }, { data: activeEvent }] =
   await Promise.all([
     useFetch("/api/project/profile", { key: "links-project-profile" }),
-    useFetch("/api/event/active", { key: "links-active-event" }),
+    useFetch("/api/event/active", { key: "active-event" }),
   ]);
 
 const loading = computed(() => !projectData.value && !profileError.value);
@@ -205,28 +236,23 @@ const profileErrorMessage = computed(() => {
   return "Something went wrong. Please refresh the page or try again later.";
 });
 
-const hasCoverImage = computed(() => Boolean(profile.value?.cover_image));
+const hasCoverImage = computed(() => Boolean(profile.value?.cover_image?.md));
 const hasProfileImage = computed(() => Boolean(profile.value?.profile_image));
 
-const coverHue = computed(() => {
-  const name = profile.value?.name || "";
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return Math.abs(hash) % 360;
-});
-
-const coverGradientStyle = computed(() => {
-  const h = coverHue.value;
-  return {
-    background: [
-      `radial-gradient(at 15% 15%, oklch(0.78 0.26 ${h}) 0%, transparent 50%)`,
-      `radial-gradient(at 85% 80%, oklch(0.52 0.28 ${(h + 30) % 360}) 0%, transparent 50%)`,
-      `radial-gradient(at 60% 40%, oklch(0.65 0.3 ${(h + 12) % 360}) 0%, transparent 55%)`,
-      `oklch(0.45 0.2 ${(h + 18) % 360})`,
-    ].join(", "),
-  };
+const profileImageItems = computed(() => {
+  const img = profile.value?.profile_image;
+  if (!img) return [];
+  return [
+    {
+      sm: img.sm,
+      md: img.md,
+      lg: img.lg,
+      xl: img.xl,
+      url: img.url,
+      name: profile.value?.name,
+      alt: profile.value?.name,
+    },
+  ];
 });
 
 const phoneNumbers = computed(() => {

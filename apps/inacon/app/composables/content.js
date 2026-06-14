@@ -132,13 +132,6 @@ export const useContentStore = defineStore("content", () => {
       title: t("hero.title"),
       description: t("hero.description"),
       cta: {},
-      announcements: [
-        {
-          text: t("hero.announcement"),
-          link: "/book-space",
-        },
-      ],
-
     },
 
     brandPreview: {
@@ -196,7 +189,6 @@ export const useContentStore = defineStore("content", () => {
         title: t("partnerships.reservedSpace.title"),
         cta: {
           label: t("partnerships.reservedSpace.cta"),
-          url: `https://api.whatsapp.com/send?phone=${config.contact.whatsapp}&text=Halo, ${config.app.shortName}!`,
         },
       },
     },
@@ -214,7 +206,6 @@ export const useContentStore = defineStore("content", () => {
         iconName: "hugeicons:ticket-01",
         url: "/ticket",
       },
-      banners: [],
     },
 
     mediaCoverage: {

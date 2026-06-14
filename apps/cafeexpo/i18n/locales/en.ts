@@ -165,8 +165,6 @@ export default {
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",
     edition: "{n}{ordinal} edition",
-    announcement: "Space is still available for exhibitors",
-    visitorAnnouncement: "Visitor Registration Is Now Open!",
   },
   about: {
     title:

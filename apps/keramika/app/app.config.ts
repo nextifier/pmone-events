@@ -12,60 +12,6 @@ const app = {
   },
 };
 
-const event = {
-  title: "Keramika Indonesia",
-  edition: {
-    value: 11,
-    ordinal: "th",
-  },
-  poster: "/img/tickets/keramika-11th-poster.jpg",
-  status: "", // Available values: "upcoming", "live", "completed"
-  startTime: "Jun 4, 2026 10:00:00",
-  endTime: "Jun 7, 2026 21:00:00",
-  date: "June 4-7, 2026",
-  dateOnly: "4-7",
-  month: "June",
-  year: "2026",
-  time: "10 AM - 7 PM",
-  location: "Nusantara International Convention Exhibition (NICE), PIK 2",
-  locationShort: "NICE PiK 2",
-  locationLink: "https://maps.app.goo.gl/V6N3r7vxD1BMn9pi8",
-  hall: "Hall 5, 6, 7",
-  teaserVideoId: "",
-  profileImage: "/img/avatar/keramika.svg",
-  description:
-    "Pameran keramik dan produk finishing terlengkap di Indonesia. Jelajahi koleksi terbaik dari brand keramik, marmer, granit, dan sanitari terkemuka.",
-  offersName: "Tiket Masuk Keramika",
-  offersDescription:
-    "Harga tiket pameran keramik berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
-  inConjunction: {
-    label: "In conjunction with",
-    list: [
-      {
-        projectUsername: "megabuild",
-        name: "Megabuild Indonesia",
-        url: "https://megabuild.co.id",
-        img: "/img/avatar/megabuild.svg",
-      },
-      // {
-      //   name: "Cafe n' Brasserie Expo Indonesia",
-      //   url: "https://cafebrasserieexpo.com",
-      //   img: "/img/avatar/cbe.svg",
-      // },
-    ],
-  },
-  // sponsoredBy: {
-  //   label: "Presented by",
-  //   list: [
-  //     {
-  //       name: "BCA",
-  //       url: "https://www.bca.co.id/",
-  //       img: "/img/credits/sponsor/BCA/BCA-1-1.svg",
-  //     },
-  //   ],
-  // },
-};
-
 const settings = {
   header: {
     logoClass: "h-8",
@@ -73,85 +19,11 @@ const settings = {
   footer: {
     logoClass: "h-10",
   },
-  ticket: {
-    tabs: {
-      showTickets: true,
-      showGuests: false,
-      showBrands: true,
-      showRundown: true,
-      showAbout: true,
-      showPhotos: true,
-    },
-  },
-  blog: {
-    showPostCardAuthor: false,
-    showPostCardExcerpt: false,
-  },
   ogImage: {
     isDarkMode: true,
   },
-  bookSpaceForm: {
-    showJobTitle: true,
-    showBrandName: true,
-    showProducts: true,
-  },
-  terms: {
-    lastUpdate: "August 21, 2025",
-  },
 };
 
-const contact = {
-  email: "keramika@panoramamedia.co.id",
-  whatsapp: "6281190083309",
-  whatsappMarketing: "6281190083309",
-};
-
-const social = {
-  instagram: "keramikaid",
-  facebook: "keramikaid",
-  linkedin: "keramikaindonesia",
-  youtube: "megabuildindo",
-  tiktok: "",
-};
-
-const contactLinks = {
-  email: {
-    label: "Email",
-    path: `mailto:${contact.email}`,
-  },
-  whatsapp: {
-    label: "WhatsApp",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsapp}&text=Halo, ${app.shortName}!`,
-  },
-};
-
-const socialLinks = {
-  instagram: {
-    label: "Instagram",
-    path: `https://www.instagram.com/${social.instagram}`,
-    iconName: "hugeicons:instagram",
-  },
-  facebook: {
-    label: "Facebook",
-    path: `https://www.facebook.com/${social.facebook}`,
-    iconName: "hugeicons:facebook-01",
-  },
-  // tiktok: {
-  //   label: 'TikTok',
-  //   path: `https://tiktok.com/@${social.tiktok}`,
-  //   iconName: 'hugeicons:tiktok',
-  // },
-  linkedin: {
-    label: "LinkedIn",
-    path: `https://www.linkedin.com/company/${social.linkedin}`,
-    iconName: "hugeicons:linkedin-01",
-  },
-  youtube: {
-    label: "YouTube",
-    path: `https://www.youtube.com/@${social.youtube}`,
-    iconName: "hugeicons:youtube",
-  },
-};
 
 const routes = {
   home: {
@@ -238,12 +110,7 @@ const routes = {
 
 export default defineAppConfig({
   app: app,
-  event: event,
   settings: settings,
-  contact: contact,
-  social: social,
-  contactLinks: contactLinks,
-  socialLinks: socialLinks,
 
   routes: {
     header: [
@@ -272,14 +139,6 @@ export default defineAppConfig({
           routes.contact,
           routes.news,
         ],
-      },
-      {
-        label: "Get in touch",
-        links: Object.values(contactLinks),
-      },
-      {
-        label: "Social",
-        links: Object.values(socialLinks),
       },
       {
         label: "Resources",

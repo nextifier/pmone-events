@@ -59,16 +59,17 @@ onMounted(() => {
 const status = computed(() => {
   if (!isMounted.value) return null;
 
-  if (!props.startTime || !props.endTime) return null;
+  const startMs = props.startTime?.getTime?.();
+  const endMs = props.endTime?.getTime?.();
+  if (startMs == null || endMs == null || isNaN(startMs) || isNaN(endMs)) {
+    return null;
+  }
 
   const currentTime = now.value.getTime();
 
-  if (currentTime < props.startTime.getTime()) {
+  if (currentTime < startMs) {
     return "upcoming";
-  } else if (
-    currentTime > props.startTime.getTime() &&
-    currentTime < props.endTime.getTime()
-  ) {
+  } else if (currentTime > startMs && currentTime < endMs) {
     return "live";
   } else {
     return "completed";

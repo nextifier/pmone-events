@@ -9,16 +9,15 @@
     <div class="mt-6 sm:container lg:mt-12 lg:max-w-screen-lg">
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div class="relative isolate aspect-[4/5] overflow-hidden">
-          <NuxtImg
+          <img
             :src="guest.photos[0]"
             :alt="guest.name"
             class="pointer-events-none relative z-10 h-full w-full object-cover select-none"
             :class="{ 'rounded-2xl': !guest.transparentBackground }"
             width="800"
             height="1000"
-            sizes="600px"
-            format="webp"
             loading="lazy"
+            decoding="async"
           />
 
           <div
@@ -135,12 +134,15 @@ if (!raw) {
 
 const guest = mapGuestFromApi(raw);
 
-const title = `Meet ${guest.name} at ${useAppConfig().event.title} on ${useAppConfig().event.date} at ${useAppConfig().event.location}`;
-const description = `Meet ${guest.name} at ${useAppConfig().event.title} on ${useAppConfig().event.date} at ${useAppConfig().event.location}`;
+const event = useEvent();
+const title = computed(
+  () =>
+    `Meet ${guest.name} at ${event.title} on ${event.date} at ${event.location}`,
+);
 
 usePageMeta("", {
   title: title,
-  description: description,
+  description: title,
 });
 
 const router = useRouter();

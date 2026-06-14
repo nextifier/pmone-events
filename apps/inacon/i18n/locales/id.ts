@@ -46,7 +46,6 @@ export default {
     title: "Dunia Anime Kamu, Satu Tempat, Dua Hari!",
     description:
       "Guest internasional, cosplay kece, exclusive merch, artist alley, dan ribuan fans yang satu frekuensi sama kamu. Ini bukan cuma event, ini rumah kamu.",
-    announcement: "Slot booth masih tersedia untuk exhibitor",
     ctaTicket: "Beli Tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

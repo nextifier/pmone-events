@@ -7,15 +7,14 @@
     <div
       class="bg-muted border-border relative aspect-2/3 w-full overflow-hidden rounded-2xl border"
     >
-      <NuxtImg
+      <img
         :src="program.image"
         :alt="program.title"
         class="pointer-events-none size-full object-cover select-none"
-        sizes="200px sm:400px"
         width="400"
         height="600"
         loading="lazy"
-        format="webp"
+        decoding="async"
       />
 
       <div

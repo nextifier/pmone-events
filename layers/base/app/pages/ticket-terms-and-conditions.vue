@@ -182,8 +182,14 @@ usePageMeta(null, {
 });
 
 const config = useAppConfig();
-const email = config.contact.email;
-const whatsapp = config.contact.whatsapp;
-const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsapp}`;
-const whatsappDisplay = `+${whatsapp.slice(0, 2)} ${whatsapp.slice(2, 5)}-${whatsapp.slice(5, 9)}-${whatsapp.slice(9)}`;
+// Contact email + WhatsApp now come from PM One.
+const profile = useProjectProfile();
+const email = computed(() => profile.email);
+const whatsappLink = computed(
+  () => `https://api.whatsapp.com/send?phone=${profile.whatsappNumber}`,
+);
+const whatsappDisplay = computed(() => {
+  const n = profile.whatsappNumber;
+  return n ? `+${n.slice(0, 2)} ${n.slice(2, 5)}-${n.slice(5, 9)}-${n.slice(9)}` : "";
+});
 </script>

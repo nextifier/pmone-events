@@ -316,15 +316,14 @@
             class="grid grid-cols-1 gap-y-6 lg:grid-cols-2 lg:items-center lg:gap-x-12"
           >
             <div v-if="event.poster">
-              <NuxtImg
-                :src="event.poster"
+              <img
+                :src="event.posterImage?.lg || event.poster"
                 :alt="eventInfo.title"
                 class="outline-inside w-full rounded-xl sm:rounded-2xl"
-                sizes="100vw sm:800px"
                 width="1080"
                 height="1350"
                 loading="lazy"
-                format="webp"
+                decoding="async"
               />
             </div>
 
@@ -379,7 +378,7 @@ const route = useRoute();
 const { $dayjs } = useNuxtApp();
 
 // Event facts for the invite section, same source /ticket reads.
-const event = useAppConfig().event;
+const event = useEvent();
 const localePath = useLocalePath();
 
 const { data: brand, pending } = await useFetch(

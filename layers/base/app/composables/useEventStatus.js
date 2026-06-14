@@ -14,11 +14,13 @@ export function useEventStatus(startTime, endTime) {
     const start = unref(startTime);
     const end = unref(endTime);
 
-    if (!start || !end) return null;
+    const startMs = start?.getTime?.();
+    const endMs = end?.getTime?.();
+    if (startMs == null || endMs == null || isNaN(startMs) || isNaN(endMs)) {
+      return null;
+    }
 
     const currentTime = now.value.getTime();
-    const startMs = start.getTime();
-    const endMs = end.getTime();
 
     if (currentTime < startMs) return "upcoming";
     if (currentTime >= startMs && currentTime < endMs) return "live";

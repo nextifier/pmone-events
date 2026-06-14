@@ -205,8 +205,6 @@ export default {
     ctaTicket: "Get Ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",
-    announcement: "Space is still available for exhibitors",
-    visitorAnnouncement: "Visitor Registration Is Now Open!",
     instagramTip:
       'Tip: All the spoilers and important info are on Instagram. Make sure you\'re following <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>!',
   },

@@ -57,9 +57,7 @@
       >
 
       <p
-        v-if="
-          useAppConfig()?.settings?.blog?.showPostCardExcerpt && post.excerpt
-        "
+        v-if="blogSettings.showPostCardExcerpt && post.excerpt"
         class="mt-2 text-sm tracking-tight"
       >
         {{ post.excerpt }}
@@ -67,10 +65,7 @@
 
       <div class="mt-2 flex w-full items-center justify-between gap-x-3">
         <div
-          v-if="
-            useAppConfig()?.settings?.blog?.showPostCardAuthor &&
-            post.authors?.length
-          "
+          v-if="blogSettings.showPostCardAuthor && post.authors?.length"
           class="flex items-center gap-x-1.5 text-left"
         >
           <div class="flex shrink-0 -space-x-4">
@@ -146,6 +141,10 @@ const props = defineProps({
 
 const { $dayjs } = useNuxtApp();
 const localePath = useLocalePath();
+
+// Post-card display toggles come from PM One (website settings).
+const projectSettings = useProjectSettings();
+const blogSettings = computed(() => projectSettings.blog);
 
 const active = useState("active-post-slug", () => null);
 

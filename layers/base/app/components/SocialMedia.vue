@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center gap-x-2">
     <SocialLink
-      v-for="link in Object.values(useAppConfig().socialLinks)"
+      v-for="link in profile.socialLinks"
       :key="link.label"
       :to="link.path"
       :iconName="link.iconName"
@@ -17,4 +17,6 @@ const props = defineProps({
     type: String,
   },
 });
+
+const profile = useProjectProfile();
 </script>

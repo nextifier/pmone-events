@@ -225,7 +225,7 @@
               <div class="mt-2 flex flex-col items-start">
                 <nuxt-link
                   v-if="experience.status.toLocaleLowerCase() === 'available'"
-                  :to="`https://api.whatsapp.com/send?phone=${useAppConfig().contact.whatsapp}&text=Hai, CampX! Saya mau reservasi untuk paket ${experience.title}`"
+                  :to="`https://api.whatsapp.com/send?phone=${profile.whatsappNumber}&text=Hai, CampX! Saya mau reservasi untuk paket ${experience.title}`"
                   target="_blank"
                   class="bg-primary text-primary-foreground items-cente hover:bg-primary/80 flex items-center justify-center gap-2 rounded-xl px-6 py-4 font-semibold tracking-tight transition active:scale-95"
                 >
@@ -300,6 +300,7 @@ definePageMeta({
 const route = useRoute();
 const config = useRuntimeConfig();
 const { $dayjs } = useNuxtApp();
+const profile = useProjectProfile();
 const { format } = useCurrencyFormat();
 
 const experiences = useExperienceStore();

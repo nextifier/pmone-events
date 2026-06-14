@@ -12,103 +12,6 @@ const app = {
   },
 };
 
-const event = {
-  title: "myBCA Indonesia Comic Con x Indonesia Anime Con 2025",
-  // edition: {
-  //   value: 3,
-  //   ordinal: "rd",
-  // },
-  poster: "/img/tickets/icc-x-inacon-2025-poster.jpg",
-  status: "", // Available values: "upcoming", "live", "completed"
-  startTime: "Oct 25, 2025 10:00:00",
-  endTime: "Oct 26, 2025 20:00:00",
-  date: "Oct 25-26, 2025",
-  dateOnly: "25-26",
-  month: "Oct",
-  year: "2025",
-  time: "10 AM - 9 PM",
-  location: "Jakarta International Convention Center (JICC) Senayan",
-  locationShort: "JICC Senayan",
-  locationLink: "https://maps.app.goo.gl/iAyUVWEbUqHL1mGx7",
-  hall: "Assembly, Cendrawasih, and Plenary Hall",
-  teaserVideoId: "",
-  profileImage: "/img/avatar/inacon.svg",
-  description:
-    "Festival anime dan budaya Jepang terbesar di Indonesia. Nikmati pengalaman seru bertemu guest artis, cosplay, merchandise eksklusif, dan banyak lagi.",
-  offersName: "Tiket Masuk INACON",
-  offersDescription:
-    "Harga tiket Indonesia Anime Con berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
-  rundownImages: [
-    {
-      src: "/img/rundown/super-stage-day-1.jpg",
-      thumbnail: "/img/rundown/super-stage-day-1.jpg",
-      w: 1080,
-      h: 1350,
-      alt: "Super Stage Day 1",
-    },
-    {
-      src: "/img/rundown/super-stage-day-2.jpg",
-      thumbnail: "/img/rundown/super-stage-day-2.jpg",
-      w: 1080,
-      h: 1350,
-      alt: "Super Stage Day 2",
-    },
-    {
-      src: "/img/rundown/wonder-stage-day-1.jpg",
-      thumbnail: "/img/rundown/wonder-stage-day-1.jpg",
-      w: 1080,
-      h: 1350,
-      alt: "Wonder Stage Day 1",
-    },
-    {
-      src: "/img/rundown/wonder-stage-day-2.jpg",
-      thumbnail: "/img/rundown/wonder-stage-day-2.jpg",
-      w: 1080,
-      h: 1350,
-      alt: "Wonder Stage Day 2",
-    },
-    {
-      src: "/img/rundown/workshop-day-1.jpg",
-      thumbnail: "/img/rundown/workshop-day-1.jpg",
-      w: 1080,
-      h: 1350,
-      alt: "Workshop Day 1",
-    },
-    {
-      src: "/img/rundown/workshop-day-2.jpg",
-      thumbnail: "/img/rundown/workshop-day-2.jpg",
-      w: 1080,
-      h: 1350,
-      alt: "Workshop Day 2",
-    },
-  ],
-  // inConjunction: {
-  //   label: "In conjunction with",
-  //   list: [
-  //     {
-  //       name: "Franchise & License Expo Indonesia",
-  //       url: "https://franchise-expo.co.id",
-  //       img: "/img/avatar/flei.svg",
-  //     },
-  //     {
-  //       name: "Cafe n' Brasserie Expo Indonesia",
-  //       url: "https://cafebrasserieexpo.com",
-  //       img: "/img/avatar/cbe.svg",
-  //     },
-  //   ],
-  // },
-  // sponsoredBy: {
-  //   label: "Presented by",
-  //   list: [
-  //     {
-  //       name: "BCA",
-  //       url: "https://www.bca.co.id/",
-  //       img: "/img/credits/sponsor/BCA/BCA-1-1.svg",
-  //     },
-  //   ],
-  // },
-};
-
 const settings = {
   header: {
     logoClass: "h-8",
@@ -116,91 +19,11 @@ const settings = {
   footer: {
     logoClass: "h-12",
   },
-  ticket: {
-    tabs: {
-      showTickets: true,
-      showGuests: true,
-      showBrands: true,
-      showRundown: true,
-      showAbout: true,
-      showPhotos: true,
-    },
-  },
-  blog: {
-    showPostCardAuthor: false,
-    showPostCardExcerpt: false,
-  },
   ogImage: {
     isDarkMode: true,
   },
-  bookSpaceForm: {
-    showJobTitle: false,
-    showBrandName: true,
-    showProducts: true,
-  },
-  terms: {
-    lastUpdate: "August 21, 2025",
-  },
 };
 
-const contact = {
-  email: "inacon@panoramamedia.co.id",
-  whatsapp: "6281110529526",
-  whatsappMarketing: "6281119220018",
-};
-
-const social = {
-  instagram: "indoanimecon",
-  x: "indocomicconx",
-  // facebook: "",
-  // linkedin: "",
-  // youtube: "",
-  // tiktok: "",
-};
-
-const contactLinks = {
-  email: {
-    label: "Email",
-    path: `mailto:${contact.email}`,
-  },
-  whatsapp: {
-    label: "WhatsApp",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsapp}&text=Halo, ${app.shortName}!`,
-  },
-};
-
-const socialLinks = {
-  instagram: {
-    label: "Instagram",
-    path: `https://www.instagram.com/${social.instagram}`,
-    iconName: "hugeicons:instagram",
-  },
-  x: {
-    label: "X",
-    path: `https://x.com/${social.x}`,
-    iconName: "hugeicons:new-twitter",
-  },
-  // facebook: {
-  //   label: "Facebook",
-  //   path: `https://www.facebook.com/${social.facebook}`,
-  //   iconName: "hugeicons:facebook-01",
-  // },
-  // tiktok: {
-  //   label: 'TikTok',
-  //   path: `https://tiktok.com/@${social.tiktok}`,
-  //   iconName: 'hugeicons:tiktok',
-  // },
-  // linkedin: {
-  //   label: "LinkedIn",
-  //   path: `https://www.linkedin.com/company/${social.linkedin}`,
-  //   iconName: "hugeicons:linkedin-01",
-  // },
-  // youtube: {
-  //   label: "YouTube",
-  //   path: `https://www.youtube.com/@${social.youtube}`,
-  //   iconName: "hugeicons:youtube",
-  // },
-};
 
 const routes = {
   home: {
@@ -327,12 +150,7 @@ const routes = {
 
 export default defineAppConfig({
   app: app,
-  event: event,
   settings: settings,
-  contact: contact,
-  social: social,
-  contactLinks: contactLinks,
-  socialLinks: socialLinks,
 
   routes: {
     header: [
@@ -374,14 +192,6 @@ export default defineAppConfig({
           routes.news,
           // routes.partners,
         ],
-      },
-      {
-        label: "Get in touch",
-        links: Object.values(contactLinks),
-      },
-      {
-        label: "Social",
-        links: Object.values(socialLinks),
       },
       {
         label: "Resources",

@@ -3,7 +3,8 @@
     class="xs:right-[calc(var(--spacing)*4+var(--scrollbar-width,0px))] fixed right-[calc(var(--spacing)*3+var(--scrollbar-width,0px))] bottom-8 z-50 sm:right-[calc(var(--spacing)*6+var(--scrollbar-width,0px))] sm:bottom-5 lg:bottom-12 xl:right-[calc(var(--spacing)*12+var(--scrollbar-width,0px))]"
   >
     <NuxtLink
-      :to="useAppConfig().contactLinks.whatsapp.path"
+      v-if="whatsappLink"
+      :to="whatsappLink"
       target="_blank"
       aria-label="Contact us"
       v-tippy="'Chat us 👋'"
@@ -20,4 +21,13 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const profile = useProjectProfile();
+const shortName = useAppConfig().app.shortName;
+
+const whatsappLink = computed(() =>
+  profile.whatsappNumber
+    ? `https://api.whatsapp.com/send?phone=${profile.whatsappNumber}&text=${encodeURIComponent(`Halo, ${shortName}!`)}`
+    : "",
+);
+</script>

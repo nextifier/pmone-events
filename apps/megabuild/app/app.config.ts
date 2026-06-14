@@ -12,55 +12,6 @@ const app = {
   },
 };
 
-const event = {
-  title: "Megabuild Indonesia",
-  edition: {
-    value: 23,
-    ordinal: "rd",
-  },
-  poster: "/img/tickets/megabuild-23rd-poster.jpg",
-  status: "", // Available values: "upcoming", "live", "completed"
-  startTime: "Jun 4, 2026 10:00:00",
-  endTime: "Jun 7, 2026 21:00:00",
-  date: "Jun 4-7, 2026",
-  dateOnly: "4-7",
-  month: "June",
-  year: "2026",
-  time: "10 AM - 7 PM",
-  location: "Nusantara International Convention Exhibition (NICE), PIK 2",
-  locationShort: "NICE PiK 2",
-  locationLink: "https://maps.app.goo.gl/V6N3r7vxD1BMn9pi8",
-  hall: "Hall 5, 6, 7",
-  teaserVideoId: "",
-  profileImage: "/img/avatar/megabuild.svg",
-  description:
-    "Pameran bahan bangunan dan interior terbesar di Indonesia. Temukan produk-produk unggulan untuk proyek konstruksi, renovasi, dan desain interior Anda.",
-  offersName: "Tiket Masuk Megabuild",
-  offersDescription:
-    "Harga tiket pameran bahan bangunan berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
-  inConjunction: {
-    label: "In conjunction with",
-    list: [
-      {
-        projectUsername: "keramika",
-        name: "Keramika Indonesia",
-        url: "https://keramika.co.id",
-        img: "/img/avatar/keramika.svg",
-      },
-    ],
-  },
-  // sponsoredBy: {
-  //   label: "Presented by",
-  //   list: [
-  //     {
-  //       name: "BCA",
-  //       url: "https://www.bca.co.id/",
-  //       img: "/img/credits/sponsor/BCA/BCA-1-1.svg",
-  //     },
-  //   ],
-  // },
-};
-
 const settings = {
   header: {
     logoClass: "h-5 text-primary",
@@ -68,85 +19,11 @@ const settings = {
   footer: {
     logoClass: "h-8 text-primary",
   },
-  ticket: {
-    tabs: {
-      showTickets: true,
-      showGuests: false,
-      showBrands: true,
-      showRundown: true,
-      showAbout: true,
-      showPhotos: true,
-    },
-  },
-  blog: {
-    showPostCardAuthor: false,
-    showPostCardExcerpt: false,
-  },
   ogImage: {
     isDarkMode: true,
   },
-  bookSpaceForm: {
-    showJobTitle: true,
-    showBrandName: true,
-    showProducts: true,
-  },
-  terms: {
-    lastUpdate: "August 21, 2025",
-  },
 };
 
-const contact = {
-  email: "megabuild@panoramamedia.co.id",
-  whatsapp: "628118805638",
-  whatsappMarketing: "628118805638",
-};
-
-const social = {
-  instagram: "megabuildindo",
-  facebook: "megabuildindo",
-  linkedin: "megabuildid",
-  youtube: "megabuildindo",
-  tiktok: "",
-};
-
-const contactLinks = {
-  email: {
-    label: "Email",
-    path: `mailto:${contact.email}`,
-  },
-  whatsapp: {
-    label: "WhatsApp",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsapp}&text=Halo, ${app.shortName}!`,
-  },
-};
-
-const socialLinks = {
-  instagram: {
-    label: "Instagram",
-    path: `https://www.instagram.com/${social.instagram}`,
-    iconName: "hugeicons:instagram",
-  },
-  facebook: {
-    label: "Facebook",
-    path: `https://www.facebook.com/${social.facebook}`,
-    iconName: "hugeicons:facebook-01",
-  },
-  // tiktok: {
-  //   label: 'TikTok',
-  //   path: `https://tiktok.com/@${social.tiktok}`,
-  //   iconName: 'hugeicons:tiktok',
-  // },
-  linkedin: {
-    label: "LinkedIn",
-    path: `https://www.linkedin.com/company/${social.linkedin}`,
-    iconName: "hugeicons:linkedin-01",
-  },
-  youtube: {
-    label: "YouTube",
-    path: `https://www.youtube.com/@${social.youtube}`,
-    iconName: "hugeicons:youtube",
-  },
-};
 
 const routes = {
   home: {
@@ -237,12 +114,7 @@ const routes = {
 
 export default defineAppConfig({
   app: app,
-  event: event,
   settings: settings,
-  contact: contact,
-  social: social,
-  contactLinks: contactLinks,
-  socialLinks: socialLinks,
 
   routes: {
     header: [
@@ -273,14 +145,6 @@ export default defineAppConfig({
           routes.contact,
           routes.news,
         ],
-      },
-      {
-        label: "Get in touch",
-        links: Object.values(contactLinks),
-      },
-      {
-        label: "Social",
-        links: Object.values(socialLinks),
       },
       {
         label: "Resources",

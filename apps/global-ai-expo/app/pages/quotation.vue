@@ -478,8 +478,9 @@ import {
 } from "shaders/vue";
 
 const appConfig = useAppConfig();
-const event = appConfig.event;
-const contact = appConfig.contact;
+const event = useEvent();
+// Contact info now comes from PM One.
+const contact = useProjectProfile();
 
 usePageMeta(null, {
   title: "Quotation",
@@ -511,7 +512,7 @@ onMounted(() => {
 
 const whatsappHref = computed(
   () =>
-    `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
+    `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
       "Halo, saya tertarik dengan paket website Global AI Expo. Bisa diskusi lebih lanjut?",
     )}`,
 );

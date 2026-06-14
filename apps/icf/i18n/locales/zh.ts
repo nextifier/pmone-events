@@ -50,8 +50,6 @@ export default {
     title: "下一杯心头好，在这里等你。",
     description:
       "印尼顶尖的咖啡烘焙师都在这。来逛逛，一杯一杯试，找到属于你的那一杯。",
-    announcement: "参展展位仍有空位",
-    visitorAnnouncement: "观众注册现已开放!",
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

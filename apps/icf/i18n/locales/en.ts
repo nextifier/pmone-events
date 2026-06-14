@@ -190,8 +190,6 @@ export default {
     title: "Find Your Next Favorite Coffee.",
     description:
       "With so many great roasters here, your new go-to coffee is waiting to be found. Come explore, taste around, and discover it for yourself.",
-    announcement: "Space is still available for exhibitors",
-    visitorAnnouncement: "Visitor Registration Is Now Open!",
     ctaTicket: "Get ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",

@@ -50,15 +50,12 @@
         <div
           class="bg-muted relative aspect-[4/5] w-full overflow-hidden rounded-2xl"
         >
-          <NuxtImg
+          <BlurImage
             v-if="getImage(speaker)"
             :src="getImage(speaker)"
+            :lqip="speaker.profile_image?.lqip || ''"
             :alt="speaker.profile_image?.alt || speaker.name"
-            :placeholder="speaker.profile_image?.lqip"
-            class="size-full object-cover transition-transform duration-700 ease-out will-change-transform group-hover:scale-[1.04]"
-            loading="lazy"
-            format="webp"
-            sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            image-class="size-full object-cover transition-transform duration-700 ease-out will-change-transform group-hover:scale-[1.04]"
           />
           <div
             v-else

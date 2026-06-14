@@ -128,12 +128,6 @@ export const useContentStore = defineStore("content", () => {
       title: t("hero.title"),
       description: t("hero.description"),
       cta: {},
-      announcements: [
-        {
-          text: t("hero.announcement"),
-          link: "/book-space",
-        },
-      ],
     },
 
     brandPreview: {
@@ -144,25 +138,25 @@ export const useContentStore = defineStore("content", () => {
 
     brandList: {
       title: t("brandList.title"),
-      description: t("brandList.description", { appName: config.event.title }),
+      description: t("brandList.description", { appName: config.app.name }),
     },
 
     rundown: {
       title: t("rundown.title"),
-      description: t("rundown.description", { appName: config.event.title }),
+      description: t("rundown.description", { appName: config.app.name }),
     },
 
     mainPrograms: {
       title: t("mainPrograms.title"),
       description: t("mainPrograms.description", {
-        appName: config.event.title,
+        appName: config.app.name,
       }),
     },
 
     partnerships: {
       title: t("partnerships.title"),
       description: t("partnerships.description", {
-        appName: config.event.title,
+        appName: config.app.name,
       }),
 
       exhibitor: {
@@ -195,7 +189,6 @@ export const useContentStore = defineStore("content", () => {
         title: t("partnerships.reservedSpace.title"),
         cta: {
           label: t("partnerships.reservedSpace.cta"),
-          url: `https://api.whatsapp.com/send?phone=${config.contact.whatsapp}&text=Halo, ${config.app.shortName}!`,
         },
       },
     },
@@ -213,7 +206,6 @@ export const useContentStore = defineStore("content", () => {
         iconName: "hugeicons:ticket-01",
         url: "/ticket",
       },
-      banners: [],
     },
 
     mediaCoverage: {

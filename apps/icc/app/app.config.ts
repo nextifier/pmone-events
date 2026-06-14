@@ -12,34 +12,6 @@ const app = {
   },
 };
 
-const event = {
-  title: "Indonesia Comic Con 2026",
-  edition: {
-    value: 10,
-    ordinal: "th",
-  },
-  poster: "/img/tickets/icc-2026-poster.jpg",
-  status: "", // Available values: "upcoming", "live", "completed"
-  startTime: "Oct 3, 2026 10:00:00",
-  endTime: "Oct 4, 2026 20:00:00",
-  date: "Oct 3-4, 2026",
-  dateOnly: "3-4",
-  month: "Oct",
-  year: "2026",
-  time: "10 AM - 9 PM",
-  location: "Nusantara International Convention Exhibition (NICE), PIK 2",
-  locationShort: "NICE, PIK 2",
-  locationLink: "https://maps.app.goo.gl/V6N3r7vxD1BMn9pi8",
-  // hall: "",
-  teaserVideoId: "",
-  profileImage: "/img/avatar/icc.svg",
-  description:
-    "Ajang pop culture terbesar di Indonesia. Nikmati pengalaman seru bertemu artis internasional, cosplay, komik, merchandise eksklusif, dan banyak lagi.",
-  offersName: "Tiket Masuk ICC",
-  offersDescription:
-    "Harga tiket Indonesia Comic Con berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
-};
-
 const settings = {
   header: {
     logoClass: "h-8",
@@ -47,91 +19,11 @@ const settings = {
   footer: {
     logoClass: "h-12",
   },
-  ticket: {
-    tabs: {
-      showTickets: true,
-      showGuests: true,
-      showBrands: true,
-      showRundown: true,
-      showAbout: true,
-      showPhotos: true,
-    },
-  },
-  blog: {
-    showPostCardAuthor: false,
-    showPostCardExcerpt: false,
-  },
   ogImage: {
     isDarkMode: true,
   },
-  bookSpaceForm: {
-    showJobTitle: false,
-    showBrandName: true,
-    showProducts: true,
-  },
-  terms: {
-    lastUpdate: "August 21, 2025",
-  },
 };
 
-const contact = {
-  email: "icc@panoramamedia.co.id",
-  whatsapp: "6281110529526",
-  whatsappMarketing: "6281119220018",
-};
-
-const social = {
-  instagram: "indocomiccon",
-  x: "indocomicconx",
-  // facebook: "",
-  // linkedin: "",
-  // youtube: "",
-  // tiktok: "",
-};
-
-const contactLinks = {
-  email: {
-    label: "Email",
-    path: `mailto:${contact.email}`,
-  },
-  whatsapp: {
-    label: "WhatsApp",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsapp}&text=Halo, ${app.shortName}!`,
-  },
-};
-
-const socialLinks = {
-  instagram: {
-    label: "Instagram",
-    path: `https://www.instagram.com/${social.instagram}`,
-    iconName: "hugeicons:instagram",
-  },
-  x: {
-    label: "X",
-    path: `https://x.com/${social.x}`,
-    iconName: "hugeicons:new-twitter",
-  },
-  // facebook: {
-  //   label: "Facebook",
-  //   path: `https://www.facebook.com/${social.facebook}`,
-  //   iconName: "hugeicons:facebook-01",
-  // },
-  // tiktok: {
-  //   label: 'TikTok',
-  //   path: `https://tiktok.com/@${social.tiktok}`,
-  //   iconName: 'hugeicons:tiktok',
-  // },
-  // linkedin: {
-  //   label: "LinkedIn",
-  //   path: `https://www.linkedin.com/company/${social.linkedin}`,
-  //   iconName: "hugeicons:linkedin-01",
-  // },
-  // youtube: {
-  //   label: "YouTube",
-  //   path: `https://www.youtube.com/@${social.youtube}`,
-  //   iconName: "hugeicons:youtube",
-  // },
-};
 
 const routes = {
   home: {
@@ -254,12 +146,7 @@ const routes = {
 
 export default defineAppConfig({
   app: app,
-  event: event,
   settings: settings,
-  contact: contact,
-  social: social,
-  contactLinks: contactLinks,
-  socialLinks: socialLinks,
 
   routes: {
     header: [
@@ -299,14 +186,6 @@ export default defineAppConfig({
           routes.news,
           // routes.partners,
         ],
-      },
-      {
-        label: "Get in touch",
-        links: Object.values(contactLinks),
-      },
-      {
-        label: "Social",
-        links: Object.values(socialLinks),
       },
       {
         label: "Resources",

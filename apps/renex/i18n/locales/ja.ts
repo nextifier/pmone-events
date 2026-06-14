@@ -46,7 +46,6 @@ export default {
       '<span class="relative inline-block"><span class="bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15"></span><span class="text-outline">リノベーション</span></span>を、<span class="gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent">ここから始めよう。</span>',
     description:
       "最新の建材を手に取って確かめて、デザイナーに直接相談。リノベーション計画に必要なすべてが一堂に。",
-    announcement: "ブース空きあり。お申し込みはお早めに！",
     ctaTicket: "チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",

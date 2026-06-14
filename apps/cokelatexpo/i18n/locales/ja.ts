@@ -66,8 +66,6 @@ export default {
     title: "一粒のチョコレートが語る、まだ知らない物語。",
     description:
       "産地の土、作り手の手仕事、そこから生まれる味わい。ここでしか出会えないチョコレートの世界を体験してください。",
-    announcement: "出展ブースの空きあり",
-    visitorAnnouncement: "来場者登録の受付を開始しました!",
     ctaTicket: "チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",

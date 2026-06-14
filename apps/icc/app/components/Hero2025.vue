@@ -155,7 +155,7 @@
 <script setup>
 const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.hero);
-const event = useAppConfig().event;
+const event = useEvent();
 const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
 const uiStore = useUiStore();

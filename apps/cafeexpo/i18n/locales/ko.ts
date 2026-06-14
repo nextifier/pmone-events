@@ -53,8 +53,6 @@ export default {
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 영상 보기",
     edition: "제{n}회",
-    announcement: "전시 부스 자리 있어요",
-    visitorAnnouncement: "관람객 등록이 시작됐어요!",
   },
   about: {
     title: "<span class='text-accent'>맛있는 건</span> 다 여기에.",

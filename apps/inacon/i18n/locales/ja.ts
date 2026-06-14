@@ -89,7 +89,6 @@ export default {
     title: "アニメ好きが集まる2日間、ここにしかない体験を。",
     description:
       "海外ゲスト、限定グッズ、コスプレ、ゲーム大会、そして同じ作品を愛する仲間たち。好きなものに囲まれる最高の週末がやってくる。",
-    announcement: "出展ブースまだ空きあり",
     ctaTicket: "チケット購入",
     ctaExhibit: "出展登録",
     playRecap: "前回のハイライト",

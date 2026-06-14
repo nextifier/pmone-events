@@ -1,22 +1,6 @@
 <template>
   <div v-if="items?.length" class="flex items-center gap-2">
     <div class="relative isolate flex -space-x-2.5">
-      <!-- <NuxtLink
-        to="/"
-        class="bg-muted ring-background border-border relative z-4 size-10 overflow-hidden rounded-full border ring-2 transition hover:scale-110"
-        :style="{
-          zIndex: items.length + 1,
-        }"
-      >
-        <NuxtImg
-          :src="useAppConfig().event.profileImage"
-          :alt="useAppConfig().event.title"
-          class="size-full"
-          width="40"
-          height="40"
-          loading="lazy"
-        />
-      </NuxtLink> -->
       <NuxtLink
         v-for="(item, index) in items"
         :key="index"
@@ -39,7 +23,7 @@
     </div>
 
     <span class="text-primary block text-sm tracking-tight text-balance">
-      {{ useAppConfig().event.inConjunction.label }}
+      In conjunction with
 
       <template v-for="(item, index) in items" :key="item.name">
         <NuxtLink

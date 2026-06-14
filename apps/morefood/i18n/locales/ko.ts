@@ -86,8 +86,6 @@ export default {
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 영상 보기",
-    announcement: "전시 부스 아직 자리 있어요",
-    visitorAnnouncement: "관람객 등록이 시작됐어요!",
     instagramTip:
       'Tip: 최신 소식은 모두 Instagram에서 확인하세요. <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a> 팔로우하세요!',
   },

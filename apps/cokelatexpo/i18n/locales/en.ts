@@ -190,8 +190,6 @@ export default {
     title: "Taste the Untold Stories of Chocolate.",
     description:
       "Every chocolate here has a unique story about where it's from and who made it. Come and taste what makes each one special.",
-    announcement: "Space is still available for exhibitors",
-    visitorAnnouncement: "Visitor Registration Is Now Open!",
     ctaTicket: "Get ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",

@@ -34,8 +34,6 @@ export default {
   },
   hero: {
     countdownLabel: "開催まであと",
-    announcement: "出展ブースの空きがあります",
-    visitorAnnouncement: "来場者登録の受付を開始しました!",
     title:
       'ASEAN最大の<span class="gradient-accent bg-clip-text font-semibold text-transparent">セラミックス</span>産業展',
     description:

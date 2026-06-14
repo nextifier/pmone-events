@@ -5,27 +5,25 @@
         v-if="guest.transparentBackground"
         class="bg-muted/50 absolute inset-x-0 bottom-0 z-0 aspect-[9/10] w-full overflow-hidden rounded-3xl"
       >
-        <NuxtImg
+        <img
           :src="guest.photos[0]"
           :alt="guest.name"
           class="pointer-events-none h-full w-full scale-150 object-cover opacity-10 blur-lg transition-opacity duration-500 select-none group-hover:opacity-40"
           width="440"
           height="550"
-          sizes="100vw sm:600px xl:800px"
-          format="webp"
           loading="lazy"
+          decoding="async"
         />
       </div>
 
-      <NuxtImg
+      <img
         :src="guest.photos[0]"
         :alt="guest.name"
         class="pointer-events-none relative z-10 aspect-[4/5] h-full w-full rounded-3xl object-cover select-none"
         width="440"
         height="550"
-        sizes="100vw sm:600px xl:800px"
-        format="webp"
         loading="lazy"
+        decoding="async"
       />
     </div>
 

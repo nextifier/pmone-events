@@ -91,16 +91,6 @@ export const useContentStore = defineStore("content", () => {
       title: t("hero.title"),
       description: t("hero.description"),
       cta: {},
-      announcements: [
-        // {
-        //   text: t("hero.announcement"),
-        //   link: "/book-space",
-        // },
-        {
-          text: t("hero.visitorAnnouncement"),
-          link: "/ticket",
-        },
-      ],
     },
 
     brandPreview: {
@@ -164,7 +154,6 @@ export const useContentStore = defineStore("content", () => {
         title: t("partnerships.reservedSpace.title"),
         cta: {
           label: t("partnerships.reservedSpace.cta"),
-          url: `https://api.whatsapp.com/send?phone=${config.contact.whatsapp}&text=Halo, ${config.app.shortName}!`,
         },
       },
     },
@@ -182,53 +171,6 @@ export const useContentStore = defineStore("content", () => {
         iconName: "hugeicons:ticket-01",
         url: "/ticket",
       },
-      banners: [
-        {
-          image: "/img/banners/flei-26th-poster.jpg",
-          subtitle: "Franchise & License Expo Indonesia",
-          title: "Your Entrepreneurial Journey Starts Here.",
-          description:
-            "Looking to start your own business? Discover hundreds of proven franchise opportunities from top local and international brands. Find your future venture!",
-          accentColor: {
-            light: "#0891b2",
-            dark: "#06b6d4",
-          },
-          cta: {
-            label: "Explore FLEI",
-            link: "https://franchise-expo.co.id",
-          },
-        },
-        {
-          image: "/img/banners/cbe-8th-poster.jpg",
-          subtitle: "Cafe n' Brasserie Expo",
-          title: "For the Love of Coffee & More.",
-          description:
-            "Immerse yourself in the world of coffee, tea, and fine foods. The perfect gathering for F&B professionals and aspiring cafe owners to source and connect.",
-          accentColor: {
-            light: "#795548",
-            dark: "#a1887f",
-          },
-          cta: {
-            label: "Explore CBE",
-            link: "https://cafebrasserieexpo.com/",
-          },
-        },
-        {
-          image: "/img/banners/morefood-2026-poster.jpg",
-          subtitle: "MoreFood Expo Indonesia",
-          title: "Where Every Ingredient Tells a Story.",
-          description:
-            "MoreFood Expo is serving up more than just food. Discover fresh ideas, new partners, and a whole menu of ways to grow your business.",
-          accentColor: {
-            light: "#e7000b",
-            dark: "#ff6467",
-          },
-          cta: {
-            label: "Explore MoreFood",
-            link: "https://morefoodexpo.com",
-          },
-        },
-      ],
     },
 
     mediaCoverage: {

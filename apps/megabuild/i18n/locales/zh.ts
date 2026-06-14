@@ -30,8 +30,6 @@ export default {
     countdownLabel: "距开展：",
     title: "加速建筑环境转型",
     description: "印尼规模最大的建材、室内设计、建筑与施工展览会暨行业峰会。",
-    announcement: "参展 Booth 仍有空位",
-    visitorAnnouncement: "观众注册现已开放!",
     ctaTicket: "免费领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

@@ -12,61 +12,6 @@ const app = {
   },
 };
 
-const event = {
-  title: "Franchise & License Expo Indonesia (FLEI)",
-  edition: {
-    value: 26,
-    ordinal: "th",
-  },
-  poster: "/img/tickets/flei-26th-poster.jpg",
-  status: "", // Available values: "upcoming", "live", "completed"
-  startTime: "May 7, 2026 10:00:00",
-  endTime: "May 10, 2026 21:00:00",
-  date: "May 7-10, 2026",
-  dateOnly: "7-10",
-  month: "May",
-  year: "2026",
-  time: "10 AM - 9 PM",
-  location: "JIExpo Kemayoran, Jakarta",
-  locationShort: "JIExpo Kemayoran, Jakarta",
-  locationLink: "https://maps.app.goo.gl/8GEz5sDjzW6apig97",
-  // hall: "",
-  // teaserVideoId: "7mBDPbHKIQM",
-  profileImage: "/img/avatar/flei.svg",
-  description:
-    "Mulai Bisnismu di Pameran Franchise Terbesar di Indonesia. Temukan brand-brand unggulan dari sektor F&B, ritel, edukasi, dan banyak lagi.",
-  offersName: "Tiket Masuk FLEI",
-  offersDescription:
-    "Harga tiket Pameran Franchise berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Tersedia promo early bird dan pre-sale.",
-  inConjunction: {
-    label: "In conjunction with",
-    list: [
-      {
-        name: "Cafe n' Brasserie Expo Indonesia",
-        url: "https://cafebrasserieexpo.com",
-        img: "/img/avatar/cbe.svg",
-        projectUsername: "cbe",
-      },
-      {
-        name: "More Food Expo Indonesia",
-        url: "https://morefoodexpo.com",
-        img: "/img/avatar/more-food.svg",
-        projectUsername: "morefood",
-      },
-    ],
-  },
-  // sponsoredBy: {
-  //   label: "Presented by",
-  //   list: [
-  //     {
-  //       name: "BCA",
-  //       url: "https://www.bca.co.id/",
-  //       img: "/img/credits/sponsor/BCA/BCA-1-1.svg",
-  //     },
-  //   ],
-  // },
-};
-
 const settings = {
   header: {
     logoClass: "h-9",
@@ -74,85 +19,11 @@ const settings = {
   footer: {
     logoClass: "h-14",
   },
-  ticket: {
-    tabs: {
-      showTickets: true,
-      showGuests: false,
-      showBrands: true,
-      showRundown: true,
-      showAbout: true,
-      showPhotos: true,
-    },
-  },
-  blog: {
-    showPostCardAuthor: false,
-    showPostCardExcerpt: false,
-  },
   ogImage: {
     isDarkMode: true,
   },
-  bookSpaceForm: {
-    showJobTitle: false,
-    showBrandName: true,
-    showProducts: false,
-  },
-  terms: {
-    lastUpdate: "December 30, 2025",
-  },
 };
 
-const contact = {
-  email: "fleiexpo@panoramamedia.co.id",
-  whatsapp: "6288977742709",
-  whatsappMarketing: "6288977742709",
-};
-
-const social = {
-  instagram: "fleiexpoid",
-  facebook: "fleiexpoid",
-  tiktok: "fleiexpoid",
-  linkedin: "flei-franchise-and-license-expo-indonesia",
-  youtube: "fleiexpoid",
-};
-
-const contactLinks = {
-  email: {
-    label: "Email",
-    path: `mailto:${contact.email}`,
-  },
-  whatsapp: {
-    label: "WhatsApp",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsapp}&text=Halo, ${app.shortName}!`,
-  },
-};
-
-const socialLinks = {
-  instagram: {
-    label: "Instagram",
-    path: `https://www.instagram.com/${social.instagram}`,
-    iconName: "hugeicons:instagram",
-  },
-  facebook: {
-    label: "Facebook",
-    path: `https://www.facebook.com/${social.facebook}`,
-    iconName: "hugeicons:facebook-01",
-  },
-  tiktok: {
-    label: "TikTok",
-    path: `https://tiktok.com/@${social.tiktok}`,
-    iconName: "hugeicons:tiktok",
-  },
-  linkedin: {
-    label: "LinkedIn",
-    path: `https://www.linkedin.com/company/${social.linkedin}`,
-    iconName: "hugeicons:linkedin-01",
-  },
-  youtube: {
-    label: "YouTube",
-    path: `https://www.youtube.com/@${social.youtube}`,
-    iconName: "hugeicons:youtube",
-  },
-};
 
 const routes = {
   home: {
@@ -239,12 +110,7 @@ const routes = {
 
 export default defineAppConfig({
   app: app,
-  event: event,
   settings: settings,
-  contact: contact,
-  social: social,
-  contactLinks: contactLinks,
-  socialLinks: socialLinks,
 
   routes: {
     header: [
@@ -275,14 +141,6 @@ export default defineAppConfig({
           routes.news,
           routes.partners,
         ],
-      },
-      {
-        label: "Get in touch",
-        links: Object.values(contactLinks),
-      },
-      {
-        label: "Social",
-        links: Object.values(socialLinks),
       },
       {
         label: "Resources",

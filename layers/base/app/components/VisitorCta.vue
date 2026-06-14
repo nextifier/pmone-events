@@ -7,7 +7,7 @@
         <div
           class="grid grow grid-cols-1 items-center gap-x-8 gap-y-4 lg:items-start"
           :class="{
-            'lg:grid-cols-2 lg:!items-end': content.banners?.length === 0,
+            'lg:grid-cols-2 lg:!items-end': banners.length === 0,
           }"
         >
           <div
@@ -104,12 +104,12 @@
         </div>
 
         <div
-          v-if="content.banners?.length"
+          v-if="banners.length"
           class="grid shrink-0 grid-cols-1 gap-y-8"
           :class="content.img.src.endsWith('.png') ? 'lg:mt-[10%]' : ''"
         >
           <div
-            v-for="(banner, index) in content.banners"
+            v-for="(banner, index) in banners"
             :key="index"
             class="flex items-start gap-x-2.5 gap-y-4 lg:max-w-[240px] lg:flex-col"
           >
@@ -118,16 +118,15 @@
               :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
               class="lg:shadow-wrapper aspect-4/5 min-w-24 rounded-xl transition duration-500 sm:rounded-2xl lg:w-full lg:hover:rotate-6"
             >
-              <NuxtImg
+              <img
                 v-if="banner.image"
                 :src="banner.image"
                 :alt="banner.title"
                 class="bg-muted outline-inside size-full rounded-lg object-cover select-none sm:rounded-xl lg:shadow-md"
-                sizes="240px"
                 width="1080"
                 height="1350"
                 loading="lazy"
-                format="webp"
+                decoding="async"
               />
             </nuxt-link>
 
@@ -180,7 +179,26 @@ const localePath = useLocalePath();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
 const content = computed(() => useContentStore().components.visitorCta);
-const event = useAppConfig().event;
+const event = useEvent();
+
+// Cross-promo banners now come from PM One (ProjectBanner, placement=visitor-cta)
+// instead of the hardcoded content.js array. Mapped to the legacy banner shape.
+const { data: bannersData } = await useFetch("/api/banners", {
+  key: "visitor-cta-banners",
+  query: { placement: "visitor-cta" },
+  default: () => ({ data: [] }),
+});
+
+const banners = computed(() =>
+  (bannersData.value?.data ?? []).map((b) => ({
+    image: b.img?.src || "",
+    subtitle: b.subtitle || "",
+    title: b.subHeadline || "",
+    description: b.content || "",
+    accentColor: b.accentColor || { light: "", dark: "" },
+    cta: b.cta || { label: "", link: "#" },
+  })),
+);
 
 const isInitialized = ref(false);
 const ctaCard = ref(null);

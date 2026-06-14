@@ -37,8 +37,6 @@ export default {
   },
   hero: {
     countdownLabel: "개최까지",
-    announcement: "전시 부스 아직 자리 있어요",
-    visitorAnnouncement: "관람객 등록이 시작됐어요!",
     title:
       'ASEAN 최대 <span class="gradient-accent bg-clip-text font-semibold text-transparent">세라믹</span> 산업 전시회',
     description:

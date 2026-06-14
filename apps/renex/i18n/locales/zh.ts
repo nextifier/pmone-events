@@ -47,7 +47,6 @@ export default {
       '<span class="relative inline-block"><span class="bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15"></span><span class="text-outline">装修</span></span>这件事，<span class="gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent">从这里开始。</span>',
     description:
       "亲手触摸最新材料、面对面咨询设计师。装修需要的一切，一站搞定。",
-    announcement: "参展展位仍有空位，立即报名！",
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",

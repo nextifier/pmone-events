@@ -44,17 +44,26 @@ usePageMeta(null, {
   description: computed(() => t("sponsorshipRegistration.metaDescription")),
 });
 
-const links = [
-  {
-    label: "WhatsApp",
-    to: `https://api.whatsapp.com/send?phone=${useAppConfig().contact.whatsapp}&text=Hai, ${useAppConfig().app.shortName}! I'd like to inquire about sponsorship opportunities.`,
-    openInNewTab: true,
-    iconName: "hugeicons:whatsapp",
-  },
-  {
-    label: "Email",
-    to: `mailto:${useAppConfig().contact.email}`,
-    iconName: "hugeicons:mail-02",
-  },
-];
+const appConfig = useAppConfig();
+const profile = useProjectProfile();
+
+const links = computed(() => {
+  const result = [];
+  if (profile.whatsappNumber) {
+    result.push({
+      label: "WhatsApp",
+      to: `https://api.whatsapp.com/send?phone=${profile.whatsappNumber}&text=Hai, ${appConfig.app.shortName}! I'd like to inquire about sponsorship opportunities.`,
+      openInNewTab: true,
+      iconName: "hugeicons:whatsapp",
+    });
+  }
+  if (profile.email) {
+    result.push({
+      label: "Email",
+      to: `mailto:${profile.email}`,
+      iconName: "hugeicons:mail-02",
+    });
+  }
+  return result;
+});
 </script>

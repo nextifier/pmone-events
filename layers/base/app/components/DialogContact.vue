@@ -48,6 +48,7 @@
 <script setup>
 const uiStore = useUiStore();
 const appConfig = useAppConfig();
+const profile = useProjectProfile();
 
 const isDialogOpen = computed({
   get() {
@@ -75,10 +76,8 @@ const dialogConfig = computed(() => {
 });
 
 const links = computed(() => {
-  const contact = appConfig.contact || {};
   const result = [];
-  const whatsappNumber =
-    contact.whatsappOuting || contact.whatsappMarketing || contact.whatsapp;
+  const whatsappNumber = profile.whatsappMarketingNumber || profile.whatsappNumber;
   const shortName = appConfig.app?.shortName || appConfig.app?.name || "";
 
   if (whatsappNumber) {
@@ -90,11 +89,10 @@ const links = computed(() => {
     });
   }
 
-  const emailAddress = contact.emailOuting || contact.email;
-  if (emailAddress) {
+  if (profile.email) {
     result.push({
       label: "Email",
-      to: `mailto:${emailAddress}`,
+      to: `mailto:${profile.email}`,
       iconName: "hugeicons:mail-02",
     });
   }

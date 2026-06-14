@@ -150,8 +150,6 @@ export default {
   },
   "hero": {
     "countdownLabel": "The event starts in",
-    "announcement": "Space is still available for exhibitors",
-    "visitorAnnouncement": "Visitor Registration Is Now Open!",
     "title": "ASEAN's Leading <span class=\"gradient-accent bg-clip-text font-semibold text-transparent\">Ceramics</span> Industry Exhibition",
     "description": "Be inspired by the latest technology, solutions, materials and design trends from ASEAN's leading ceramics industry exhibition.",
     "ctaTicket": "Get free ticket",

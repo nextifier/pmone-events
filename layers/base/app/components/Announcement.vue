@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="items.length"
     class="relative inline-flex h-8 items-center justify-start overflow-hidden rounded-full px-3 py-1 font-medium tracking-tighter transition active:scale-95"
   >
     <Transition
@@ -27,7 +28,20 @@
 const localePath = useLocalePath();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
-const items = computed(() => useContentStore().components.hero.announcements);
+// Hero CTA strip now comes from PM One (ProjectBanner, placement=hero-announcement)
+// instead of the hardcoded content.js array. Mapped to the legacy {text, link} shape.
+const { data: bannersData } = await useFetch("/api/banners", {
+  key: "hero-announcement-banners",
+  query: { placement: "hero-announcement" },
+  default: () => ({ data: [] }),
+});
+
+const items = computed(() =>
+  (bannersData.value?.data ?? []).map((b) => ({
+    text: b.subHeadline || b.cta?.label || "",
+    link: b.cta?.link || "#",
+  })),
+);
 
 const currentIndex = ref(0);
 let intervalId = null;
@@ -35,6 +49,8 @@ let intervalId = null;
 const currentItem = computed(() => items.value[currentIndex.value]);
 
 onMounted(() => {
+  if (items.value.length <= 1) return;
+
   intervalId = setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % items.value.length;
   }, 6000);

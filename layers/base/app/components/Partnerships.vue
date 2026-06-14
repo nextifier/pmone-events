@@ -121,10 +121,8 @@
             </div>
 
             <nuxt-link
-              :to="lp(content.reservedSpace.cta.url)"
-              :target="
-                content.reservedSpace.cta.url.startsWith('http') ? '_blank' : ''
-              "
+              :to="lp(reservedSpaceUrl)"
+              :target="reservedSpaceUrl.startsWith('http') ? '_blank' : ''"
               class="bg-muted hover:bg-primary hover:text-primary-foreground mt-5 rounded-lg border px-4 py-2 text-sm font-semibold tracking-tight transition active:scale-98"
               >{{ content.reservedSpace.cta.label }}</nuxt-link
             >
@@ -139,5 +137,17 @@
 const localePath = useLocalePath();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
+const appConfig = useAppConfig();
+const profile = useProjectProfile();
+
 const content = computed(() => useContentStore().components.partnerships);
+
+// Built here (not in the content store) so the WhatsApp number can come from PM
+// One via useProjectProfile instead of a hardcoded app.config contact.
+const reservedSpaceUrl = computed(() => {
+  const number = profile.whatsappNumber;
+  if (!number) return "";
+  const shortName = appConfig.app?.shortName || appConfig.app?.name || "";
+  return `https://api.whatsapp.com/send?phone=${number}&text=${encodeURIComponent(`Halo, ${shortName}!`)}`;
+});
 </script>

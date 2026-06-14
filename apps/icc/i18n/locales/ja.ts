@@ -81,7 +81,6 @@ export default {
     title: "ポップカルチャーの祭典、10年目",
     description:
       "コミック、トイ、映画、ゲーム、コスプレ。ICC はずっとポップカルチャーのホームでした。この10月、10周年をみんなで盛り上げよう。",
-    announcement: "出展ブースまだ空きあります",
     ctaTicket: "チケット購入",
     ctaExhibit: "出展登録",
     playRecap: "ハイライト映像",

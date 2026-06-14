@@ -70,7 +70,6 @@ export default {
     title: "애니메 팬이 모이는 이틀, 여기서 만나요!",
     description:
       "해외 게스트, 한정판 굿즈, 코스프레, 게임 대회, 그리고 나랑 같은 팬 수천 명. 오타쿠라면 빠질 수 없는 축제예요.",
-    announcement: "참가사 부스 아직 자리 있어요",
     ctaTicket: "티켓 구매",
     ctaExhibit: "참가 신청",
     playRecap: "하이라이트 보기",

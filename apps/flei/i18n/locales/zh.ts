@@ -51,8 +51,6 @@ export default {
     ctaExhibit: "参展报名",
     playRecap: "看回顾视频",
     edition: "第{n}届",
-    announcement: "参展展位仍有空位",
-    visitorAnnouncement: "观众注册现已开放!",
   },
   about: {
     title: "<span class='text-accent'>几百个商业机会</span>都在一个场馆里。",

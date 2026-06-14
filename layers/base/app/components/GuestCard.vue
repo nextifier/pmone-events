@@ -12,15 +12,12 @@
     </span>
 
     <div class="bg-muted relative aspect-[4/5] w-full overflow-hidden">
-      <NuxtImg
+      <BlurImage
         v-if="guest.profile_image?.md || guest.profile_image?.sm || guest.profile_image?.original"
         :src="guest.profile_image.md || guest.profile_image.sm || guest.profile_image.original"
+        :lqip="guest.profile_image.lqip || ''"
         :alt="guest.profile_image.alt || guest.name"
-        :placeholder="guest.profile_image.lqip"
-        class="size-full object-cover transition duration-300 group-hover:scale-105"
-        loading="lazy"
-        format="webp"
-        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        image-class="size-full object-cover transition duration-300 group-hover:scale-105"
       />
       <div
         v-else

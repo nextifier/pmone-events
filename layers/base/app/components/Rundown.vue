@@ -310,15 +310,14 @@
                           v-if="activity.poster_image?.sm"
                           class="hidden w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 sm:block dark:bg-gray-900"
                         >
-                          <NuxtImg
+                          <img
                             :src="activity.poster_image.sm"
                             alt=""
                             class="h-full w-full object-cover"
-                            sizes="200px"
                             width="1080"
                             height="1350"
                             loading="lazy"
-                            format="webp"
+                            decoding="async"
                           />
                         </div>
                       </component>
@@ -353,15 +352,14 @@
                             v-if="activity.poster_image?.sm"
                             class="w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
                           >
-                            <NuxtImg
+                            <img
                               :src="activity.poster_image.sm"
                               alt=""
                               class="h-full w-full object-cover"
-                              sizes="200px"
                               width="1080"
                               height="1350"
                               loading="lazy"
-                              format="webp"
+                              decoding="async"
                             />
                           </div>
                         </div>

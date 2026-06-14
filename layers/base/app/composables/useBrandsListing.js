@@ -17,6 +17,11 @@ export const useBrandsListing = (opts = {}) => {
 
   const localePath = useLocalePath();
   const appConfig = useAppConfig();
+  const event = useEvent();
+
+  // Conjunction/profile avatars come from PM One as a conversion object
+  // ({ sm, md, ... }); the brand UI expects a plain URL string.
+  const imgUrl = (image) => image?.sm || image?.url || image || null;
 
   const editionValue = computed(() => unref(edition));
 
@@ -101,17 +106,17 @@ export const useBrandsListing = (opts = {}) => {
 
   // ----- Conjunction logic -----
   const hasConjunctions = computed(
-    () => appConfig.event.inConjunction?.list?.length > 0,
+    () => event.inConjunction?.list?.length > 0,
   );
   const useConjunctionEndpoint = computed(
     () => hasConjunctions.value && !editionValue.value,
   );
 
   const getConjunctionImg = (projectUsername) => {
-    const item = appConfig.event.inConjunction?.list?.find(
+    const item = event.inConjunction?.list?.find(
       (c) => c.projectUsername === projectUsername,
     );
-    return item?.img;
+    return imgUrl(item?.img);
   };
 
   // ----- Brands fetch -----
@@ -158,7 +163,7 @@ export const useBrandsListing = (opts = {}) => {
       groups = [
         {
           is_primary: true,
-          event_title: appConfig.event.title,
+          event_title: event.title,
           project_username: appConfig.app.projectUsername,
           brands: brands || [],
         },
@@ -172,7 +177,7 @@ export const useBrandsListing = (opts = {}) => {
         _project_username: group.project_username,
         _project_title: group.event_title,
         _project_img: group.is_primary
-          ? appConfig.event.profileImage
+          ? imgUrl(event.profileImage)
           : getConjunctionImg(group.project_username),
         _is_primary: !!group.is_primary,
       })),
@@ -193,7 +198,7 @@ export const useBrandsListing = (opts = {}) => {
         projectUsername: group.project_username,
         title: group.event_title,
         img: group.is_primary
-          ? appConfig.event.profileImage
+          ? imgUrl(event.profileImage)
           : getConjunctionImg(group.project_username),
         count: group.brands?.length || 0,
         isPrimary: !!group.is_primary,

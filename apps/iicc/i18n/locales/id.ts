@@ -388,7 +388,6 @@ export default {
       welcomeSpeechOfi: "Welcome Speech oleh: ofi",
       openingEntertainment: "Hiburan Pembuka",
       wrapUp: "Rangkuman & Penutupan",
-      announcement: "Pengumuman ASKINDO",
       grindRelease: "Rilis Data Giling Indonesia Q2",
       vvipDialogue: "Dialog VVIP",
       preDinnerDelegates: "Pre-dinner Cocktail untuk delegasi",

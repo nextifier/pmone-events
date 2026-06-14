@@ -71,7 +71,6 @@ export default {
     title: "Indonesia Outing & Incentive Travel Expo 2026",
     description:
       "기업 인게이지먼트와 인센티브 여행을 위한 비즈니스 플랫폼. 100+ 브랜드, HR 컨퍼런스, 비즈니스 매칭이 한곳에 모입니다.",
-    announcement: "전시 부스 아직 자리 있어요",
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

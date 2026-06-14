@@ -88,8 +88,6 @@ export default {
     ctaTicket: "チケットを取得",
     ctaExhibit: "出展登録",
     playRecap: "ダイジェストを見る",
-    announcement: "出展ブースの空きあり",
-    visitorAnnouncement: "来場者登録の受付を開始しました!",
     instagramTip:
       'Tip: 最新情報はすべてInstagramで発信しています。<a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>をフォローしてくださいね。',
   },

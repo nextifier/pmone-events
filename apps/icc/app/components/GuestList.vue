@@ -28,7 +28,7 @@
           <p
             class="text-foreground/80 mx-auto mt-2 max-w-3xl text-center text-base tracking-tight text-balance sm:text-lg"
           >
-            {{ $t("guests.sectionDescription", { eventTitle: useAppConfig().event.title }) }}
+            {{ $t("guests.sectionDescription", { eventTitle: event.title }) }}
           </p>
         </div>
         <div
@@ -51,12 +51,12 @@
 
           <p class="max-w-xl text-balance">
             Be the first to know when the lineup of amazing guests for
-            {{ useAppConfig().event.title }} announced.
+            {{ event.title }} announced.
           </p>
 
           <nuxt-link
-            v-if="useAppConfig().social.instagram"
-            :to="`https://www.instagram.com/${useAppConfig().social.instagram}`"
+            v-if="instagramUrl"
+            :to="instagramUrl"
             target="_blank"
             class="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 flex items-center gap-x-1 rounded-xl px-4 py-3 font-medium tracking-tight transition active:scale-95"
           >
@@ -71,6 +71,13 @@
 
 <script setup>
 const route = useRoute();
+const event = useEvent();
+const profile = useProjectProfile();
+const instagramUrl = computed(
+  () =>
+    profile.socialLinks.find((l) => l.label.toLowerCase() === "instagram")
+      ?.path || "",
+);
 const getRouteBaseName = useRouteBaseName();
 
 const { data } = await useGuests();

@@ -410,7 +410,6 @@ export default {
       welcomeSpeechOfi: "Welcome Speech by: ofi",
       openingEntertainment: "Opening Entertainment",
       wrapUp: "Wrap Up and Summary",
-      announcement: "Announcement by ASKINDO",
       grindRelease: "Indonesia Q2 Grind Release",
       vvipDialogue: "VVIP Dialogue",
       preDinnerDelegates: "Pre-Dinner Cocktail for Delegates",

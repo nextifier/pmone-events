@@ -3,9 +3,9 @@
     <ContactForm
       :title="content.title"
       :description="content.description"
-      :showJobTitle="useAppConfig().settings.bookSpaceForm.showJobTitle"
-      :showBrandName="useAppConfig().settings.bookSpaceForm.showBrandName"
-      :showProducts="useAppConfig().settings.bookSpaceForm.showProducts"
+      :showJobTitle="bookSpaceForm.showJobTitle"
+      :showBrandName="bookSpaceForm.showBrandName"
+      :showProducts="bookSpaceForm.showProducts"
       :showReferralSource="true"
       :showMessage="false"
       submitLabel="Submit"
@@ -17,4 +17,8 @@
 <script setup>
 usePageMeta("bookSpace");
 const content = computed(() => useContentStore().components.bookSpace);
+
+// Optional form fields are configured per-project in PM One (website settings).
+const projectSettings = useProjectSettings();
+const bookSpaceForm = computed(() => projectSettings.bookSpaceForm);
 </script>

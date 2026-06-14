@@ -164,7 +164,6 @@ export default {
     "subHeadline": "The Ultimate Asian Pop Culture Event in Indonesia",
     "title": "Your Epic Pop Culture Crossover is Here!",
     "description": "Gear up for two awesome days packed with international guests, exclusive drops, epic cosplay, and thousands of other fans just like you. This is your party!",
-    "announcement": "Space is still available for exhibitors",
     "ctaTicket": "Get Ticket",
     "ctaExhibit": "Book Space",
     "playRecap": "Play Recap",

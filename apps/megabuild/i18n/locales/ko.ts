@@ -32,8 +32,6 @@ export default {
     title: "건축 환경의 변화를 가속하다",
     description:
       "인도네시아 최대 건자재·인테리어 디자인·건축·건설 전시회 & 컨퍼런스.",
-    announcement: "전시 부스 아직 자리 있어요",
-    visitorAnnouncement: "관람객 등록이 시작됐어요!",
     ctaTicket: "무료 티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

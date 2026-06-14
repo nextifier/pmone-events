@@ -33,14 +33,6 @@
               :endTime="eventEndTime"
             />
 
-            <!-- <span
-              class="text-muted-foreground text-sm font-semibold tracking-tighter text-balance"
-              v-html="
-                $t('hero.instagramTip', {
-                  instagram: useAppConfig().social.instagram,
-                })
-              "
-            ></span> -->
           </div>
 
           <div class="flex flex-col items-start">
@@ -212,7 +204,7 @@
 <script setup>
 const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.hero);
-const event = useAppConfig().event;
+const event = useEvent();
 const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
 const { status: eventStatus } = useEventStatus(eventStartTime, eventEndTime);

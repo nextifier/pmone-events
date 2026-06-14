@@ -58,7 +58,6 @@ export default {
     title: "Indonesia Outing & Incentive Travel Expo 2026",
     description:
       "Platform bisnis untuk corporate engagement dan incentive travel. 100+ brand, konferensi HR, business matching, semuanya di satu tempat.",
-    announcement: "Slot exhibitor masih tersedia!",
     ctaTicket: "Dapatkan tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

@@ -44,7 +44,6 @@ export default {
     title: "10 TAHUN JADI RUMAH POP CULTURE INDONESIA.",
     description:
       "Sepuluh tahun jadi rumah buat komik, toys, film, game, dan cosplay. Oktober ini, ICC rayain satu dekade. Dan kamu harus ada.",
-    announcement: "Slot booth exhibitor masih tersedia",
     ctaTicket: "Beli Tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

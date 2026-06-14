@@ -131,7 +131,7 @@ import { toast } from "vue-sonner";
 import { gsap } from "gsap";
 
 const appConfig = useAppConfig();
-const event = appConfig.event;
+const event = useEvent();
 const eventStartTime = computed(() => new Date(event.startTime));
 const eventEndTime = computed(() => new Date(event.endTime));
 const { t } = useI18n();

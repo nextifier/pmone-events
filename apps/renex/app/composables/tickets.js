@@ -6,7 +6,7 @@ export const useTicketStore = defineStore("tickets", {
       {
         title: "Entry Tickets",
         slug: "entry-tickets",
-        description: `An entry ticket is required to access the ${useAppConfig().event.title}.`,
+        description: `An entry ticket is required to access the ${useAppConfig().app.name}.`,
         tickets: [
           {
             title: "Regular Entry Ticket",

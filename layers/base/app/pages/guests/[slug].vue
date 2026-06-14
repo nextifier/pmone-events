@@ -23,16 +23,12 @@
     <div v-else-if="guest" class="container mt-6 sm:container lg:mt-12 lg:max-w-screen-lg">
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div class="bg-muted relative aspect-[4/5] overflow-hidden rounded-2xl">
-          <NuxtImg
+          <BlurImage
             v-if="guest.profile_image?.lg || guest.profile_image?.md || guest.profile_image?.original"
             :src="guest.profile_image.lg || guest.profile_image.md || guest.profile_image.original"
+            :lqip="guest.profile_image.lqip || ''"
             :alt="guest.profile_image.alt || guest.name"
-            :placeholder="guest.profile_image.lqip"
-            class="size-full object-cover"
-            format="webp"
-            width="800"
-            height="1000"
-            sizes="(max-width: 640px) 100vw, 600px"
+            image-class="size-full object-cover"
           />
         </div>
 

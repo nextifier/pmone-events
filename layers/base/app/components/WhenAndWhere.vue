@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-4 text-left">
-    <div class="flex items-center gap-x-3">
+    <div v-if="formattedDate" class="flex items-center gap-x-3">
       <div
         class="outline-inside flex size-10 shrink-0 flex-col overflow-hidden rounded-xl text-center sm:size-12"
       >
@@ -23,15 +23,7 @@
         <span
           class="text-primary line-clamp-1 text-base font-medium tracking-tight"
         >
-          <span
-            v-if="
-              props.dateFormat &&
-              props.dateFormat === 'id' &&
-              useAppConfig().event.dateFormatID
-            "
-            >{{ useAppConfig().event.dateFormatID }}</span
-          >
-          <span v-else>{{ formattedDate }}</span>
+          <span>{{ formattedDate }}</span>
         </span>
         <span
           v-if="props.time"
@@ -77,28 +69,42 @@ const props = defineProps({
   hall: String,
 });
 
-const dateStr = props.date;
+// Parse "Mon D-D, YYYY" / "Mon D, YYYY" defensively. Never throws: when the
+// string is empty or in an unexpected shape it falls back to the raw date and
+// hides the calendar badge, instead of breaking the render.
+const parsed = computed(() => {
+  const dateStr = props.date;
+  if (!dateStr || typeof dateStr !== "string") return null;
 
-// Parse the string to extract the start and end dates
-const [monthAndStart, endYear] = dateStr.split("-");
-const [startMonthDay, year] = endYear.split(",").map((str) => str.trim());
+  const [head, tail] = dateStr.split("-");
+  const headTokens = (head || "").trim().split(/\s+/);
+  const startMonth = headTokens[0];
+  const startDay = parseInt(headTokens[1], 10);
+  if (!startMonth || Number.isNaN(startDay)) return null;
 
-const [startMonth, startDay] = monthAndStart.split(" ");
-const endDay = parseInt(endYear.trim().split(" ")[0]);
+  const year = dateStr.match(/(\d{4})/)?.[1] ?? `${new Date().getFullYear()}`;
+  const endDay = tail ? parseInt(tail, 10) : startDay;
 
-// Construct the start and end date objects
-const startDate = new Date(`${startMonth} ${startDay}, ${year}`);
-const endDate = new Date(`${startMonth} ${endDay}, ${year}`);
+  const startDate = new Date(`${startMonth} ${startDay}, ${year}`);
+  if (Number.isNaN(startDate.getTime())) return null;
+  const endDate = new Date(
+    `${startMonth} ${Number.isNaN(endDay) ? startDay : endDay}, ${year}`,
+  );
 
-// Format month to 3 characters
-const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "short" });
-const shortMonth = monthFormatter.format(startDate);
+  const dayFmt = new Intl.DateTimeFormat("en-US", { weekday: "short" });
+  const startDayName = dayFmt.format(startDate);
+  const endDayName = Number.isNaN(endDate.getTime())
+    ? startDayName
+    : dayFmt.format(endDate);
 
-// Format days to 3 characters
-const dayFormatter = new Intl.DateTimeFormat("en-US", { weekday: "short" });
-const startDayName = dayFormatter.format(startDate);
-const endDayName = dayFormatter.format(endDate);
+  return {
+    shortMonth: new Intl.DateTimeFormat("en-US", { month: "short" }).format(startDate),
+    startDay,
+    formattedDate: `${startDayName}-${endDayName}, ${dateStr}`,
+  };
+});
 
-// Final output
-const formattedDate = `${startDayName}-${endDayName}, ${dateStr}`;
+const shortMonth = computed(() => parsed.value?.shortMonth || "");
+const startDay = computed(() => parsed.value?.startDay || "");
+const formattedDate = computed(() => parsed.value?.formattedDate || props.date || "");
 </script>

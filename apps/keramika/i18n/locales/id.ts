@@ -31,8 +31,6 @@ export default {
   },
   hero: {
     countdownLabel: "Pameran dimulai dalam",
-    announcement: "Slot exhibitor masih tersedia!",
-    visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
     title:
       'Pameran Industri <span class="gradient-accent bg-clip-text font-semibold text-transparent">Keramik</span> Terbesar di ASEAN',
     description:

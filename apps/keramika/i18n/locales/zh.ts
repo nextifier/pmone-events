@@ -33,8 +33,6 @@ export default {
   },
   hero: {
     countdownLabel: "开展倒计时",
-    announcement: "参展 Booth 仍有空位",
-    visitorAnnouncement: "观众注册现已开放!",
     title:
       '东盟领先的<span class="gradient-accent bg-clip-text font-semibold text-transparent">陶瓷</span>行业展览会',
     description: "在 ASEAN 领先的陶瓷产业展上，探索最新技术、材料和设计趋势。",

@@ -33,8 +33,6 @@ export default {
     title: "Pameran Bangunan dan Interior Terbesar di Indonesia.",
     description:
       "Ratusan brand bahan bangunan, arsitektur, dan interior design ada di satu tempat. Datang, bandingkan, langsung deal.",
-    announcement: "Slot Exhibitor Masih Tersedia!",
-    visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
     ctaTicket: "Dapatkan tiket gratis",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",

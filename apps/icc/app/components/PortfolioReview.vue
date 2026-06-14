@@ -189,7 +189,7 @@
 
 <script setup>
 import { toast } from "vue-sonner";
-const event = useAppConfig().event;
+const event = useEvent();
 
 const portfolioReviewList = ref([
   // {

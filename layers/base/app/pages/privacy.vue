@@ -453,7 +453,11 @@ const name = useAppConfig().app.name;
 const website = useAppConfig().app.url;
 const companyName = useAppConfig().app.company.name;
 const address = useAppConfig().app.company.address;
-const email = useAppConfig().contact.email;
 const contactPageLink = `${useAppConfig().app.url}/contact`;
-const lastUpdate = useAppConfig().settings.terms.lastUpdate;
+
+// Contact email + "last updated" date now come from PM One.
+const profile = useProjectProfile();
+const projectSettings = useProjectSettings();
+const email = computed(() => profile.email);
+const lastUpdate = computed(() => projectSettings.termsLastUpdate);
 </script>

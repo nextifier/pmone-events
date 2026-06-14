@@ -12,59 +12,6 @@ const app = {
   },
 };
 
-const event = {
-  title: "Indonesia Outing & Incentive Travel Expo 2026",
-  // edition: {
-  //   value: 22,
-  //   ordinal: "nd",
-  // },
-  poster: "/img/tickets/indooutingexpo-2026-poster.jpg",
-  status: "", // Available values: "upcoming", "live", "completed"
-  startTime: "Oct 8, 2026 10:00:00",
-  endTime: "Oct 11, 2026 20:00:00",
-  date: "Oct 8-11, 2026",
-  dateOnly: "8-11",
-  month: "Oct",
-  year: "2026",
-  time: "10 AM - 8 PM",
-  location: "Nusantara International Convention Exhibition (NICE), PIK 2",
-  locationShort: "NICE, PIK 2",
-  locationLink: "https://maps.app.goo.gl/MYU5ZFfNoxUzZdjm8",
-  // hall: "Hall 7",
-  teaserVideoId: "",
-  profileImage: "/img/avatar/ioe.svg",
-  description:
-    "Platform bisnis untuk corporate engagement dan incentive travel. 100+ brand, konferensi HR, business matching. 27-30 Agustus 2026, NICE PIK 2.",
-  offersName: "Tiket Masuk IOITE",
-  offersDescription:
-    "Harga tiket pameran corporate engagement dan incentive travel berbeda-beda tergantung jenis tiket dan waktu pembeliannya.",
-  // inConjunction: {
-  //   label: "In conjunction with",
-  //   list: [
-  //     {
-  //       name: "Franchise & License Expo Indonesia",
-  //       url: "https://franchise-expo.co.id",
-  //       img: "/img/avatar/flei.svg",
-  //     },
-  //     {
-  //       name: "Cafe n' Brasserie Expo Indonesia",
-  //       url: "https://cafebrasserieexpo.com",
-  //       img: "/img/avatar/cbe.svg",
-  //     },
-  //   ],
-  // },
-  // sponsoredBy: {
-  //   label: "Presented by",
-  //   list: [
-  //     {
-  //       name: "BCA",
-  //       url: "https://www.bca.co.id/",
-  //       img: "/img/credits/sponsor/BCA/BCA-1-1.svg",
-  //     },
-  //   ],
-  // },
-};
-
 const settings = {
   header: {
     logoClass: "h-10 text-primary",
@@ -72,85 +19,11 @@ const settings = {
   footer: {
     logoClass: "h-14 text-primary",
   },
-  ticket: {
-    tabs: {
-      showTickets: true,
-      showGuests: false,
-      showBrands: true,
-      showRundown: true,
-      showAbout: true,
-      showPhotos: true,
-    },
-  },
-  blog: {
-    showPostCardAuthor: false,
-    showPostCardExcerpt: false,
-  },
   ogImage: {
     isDarkMode: true,
   },
-  bookSpaceForm: {
-    showJobTitle: false,
-    showBrandName: true,
-    showProducts: false,
-  },
-  terms: {
-    lastUpdate: "August 21, 2025",
-  },
 };
 
-const contact = {
-  email: "ioe@panoramamedia.co.id",
-  whatsapp: "6281293235557",
-  whatsappMarketing: "6281119220015",
-};
-
-const social = {
-  instagram: "indooutingexpo",
-  // facebook: "",
-  // linkedin: "",
-  // youtube: "",
-  // tiktok: "",
-};
-
-const contactLinks = {
-  email: {
-    label: "Email",
-    path: `mailto:${contact.email}`,
-  },
-  whatsapp: {
-    label: "WhatsApp",
-    path: `https://api.whatsapp.com/send?phone=${contact.whatsapp}&text=Halo, ${app.shortName}!`,
-  },
-};
-
-const socialLinks = {
-  instagram: {
-    label: "Instagram",
-    path: `https://www.instagram.com/${social.instagram}`,
-    iconName: "hugeicons:instagram",
-  },
-  // facebook: {
-  //   label: "Facebook",
-  //   path: `https://www.facebook.com/${social.facebook}`,
-  //   iconName: "hugeicons:facebook-01",
-  // },
-  // tiktok: {
-  //   label: 'TikTok',
-  //   path: `https://tiktok.com/@${social.tiktok}`,
-  //   iconName: 'hugeicons:tiktok',
-  // },
-  // linkedin: {
-  //   label: "LinkedIn",
-  //   path: `https://www.linkedin.com/company/${social.linkedin}`,
-  //   iconName: "hugeicons:linkedin-01",
-  // },
-  // youtube: {
-  //   label: "YouTube",
-  //   path: `https://www.youtube.com/@${social.youtube}`,
-  //   iconName: "hugeicons:youtube",
-  // },
-};
 
 const routes = {
   home: {
@@ -237,12 +110,7 @@ const routes = {
 
 export default defineAppConfig({
   app: app,
-  event: event,
   settings: settings,
-  contact: contact,
-  social: social,
-  contactLinks: contactLinks,
-  socialLinks: socialLinks,
 
   routes: {
     header: [
@@ -273,14 +141,6 @@ export default defineAppConfig({
           routes.news,
           routes.partners,
         ],
-      },
-      {
-        label: "Get in touch",
-        links: Object.values(contactLinks),
-      },
-      {
-        label: "Social",
-        links: Object.values(socialLinks),
       },
       {
         label: "Resources",

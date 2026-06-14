@@ -79,8 +79,6 @@ export default {
     ctaTicket: "Dapatkan Tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Recap",
-    announcement: "Slot Exhibitor Masih Tersedia!",
-    visitorAnnouncement: "Registrasi Pengunjung Sudah Dibuka!",
     instagramTip:
       'Tip: Semua bocoran dan info penting ada di Instagram. Pastikan kamu follow <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>!',
   },

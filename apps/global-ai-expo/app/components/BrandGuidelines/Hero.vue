@@ -142,7 +142,7 @@ import {
   WaveDistortion,
 } from "shaders/vue";
 
-const event = useAppConfig().event;
+const event = useEvent();
 
 const heroRef = ref(null);
 const inView = useElementVisibility(heroRef);

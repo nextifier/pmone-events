@@ -33,8 +33,6 @@ export default {
     title: "建築環境の変革を加速する",
     description:
       "インドネシア最大級の建材・インテリアデザイン・建築・建設の展示会＆カンファレンス。",
-    announcement: "出展スペースはまだ空きがあります",
-    visitorAnnouncement: "来場者登録の受付を開始しました!",
     ctaTicket: "無料チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",

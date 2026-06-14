@@ -50,8 +50,6 @@ export default {
     title: "다음 최애 커피, 여기서 찾아보세요.",
     description:
       "인도네시아 최고의 로스터들이 한자리에 모였어요. 직접 맛보고, 비교하고, 나만의 커피를 찾아보세요.",
-    announcement: "전시 부스 아직 자리 있어요",
-    visitorAnnouncement: "관람객 등록이 시작됐어요!",
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

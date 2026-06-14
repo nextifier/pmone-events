@@ -182,7 +182,26 @@ const tLabel = (label) => {
 const dialogRoutes = useDynamicHeaderRoutes("dialog");
 const dialogGroups = computed(() => dialogRoutes.value || []);
 const primaryGroup = computed(() => dialogGroups.value[0] || null);
-const secondaryGroups = computed(() => dialogGroups.value.slice(1));
+
+// Social + contact links come from PM One project profile (single source of
+// truth), appended after the static route groups.
+const profile = useProjectProfile();
+const profileGroups = computed(() => {
+  const groups = [];
+  const contact = Object.values(profile.contactLinks);
+  if (contact.length) {
+    groups.push({ label: "Get in touch", links: contact });
+  }
+  if (profile.socialLinks.length) {
+    groups.push({ label: "Social", links: profile.socialLinks });
+  }
+  return groups;
+});
+
+const secondaryGroups = computed(() => [
+  ...dialogGroups.value.slice(1),
+  ...profileGroups.value,
+]);
 
 const props = defineProps({
   open: {

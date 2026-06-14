@@ -76,7 +76,7 @@
         </div>
 
         <nuxt-link
-          :to="`https://api.whatsapp.com/send?phone=${useAppConfig().contact.whatsappOuting}&text=Hai, ${useAppConfig().app.shortName}`"
+          :to="`https://api.whatsapp.com/send?phone=${profile.whatsappNumber}&text=Hai, ${useAppConfig().app.shortName}`"
           target="_blank"
           class="bg-primary text-primary-foreground hover:bg-primary/80 mt-10 flex items-center justify-center rounded-xl px-8 py-4 font-semibold tracking-tight transition active:scale-95"
           v-ripple
@@ -89,6 +89,8 @@
 </template>
 
 <script setup>
+const profile = useProjectProfile();
+
 const features = [
   {
     title: "Paket Fleksibel & Lengkap",

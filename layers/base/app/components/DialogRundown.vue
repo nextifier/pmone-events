@@ -7,17 +7,14 @@
     "
     :flush-content="hasPoster"
   >
-    <NuxtImg
-      v-if="hasPoster"
-      :src="activity.poster_image.lg"
-      alt=""
-      class="bg-muted w-full object-cover"
-      sizes="100vw sm:560px"
-      width="1080"
-      height="1350"
-      loading="lazy"
-      format="webp"
-    />
+    <div v-if="hasPoster" class="bg-muted aspect-4/5 w-full overflow-hidden">
+      <BlurImage
+        :src="activity.poster_image.lg || activity.poster_image.url"
+        :lqip="activity.poster_image.lqip || ''"
+        alt=""
+        image-class="size-full object-cover"
+      />
+    </div>
     <div
       class="text-foreground px-4 pb-16 sm:px-8 sm:pb-12"
       :class="hasPoster ? 'pt-4 sm:pt-6' : 'pt-2 sm:pt-12'"

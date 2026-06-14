@@ -160,7 +160,6 @@ export const useContentStore = defineStore("content", () => {
         title: t("partnerships.reservedSpace.title"),
         cta: {
           label: t("partnerships.reservedSpace.cta"),
-          url: `https://api.whatsapp.com/send?phone=${config.contact.whatsapp}&text=Halo, ${config.app.shortName}!`,
         },
       },
     },
@@ -178,38 +177,6 @@ export const useContentStore = defineStore("content", () => {
         iconName: "hugeicons:ticket-01",
         url: "/ticket",
       },
-      banners: [
-        {
-          image: "/img/banners/cover-1.jpg",
-          subtitle: "Global AI Expo Conference",
-          title: "Four Tracks. Sixty Sessions. One Roof.",
-          description:
-            "Enterprise AI, robotics, healthcare AI, and policy. Single ticket covers all four conference rooms across three days.",
-          accentColor: {
-            light: "#2563eb",
-            dark: "#60a5fa",
-          },
-          cta: {
-            label: "See speakers",
-            link: "/rundown",
-          },
-        },
-        {
-          image: "/img/banners/cover-2.jpg",
-          subtitle: "Startup Pavilion",
-          title: "100+ Startups. USD 100K Prize Pool.",
-          description:
-            "Asia's largest applied AI startup floor. Live pitches, investor matching, and a prize pool for breakout teams.",
-          accentColor: {
-            light: "#9333ea",
-            dark: "#c084fc",
-          },
-          cta: {
-            label: "Explore startups",
-            link: "/programs",
-          },
-        },
-      ],
     },
 
     mediaCoverage: {

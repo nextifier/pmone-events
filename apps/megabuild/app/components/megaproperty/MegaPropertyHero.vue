@@ -124,6 +124,6 @@
 </template>
 
 <script setup>
-const event = useAppConfig().event;
+const event = useEvent();
 const localePath = useLocalePath();
 </script>

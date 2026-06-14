@@ -40,7 +40,6 @@ export default {
       '<span class="relative inline-block"><span class="bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15"></span><span class="text-outline">리노베이션</span></span>, <span class="gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent">여기서 시작하세요.</span>',
     description:
       "최신 자재를 직접 보고 만져보고, 디자이너에게 바로 상담받고. 리노베이션에 필요한 모든 게 한자리에 있어요.",
-    announcement: "전시 부스 아직 자리 있어요. 지금 신청하세요!",
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",

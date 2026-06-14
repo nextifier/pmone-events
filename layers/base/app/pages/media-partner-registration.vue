@@ -46,20 +46,27 @@ usePageMeta(null, {
   description: computed(() => t("mediaPartnerRegistration.metaDescription")),
 });
 
-const whatsapp =
-  useAppConfig().contact.whatsappMarketing || useAppConfig().contact.whatsapp;
+const appConfig = useAppConfig();
+const profile = useProjectProfile();
 
-const links = [
-  {
-    label: "WhatsApp",
-    to: `https://api.whatsapp.com/send?phone=${whatsapp}&text=Hai, ${useAppConfig().app.shortName}! I'd like to inquire about media partnership opportunities.`,
-    openInNewTab: true,
-    iconName: "hugeicons:whatsapp",
-  },
-  {
-    label: "Email",
-    to: `mailto:${useAppConfig().contact.email}`,
-    iconName: "hugeicons:mail-02",
-  },
-];
+const links = computed(() => {
+  const whatsapp = profile.whatsappMarketingNumber || profile.whatsappNumber;
+  const result = [];
+  if (whatsapp) {
+    result.push({
+      label: "WhatsApp",
+      to: `https://api.whatsapp.com/send?phone=${whatsapp}&text=Hai, ${appConfig.app.shortName}! I'd like to inquire about media partnership opportunities.`,
+      openInNewTab: true,
+      iconName: "hugeicons:whatsapp",
+    });
+  }
+  if (profile.email) {
+    result.push({
+      label: "Email",
+      to: `mailto:${profile.email}`,
+      iconName: "hugeicons:mail-02",
+    });
+  }
+  return result;
+});
 </script>

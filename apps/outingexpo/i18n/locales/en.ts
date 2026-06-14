@@ -179,7 +179,6 @@ export default {
     "countdownLabel": "Starts in:",
     "title": "Indonesia Outing & Incentive Travel Expo 2026",
     "description": "The business platform for corporate engagement and incentive travel. 100+ brands, HR conferences, business matching, all in one venue.",
-    "announcement": "Space is still available for exhibitors",
     "ctaTicket": "Get ticket",
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",

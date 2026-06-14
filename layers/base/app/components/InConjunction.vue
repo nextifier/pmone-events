@@ -32,19 +32,17 @@
 <script setup>
 import { computed } from "vue";
 
-const appConfig = useAppConfig();
-const items = appConfig.event.inConjunction?.list;
+const event = useEvent();
+const items = computed(() => event.inConjunction?.list ?? []);
 
 const avatarItems = computed(() => {
   const own = {
-    name: appConfig.event.title,
-    profile_image: appConfig.event.profileImage
-      ? { sm: appConfig.event.profileImage }
-      : null,
+    name: event.title,
+    profile_image: event.profileImage,
   };
-  const list = (items ?? []).map((item) => ({
+  const list = items.value.map((item) => ({
     name: item.name,
-    profile_image: item.img ? { sm: item.img } : null,
+    profile_image: item.img,
   }));
   return [own, ...list];
 });

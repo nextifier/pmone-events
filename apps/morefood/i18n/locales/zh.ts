@@ -88,8 +88,6 @@ export default {
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看回顾视频",
-    announcement: "参展展位仍有空位",
-    visitorAnnouncement: "观众注册现已开放!",
     instagramTip:
       'Tip: 所有最新消息都在 Instagram 上。快关注 <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>！',
   },
