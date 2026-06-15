@@ -102,11 +102,12 @@
         </div>
 
         <div
-          v-if="content.banners?.length"
+          v-if="banners.length"
+          ref="bannersRef"
           class="grid shrink-0 grid-cols-1 gap-y-8 lg:mt-[10%]"
         >
           <div
-            v-for="(banner, index) in content.banners"
+            v-for="(banner, index) in banners"
             :key="index"
             class="flex items-start gap-x-2.5 gap-y-4 lg:max-w-[240px] lg:flex-col"
           >
@@ -114,17 +115,17 @@
               :to="banner.cta.link"
               :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
               class="lg:shadow-wrapper aspect-4/5 min-w-24 rounded-xl transition duration-500 sm:rounded-2xl lg:w-full lg:hover:rotate-6"
+              @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
             >
-              <NuxtImg
+              <img
                 v-if="banner.image"
                 :src="banner.image"
                 :alt="banner.title"
                 class="bg-muted border-border size-full rounded-lg border object-cover select-none sm:rounded-xl lg:shadow-md"
-                sizes="240px"
                 width="1080"
                 height="1350"
                 loading="lazy"
-                format="webp"
+                decoding="async"
               />
             </nuxt-link>
 
@@ -157,6 +158,7 @@
                 :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
                 class="bg-border/60 text-primary hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
                 v-ripple
+                @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
               >
                 <span class="line-clamp-1">{{ banner.cta.label }}</span>
                 <Icon name="lucide:arrow-up-right" class="size-4 shrink-0" />
@@ -170,5 +172,32 @@
 </template>
 
 <script setup>
-const content = useContentStore().components.cta;
+// Cross-promo banners now come from PM One (ProjectBanner, placement=visitor-cta)
+// instead of the hardcoded content.js array. Mapped to the legacy banner shape
+// (campx uses accentColor as { light, dark }).
+const { data: bannersData } = await useFetch("/api/banners", {
+  key: "visitor-cta-banners",
+  query: { placement: "visitor-cta" },
+  default: () => ({ data: [] }),
+});
+
+const banners = computed(() =>
+  (bannersData.value?.data ?? []).map((b) => ({
+    id: b.id,
+    image: b.img?.src || "",
+    subtitle: b.subtitle || "",
+    title: b.subHeadline || "",
+    description: b.content || "",
+    accentColor: b.accentColor || { light: "", dark: "" },
+    cta: b.cta || { label: "", link: "#" },
+  })),
+);
+
+// Impression + click tracking (same ProjectBanner pattern as BannerHero).
+const { trackImpression, trackClick } = useBannerTracking();
+const bannersRef = ref(null);
+const bannersVisible = useElementVisibility(bannersRef);
+watch(bannersVisible, (visible) => {
+  if (visible) banners.value.forEach((b) => trackImpression(b.id));
+});
 </script>

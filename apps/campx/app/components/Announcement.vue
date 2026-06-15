@@ -14,6 +14,7 @@
         :to="currentItem.link"
         :target="currentItem.link.startsWith('http') ? '_blank' : ''"
         class="flex items-center justify-start gap-x-1 text-left whitespace-nowrap"
+        @click="trackClick(currentItem.id, currentItem.text || 'announcement')"
       >
         <span class="line-clamp-1">
           {{ currentItem.text }}
@@ -25,6 +26,8 @@
 </template>
 
 <script setup>
+const { trackImpression, trackClick } = useBannerTracking();
+
 // Hero CTA strip now comes from PM One (ProjectBanner, placement=hero-announcement)
 // instead of the hardcoded content.js array. Mapped to the legacy {text, link} shape.
 const { data: bannersData } = await useFetch("/api/banners", {
@@ -35,6 +38,7 @@ const { data: bannersData } = await useFetch("/api/banners", {
 
 const items = computed(() =>
   (bannersData.value?.data ?? []).map((b) => ({
+    id: b.id,
     text: b.subHeadline || b.cta?.label || "",
     link: b.cta?.link || "#",
   })),
@@ -44,6 +48,11 @@ const currentIndex = ref(0);
 let intervalId = null;
 
 const currentItem = computed(() => items.value[currentIndex.value]);
+
+// Count an impression for each announcement as it rotates into view (deduped
+// per id per page load by useBannerTracking). The strip sits above the hero so
+// it is always in view on load.
+watch(currentItem, (item) => trackImpression(item?.id), { immediate: true });
 
 onMounted(() => {
   if (items.value.length <= 1) return;

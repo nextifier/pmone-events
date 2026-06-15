@@ -105,6 +105,7 @@
 
         <div
           v-if="banners.length"
+          ref="bannersRef"
           class="grid shrink-0 grid-cols-1 gap-y-8"
           :class="content.img.src.endsWith('.png') ? 'lg:mt-[10%]' : ''"
         >
@@ -116,7 +117,8 @@
             <nuxt-link
               :to="lp(banner.cta.link)"
               :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
-              class="lg:shadow-wrapper aspect-4/5 min-w-24 rounded-xl transition duration-500 sm:rounded-2xl lg:w-full lg:hover:rotate-6"
+              class="lg:shadow-wrapper aspect-4/5 w-28 shrink-0 rounded-xl transition duration-500 sm:w-32 sm:rounded-2xl lg:w-full lg:shrink lg:hover:rotate-6"
+              @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
             >
               <img
                 v-if="banner.image"
@@ -159,6 +161,7 @@
                 :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
                 class="bg-border/60 text-primary hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
                 v-ripple
+                @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
               >
                 <span class="line-clamp-1">{{ banner.cta.label }}</span>
                 <Icon name="lucide:arrow-up-right" class="size-4 shrink-0" />
@@ -191,6 +194,7 @@ const { data: bannersData } = await useFetch("/api/banners", {
 
 const banners = computed(() =>
   (bannersData.value?.data ?? []).map((b) => ({
+    id: b.id,
     image: b.img?.src || "",
     subtitle: b.subtitle || "",
     title: b.subHeadline || "",
@@ -199,6 +203,16 @@ const banners = computed(() =>
     cta: b.cta || { label: "", link: "#" },
   })),
 );
+
+// Impression + click tracking (same ProjectBanner pattern as BannerHero). The
+// cards sit below the fold, so impressions fire once the column scrolls into
+// view (deduped per id per page load by useBannerTracking).
+const { trackImpression, trackClick } = useBannerTracking();
+const bannersRef = ref(null);
+const bannersVisible = useElementVisibility(bannersRef);
+watch(bannersVisible, (visible) => {
+  if (visible) banners.value.forEach((b) => trackImpression(b.id));
+});
 
 const isInitialized = ref(false);
 const ctaCard = ref(null);

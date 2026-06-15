@@ -46,43 +46,6 @@ export const useContentStore = defineStore("content", {
           "Ada rencana outing atau butuh info lebih lanjut? Hubungi tim CampX di sini! Dapatkan penawaran untuk acara grup, gathering, atau sekadar tanya-tanya.",
       },
 
-      cta: {
-        banners: [
-          {
-            image: "/img/banners/panorama-events-poster.jpg",
-            subtitle: "Panorama Events",
-            title: "Outing Impian, Tanpa Ribet.",
-            description:
-              "Mau outing tapi pusing ngurusinnya? Serahin aja ke ahlinya! Panorama Events siap atur semua kebutuhan acaramu dari A-Z. Kamu & tim tinggal nikmatin keseruannya.",
-            accentColor: {
-              light: "#ea580c",
-              dark: "#f97316",
-            },
-            cta: {
-              label: "Konsultasi Outing Gratis",
-              link: "https://panoramaevents.id",
-              openInNewTab: true,
-            },
-          },
-          {
-            image: "/img/banners/indooutingexpo-2025-poster.jpg",
-            subtitle: "Indonesia Outing Expo 2025",
-            title: "Berburu Promo & Gear Impianmu.",
-            description:
-              "Siap-siap! Pameran outing terbesar se-Indonesia akan hadir di JICC Senayan, 14-16 Nov 2025. Dapatkan diskon gila-gilaan untuk alat camping & paket liburan. Jangan lupa mampir ke booth CampX ya!",
-            accentColor: {
-              light: "#0891b2",
-              dark: "#06b6d4",
-            },
-            cta: {
-              label: "Info Lengkap Expo",
-              link: "https://indooutingexpo.co.id",
-              openInNewTab: true,
-            },
-          },
-        ],
-      },
-
       socialProof: [
         {
           name: "Google",
