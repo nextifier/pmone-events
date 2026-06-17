@@ -10,6 +10,9 @@
  * The same `/api/event/rundown` endpoint is used by Rundown.vue itself, so
  * the underlying response is deduped across calls with matching query keys.
  *
+ * Beyond the project toggle, the section is only shown when the rundown actually
+ * has at least one item, so an enabled-but-empty rundown is never rendered.
+ *
  * Visiting `?show-rundown=true` force-shows the section regardless of the
  * project setting — see useForceShow.
  */
@@ -18,7 +21,10 @@ export function useRundownVisibility() {
   const forced = useForceShow("show-rundown");
 
   const { data } = useFetch<{
-    data?: { settings?: { show_rundown_on_home_page?: boolean } };
+    data?: {
+      days?: Array<{ items?: unknown[] }>;
+      settings?: { show_rundown_on_home_page?: boolean };
+    };
   }>("/api/event/rundown", {
     query: { locale },
     server: false,
@@ -26,11 +32,17 @@ export function useRundownVisibility() {
     watch: [locale],
   });
 
-  const visible = computed(
-    () =>
-      forced.value ||
-      data.value?.data?.settings?.show_rundown_on_home_page === true,
+  const enabled = computed(
+    () => data.value?.data?.settings?.show_rundown_on_home_page === true,
   );
+
+  const hasItems = computed(() =>
+    (data.value?.data?.days ?? []).some((day) => (day.items?.length ?? 0) > 0),
+  );
+
+  // `?show-rundown=true` fully overrides both the project toggle and the
+  // has-items check so the section can be previewed regardless of its data.
+  const visible = computed(() => forced.value || (enabled.value && hasItems.value));
 
   return { visible };
 }

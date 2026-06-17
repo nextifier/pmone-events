@@ -8,7 +8,10 @@
     <LazyAboutEvent />
     <LazyPartnerships />
     <LazyVisitorCta />
-    <LazyCredits class="container flex flex-col items-center text-center" />
+    <LazyCredits
+      v-if="creditsVisible"
+      class="container flex flex-col items-center text-center"
+    />
     <RollingText
       text="Global AI Expo"
       :lines="4"
@@ -54,4 +57,5 @@ useEventSchema();
 const { visible: rundownVisible } = useRundownVisibility();
 const { visible: brandPreviewVisible } = useBrandPreviewVisibility();
 const { visible: hotelSectionVisible } = useHotelSectionVisibility();
+const { visible: creditsVisible } = useCreditsVisibility();
 </script>

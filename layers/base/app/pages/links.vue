@@ -121,13 +121,6 @@
               </h1>
             </div>
 
-            <p
-              v-if="profile.bio"
-              class="text-sm leading-relaxed tracking-tight"
-            >
-              {{ profile.bio }}
-            </p>
-
             <div
               v-if="hasContactMethods"
               class="mt-1.5 flex flex-wrap justify-center gap-x-2 gap-y-3"
@@ -376,7 +369,6 @@ usePageMeta(null, {
   title: computed(() => `Links · ${profile.value?.name || ""}`),
   description: computed(
     () =>
-      profile.value?.bio ||
       `Find tickets, brands, the rundown, and other essential links for ${profile.value?.name || useAppConfig().app.name}.`,
   ),
 });

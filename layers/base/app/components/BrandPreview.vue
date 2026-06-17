@@ -96,35 +96,14 @@
 import { useElementSize } from "@vueuse/core";
 import { hasInstagram } from "../composables/useBrandHelpers";
 
-// Batas atas kandidat brand (cukup untuk mengisi penuh sampai layar lebar).
-const PREVIEW_MAX = 36;
-
 const contentStore = useContentStore();
 const localePath = useLocalePath();
 
 const content = computed(() => contentStore.components.brandPreview);
 
-// Fetch the full active set (not just a page) so the score sort below picks the
-// globally highest-scoring brands, not merely the highest within the first page.
-// Lazy + non-blocking: the skeleton (GridFill pending) holds the layout while
-// data streams in, so this never blocks first paint.
-const { data, pending } = useLazyAsyncData("brand-preview", () =>
-  $fetch("/api/exhibitors", { query: { per_page: 200 } }).catch(() => null),
-);
-
-const brandsWithLogo = computed(() => {
-  const list = data.value?.data ?? [];
-  return list
-    .filter((b) => {
-      const logo = b.brand_logo;
-      if (!logo) return false;
-      if (Array.isArray(logo)) return logo.length > 0;
-      if (typeof logo === "object") return Object.keys(logo).length > 0;
-      return Boolean(logo);
-    })
-    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-    .slice(0, PREVIEW_MAX);
-});
+// Brands (with the previous-edition fallback) come from a shared composable so
+// the data is fetched once and reused by useBrandPreviewVisibility.
+const { pending, brandsWithLogo } = useBrandPreview();
 
 // Kolom dikontrol manual (auto-fit GridFill dimatikan) supaya grid SELALU
 // penuh: jumlah brand = kelipatan kolom, tanpa filler/cell kosong.

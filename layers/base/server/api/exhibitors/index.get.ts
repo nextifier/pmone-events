@@ -1,4 +1,4 @@
-const ALLOWED_QUERY = ["per_page", "page", "sort"];
+const ALLOWED_QUERY = ["per_page", "page", "sort", "fallback"];
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);

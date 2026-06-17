@@ -35,7 +35,10 @@
     </div>
     <LazyFAQ />
     <LazyPastEvents />
-    <LazyCredits class="container flex flex-col items-center text-center" />
+    <LazyCredits
+      v-if="creditsVisible"
+      class="container flex flex-col items-center text-center"
+    />
   </div>
 </template>
 
@@ -45,6 +48,7 @@ const config = useAppConfig();
 const route = useRoute();
 const { visible: rundownVisible } = useRundownVisibility();
 const { visible: hotelSectionVisible } = useHotelSectionVisibility();
+const { visible: creditsVisible } = useCreditsVisibility();
 
 const siteUrl = config.app.url;
 const pageUrl = siteUrl + route.path;

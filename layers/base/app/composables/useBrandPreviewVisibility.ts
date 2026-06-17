@@ -8,9 +8,15 @@
  * The fetch only fires after mount, then reactively flips visibility — no
  * hydration mismatch, no <ClientOnly> wrapper needed at the call site.
  *
+ * Beyond the project toggle, the section is only shown when there are more than
+ * 10 brands to display (brands share `useBrandPreview` with BrandPreview.vue, so
+ * the underlying fetch — including the previous-edition fallback — runs once).
+ *
  * Visiting `?show-brands=true` force-shows the section regardless of the
  * project setting — see useForceShow.
  */
+const BRAND_PREVIEW_MIN = 10;
+
 export function useBrandPreviewVisibility() {
   const { locale } = useI18n();
   const forced = useForceShow("show-brands");
@@ -28,11 +34,22 @@ export function useBrandPreviewVisibility() {
     watch: [locale],
   });
 
-  const visible = computed(
+  const { brandsWithLogo } = useBrandPreview();
+
+  const hasEnoughBrands = computed(
+    () => brandsWithLogo.value.length > BRAND_PREVIEW_MIN,
+  );
+
+  const enabled = computed(
     () =>
-      forced.value ||
       data.value?.data?.settings?.brands?.show_brand_preview_on_home_page ===
-        true,
+      true,
+  );
+
+  // `?show-brands=true` fully overrides both the project toggle and the count
+  // threshold so the section can be previewed regardless of its data.
+  const visible = computed(
+    () => forced.value || (enabled.value && hasEnoughBrands.value),
   );
 
   return { visible };
