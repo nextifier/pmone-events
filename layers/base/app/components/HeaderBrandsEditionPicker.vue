@@ -72,11 +72,18 @@ const selectedEdition = computed(() => {
   return props.editions?.find((e) => e.is_active);
 });
 
+// The picker serves both the brands and rundown pages. Derive the target
+// section from the current route so navigation stays within the same section.
+const section = computed(() => {
+  const baseName = (route.name?.toString() ?? "").split("___")[0];
+  return baseName.includes("rundown") ? "rundown" : "brands";
+});
+
 function changeEdition(item) {
   if (item.is_active) {
-    navigateTo(localePath("/brands"));
+    navigateTo(localePath(`/${section.value}`));
   } else {
-    navigateTo(localePath(`/${item.edition_number}/brands`));
+    navigateTo(localePath(`/${item.edition_number}/${section.value}`));
   }
 }
 </script>

@@ -139,9 +139,11 @@ const { metaSymbol } = useShortcuts();
 
 const isMenuOpen = ref(false);
 
-const isBrandsRoute = computed(() => {
+const isEditionableRoute = computed(() => {
   const baseName = (route.name?.toString() ?? "").split("___")[0];
-  return baseName === "brands" || baseName === "edition-brands";
+  return ["brands", "edition-brands", "rundown", "edition-rundown"].includes(
+    baseName,
+  );
 });
 
 const { data: editions } = useFetch("/api/editions", {
@@ -149,7 +151,7 @@ const { data: editions } = useFetch("/api/editions", {
 });
 
 const showEditionPicker = computed(
-  () => isBrandsRoute.value && (editions.value?.length ?? 0) > 1,
+  () => isEditionableRoute.value && (editions.value?.length ?? 0) > 1,
 );
 
 function toggleFullScreen() {

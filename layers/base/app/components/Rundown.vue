@@ -558,6 +558,7 @@ import { refDebounced } from "@vueuse/core";
 const props = defineProps({
   showSearch: { type: Boolean, default: true },
   clickToOpenDialog: { type: Boolean, default: true },
+  edition: { type: [String, Number], default: null },
 });
 
 const uiStore = useUiStore();
@@ -592,15 +593,27 @@ const changeSelectedLocation = (location) => {
 // (where useFetch would otherwise flip pending → true immediately and re-render
 // a different branch).
 // `@nuxtjs/i18n` suffixes route names with `___<locale>` (e.g. `rundown___en`),
-// so we match by prefix rather than exact equality.
-const isRundownPage = (route.name?.toString() ?? "").startsWith("rundown");
+// so we strip the suffix and match the base name. Both the active-edition page
+// (`rundown`) and the past-edition page (`edition-rundown`) are dedicated rundown
+// pages that should SSR their data.
+const rundownBaseName = (route.name?.toString() ?? "").split("___")[0];
+const isRundownPage =
+  rundownBaseName === "rundown" || rundownBaseName === "edition-rundown";
+
+// Past-edition pages fetch a specific edition; everything else uses the active
+// event's rundown.
+const rundownUrl = computed(() =>
+  props.edition
+    ? `/api/event/rundown/by-edition/${props.edition}`
+    : "/api/event/rundown",
+);
 
 const {
   data: rundownData,
   pending,
   error,
   execute: executeRundown,
-} = await useFetch("/api/event/rundown", {
+} = await useFetch(rundownUrl, {
   query: { locale },
   server: isRundownPage,
   lazy: !isRundownPage,

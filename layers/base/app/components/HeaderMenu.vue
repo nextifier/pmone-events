@@ -172,7 +172,7 @@ import {
 const route = useRoute();
 const localePath = useLocalePath();
 const { t, te } = useI18n();
-const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
+const lp = useEditionPath();
 const tLabel = (label) => {
   if (!label) return "";
   const key = `nav.${label}`;
