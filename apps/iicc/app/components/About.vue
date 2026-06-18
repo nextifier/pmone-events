@@ -1,21 +1,19 @@
 <template>
-  <section id="about">
+  <section id="about" class="bg-muted/50 py-10">
     <div class="container">
       <div
         class="grid grid-cols-1 items-center gap-x-12 gap-y-8 lg:grid-cols-2"
       >
-        <div class="-mx-4 sm:mx-0">
-          <NuxtImg
-            src="/img/about-img.jpg"
-            alt="About IICC"
-            class="bg-muted size-full object-cover"
-            width="1080"
-            height="1350"
-            loading="lazy"
-            format="webp"
-            sizes="400px sm:800px"
-          />
-        </div>
+        <NuxtImg
+          src="/img/iicc-9-poster.jpg"
+          alt="About IICC"
+          class="bg-muted outline-inside size-full rounded-xl object-cover"
+          width="1080"
+          height="1350"
+          loading="lazy"
+          format="webp"
+          sizes="400px sm:800px"
+        />
 
         <div class="flex flex-col items-start">
           <span
