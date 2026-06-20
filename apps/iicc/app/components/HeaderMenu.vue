@@ -251,6 +251,35 @@ defineShortcuts({
   },
 });
 
+// Back button/gesture closes the menu instead of navigating away
+const pushedHistoryState = ref(false);
+
+const onPopState = () => {
+  pushedHistoryState.value = false;
+  isOpen.value = false;
+};
+
+watch(isOpen, (newVal, oldVal) => {
+  if (newVal && !oldVal) {
+    window.history.pushState({ headerMenuOpen: true }, "");
+    pushedHistoryState.value = true;
+    window.addEventListener("popstate", onPopState, { once: true });
+  } else if (!newVal && oldVal && pushedHistoryState.value) {
+    pushedHistoryState.value = false;
+    window.removeEventListener("popstate", onPopState);
+    // Only rewind the entry we pushed on open if we're still sitting on it
+    // (a normal dismiss). When a nav link closes the menu it also navigates
+    // and pushes its own entry, so calling back() would undo that navigation.
+    if (window.history.state?.headerMenuOpen) {
+      window.history.back();
+    }
+  }
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("popstate", onPopState);
+});
+
 const headerMenuContent = ref(null);
 const { isSwiping, direction } = useSwipe(headerMenuContent);
 watch(isSwiping, () => {

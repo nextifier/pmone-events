@@ -47,6 +47,9 @@ export function useEvent() {
     get id() {
       return ev()?.id ?? null;
     },
+    get slug() {
+      return ev()?.slug ?? "";
+    },
     get title() {
       return ev()?.title ?? "";
     },

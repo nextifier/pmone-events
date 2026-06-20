@@ -157,11 +157,11 @@ export default {
       },
       "1": {
         q: "Bagaimana cara mendapatkan tiketnya?",
-        a: '<p>Lewat website resmi kami. Klik tombol <a href="/ticket">Get Ticket</a>, ikuti proses registrasi, dan e-ticket langsung dikirim ke email dan WhatsApp kamu.</p>',
+        a: '<p>Lewat website resmi kami. Klik tombol <a href="/tickets">Get Ticket</a>, ikuti proses registrasi, dan e-ticket langsung dikirim ke email dan WhatsApp kamu.</p>',
       },
       "2": {
         q: "Berapa harga tiketnya?",
-        a: '<p>Tergantung jenis tiket dan periode pembelian. Cek halaman <a href="/ticket">Tiket</a> untuk harga terkini. Manfaatkan promo early bird dan pre-sale untuk harga lebih murah!</p>',
+        a: '<p>Tergantung jenis tiket dan periode pembelian. Cek halaman <a href="/tickets">Tiket</a> untuk harga terkini. Manfaatkan promo early bird dan pre-sale untuk harga lebih murah!</p>',
       },
       "3": {
         q: "Bisa refund kalau tidak jadi datang?",

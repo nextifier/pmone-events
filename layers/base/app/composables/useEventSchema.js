@@ -89,7 +89,7 @@ export function useEventSchema() {
 
     const offers = {
       "@type": "Offer",
-      url: `${siteUrl}/ticket`,
+      url: `${siteUrl}/tickets`,
       name: `Tiket Masuk ${config.app.shortName}`,
       availability: "https://schema.org/InStock",
       price: ticketPrice !== undefined ? ticketPrice : "0",

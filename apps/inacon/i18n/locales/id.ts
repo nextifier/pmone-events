@@ -125,11 +125,11 @@ export default {
       },
       "1": {
         q: "Bagaimana cara membeli tiket?",
-        a: '<p>Langsung ke website resmi kami dan klik <a href="/ticket">Get Ticket</a>. Ikuti langkah registrasinya, dan e-ticket akan dikirim ke email serta WhatsApp kamu.</p>',
+        a: '<p>Langsung ke website resmi kami dan klik <a href="/tickets">Get Ticket</a>. Ikuti langkah registrasinya, dan e-ticket akan dikirim ke email serta WhatsApp kamu.</p>',
       },
       "2": {
         q: "Berapa harga tiketnya?",
-        a: '<p>Tergantung jenis tiket (one-day pass, full event pass, VIP, dll.) dan periode pembelian. Cek halaman <a href="/ticket">Tiket</a> untuk harga terbaru. Jangan lewatkan early bird!</p>',
+        a: '<p>Tergantung jenis tiket (one-day pass, full event pass, VIP, dll.) dan periode pembelian. Cek halaman <a href="/tickets">Tiket</a> untuk harga terbaru. Jangan lewatkan early bird!</p>',
       },
       "3": {
         q: "Apakah tiket bisa di-refund jika tidak jadi datang?",
@@ -165,7 +165,7 @@ export default {
       },
       "11": {
         q: "Ada batasan umur?",
-        a: '<p>Tidak ada. Event ini family-friendly, terbuka untuk semua umur. Anak-anak di bawah umur tertentu bisa masuk gratis jika ditemani orang dewasa yang memiliki tiket. Detail lengkap ada di halaman <a href="/ticket">Tiket</a>.</p>',
+        a: '<p>Tidak ada. Event ini family-friendly, terbuka untuk semua umur. Anak-anak di bawah umur tertentu bisa masuk gratis jika ditemani orang dewasa yang memiliki tiket. Detail lengkap ada di halaman <a href="/tickets">Tiket</a>.</p>',
       },
       "12": {
         q: "Ada parkir di venue?",

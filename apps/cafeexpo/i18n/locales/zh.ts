@@ -142,11 +142,11 @@ export default {
       },
       "1": {
         q: "怎么买票？",
-        a: '<p>在官网点 <a href="/ticket">Get Ticket</a>，按流程注册就行。电子门票会发到你的 Email 和 WhatsApp。</p>',
+        a: '<p>在官网点 <a href="/tickets">Get Ticket</a>，按流程注册就行。电子门票会发到你的 Email 和 WhatsApp。</p>',
       },
       "2": {
         q: "门票多少钱？",
-        a: '<p>看票种和购买时间。最新价格在 <a href="/ticket">门票页面</a>。早鸟票有优惠，别错过。</p>',
+        a: '<p>看票种和购买时间。最新价格在 <a href="/tickets">门票页面</a>。早鸟票有优惠，别错过。</p>',
       },
       "3": {
         q: "买了不能去，能退吗？",

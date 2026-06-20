@@ -138,11 +138,11 @@ export default {
       },
       "1": {
         q: "Bagaimana cara mendapatkan tiket pameran keramik?",
-        a: '<p>Tiket dapat diperoleh melalui website resmi kami. Cukup klik tombol <a href="/ticket">Dapatkan Tiket Gratis</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp Anda setelah pembelian.</p>',
+        a: '<p>Tiket dapat diperoleh melalui website resmi kami. Cukup klik tombol <a href="/tickets">Dapatkan Tiket Gratis</a> dan ikuti proses registrasinya. E-ticket akan langsung dikirim ke email dan WhatsApp Anda setelah pembelian.</p>',
       },
       "2": {
         q: "Berapa harga tiketnya?",
-        a: '<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, silakan cek halaman <a href="/ticket">Tiket</a> kami. Jangan lewatkan promo early bird dan pre-sale untuk mendapatkan harga spesial!</p>',
+        a: '<p>Harga tiket berbeda-beda tergantung jenis tiket dan waktu pembeliannya. Untuk info harga terkini, silakan cek halaman <a href="/tickets">Tiket</a> kami. Jangan lewatkan promo early bird dan pre-sale untuk mendapatkan harga spesial!</p>',
       },
       "3": {
         q: "Apakah tiket bisa di-refund jika tidak bisa datang?",

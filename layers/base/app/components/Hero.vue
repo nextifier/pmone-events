@@ -53,7 +53,7 @@
 
             <div class="mt-6 flex w-full gap-2 md:flex-wrap md:gap-3">
               <nuxt-link
-                :to="localePath('/ticket')"
+                :to="localePath('/tickets')"
                 class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
                 v-ripple
                 >Get ticket</nuxt-link

@@ -14,11 +14,21 @@ const props = defineProps<
     icon?: string;
     withIcon?: boolean;
     plain?: boolean;
+    // Suppress the default status dot for label/category badges (text only).
+    noIndicator?: boolean;
     class?: HTMLAttributes["class"];
   }
 >();
 
-const delegatedProps = reactiveOmit(props, "class", "variant", "icon", "withIcon", "plain");
+const delegatedProps = reactiveOmit(
+  props,
+  "class",
+  "variant",
+  "icon",
+  "withIcon",
+  "plain",
+  "noIndicator"
+);
 
 const resolvedIcon = computed(
   () => props.icon ?? (props.withIcon ? badgeDefaultIcons[props.variant ?? "default"] : undefined)
@@ -37,7 +47,7 @@ const resolvedIcon = computed(
       :class="badgeIconVariants({ variant })"
     />
     <span
-      v-else-if="variant !== 'outline'"
+      v-else-if="variant !== 'outline' && !noIndicator"
       :class="badgeDotVariants({ variant })"
       aria-hidden="true"
     />

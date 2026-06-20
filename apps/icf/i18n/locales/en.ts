@@ -275,11 +275,11 @@ export default {
       },
       "1": {
         q: "How do I get tickets to attend the event?",
-        a: '<p>You can get your tickets through our official website. Simply click the <a href="/ticket">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>',
+        a: '<p>You can get your tickets through our official website. Simply click the <a href="/tickets">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>',
       },
       "2": {
         q: "How much does a ticket cost?",
-        a: '<p>Ticket prices vary depending on the ticket type and promotional period. Please visit our <a href="/ticket">Ticket page</a> for the most up-to-date pricing information. Don\'t miss our early bird and pre-sale promotions for special discounts!</p>',
+        a: '<p>Ticket prices vary depending on the ticket type and promotional period. Please visit our <a href="/tickets">Ticket page</a> for the most up-to-date pricing information. Don\'t miss our early bird and pre-sale promotions for special discounts!</p>',
       },
       "3": {
         q: "Can I get a refund if I can't attend?",

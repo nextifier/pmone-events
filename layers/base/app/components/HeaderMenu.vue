@@ -144,9 +144,9 @@
 
           <DialogClose as-child>
             <NuxtLink
-              :to="localePath('/ticket')"
+              :to="localePath('/tickets')"
               class="bg-primary text-primary-foreground hover:bg-primary/80 flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
-              @click="$scrollToTopIfCurrentPageIs(localePath('/ticket'))"
+              @click="$scrollToTopIfCurrentPageIs(localePath('/tickets'))"
               v-ripple
               >{{ $t("ui.getTicket") }}</NuxtLink
             >
@@ -222,6 +222,35 @@ defineShortcuts({
       isOpen.value = !isOpen.value;
     },
   },
+});
+
+// Back button/gesture closes the menu instead of navigating away
+const pushedHistoryState = ref(false);
+
+const onPopState = () => {
+  pushedHistoryState.value = false;
+  isOpen.value = false;
+};
+
+watch(isOpen, (newVal, oldVal) => {
+  if (newVal && !oldVal) {
+    window.history.pushState({ headerMenuOpen: true }, "");
+    pushedHistoryState.value = true;
+    window.addEventListener("popstate", onPopState, { once: true });
+  } else if (!newVal && oldVal && pushedHistoryState.value) {
+    pushedHistoryState.value = false;
+    window.removeEventListener("popstate", onPopState);
+    // Only rewind the entry we pushed on open if we're still sitting on it
+    // (a normal dismiss). When a nav link closes the menu it also navigates
+    // and pushes its own entry, so calling back() would undo that navigation.
+    if (window.history.state?.headerMenuOpen) {
+      window.history.back();
+    }
+  }
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("popstate", onPopState);
 });
 
 const headerMenuContent = ref(null);

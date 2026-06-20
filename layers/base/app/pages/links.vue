@@ -285,7 +285,7 @@ const stackedLinks = computed(() => {
     {
       key: "tickets",
       label: "Tickets",
-      url: "/ticket",
+      url: "/tickets",
       iconName: "hugeicons:ticket-01",
     },
     {

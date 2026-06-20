@@ -69,7 +69,7 @@ export const useContentStore = defineStore("content", {
         list: [
           {
             label: "Tickets",
-            url: "/ticket",
+            url: "/tickets",
             iconName: "hugeicons:ticket-01",
           },
           {

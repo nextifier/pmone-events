@@ -184,7 +184,7 @@ export const useContentStore = defineStore("content", {
         cta: {
           label: "Get Ticket",
           iconName: "hugeicons:ticket-01",
-          url: "/ticket",
+          url: "/tickets",
         },
       },
 

@@ -236,11 +236,11 @@ export default {
       },
       "1": {
         "q": "How do I get tickets to attend the event?",
-        "a": "<p>You can get your tickets through our official website. Simply click the <a href=\"/ticket\">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>"
+        "a": "<p>You can get your tickets through our official website. Simply click the <a href=\"/tickets\">Get Ticket</a> button and follow the registration process. E-tickets will be sent to your email and WhatsApp after purchase.</p>"
       },
       "2": {
         "q": "How much does a ticket cost?",
-        "a": "<p>Ticket prices vary depending on the ticket type (one-day pass, full event pass, VIP, etc.) and promotional period. Please visit our <a href=\"/ticket\">Ticket page</a> for the most up-to-date pricing. Don't miss our early bird promotions!</p>"
+        "a": "<p>Ticket prices vary depending on the ticket type (one-day pass, full event pass, VIP, etc.) and promotional period. Please visit our <a href=\"/tickets\">Ticket page</a> for the most up-to-date pricing. Don't miss our early bird promotions!</p>"
       },
       "3": {
         "q": "Can I get a refund if I can't attend?",
@@ -276,7 +276,7 @@ export default {
       },
       "11": {
         "q": "Are there age restrictions for the event?",
-        "a": "<p>The event is family-friendly and open to all ages. Children under a certain age may enter free when accompanied by a paying adult. Please check our <a href=\"/ticket\">Ticket page</a> for specific age policies.</p>"
+        "a": "<p>The event is family-friendly and open to all ages. Children under a certain age may enter free when accompanied by a paying adult. Please check our <a href=\"/tickets\">Ticket page</a> for specific age policies.</p>"
       },
       "12": {
         "q": "Is there parking available at the venue?",

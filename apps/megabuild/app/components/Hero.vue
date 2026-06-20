@@ -54,7 +54,7 @@
                 v-ripple
                 variant="default"
                 size="lg"
-                :to="localePath('/ticket')"
+                :to="localePath('/tickets')"
               >
                 {{ $t("hero.ctaTicket") }}
               </Button>

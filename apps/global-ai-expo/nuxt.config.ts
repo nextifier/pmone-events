@@ -71,7 +71,9 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/tickets": { redirect: "/ticket", statusCode: 301 },
+    "/ticket": { redirect: "/tickets", statusCode: 301 },
+    "/tiket": { redirect: "/tickets", statusCode: 301 },
+    "/tix": { redirect: "/tickets", statusCode: 301 },
     "/blog/**": { redirect: "/news/**", statusCode: 301 },
   },
 
@@ -90,7 +92,7 @@ export default defineNuxtConfig({
       "/links",
       "/partners",
       "/book-space",
-      "/ticket",
+      "/tickets",
       "/news",
     ],
   },

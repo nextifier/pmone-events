@@ -60,8 +60,12 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    "/ticket": { redirect: "/tickets", statusCode: 301 },
+    "/tiket": { redirect: "/tickets", statusCode: 301 },
+    "/tix": { redirect: "/tickets", statusCode: 301 },
     "/blog/**": { redirect: "/news/**", statusCode: 301 },
   },
+
 
   sitemap: {
     urls: ["/", "/about", "/services", "/events", "/faq", "/contact", "/news"],

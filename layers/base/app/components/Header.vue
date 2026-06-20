@@ -44,9 +44,9 @@
           </nuxt-link>
 
           <nuxt-link
-            :to="localePath('/ticket')"
+            :to="localePath('/tickets')"
             class="hover:bg-primary/80 bg-primary text-primary-foreground hidden items-center justify-center rounded-xl px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
-            @click="$scrollToTopIfCurrentPageIs(localePath('/ticket'))"
+            @click="$scrollToTopIfCurrentPageIs(localePath('/tickets'))"
             v-ripple
             >{{ $t("ui.getTicket") }}</nuxt-link
           >

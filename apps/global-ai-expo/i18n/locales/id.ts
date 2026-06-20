@@ -242,7 +242,7 @@ export default {
       },
       "2": {
         q: "Bagaimana cara dapat tiket pengunjung?",
-        a: '<p>Pendaftaran pengunjung dibuka September 2026 di <a href="/ticket">halaman Ticket</a>. Pass dikirim lewat email dan WhatsApp setelah pembayaran terverifikasi.</p>',
+        a: '<p>Pendaftaran pengunjung dibuka September 2026 di <a href="/tickets">halaman Ticket</a>. Pass dikirim lewat email dan WhatsApp setelah pembayaran terverifikasi.</p>',
       },
       "3": {
         q: "Berapa harga booth exhibitor?",

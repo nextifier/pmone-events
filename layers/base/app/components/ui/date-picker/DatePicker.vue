@@ -23,6 +23,7 @@
         :min-value="calendarMinValue"
         :max-value="calendarMaxValue"
         :year-range="calendarYearRange"
+        :is-date-unavailable="isDateUnavailable"
         initial-focus
         @update:model-value="onDateSelect"
       />
@@ -94,6 +95,9 @@ const props = withDefaults(
     min?: Date | null;
     max?: Date | null;
     placeholderDate?: Date | null;
+    // When provided, every date NOT in this list is disabled (e.g. a day-pass
+    // that is only valid on specific event days).
+    allowedDates?: Date[] | null;
   }>(),
   {
     modelValue: null,
@@ -107,6 +111,7 @@ const props = withDefaults(
     min: null,
     max: null,
     placeholderDate: null,
+    allowedDates: null,
   }
 );
 
@@ -139,6 +144,16 @@ const calendarMinValue = computed<DateValue | undefined>(() => {
 const calendarMaxValue = computed<DateValue | undefined>(() => {
   if (props.max) return dateToCalendarDate(props.max);
   return props.disableFutureDates ? todayDate : undefined;
+});
+
+// Disable any date not in `allowedDates`. Keys are y-m-d so timezone/midnight
+// parsing never causes an off-by-one mismatch against the calendar cells.
+const isDateUnavailable = computed<((date: DateValue) => boolean) | undefined>(() => {
+  if (!props.allowedDates?.length) return undefined;
+  const keys = new Set(
+    props.allowedDates.map((d) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`)
+  );
+  return (date: DateValue) => !keys.has(`${date.year}-${date.month}-${date.day}`);
 });
 
 const calendarPlaceholder = computed<DateValue | undefined>(() => {

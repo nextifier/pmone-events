@@ -355,7 +355,7 @@
               />
 
               <Button
-                :to="localePath('/ticket')"
+                :to="localePath('/tickets')"
                 size="lg"
                 class="mt-6 active:scale-98"
               >
@@ -377,7 +377,7 @@ const route = useRoute();
 
 const { $dayjs } = useNuxtApp();
 
-// Event facts for the invite section, same source /ticket reads.
+// Event facts for the invite section, same source /tickets reads.
 const event = useEvent();
 const localePath = useLocalePath();
 

@@ -48,7 +48,7 @@ const routes = {
   },
   ticket: {
     label: "Ticket",
-    path: "/ticket",
+    path: "/tickets",
   },
   bookSpace: {
     label: "Tenant Registration",

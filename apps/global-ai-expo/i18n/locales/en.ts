@@ -300,7 +300,7 @@ export default {
       },
       "2": {
         q: "How do I get a visitor pass?",
-        a: '<p>Visitor registration opens September 2026 on the <a href="/ticket">Ticket page</a>. Passes are sent by email and WhatsApp once payment clears.</p>',
+        a: '<p>Visitor registration opens September 2026 on the <a href="/tickets">Ticket page</a>. Passes are sent by email and WhatsApp once payment clears.</p>',
       },
       "3": {
         q: "What does an exhibitor booth cost?",

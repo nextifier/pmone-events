@@ -8,7 +8,7 @@
           :items="posterItems"
           :show-thumbnails="false"
           full-key="xl"
-          alt="Event poster"
+          :alt="event.title"
         >
           <template #trigger="{ openAt }">
             <div
@@ -18,7 +18,7 @@
                 v-if="event.posterImage"
                 type="button"
                 class="absolute inset-0 z-10 cursor-zoom-in"
-                aria-label="View event poster"
+                :aria-label="t('ui.viewPoster')"
                 @click="openAt(0)"
               >
                 <BlurImage
@@ -38,6 +38,8 @@
                 class="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-blur-sm transition delay-1000 duration-800 ease-out starting:scale-0 starting:opacity-0"
               >
                 <button
+                  type="button"
+                  :aria-label="t('ui.watchTeaser')"
                   class="flex size-16 items-center justify-center rounded-full bg-white/30 text-white shadow-xl outline -outline-offset-6 outline-white transition hover:bg-white/60 active:scale-98"
                   @click="
                     uiStore.openEmbedVideoDialog(
@@ -83,7 +85,7 @@
                 }}<span class="align-super text-[10px]">{{
                   event.edition.ordinal
                 }}</span>
-                edition</span
+                {{ t("ui.edition") }}</span
               >
             </div>
 
@@ -162,6 +164,7 @@
       >
         <button
           v-if="!isTabTicketsVisible"
+          type="button"
           @click="scrollToTabsRootTop(_, 'tickets')"
           class="text-primary border-primary/20 bg-background/50 pointer-fine:hover:bg-primary pointer-fine:hover:text-primary-foreground flex items-center justify-center gap-x-1.5 rounded-full border p-3.5 text-sm font-semibold tracking-tighter backdrop-blur-md transition-all duration-300"
           v-ripple
@@ -171,7 +174,7 @@
             name="lucide:chevrons-left"
             class="size-4.5 shrink-0"
           />
-          <span>Choose ticket</span>
+          <span>{{ t("tickets.chooseTicket") }}</span>
           <Icon
             v-if="activeTab === 'tickets'"
             name="lucide:chevrons-down"
@@ -191,6 +194,7 @@ defineOptions({
   name: "ticket",
 });
 
+const { t } = useI18n();
 const event = useEvent();
 const uiStore = useUiStore();
 
@@ -212,8 +216,6 @@ const posterItems = computed(() => {
     },
   ];
 });
-const tickets = useTicketStore();
-const allTickets = tickets.categories;
 
 const tabsRootRef = ref(null);
 const isTabTicketsVisible = ref(true);
@@ -244,13 +246,16 @@ useIntersectionObserver(
 );
 
 import {
-  LazyTickets as Tickets,
   LazyGuestList,
   LazyBrandList,
   LazyRundown,
   LazyAboutEvent as AboutEvent,
   LazyGallery,
 } from "#components";
+// Dynamic ticket list (consumes PM One's public ticket API). It internally
+// falls back to the static `<Tickets>` when the event isn't migrated yet, so
+// every event app keeps working unchanged.
+import TicketList from "../../components/tickets/TicketList.vue";
 
 // Ticket tabs visibility now comes from PM One (website settings).
 const projectSettings = useProjectSettings();
@@ -261,18 +266,18 @@ const tabList = computed(() => {
 
   if (tabSettings.value.showTickets) {
     tabs.push({
-      name: "Tickets",
+      name: t("tickets.tabs.tickets"),
       value: "tickets",
       iconName: "hugeicons:ticket-01",
       forceMount: true,
       withPadding: true,
-      component: Tickets,
-      props: { tickets: allTickets },
+      component: TicketList,
+      props: { eventSlug: event.slug },
     });
   }
   if (tabSettings.value.showGuests) {
     tabs.push({
-      name: "Guests",
+      name: t("tickets.tabs.guests"),
       value: "guests",
       iconName: "hugeicons:star",
       forceMount: true,
@@ -283,7 +288,7 @@ const tabList = computed(() => {
   }
   if (tabSettings.value.showBrands) {
     tabs.push({
-      name: "Brands",
+      name: t("tickets.tabs.brands"),
       value: "brands",
       iconName: "hugeicons:grid-view",
       forceMount: true,
@@ -294,7 +299,7 @@ const tabList = computed(() => {
   }
   if (tabSettings.value.showRundown) {
     tabs.push({
-      name: "Rundown",
+      name: t("tickets.tabs.rundown"),
       value: "rundown",
       iconName: "hugeicons:check-list",
       forceMount: true,
@@ -305,7 +310,7 @@ const tabList = computed(() => {
   }
   if (tabSettings.value.showAbout) {
     tabs.push({
-      name: "About",
+      name: t("tickets.tabs.about"),
       value: "about",
       iconName: "hugeicons:information-circle",
       forceMount: false,
@@ -316,7 +321,7 @@ const tabList = computed(() => {
   }
   if (tabSettings.value.showPhotos) {
     tabs.push({
-      name: "Photos",
+      name: t("tickets.tabs.photos"),
       value: "photos",
       iconName: "hugeicons:image-01",
       forceMount: false,

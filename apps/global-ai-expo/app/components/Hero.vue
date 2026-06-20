@@ -54,7 +54,7 @@
                 eight industry zones.
               </div>
 
-              <Button to="/ticket" size="lg" class="text-lg">Register</Button>
+              <Button to="/tickets" size="lg" class="text-lg">Register</Button>
             </div>
           </div>
         </div>

@@ -169,7 +169,7 @@ export const useContentStore = defineStore("content", () => {
       cta: {
         label: t("visitorCta.cta"),
         iconName: "hugeicons:ticket-01",
-        url: "/ticket",
+        url: "/tickets",
       },
     },
 
