@@ -19,7 +19,7 @@ export const useTicketStore = defineStore("tickets", {
             status: "", // empty string, Coming Soon, Available, Sold out
             disableLink: true,
             button_label: "Get ticket",
-            button_url: "https://panorama.undangin.com/tickets/26297",
+            button_url: "https://panorama.undangin.com/ticket/26297",
             price: "Rp60,000",
             // price_before_discounted: "Rp60,000",
             is_vip: false,
@@ -43,7 +43,7 @@ export const useTicketStore = defineStore("tickets", {
             status: "", // empty string, Coming Soon, Available, Sold out
             disableLink: true,
             button_label: "Get ticket",
-            button_url: "https://panorama.undangin.com/tickets/vip/26297",
+            button_url: "https://panorama.undangin.com/ticket/vip/26297",
             price: "Invitation only",
             label: "Registration",
             is_vip: true,

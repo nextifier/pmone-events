@@ -19,7 +19,7 @@ export const useTicketStore = defineStore("tickets", {
             status: "Coming Soon", // empty string, Coming Soon, Available, Sold out // Coming Soon, Available, Sold out
             disableLink: true,
             button_label: "Get Ticket",
-            // button_url: "https://panorama.undangin.com/tickets/26288",
+            // button_url: "https://panorama.undangin.com/ticket/26288",
             price: "FREE",
             label: "Registration", // "The ticket purchase", "Pre-registration", "Pre-sale"
             // price_before_discounted: "Rp60,000",
@@ -39,7 +39,7 @@ export const useTicketStore = defineStore("tickets", {
           //   status: "", // empty string, Coming Soon, Available, Sold out // Coming Soon, Available, Sold out
           //   disableLink: true,
           //   button_label: "Get Ticket",
-          //   button_url: "https://panorama.undangin.com/tickets/vip/26288",
+          //   button_url: "https://panorama.undangin.com/ticket/vip/26288",
           //   price: "Invitation only",
           //   label: "Registration", // "The ticket purchase", "Pre-registration", "Pre-sale"
           //   // price_before_discounted: "Rp60,000",

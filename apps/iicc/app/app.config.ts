@@ -66,7 +66,7 @@ const routes = {
   },
   visitorRegistration: {
     label: "Register",
-    path: "https://event.undangin.com/tickets/26420",
+    path: "https://event.undangin.com/ticket/26420",
   },
 };
 

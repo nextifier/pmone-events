@@ -66,7 +66,20 @@
         :event-date="[event?.date, event?.time].filter(Boolean).join(' · ')"
         :event-venue="event?.location || ''"
         :order-number="orderInfo ? t('tickets.attendee.order', { number: orderInfo.order_number }) : ''"
+        :locked="isLocked"
       />
+
+      <!-- Pending order: the QR is withheld until payment is confirmed. -->
+      <div v-if="isLocked" class="frame">
+        <div class="frame-header">
+          <div class="frame-title">{{ t("tickets.attendee.pendingTitle") }}</div>
+        </div>
+        <div class="frame-panel">
+          <p class="text-muted-foreground text-sm tracking-tight">
+            {{ t("tickets.attendee.pendingNote") }}
+          </p>
+        </div>
+      </div>
 
       <!-- One-click dashboard sign-in is intentionally NOT shown here. It lives
            only in the e-ticket email (the email proves the holder owns the
@@ -154,6 +167,10 @@ const { data, pending, refresh } = await useLazyAsyncData(
 const attendee = computed(() => data.value?.data ?? null);
 const orderInfo = computed(() => data.value?.order ?? null);
 const eventTitle = computed(() => data.value?.event?.title ?? "");
+
+// The backend withholds qr_token until the order is confirmed, so a missing
+// token on a loaded attendee means the ticket is still awaiting payment.
+const isLocked = computed(() => !!attendee.value && !attendee.value.qr_token);
 
 // Event hero data (poster, date, venue) for the header - the e-ticket is always
 // viewed on its own event site, so the active event matches the ticket's event.

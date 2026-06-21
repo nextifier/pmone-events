@@ -19,6 +19,7 @@ const props = defineProps({
 });
 
 const { t, locale } = useI18n();
+const { $dayjs } = useNuxtApp();
 const localePath = useLocalePath();
 const route = useRoute();
 const cart = useTicketCartStore();
@@ -229,9 +230,20 @@ function qtyOf(ticket) {
   return cart.qtyFor(ticket.id, resolveSessionId(ticket), resolveDayId(ticket));
 }
 
+function soldOut(ticket) {
+  return ticket.available != null && ticket.available <= 0;
+}
+
+// A ticket is buyable (so the Add button + day/session pickers make sense) only
+// when it is a first-party ticket whose sale phase is live, with stock left and
+// not gated behind an access code.
+function isBuyable(ticket) {
+  return ticket.purchase_type === "first_party" && ticket.on_sale && !soldOut(ticket) && !isLocked(ticket);
+}
+
 function canAdd(ticket) {
   if (isLocked(ticket)) return false;
-  if (ticket.available != null && ticket.available <= 0) return false;
+  if (soldOut(ticket)) return false;
   const sessions = sessionsFor(ticket);
   if (sessions.length > 1 && !selectedSession[ticket.id]) return false;
   if (requiresDayPick(ticket) && !selectedDay[ticket.id]) return false;
@@ -266,11 +278,35 @@ function dec(ticket) {
   cart.setQty(ticket.id, resolveSessionId(ticket), Math.max(0, next), resolveDayId(ticket));
 }
 
+// Price stays a price: the live phase price when on sale, otherwise a muted
+// preview of the upcoming phase. Status words ("Coming soon"/"Sold out") never
+// appear here - they live on the action button instead.
 function priceLabel(ticket) {
-  if (ticket.on_sale && ticket.price != null) {
-    return ticket.price > 0 ? `Rp${fmtRupiah(ticket.price)}` : t("tickets.free");
+  const price = ticket.on_sale ? ticket.price : ticket.display_price;
+  if (price == null) return "";
+  return price > 0 ? `Rp${fmtRupiah(price)}` : t("tickets.free");
+}
+
+// Status label that replaces the Add button when a ticket can't be bought now.
+// "Sold out" and "Sales ended" (closed) are distinct from "Coming soon" (an
+// upcoming sale phase).
+function unavailableLabel(ticket) {
+  if (soldOut(ticket)) return t("tickets.soldOut");
+  if (ticket.sales_status === "upcoming") return t("tickets.comingSoon");
+  return t("tickets.salesEnded");
+}
+
+function onUnavailableClick(ticket) {
+  if (soldOut(ticket)) {
+    toast.error(t("tickets.soldOutToast"));
+    return;
   }
-  return ticket.phase_label || t("tickets.comingSoon");
+  if (ticket.sales_status === "upcoming") {
+    const when = ticket.sales_starts_at ? $dayjs(ticket.sales_starts_at).format("MMMM D, YYYY") : null;
+    toast.info(when ? t("tickets.comingSoonToastDated", { date: when }) : t("tickets.comingSoonToast"));
+    return;
+  }
+  toast.info(t("tickets.salesEndedToast"));
 }
 
 // Countdown label adapts to the sale phase: a named promo phase reads
@@ -503,7 +539,7 @@ function goToCheckout() {
                    chooses one. Switching the day starts a fresh cart line.
                    <=4 days use pill toggles; more use a date picker locked to
                    the valid days. -->
-              <div v-if="requiresDayPick(ticket)" class="mt-4 space-y-2">
+              <div v-if="requiresDayPick(ticket) && isBuyable(ticket)" class="mt-4 space-y-2">
                 <p class="text-muted-foreground text-xs font-medium tracking-tight sm:text-sm">
                   {{ t("tickets.chooseDay") }}
                 </p>
@@ -539,7 +575,10 @@ function goToCheckout() {
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
                 <div class="flex flex-col">
-                  <span class="text-primary text-base font-semibold tracking-tighter">
+                  <span
+                    class="text-base font-semibold tracking-tighter"
+                    :class="ticket.on_sale ? 'text-primary' : 'text-muted-foreground'"
+                  >
                     {{ priceLabel(ticket) }}
                   </span>
                 </div>
@@ -563,8 +602,8 @@ function goToCheckout() {
                     <a :href="ticket.external_url">{{ t("tickets.getTicket") }}</a>
                   </Button>
 
-                  <!-- First-party, on sale -->
-                  <template v-else-if="ticket.purchase_type === 'first_party' && ticket.on_sale">
+                  <!-- First-party, on sale, in stock -->
+                  <template v-else-if="ticket.purchase_type === 'first_party' && ticket.on_sale && !soldOut(ticket)">
                     <div v-if="qtyOf(ticket) > 0" class="flex items-center gap-1.5">
                       <button
                         type="button"
@@ -590,26 +629,23 @@ function goToCheckout() {
                     <Button
                       v-else
                       size="sm"
-                      :disabled="ticket.available != null && ticket.available <= 0"
                       :class="{ 'opacity-60': !canAdd(ticket) }"
                       @click="addToCart(ticket)"
                     >
-                      <Icon
-                        v-if="!(ticket.available != null && ticket.available <= 0)"
-                        name="hugeicons:plus-sign"
-                        class="size-4 shrink-0"
-                      />
-                      {{ ticket.available != null && ticket.available <= 0 ? t("tickets.soldOut") : t("tickets.add") }}
+                      <Icon name="hugeicons:plus-sign" class="size-4 shrink-0" />
+                      {{ t("tickets.add") }}
                     </Button>
                   </template>
 
-                  <!-- Not on sale -->
-                  <span
-                    v-else
-                    class="bg-warning/10 text-warning-foreground rounded-lg px-3 py-2 text-sm font-semibold tracking-tight"
-                  >
-                    {{ t("tickets.comingSoon") }}
-                  </span>
+                  <!-- Unavailable: sold out / coming soon / sales ended. Clickable
+                       so a tap explains why (toast) instead of being a dead control. -->
+                  <Button v-else variant="secondary" size="sm" @click="onUnavailableClick(ticket)">
+                    <Icon
+                      :name="soldOut(ticket) ? 'hugeicons:ticket-02' : ticket.sales_status === 'upcoming' ? 'hugeicons:clock-01' : 'hugeicons:calendar-block-01'"
+                      class="size-4 shrink-0"
+                    />
+                    {{ unavailableLabel(ticket) }}
+                  </Button>
                 </div>
               </div>
             </template>
@@ -737,7 +773,7 @@ function goToCheckout() {
               </div>
 
               <!-- Time-slot picker (add-ons with more than one session) -->
-              <div v-if="sessionsFor(ticket).length > 1" class="mt-4 space-y-2">
+              <div v-if="sessionsFor(ticket).length > 1 && isBuyable(ticket)" class="mt-4 space-y-2">
                 <p class="text-muted-foreground text-xs font-medium tracking-tight sm:text-sm">
                   {{ t("tickets.chooseSession") }}
                 </p>
@@ -754,7 +790,10 @@ function goToCheckout() {
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
                 <div class="flex flex-col">
-                  <span class="text-primary text-base font-semibold tracking-tighter">
+                  <span
+                    class="text-base font-semibold tracking-tighter"
+                    :class="ticket.on_sale ? 'text-primary' : 'text-muted-foreground'"
+                  >
                     {{ priceLabel(ticket) }}
                   </span>
                 </div>
@@ -776,7 +815,7 @@ function goToCheckout() {
                     <a :href="ticket.external_url">{{ t("tickets.getTicket") }}</a>
                   </Button>
 
-                  <template v-else-if="ticket.purchase_type === 'first_party' && ticket.on_sale">
+                  <template v-else-if="ticket.purchase_type === 'first_party' && ticket.on_sale && !soldOut(ticket)">
                     <div v-if="qtyOf(ticket) > 0" class="flex items-center gap-1.5">
                       <button
                         type="button"
@@ -802,25 +841,23 @@ function goToCheckout() {
                     <Button
                       v-else
                       size="sm"
-                      :disabled="ticket.available != null && ticket.available <= 0"
                       :class="{ 'opacity-60': !canAdd(ticket) }"
                       @click="addToCart(ticket)"
                     >
-                      <Icon
-                        v-if="!(ticket.available != null && ticket.available <= 0)"
-                        name="hugeicons:plus-sign"
-                        class="size-4 shrink-0"
-                      />
-                      {{ ticket.available != null && ticket.available <= 0 ? t("tickets.soldOut") : t("tickets.add") }}
+                      <Icon name="hugeicons:plus-sign" class="size-4 shrink-0" />
+                      {{ t("tickets.add") }}
                     </Button>
                   </template>
 
-                  <span
-                    v-else
-                    class="bg-warning/10 text-warning-foreground rounded-lg px-3 py-2 text-sm font-semibold tracking-tight"
-                  >
-                    {{ t("tickets.comingSoon") }}
-                  </span>
+                  <!-- Unavailable: sold out / coming soon / sales ended. Clickable
+                       so a tap explains why (toast) instead of being a dead control. -->
+                  <Button v-else variant="secondary" size="sm" @click="onUnavailableClick(ticket)">
+                    <Icon
+                      :name="soldOut(ticket) ? 'hugeicons:ticket-02' : ticket.sales_status === 'upcoming' ? 'hugeicons:clock-01' : 'hugeicons:calendar-block-01'"
+                      class="size-4 shrink-0"
+                    />
+                    {{ unavailableLabel(ticket) }}
+                  </Button>
                 </div>
               </div>
             </template>

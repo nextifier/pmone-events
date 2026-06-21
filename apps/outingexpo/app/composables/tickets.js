@@ -20,7 +20,7 @@ export const useTicketStore = defineStore("tickets", {
             status: "", // empty string, Coming Soon, Available, Sold out
             disableLink: true,
             button_label: "Get ticket",
-            button_url: "https://panorama.undangin.com/tickets/26289",
+            button_url: "https://panorama.undangin.com/ticket/26289",
             price: "FREE",
             label: "Registration",
             is_vip: false,
@@ -39,7 +39,7 @@ export const useTicketStore = defineStore("tickets", {
             status: "", // empty string, Coming Soon, Available, Sold out
             disableLink: true,
             button_label: "Get ticket",
-            button_url: "https://panorama.undangin.com/tickets/vip/26289",
+            button_url: "https://panorama.undangin.com/ticket/vip/26289",
             price: "Invitation only",
             label: "Registration",
             is_vip: true,

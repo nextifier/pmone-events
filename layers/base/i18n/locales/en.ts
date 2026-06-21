@@ -175,6 +175,11 @@ export default {
     "soldOut": "Sold out",
     "spotsLeft": "{count} spots left",
     "comingSoon": "Coming soon",
+    "salesEnded": "Sales ended",
+    "soldOutToast": "This ticket is sold out.",
+    "comingSoonToast": "Ticket sales haven't started yet.",
+    "comingSoonToastDated": "Tickets go on sale on {date}.",
+    "salesEndedToast": "Ticket sales have ended.",
     "add": "Add",
     "free": "Free",
     "salesStartsIn": "Ticket sales start in",
@@ -224,6 +229,8 @@ export default {
       "totalPaid": "Total paid",
       "total": "Total",
       "downloadETicket": "Download e-ticket",
+      "downloadAllETickets": "Download all e-tickets",
+      "eTicketsLockedNote": "Your e-tickets will be available once your payment is confirmed.",
       "downloadReceipt": "Download receipt",
       "downloadInvoice": "Download invoice",
       "loginToManage": "Log in to manage",
@@ -246,7 +253,8 @@ export default {
       "whatsapp": "WhatsApp",
       "whatsappText": "Here's your e-ticket for {title}: {url}",
       "download": "Download ticket",
-      "downloadError": "Could not download the ticket."
+      "downloadError": "Could not download the ticket.",
+      "locked": "Available after payment"
     },
     "manage": {
       "title": "Manage attendees",
@@ -285,7 +293,9 @@ export default {
       "personalized": "Ticket personalized",
       "saveError": "Could not save. Please try again.",
       "goToDashboard": "Go to dashboard",
-      "dashboardError": "Could not open the dashboard. Please try again."
+      "dashboardError": "Could not open the dashboard. Please try again.",
+      "pendingTitle": "Awaiting payment",
+      "pendingNote": "This ticket will be available once your payment is confirmed."
     }
   }
 };

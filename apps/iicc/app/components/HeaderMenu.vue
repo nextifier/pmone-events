@@ -60,6 +60,7 @@
                       v-scroll-to="getScrollToOptions(link.path)"
                       class="text-primary hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
                       active-class=""
+                      @click="closingViaLink = true"
                       @contextmenu="handleContextMenu($event, link)"
                     >
                       {{ link.label }}
@@ -71,7 +72,7 @@
                       :target="link.path.startsWith('http') ? '_blank' : ''"
                       class="text-primary hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
                       active-class=""
-                      @click="$scrollToTopIfCurrentPageIs(link.path.startsWith('/') ? localePath(link.path) : link.path)"
+                      @click="onLinkActivate(link.path.startsWith('/') ? localePath(link.path) : link.path)"
                       @contextmenu="handleContextMenu($event, link)"
                     >
                       {{ link.label }}
@@ -108,6 +109,7 @@
                         v-scroll-to="getScrollToOptions(link.path)"
                         class="text-primary hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
                         active-class="bg-muted"
+                        @click="closingViaLink = true"
                         @contextmenu="handleContextMenu($event, link)"
                       >
                         {{ link.label }}
@@ -119,7 +121,7 @@
                         :target="link.path.startsWith('http') ? '_blank' : ''"
                         class="text-primary hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
                         active-class="bg-muted"
-                        @click="$scrollToTopIfCurrentPageIs(link.path.startsWith('/') ? localePath(link.path) : link.path)"
+                        @click="onLinkActivate(link.path.startsWith('/') ? localePath(link.path) : link.path)"
                         @contextmenu="handleContextMenu($event, link)"
                       >
                         {{ link.label }}
@@ -148,7 +150,7 @@
             variant="secondary"
             size="lg"
             class="h-full flex-1"
-            @click="isOpen = false"
+            @click="closeViaLink"
           >
             {{ $t("hotels.bookNow") }}
           </Button>
@@ -234,6 +236,7 @@ const handleBuyTicket = () => {
     return;
   }
 
+  closingViaLink.value = true;
   isOpen.value = false;
   const url = appConfig.routes.visitorRegistration.path;
   if (url.startsWith("http")) {
@@ -251,8 +254,22 @@ defineShortcuts({
   },
 });
 
-// Back button/gesture closes the menu instead of navigating away
+// Back button/gesture closes the menu instead of navigating away.
 const pushedHistoryState = ref(false);
+// Set synchronously when a nav link/button is clicked, so the close handler
+// below can tell a navigation apart from a plain dismiss before any async
+// routing runs.
+const closingViaLink = ref(false);
+
+const { $scrollToTopIfCurrentPageIs } = useNuxtApp();
+const onLinkActivate = (path) => {
+  closingViaLink.value = true;
+  $scrollToTopIfCurrentPageIs(path);
+};
+const closeViaLink = () => {
+  closingViaLink.value = true;
+  isOpen.value = false;
+};
 
 const onPopState = () => {
   pushedHistoryState.value = false;
@@ -263,14 +280,18 @@ watch(isOpen, (newVal, oldVal) => {
   if (newVal && !oldVal) {
     window.history.pushState({ headerMenuOpen: true }, "");
     pushedHistoryState.value = true;
+    closingViaLink.value = false;
     window.addEventListener("popstate", onPopState, { once: true });
   } else if (!newVal && oldVal && pushedHistoryState.value) {
     pushedHistoryState.value = false;
     window.removeEventListener("popstate", onPopState);
-    // Only rewind the entry we pushed on open if we're still sitting on it
-    // (a normal dismiss). When a nav link closes the menu it also navigates
-    // and pushes its own entry, so calling back() would undo that navigation.
-    if (window.history.state?.headerMenuOpen) {
+    const viaLink = closingViaLink.value;
+    closingViaLink.value = false;
+    // A nav link closes the menu *and* navigates, pushing its own history
+    // entry, so calling back() would cancel that navigation. Only rewind the
+    // sentinel we pushed on open when the menu is dismissed (button, swipe,
+    // Escape, overlay) without navigating.
+    if (!viaLink) {
       window.history.back();
     }
   }

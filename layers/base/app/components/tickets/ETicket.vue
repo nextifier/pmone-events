@@ -15,6 +15,9 @@ const props = defineProps({
   orderNumber: { type: String, default: "" },
   // When false, hide the share/copy/download actions (e.g. on a summary list).
   showActions: { type: Boolean, default: true },
+  // When true the order is not yet paid: show a locked placeholder instead of
+  // the QR (the backend withholds qr_token until the order is confirmed).
+  locked: { type: Boolean, default: false },
 });
 
 const { t, locale } = useI18n();
@@ -181,6 +184,14 @@ async function downloadTicket() {
         >
           <QRCode v-if="attendee.qr_token" :url="attendee.qr_token" :size="240" />
           <div
+            v-else-if="locked"
+            class="bg-muted/50 text-muted-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
+            role="status"
+          >
+            <Icon name="lucide:lock" class="size-7 shrink-0" />
+            <span class="text-sm tracking-tight text-balance">{{ t("tickets.eticket.locked") }}</span>
+          </div>
+          <div
             v-else
             class="bg-muted flex aspect-square w-full items-center justify-center rounded-xl"
             role="status"
@@ -208,7 +219,7 @@ async function downloadTicket() {
 
       <!-- Perforation + stub (side notches are carved by the SVG/clip path above) -->
       <div
-        v-if="showActions"
+        v-if="showActions && !locked"
         ref="stubEl"
         class="border-border flex flex-col gap-3 border-t border-dashed px-6 pt-4 pb-5 print:hidden"
       >
@@ -217,7 +228,7 @@ async function downloadTicket() {
         </p>
 
         <div class="flex items-center justify-center gap-2">
-          <Button type="button" variant="outline" size="sm" :disabled="downloading" @click="downloadTicket">
+          <Button type="button" variant="outline" size="sm" :disabled="downloading || !attendee.qr_token" @click="downloadTicket">
             <Spinner v-if="downloading" class="size-4" />
             <Icon v-else name="hugeicons:download-01" class="size-4 shrink-0" />
             {{ t("tickets.eticket.download") }}
