@@ -286,6 +286,7 @@ export default {
       bulkApplied: "{count}名分の名前を入力しました。確認して保存してください。",
       copyTicketLink: "チケットリンクをコピー",
       viewETicket: "e-チケットを見る",
+      scanAtEntrance: "入場時にこのQRコードを提示してチェックインしてください。",
       invalidLink: "このリンクは無効か、有効期限が切れています。",
     },
     attendee: {

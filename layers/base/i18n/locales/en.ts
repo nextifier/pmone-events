@@ -276,6 +276,7 @@ export default {
       "bulkApplied": "Filled {count} name(s). Review and save.",
       "copyTicketLink": "Copy ticket link",
       "viewETicket": "View e-ticket",
+      "scanAtEntrance": "Show this QR code at the entrance to check in.",
       "invalidLink": "This link is invalid or has expired."
     },
     "attendee": {

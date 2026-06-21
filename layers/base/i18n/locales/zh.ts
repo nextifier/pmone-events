@@ -281,6 +281,7 @@ export default {
       bulkApplied: "已填写 {count} 个姓名，请检查并保存。",
       copyTicketLink: "复制门票链接",
       viewETicket: "查看电子门票",
+      scanAtEntrance: "在入口处出示此二维码即可签到。",
       invalidLink: "此链接无效或已过期。",
     },
     attendee: {

@@ -283,6 +283,7 @@ export default {
       bulkApplied: "{count}개 이름을 입력했습니다. 확인 후 저장하세요.",
       copyTicketLink: "티켓 링크 복사",
       viewETicket: "e-티켓 보기",
+      scanAtEntrance: "입장 시 이 QR 코드를 보여주고 체크인하세요.",
       invalidLink: "이 링크는 유효하지 않거나 만료되었습니다.",
     },
     attendee: {

@@ -120,6 +120,22 @@
               </span>
             </div>
 
+            <!-- E-ticket QR shown inline so opening the email link lands straight
+                 on a scannable code (no extra "View e-ticket" tap needed). Only a
+                 confirmed order exposes qr_token. -->
+            <div v-if="att.qr_token" class="flex flex-col items-center gap-2">
+              <div
+                class="w-44"
+                role="img"
+                :aria-label="t('tickets.eticket.qrAlt', { name: att.name || att.ticket?.title })"
+              >
+                <QRCode :url="att.qr_token" :size="240" />
+              </div>
+              <p class="text-muted-foreground text-center text-xs tracking-tight text-balance">
+                {{ t("tickets.manage.scanAtEntrance") }}
+              </p>
+            </div>
+
             <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
               <div class="flex-1 space-y-2">
                 <Label :for="`name_${att.ulid}`">{{ t("tickets.manage.attendeeName") }}</Label>

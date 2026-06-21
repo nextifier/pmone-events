@@ -55,7 +55,7 @@ export function buildQRSvgString(
     margin = 0,
     fgColor = "#000000",
     bgColor = "#FFFFFF",
-    styleVariant = "rounded",
+    styleVariant = "square",
   } = options;
 
   const moduleCount = qrData.modules.size;
@@ -147,9 +147,13 @@ export function buildQRSvgString(
 }
 
 export function useQRCodeStyle() {
+  // Key is versioned: the previous default ("rounded") was persisted to the old
+  // key on first visit, so simply changing the default would not reach anyone who
+  // had already loaded the page. Bumping the key resets everyone to the new
+  // "square" default while still letting the toggle persist a deliberate choice.
   const qrStyle = useLocalStorage<QRStyleVariant>(
-    "pmone:qr-code-style",
-    "rounded"
+    "pmone:qr-code-style-v2",
+    "square"
   );
 
   const toggleQrStyle = () => {

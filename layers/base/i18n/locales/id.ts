@@ -284,6 +284,7 @@ export default {
       bulkApplied: "Mengisi {count} nama. Periksa lalu simpan.",
       copyTicketLink: "Salin tautan tiket",
       viewETicket: "Lihat e-tiket",
+      scanAtEntrance: "Tunjukkan QR ini di pintu masuk untuk check-in.",
       invalidLink: "Tautan ini tidak valid atau sudah kedaluwarsa.",
     },
     attendee: {
