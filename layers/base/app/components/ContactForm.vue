@@ -142,6 +142,9 @@
           {{ disclaimerText }}
         </p>
 
+        <!-- Cloudflare Turnstile (renders only when a site key is configured) -->
+        <div v-if="turnstileSiteKey" ref="turnstileWidget" />
+
         <!-- Submit Button -->
         <button
           type="submit"
@@ -279,6 +282,13 @@ const honeypot = reactive({
 });
 const showCustomProductInput = ref(false);
 
+// Cloudflare Turnstile (anti-bot). Active only when a site key is configured;
+// otherwise the widget is not rendered and the form behaves exactly as before.
+const turnstileSiteKey = useRuntimeConfig().public.turnstileSiteKey;
+const turnstileWidget = ref(null);
+const turnstileToken = ref("");
+let turnstileWidgetId = null;
+
 // All available fields definition
 const allFields = computed(() => [
   { name: "name", label: props.nameLabel || t('contact.name'), type: "text", required: true },
@@ -323,6 +333,16 @@ onMounted(() => {
 
   // Generate honeypot timestamp token
   honeypot.tokenTime = generateTimestampToken();
+
+  // Initialize Turnstile widget (no-op when no site key is configured)
+  setupTurnstile();
+});
+
+onBeforeUnmount(() => {
+  if (turnstileWidgetId !== null && window.turnstile) {
+    window.turnstile.remove(turnstileWidgetId);
+    turnstileWidgetId = null;
+  }
 });
 
 // Computed: visible fields (respects prefilledMessage)
@@ -350,6 +370,53 @@ function generateTimestampToken() {
   const random1 = Math.random().toString(36).substring(2, 10);
   const random2 = Math.random().toString(36).substring(2, 10);
   return btoa(`${random1}_${timestamp}_${random2}`);
+}
+
+function renderTurnstile() {
+  if (!turnstileSiteKey || !window.turnstile || !turnstileWidget.value) return;
+  if (turnstileWidgetId !== null) return;
+  turnstileWidgetId = window.turnstile.render(turnstileWidget.value, {
+    sitekey: turnstileSiteKey,
+    appearance: "interaction-only", // invisible unless a challenge is needed
+    theme: "auto",
+    callback: (token) => {
+      turnstileToken.value = token;
+    },
+    "error-callback": () => {
+      turnstileToken.value = "";
+    },
+    "expired-callback": () => {
+      turnstileToken.value = "";
+    },
+  });
+}
+
+function setupTurnstile() {
+  if (!turnstileSiteKey || typeof window === "undefined") return;
+  if (window.turnstile) {
+    renderTurnstile();
+    return;
+  }
+  const src =
+    "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+  const existing = document.querySelector(`script[src="${src}"]`);
+  if (existing) {
+    existing.addEventListener("load", renderTurnstile);
+    return;
+  }
+  const script = document.createElement("script");
+  script.src = src;
+  script.async = true;
+  script.defer = true;
+  script.addEventListener("load", renderTurnstile);
+  document.head.appendChild(script);
+}
+
+function resetTurnstile() {
+  turnstileToken.value = "";
+  if (turnstileWidgetId !== null && window.turnstile) {
+    window.turnstile.reset(turnstileWidgetId);
+  }
 }
 
 function buildFormData() {
@@ -380,9 +447,16 @@ function resetForm() {
   honeypot.website = "";
   honeypot.tokenTime = generateTimestampToken();
   showCustomProductInput.value = false;
+  resetTurnstile();
 }
 
 async function handleSubmit() {
+  // Block submission until Turnstile issues a token (only when enabled)
+  if (turnstileSiteKey && !turnstileToken.value) {
+    toast.error(t("contact.errorSend"));
+    return;
+  }
+
   isLoading.value = true;
   emit("submit", formState);
 
@@ -399,6 +473,8 @@ async function handleSubmit() {
         // Honeypot fields
         website: honeypot.website,
         _token_time: honeypot.tokenTime,
+        // Cloudflare Turnstile token (empty string when captcha is disabled)
+        cf_turnstile_response: turnstileToken.value,
       },
     });
 
@@ -414,6 +490,7 @@ async function handleSubmit() {
       toast.error(
         result.message || t('contact.errorSend'),
       );
+      resetTurnstile();
       emit("error", result);
     }
   } catch (error) {
@@ -421,6 +498,7 @@ async function handleSubmit() {
     const message =
       error?.data?.message || t('contact.errorNetwork');
     toast.error(message);
+    resetTurnstile();
     emit("error", error);
   } finally {
     isLoading.value = false;

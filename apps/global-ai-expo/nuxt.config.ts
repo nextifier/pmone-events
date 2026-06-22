@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     public: {
       siteUrl: "https://global-ai-expo.pages.dev",
       blogUsernames: "globalaiexpo",
+      turnstileSiteKey: "0x4AAAAAADpOkX83QOOwxmmc",
     },
   },
 

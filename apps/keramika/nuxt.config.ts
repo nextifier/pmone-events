@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     public: {
       siteUrl: "https://keramika.co.id",
       blogUsernames: "keramika.blog",
+      turnstileSiteKey: "0x4AAAAAADpOkX83QOOwxmmc",
     },
   },
 

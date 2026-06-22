@@ -14,6 +14,40 @@ export default defineEventHandler(async (event) => {
 
   const userAgent = getRequestHeader(event, "user-agent") || "";
 
+  // Cloudflare Turnstile: verify the human-challenge token at the edge before
+  // proxying to PM One. Skipped entirely when no secret is configured, so the
+  // form keeps working until the Turnstile keys are set in the environment.
+  const turnstileSecret = config.turnstileSecret as string;
+  if (turnstileSecret) {
+    const token = body.cf_turnstile_response;
+
+    if (!token) {
+      throw createError({
+        statusCode: 400,
+        message: "Security verification required. Please try again.",
+      });
+    }
+
+    const verify = await $fetch<{ success: boolean }>(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        body: {
+          secret: turnstileSecret,
+          response: token,
+          ...(clientIp ? { remoteip: clientIp } : {}),
+        },
+      },
+    );
+
+    if (!verify?.success) {
+      throw createError({
+        statusCode: 403,
+        message: "Security verification failed. Please try again.",
+      });
+    }
+  }
+
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 

@@ -15,6 +15,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     pmOneApiKey: process.env.NUXT_PM_ONE_API_KEY || "",
     tiktokAccessTokens: process.env.NUXT_TIKTOK_ACCESS_TOKENS || "",
+    // Cloudflare Turnstile secret (server-side siteverify). When empty, the
+    // contact form skips captcha verification entirely (safe to deploy first).
+    turnstileSecret: process.env.NUXT_TURNSTILE_SECRET || "",
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
@@ -23,6 +26,9 @@ export default defineNuxtConfig({
           ? "https://api.pmone.id"
           : "http://localhost:8000",
       blogUsernames: "",
+      // Cloudflare Turnstile site key (public). When empty, the widget is not
+      // rendered and the form behaves exactly as before.
+      turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || "",
     },
   },
 
