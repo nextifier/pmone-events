@@ -1,20 +1,13 @@
 <script setup>
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { Textarea } from "../../components/ui/textarea";
 import { Checkbox } from "../../components/ui/checkbox";
 import { Label } from "../../components/ui/label";
 import { InputErrorMessage } from "../../components/ui/input-error-message";
 import { InputPhone } from "../../components/ui/input-phone";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../components/ui/select";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import DialogResponsive from "../../components/ui/dialog-responsive/DialogResponsive.vue";
+import CustomFieldRenderer from "../../components/CustomFieldRenderer.vue";
 import TicketCartSummary from "../../components/tickets/TicketCartSummary.vue";
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { computed, onMounted, ref, watch } from "vue";
@@ -112,6 +105,7 @@ const customFields = ref([]);
 const customFieldsLoading = ref(false);
 const customFieldsLoaded = ref(false);
 const bmResponses = ref({});
+const bmErrors = ref({});
 
 // Pre-fill the buyer's contact details on reload, mirroring how the cart already
 // persists to localStorage. We deliberately do NOT persist the T&C consent (it
@@ -225,6 +219,32 @@ const canSubmit = computed(() => {
   );
 });
 
+// A business-matching answer counts as empty when it's null/blank, an empty
+// multi-value array, an unticked boolean, or a cleared date range.
+function isBmAnswerEmpty(field, value) {
+  if (value === null || value === undefined || value === "") return true;
+  if (Array.isArray(value)) return value.length === 0;
+  if (field.type === "checkbox" || field.type === "switch") return !value;
+  if (field.type === "date_range") return !value.start || !value.end;
+  return false;
+}
+
+// Block submit when a required BM field is unanswered (mirrors the server-side
+// enforcement). Returns true when everything required is filled.
+function validateBusinessMatching() {
+  bmErrors.value = {};
+  if (!hasCustomFields.value || !businessMatching.value) return true;
+  let ok = true;
+  for (const field of customFields.value) {
+    if (!field.required) continue;
+    if (isBmAnswerEmpty(field, bmResponses.value[field.id])) {
+      bmErrors.value[field.id] = t("tickets.fieldRequired");
+      ok = false;
+    }
+  }
+  return ok;
+}
+
 function buildBusinessMatchingPayload() {
   // No section rendered (no fields) or opted out => not opting in.
   if (!hasCustomFields.value || !businessMatching.value) {
@@ -248,6 +268,10 @@ const summaryRef = ref(null);
 
 async function submit() {
   if (!canSubmit.value) return;
+  if (!validateBusinessMatching()) {
+    toast.error(t("tickets.fieldRequired"));
+    return;
+  }
   submitting.value = true;
   errors.value = {};
 
@@ -408,92 +432,15 @@ const termsOpen = ref(false);
                 {{ t("tickets.loadingQuestions") }}
               </div>
 
-              <div
+              <CustomFieldRenderer
                 v-for="field in customFields"
                 v-else
                 :key="field.id"
-                class="space-y-2"
-              >
-                <Label :for="`bm_${field.id}`">
-                  {{ field.label }}
-                  <span v-if="field.required" class="text-destructive">*</span>
-                </Label>
-
-                <!-- Select / dropdown -->
-                <Select
-                  v-if="field.type === 'select' || field.type === 'country'"
-                  :model-value="bmResponses[field.id] ?? ''"
-                  @update:model-value="(v) => (bmResponses[field.id] = v)"
-                >
-                  <SelectTrigger :id="`bm_${field.id}`" class="w-full">
-                    <SelectValue :placeholder="t('tickets.selectOption')" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem
-                      v-for="opt in field.options"
-                      :key="String(opt?.value ?? opt)"
-                      :value="String(opt?.value ?? opt)"
-                    >
-                      {{ opt?.label ?? opt }}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <!-- Radio -->
-                <RadioGroup
-                  v-else-if="field.type === 'radio'"
-                  :model-value="bmResponses[field.id] ?? ''"
-                  class="space-y-1.5"
-                  @update:model-value="(v) => (bmResponses[field.id] = v)"
-                >
-                  <label
-                    v-for="opt in field.options"
-                    :key="String(opt?.value ?? opt)"
-                    class="flex items-center gap-2 text-sm tracking-tight"
-                  >
-                    <RadioGroupItem :value="String(opt?.value ?? opt)" />
-                    {{ opt?.label ?? opt }}
-                  </label>
-                </RadioGroup>
-
-                <!-- Single checkbox (boolean) -->
-                <label
-                  v-else-if="field.type === 'checkbox' || field.type === 'switch'"
-                  class="flex items-start gap-2 text-sm tracking-tight"
-                >
-                  <Checkbox
-                    :model-value="!!bmResponses[field.id]"
-                    @update:model-value="(v) => (bmResponses[field.id] = !!v)"
-                  />
-                  <span>{{ field.label }}</span>
-                </label>
-
-                <!-- Textarea -->
-                <Textarea
-                  v-else-if="field.type === 'textarea' || field.type === 'rich_text'"
-                  :id="`bm_${field.id}`"
-                  :model-value="bmResponses[field.id] ?? ''"
-                  rows="3"
-                  @update:model-value="(v) => (bmResponses[field.id] = v)"
-                />
-
-                <!-- Default: text / email / number / phone / url / date -->
-                <Input
-                  v-else
-                  :id="`bm_${field.id}`"
-                  :model-value="bmResponses[field.id] ?? ''"
-                  :type="
-                    field.type === 'email'
-                      ? 'email'
-                      : field.type === 'number'
-                        ? 'number'
-                        : field.type === 'url'
-                          ? 'url'
-                          : 'text'
-                  "
-                  @update:model-value="(v) => (bmResponses[field.id] = v)"
-                />
-              </div>
+                :field="field"
+                :model-value="bmResponses[field.id]"
+                :error="bmErrors[field.id]"
+                @update:model-value="(v) => (bmResponses[field.id] = v)"
+              />
             </div>
           </div>
         </section>

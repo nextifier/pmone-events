@@ -202,6 +202,7 @@ export default {
     selectDayFirst: "Pilih hari terlebih dahulu.",
     selectSessionFirst: "Pilih sesi terlebih dahulu.",
     selectOption: "Pilih opsi",
+    fieldRequired: "Bidang ini wajib diisi.",
     entryTitle: "Tiket Masuk",
     entrySubtitle: "Tiket masuk diperlukan untuk mengakses {event}.",
     addOnTitle: "Add-on",

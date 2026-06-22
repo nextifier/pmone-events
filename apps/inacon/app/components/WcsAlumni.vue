@@ -58,15 +58,11 @@
                 >{{ item.names }}</span
               >
 
-              <div
-                class="mt-4 aspect-[1620/1080] w-full overflow-hidden rounded-lg bg-gray-100 lg:hidden dark:bg-gray-900"
-              >
+              <div class="mt-4 w-full overflow-hidden lg:hidden">
                 <NuxtImg
                   :src="item.img"
                   :alt="item.title"
-                  class="h-full w-full object-cover"
-                  width="1620"
-                  height="1080"
+                  class="w-full rounded-lg object-contain"
                   loading="lazy"
                   format="webp"
                 />
@@ -104,14 +100,12 @@
             </div>
 
             <div
-              class="hidden aspect-[1620/1080] w-full overflow-hidden rounded-lg bg-gray-100 lg:order-first lg:block dark:bg-gray-900"
+              class="hidden h-auto w-full overflow-hidden lg:order-first lg:block"
             >
               <NuxtImg
                 :src="item.img"
                 :alt="item.title"
-                class="h-full w-full object-cover"
-                width="1620"
-                height="1080"
+                class="w-full rounded-lg object-contain"
                 loading="lazy"
                 format="webp"
               />
@@ -360,7 +354,7 @@ const items = [
   {
     title: "World Cosplay Summit 2025",
     names: "Camellia Zahra & Kagami Yuuto",
-    img: "/img/wcs/wcs-2025.jpg",
+    img: "/img/wcs/Camelia-Zahra-and-Kagami-Yuuto.jpg",
     body: `
       <p>From the heart of Central Java, Camellia Zahra and Kagami Yuuto rose to victory, claiming First Place in the Indonesia Cosplay Grand Prix finals and earning the honor of representing Indonesia at the World Cosplay Summit.</p>
       <p>Their electrifying performance brought the world of Jujutsu Kaisen to life, leaving the audience breathless with its intensity. Camellia Zahra embodied the fierce determination of Maki Zenin, while Kagami Yuuto captured the cunning presence of Naoya Zenin. Together, they delivered a spectacle of weapon-based combat and striking character design that resonated deeply with fans.</p>

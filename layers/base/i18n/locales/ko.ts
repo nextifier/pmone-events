@@ -201,6 +201,7 @@ export default {
     selectDayFirst: "먼저 날짜를 선택하세요.",
     selectSessionFirst: "먼저 세션을 선택하세요.",
     selectOption: "옵션 선택",
+    fieldRequired: "필수 입력 항목입니다.",
     entryTitle: "입장 티켓",
     entrySubtitle: "{event} 입장을 위해 입장 티켓이 필요합니다.",
     addOnTitle: "부가 상품",

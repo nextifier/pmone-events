@@ -53,14 +53,14 @@
                 {{ $t("hero.ctaTicket") }}
               </Button>
 
-              <!-- <Button
+              <Button
                 v-ripple
                 variant="secondary"
                 size="lg"
                 :to="localePath('/book-space')"
               >
                 {{ $t("hero.ctaExhibit") }}
-              </Button> -->
+              </Button>
             </div>
           </div>
         </div>

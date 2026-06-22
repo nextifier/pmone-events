@@ -199,6 +199,7 @@ export default {
     selectDayFirst: "请先选择日期。",
     selectSessionFirst: "请先选择场次。",
     selectOption: "选择选项",
+    fieldRequired: "此字段为必填项。",
     entryTitle: "入场门票",
     entrySubtitle: "进入{event}需要入场门票。",
     addOnTitle: "附加项目",

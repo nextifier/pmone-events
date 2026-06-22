@@ -204,6 +204,7 @@ export default {
     selectDayFirst: "先に日付を選択してください。",
     selectSessionFirst: "先にセッションを選択してください。",
     selectOption: "オプションを選択",
+    fieldRequired: "この項目は必須です。",
     entryTitle: "入場チケット",
     entrySubtitle: "{event}への入場には入場チケットが必要です。",
     addOnTitle: "アドオン",

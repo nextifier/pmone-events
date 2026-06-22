@@ -194,6 +194,7 @@ export default {
     "selectDayFirst": "Please choose a day first.",
     "selectSessionFirst": "Please choose a session first.",
     "selectOption": "Select an option",
+    "fieldRequired": "This field is required.",
     "entryTitle": "Entry Tickets",
     "entrySubtitle": "An entry ticket is required to access {event}.",
     "addOnTitle": "Add-ons",
