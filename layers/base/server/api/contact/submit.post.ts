@@ -2,6 +2,18 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const body = await readBody(event);
 
+  // Forward the real visitor IP + user-agent to PM One. This route runs at the
+  // Cloudflare edge, so the actual client is in `cf-connecting-ip`; without
+  // forwarding it, PM One only ever sees this worker's egress IP, which breaks
+  // abuse forensics and per-IP throttling (every visitor would share one IP).
+  const clientIp =
+    getRequestHeader(event, "cf-connecting-ip") ||
+    getRequestHeader(event, "x-forwarded-for")?.split(",")[0]?.trim() ||
+    getRequestHeader(event, "x-real-ip") ||
+    "";
+
+  const userAgent = getRequestHeader(event, "user-agent") || "";
+
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
@@ -14,6 +26,8 @@ export default defineEventHandler(async (event) => {
           "X-API-Key": config.pmOneApiKey, // Private - not exposed to browser
           "Content-Type": "application/json",
           Accept: "application/json",
+          ...(clientIp ? { "X-Forwarded-For": clientIp } : {}),
+          ...(userAgent ? { "User-Agent": userAgent } : {}),
         },
         body: {
           project_username: body.project_username,
