@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://morefoodexpo.com",
+      turnstileSiteKey: "0x4AAAAAADpOkX83QOOwxmmc",
       blogUsernames: "morefood.blog",
     },
   },

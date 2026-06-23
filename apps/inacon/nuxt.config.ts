@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://indonesiaanimecon.com",
+      turnstileSiteKey: "0x4AAAAAADpOqQtuQn6UfF_P",
       blogUsernames: "inacon.blog",
     },
   },

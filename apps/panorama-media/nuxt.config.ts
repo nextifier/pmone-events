@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://panoramamedia.co.id",
+      turnstileSiteKey: "0x4AAAAAADpOqQtuQn6UfF_P",
       blogUsernames: "", // Empty string means show all posts (no author filter)
     },
   },

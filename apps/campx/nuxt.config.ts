@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://campx.id",
+      turnstileSiteKey: "0x4AAAAAADpOkX83QOOwxmmc",
       blogUsernames: "campx.blog",
     },
   },

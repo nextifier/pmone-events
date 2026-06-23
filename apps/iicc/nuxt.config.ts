@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://iicc.askindo.id",
+      turnstileSiteKey: "0x4AAAAAADpOqQtuQn6UfF_P",
     },
   },
 
