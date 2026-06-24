@@ -1,6 +1,8 @@
 <template>
   <div class="sm:container-wider">
     <div v-if="items.length" class="gallery-container">
+      <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mb-4" />
+
       <Lightbox :items="items" alt="Gallery" thumbnail-key="sm" full-key="xl">
         <template #trigger="{ openAt }">
           <!-- Grid (left-to-right): each tile is cropped to the event's chosen
@@ -45,4 +47,10 @@ const items = computed(() => galleryData.value?.data ?? []);
 const aspectRatio = computed(() =>
   (galleryData.value?.meta?.aspect_ratio || "1:1").replace(":", " / ")
 );
+
+// Source edition when the photos were borrowed from a previous event.
+const fallbackSource = computed(() => {
+  const fb = galleryData.value?.meta?.fallback;
+  return fb?.is_fallback ? fb.source_event : null;
+});
 </script>

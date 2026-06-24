@@ -55,6 +55,7 @@ export default defineEventHandler(async (event) => {
 
     // Map PM One's shape to the shape the Credits component expects (mirrors the old
     // local partners.js store): { category, noContainer, list: [{ img, link, name }] }.
+    // Forward `meta` so the "previous edition" fallback notice keeps its source.
     return {
       data: (res?.data ?? []).map((c) => ({
         category: c.category,
@@ -65,6 +66,7 @@ export default defineEventHandler(async (event) => {
           name: p.name || "",
         })),
       })),
+      meta: (res as { meta?: unknown })?.meta ?? null,
     };
   } catch (error: any) {
     if (error.name === "AbortError") {

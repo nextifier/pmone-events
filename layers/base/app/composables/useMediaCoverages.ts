@@ -4,8 +4,16 @@ export type MediaCoverage = {
   created_at?: string | null;
 };
 
+export type FallbackSource = {
+  title?: string;
+  edition_number?: number | null;
+  edition_label?: string | null;
+  slug?: string;
+};
+
 type MediaCoverageResponse = {
   data: MediaCoverage[];
+  meta?: { fallback?: { is_fallback: boolean; source_event: FallbackSource | null } };
 };
 
 /**

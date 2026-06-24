@@ -25,9 +25,20 @@ export type Guest = {
   links?: Array<{ label: string; url: string }>;
 };
 
+export type FallbackSource = {
+  title?: string;
+  edition_number?: number | null;
+  edition_label?: string | null;
+  slug?: string;
+};
+
 type GuestListResponse = {
   data: Guest[];
-  meta: { count: number; featured_count: number };
+  meta: {
+    count: number;
+    featured_count: number;
+    fallback?: { is_fallback: boolean; source_event: FallbackSource | null };
+  };
 };
 
 type GuestDetailResponse = {

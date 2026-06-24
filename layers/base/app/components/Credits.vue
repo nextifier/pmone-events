@@ -5,6 +5,8 @@
       {{ content.description }}
     </p>
 
+    <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-6" />
+
     <div class="mt-10 flex w-full flex-wrap gap-x-2 gap-y-8">
       <div
         v-for="(partner, index) in partners"
@@ -88,4 +90,11 @@ const { data: partnersData } = await useFetch("/api/event/partners", {
   default: () => ({ data: [] }),
 });
 const partners = computed(() => partnersData.value?.data ?? []);
+
+// When the active event has no partners, PM One borrows a previous edition and
+// flags it via meta.fallback so we can show a "from a previous edition" notice.
+const fallbackSource = computed(() => {
+  const fb = partnersData.value?.meta?.fallback;
+  return fb?.is_fallback ? fb.source_event : null;
+});
 </script>

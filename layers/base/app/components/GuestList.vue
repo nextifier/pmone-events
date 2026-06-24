@@ -8,6 +8,7 @@
       >
         {{ pageDescription }}
       </p>
+      <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
     </div>
 
     <!-- Loading skeleton -->
@@ -84,4 +85,10 @@ const pageDescription = computed(() => {
 
 const featured = computed(() => (data.value?.data ?? []).filter((g) => g.is_featured));
 const nonFeatured = computed(() => (data.value?.data ?? []).filter((g) => !g.is_featured));
+
+// Source edition when guests were borrowed from a previous event.
+const fallbackSource = computed(() => {
+  const fb = data.value?.meta?.fallback;
+  return fb?.is_fallback ? fb.source_event : null;
+});
 </script>

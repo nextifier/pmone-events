@@ -6,6 +6,8 @@
       <p class="mt-3 text-base tracking-tight text-pretty sm:text-lg">
         {{ content.description }}
       </p>
+
+      <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-6 mr-auto" />
     </div>
     <Carousel
       v-if="news?.length"
@@ -74,4 +76,10 @@ const localePath = useLocalePath();
 const { data: mediaCoverageData } = await useMediaCoverages();
 const news = computed(() => mediaCoverageData.value?.data ?? []);
 const content = computed(() => useContentStore().components.mediaCoverage);
+
+// Source edition when the press items were borrowed from a previous event.
+const fallbackSource = computed(() => {
+  const fb = mediaCoverageData.value?.meta?.fallback;
+  return fb?.is_fallback ? fb.source_event : null;
+});
 </script>

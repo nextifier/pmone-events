@@ -23,13 +23,23 @@ interface BrandPreviewItem {
   score?: number;
 }
 
+interface FallbackSource {
+  title?: string;
+  edition_number?: number | null;
+  edition_label?: string | null;
+  slug?: string;
+}
+
+interface BrandPreviewResponse {
+  data?: BrandPreviewItem[];
+  meta?: { fallback?: { is_fallback: boolean; source_event: FallbackSource | null } };
+}
+
 export function useBrandPreview() {
-  const { data, pending } = useLazyAsyncData<{
-    data?: BrandPreviewItem[];
-  } | null>(
+  const { data, pending } = useLazyAsyncData<BrandPreviewResponse | null>(
     "brand-preview",
     () =>
-      $fetch<{ data?: BrandPreviewItem[] }>("/api/exhibitors", {
+      $fetch<BrandPreviewResponse>("/api/exhibitors", {
         query: { per_page: 200, fallback: 1 },
       }).catch(() => null),
     { server: false },
@@ -49,5 +59,12 @@ export function useBrandPreview() {
       .slice(0, PREVIEW_MAX);
   });
 
-  return { data, pending, brandsWithLogo };
+  // Source edition when the active event has no brands and the API borrowed a
+  // previous edition (drives the "from a previous edition" notice).
+  const fallbackSource = computed<FallbackSource | null>(() => {
+    const fb = data.value?.meta?.fallback;
+    return fb?.is_fallback ? (fb.source_event ?? null) : null;
+  });
+
+  return { data, pending, brandsWithLogo, fallbackSource };
 }

@@ -14,6 +14,8 @@
         <p class="section-description mt-4">
           {{ content.description }}
         </p>
+
+        <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-6" />
       </div>
     </div>
 
@@ -49,4 +51,10 @@ const { data: programsData } = await useFetch("/api/event/programs", {
 });
 
 const list = computed(() => programsData.value?.data ?? []);
+
+// Source edition when the programs were borrowed from a previous event.
+const fallbackSource = computed(() => {
+  const fb = programsData.value?.meta?.fallback;
+  return fb?.is_fallback ? fb.source_event : null;
+});
 </script>

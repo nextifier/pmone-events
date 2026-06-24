@@ -1,4 +1,7 @@
 export default {
+  fallbackNotice: {
+    label: "显示往届数据",
+  },
   header: {
     lightDarkMode: "浅色 / 深色模式",
   },

@@ -2,6 +2,7 @@
   <section id="brand-preview" class="container mx-auto">
     <div class="flex flex-col items-center text-center">
       <h2 class="section-title">{{ content.title }}</h2>
+      <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
     </div>
 
     <!-- Grid wrapper: full-bleed di mobile (sama seperti /brands), contained + rounded di sm+ -->
@@ -103,7 +104,7 @@ const content = computed(() => contentStore.components.brandPreview);
 
 // Brands (with the previous-edition fallback) come from a shared composable so
 // the data is fetched once and reused by useBrandPreviewVisibility.
-const { pending, brandsWithLogo } = useBrandPreview();
+const { pending, brandsWithLogo, fallbackSource } = useBrandPreview();
 
 // Kolom dikontrol manual (auto-fit GridFill dimatikan) supaya grid SELALU
 // penuh: jumlah brand = kelipatan kolom, tanpa filler/cell kosong.

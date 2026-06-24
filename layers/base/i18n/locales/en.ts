@@ -1,4 +1,7 @@
 export default {
+  "fallbackNotice": {
+    "label": "Showing data from a previous edition",
+  },
   "header": {
     "lightDarkMode": "Light / Dark Mode",
   },
