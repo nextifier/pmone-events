@@ -8,10 +8,9 @@ import TicketSlotPicker from "./TicketSlotPicker.vue";
 import TicketStub from "./TicketStub.vue";
 import TicketListSkeleton from "./TicketListSkeleton.vue";
 import { Input } from "../ui/input";
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from "../ui/empty";
 import { toast } from "vue-sonner";
-import { LazyTickets as StaticTickets } from "#components";
 import { useTicketCartStore } from "../../stores/ticketCart";
-import { useTicketStore } from "../../composables/tickets";
 import { computed, onMounted, reactive, ref } from "vue";
 
 const props = defineProps({
@@ -23,15 +22,13 @@ const { $dayjs } = useNuxtApp();
 const localePath = useLocalePath();
 const route = useRoute();
 const cart = useTicketCartStore();
-const staticStore = useTicketStore();
 const event = useEvent();
 const accessCodeErrors = useAccessCodeErrors();
 
-// Dynamic tickets from PM One. A 404 (TICKETS_DISABLED) or an empty list means
-// this event hasn't been migrated to the dynamic flow yet — render the existing
-// static `<Tickets>` so the 15 not-yet-migrated apps keep working unchanged.
-// The locale is forwarded so ticket copy + meta.terms come back localized.
-const { data, pending, error } = await useFetch(
+// Tickets always come from PM One; there is no static fallback. The locale is
+// forwarded so ticket copy + meta.terms come back localized. On failure we show
+// a clear error/empty state rather than fabricating ticket data.
+const { data, pending, error, refresh } = await useFetch(
   () => `/api/tickets/${props.eventSlug}`,
   {
     key: () => `tickets-${props.eventSlug}-${locale.value}`,
@@ -43,10 +40,15 @@ const { data, pending, error } = await useFetch(
 
 const tickets = computed(() => data.value?.data ?? []);
 
-const useDynamic = computed(() => {
-  if (pending.value) return true; // assume dynamic until we know
-  if (error.value) return false; // 404 / failure -> static fallback
-  return tickets.value.length > 0 || revealedTickets.value.length > 0;
+// A 404 with this code means the organizer has not enabled ticketing yet, shown
+// as a calm "coming soon" rather than a real (retryable) load failure. The Nitro
+// adapter may surface the PM One body either directly or nested under `data`.
+const ticketsDisabled = computed(() => {
+  const body = error.value?.data;
+  return (
+    body?.error_code === "TICKETS_DISABLED" ||
+    body?.data?.error_code === "TICKETS_DISABLED"
+  );
 });
 
 // Tickets revealed by a valid access code (may include `hidden` ones absent from
@@ -343,11 +345,38 @@ function goToCheckout() {
 </script>
 
 <template>
-  <!-- Static fallback for not-yet-migrated events -->
-  <StaticTickets v-if="!useDynamic && !pending" :tickets="staticStore.categories" />
-
   <!-- Loading: a skeleton shaped like the real ticket cards -->
-  <TicketListSkeleton v-else-if="pending" />
+  <TicketListSkeleton v-if="pending" />
+
+  <!-- Load failure or ticketing not enabled. We never fabricate ticket data:
+       a real failure is retryable, a disabled event reads as "coming soon". -->
+  <div v-else-if="error" class="container">
+    <Empty class="border-border bg-muted/30 mx-auto max-w-md border">
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <Icon
+            :name="ticketsDisabled ? 'hugeicons:ticket-01' : 'hugeicons:alert-02'"
+            :class="ticketsDisabled ? 'text-muted-foreground' : 'text-destructive'"
+          />
+        </EmptyMedia>
+        <EmptyTitle>
+          {{ ticketsDisabled ? t("tickets.unavailableTitle") : t("tickets.loadErrorTitle") }}
+        </EmptyTitle>
+        <EmptyDescription>
+          {{ ticketsDisabled ? t("tickets.unavailableDescription") : t("tickets.loadErrorDescription") }}
+        </EmptyDescription>
+      </EmptyHeader>
+      <Button
+        v-if="!ticketsDisabled"
+        variant="outline"
+        :disabled="pending"
+        @click="refresh()"
+      >
+        <Icon v-if="pending" name="svg-spinners:180-ring" class="size-4" />
+        {{ t("tickets.loadErrorRetry") }}
+      </Button>
+    </Empty>
+  </div>
 
   <!-- Dynamic tickets -->
   <div v-else class="container">
@@ -406,14 +435,19 @@ function goToCheckout() {
       </div>
     </div>
 
-    <!-- Empty state: dynamic flow is active but no entry/add-on tickets returned -->
-    <div
+    <!-- Empty: the listing loaded fine but there are no tickets yet -->
+    <Empty
       v-if="!entryTickets.length && !addOnTickets.length"
-      class="border-border bg-muted/30 text-muted-foreground mx-auto flex max-w-md flex-col items-center gap-3 rounded-3xl border border-dashed px-6 py-12 text-center"
+      class="border-border bg-muted/30 mx-auto max-w-md border"
     >
-      <Icon name="hugeicons:ticket-01" class="size-8 shrink-0 opacity-60" />
-      <p class="text-sm tracking-tight text-balance">{{ t("tickets.noTickets") }}</p>
-    </div>
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <Icon name="hugeicons:ticket-01" class="text-muted-foreground" />
+        </EmptyMedia>
+        <EmptyTitle>{{ t("tickets.emptyTitle") }}</EmptyTitle>
+        <EmptyDescription>{{ t("tickets.noTickets") }}</EmptyDescription>
+      </EmptyHeader>
+    </Empty>
 
     <div v-else class="grid grid-cols-1 gap-y-10 lg:gap-y-16">
       <!-- Entry tickets -->
@@ -511,7 +545,7 @@ function goToCheckout() {
                 <Badge v-if="ticket.entrance" icon="hugeicons:square-arrow-right-03">
                   {{ ticket.entrance }}
                 </Badge>
-                <Badge v-if="ticket.tier && !ticket.day_pass && !ticket.entrance" no-indicator>
+                <Badge v-if="ticket.tier && !ticket.day_pass && !ticket.entrance" variant="outline">
                   {{ ticket.tier }}
                 </Badge>
               </div>
@@ -550,6 +584,8 @@ function goToCheckout() {
                   <Toggle
                     v-for="d in daysFor(ticket)"
                     :key="d.id"
+                    variant="pill"
+                    indicator
                     :model-value="selectedDay[ticket.id] === d.id"
                     @update:model-value="
                       () => (selectedDay[ticket.id] = selectedDay[ticket.id] === d.id ? null : d.id)
@@ -748,7 +784,7 @@ function goToCheckout() {
                 <Badge v-if="ticket.entrance" icon="hugeicons:square-arrow-right-03">
                   {{ ticket.entrance }}
                 </Badge>
-                <Badge v-if="ticket.tier && !ticket.day_pass && !ticket.entrance" no-indicator>
+                <Badge v-if="ticket.tier && !ticket.day_pass && !ticket.entrance" variant="outline">
                   {{ ticket.tier }}
                 </Badge>
               </div>

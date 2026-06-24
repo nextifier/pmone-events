@@ -252,9 +252,9 @@ import {
   LazyAboutEvent as AboutEvent,
   LazyGallery,
 } from "#components";
-// Dynamic ticket list (consumes PM One's public ticket API). It internally
-// falls back to the static `<Tickets>` when the event isn't migrated yet, so
-// every event app keeps working unchanged.
+// Ticket list, sourced entirely from PM One's public ticket API. There is no
+// static fallback: on failure or when ticketing is disabled it shows a clear
+// error/empty state instead of fabricated ticket data.
 import TicketList from "../../components/tickets/TicketList.vue";
 
 // Ticket tabs visibility now comes from PM One (website settings).

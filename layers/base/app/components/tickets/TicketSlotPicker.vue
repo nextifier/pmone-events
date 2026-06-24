@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue";
-import { Icon } from "#components";
 import { Toggle } from "../ui/toggle";
 
 const props = defineProps({
@@ -71,27 +70,25 @@ function pick(session) {
       v-for="s in sessions"
       :key="s.id"
       variant="card"
+      indicator
       :model-value="modelValue === s.id"
       :disabled="isSoldOut(s)"
-      class="relative flex flex-col items-start gap-0.5 p-3 pr-8 text-left"
+      class="flex flex-row items-center gap-3 p-3 text-left"
       @update:model-value="() => pick(s)"
     >
-      <span class="text-primary text-sm font-medium tracking-tight">{{ timeRange(s) }}</span>
-      <span v-if="metaLine(s)" class="text-muted-foreground text-xs tracking-tight">
-        {{ metaLine(s) }}
+      <span class="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span class="text-primary text-sm font-medium tracking-tight">{{ timeRange(s) }}</span>
+        <span v-if="metaLine(s)" class="text-muted-foreground text-xs tracking-tight">
+          {{ metaLine(s) }}
+        </span>
+        <span
+          v-if="availabilityText(s)"
+          class="text-xs tracking-tight"
+          :class="isSoldOut(s) ? 'text-destructive' : 'text-success-foreground'"
+        >
+          {{ availabilityText(s) }}
+        </span>
       </span>
-      <span
-        v-if="availabilityText(s)"
-        class="text-xs tracking-tight"
-        :class="isSoldOut(s) ? 'text-destructive' : 'text-success-foreground'"
-      >
-        {{ availabilityText(s) }}
-      </span>
-      <Icon
-        v-if="modelValue === s.id"
-        name="lucide:check"
-        class="text-primary absolute top-2.5 right-2.5 size-4 shrink-0"
-      />
     </Toggle>
   </div>
 </template>
