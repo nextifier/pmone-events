@@ -22,8 +22,7 @@
           hasActiveFilters ||
           (showRefreshButton && !displayOnly) ||
           (showAddButton && !displayOnly) ||
-          $slots['add-button'] ||
-          $slots.actions
+          $slots['add-button']
         "
         class="space-y-3"
       >
@@ -115,20 +114,17 @@
           </ClientOnly>
         </div>
 
-        <!-- Action Buttons -->
+        <!-- Action Buttons (bulk actions live in the floating pill below) -->
         <div
           v-if="
             hasActiveFilters ||
             (showRefreshButton && !displayOnly) ||
             (showAddButton && !displayOnly) ||
             $slots['add-button'] ||
-            $slots.actions
+            $slots['toolbar-actions']
           "
           class="flex h-8 w-full items-center justify-between gap-1 sm:gap-x-2"
         >
-          <!-- Actions Slot (for bulk actions like delete) -->
-          <slot name="actions" :table="table" :selected-rows="table.getSelectedRowModel().rows" />
-
           <div class="ml-auto flex h-full gap-x-1 sm:gap-x-2">
             <!-- Clear Filters Button -->
             <Button
@@ -140,6 +136,9 @@
               <Icon name="lucide:x" class="size-4 shrink-0" />
               <span class="hidden sm:flex">Clear filters</span>
             </Button>
+
+            <!-- Custom toolbar actions (rendered before Refresh) -->
+            <slot name="toolbar-actions" :table="table" />
 
             <!-- Refresh Button -->
             <Button
@@ -174,6 +173,58 @@
           </div>
         </div>
       </div>
+
+      <!-- Floating bulk-action pill — rendered for every page that provides an
+           #actions slot. Teleported so it floats above the page; reveals when
+           rows are selected (transitions-dev: panel reveal + badge pop). -->
+      <ClientOnly>
+        <Teleport to="body">
+          <Transition
+            enter-active-class="transition-[translate,opacity,filter] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+            enter-from-class="translate-y-4 opacity-0 blur-[2px]"
+            leave-active-class="transition-[translate,opacity,filter] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+            leave-to-class="translate-y-4 opacity-0 blur-[2px]"
+          >
+            <div
+              v-if="floatingActions && selectedRowsCount > 0 && $slots.actions"
+              class="fixed bottom-4 left-1/2 z-40 w-fit max-w-[calc(100vw-1.5rem)] -translate-x-1/2 sm:bottom-6"
+            >
+              <!-- Static circle; only the value animates on change (NumberFlow),
+                   so the circle itself never re-pops. -->
+              <span
+                class="bg-foreground text-background border-background absolute -top-2 -right-1 z-10 inline-flex size-6 items-center justify-center rounded-full border-2 text-xs font-medium tracking-tight tabular-nums shadow-sm"
+              >
+                <NumberFlow :value="selectedRowsCount" />
+              </span>
+
+              <div
+                ref="pillEl"
+                class="t-resize bg-foreground text-background flex items-center rounded-full p-1 shadow-lg"
+              >
+                <div class="no-scrollbar scroll-fade-x overflow-x-auto">
+                  <div class="flex w-max items-center gap-x-0.5">
+                    <TableBulkAction
+                      icon="lucide:x"
+                      label="Clear selection"
+                      @click="resetRowSelection"
+                    />
+                    <div
+                      v-if="$slots.actions"
+                      class="bg-background/20 mx-0.5 h-5 w-px shrink-0"
+                      aria-hidden="true"
+                    />
+                    <slot
+                      name="actions"
+                      :table="table"
+                      :selected-rows="table.getSelectedRowModel().rows"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Transition>
+        </Teleport>
+      </ClientOnly>
 
       <!-- Table -->
       <div class="frame">
@@ -260,21 +311,30 @@
               </template>
 
               <template v-else-if="table.getRowModel().rows?.length">
-                <TableRow
-                  v-for="row in table.getRowModel().rows"
-                  :key="row.id"
-                  :data-state="row.getIsSelected() && 'selected'"
-                  class="group tracking-tight"
-                >
-                  <TableCell
-                    v-for="cell in row.getVisibleCells()"
-                    :key="cell.id"
-                    :style="{ width: `${cell.column.getSize()}px` }"
-                    class="py-2.5"
+                <template v-for="row in table.getRowModel().rows" :key="row.id">
+                  <TableRow
+                    :data-state="row.getIsSelected() && 'selected'"
+                    class="group tracking-tight"
                   >
-                    <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
-                  </TableCell>
-                </TableRow>
+                    <TableCell
+                      v-for="cell in row.getVisibleCells()"
+                      :key="cell.id"
+                      :style="{ width: `${cell.column.getSize()}px` }"
+                      class="py-2.5"
+                    >
+                      <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    v-if="$slots['expanded-row'] && row.getIsExpanded()"
+                    :key="`${row.id}-expanded`"
+                    class="hover:bg-transparent"
+                  >
+                    <TableCell :colspan="row.getVisibleCells().length" class="bg-muted/30 p-0">
+                      <slot name="expanded-row" :row="row" />
+                    </TableCell>
+                  </TableRow>
+                </template>
               </template>
             </TableBody>
           </Table>
@@ -418,6 +478,7 @@
 
 <script setup>
 import { Button } from "@/components/ui/button";
+import TableBulkAction from "@/components/ui/table-data/TableBulkAction.vue";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { Label } from "@/components/ui/label";
@@ -441,11 +502,14 @@ import { valueUpdater } from "@/components/ui/table/utils";
 import {
   FlexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useVueTable,
 } from "@tanstack/vue-table";
+
+const slots = useSlots();
 
 const props = defineProps({
   // Data
@@ -540,6 +604,12 @@ const props = defineProps({
     type: Array,
     default: () => [{ id: "created_at", desc: true }],
   },
+  // Renders the #actions slot inside the floating bottom pill. On by default so
+  // every table page gets the pill; set false to keep actions inline.
+  floatingActions: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const emit = defineEmits([
@@ -560,6 +630,7 @@ const columnFilters = ref(props.initialColumnFilters);
 const columnVisibility = ref(props.initialColumnVisibility);
 const pagination = ref(props.initialPagination);
 const sorting = ref(props.initialSorting);
+const expanded = ref({});
 
 // Watch for state changes and emit to parent
 watch(rowSelection, (value) => emit("update:rowSelection", value), { deep: true });
@@ -580,6 +651,10 @@ const table = useVueTable({
   getFilteredRowModel: isClientSideMode.value ? getFilteredRowModel() : undefined,
   getSortedRowModel: isClientSideMode.value ? getSortedRowModel() : undefined,
   getPaginationRowModel: isClientSideMode.value ? getPaginationRowModel() : undefined,
+  // Row expansion is opt-in: only enabled when the consumer provides an
+  // #expanded-row slot, so existing tables are unaffected.
+  getExpandedRowModel: getExpandedRowModel(),
+  getRowCanExpand: () => !!slots["expanded-row"],
   manualPagination: !isClientSideMode.value,
   manualSorting: !isClientSideMode.value,
   manualFiltering: !isClientSideMode.value,
@@ -601,12 +676,16 @@ const table = useVueTable({
     get columnVisibility() {
       return columnVisibility.value;
     },
+    get expanded() {
+      return expanded.value;
+    },
   },
   onSortingChange: (updater) => valueUpdater(updater, sorting),
   onPaginationChange: (updater) => valueUpdater(updater, pagination),
   onColumnFiltersChange: (updater) => valueUpdater(updater, columnFilters),
   onColumnVisibilityChange: (updater) => valueUpdater(updater, columnVisibility),
   onRowSelectionChange: (updater) => valueUpdater(updater, rowSelection),
+  onExpandedChange: (updater) => valueUpdater(updater, expanded),
   enableSortingRemoval: false,
 });
 
@@ -778,6 +857,91 @@ const currentPageSizeDisplay = computed(() => {
   const isAllSelected = pageSize > maxPageSizeOption;
   return isAllSelected ? "All" : `${pageSize}`;
 });
+
+// Smoothly tween the floating pill's width when its action content changes
+// width (e.g. a button label swaps "Mark as checked in" ↔ "Mark as not
+// checked in"). CSS can't transition intrinsic (auto) widths, so we FLIP:
+// lock the old px width, force a reflow, then animate to the new px width.
+// The `.t-resize` class supplies the transition timing (transitions-dev 01).
+const pillEl = ref(null);
+let pillObserver = null;
+let lastPillWidth = 0;
+let pillAnimating = false;
+let pillResetTimer = null;
+
+const prefersReducedMotion = () =>
+  import.meta.client &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+const teardownPillObserver = () => {
+  if (pillObserver) {
+    pillObserver.disconnect();
+    pillObserver = null;
+  }
+  if (pillResetTimer) {
+    clearTimeout(pillResetTimer);
+    pillResetTimer = null;
+  }
+  lastPillWidth = 0;
+  pillAnimating = false;
+};
+
+const setupPillObserver = (el) => {
+  lastPillWidth = 0;
+  pillObserver = new ResizeObserver(() => {
+    // Ignore the resize events caused by our own inline-width writes.
+    if (pillAnimating) {
+      return;
+    }
+    const newWidth = el.offsetWidth;
+    if (!newWidth) {
+      return;
+    }
+    // First measurement after the pill appears — record the baseline only;
+    // the entrance itself is handled by the panel-reveal transition.
+    if (lastPillWidth === 0 || newWidth === lastPillWidth) {
+      lastPillWidth = newWidth;
+      return;
+    }
+    const fromWidth = lastPillWidth;
+    lastPillWidth = newWidth;
+    if (prefersReducedMotion()) {
+      return;
+    }
+    pillAnimating = true;
+    el.style.width = `${fromWidth}px`;
+    void el.offsetWidth; // force reflow so the next assignment transitions
+    el.style.width = `${newWidth}px`;
+    const finish = () => {
+      el.style.width = "";
+      pillAnimating = false;
+      el.removeEventListener("transitionend", onTransitionEnd);
+      if (pillResetTimer) {
+        clearTimeout(pillResetTimer);
+        pillResetTimer = null;
+      }
+    };
+    const onTransitionEnd = (event) => {
+      if (event.propertyName === "width") {
+        finish();
+      }
+    };
+    el.addEventListener("transitionend", onTransitionEnd);
+    pillResetTimer = setTimeout(finish, 450); // fallback if transitionend misfires
+  });
+  pillObserver.observe(el);
+};
+
+watch(pillEl, (el, prevEl) => {
+  if (prevEl) {
+    teardownPillObserver();
+  }
+  if (el) {
+    setupPillObserver(el);
+  }
+});
+
+onBeforeUnmount(teardownPillObserver);
 
 // Method to reset row selection
 const resetRowSelection = () => {
