@@ -1,9 +1,9 @@
 <template>
   <div id="ticket-page" class="pb-16 lg:pt-6 lg:pb-20">
     <div
-      class="grid grid-cols-1 gap-4 sm:container sm:max-w-6xl lg:grid-cols-12 lg:gap-10"
+      class="grid grid-cols-1 gap-4 sm:container sm:max-w-5xl lg:grid-cols-12 lg:gap-10"
     >
-      <div class="px-1 sm:px-0 lg:col-span-5">
+      <div class="px-1 sm:px-0 lg:col-span-4">
         <Lightbox
           :items="posterItems"
           :show-thumbnails="false"
@@ -29,7 +29,7 @@
                   "
                   :lqip="event.posterImage.lqip || ''"
                   :alt="event.title"
-                  image-class="size-full object-cover select-none"
+                  image-class="size-full object-cover select-none outline-inside rounded-xl sm:rounded-2xl"
                 />
               </button>
 
@@ -59,7 +59,7 @@
         </Lightbox>
       </div>
 
-      <div class="px-4 sm:px-0 lg:col-span-7 lg:pt-6">
+      <div class="px-4 sm:px-0 lg:col-span-8 lg:pt-6">
         <div class="flex flex-col">
           <div class="flex items-center justify-between">
             <EventStatus
@@ -153,8 +153,8 @@
       </TabsContent>
     </Tabs>
 
-    <div
-      class="xs:right-[calc(var(--spacing)*4+var(--scrollbar-width,0px))] fixed right-[calc(var(--spacing)*3+var(--scrollbar-width,0px))] bottom-8 z-50 sm:right-[calc(var(--spacing)*6+var(--scrollbar-width,0px))] sm:bottom-5 lg:bottom-12 xl:right-[calc(var(--spacing)*12+var(--scrollbar-width,0px))]"
+    <!-- <div
+      class="xs:right-[calc(var(--spacing)*4+var(--scrollbar-width,0px))] fixed right-[calc(var(--spacing)*3+var(--scrollbar-width,0px))] bottom-8 z-50 hidden sm:right-[calc(var(--spacing)*6+var(--scrollbar-width,0px))] sm:bottom-5 lg:bottom-12 lg:block xl:right-[calc(var(--spacing)*12+var(--scrollbar-width,0px))]"
     >
       <Transition
         enter-active-class="transition duration-300 ease-out"
@@ -166,7 +166,7 @@
           v-if="!isTabTicketsVisible"
           type="button"
           @click="scrollToTabsRootTop(_, 'tickets')"
-          class="text-primary border-primary/20 bg-background/50 pointer-fine:hover:bg-primary pointer-fine:hover:text-primary-foreground flex items-center justify-center gap-x-1.5 rounded-full border p-3.5 text-sm font-semibold tracking-tighter backdrop-blur-md transition-all duration-300"
+          class="text-primary border-primary/20 bg-background/50 pointer-fine:hover:bg-primary pointer-fine:hover:text-primary-foreground flex items-center justify-center gap-x-1.5 rounded-full border px-3 py-2 text-sm font-semibold tracking-tighter backdrop-blur-md transition-all duration-300"
           v-ripple
         >
           <Icon
@@ -182,7 +182,7 @@
           />
         </button>
       </Transition>
-    </div>
+    </div> -->
   </div>
 </template>
 
