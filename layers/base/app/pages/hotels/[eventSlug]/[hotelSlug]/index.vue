@@ -237,12 +237,22 @@ const router = useRouter();
 const eventSlug = computed(() => route.params.eventSlug);
 const hotelSlug = computed(() => route.params.hotelSlug);
 
-const { data, pending } = await useLazyAsyncData(
+const { data, pending } = await useAsyncData(
   () => `public-hotel-${eventSlug.value}-${hotelSlug.value}`,
   () => $fetch(`/api/hotels/${eventSlug.value}/${hotelSlug.value}`)
 );
 
 const hotel = computed(() => data.value?.data);
+
+// A missing hotel (or one whose event has hotel reservations disabled, which
+// the API answers with 404) is a genuine not-found page, so surface it through
+// the shared error.vue boundary like brands/[slug], not an inline empty state.
+if (!hotel.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Page not found",
+  });
+}
 
 usePageMeta(null, {
   title: computed(
