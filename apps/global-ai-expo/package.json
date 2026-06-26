@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@events/base": "workspace:*",
-    "nuxt": "^4.4.2",
-    "shaders": "^2.5.109"
+    "nuxt": "^4.4.8",
+    "shaders": "^2.5.132"
   }
 }
