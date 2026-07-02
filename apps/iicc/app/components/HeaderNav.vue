@@ -14,7 +14,7 @@
             v-scroll-to="getScrollToOptions(item.path)"
             class="hover:bg-muted relative flex h-full items-center justify-center gap-x-1 rounded-2xl px-3 py-2 tracking-tight transition select-none active:scale-98"
             :class="
-              isHashItemActive(item) ? 'text-primary' : 'text-muted-foreground'
+              isHashItemActive(item) ? 'text-foreground' : 'text-muted-foreground'
             "
             @contextmenu="handleContextMenu($event, item)"
           >
@@ -26,7 +26,7 @@
             :to="localePath(item.path)"
             class="hover:bg-muted relative flex h-full items-center justify-center gap-x-1 rounded-2xl px-3 py-2 tracking-tight transition select-none active:scale-98"
             :class="
-              isPathItemActive(item) ? 'text-primary' : 'text-muted-foreground'
+              isPathItemActive(item) ? 'text-foreground' : 'text-muted-foreground'
             "
             @click="$scrollToTopIfCurrentPageIs(localePath(item.path))"
             @contextmenu="handleContextMenu($event, item)"

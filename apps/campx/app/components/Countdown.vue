@@ -13,21 +13,21 @@
       </span>
       <div class="inline-flex items-center gap-0.5">
         <span
-          class="bg-muted text-primary flex size-8 shrink-0 grow-0 items-center justify-center rounded-lg text-center sm:size-9"
+          class="bg-muted text-foreground flex size-8 shrink-0 grow-0 items-center justify-center rounded-lg text-center sm:size-9"
         >
           <span v-show="timeParts.hours < 10">0</span
           ><NumberFlow :value="timeParts.hours" />
         </span>
         <span class="text-muted-foreground">:</span>
         <span
-          class="bg-muted text-primary flex size-8 shrink-0 grow-0 items-center justify-center rounded-lg text-center sm:size-9"
+          class="bg-muted text-foreground flex size-8 shrink-0 grow-0 items-center justify-center rounded-lg text-center sm:size-9"
         >
           <span v-show="timeParts.minutes < 10">0</span
           ><NumberFlow :value="timeParts.minutes" />
         </span>
         <span class="text-muted-foreground">:</span>
         <span
-          class="bg-muted text-primary flex size-8 shrink-0 grow-0 items-center justify-center rounded-lg text-center sm:size-9"
+          class="bg-muted text-foreground flex size-8 shrink-0 grow-0 items-center justify-center rounded-lg text-center sm:size-9"
         >
           <span v-show="timeParts.seconds < 10">0</span
           ><NumberFlow :value="timeParts.seconds" />
@@ -62,10 +62,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.days"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-foreground dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-foreground/70 text-sm !leading-none tracking-tight italic"
             >Day<span v-if="timeParts.days > 1">s</span></span
           >
         </div>
@@ -73,10 +73,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.hours"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-foreground dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-foreground/70 text-sm !leading-none tracking-tight italic"
             >Hour<span v-if="timeParts.hours > 1">s</span></span
           >
         </div>
@@ -84,10 +84,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.minutes"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-foreground dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-foreground/70 text-sm !leading-none tracking-tight italic"
             >Min<span v-if="timeParts.minutes > 1">s</span></span
           >
         </div>
@@ -95,10 +95,10 @@
         <div class="flex w-full flex-col items-center gap-y-1 text-center">
           <NumberFlow
             :value="timeParts.seconds"
-            class="text-primary dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
+            class="text-foreground dark:text-shadow-accent/80 text-2xl !leading-none font-extrabold tracking-tighter italic tabular-nums dark:text-shadow-[0px_0px_8px_var(--tw-text-shadow-color)]"
           />
           <span
-            class="text-primary/70 text-sm !leading-none tracking-tight italic"
+            class="text-foreground/70 text-sm !leading-none tracking-tight italic"
             >Sec</span
           >
         </div>

@@ -8,7 +8,7 @@
     <div class="container">
       <div class="flex flex-col items-center text-center">
         <h2
-          class="text-primary text-[clamp(3rem,20vw,10rem)] !leading-[1] font-extrabold tracking-tighter text-balance"
+          class="text-foreground text-[clamp(3rem,20vw,10rem)] !leading-[1] font-extrabold tracking-tighter text-balance"
         >
           <SplitText
             splitType="words"
@@ -55,7 +55,7 @@
             />
           </span>
           <div
-            class="text-primary space-y-4 text-xl !leading-[1.3] font-semibold tracking-tighter sm:text-2xl"
+            class="text-foreground space-y-4 text-xl !leading-[1.3] font-semibold tracking-tighter sm:text-2xl"
           >
             <p>
               {{ $t("about.paragraph1") }}

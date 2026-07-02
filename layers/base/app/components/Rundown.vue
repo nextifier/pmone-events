@@ -68,7 +68,7 @@
         v-else-if="error"
         class="flex items-center justify-center text-center"
       >
-        <span class="text-primary text-2xl font-semibold tracking-tighter">{{
+        <span class="text-foreground text-2xl font-semibold tracking-tighter">{{
           $t("ui.failedToGetData")
         }}</span>
       </div>
@@ -237,7 +237,7 @@
                       <!-- Section Header (settings.is_group_header — non-clickable) -->
                       <div
                         v-if="activity.is_header"
-                        class="border-primary mt-6 mb-2 border-l-2 pl-4"
+                        class="border-foreground mt-6 mb-2 border-l-2 pl-4"
                       >
                         <span
                           class="text-base font-semibold tracking-tighter"
@@ -531,7 +531,7 @@
 
           <div v-else>
             <span
-              class="text-primary text-center text-2xl font-semibold tracking-tighter"
+              class="text-foreground text-center text-2xl font-semibold tracking-tighter"
               >{{ $t("rundown.nothingYet") }}
             </span>
           </div>
@@ -543,7 +543,7 @@
             />
           </div>
 
-          <span class="text-primary text-xl font-semibold tracking-tight"
+          <span class="text-foreground text-xl font-semibold tracking-tight"
             >{{ $t("rundown.comingSoon") }}
           </span>
         </div>

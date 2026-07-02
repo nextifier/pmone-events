@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-primary/10 group flex flex-col overflow-hidden rounded-2xl border"
+    class="border-foreground/10 group flex flex-col overflow-hidden rounded-2xl border"
   >
     <button
       type="button"

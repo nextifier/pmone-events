@@ -131,7 +131,7 @@
       <!-- E-Tickets: only ready once the order is confirmed (paid/free). A
            pending order shows a note instead - the QR is not valid yet. -->
       <div v-if="isConfirmed && (order.attendees || []).length" class="space-y-3">
-        <h2 class="text-primary text-lg font-semibold tracking-tight">{{ t("tickets.result.yourETickets") }}</h2>
+        <h2 class="text-foreground text-lg font-semibold tracking-tight">{{ t("tickets.result.yourETickets") }}</h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <ETicket
             v-for="att in order.attendees"

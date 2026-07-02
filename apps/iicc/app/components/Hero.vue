@@ -90,7 +90,7 @@
           </div>
 
           <div
-            class="text-primary relative z-20 flex w-full flex-col items-end text-right"
+            class="text-foreground relative z-20 flex w-full flex-col items-end text-right"
           >
             <EventStatus
               countdownVariant="inline-with-boxes"

@@ -17,7 +17,7 @@
         v-for="panel in panels"
         :key="panel.label"
         :class="[
-          'border-primary/10 relative flex aspect-[5/4] flex-col justify-between rounded-3xl border p-5 sm:p-6',
+          'border-foreground/10 relative flex aspect-[5/4] flex-col justify-between rounded-3xl border p-5 sm:p-6',
           panel.bg,
           panel.textShadow ? 'brand-on-image-text' : '',
         ]"
@@ -59,7 +59,7 @@
       </div>
 
       <div
-        class="bg-foreground/[0.02] border-primary/10 relative overflow-hidden rounded-3xl border p-6 sm:p-10"
+        class="bg-foreground/[0.02] border-foreground/10 relative overflow-hidden rounded-3xl border p-6 sm:p-10"
       >
         <div class="flex items-end justify-between gap-x-4 pb-6">
           <span class="text-muted-foreground text-sm font-medium tracking-tighter">
@@ -76,7 +76,7 @@
           <div class="relative aspect-square w-full">
             <LogoMark
               ref="markRef"
-              class="text-primary absolute inset-0 size-full"
+              class="text-foreground absolute inset-0 size-full"
               aria-hidden="true"
             />
 
@@ -151,7 +151,7 @@
         </div>
 
         <div
-          class="border-primary/10 mt-10 grid grid-cols-2 gap-4 border-t pt-6 sm:grid-cols-4 sm:gap-8"
+          class="border-foreground/10 mt-10 grid grid-cols-2 gap-4 border-t pt-6 sm:grid-cols-4 sm:gap-8"
         >
           <div class="flex flex-col gap-y-1">
             <span class="text-muted-foreground text-sm font-medium tracking-tight">
@@ -189,7 +189,7 @@
       </div>
 
       <div
-        class="bg-foreground/[0.02] border-primary/10 relative overflow-hidden rounded-3xl border p-6 sm:p-10"
+        class="bg-foreground/[0.02] border-foreground/10 relative overflow-hidden rounded-3xl border p-6 sm:p-10"
       >
         <div class="flex items-end justify-between gap-x-4 pb-6">
           <span class="text-muted-foreground text-sm font-medium tracking-tighter">
@@ -204,7 +204,7 @@
 
         <div ref="lockupContainerRef" class="relative mx-auto w-full">
           <div class="relative flex items-center justify-center py-8 sm:py-12">
-            <Logo ref="lockupRef" class="text-primary h-24 sm:h-32" />
+            <Logo ref="lockupRef" class="text-foreground h-24 sm:h-32" />
           </div>
 
           <template v-if="lockupBoxes">
@@ -241,7 +241,7 @@
         </div>
 
         <div
-          class="border-primary/10 mt-10 grid grid-cols-2 gap-4 border-t pt-6 sm:grid-cols-4 sm:gap-8"
+          class="border-foreground/10 mt-10 grid grid-cols-2 gap-4 border-t pt-6 sm:grid-cols-4 sm:gap-8"
         >
           <div class="flex flex-col gap-y-1">
             <span class="text-muted-foreground text-sm font-medium tracking-tight">
@@ -289,10 +289,10 @@ const panels = [
     label: "Primary",
     note: "On white",
     usage: "Default lockup. Use everywhere by default.",
-    bg: "bg-background border-primary/10",
+    bg: "bg-background border-foreground/10",
     labelClass: "text-muted-foreground",
     chipClass: "bg-foreground/5 text-muted-foreground",
-    logoClass: "text-primary",
+    logoClass: "text-foreground",
     textShadow: false,
   },
   {

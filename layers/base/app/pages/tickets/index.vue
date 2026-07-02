@@ -3,7 +3,7 @@
     <div
       class="grid grid-cols-1 gap-4 sm:container sm:max-w-5xl lg:grid-cols-12 lg:gap-10"
     >
-      <div class="px-1 sm:px-0 lg:col-span-4">
+      <div class="px-1 sm:px-0 lg:col-span-5">
         <Lightbox
           :items="posterItems"
           :show-thumbnails="false"
@@ -59,7 +59,7 @@
         </Lightbox>
       </div>
 
-      <div class="px-4 sm:px-0 lg:col-span-8 lg:pt-6">
+      <div class="px-4 sm:px-0 lg:col-span-7 lg:pt-6">
         <div class="flex flex-col">
           <div class="flex items-center justify-between">
             <EventStatus
@@ -72,7 +72,7 @@
           </div>
 
           <h1
-            class="text-primary mt-1 text-3xl leading-[1.25] font-semibold tracking-tighter sm:mt-2 sm:text-4xl xl:text-5xl"
+            class="text-foreground mt-1 text-3xl leading-[1.25] font-semibold tracking-tighter sm:mt-2 sm:text-4xl xl:text-5xl"
           >
             {{ event.title }}
           </h1>
@@ -80,7 +80,7 @@
           <div class="flex flex-col gap-y-2.5">
             <div v-if="event.edition?.value" class="mt-2.5 flex">
               <span
-                class="text-primary bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
+                class="text-foreground bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
                 >{{ event.edition.value
                 }}<span class="align-super text-[10px]">{{
                   event.edition.ordinal
@@ -107,7 +107,6 @@
     <Tabs
       ref="tabsRootRef"
       variant="underline"
-      swipe
       v-model="activeTab"
       default-value="tickets"
       class="scroll-mt-navbar mt-8 flex w-full flex-col"

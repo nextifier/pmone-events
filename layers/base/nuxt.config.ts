@@ -6,7 +6,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineNuxtConfig({
   devtools: {
-    enabled: true,
+    // Off: Nuxt DevTools' vite-plugin-inspect injects a @vueuse useColorMode onto
+    // <html> that fights @nuxtjs/color-mode (dev-only color-mode desync).
+    enabled: false,
     componentInspector: false,
   },
 
@@ -152,7 +154,11 @@ export default defineNuxtConfig({
     classSuffix: "",
     hid: "color-mode-script",
     globalName: "__COLOR_MODE__",
-    storageKey: "color-mode",
+    // Cookie storage (not localStorage) so the preference is readable during SSR
+    // → html class + colorMode.value resolve synchronously, no flash/desync.
+    // App-scoped key avoids clobbering across apps on the dev localhost origin.
+    storage: "cookie",
+    storageKey: "events-color-mode",
   },
 
   image: {

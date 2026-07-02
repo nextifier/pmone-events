@@ -23,11 +23,11 @@
           <div
             class="bg-muted flex size-14 shrink-0 items-center justify-center rounded-3xl"
           >
-            <Icon :name="item.icon" class="text-primary size-6" />
+            <Icon :name="item.icon" class="text-foreground size-6" />
           </div>
           <div class="flex flex-col items-start gap-y-1">
             <h3
-              class="text-primary text-base font-semibold tracking-tighter sm:text-xl"
+              class="text-foreground text-base font-semibold tracking-tighter sm:text-xl"
             >
               {{ item.title }}
             </h3>

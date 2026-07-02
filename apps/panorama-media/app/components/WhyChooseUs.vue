@@ -21,14 +21,14 @@
           <Icon
             v-if="item.iconName"
             :name="item.iconName"
-            class="text-primary size-8"
+            class="text-foreground size-8"
           />
 
           <span
-            class="text-primary text-lg font-semibold tracking-tighter sm:text-xl"
+            class="text-foreground text-lg font-semibold tracking-tighter sm:text-xl"
             >{{ item.title }}</span
           >
-          <p class="text-primary/70 tracking-tight">{{ item.description }}</p>
+          <p class="text-foreground/70 tracking-tight">{{ item.description }}</p>
         </div>
       </div>
     </div>

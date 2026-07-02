@@ -79,6 +79,18 @@ const contactDialog = {
 };
 
 export default defineAppConfig({
+  // Per-project design tokens — OPT-IN (see layers/base/app/app.config.ts).
+  // Default OFF → this app keeps its native palette from app/assets/css/app.css.
+  // For custom brand colors edit app.css; for a shadcn palette set enabled:true,
+  // e.g. { enabled: true, baseColor: "zinc", theme: "blue", chartColor: "blue" }.
+  appearance: {
+    enabled: false,
+    baseColor: "neutral",
+    theme: "neutral",
+    chartColor: "neutral",
+    radius: "default",
+  },
+
   app: app,
   ticket: ticket,
   settings: settings,

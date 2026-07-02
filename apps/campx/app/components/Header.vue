@@ -8,7 +8,7 @@
         aria-label="Home"
         v-ripple
       >
-        <Logo class="text-primary h-7" />
+        <Logo class="text-foreground h-7" />
       </nuxt-link>
 
       <div class="ml-auto flex h-full items-center gap-x-6">

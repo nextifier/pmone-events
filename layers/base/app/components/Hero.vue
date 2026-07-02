@@ -21,7 +21,7 @@
           <div class="flex flex-col items-start gap-y-2.5">
             <span
               v-if="eventStatus === 'upcoming'"
-              class="text-primary/70 text-sm tracking-tight"
+              class="text-foreground/70 text-sm tracking-tight"
               >{{ content.countdownLabel }}</span
             >
 
@@ -35,7 +35,7 @@
           </div>
 
           <div class="flex flex-col items-start">
-            <Announcement class="border-primary/30 text-primary border" />
+            <Announcement class="border-foreground/30 text-foreground border" />
 
             <h1
               class="text-foreground mt-5 text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl"
@@ -44,7 +44,7 @@
             </h1>
 
             <p
-              class="text-primary mt-3 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
+              class="text-foreground mt-3 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
             >
               The enhanced edition of building materials, interior design,
               architecture, and construction exhibition & conference in
@@ -112,7 +112,7 @@
             >
               <div v-if="event.edition?.value" class="flex">
                 <span
-                  class="text-primary bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
+                  class="text-foreground bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
                   >{{ event.edition.value
                   }}<span class="align-super text-[10px]">{{
                     event.edition.ordinal
@@ -122,7 +122,7 @@
               </div>
 
               <div
-                class="text-primary relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
+                class="text-foreground relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
               >
                 <span
                   class="relative isolate flex flex-col items-center text-7xl !leading-[0.9] font-semibold tracking-tighter text-balance uppercase md:items-end 2xl:text-8xl"

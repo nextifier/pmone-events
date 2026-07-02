@@ -147,7 +147,7 @@ defineExpose({ appliedPromo });
         class="flex items-start justify-between gap-3 text-sm tracking-tight"
       >
         <div class="min-w-0 space-y-0.5">
-          <p class="text-primary font-medium">{{ line.title }}</p>
+          <p class="text-foreground font-medium">{{ line.title }}</p>
           <p v-if="line.day" class="text-muted-foreground text-xs tracking-tight sm:text-sm">
             {{ line.day }}
           </p>

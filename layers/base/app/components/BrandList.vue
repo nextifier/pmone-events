@@ -5,7 +5,7 @@
         <h2
           :class="{
             'section-title': route.name?.toString().includes('brands'),
-            'text-primary text-3xl font-semibold tracking-tighter sm:text-4xl':
+            'text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl':
               !['index', 'brands', 'edition-brands'].some((n) =>
                 route.name?.toString().startsWith(n),
               ),

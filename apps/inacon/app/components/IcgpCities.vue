@@ -54,7 +54,7 @@
           class="3xl:px-6 border-border bg-muted/50 flex flex-col rounded-2xl border border-dotted px-4 py-6"
         >
           <h6
-            class="text-primary text-xl font-semibold tracking-tighter sm:text-2xl"
+            class="text-foreground text-xl font-semibold tracking-tighter sm:text-2xl"
           >
             {{ item.city }}
           </h6>
@@ -151,7 +151,7 @@
 
         <span class="section-title">TBA</span>
 
-        <span class="text-primary mt-3 tracking-tight"
+        <span class="text-foreground mt-3 tracking-tight"
           >TBA</span
         >
 
@@ -159,7 +159,7 @@
           <div
             class="bg-muted flex flex-col items-start gap-1 rounded-2xl px-4 py-6 text-left"
           >
-            <span class="text-primary tracking-tight">21 June 2025</span>
+            <span class="text-foreground tracking-tight">21 June 2025</span>
             <span class="text-lg !leading-[1.2] font-bold tracking-tighter"
               >Costume Judging</span
             >
@@ -168,7 +168,7 @@
           <div
             class="bg-muted flex flex-col items-start gap-1 rounded-2xl px-4 py-6 text-left"
           >
-            <span class="text-primary tracking-tight">22 June 2025</span>
+            <span class="text-foreground tracking-tight">22 June 2025</span>
             <span class="text-lg !leading-[1.2] font-bold tracking-tighter"
               >Performance Judging</span
             >
@@ -212,7 +212,7 @@
         <nuxt-link
           v-if="route.name !== 'icgp'"
           to="/icgp"
-          class="bg-muted text-primary hover:bg-muted/80 mt-6 flex items-center gap-x-1 rounded-full px-4 py-3 tracking-tight transition active:scale-95"
+          class="bg-muted text-foreground hover:bg-muted/80 mt-6 flex items-center gap-x-1 rounded-full px-4 py-3 tracking-tight transition active:scale-95"
         >
           <span>More about ICGP</span>
           <IconArrowUpRight class="h-3" />

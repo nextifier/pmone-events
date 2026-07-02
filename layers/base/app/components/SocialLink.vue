@@ -3,7 +3,7 @@
     :to="to"
     :target="to.startsWith('http') ? '_blank' : ''"
     :class="[
-      'text-primary hover:bg-muted relative flex items-center justify-center rounded-xl transition active:scale-98',
+      'text-foreground hover:bg-muted relative flex items-center justify-center rounded-xl transition active:scale-98',
       buttonSize,
     ]"
     :aria-label="label"

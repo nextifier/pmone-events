@@ -38,7 +38,7 @@
             <span
               v-for="(item, index) in experience.categories"
               :key="index"
-              class="text-primary bg-muted rounded-lg px-3 py-1.5 text-sm tracking-tight"
+              class="text-foreground bg-muted rounded-lg px-3 py-1.5 text-sm tracking-tight"
               >{{ item }}</span
             >
           </div>
@@ -64,7 +64,7 @@
               <div class="flex flex-col gap-y-1.5">
                 <span class="text-sm tracking-tight">Check-in</span>
                 <span
-                  class="text-primary text-base font-semibold tracking-tight"
+                  class="text-foreground text-base font-semibold tracking-tight"
                   >{{ experience.checkInOut.in }}</span
                 >
               </div>
@@ -81,7 +81,7 @@
               <div class="flex flex-col gap-y-1.5">
                 <span class="text-sm tracking-tight">Check-out</span>
                 <span
-                  class="text-primary text-base font-semibold tracking-tight"
+                  class="text-foreground text-base font-semibold tracking-tight"
                   >{{ experience.checkInOut.out }}</span
                 >
               </div>
@@ -200,7 +200,7 @@
                 <div>
                   <span
                     v-if="pricing.value"
-                    class="text-primary text-xl font-bold tracking-tighter"
+                    class="text-foreground text-xl font-bold tracking-tighter"
                     >{{ format(pricing.value) }}</span
                   >
                   <span
@@ -260,7 +260,7 @@
               <a
                 href="/files/pricelist-sewa-peralatan-campx.pdf"
                 target="_blank"
-                class="bg-muted hover:bg-border text-primary flex items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold tracking-tight"
+                class="bg-muted hover:bg-border text-foreground flex items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold tracking-tight"
               >
                 <Icon name="hugeicons:tag-01" class="size-4 shrink-0" />
                 <span>Price List Sewa Peralatan</span>
@@ -273,7 +273,7 @@
               <a
                 href="/files/denah-campx.pdf"
                 target="_blank"
-                class="bg-muted hover:bg-border text-primary flex items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold tracking-tight"
+                class="bg-muted hover:bg-border text-foreground flex items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold tracking-tight"
               >
                 <Icon name="hugeicons:maps" class="size-4 shrink-0" />
                 <span>Denah CampX</span>

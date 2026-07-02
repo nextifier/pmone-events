@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex flex-col items-start">
         <span
-          class="border-primary rounded-full border px-3 py-1.5 text-base font-medium tracking-tighter sm:text-lg"
+          class="border-foreground rounded-full border px-3 py-1.5 text-base font-medium tracking-tighter sm:text-lg"
           >{{ $t("whyAttend.badge") }}</span
         >
         <h2 class="section-title mt-2">

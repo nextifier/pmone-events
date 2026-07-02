@@ -21,7 +21,7 @@
 
       <nuxt-link
         :to="localePath('/')"
-        class="hover:bg-opacity-80 dark:hover:bg-opacity-80 bg-muted text-primary mt-6 flex items-center justify-center gap-x-0.5 rounded-full p-4 text-center font-medium tracking-tight transition active:scale-98"
+        class="hover:bg-opacity-80 dark:hover:bg-opacity-80 bg-muted text-foreground mt-6 flex items-center justify-center gap-x-0.5 rounded-full p-4 text-center font-medium tracking-tight transition active:scale-98"
         v-ripple
       >
         <Icon name="lucide:arrow-left" class="size-4 shrink-0" />

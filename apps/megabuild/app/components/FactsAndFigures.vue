@@ -29,7 +29,7 @@
             <span class="tracking-tight">{{ stat.label }}</span>
 
             <NumberFlow
-              class="text-primary mt-1 text-4xl font-semibold tracking-tighter"
+              class="text-foreground mt-1 text-4xl font-semibold tracking-tighter"
               :value="statValues[index]"
               :format="{ notation: 'compact' }"
               :prefix="stat.prefix"

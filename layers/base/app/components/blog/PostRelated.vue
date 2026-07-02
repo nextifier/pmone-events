@@ -2,7 +2,7 @@
   <div v-if="!pending && filteredPosts.length > 0">
     <!-- Sidebar variant (compact list) -->
     <div v-if="variant === 'sidebar'" class="grid grid-cols-1 gap-y-2.5 self-start">
-      <h5 class="text-primary text-sm font-semibold tracking-tighter">
+      <h5 class="text-foreground text-sm font-semibold tracking-tighter">
         {{ titleText }}
       </h5>
       <div class="grid grid-cols-1 gap-y-2.5">
@@ -30,7 +30,7 @@
 
           <div class="flex flex-col items-start gap-y-0.5 text-left">
             <h6
-              class="text-primary line-clamp-2 text-sm font-semibold tracking-tight"
+              class="text-foreground line-clamp-2 text-sm font-semibold tracking-tight"
               v-tippy="{
                 content: post.title,
                 delay: [600, 100],
@@ -55,7 +55,7 @@
     <!-- Grid variant (large cards) -->
     <div v-else class="space-y-4 lg:space-y-6">
       <h5
-        class="text-primary text-3xl !leading-[1.25] font-semibold tracking-[-0.06em] text-balance sm:text-5xl"
+        class="text-foreground text-3xl !leading-[1.25] font-semibold tracking-[-0.06em] text-balance sm:text-5xl"
       >
         {{ titleText }}
       </h5>
@@ -85,7 +85,7 @@
 
           <div class="flex flex-col items-start gap-y-0.5 text-left">
             <h6
-              class="text-primary line-clamp-3 text-sm leading-snug font-semibold tracking-tight lg:text-base"
+              class="text-foreground line-clamp-3 text-sm leading-snug font-semibold tracking-tight lg:text-base"
               v-tippy="{
                 content: post.title,
                 delay: [600, 100],

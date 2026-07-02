@@ -31,7 +31,7 @@
             />
 
             <h3
-              class="text-primary mt-8 text-[clamp(2rem,2.5vw,6rem)] !leading-[1.2] font-semibold tracking-tighter text-balance"
+              class="text-foreground mt-8 text-[clamp(2rem,2.5vw,6rem)] !leading-[1.2] font-semibold tracking-tighter text-balance"
             >
               {{ content.exhibitor.title }}
             </h3>
@@ -85,7 +85,7 @@
           >
             <div class="flex flex-col items-start">
               <h3
-                class="text-primary text-base !leading-[1.2] font-semibold tracking-tighter text-pretty lg:text-xl"
+                class="text-foreground text-base !leading-[1.2] font-semibold tracking-tighter text-pretty lg:text-xl"
               >
                 {{ item.title }}
               </h3>
@@ -115,7 +115,7 @@
             class="flex flex-col items-center text-center [--pattern-fg:var(--color-accent)]"
           >
             <div
-              class="text-primary dark:text-muted-foreground text-3xl font-semibold tracking-tighter text-balance sm:text-4xl"
+              class="text-foreground dark:text-muted-foreground text-3xl font-semibold tracking-tighter text-balance sm:text-4xl"
             >
               {{ content.reservedSpace.title }}
             </div>

@@ -4,7 +4,7 @@
       <button
         type="button"
         @click="open({ title: pageTitle })"
-        class="text-primary lg:hover:bg-muted flex items-center justify-center gap-x-1 rounded-full border p-3 transition active:scale-98 lg:border-0"
+        class="text-foreground lg:hover:bg-muted flex items-center justify-center gap-x-1 rounded-full border p-3 transition active:scale-98 lg:border-0"
         :class="
           isSemiTransparent
             ? 'bg-background/70 border border-white/10 shadow-lg backdrop-blur-sm'
@@ -20,7 +20,7 @@
     <template #default="{ data }">
       <div class="px-4 pb-6 md:p-8">
         <div
-          class="text-primary text-center text-lg font-semibold tracking-tight sm:text-xl"
+          class="text-foreground text-center text-lg font-semibold tracking-tight sm:text-xl"
         >
           Share this page
         </div>

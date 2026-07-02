@@ -21,7 +21,7 @@
           <div class="flex flex-col items-start gap-y-2.5">
             <span
               v-if="eventStatus === 'upcoming'"
-              class="text-primary/70 text-sm tracking-tight"
+              class="text-foreground/70 text-sm tracking-tight"
               >{{ content.countdownLabel }}</span
             >
 
@@ -39,7 +39,7 @@
             <span class="section-subtitle">{{ content.subtitle }}</span>
 
             <h1
-              class="text-primary mt-2 text-[clamp(2.5rem,4.5vw,4.5rem)] leading-[1.15]! font-medium tracking-[-0.06em] text-balance"
+              class="text-foreground mt-2 text-[clamp(2.5rem,4.5vw,4.5rem)] leading-[1.15]! font-medium tracking-[-0.06em] text-balance"
             >
               <!-- <SplitText :text="content.title" /> -->
               {{ content.title }}
@@ -157,7 +157,7 @@
               </div>
 
               <div
-                class="text-primary relative z-20 flex h-full w-full flex-col"
+                class="text-foreground relative z-20 flex h-full w-full flex-col"
               >
                 <span
                   class="3xl:text-8xl flex flex-col text-7xl leading-[0.9]! font-medium tracking-tighter text-balance uppercase"

@@ -11,7 +11,7 @@
             >Our success? Millions of happy faces</span
           >
           <h1
-            class="text-primary text-[2.5rem] leading-[1.1]! font-normal tracking-tighter text-balance sm:text-7xl"
+            class="text-foreground text-[2.5rem] leading-[1.1]! font-normal tracking-tighter text-balance sm:text-7xl"
           >
             We set the stage for your story to shine.
           </h1>
@@ -58,7 +58,7 @@
             </button>
             <NuxtLink
               to="/events"
-              class="text-primary hover:bg-muted flex items-center justify-center gap-1 rounded-xl px-4 py-3 font-medium tracking-tighter transition active:scale-98"
+              class="text-foreground hover:bg-muted flex items-center justify-center gap-1 rounded-xl px-4 py-3 font-medium tracking-tighter transition active:scale-98"
               >See our signature events</NuxtLink
             >
           </div>

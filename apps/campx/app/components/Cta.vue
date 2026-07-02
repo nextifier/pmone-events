@@ -36,13 +36,13 @@
                   <div class="flex items-center gap-x-2">
                     <Icon
                       :name="item.iconName"
-                      class="text-primary size-4 shrink-0"
+                      class="text-foreground size-4 shrink-0"
                     />
-                    <IconStar class="text-primary size-4 shrink-0" />
+                    <IconStar class="text-foreground size-4 shrink-0" />
 
                     <span
-                      class="text-primary items-center text-xs tracking-tight"
-                      ><span class="text-primary text-xl font-semibold">{{
+                      class="text-foreground items-center text-xs tracking-tight"
+                      ><span class="text-foreground text-xl font-semibold">{{
                         item.rating
                       }}</span
                       >/5</span
@@ -50,7 +50,7 @@
                   </div>
 
                   <div class="inline-flex items-center gap-x-1">
-                    <span class="text-primary xs:text-sm text-xs tracking-tight"
+                    <span class="text-foreground xs:text-sm text-xs tracking-tight"
                       >{{ item.totalReviews }} reviews on {{ item.name }}</span
                     >
                   </div>
@@ -61,7 +61,7 @@
 
           <div class="flex flex-col items-start text-left">
             <h2
-              class="text-primary relative isolate text-[clamp(3rem,15vw,7rem)] !leading-[1.1] font-extrabold tracking-tighter text-balance"
+              class="text-foreground relative isolate text-[clamp(3rem,15vw,7rem)] !leading-[1.1] font-extrabold tracking-tighter text-balance"
             >
               <SplitText
                 splitType="words"
@@ -75,7 +75,7 @@
               />
             </h2>
             <p
-              class="text-primary/80 mt-1 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
+              class="text-foreground/80 mt-1 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
             >
               Ratusan tamu sudah berbagi pengalaman seru mereka di CampX. Lihat
               langsung review dan rating CampX di Google dan TikTok biar makin
@@ -92,7 +92,7 @@
                 :key="index"
                 :to="item.link"
                 target="_blank"
-                class="bg-muted hover:bg-border text-primary xs:grow-0 flex grow items-center justify-center gap-x-1.5 rounded-lg px-3 py-3 font-semibold tracking-tight transition active:scale-95 sm:px-5"
+                class="bg-muted hover:bg-border text-foreground xs:grow-0 flex grow items-center justify-center gap-x-1.5 rounded-lg px-3 py-3 font-semibold tracking-tight transition active:scale-95 sm:px-5"
               >
                 <span>{{ item.ctaLabel }}</span>
                 <Icon :name="item.iconName" class="h-[1lh] shrink-0" />
@@ -143,7 +143,7 @@
 
               <h6
                 v-if="banner.title"
-                class="text-primary text-base !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-lg"
+                class="text-foreground text-base !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-lg"
               >
                 {{ banner.title }}
               </h6>
@@ -156,7 +156,7 @@
                 v-if="banner.cta"
                 :to="banner.cta.link"
                 :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
-                class="bg-border/60 text-primary hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
+                class="bg-border/60 text-foreground hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
                 v-ripple
                 @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
               >

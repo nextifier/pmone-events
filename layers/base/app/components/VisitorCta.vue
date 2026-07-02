@@ -34,7 +34,7 @@
               format="webp"
             />
             <div
-              class="border-primary/5 dark:border-primary/10 bg-pattern-diagonal absolute inset-x-0 bottom-0 z-0 rounded-3xl border [--pattern-fg:var(--color-primary)]/5 dark:[--pattern-fg:var(--color-primary)]/10"
+              class="border-foreground/5 dark:border-primary/10 bg-pattern-diagonal absolute inset-x-0 bottom-0 z-0 rounded-3xl border [--pattern-fg:var(--color-primary)]/5 dark:[--pattern-fg:var(--color-primary)]/10"
               :class="content.img.src.endsWith('.png') ? 'h-[90%]' : 'h-full'"
             ></div>
 
@@ -44,7 +44,7 @@
             >
               <div
                 ref="ctaCard"
-                class="bg-pattern-diagonal text-primary flex origin-bottom-right flex-col items-start rounded-3xl border border-gray-200/50 bg-white/60 p-6 text-right backdrop-blur-xl sm:items-end sm:p-10 dark:border-white/10 dark:bg-black/60"
+                class="bg-pattern-diagonal text-foreground flex origin-bottom-right flex-col items-start rounded-3xl border border-gray-200/50 bg-white/60 p-6 text-right backdrop-blur-xl sm:items-end sm:p-10 dark:border-white/10 dark:bg-black/60"
                 :class="isInitialized ? 'visible' : 'invisible'"
               >
                 <div
@@ -78,15 +78,15 @@
             <!-- <SplitText3D
               tag="h2"
               origin="left"
-              class="text-primary section-title-large relative isolate font-semibold tracking-tighter text-balance"
+              class="text-foreground section-title-large relative isolate font-semibold tracking-tighter text-balance"
               :text="content.title"
             /> -->
             <h2
-              class="text-primary section-title-large relative isolate font-semibold tracking-tighter text-balance"
+              class="text-foreground section-title-large relative isolate font-semibold tracking-tighter text-balance"
               v-html="content.title"
             />
             <p
-              class="text-primary/80 mt-4 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
+              class="text-foreground/80 mt-4 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
             >
               {{ content.description }}
             </p>
@@ -146,7 +146,7 @@
 
               <span
                 v-if="banner.title"
-                class="text-primary text-base !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-lg"
+                class="text-foreground text-base !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-lg"
               >
                 {{ banner.title }}
               </span>
@@ -159,7 +159,7 @@
                 v-if="banner.cta"
                 :to="lp(banner.cta.link)"
                 :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
-                class="bg-border/60 text-primary hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
+                class="bg-border/60 text-foreground hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
                 v-ripple
                 @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
               >

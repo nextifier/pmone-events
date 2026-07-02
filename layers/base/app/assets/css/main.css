@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* === cn-* "Style" system — ACTIVE STYLE: uncomment EXACTLY ONE ============
+   Only the uncommented style is bundled (~25KB), so payload stays small.
+   To switch this project's style: comment the active line, uncomment the
+   desired one, AND set the matching DEFAULT_STYLE in lib/appearance/index.ts.
+   Each file scopes per-component `.cn-*` rules under `body.style-X` and
+   @apply token utilities, so component shape composes with the appearance
+   tokens (Base Color / Theme / Radius). A style is ALWAYS active. ========== */
+@import "./styles/style-mono.css" layer(base); /* ← ACTIVE (default) */
+/* @import "./styles/style-vega.css" layer(base); */
+/* @import "./styles/style-nova.css" layer(base); */
+/* @import "./styles/style-maia.css" layer(base); */
+/* @import "./styles/style-lyra.css" layer(base); */
+/* @import "./styles/style-mira.css" layer(base); */
+/* @import "./styles/style-luma.css" layer(base); */
+/* @import "./styles/style-sera.css" layer(base); */
+/* @import "./styles/style-rhea.css" layer(base); */
+
 @source "../../app.vue";
 @source "../../app.config.ts";
 @source "../../components/**/*.vue";
@@ -13,6 +30,57 @@
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Reka/shadcn data-state variants the cn-* style rules rely on (events does not
+   import shadcn-vue/tailwind.css, so define them here). */
+@custom-variant data-open (&:where([data-state="open"]), &:where([data-open]:not([data-open="false"])));
+@custom-variant data-closed (&:where([data-state="closed"]), &:where([data-closed]:not([data-closed="false"])));
+@custom-variant data-checked (&:where([data-state="checked"]), &:where([data-checked]:not([data-checked="false"])));
+@custom-variant data-unchecked (&:where([data-state="unchecked"]), &:where([data-unchecked]:not([data-unchecked="false"])));
+@custom-variant data-selected (&:where([data-selected="true"]));
+@custom-variant data-disabled (&:where([data-disabled="true"]), &:where([data-disabled]:not([data-disabled="false"])));
+@custom-variant data-active (&:where([data-state="active"]), &:where([data-active]:not([data-active="false"])));
+@custom-variant data-horizontal (&:where([data-orientation="horizontal"]));
+@custom-variant data-vertical (&:where([data-orientation="vertical"]));
+
+/* Scope utilities to the active style, e.g. `style-nova:text-lg`. */
+@custom-variant style-mono (&:where(.style-mono *));
+@custom-variant style-vega (&:where(.style-vega *));
+@custom-variant style-nova (&:where(.style-nova *));
+@custom-variant style-maia (&:where(.style-maia *));
+@custom-variant style-lyra (&:where(.style-lyra *));
+@custom-variant style-mira (&:where(.style-mira *));
+@custom-variant style-luma (&:where(.style-luma *));
+@custom-variant style-sera (&:where(.style-sera *));
+@custom-variant style-rhea (&:where(.style-rhea *));
+
+/* Lyra & Sera are intentionally hard-edged. Unlayered + the `body.style-X`
+   selector overrides the appearance `:root` --radius injection. */
+body.style-lyra,
+body.style-sera {
+  --radius: 0rem;
+}
+
+/* Appearance switch guard: while `<html>` has this class (set for ~1 frame by
+   useAppearance around every color-mode/style/token change), ALL transitions &
+   animations are killed so the whole-document restyle snaps instantly instead of
+   hundreds of `.cn-*` colors animating at once. Unlayered + !important so it wins
+   over every cn-* transition. */
+html.appearance-switching,
+html.appearance-switching *,
+html.appearance-switching *::before,
+html.appearance-switching *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+@layer base {
+  /* cn-* components may use `.cn-font-heading`; fall back to the sans stack. */
+  .cn-font-heading {
+    font-family: var(--font-heading, var(--font-sans, inherit));
+  }
+}
 
 @theme {
   --breakpoint-*: initial;
@@ -147,8 +215,8 @@
     --popover: var(--color-white);
     --popover-foreground: var(--color-gray-700);
 
-    --sidebar: var(--color-white);
-    --sidebar-foreground: var(--color-gray-950);
+    --sidebar: var(--background);
+    --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--color-black);
     --sidebar-primary-foreground: var(--color-white);
     --sidebar-accent: var(--color-gray-100);
@@ -203,8 +271,8 @@
     --popover: var(--color-gray-950);
     --popover-foreground: var(--color-gray-300);
 
-    --sidebar: var(--color-gray-950);
-    --sidebar-foreground: var(--color-gray-50);
+    --sidebar: var(--background);
+    --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--color-white);
     --sidebar-primary-foreground: var(--color-black);
     --sidebar-accent: var(--color-gray-900);
@@ -346,7 +414,7 @@
 }
 
 @utility keyboard-symbol {
-  @apply bg-muted text-primary ring-border hidden rounded-md p-1 px-2 py-0.5 text-xs ring-1 ring-inset pointer-fine:inline;
+  @apply bg-muted text-foreground ring-border hidden rounded-md p-1 px-2 py-0.5 text-xs ring-1 ring-inset pointer-fine:inline;
 }
 
 @utility skeleton {
@@ -477,15 +545,7 @@
 
 @layer base {
   html {
-    scrollbar-gutter: stable;
-
-    /* When Reka UI scroll-lock adds overflow:hidden to body,
-       disable scrollbar-gutter so it doesn't conflict with
-       Reka UI's padding-right compensation */
-    &:has(body[style*="overflow: hidden"]) {
-      scrollbar-gutter: auto;
-    }
-  }
+    scrollbar-gutter: stable;  }
 
   *,
   ::after,
@@ -1191,11 +1251,11 @@
 }
 
 @utility outline-inside {
-  @apply outline-primary/10 outline -outline-offset-1;
+  @apply outline-foreground/10 outline -outline-offset-1;
 }
 
 @utility page-title {
-  @apply text-primary text-xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-2xl;
+  @apply text-foreground text-xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-2xl;
 }
 
 @utility page-description {
@@ -1296,7 +1356,7 @@
 }
 
 .sortable-drag {
-  @apply border-primary/15 rounded-xl border;
+  @apply border-foreground/15 rounded-xl border;
 }
 
 .frame {

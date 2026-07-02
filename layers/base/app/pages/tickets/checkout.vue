@@ -3,7 +3,7 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Checkbox } from "../../components/ui/checkbox";
 import { Label } from "../../components/ui/label";
-import { InputErrorMessage } from "../../components/ui/input-error-message";
+import { FieldError } from "../../components/ui/field";
 import { InputPhone } from "../../components/ui/input-phone";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import DialogResponsive from "../../components/ui/dialog-responsive/DialogResponsive.vue";
@@ -369,7 +369,7 @@ const termsOpen = ref(false);
             <div class="space-y-2">
               <Label for="buyer_name">{{ t("tickets.fullName") }}</Label>
               <Input id="buyer_name" v-model="form.buyer_name" autocomplete="name" required />
-              <InputErrorMessage :errors="errors.buyer_name" />
+              <FieldError :errors="errors.buyer_name" />
             </div>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -382,7 +382,7 @@ const termsOpen = ref(false);
                   autocomplete="email"
                   required
                 />
-                <InputErrorMessage :errors="errors.buyer_email" />
+                <FieldError :errors="errors.buyer_email" />
                 <p class="text-muted-foreground text-xs tracking-tight sm:text-sm">
                   {{ t("tickets.detailsNote") }}
                 </p>
@@ -395,7 +395,7 @@ const termsOpen = ref(false);
                   required
                   @update:model-value="(v) => (form.buyer_phone = v)"
                 />
-                <InputErrorMessage :errors="errors.buyer_phone" />
+                <FieldError :errors="errors.buyer_phone" />
               </div>
             </div>
           </div>
@@ -466,7 +466,7 @@ const termsOpen = ref(false);
               {{ t("tickets.termsConsentSuffix") }}
             </Label>
           </div>
-          <InputErrorMessage :errors="errors.accept_terms" />
+          <FieldError :errors="errors.accept_terms" />
         </section>
 
         <Button
@@ -487,7 +487,7 @@ const termsOpen = ref(false);
     <DialogResponsive v-model:open="termsOpen" :overflow-content="true" dialog-max-width="40rem">
       <template #default>
         <div class="space-y-4 px-4 pt-5 pb-8 sm:px-6">
-          <h3 class="text-primary text-lg font-semibold tracking-tighter">
+          <h3 class="text-foreground text-lg font-semibold tracking-tighter">
             {{ t("tickets.termsDialogTitle") }}
           </h3>
           <div

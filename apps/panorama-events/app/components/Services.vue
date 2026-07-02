@@ -31,10 +31,10 @@
             class="text-accent mb-1 size-7"
           />
           <span
-            class="text-primary text-lg font-semibold tracking-tighter sm:text-xl"
+            class="text-foreground text-lg font-semibold tracking-tighter sm:text-xl"
             >{{ item.title }}</span
           >
-          <span class="text-primary/70 tracking-tight">{{
+          <span class="text-foreground/70 tracking-tight">{{
             item.description
           }}</span>
         </div>

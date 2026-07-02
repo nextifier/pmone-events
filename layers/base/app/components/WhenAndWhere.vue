@@ -21,7 +21,7 @@
 
       <div class="flex flex-col items-start gap-y-1">
         <span
-          class="text-primary line-clamp-1 text-base font-medium tracking-tight"
+          class="text-foreground line-clamp-1 text-base font-medium tracking-tight"
         >
           <span>{{ formattedDate }}</span>
         </span>

@@ -48,7 +48,7 @@
 
       <div
         v-if="current && totalCount"
-        class="text-primary bg-background/70 pointer-events-none absolute right-4 bottom-4 z-20 flex -translate-y-6 items-center justify-center rounded-md px-2 py-1 text-center text-xs font-medium tracking-tight backdrop-blur-sm select-none lg:translate-y-0"
+        class="text-foreground bg-background/70 pointer-events-none absolute right-4 bottom-4 z-20 flex -translate-y-6 items-center justify-center rounded-md px-2 py-1 text-center text-xs font-medium tracking-tight backdrop-blur-sm select-none lg:translate-y-0"
       >
         {{ current }} / {{ totalCount }}
       </div>

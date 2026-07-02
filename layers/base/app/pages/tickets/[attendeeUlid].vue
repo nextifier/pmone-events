@@ -44,7 +44,7 @@
         </Lightbox>
 
         <div class="min-w-0 flex-1 space-y-1.5 pt-0.5">
-          <h1 class="text-primary text-xl/snug font-semibold tracking-tighter text-balance">
+          <h1 class="text-foreground text-xl/snug font-semibold tracking-tighter text-balance">
             {{ event?.title || eventTitle || t("tickets.attendee.title") }}
           </h1>
           <div class="text-muted-foreground space-y-1 text-sm tracking-tight">
@@ -105,13 +105,13 @@
           <div class="space-y-2">
             <Label for="att_name">{{ t("tickets.attendee.fullName") }}</Label>
             <Input id="att_name" v-model="form.name" required />
-            <InputErrorMessage :errors="errors.name" />
+            <FieldError :errors="errors.name" />
           </div>
 
           <div class="space-y-2">
             <Label for="att_email">{{ t("tickets.attendee.emailOptional") }}</Label>
             <Input id="att_email" v-model="form.email" type="email" />
-            <InputErrorMessage :errors="errors.email" />
+            <FieldError :errors="errors.email" />
           </div>
 
           <div class="space-y-2">
@@ -121,7 +121,7 @@
               :model-value="form.phone"
               @update:model-value="(v) => (form.phone = v)"
             />
-            <InputErrorMessage :errors="errors.phone" />
+            <FieldError :errors="errors.phone" />
           </div>
 
           <Button
@@ -144,7 +144,7 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { InputPhone } from "../../components/ui/input-phone";
-import { InputErrorMessage } from "../../components/ui/input-error-message";
+import { FieldError } from "../../components/ui/field";
 import { Skeleton } from "../../components/ui/skeleton";
 import ETicket from "../../components/tickets/ETicket.vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";

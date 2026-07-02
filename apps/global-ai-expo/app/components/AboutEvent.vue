@@ -76,7 +76,7 @@
 
           <p
             ref="leadRef"
-            class="text-primary text-2xl !leading-[1.2] font-semibold tracking-tighter sm:text-3xl"
+            class="text-foreground text-2xl !leading-[1.2] font-semibold tracking-tighter sm:text-3xl"
           >
             {{ $t("about.lead") }}
           </p>
@@ -85,7 +85,7 @@
 
       <div
         ref="statsRef"
-        class="border-primary/10 mt-8 grid grid-cols-2 gap-y-10 border-y py-10 lg:grid-cols-4 lg:py-14"
+        class="border-foreground/10 mt-8 grid grid-cols-2 gap-y-10 border-y py-10 lg:grid-cols-4 lg:py-14"
       >
         <div
           v-for="(stat, index) in stats"
@@ -94,7 +94,7 @@
           :class="{ 'lg:border-l': index > 0 }"
         >
           <div
-            class="text-primary text-5xl font-semibold tracking-tighter sm:text-6xl"
+            class="text-foreground text-5xl font-semibold tracking-tighter sm:text-6xl"
           >
             <span v-if="stat.prefix">{{ stat.prefix }}</span>
             <NumberFlow :value="statsActive ? stat.value : 0" />
@@ -110,22 +110,22 @@
 
       <div ref="bodyRef" class="mt-8 grid grid-cols-12 gap-x-8 gap-y-10">
         <p
-          class="text-primary col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-7 lg:col-start-1"
+          class="text-foreground col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-7 lg:col-start-1"
         >
           {{ $t("about.paragraph1") }}
         </p>
         <p
-          class="text-primary col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-5 lg:col-start-8"
+          class="text-foreground col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-5 lg:col-start-8"
         >
           {{ $t("about.paragraph2") }}
         </p>
         <p
-          class="text-primary col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-6 lg:col-start-2"
+          class="text-foreground col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-6 lg:col-start-2"
         >
           {{ $t("about.paragraph3") }}
         </p>
         <p
-          class="text-primary col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-7 lg:col-start-6"
+          class="text-foreground col-span-12 text-xl !leading-[1.4] font-medium tracking-tight sm:text-2xl lg:col-span-7 lg:col-start-6"
         >
           {{ $t("about.paragraph4") }}
         </p>

@@ -17,7 +17,7 @@
       >
         <Logo
           :class="
-            useAppConfig().settings?.header?.logoClass ?? 'text-primary h-6'
+            useAppConfig().settings?.header?.logoClass ?? 'text-foreground h-6'
           "
         />
       </nuxt-link>
@@ -51,19 +51,19 @@
             <button
               data-sidebar="trigger"
               data-slot="sidebar-trigger"
-              class="text-primary hover:bg-muted flex size-8 items-center justify-center rounded-lg"
+              class="text-foreground hover:bg-muted flex size-8 items-center justify-center rounded-lg"
               aria-label="Toggle Sidebar"
               @click="toggleSidebar"
             >
               <Icon
                 v-if="open && !isMobile"
                 name="hugeicons:sidebar-right-01"
-                class="text-primary size-5"
+                class="text-foreground size-5"
               />
               <Icon
                 v-else
                 name="hugeicons:sidebar-right"
-                class="text-primary size-5"
+                class="text-foreground size-5"
               />
             </button>
             <template #content>

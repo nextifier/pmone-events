@@ -68,7 +68,7 @@
                 <div
                   v-if="item.content"
                   v-html="item.content"
-                  class="text-primary/80 mt-1 line-clamp-4 !leading-[1.4] font-medium tracking-tight"
+                  class="text-foreground/80 mt-1 line-clamp-4 !leading-[1.4] font-medium tracking-tight"
                 />
 
                 <button

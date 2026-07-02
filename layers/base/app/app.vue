@@ -21,6 +21,12 @@
 
 <script setup>
 import "vue-sonner/style.css";
+
+// Single source of truth for theming (color mode + cn-* Style + tokens).
+// Self-registers the SSR <body class="style-X"> + theme-color meta (cookie-backed
+// → first paint already correct, no flash).
+useAppearance();
+
 const route = useRoute();
 const { locales } = useI18n();
 
@@ -40,8 +46,4 @@ useHead(() => ({
   link: i18nHead.value.link,
   meta: i18nHead.value.meta,
 }));
-
-onMounted(() => {
-  useNuxtApp().$updateMetaThemeColor();
-});
 </script>

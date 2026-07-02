@@ -17,7 +17,7 @@
         }"
       >
         <span
-          class="text-primary bg-background xs:text-sm absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg px-2.5 py-1 text-center text-xs font-semibold tracking-tighter text-nowrap"
+          class="text-foreground bg-background xs:text-sm absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg px-2.5 py-1 text-center text-xs font-semibold tracking-tighter text-nowrap"
           >{{ partner.category }}</span
         >
 

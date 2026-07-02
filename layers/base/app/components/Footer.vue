@@ -44,7 +44,7 @@
                     }
                   }
                 "
-                class="text-primary hover:bg-muted rounded-lg px-3 py-1 text-base font-medium tracking-[-0.04em]"
+                class="text-foreground hover:bg-muted rounded-lg px-3 py-1 text-base font-medium tracking-[-0.04em]"
                 active-class="bg-muted text-primary"
                 >{{ tLabel(link.label) }}</NuxtLink
               >

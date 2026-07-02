@@ -32,7 +32,7 @@
               class="h-5 text-yellow-400"
             />
           </div>
-          <p class="text-primary mt-2 font-semibold tracking-tight">
+          <p class="text-foreground mt-2 font-semibold tracking-tight">
             {{ item.name }}
           </p>
         </div>

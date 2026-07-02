@@ -18,7 +18,7 @@
           :key="index"
           class="border-border flex flex-col rounded-xl border px-5 py-7"
         >
-          <Icon :name="item.icon" class="text-primary size-7" />
+          <Icon :name="item.icon" class="text-foreground size-7" />
 
           <h3
             class="text-foreground mt-5 text-lg font-semibold tracking-tight lg:text-xl"

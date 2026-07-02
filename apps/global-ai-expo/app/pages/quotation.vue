@@ -108,12 +108,12 @@
       </div>
 
       <div
-        class="border-primary/10 mt-6 grid grid-cols-2 overflow-hidden rounded-2xl border sm:grid-cols-4"
+        class="border-foreground/10 mt-6 grid grid-cols-2 overflow-hidden rounded-2xl border sm:grid-cols-4"
       >
         <div
           v-for="(item, idx) in summary"
           :key="item.label"
-          class="border-primary/10 flex flex-col gap-y-1 p-5"
+          class="border-foreground/10 flex flex-col gap-y-1 p-5"
           :class="{
             'sm:border-l': idx > 0,
             'border-t sm:border-t-0': idx >= 2,
@@ -145,7 +145,7 @@
       </div>
 
       <div
-        class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:grid-cols-2"
+        class="border-foreground/10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:grid-cols-2"
       >
         <div class="flex flex-col gap-y-6 p-8 sm:p-10">
           <div class="flex flex-col gap-y-3">
@@ -183,7 +183,7 @@
         </div>
 
         <div
-          class="border-primary/10 flex flex-col gap-y-6 border-t p-8 sm:p-10 lg:border-t-0 lg:border-l"
+          class="border-foreground/10 flex flex-col gap-y-6 border-t p-8 sm:p-10 lg:border-t-0 lg:border-l"
         >
           <div class="flex flex-col gap-y-3">
             <span class="section-subtitle">Monthly</span>
@@ -240,12 +240,12 @@
       </div>
 
       <div
-        class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border md:grid-cols-2"
+        class="border-foreground/10 grid grid-cols-1 overflow-hidden rounded-3xl border md:grid-cols-2"
       >
         <div
           v-for="(group, idx) in buildGroups"
           :key="group.title"
-          class="border-primary/10 flex flex-col gap-y-4 p-6 sm:p-8"
+          class="border-foreground/10 flex flex-col gap-y-4 p-6 sm:p-8"
           :class="[
             idx > 0 ? 'border-t md:border-t-0' : '',
             idx % 2 === 1 ? 'md:border-l' : '',
@@ -283,12 +283,12 @@
       </div>
 
       <div
-        class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border md:grid-cols-2"
+        class="border-foreground/10 grid grid-cols-1 overflow-hidden rounded-3xl border md:grid-cols-2"
       >
         <div
           v-for="(group, idx) in platformGroups"
           :key="group.title"
-          class="border-primary/10 flex flex-col gap-y-4 p-6 sm:p-8"
+          class="border-foreground/10 flex flex-col gap-y-4 p-6 sm:p-8"
           :class="[
             idx > 0 ? 'border-t md:border-t-0' : '',
             idx % 2 === 1 ? 'md:border-l' : '',
@@ -326,7 +326,7 @@
       </div>
 
       <div
-        class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border sm:grid-cols-2"
+        class="border-foreground/10 grid grid-cols-1 overflow-hidden rounded-3xl border sm:grid-cols-2"
       >
         <div class="flex flex-col gap-y-4 p-6 sm:p-8">
           <div
@@ -344,7 +344,7 @@
         </div>
 
         <div
-          class="border-primary/10 flex flex-col gap-y-4 border-t p-6 sm:border-t-0 sm:border-l sm:p-8"
+          class="border-foreground/10 flex flex-col gap-y-4 border-t p-6 sm:border-t-0 sm:border-l sm:p-8"
         >
           <div
             class="bg-accent/10 text-accent flex size-12 items-center justify-center rounded-full"
@@ -373,12 +373,12 @@
         </div>
 
         <div
-          class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border"
+          class="border-foreground/10 grid grid-cols-1 overflow-hidden rounded-3xl border"
         >
           <div
             v-for="(item, idx) in exclusions"
             :key="item"
-            class="border-primary/10 flex items-start gap-x-3 p-5 sm:p-6"
+            class="border-foreground/10 flex items-start gap-x-3 p-5 sm:p-6"
             :class="[idx > 0 ? 'border-t' : '']"
           >
             <Icon
@@ -404,12 +404,12 @@
         </div>
 
         <div
-          class="border-primary/10 grid grid-cols-1 overflow-hidden rounded-3xl border"
+          class="border-foreground/10 grid grid-cols-1 overflow-hidden rounded-3xl border"
         >
           <div
             v-for="(term, idx) in terms"
             :key="term.title"
-            class="border-primary/10 flex flex-col gap-y-3 p-5 sm:p-6"
+            class="border-foreground/10 flex flex-col gap-y-3 p-5 sm:p-6"
             :class="[idx > 0 ? 'border-t' : '']"
           >
             <Icon :name="term.icon" class="text-foreground size-5" />

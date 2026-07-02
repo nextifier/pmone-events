@@ -24,13 +24,13 @@
             class="flex flex-col items-center px-4 text-center sm:px-0 lg:items-start lg:text-left"
           >
             <h2
-              class="text-primary text-4xl !leading-[1.2] font-semibold tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl"
+              class="text-foreground text-4xl !leading-[1.2] font-semibold tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl"
             >
               Let's Plan Your Team's Most
               <span class="text-gradient-accent">Impactful Outing</span>
             </h2>
             <p
-              class="text-primary/70 mt-3 max-w-2xl text-base font-medium tracking-tight text-balance sm:text-lg"
+              class="text-foreground/70 mt-3 max-w-2xl text-base font-medium tracking-tight text-balance sm:text-lg"
             >
               Tell us what you're dreaming of, and we'll handle all the details
               to create a perfectly tailored and impactful outing experience for
@@ -86,14 +86,14 @@
 
             <h6
               v-if="banner.title"
-              class="text-primary text-base !leading-[1.3] font-semibold tracking-tighter sm:text-lg"
+              class="text-foreground text-base !leading-[1.3] font-semibold tracking-tighter sm:text-lg"
             >
               {{ banner.title }}
             </h6>
 
             <p
               v-if="banner.description"
-              class="text-primary/70 text-sm tracking-tight"
+              class="text-foreground/70 text-sm tracking-tight"
             >
               {{ banner.description }}
             </p>

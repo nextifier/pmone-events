@@ -67,7 +67,7 @@
               <!-- Without profile picture - show brand name -->
               <span
                 v-else
-                class="bg-muted text-primary border-background flex size-full items-center justify-center rounded-full border-2 px-1 text-center text-[8px] !leading-tight font-medium tracking-tight sm:text-[10px]"
+                class="bg-muted text-foreground border-background flex size-full items-center justify-center rounded-full border-2 px-1 text-center text-[8px] !leading-tight font-medium tracking-tight sm:text-[10px]"
               >
                 {{ exhibitor.brand_name }}
               </span>

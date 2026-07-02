@@ -17,7 +17,7 @@
       >
         <Logo
           :class="
-            useAppConfig().settings?.header?.logoClass ?? 'text-primary h-6'
+            useAppConfig().settings?.header?.logoClass ?? 'text-foreground h-6'
           "
         />
       </nuxt-link>
@@ -36,7 +36,7 @@
         <div class="flex h-full shrink-0 items-center gap-x-2">
           <nuxt-link
             :to="localePath('/book-space')"
-            class="border-border text-primary hover:bg-muted hidden items-center justify-center gap-x-2 rounded-xl border px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
+            class="border-border text-foreground hover:bg-muted hidden items-center justify-center gap-x-2 rounded-xl border px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
             @click="$scrollToTopIfCurrentPageIs(localePath('/book-space'))"
             v-ripple
           >
@@ -60,18 +60,18 @@
               data-sidebar="trigger"
               data-slot="sidebar-trigger"
               aria-label="Toggle Sidebar"
-              class="text-primary hover:bg-muted flex size-8 items-center justify-center rounded-lg"
+              class="text-foreground hover:bg-muted flex size-8 items-center justify-center rounded-lg"
               @click="toggleSidebar"
             >
               <Icon
                 v-if="open && !isMobile"
                 name="hugeicons:sidebar-right-01"
-                class="text-primary size-5"
+                class="text-foreground size-5"
               />
               <Icon
                 v-else
                 name="hugeicons:sidebar-right"
-                class="text-primary size-5"
+                class="text-foreground size-5"
               />
             </button>
             <template #content>
@@ -98,9 +98,9 @@
             type="button"
             v-tippy="'Toggle Fullscreen'"
             aria-label="Toggle Fullscreen"
-            class="text-primary hover:bg-muted flex size-8 items-center justify-center rounded-lg"
+            class="text-foreground hover:bg-muted flex size-8 items-center justify-center rounded-lg"
           >
-            <Icon name="lucide:fullscreen" class="text-primary size-4" />
+            <Icon name="lucide:fullscreen" class="text-foreground size-4" />
           </button>
         </div>
       </div>

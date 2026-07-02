@@ -4,7 +4,7 @@
     <template v-if="!isSubmitted">
       <!-- Header -->
       <h1
-        class="text-primary text-3xl leading-[1.25]! font-medium tracking-tighter text-balance sm:text-4xl"
+        class="text-foreground text-3xl leading-[1.25]! font-medium tracking-tighter text-balance sm:text-4xl"
       >
         {{ titleText }}
       </h1>
@@ -168,12 +168,12 @@
         >
           <Icon
             name="hugeicons:checkmark-circle-03"
-            class="text-primary size-8"
+            class="text-foreground size-8"
           />
         </div>
 
         <h2
-          class="text-primary mt-6 text-3xl font-medium tracking-tighter text-balance sm:text-4xl"
+          class="text-foreground mt-6 text-3xl font-medium tracking-tighter text-balance sm:text-4xl"
         >
           {{ successTitleText }}
         </h2>

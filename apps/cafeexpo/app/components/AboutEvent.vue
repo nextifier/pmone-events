@@ -19,7 +19,7 @@
       </h2>
 
       <div
-        class="text-primary mx-auto max-w-4xl space-y-4 text-2xl !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-3xl"
+        class="text-foreground mx-auto max-w-4xl space-y-4 text-2xl !leading-[1.3] font-semibold tracking-tighter text-balance sm:text-3xl"
       >
         <p>
           {{ $t("about.sectionDescription") }}

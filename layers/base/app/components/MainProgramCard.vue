@@ -39,7 +39,7 @@
     </span>
 
     <h3
-      class="text-primary mt-4 text-2xl font-semibold tracking-tighter text-balance"
+      class="text-foreground mt-4 text-2xl font-semibold tracking-tighter text-balance"
     >
       {{ program.title }}
     </h3>

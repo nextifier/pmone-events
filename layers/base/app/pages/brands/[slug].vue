@@ -5,7 +5,7 @@
       <ButtonBack destination="/brands" v-slot="{ goBack }">
         <button
           type="button"
-          class="text-primary lg:hover:bg-muted bg-background border-border flex items-center justify-center gap-x-1 rounded-full border p-3 transition active:scale-98 lg:border-0"
+          class="text-foreground lg:hover:bg-muted bg-background border-border flex items-center justify-center gap-x-1 rounded-full border p-3 transition active:scale-98 lg:border-0"
           v-ripple
           @click="goBack"
         >

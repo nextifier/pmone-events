@@ -15,10 +15,10 @@
     </div>
 
     <div
-      class="border-primary/10 mt-10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:mt-14 lg:grid-cols-12"
+      class="border-foreground/10 mt-10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:mt-14 lg:grid-cols-12"
     >
       <div
-        class="border-primary/10 relative col-span-12 flex flex-col justify-between overflow-hidden border-b lg:col-span-5 lg:border-r lg:border-b-0"
+        class="border-foreground/10 relative col-span-12 flex flex-col justify-between overflow-hidden border-b lg:col-span-5 lg:border-r lg:border-b-0"
       >
         <div
           class="bg-foreground/[0.02] flex flex-1 items-center justify-center p-6 sm:min-h-[420px] sm:p-10"
@@ -32,7 +32,7 @@
         </div>
 
         <div
-          class="bg-background border-primary/10 flex flex-col gap-y-4 border-t p-6 sm:p-8"
+          class="bg-background border-foreground/10 flex flex-col gap-y-4 border-t p-6 sm:p-8"
         >
           <div class="flex items-end justify-between gap-x-4">
             <div class="flex flex-col gap-y-1">
@@ -91,7 +91,7 @@
         <div
           v-for="(row, idx) in scales"
           :key="row.label"
-          class="border-primary/10 flex flex-col gap-y-3 p-6 sm:p-8"
+          class="border-foreground/10 flex flex-col gap-y-3 p-6 sm:p-8"
           :class="{ 'border-t': idx > 0 }"
         >
           <div class="flex items-start justify-between gap-x-3">

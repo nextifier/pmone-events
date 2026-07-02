@@ -26,7 +26,7 @@
     </div>
 
     <div v-else-if="error" class="mt-6 flex justify-center">
-      <span class="text-primary text-lg font-semibold tracking-tighter">
+      <span class="text-foreground text-lg font-semibold tracking-tighter">
         {{ $t("ui.failedToGetData") }}
       </span>
     </div>

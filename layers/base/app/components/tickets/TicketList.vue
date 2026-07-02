@@ -553,7 +553,7 @@ const subtotalLabel = computed(() =>
           </p>
         </div>
         <div v-else class="space-y-2">
-          <p class="text-primary text-sm font-medium tracking-tight">
+          <p class="text-foreground text-sm font-medium tracking-tight">
             {{ t("tickets.accessLabel") }}
           </p>
           <div class="flex gap-2">
@@ -615,11 +615,11 @@ const subtotalLabel = computed(() =>
       <section v-if="entryTickets.length" id="entry-tickets">
         <div class="flex flex-col items-center gap-y-3 text-center">
           <h2
-            class="text-primary text-3xl font-semibold tracking-tighter sm:text-4xl"
+            class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
           >
             {{ t("tickets.entryTitle") }}
           </h2>
-          <p class="text-primary tracking-tight text-balance">
+          <p class="text-foreground tracking-tight text-balance">
             {{ t("tickets.entrySubtitle", { event: event.title }) }}
           </p>
         </div>
@@ -681,7 +681,7 @@ const subtotalLabel = computed(() =>
                 </Lightbox>
                 <div class="flex flex-col items-start gap-y-1">
                   <p
-                    class="text-primary line-clamp-2 text-sm font-semibold tracking-tight"
+                    class="text-foreground line-clamp-2 text-sm font-semibold tracking-tight"
                   >
                     {{ ticket.title }}
                   </p>
@@ -810,7 +810,7 @@ const subtotalLabel = computed(() =>
                   <span
                     class="text-base font-semibold tracking-tighter"
                     :class="
-                      ticket.on_sale ? 'text-primary' : 'text-muted-foreground'
+                      ticket.on_sale ? 'text-foreground' : 'text-muted-foreground'
                     "
                   >
                     {{ priceLabel(ticket) }}
@@ -923,11 +923,11 @@ const subtotalLabel = computed(() =>
       <section v-if="addOnTickets.length" id="add-ons">
         <div class="flex flex-col items-center gap-y-3 text-center">
           <h2
-            class="text-primary text-3xl font-semibold tracking-tighter sm:text-4xl"
+            class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
           >
             {{ t("tickets.addOnTitle") }}
           </h2>
-          <p class="text-primary tracking-tight text-balance">
+          <p class="text-foreground tracking-tight text-balance">
             {{ t("tickets.addOnSubtitle") }}
           </p>
         </div>
@@ -989,7 +989,7 @@ const subtotalLabel = computed(() =>
                 </Lightbox>
                 <div class="flex flex-col items-start gap-y-1">
                   <p
-                    class="text-primary line-clamp-2 text-sm font-semibold tracking-tight"
+                    class="text-foreground line-clamp-2 text-sm font-semibold tracking-tight"
                   >
                     {{ ticket.title }}
                   </p>
@@ -1092,7 +1092,7 @@ const subtotalLabel = computed(() =>
                   <span
                     class="text-base font-semibold tracking-tighter"
                     :class="
-                      ticket.on_sale ? 'text-primary' : 'text-muted-foreground'
+                      ticket.on_sale ? 'text-foreground' : 'text-muted-foreground'
                     "
                   >
                     {{ priceLabel(ticket) }}

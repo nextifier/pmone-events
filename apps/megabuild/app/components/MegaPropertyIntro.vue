@@ -71,7 +71,7 @@
             :key="index"
             class="flex items-start gap-2"
           >
-            <Icon :name="item.icon" class="text-primary size-[1lh] shrink-0" />
+            <Icon :name="item.icon" class="text-foreground size-[1lh] shrink-0" />
             <span
               class="text-foreground -mt-0.5 text-base tracking-tight lg:text-lg"
               >{{ item.label }}</span

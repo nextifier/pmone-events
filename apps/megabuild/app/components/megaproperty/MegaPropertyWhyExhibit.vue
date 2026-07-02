@@ -21,7 +21,7 @@
           :key="index"
           class="border-border bg-background flex flex-col rounded-xl border px-5 py-7"
         >
-          <Icon :name="reason.icon" class="text-primary size-7" />
+          <Icon :name="reason.icon" class="text-foreground size-7" />
 
           <h3 class="text-foreground mt-4 text-lg font-semibold tracking-tight">
             {{ reason.title }}

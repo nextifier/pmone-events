@@ -23,7 +23,7 @@
           :key="index"
           class="border-border flex flex-col rounded-xl border px-5 py-7"
         >
-          <Icon :name="category.icon" class="text-primary size-6" />
+          <Icon :name="category.icon" class="text-foreground size-6" />
 
           <h3 class="text-foreground mt-4 text-lg font-semibold tracking-tight">
             {{ category.title }}
@@ -37,7 +37,7 @@
             >
               <Icon
                 name="hugeicons:tick-02"
-                class="text-primary size-[1lh] shrink-0 scale-80"
+                class="text-foreground size-[1lh] shrink-0 scale-80"
               />
               <span>{{ item }}</span>
             </li>

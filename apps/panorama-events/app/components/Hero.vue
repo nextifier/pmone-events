@@ -8,7 +8,7 @@
           class="relative z-10 flex flex-col justify-between gap-y-10 px-4 sm:px-0 lg:min-h-[90%] lg:pb-32 xl:pb-40"
         >
           <ul
-            class="text-primary flex flex-col items-end space-y-1 text-sm tracking-tight lg:items-start"
+            class="text-foreground flex flex-col items-end space-y-1 text-sm tracking-tight lg:items-start"
           >
             <li class="flex items-center gap-x-1">
               HR-Driven Corporate Outings
@@ -26,7 +26,7 @@
             </li>
           </ul>
 
-          <h1 class="text-primary flex flex-col gap-y-1">
+          <h1 class="text-foreground flex flex-col gap-y-1">
             <span
               class="text-[clamp(1rem,6vw,2rem)] !leading-[1.25] font-medium tracking-tighter sm:text-2xl"
               >Corporate Outings That Actually</span
@@ -81,10 +81,10 @@
             <div
               v-for="(stat, index) in stats"
               :key="index"
-              class="text-primary hover:bg-muted flex flex-col items-start gap-y-1 rounded-xl px-4 py-4 transition"
+              class="text-foreground hover:bg-muted flex flex-col items-start gap-y-1 rounded-xl px-4 py-4 transition"
             >
               <NumberFlow
-                class="text-primary text-4xl font-extrabold tracking-tighter"
+                class="text-foreground text-4xl font-extrabold tracking-tighter"
                 :value="statValues[index]"
                 :format="{ notation: 'compact' }"
                 suffix="+"
@@ -94,7 +94,7 @@
           </div>
 
           <div
-            class="text-primary flex flex-col gap-y-3 lg:items-end lg:text-right"
+            class="text-foreground flex flex-col gap-y-3 lg:items-end lg:text-right"
           >
             <p class="text-3xl font-semibold tracking-tighter text-balance">
               Stop settling for average corporate outings.

@@ -32,7 +32,7 @@
         :is="link ? NuxtLink : 'span'"
         :to="link || null"
         :target="openInNewTab ? '_blank' : null"
-        class="bg-muted text-primary hover:bg-border size-14"
+        class="bg-muted text-foreground hover:bg-border size-14"
         v-ripple
       >
         <Icon

@@ -127,7 +127,7 @@ export const useContentStore = defineStore("content", {
       partnerships: {
         title: `
           <span class=''>Become a </span>
-          <span class='text-primary'>Part of our Story</span>
+          <span class='text-foreground'>Part of our Story</span>
         `,
         description: `Take your business to the next level by participating in
           ${useAppConfig().app.name}. Meet potential partners, gain exposure,
@@ -175,7 +175,7 @@ export const useContentStore = defineStore("content", {
           height: 1963,
         },
         title: `
-          <span class="text-primary">Planning a renovation?</span><br />
+          <span class="text-foreground">Planning a renovation?</span><br />
           <span class=""
             >Your essential guide awaits you here.</span
           >

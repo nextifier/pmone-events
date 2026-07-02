@@ -18,7 +18,7 @@
         </h2>
 
         <div
-          class="text-primary mt-2 space-y-6 text-2xl !leading-[1.3] font-semibold tracking-tighter text-pretty sm:text-3xl"
+          class="text-foreground mt-2 space-y-6 text-2xl !leading-[1.3] font-semibold tracking-tighter text-pretty sm:text-3xl"
         >
           <p v-html="$t('about.sectionDescription')"></p>
           <p>
@@ -161,7 +161,7 @@
         </div>
 
         <div
-          class="text-primary mt-16 space-y-6 text-2xl !leading-[1.3] font-semibold tracking-tighter text-pretty sm:text-3xl"
+          class="text-foreground mt-16 space-y-6 text-2xl !leading-[1.3] font-semibold tracking-tighter text-pretty sm:text-3xl"
         >
           <p v-html="$t('about.accessNote')"></p>
           <p>

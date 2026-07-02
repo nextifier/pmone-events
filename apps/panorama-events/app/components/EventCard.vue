@@ -19,7 +19,7 @@
 
       <InvertedBorderRadius v-if="event.client.logo" position="bottom-right">
         <span
-          class="group bg-background border-border text-primary flex size-16 items-center justify-center overflow-hidden border transition hover:bg-white"
+          class="group bg-background border-border text-foreground flex size-16 items-center justify-center overflow-hidden border transition hover:bg-white"
         >
           <NuxtImg
             :src="event.client.logo"
@@ -45,7 +45,7 @@
 
       <nuxt-link
         :to="`/events/${event.slug}`"
-        class="text-primary mt-2 line-clamp-3 text-lg font-semibold tracking-tighter"
+        class="text-foreground mt-2 line-clamp-3 text-lg font-semibold tracking-tighter"
         >{{ event.title }}</nuxt-link
       >
 
@@ -63,7 +63,7 @@
 
       <nuxt-link
         :to="`/events/${event.slug}`"
-        class="bg-muted text-primary hover:bg-border mt-3 flex items-center gap-x-1.5 self-start rounded-lg px-3 py-2 text-sm font-medium tracking-tight transition active:scale-95"
+        class="bg-muted text-foreground hover:bg-border mt-3 flex items-center gap-x-1.5 self-start rounded-lg px-3 py-2 text-sm font-medium tracking-tight transition active:scale-95"
       >
         <span>View details</span>
         <Icon name="hugeicons:arrow-right-02" class="size-4" />

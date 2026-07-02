@@ -40,15 +40,15 @@
             class="mt-4 flex items-center"
           >
             <span
-              class="border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
+              class="border-foreground/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
             >
               {{ activity.start_time || "-" }}
             </span>
 
-            <span class="border-primary/25 grow border-b border-dashed"></span>
+            <span class="border-foreground/25 grow border-b border-dashed"></span>
 
             <span
-              class="border-primary/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
+              class="border-foreground/25 flex shrink-0 items-center justify-center rounded-full border border-dashed p-2.5 text-center text-base"
             >
               {{ activity.end_time || finishLabel }}
             </span>

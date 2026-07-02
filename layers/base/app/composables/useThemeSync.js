@@ -1,50 +1,17 @@
+import { useAppearance } from "@/composables/useAppearance";
+
 /**
- * Centralized theme synchronization composable
- * Handles instant UI updates + meta theme-color sync.
- * pmone-events (public site) tidak punya auth, jadi backend sync dihilangkan.
+ * Thin shim → the unified {@link useAppearance} gate. Kept so existing callers
+ * (and the byte-identical-across-repos `components/ui`: ColorModeToggle /
+ * ColorModeButtons) work unchanged while color-mode storage and the reactive
+ * theme-color meta live in one place. `updateMetaThemeColor` is a no-op now
+ * (handled reactively + SSR by useAppearance).
  */
 export function useThemeSync() {
-  const colorMode = useColorMode();
-
-  const updateMetaThemeColor = () => {
-    if (typeof document === "undefined") return;
-
-    const currentColorMode = localStorage.getItem("color-mode") || "dark";
-    const themeColor = currentColorMode === "light" ? "#ffffff" : "#09090b";
-
-    const meta = document.querySelector("meta[name=theme-color]");
-    if (meta) {
-      meta.setAttribute("content", themeColor);
-    } else {
-      const newMeta = document.createElement("meta");
-      newMeta.name = "theme-color";
-      newMeta.content = themeColor;
-      document.head.appendChild(newMeta);
-    }
-  };
-
-  const setTheme = (theme) => {
-    colorMode.preference = theme;
-    nextTick(() => {
-      updateMetaThemeColor();
-    });
-  };
-
-  onMounted(() => {
-    updateMetaThemeColor();
-    watch(
-      () => colorMode.value,
-      () => {
-        nextTick(() => {
-          updateMetaThemeColor();
-        });
-      }
-    );
-  });
-
+  const a = useAppearance();
   return {
-    colorMode,
-    setTheme,
-    updateMetaThemeColor,
+    colorMode: a.colorMode,
+    setTheme: a.setColorMode,
+    updateMetaThemeColor: () => {},
   };
 }

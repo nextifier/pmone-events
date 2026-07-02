@@ -77,7 +77,7 @@ function pick(session) {
       @update:model-value="() => pick(s)"
     >
       <span class="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span class="text-primary text-sm font-medium tracking-tight">{{ timeRange(s) }}</span>
+        <span class="text-foreground text-sm font-medium tracking-tight">{{ timeRange(s) }}</span>
         <span v-if="metaLine(s)" class="text-muted-foreground text-xs tracking-tight">
           {{ metaLine(s) }}
         </span>

@@ -94,7 +94,7 @@
         class="relative isolate z-10 flex flex-col items-center gap-y-4 self-end text-center md:items-end md:text-right lg:col-span-3"
       >
         <div
-          class="text-primary relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
+          class="text-foreground relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
         >
           <span
             class="relative isolate flex flex-col items-center text-7xl !leading-[0.9] font-semibold tracking-tighter text-balance uppercase md:items-end 2xl:text-8xl"

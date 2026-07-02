@@ -2,7 +2,7 @@
   <div ref="logo" class="flex" :class="isInitialized ? 'visible' : 'invisible'">
     <LogoMark id="logomark" class="h-full" />
     <div class="h-full [clip-path:inset(-100%_-100%_-100%_0)]">
-      <LogoType id="logotype" class="text-primary h-full" />
+      <LogoType id="logotype" class="text-foreground h-full" />
     </div>
   </div>
 </template>

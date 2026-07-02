@@ -2,7 +2,7 @@
   <div v-if="items?.length" class="flex items-center gap-2">
     <AvatarGroup :items="avatarItems" :size="2.5" :show-tooltip="true" />
 
-    <span class="text-primary block text-sm tracking-tight text-balance">
+    <span class="text-foreground block text-sm tracking-tight text-balance">
       {{ $t("conjunction.label") }}
 
       <template v-for="(item, index) in items" :key="item.name">

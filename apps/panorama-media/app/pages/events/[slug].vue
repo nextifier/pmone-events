@@ -105,11 +105,11 @@
                 v-if="item.value"
                 class="bg-muted flex flex-col items-start gap-y-1 rounded-xl p-6"
               >
-                <span class="text-primary/70 text-sm tracking-tight">{{
+                <span class="text-foreground/70 text-sm tracking-tight">{{
                   item.label
                 }}</span>
                 <span
-                  class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
+                  class="text-foreground text-base font-semibold tracking-tighter sm:text-lg"
                   >{{ item.value }}</span
                 >
               </div>

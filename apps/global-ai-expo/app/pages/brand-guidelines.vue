@@ -17,7 +17,7 @@
 
       <button
         type="button"
-        class="gradient-accent border-primary/10 group brand-on-image-text relative flex h-32 w-full items-end overflow-hidden rounded-3xl border p-5 text-left text-white sm:h-40"
+        class="gradient-accent border-foreground/10 group brand-on-image-text relative flex h-32 w-full items-end overflow-hidden rounded-3xl border p-5 text-left text-white sm:h-40"
         @click="copyClass('gradient-accent')"
       >
         <div class="flex w-full items-end justify-between gap-4">
@@ -84,7 +84,7 @@
         </div>
 
         <div
-          class="border-primary/10 grid grid-cols-11 overflow-hidden rounded-2xl border"
+          class="border-foreground/10 grid grid-cols-11 overflow-hidden rounded-2xl border"
         >
           <button
             v-for="zinc in neutralRamp"
@@ -127,7 +127,7 @@
 
       <div
         ref="motionRef"
-        class="border-primary/10 mt-10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:mt-14 lg:grid-cols-12"
+        class="border-foreground/10 mt-10 grid grid-cols-1 overflow-hidden rounded-3xl border lg:mt-14 lg:grid-cols-12"
       >
         <div
           class="bg-primary relative isolate col-span-12 aspect-video overflow-hidden lg:col-span-8 lg:aspect-auto"
@@ -181,12 +181,12 @@
         </div>
 
         <div
-          class="border-primary/10 bg-background col-span-12 grid grid-cols-1 border-t lg:col-span-4 lg:grid-cols-1 lg:border-t-0 lg:border-l"
+          class="border-foreground/10 bg-background col-span-12 grid grid-cols-1 border-t lg:col-span-4 lg:grid-cols-1 lg:border-t-0 lg:border-l"
         >
           <div
             v-for="(item, idx) in motionRules"
             :key="item.title"
-            class="border-primary/10 flex flex-col justify-center gap-y-2 p-4 sm:gap-y-4 sm:p-8"
+            class="border-foreground/10 flex flex-col justify-center gap-y-2 p-4 sm:gap-y-4 sm:p-8"
             :class="{ 'border-t': idx > 0 }"
           >
             <div
@@ -219,10 +219,10 @@
       </div>
 
       <div
-        class="border-primary/10 flex flex-col overflow-hidden rounded-3xl border"
+        class="border-foreground/10 flex flex-col overflow-hidden rounded-3xl border"
       >
-        <div class="border-primary/10 hidden grid-cols-2 border-b md:grid">
-          <div class="border-primary/10 border-r p-4">
+        <div class="border-foreground/10 hidden grid-cols-2 border-b md:grid">
+          <div class="border-foreground/10 border-r p-4">
             <span
               class="text-muted-foreground text-sm font-medium tracking-tighter"
             >
@@ -241,11 +241,11 @@
         <div
           v-for="(pair, idx) in voicePairs"
           :key="pair.do"
-          class="border-primary/10 grid grid-cols-1 md:grid-cols-2"
+          class="border-foreground/10 grid grid-cols-1 md:grid-cols-2"
           :class="{ 'border-t': idx > 0 }"
         >
           <div
-            class="border-primary/10 flex flex-col gap-y-2 border-b p-4 md:border-r md:border-b-0 md:p-6"
+            class="border-foreground/10 flex flex-col gap-y-2 border-b p-4 md:border-r md:border-b-0 md:p-6"
           >
             <span
               class="text-success-foreground inline-flex items-center gap-x-1 text-sm font-medium tracking-tight md:hidden"
@@ -365,7 +365,7 @@
           <figure
             v-for="image in photoLibrary"
             :key="image.src"
-            class="border-primary/10 relative mb-3 block break-inside-avoid overflow-hidden rounded-2xl border sm:mb-4"
+            class="border-foreground/10 relative mb-3 block break-inside-avoid overflow-hidden rounded-2xl border sm:mb-4"
           >
             <NuxtImg
               :src="image.src"
@@ -405,15 +405,15 @@
           >
             <Logo
               v-if="asset.type === 'full'"
-              class="text-primary h-12 sm:h-14"
+              class="text-foreground h-12 sm:h-14"
             />
             <LogoMark
               v-else-if="asset.type === 'mark'"
-              class="text-primary h-20 w-20 sm:h-24 sm:w-24"
+              class="text-foreground h-20 w-20 sm:h-24 sm:w-24"
             />
             <LogoType
               v-else-if="asset.type === 'type'"
-              class="text-primary h-12 w-auto sm:h-14"
+              class="text-foreground h-12 w-auto sm:h-14"
             />
           </div>
 

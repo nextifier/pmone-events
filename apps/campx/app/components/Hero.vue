@@ -25,7 +25,7 @@
             >
 
             <h1
-              class="text-primary 0 mt-2 text-[clamp(2.5rem,3.5vw,6rem)] !leading-[1.2] font-medium tracking-[-0.06em] text-balance"
+              class="text-foreground 0 mt-2 text-[clamp(2.5rem,3.5vw,6rem)] !leading-[1.2] font-medium tracking-[-0.06em] text-balance"
             >
               Lepasin Penatnya Kota, Hirup Lagi Segarnya Alam.
             </h1>
@@ -72,13 +72,13 @@
                 <div class="flex items-center gap-x-2">
                   <Icon
                     :name="item.iconName"
-                    class="text-primary size-4 shrink-0"
+                    class="text-foreground size-4 shrink-0"
                   />
-                  <IconStar class="text-primary size-4 shrink-0" />
+                  <IconStar class="text-foreground size-4 shrink-0" />
 
                   <span
                     class="text-muted-foreground items-center text-xs tracking-tight"
-                    ><span class="text-primary text-xl font-semibold">{{
+                    ><span class="text-foreground text-xl font-semibold">{{
                       item.rating
                     }}</span
                     >/5</span

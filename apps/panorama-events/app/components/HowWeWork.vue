@@ -29,7 +29,7 @@
           />
 
           <span
-            class="bg-background text-primary border-border z-0 flex size-14 shrink-0 items-center justify-center rounded-full border"
+            class="bg-background text-foreground border-border z-0 flex size-14 shrink-0 items-center justify-center rounded-full border"
           >
             <Icon
               v-if="item.iconName"
@@ -44,11 +44,11 @@
 
             <div class="flex flex-col gap-2">
               <span
-                class="text-primary text-lg font-semibold tracking-tighter whitespace-normal sm:text-xl"
+                class="text-foreground text-lg font-semibold tracking-tighter whitespace-normal sm:text-xl"
               >
                 {{ item.title }}
               </span>
-              <span class="text-primary/70 !leading-normal tracking-tight">
+              <span class="text-foreground/70 !leading-normal tracking-tight">
                 {{ item.description }}
               </span>
             </div>

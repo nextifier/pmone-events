@@ -1,7 +1,7 @@
 <template>
   <div class="relative isolate overflow-hidden">
     <!-- <KVHalftone
-      class="text-primary/5 absolute inset-x-0 bottom-0 z-0 w-full xl:translate-y-[40%]"
+      class="text-foreground/5 absolute inset-x-0 bottom-0 z-0 w-full xl:translate-y-[40%]"
     /> -->
 
     <div
@@ -18,7 +18,7 @@
             :class="{
               'section-title': getRouteBaseName(route) === 'guests',
               'section-title-large': getRouteBaseName(route) === 'index',
-              'text-primary text-3xl font-extrabold tracking-tighter sm:text-4xl':
+              'text-foreground text-3xl font-extrabold tracking-tighter sm:text-4xl':
                 !['index', 'guests'].includes(getRouteBaseName(route)),
             }"
           >

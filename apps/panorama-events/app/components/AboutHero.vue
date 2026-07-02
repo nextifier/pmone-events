@@ -43,7 +43,7 @@
               For over 20 years, we've been orchestrating memorable events. But
               we realized something crucial along the way: a truly great
               corporate outing isn’t just a break from the office,
-              <span class="text-primary font-bold"
+              <span class="text-foreground font-bold"
                 >it's a powerful opportunity to build a stronger, happier, and
                 more engaged team.</span
               >

@@ -3,7 +3,7 @@
     <div class="container">
       <div v-if="currentStep === 1" class="mx-auto max-w-xl">
         <h1
-          class="text-primary text-3xl font-semibold tracking-tighter sm:text-4xl"
+          class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
         >
           Random Winner Generator
         </h1>
@@ -45,7 +45,7 @@
           <span>Back</span>
         </button>
         <h2
-          class="text-primary text-center text-3xl font-semibold tracking-tighter"
+          class="text-foreground text-center text-3xl font-semibold tracking-tighter"
         >
           <span
             >Nama-nama peserta yang berkesempatan mendapatkan doorprize
@@ -59,7 +59,7 @@
           <div
             v-for="(name, index) in cleanedNames"
             :key="index"
-            class="bg-muted text-primary flex items-center justify-center overflow-hidden rounded-2xl px-4 py-4 text-center tracking-tight"
+            class="bg-muted text-foreground flex items-center justify-center overflow-hidden rounded-2xl px-4 py-4 text-center tracking-tight"
           >
             <span class="line-clamp-1">{{ name }}</span>
           </div>
@@ -168,7 +168,7 @@
         @click="scrollToTop"
         aria-label="Scroll to top"
         v-tippy="'Scroll to top'"
-        class="bg-muted text-primary xs:right-4 fixed right-3 bottom-8 z-50 size-14 rounded-full sm:right-6 sm:bottom-5 lg:bottom-12 xl:right-12"
+        class="bg-muted text-foreground xs:right-4 fixed right-3 bottom-8 z-50 size-14 rounded-full sm:right-6 sm:bottom-5 lg:bottom-12 xl:right-12"
       >
         <Icon name="hugeicons:arrow-up-double" class="size-4" />
       </button>

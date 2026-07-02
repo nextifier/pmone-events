@@ -166,7 +166,7 @@ async function downloadTicket() {
       <div class="flex flex-col items-center gap-5 px-6 pt-7 pb-6">
         <!-- Holder -->
         <div class="space-y-1.5 text-center">
-          <p class="text-primary text-2xl/tight font-semibold tracking-tighter text-balance">
+          <p class="text-foreground text-2xl/tight font-semibold tracking-tighter text-balance">
             {{ attendee.name || t("tickets.eticket.unassigned") }}
           </p>
           <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">

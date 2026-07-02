@@ -1,6 +1,6 @@
 <template>
-  <div class="text-primary flex items-center justify-center">
-    <Spinner v-if="!isMounted" class="size-4 text-primary" />
+  <div class="text-foreground flex items-center justify-center">
+    <Spinner v-if="!isMounted" class="size-4 text-foreground" />
 
     <template v-else>
       <div v-if="status === 'upcoming'" class="flex items-center gap-x-1.5">

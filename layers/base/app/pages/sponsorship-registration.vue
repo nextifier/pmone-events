@@ -11,7 +11,7 @@
 
     <div class="mt-12 flex flex-col items-start">
       <h6
-        class="text-primary text-lg font-semibold tracking-tighter sm:text-xl"
+        class="text-foreground text-lg font-semibold tracking-tighter sm:text-xl"
       >
         {{ t("contact.preferDirectContact") }}
       </h6>
@@ -22,7 +22,7 @@
           :key="index"
           :to="link.to"
           :target="link.openInNewTab ? '_blank' : ''"
-          class="text-primary bg-muted hover:bg-border flex items-center justify-center gap-x-1 rounded-lg px-4 py-2 text-sm font-semibold tracking-tighter"
+          class="text-foreground bg-muted hover:bg-border flex items-center justify-center gap-x-1 rounded-lg px-4 py-2 text-sm font-semibold tracking-tighter"
         >
           <Icon
             v-if="link.iconName"

@@ -59,7 +59,7 @@
                     <NuxtLink
                       :to="lp(link.path)"
                       :target="link.path.startsWith('http') ? '_blank' : ''"
-                      class="text-primary hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
+                      class="text-foreground hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
                       active-class="bg-muted"
                       @click="onLinkActivate(lp(link.path))"
                       @contextmenu="
@@ -104,7 +104,7 @@
                       <NuxtLink
                         :to="lp(link.path)"
                         :target="link.path.startsWith('http') ? '_blank' : ''"
-                        class="text-primary hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
+                        class="text-foreground hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
                         active-class="bg-muted"
                         @click="onLinkActivate(lp(link.path))"
                         @contextmenu="
@@ -135,7 +135,7 @@
           <DialogClose as-child>
             <NuxtLink
               :to="localePath('/book-space')"
-              class="bg-muted text-primary hover:bg-border flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
+              class="bg-muted text-foreground hover:bg-border flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
               @click="onLinkActivate(localePath('/book-space'))"
               v-ripple
               >{{ $t("ui.bookSpace") }}</NuxtLink

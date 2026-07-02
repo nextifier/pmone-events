@@ -9,13 +9,13 @@
         <section id="our-story" class="flex flex-col">
           <Cross position="top-left" />
 
-          <h2 class="text-primary tracking-tighter">Our Story</h2>
+          <h2 class="text-foreground tracking-tighter">Our Story</h2>
           <span
-            class="text-primary mt-2 text-4xl !leading-[1.2] font-bold tracking-tighter text-balance sm:text-5xl"
+            class="text-foreground mt-2 text-4xl !leading-[1.2] font-bold tracking-tighter text-balance sm:text-5xl"
             >Started with one event. Now we run dozens.</span
           >
           <div
-            class="text-primary/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               We started in the early 2000s. Back when "event organizer" in
@@ -45,13 +45,13 @@
           <Cross position="top-right" />
           <Cross position="bottom-left" />
 
-          <h2 class="text-primary tracking-tighter">Our Philosophy</h2>
+          <h2 class="text-foreground tracking-tighter">Our Philosophy</h2>
           <span
-            class="text-primary mt-2 text-4xl !leading-[1.2] font-bold tracking-tighter text-balance sm:text-5xl"
+            class="text-foreground mt-2 text-4xl !leading-[1.2] font-bold tracking-tighter text-balance sm:text-5xl"
             >Events are our language. Connections are our purpose.</span
           >
           <div
-            class="text-primary/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               Every event has the potential to be a special moment. An
@@ -89,10 +89,10 @@
         <section id="vision" class="flex flex-col">
           <Cross position="top-left" />
 
-          <h2 class="text-primary tracking-tighter">Vision</h2>
+          <h2 class="text-foreground tracking-tighter">Vision</h2>
 
           <div
-            class="text-primary/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               To be Indonesia's most trusted event company. Known for events
@@ -105,10 +105,10 @@
         <section id="mission" class="flex flex-col">
           <Cross position="bottom-right" />
 
-          <h2 class="text-primary tracking-tighter">Mission</h2>
+          <h2 class="text-foreground tracking-tighter">Mission</h2>
 
           <div
-            class="text-primary/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               Create events where industries connect, communities thrive, and
@@ -121,10 +121,10 @@
         <section id="values" class="flex flex-col">
           <Cross position="top-left" />
 
-          <h2 class="text-primary tracking-tighter">Values</h2>
+          <h2 class="text-foreground tracking-tighter">Values</h2>
 
           <div
-            class="text-primary/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               Six values that guide how we work. We call it SPIRIT.
@@ -143,16 +143,16 @@
                 <Icon
                   v-if="item.iconName"
                   :name="item.iconName"
-                  class="text-primary size-6"
+                  class="text-foreground size-6"
                 />
               </span>
 
               <div class="flex flex-col items-start gap-y-0.5">
                 <span
-                  class="text-primary text-base font-semibold tracking-tighter text-balance sm:text-lg"
+                  class="text-foreground text-base font-semibold tracking-tighter text-balance sm:text-lg"
                   >{{ item.title }}</span
                 >
-                <span class="text-primary/70 tracking-tighter text-balance">{{
+                <span class="text-foreground/70 tracking-tighter text-balance">{{
                   item.description
                 }}</span>
               </div>
@@ -161,7 +161,7 @@
 
           <div class="mt-12 flex flex-col items-start">
             <span
-              class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
+              class="text-foreground text-base font-semibold tracking-tighter sm:text-lg"
               >We embrace
               <span class="text-green-600 uppercase dark:text-green-500"
                 >Green Initiatives</span
@@ -174,7 +174,7 @@
                   name="hugeicons:leaf-03"
                   class="size-6 shrink-0 text-green-600 dark:text-green-500"
                 />
-                <p class="text-primary/70 text-sm tracking-tight">
+                <p class="text-foreground/70 text-sm tracking-tight">
                   Prioritize eco-friendly venues. Source locally when possible.
                   Minimize waste at every event.
                 </p>
@@ -185,7 +185,7 @@
                   name="hugeicons:agreement-01"
                   class="size-6 shrink-0 text-green-600 dark:text-green-500"
                 />
-                <p class="text-primary/70 text-sm tracking-tight">
+                <p class="text-foreground/70 text-sm tracking-tight">
                   Partner with sustainable suppliers. Promote green practices
                   across our exhibitions and events.
                 </p>
@@ -197,10 +197,10 @@
         <section id="service-soul" class="flex flex-col">
           <Cross position="bottom-right" />
 
-          <h2 class="text-primary tracking-tighter">Service Soul</h2>
+          <h2 class="text-foreground tracking-tighter">Service Soul</h2>
 
           <div
-            class="text-primary/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 mt-4 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               Events are service businesses. How we treat people matters as much
@@ -220,16 +220,16 @@
                 <Icon
                   v-if="item.iconName"
                   :name="item.iconName"
-                  class="text-primary size-6"
+                  class="text-foreground size-6"
                 />
               </span>
 
               <div class="flex flex-col items-start gap-y-0.5">
                 <span
-                  class="text-primary text-base font-semibold tracking-tighter text-balance sm:text-lg"
+                  class="text-foreground text-base font-semibold tracking-tighter text-balance sm:text-lg"
                   >{{ item.title }}</span
                 >
-                <span class="text-primary/70 tracking-tighter text-balance">{{
+                <span class="text-foreground/70 tracking-tighter text-balance">{{
                   item.description
                 }}</span>
               </div>

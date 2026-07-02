@@ -35,14 +35,14 @@
             >Welcome to Panorama Media!</span
           >
           <div
-            class="text-primary/50 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl 2xl:text-3xl"
+            class="text-foreground/50 space-y-4 text-xl font-medium tracking-tighter sm:text-2xl 2xl:text-3xl"
           >
             <p>
               Two decades. Hundreds of events. From corporate gatherings to
               music festivals. Trade exhibitions to pop culture conventions.
             </p>
             <p>
-              <span class="text-primary font-bold"
+              <span class="text-foreground font-bold"
                 >We don't just organize events. We create moments where
                 industries meet, communities gather, and memories form.</span
               >

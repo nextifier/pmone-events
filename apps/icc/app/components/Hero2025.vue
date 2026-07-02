@@ -4,7 +4,7 @@
     class="relative isolate overflow-hidden bg-linear-to-b from-[oklch(100%_0_0)] via-[oklch(98%_0.0252_var(--accent-hue))] to-[oklch(94%_0.0537_var(--accent-hue))] lg:bg-radial-[at_25%_25%] dark:from-[oklch(12%_0.125_var(--accent-hue))] dark:via-[oklch(18%_0.0764_var(--accent-hue))] dark:to-[oklch(36%_0.1537_var(--accent-hue))]"
   >
     <KVHalftone
-      class="text-primary/5 absolute inset-x-0 bottom-0 z-0 w-full xl:translate-y-[40%]"
+      class="text-foreground/5 absolute inset-x-0 bottom-0 z-0 w-full xl:translate-y-[40%]"
     />
 
     <div
@@ -23,7 +23,7 @@
         >
           <div class="flex flex-col items-start gap-y-2.5">
             <!-- <span
-              class="text-primary/70 text-sm font-bold tracking-tight uppercase italic"
+              class="text-foreground/70 text-sm font-bold tracking-tight uppercase italic"
               >{{ content.countdownLabel }}</span
             > -->
 
@@ -43,7 +43,7 @@
             >
 
             <h1
-              class="font-display 3xl:text-7xl text-primary mt-3 text-5xl !leading-[1] tracking-[-0.0125em] text-balance sm:text-6xl xl:text-6xl"
+              class="font-display 3xl:text-7xl text-foreground mt-3 text-5xl !leading-[1] tracking-[-0.0125em] text-balance sm:text-6xl xl:text-6xl"
             >
               {{ content.title }}
             </h1>

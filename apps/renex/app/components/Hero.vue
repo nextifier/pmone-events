@@ -21,7 +21,7 @@
           <div class="flex flex-col items-start gap-y-2.5">
             <span
               v-if="eventStatus === 'upcoming'"
-              class="text-primary/70 text-sm tracking-tight"
+              class="text-foreground/70 text-sm tracking-tight"
               >{{ content.countdownLabel }}</span
             >
 
@@ -35,15 +35,15 @@
           </div>
 
           <div class="flex flex-col items-start">
-            <Announcement class="border-primary/30 text-primary border" />
+            <Announcement class="border-foreground/30 text-foreground border" />
 
             <h1
-              class="text-primary mt-5 text-[clamp(3.4rem,4vw,6rem)] !leading-[1.1] font-semibold tracking-[-0.08em] text-balance"
+              class="text-foreground mt-5 text-[clamp(3.4rem,4vw,6rem)] !leading-[1.1] font-semibold tracking-[-0.08em] text-balance"
               v-html="content.title"
             ></h1>
 
             <p
-              class="text-primary mt-5 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
+              class="text-foreground mt-5 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
             >
               {{ content.description }}
             </p>
@@ -110,7 +110,7 @@
             >
               <div v-if="event.edition?.value" class="flex">
                 <span
-                  class="text-primary bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
+                  class="text-foreground bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
                   >{{
                     $t("hero.edition", {
                       n: event.edition.value,
@@ -121,7 +121,7 @@
               </div>
 
               <div
-                class="text-primary relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
+                class="text-foreground relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
               >
                 <span
                   class="relative isolate flex flex-col items-center text-7xl !leading-[0.9] font-extrabold tracking-tighter text-balance uppercase md:items-end 2xl:text-8xl"

@@ -27,7 +27,7 @@
       <Empty v-else-if="error" class="border-none">
         <EmptyHeader>
           <EmptyMedia variant="icon">
-            <Icon name="hugeicons:alert-02" class="text-primary" />
+            <Icon name="hugeicons:alert-02" class="text-foreground" />
           </EmptyMedia>
           <EmptyTitle>Failed to get the data.</EmptyTitle>
           <EmptyDescription v-if="errorDetail">

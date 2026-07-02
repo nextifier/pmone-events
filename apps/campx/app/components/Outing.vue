@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex flex-col items-center">
         <h2
-          class="text-primary relative isolate text-center text-[clamp(3rem,12vw,6rem)] !leading-[1.1] font-medium tracking-tighter text-balance"
+          class="text-foreground relative isolate text-center text-[clamp(3rem,12vw,6rem)] !leading-[1.1] font-medium tracking-tighter text-balance"
         >
           <SplitText
             splitType="words"
@@ -32,7 +32,7 @@
           />
 
           <div
-            class="text-primary space-y-8 text-2xl !leading-[1.3] font-medium tracking-tighter sm:text-3xl"
+            class="text-foreground space-y-8 text-2xl !leading-[1.3] font-medium tracking-tighter sm:text-3xl"
           >
             <p>
               Tinggalkan ruang meeting dan hiruk pikuk kota. Di CampX, kami
@@ -66,7 +66,7 @@
             </div>
             <span
               v-if="item.title"
-              class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
+              class="text-foreground text-base font-semibold tracking-tighter sm:text-lg"
               >{{ item.title }}</span
             >
             <span v-if="item.description" class="tracking-tight">{{

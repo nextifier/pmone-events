@@ -22,7 +22,7 @@
       </NuxtLink>
     </div>
 
-    <span class="text-primary block text-sm tracking-tight text-balance">
+    <span class="text-foreground block text-sm tracking-tight text-balance">
       In conjunction with
 
       <template v-for="(item, index) in items" :key="item.name">

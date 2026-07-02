@@ -43,7 +43,7 @@
           />
           <div class="flex flex-col gap-y-1.5">
             <h6
-              class="text-primary text-xl leading-[1.25]! font-medium tracking-tighter sm:text-2xl"
+              class="text-foreground text-xl leading-[1.25]! font-medium tracking-tighter sm:text-2xl"
             >
               {{ item.title }}
             </h6>

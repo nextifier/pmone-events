@@ -108,12 +108,12 @@
     </div>
 
     <div
-      class="border-primary/10 mt-6 grid grid-cols-2 overflow-hidden rounded-2xl border sm:grid-cols-4"
+      class="border-foreground/10 mt-6 grid grid-cols-2 overflow-hidden rounded-2xl border sm:grid-cols-4"
     >
       <div
         v-for="(item, idx) in summary"
         :key="item.label"
-        class="border-primary/10 flex flex-col gap-y-1 p-5"
+        class="border-foreground/10 flex flex-col gap-y-1 p-5"
         :class="{
           'sm:border-l': idx > 0,
           'border-t sm:border-t-0': idx >= 2,

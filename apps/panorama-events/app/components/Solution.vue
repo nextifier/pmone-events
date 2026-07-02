@@ -27,11 +27,11 @@
           </p>
 
           <div
-            class="text-primary/50 mt-6 space-y-4 text-2xl font-medium tracking-tighter sm:mt-8 sm:text-3xl"
+            class="text-foreground/50 mt-6 space-y-4 text-2xl font-medium tracking-tighter sm:mt-8 sm:text-3xl"
           >
             <p>
               Picture this:
-              <span class="text-primary font-semibold"
+              <span class="text-foreground font-semibold"
                 >An epic corporate outing that everyone loves, and you didn't
                 have to lift a finger for the stressful parts.</span
               >

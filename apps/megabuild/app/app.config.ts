@@ -14,10 +14,10 @@ const app = {
 
 const settings = {
   header: {
-    logoClass: "h-5 text-primary",
+    logoClass: "h-5 text-foreground",
   },
   footer: {
-    logoClass: "h-8 text-primary",
+    logoClass: "h-8 text-foreground",
   },
   ogImage: {
     isDarkMode: true,
@@ -115,6 +115,18 @@ const routes = {
 export default defineAppConfig({
   app: app,
   settings: settings,
+
+  // Per-project design tokens — OPT-IN (see layers/base/app/app.config.ts).
+  // Default OFF → megabuild keeps its native palette from app/assets/css/app.css.
+  // For custom brand colors: edit app.css (recommended). For a shadcn palette:
+  // set enabled:true here, e.g. { enabled: true, baseColor: "zinc", theme: "blue" }.
+  appearance: {
+    enabled: false,
+    baseColor: "neutral",
+    theme: "neutral",
+    chartColor: "neutral",
+    radius: "default",
+  },
 
   routes: {
     header: [

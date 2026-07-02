@@ -17,7 +17,7 @@
     <div class="grid gap-y-1.5">
       <StatusIndicator :status="item.status" />
 
-      <div class="text-primary text-base font-semibold tracking-tight">
+      <div class="text-foreground text-base font-semibold tracking-tight">
         {{ item.title }}
       </div>
 
@@ -28,7 +28,7 @@
       <div v-if="item.pricing?.length">
         <span class="text-sm tracking-tight">
           <span v-if="item.pricing.length > 1">Mulai dari&nbsp;</span>
-          <span class="text-primary text-base font-semibold">
+          <span class="text-foreground text-base font-semibold">
             {{ format(item.pricing[0].value) }}
           </span>
           <span v-if="item.pricing[0].unit">

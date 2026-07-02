@@ -25,7 +25,7 @@
           </div>
           <h3
             v-if="item.title"
-            class="text-primary text-base font-semibold tracking-tighter sm:text-lg"
+            class="text-foreground text-base font-semibold tracking-tighter sm:text-lg"
           >
             {{ item.title }}
           </h3>

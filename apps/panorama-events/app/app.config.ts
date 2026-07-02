@@ -14,11 +14,11 @@ const app = {
 
 const settings = {
   header: {
-    logoClass: "h-8 text-primary",
+    logoClass: "h-8 text-foreground",
     cta: [{ label: "ui.contactUs", path: "/contact", variant: "primary" }],
   },
   footer: {
-    logoClass: "h-12 text-primary",
+    logoClass: "h-12 text-foreground",
   },
   ogImage: {
     isDarkMode: false,
@@ -90,6 +90,18 @@ const contactDialog = {
 };
 
 export default defineAppConfig({
+  // Per-project design tokens — OPT-IN (see layers/base/app/app.config.ts).
+  // Default OFF → this app keeps its native palette from app/assets/css/app.css.
+  // For custom brand colors edit app.css; for a shadcn palette set enabled:true,
+  // e.g. { enabled: true, baseColor: "zinc", theme: "blue", chartColor: "blue" }.
+  appearance: {
+    enabled: false,
+    baseColor: "neutral",
+    theme: "neutral",
+    chartColor: "neutral",
+    radius: "default",
+  },
+
   app: app,
   settings: settings,
   contactDialog: contactDialog,

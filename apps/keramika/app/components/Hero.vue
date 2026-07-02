@@ -33,12 +33,12 @@
           </div>
 
           <div class="flex flex-col items-start">
-            <Announcement class="border-primary/30 text-primary border" />
+            <Announcement class="border-foreground/30 text-foreground border" />
 
             <h1 class="section-title mt-2" v-html="content.title"></h1>
 
             <p
-              class="text-primary mt-2 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
+              class="text-foreground mt-2 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
             >
               {{ content.description }}
             </p>
@@ -109,7 +109,7 @@
             >
               <div v-if="event.edition?.value" class="flex">
                 <span
-                  class="text-primary bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
+                  class="text-foreground bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
                   >{{
                     $t("hero.edition", {
                       n: event.edition.value,
@@ -120,7 +120,7 @@
               </div>
 
               <div
-                class="text-primary relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
+                class="text-foreground relative z-20 flex h-full w-full flex-col items-center text-center md:items-end md:text-right"
               >
                 <span
                   class="relative isolate flex flex-col items-center text-7xl !leading-[0.9] font-extrabold tracking-tighter text-balance uppercase md:items-end 2xl:text-8xl"

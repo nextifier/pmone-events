@@ -51,7 +51,7 @@
       <div v-if="editableAttendees.length > 1" class="frame">
         <div class="frame-panel space-y-3">
           <div class="space-y-1">
-            <p class="text-primary text-sm font-medium tracking-tight">{{ t("tickets.manage.bulkTitle") }}</p>
+            <p class="text-foreground text-sm font-medium tracking-tight">{{ t("tickets.manage.bulkTitle") }}</p>
             <p class="text-muted-foreground text-xs tracking-tight sm:text-sm">{{ t("tickets.manage.bulkHint") }}</p>
           </div>
           <Textarea v-model="bulkText" :rows="4" :placeholder="t('tickets.manage.bulkPlaceholder')" />
@@ -101,7 +101,7 @@
           <div class="frame-panel space-y-4">
             <div class="flex flex-wrap items-start justify-between gap-2">
               <div class="space-y-0.5">
-                <p class="text-primary text-sm font-medium tracking-tight">
+                <p class="text-foreground text-sm font-medium tracking-tight">
                   {{ att.ticket?.title || t("ui.getTicket") }}
                   <span v-if="att.ticket?.tier" class="text-muted-foreground">
                     · {{ att.ticket.tier }}
@@ -145,7 +145,7 @@
                   :disabled="att.is_checked_in || savingId === att.ulid"
                   :placeholder="t('tickets.manage.fullNamePlaceholder')"
                 />
-                <InputErrorMessage :errors="errorsById[att.ulid]" />
+                <FieldError :errors="errorsById[att.ulid]" />
               </div>
               <Button
                 type="button"
@@ -187,7 +187,7 @@ import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Textarea } from "../../../components/ui/textarea";
 import { Label } from "../../../components/ui/label";
-import { InputErrorMessage } from "../../../components/ui/input-error-message";
+import { FieldError } from "../../../components/ui/field";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { computed, reactive, ref, watch } from "vue";
 import { toast } from "vue-sonner";
