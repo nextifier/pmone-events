@@ -111,10 +111,117 @@ export default {
   },
   visitorCta: {
     title:
-      'チケット1枚で、<span class="text-accent">3つのExpo</span>。<span class="text-accent">4日間。</span>',
+      'チケット1枚で、<span class="text-accent">3つのExpo</span>。<span class="text-accent">3日間。</span>',
     description:
-      "コーヒーフェスのチケットで、隣のFLEIとMoreFood Expoにも入場できます。同じ会場で4日間。",
+      "コーヒーフェスのチケットで、隣のFLEIとIOITEにも入場できます。会場はNICE PIK 2、3日間。",
     cta: "チケットを取得",
+  },
+  eventStats: {
+    subtitle: "これまでの実績",
+    title: "数字で見るCBE",
+    description:
+      "直近の開催データからまとめました。あなたが足を踏み入れるのは、こんな空間です。",
+    stats: {
+      visitors: {
+        label: "来場者数",
+        description: "CBE・FLEI・MoreFoodの合計",
+      },
+      brands: {
+        label: "出展ブランド",
+        description: "多数の企業から",
+      },
+      media: {
+        label: "掲載メディア",
+        description: "全国紙・デジタル媒体",
+      },
+      transaction: {
+        label: "平均取引額",
+        description: "過去の開催あたり",
+      },
+      activities: {
+        label: "プログラム",
+        description: "ワークショップ・トーク・新商品発表",
+      },
+    },
+  },
+  themeConcept: {
+    subtitle: "第9回のテーマ",
+    title: "360° Networking Bowl of the Culinary World",
+    description:
+      "今年の会場は、まるで営業中のカフェ。まずは味わって、淹れて。そのあと、いま口にしたものを届けている作り手と出会えます。オーナーは仕入れ先と、ブランドはバイヤーと。会場での何気ない一言が、そのまま注文につながることもよくあります。",
+    pillars: {
+      tasteCircle: {
+        title: "テイスティングの輪",
+        description:
+          "試飲・試食のステーションが会場のあちこちに。ガラス越しに眺めるだけで終わるものは、ここにはありません。",
+      },
+      networking: {
+        title: "ネットワーキング",
+        description:
+          "バイヤーとぴったりの仕入れ先を、事前にマッチングしてお引き合わせします。",
+      },
+      experientialZones: {
+        title: "体験型ゾーン",
+        description:
+          "中に入って、実際に使えるブランド空間。展示を眺めるだけでは終わりません。",
+      },
+    },
+  },
+  whoVisits: {
+    subtitle: "会場で出会う人たち",
+    title: "ひとつのフロアに、2つの顔ぶれ",
+    description:
+      "CBEは、B2Bの商談の場でありながら、一般公開の展示会でもあります。実際に集まるのは、こんな人たちです。",
+    b2bTitle: "業界バイヤー（B2B）",
+    b2bItems: [
+      "カフェ・レストランのオーナー",
+      "ホテルグループや小売チェーン",
+      "食品・飲料のメーカー、サプライヤー、卸業者",
+      "新商品を探す輸入業者",
+      "調達・サプライチェーンの担当者",
+      "料理学校や業界ネットワーク",
+    ],
+    b2cTitle: "愛好家（B2C）",
+    b2cItems: [
+      "おうちバリスタやコーヒー好きの方",
+      "いつかカフェやベーカリーを開きたい人",
+      "パンやスイーツ好きの方",
+      "食べること・飲むことが好きな人",
+      "豆や器具、手土産を探しにきた人",
+    ],
+  },
+  whyExhibit: {
+    subtitle: "ブランドのみなさまへ",
+    title: "出展をおすすめしたいブランド",
+    description:
+      "カフェやレストラン、ホテルに商品を届けているなら、あなたのバイヤーはすでに会場にいます。自分に合うカテゴリーを、下からチェックしてみてください。",
+    types: {
+      manufacturers: {
+        title: "メーカー",
+        description: "豆やマシン、素材を、その場で発注したいバイヤーの目の前へ。",
+      },
+      importersDistributors: {
+        title: "輸入・卸業者",
+        description:
+          "海外ブランドを、いちばん勢いのあるカフェ市場のひとつへ届けませんか。",
+      },
+      oemOdm: {
+        title: "OEM・ODMブランド",
+        description:
+          "プライベートブランドやオリジナル生産を探す事業者と出会えます。",
+      },
+      retailersResellers: {
+        title: "小売・リセラー",
+        description:
+          "シーズンに向けて仕入れを進めるカフェやレストランとつながれます。",
+      },
+      artisansSpecialty: {
+        title: "職人・スペシャルティ生産者",
+        description:
+          "こだわりの商品を、はじめて業界のプロたちに披露するチャンスです。",
+      },
+    },
+    cta: "出展を申し込む",
   },
   mediaCoverage: {
     title: "メディア掲載情報",
@@ -207,32 +314,50 @@ export default {
     },
   },
   about: {
-    sectionTitle:
-      "うれしいお知らせ。チケット1枚で、<span class='text-accent'>もっと楽しめます。</span>",
+    sectionTitle: "ゾーンごとに巡る会場フロア",
     sectionDescription:
-      "Indonesia Coffee Festivalは、大規模イベント <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a> の一部として開催されます。",
-    sectionDescription2:
-      "つまり、チケットはコーヒーフェスだけでなく、他の3つのフレーバーゾーンにもそのまま入場できます。",
-    zones: {
-      tea: {
-        title: "Indonesia Tea Festival",
+      "会場は全部で8つのゾーン。コーヒーのパビリオンからサステナビリティのコーナーまで揃っています。歩きながら味わって、あなたのメニューに合う仕入れ先を見つけてください。",
+    eventZones: {
+      coffeeBrew: {
+        title: "コーヒー＆ブリューパビリオン",
         description:
-          "お茶の世界をゆっくり楽しめるエリアです。希少な茶葉から新しいブレンドまで、さまざまなお茶を試飲して、自宅でおいしく淹れるコツも学べます。",
+          "スペシャルティのロースターやエスプレッソ機材が集合。次のハウスブレンドが見つかるまで、心ゆくまでテイスティングできます。",
       },
-      wine: {
-        title: "Indonesia Wine Festival",
+      chocolatePastry: {
+        title: "チョコレート＆ペストリー通り",
         description:
-          "気軽にワインテイスティングを楽しめるスペースです。国内外のワインを、堅苦しいルールなしで自由に試してみてください。",
+          "職人が手がけるチョコレートやデザートに、目の前で味わえるパティスリーの実演も。",
       },
-      chocolate: {
-        title: "Cokelat Expo Indonesia",
+      wineSpirits: {
+        title: "ワイン＆スピリッツラウンジ",
         description:
-          "チョコレート好きにはたまらないエリア。作り手に直接会って、製造工程を見て、ここでしか味わえない特別なチョコレートを楽しんでください。",
+          "テイスティングやミクソロジーを楽しみながら、肩ひじ張らずワインやスピリッツを味わえるコーナーです。",
+      },
+      culinaryHub: {
+        title: "カリナリーハブ",
+        description:
+          "ライブクッキングやシェフのコラボ、そしてカフェのメニューに「ちゃんとした料理」を取り戻すヒントが見つかります。",
+      },
+      equipment: {
+        title: "機材・マシンゾーン",
+        description:
+          "マシンや厨房テック、パッケージまで。設備をアップグレードしたいカフェのための一角です。",
+      },
+      supplierMarket: {
+        title: "サプライヤーマーケット",
+        description:
+          "カフェやレストラン、ホテルが、棚を支えるブランドと出会う場所です。",
+      },
+      mainStage: {
+        title: "メインステージ",
+        description: "トークやパネル、コンペティションが3日間ずっと続きます。",
+      },
+      sustainability: {
+        title: "サステナビリティゾーン",
+        description:
+          "ゼロウェイストのアイデアやエシカルな調達、環境にやさしいパッケージが集まります。",
       },
     },
-    accessNote:
-      "会場のJIExpo Kemayoranでは、<a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> と <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a> も同時に開催しています。",
-    accessNote2: "チケット1枚で4日間、全会場に入れます。かなりお得です。",
   },
   pages: {
     home: {

@@ -1,5 +1,5 @@
 const app = {
-  name: "Cafe n' Brasserie Expo Jakarta (CBE)",
+  name: "Cafe & Brasserie Expo Indonesia (CBE)",
   shortName: "CBE",
   projectUsername: "cbe",
   url: "https://cafebrasserieexpo.com",

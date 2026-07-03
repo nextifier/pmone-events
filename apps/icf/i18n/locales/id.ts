@@ -75,10 +75,118 @@ export default {
   },
   visitorCta: {
     title:
-      'Satu tiket. <span class="text-accent">Tiga expo.</span> <span class="text-accent">Empat hari.</span>',
+      'Satu tiket. <span class="text-accent">Tiga expo.</span> <span class="text-accent">Tiga hari.</span>',
     description:
-      "Tiket kopi kamu juga berlaku untuk FLEI dan MoreFood Expo di sebelah. Satu venue, empat hari.",
+      "Tiket kopi kamu juga berlaku untuk FLEI dan IOITE di sebelah, semua di NICE PIK 2. Satu venue, tiga hari.",
     cta: "Dapatkan Tiket",
+  },
+  eventStats: {
+    subtitle: "Rekam jejak",
+    title: "Angka-angka di balik acaranya",
+    description:
+      "Diambil dari edisi-edisi terakhir. Kurang lebih beginilah ramainya acara yang bakal kamu datangi.",
+    stats: {
+      visitors: {
+        label: "Pengunjung",
+        description: "gabungan CBE, FLEI & MoreFood",
+      },
+      brands: {
+        label: "Brand",
+        description: "dari ratusan perusahaan",
+      },
+      media: {
+        label: "Media",
+        description: "nasional & digital",
+      },
+      transaction: {
+        label: "Rata-rata transaksi",
+        description: "tiap edisi sebelumnya",
+      },
+      activities: {
+        label: "Aktivitas",
+        description: "workshop, talk & launching",
+      },
+    },
+  },
+  themeConcept: {
+    subtitle: "Tema edisi ke-9",
+    title: "360° Networking Bowl of the Culinary World",
+    description:
+      "Tahun ini venue-nya dibikin kayak cafe yang beneran jalan. Kamu cicip dan nyeduh dulu, baru ketemu orang-orang yang nyuplai apa yang barusan kamu coba. Pemilik cafe ketemu supplier, brand ketemu buyer, dan banyak obrolan pertama yang ujungnya jadi order.",
+    pillars: {
+      tasteCircle: {
+        title: "Taste Circle",
+        description:
+          "Booth trial dan tasting tersebar di seluruh area, jadi ga ada yang cuma dipajang di balik kaca.",
+      },
+      networking: {
+        title: "Networking",
+        description:
+          "Pertemuan yang udah diatur, biar buyer langsung ketemu supplier yang tepat.",
+      },
+      experientialZones: {
+        title: "Experiential Zones",
+        description:
+          "Ruang brand yang bisa kamu masukin dan coba langsung, bukan pajangan yang cuma bisa dilihat.",
+      },
+    },
+  },
+  whoVisits: {
+    subtitle: "Siapa yang kamu temui",
+    title: "Dua tipe pengunjung, satu venue",
+    description:
+      "CBE itu trade show sekaligus acara buat umum. Ini orang-orang yang biasa datang.",
+    b2bTitle: "Trade buyer (B2B)",
+    b2bItems: [
+      "Pemilik cafe dan restoran",
+      "Grup hotel dan jaringan retail",
+      "Produsen, supplier, dan distributor F&B",
+      "Importir yang lagi cari produk baru",
+      "Tim procurement dan supply chain",
+      "Sekolah kuliner dan komunitas industri",
+    ],
+    b2cTitle: "Penikmat (B2C)",
+    b2cItems: [
+      "Home barista dan pecinta kopi",
+      "Calon pemilik cafe dan bakery",
+      "Penggemar baking, pastry, dan dessert",
+      "Penikmat makanan dan minuman",
+      "Yang lagi nyari biji kopi, alat, dan oleh-oleh",
+    ],
+  },
+  whyExhibit: {
+    subtitle: "Untuk brand",
+    title: "Siapa yang cocok buka booth",
+    description:
+      "Kalau kamu jualan ke cafe, restoran, atau hotel, buyer kamu udah ada di sini. Cari posisimu di bawah ini.",
+    types: {
+      manufacturers: {
+        title: "Produsen",
+        description:
+          "Tampilkan biji kopi, mesin, dan bahan baku kamu langsung ke buyer yang siap order.",
+      },
+      importersDistributors: {
+        title: "Importir & Distributor",
+        description:
+          "Bawa brand global masuk ke salah satu pasar cafe yang tumbuh paling cepat.",
+      },
+      oemOdm: {
+        title: "Brand OEM / ODM",
+        description:
+          "Ketemu operator yang lagi cari produksi private label dan custom.",
+      },
+      retailersResellers: {
+        title: "Retailer & Reseller",
+        description:
+          "Terhubung dengan cafe dan restoran yang lagi nambah stok jelang musim ramai.",
+      },
+      artisansSpecialty: {
+        title: "Artisan & Specialty Maker",
+        description:
+          "Kenalin produk craft kamu ke pelaku industri buat pertama kalinya.",
+      },
+    },
+    cta: "Pesan Booth Kamu",
   },
   mediaCoverage: {
     title: "Liputan Media",
@@ -179,33 +287,51 @@ export default {
     },
   },
   about: {
-    sectionTitle:
-      "Kabar Baik. Tiket Kamu <span class='text-accent'>Berlaku Lebih Luas..</span>",
+    sectionTitle: "Keliling area pameran, zona demi zona",
     sectionDescription:
-      "Indonesia Coffee Festival adalah bagian dari event yang lebih besar: <a href='https://cafebrasserieexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Cafe n' Brasserie Expo Indonesia</a>.",
-    sectionDescription2:
-      "Jadi tiket kamu bukan cuma buat masuk festival kopi terbesar tahun ini. Kamu juga bisa bebas eksplor tiga zona rasa lainnya:",
-    zones: {
-      tea: {
-        title: "Indonesia Tea Festival",
+      "Areanya kebagi jadi delapan zona, mulai dari Coffee & Brew Pavilion sampai pojok Sustainability. Jalan santai keliling, cicip sana-sini, dan temuin supplier yang pas buat menu kamu.",
+    eventZones: {
+      coffeeBrew: {
+        title: "Coffee & Brew Pavilion",
         description:
-          "Masuk ke area yang lebih tenang, khusus untuk teh. Cicipi berbagai jenis teh, dari daun langka sampai racikan baru, dan pelajari cara seduh yang gampang dipraktikkan di rumah.",
+          "Roaster specialty, alat espresso, dan tasting sepuasnya sampai kamu nemu house blend berikutnya.",
       },
-      wine: {
-        title: "Indonesia Wine Festival",
+      chocolatePastry: {
+        title: "Chocolate & Pastry Avenue",
         description:
-          "Wine tasting tanpa tekanan. Suasananya santai, tinggal pilih mau coba wine lokal atau impor. Tidak ada aturan yang rumit, yang ada hanya wine yang enak.",
+          "Cokelat artisan, aneka dessert, dan demo patisserie langsung yang bisa kamu tonton sekaligus cicip.",
       },
-      chocolate: {
-        title: "Cokelat Expo Indonesia",
+      wineSpirits: {
+        title: "Wine & Spirits Lounge",
         description:
-          "Surganya pecinta cokelat. Temui langsung para pembuat cokelatnya, lihat prosesnya dari dekat, dan cicipi rasa-rasa unik yang tidak akan kamu temukan di tempat lain.",
+          "Tasting, mixology, dan pojok santai buat kenalan sama wine dan spirits tanpa ribet.",
+      },
+      culinaryHub: {
+        title: "Culinary Hub",
+        description:
+          "Live cooking, kolaborasi chef, dan ide buat masukin makanan beneran ke menu cafe kamu.",
+      },
+      equipment: {
+        title: "Equipment & Machinery Zone",
+        description:
+          "Mesin, teknologi dapur, dan kemasan yang pas buat cafe yang siap naik kelas.",
+      },
+      supplierMarket: {
+        title: "Supplier Marketplace",
+        description:
+          "Tempat cafe, restoran, dan hotel ketemu brand yang ngisi rak-rak mereka.",
+      },
+      mainStage: {
+        title: "Main Stage",
+        description:
+          "Talk, panel, dan kompetisi yang jalan sepanjang tiga hari.",
+      },
+      sustainability: {
+        title: "Sustainability Zone",
+        description:
+          "Ide zero-waste, sourcing yang etis, dan kemasan yang lebih ramah buat bumi.",
       },
     },
-    accessNote:
-      "Expo ini juga berlangsung bareng <a href='https://franchise-expo.co.id/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>Franchise & License Expo Indonesia (FLEI)</a> dan <a href='https://morefoodexpo.com/' target='_blank' class='underline decoration-dotted decoration-2 underline-offset-8'>MoreFood Expo Indonesia</a> di JIExpo Kemayoran.",
-    accessNote2:
-      "Satu tiket, empat hari, bebas masuk ke mana saja. Lumayan banget, kan.",
   },
   pages: {
     home: {

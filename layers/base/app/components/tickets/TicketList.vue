@@ -619,12 +619,31 @@ const subtotalLabel = computed(() =>
     <!-- Empty: the listing loaded fine but there are no tickets yet -->
     <Empty
       v-if="!entryTickets.length && !addOnTickets.length"
-      class="border-border bg-muted/30 mx-auto max-w-md border"
+      class="mx-auto max-w-md"
     >
       <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <Icon name="hugeicons:ticket-01" class="text-muted-foreground" />
-        </EmptyMedia>
+        <div class="mb-2 flex items-center justify-center">
+          <Stack aria-hidden="true">
+            <template #layer-1>
+              <Icon
+                name="hugeicons:ticket-01"
+                class="text-foreground size-7 shrink-0"
+              />
+            </template>
+            <template #layer-2>
+              <Icon
+                name="hugeicons:calendar-03"
+                class="text-muted-foreground size-6 shrink-0"
+              />
+            </template>
+            <template #layer-3>
+              <Icon
+                name="hugeicons:coupon-01"
+                class="text-muted-foreground size-6 shrink-0"
+              />
+            </template>
+          </Stack>
+        </div>
         <EmptyTitle>{{ t("tickets.emptyTitle") }}</EmptyTitle>
         <EmptyDescription>{{ t("tickets.noTickets") }}</EmptyDescription>
       </EmptyHeader>

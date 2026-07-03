@@ -55,39 +55,54 @@ export default {
     edition: "제{n}회",
   },
   about: {
-    title: "<span class='text-accent'>맛있는 건</span> 다 여기에.",
-    description:
-      "스페셜티 커피, 프리미엄 차, 수제 초콜릿, 와인까지. CBE가 F&B의 정수를 한 공간에 모았어요. 카페 사장님, 예비 창업자, 음식을 사랑하는 분 모두. 맛과 기회가 만나는 곳이에요.",
-    sectionTitle: "끌리는 존부터 시작해 보세요.",
+    sectionTitle: "존별로 둘러보는 전시장",
     sectionDescription:
-      "커피, 차, 와인, 초콜릿. 네 가지 존을 준비했어요. 아래에서 한번 둘러보고 가장 먼저 가고 싶은 곳을 골라 보세요.",
-    zones: {
-      coffee: {
-        title: "Indonesia Coffee Festival",
+      "전시장은 여덟 개 존으로 이루어져 있습니다. Coffee & Brew Pavilion부터 Sustainability Zone까지, 천천히 둘러보며 맛보고 우리 매장 메뉴에 맞는 공급업체를 찾아보세요.",
+    eventZones: {
+      coffeeBrew: {
+        title: "Coffee & Brew Pavilion",
         description:
-          "엑스포에서 가장 활기 넘치는 공간이에요. 에스프레소 머신 소리, 최고의 바리스타 대결, 그리고 새로운 인생 커피를 찾을 수 있어요.",
+          "스페셜티 로스터와 에스프레소 장비, 새 하우스 블렌드를 정할 수 있을 만큼 넉넉한 테이스팅이 준비돼 있어요.",
       },
-      tea: {
-        title: "Indonesia Tea Festival",
+      chocolatePastry: {
+        title: "Chocolate & Pastry Avenue",
         description:
-          "차에 집중할 수 있는 조용한 공간이에요. 귀한 찻잎부터 새로운 블렌드까지 다양하게 시음하고, 집에서 더 맛있게 우리는 법도 배워 보세요.",
+          "장인이 만든 초콜릿과 디저트, 눈앞에서 보고 바로 맛보는 파티세리 라이브 데모까지.",
       },
-      wine: {
-        title: "Indonesia Wine Festival",
+      wineSpirits: {
+        title: "Wine & Spirits Lounge",
         description:
-          "부담 없이 와인을 즐길 수 있는 공간이에요. 국내외 다양한 와인을 편하게 시음해 보세요. 복잡한 규칙 없이, 맛있는 와인만.",
+          "테이스팅과 믹솔로지, 그리고 부담 없이 와인과 스피릿을 즐길 수 있는 여유로운 공간.",
       },
-      chocolate: {
-        title: "Cokelat Expo Indonesia",
+      culinaryHub: {
+        title: "Culinary Hub",
         description:
-          "초콜릿을 사랑하는 사람들의 천국이에요. 만드는 사람을 직접 만나고, 제조 과정을 보고, 여기서만 맛볼 수 있는 특별한 풍미를 경험해 보세요.",
+          "라이브 쿠킹과 셰프 협업, 카페 메뉴에 제대로 된 음식을 더할 아이디어가 모이는 곳.",
+      },
+      equipment: {
+        title: "Equipment & Machinery Zone",
+        description:
+          "한 단계 올라설 준비가 된 카페를 위한 머신과 주방 기술, 패키징까지.",
+      },
+      supplierMarket: {
+        title: "Supplier Marketplace",
+        description: "카페와 레스토랑, 호텔이 매대를 채워 줄 브랜드를 만나는 곳.",
+      },
+      mainStage: {
+        title: "Main Stage",
+        description: "사흘 내내 이어지는 토크와 패널, 그리고 경연.",
+      },
+      sustainability: {
+        title: "Sustainability Zone",
+        description:
+          "제로 웨이스트 아이디어와 윤리적 소싱, 지구에 부담을 덜 주는 패키징.",
       },
     },
   },
   mainPrograms: {
     title: "<span>주요 프로그램</span>",
     description:
-      "라이브 대회, 직접 해보는 워크숍, 무제한 시음. CBE의 모든 시간이 알차요.",
+      "사흘 동안 경연과 직접 참여하는 워크숍, 테이스팅, 그리고 업계를 이끄는 사람들과의 토크가 이어집니다. 놓치고 싶지 않은 프로그램을 중심으로 방문 계획을 세워 보세요.",
   },
   partnerships: {
     title:
@@ -118,10 +133,113 @@ export default {
   },
   visitorCta: {
     title:
-      '티켓 한 장으로 <span class="text-accent">세 개 엑스포</span>, <span class="text-accent">나흘간.</span>',
+      '티켓 한 장으로 <span class="text-accent">전시회 세 곳</span>을 <span class="text-accent">사흘 내내</span> 즐기세요.',
     description:
-      "Cafe n' Brasserie Expo, FLEI, MoreFood Expo가 JIExpo Kemayoran 한곳에. 4일 동안 마음껏 둘러보세요.",
+      "배지 하나면 NICE PIK 2의 세 전시회에 모두 입장할 수 있어요. 커피를 보러 왔다가 바로 옆 FLEI 프랜차이즈 존과 IOITE 여행 전시회까지 발길 닿는 대로 둘러보세요.",
     cta: "티켓 받기",
+  },
+  eventStats: {
+    subtitle: "역대 기록",
+    title: "숫자로 보는 전시회",
+    description:
+      "지난 회차를 기준으로 정리한 수치예요. 여러분이 직접 들어서게 될 현장의 모습입니다.",
+    stats: {
+      visitors: {
+        label: "방문객",
+        description: "CBE·FLEI·MoreFood 통합 기준",
+      },
+      brands: {
+        label: "브랜드",
+        description: "다양한 기업에서 참가",
+      },
+      media: {
+        label: "언론 매체",
+        description: "전국·디지털 매체",
+      },
+      transaction: {
+        label: "평균 거래액",
+        description: "지난 회차 기준",
+      },
+      activities: {
+        label: "액티비티",
+        description: "워크숍·토크·론칭",
+      },
+    },
+  },
+  themeConcept: {
+    subtitle: "아홉 번째 에디션 테마",
+    title: "360° Networking Bowl of the Culinary World",
+    description:
+      "올해 전시장은 실제로 운영되는 카페처럼 돌아갑니다. 먼저 직접 내리고 맛본 다음, 방금 맛본 제품을 공급하는 사람들을 만나요. 카페 오너는 공급업체를, 브랜드는 바이어를 만나고, 처음 나눈 대화가 실제 주문으로 이어지는 경우도 많습니다.",
+    pillars: {
+      tasteCircle: {
+        title: "Taste Circle",
+        description:
+          "테이스팅과 시음 스테이션이 전시장 곳곳에 있어서, 유리 진열장 안에만 머무는 제품은 없습니다.",
+      },
+      networking: {
+        title: "Networking",
+        description:
+          "바이어와 꼭 맞는 공급업체를 미리 연결해 드리는 사전 매칭 미팅.",
+      },
+      experientialZones: {
+        title: "Experiential Zones",
+        description: "직접 걸어 들어가 써 보고 경험할 수 있는 브랜드 공간이에요.",
+      },
+    },
+  },
+  whoVisits: {
+    subtitle: "여기서 만날 사람들",
+    title: "한 전시장, 두 부류의 방문객",
+    description:
+      "CBE는 B2B 전시회인 동시에 누구나 즐기는 대중 전시회예요. 실제로 현장을 찾는 분들은 이렇습니다.",
+    b2bTitle: "비즈니스 바이어 (B2B)",
+    b2bItems: [
+      "카페·레스토랑 오너",
+      "호텔 그룹과 리테일 체인",
+      "F&B 제조·공급·유통사",
+      "새로운 제품을 찾는 수입 바이어",
+      "구매·공급망 담당자",
+      "요리 학교와 업계 네트워크",
+    ],
+    b2cTitle: "애호가 (B2C)",
+    b2cItems: [
+      "홈 바리스타와 커피 러버",
+      "카페·베이커리 창업을 꿈꾸는 분",
+      "베이킹·페이스트리·디저트 팬",
+      "먹고 마시는 걸 즐기는 미식가",
+      "원두와 장비, 선물을 찾는 쇼핑객",
+    ],
+  },
+  whyExhibit: {
+    subtitle: "브랜드를 위한 안내",
+    title: "부스를 내면 좋은 브랜드",
+    description:
+      "카페나 레스토랑, 호텔에 제품을 판매한다면 여러분의 바이어는 이미 이곳에 있어요. 아래에서 우리에게 맞는 자리를 찾아보세요.",
+    types: {
+      manufacturers: {
+        title: "제조사",
+        description:
+          "원두와 머신, 재료를 바로 주문할 준비가 된 바이어 앞에 선보이세요.",
+      },
+      importersDistributors: {
+        title: "수입·유통사",
+        description: "빠르게 성장하는 카페 시장에 글로벌 브랜드를 소개해 보세요.",
+      },
+      oemOdm: {
+        title: "OEM / ODM 브랜드",
+        description: "PB 상품과 주문 제작을 찾는 운영자들을 만나 보세요.",
+      },
+      retailersResellers: {
+        title: "리테일·리셀러",
+        description: "시즌을 준비하며 물량을 채우는 카페·레스토랑과 연결되세요.",
+      },
+      artisansSpecialty: {
+        title: "장인·스페셜티 메이커",
+        description: "정성껏 만든 제품을 업계에 처음으로 선보이세요.",
+      },
+    },
+    cta: "부스 신청하기",
   },
   mediaCoverage: {
     title: "미디어 보도",
@@ -214,9 +332,9 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
+      title: "Cafe & Brasserie Expo Indonesia (CBE)",
       description:
-        "자카르타 CBE에서 수백 개 커피, 차, 와인, 초콜릿 브랜드를 만나보세요. 시음, 워크숍, 대회 등 다채로운 프로그램이 기다려요.",
+        "인도네시아 대표 카페·브라세리 전시회가 아홉 번째로 돌아옵니다. 2026년 10월 9일부터 11일까지 NICE PIK 2에서 열려요. 커피와 차, 초콜릿, 브라세리 브랜드를 맛보고 우리 비즈니스에 맞는 파트너를 찾아보세요. 지금 티켓을 받아 가세요.",
     },
     brands: {
       title: "브랜드",

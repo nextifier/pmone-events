@@ -25,7 +25,10 @@ export type Guest = {
   links?: Array<{ label: string; url: string }>;
 };
 
-export type FallbackSource = {
+// Local (not exported) to avoid an auto-import name clash with the identical
+// `FallbackSource` exported from useMediaCoverages.ts. Same pattern as the
+// local interface in useBrandPreview.ts.
+type FallbackSource = {
   title?: string;
   edition_number?: number | null;
   edition_label?: string | null;

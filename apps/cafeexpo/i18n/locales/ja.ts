@@ -58,39 +58,55 @@ export default {
     edition: "第{n}回",
   },
   about: {
-    title: "<span class='text-accent'>おいしいもの</span>、ぜんぶここに。",
-    description:
-      "こだわりコーヒー、プレミアム紅茶、クラフトチョコレート、ワイン。CBEはF&Bの世界をひとつの会場に集めました。カフェオーナーの方も、これから始める方も、ただおいしいものが好きな方も。味覚とチャンスが出会う3日間です。",
-    sectionTitle: "気になるゾーンから始めよう。",
+    sectionTitle: "ゾーンごとに巡る会場フロア",
     sectionDescription:
-      "コーヒー、紅茶、ワイン、チョコレート。4つのゾーンを用意しました。まずは気になるところからチェックしてみてください。",
-    zones: {
-      coffee: {
-        title: "Indonesia Coffee Festival",
+      "会場は全部で8つのゾーン。コーヒーのパビリオンからサステナビリティのコーナーまで揃っています。歩きながら味わって、あなたのメニューに合う仕入れ先を見つけてください。",
+    eventZones: {
+      coffeeBrew: {
+        title: "コーヒー＆ブリューパビリオン",
         description:
-          "エスプレッソマシンの音、トップバリスタの真剣勝負。会場で一番活気があるゾーンです。あなたの新しいお気に入りが見つかるかもしれません。",
+          "スペシャルティのロースターやエスプレッソ機材が集合。次のハウスブレンドが見つかるまで、心ゆくまでテイスティングできます。",
       },
-      tea: {
-        title: "Indonesia Tea Festival",
+      chocolatePastry: {
+        title: "チョコレート＆ペストリー通り",
         description:
-          "少し落ち着いた空間で、お茶の世界をじっくり楽しめます。希少な茶葉から新しいブレンドまで。自宅でおいしく淹れるコツも学べます。",
+          "職人が手がけるチョコレートやデザートに、目の前で味わえるパティスリーの実演も。",
       },
-      wine: {
-        title: "Indonesia Wine Festival",
+      wineSpirits: {
+        title: "ワイン＆スピリッツラウンジ",
         description:
-          "気負わずワインを楽しめる空間です。国内外のワインをリラックスして試飲できます。難しいルールは抜き。おいしいワインだけ。",
+          "テイスティングやミクソロジーを楽しみながら、肩ひじ張らずワインやスピリッツを味わえるコーナーです。",
       },
-      chocolate: {
-        title: "Cokelat Expo Indonesia",
+      culinaryHub: {
+        title: "カリナリーハブ",
         description:
-          "チョコレート好きにはたまらない空間です。作り手に会って、製造工程を見て、ここでしか味わえないフレーバーを体験してください。",
+          "ライブクッキングやシェフのコラボ、そしてカフェのメニューに「ちゃんとした料理」を取り戻すヒントが見つかります。",
+      },
+      equipment: {
+        title: "機材・マシンゾーン",
+        description:
+          "マシンや厨房テック、パッケージまで。設備をアップグレードしたいカフェのための一角です。",
+      },
+      supplierMarket: {
+        title: "サプライヤーマーケット",
+        description:
+          "カフェやレストラン、ホテルが、棚を支えるブランドと出会う場所です。",
+      },
+      mainStage: {
+        title: "メインステージ",
+        description: "トークやパネル、コンペティションが3日間ずっと続きます。",
+      },
+      sustainability: {
+        title: "サステナビリティゾーン",
+        description:
+          "ゼロウェイストのアイデアやエシカルな調達、環境にやさしいパッケージが集まります。",
       },
     },
   },
   mainPrograms: {
     title: "<span>メインプログラム</span>",
     description:
-      "ライブコンペティション、実践型ワークショップ、テイスティングが盛りだくさん。すべての時間に見どころがあります。",
+      "3日間、コンペティションや実践型ワークショップ、テイスティング、業界を動かす人たちとのトークが揃います。気になるものを軸に、来場スケジュールを組んでみてください。",
   },
   partnerships: {
     title:
@@ -121,10 +137,117 @@ export default {
   },
   visitorCta: {
     title:
-      'チケット1枚で、<span class="text-accent">3つのExpo</span>。<span class="text-accent">4日間。</span>',
+      'チケット1枚で、<span class="text-accent">3つの展示会</span>を、<span class="text-accent">まる3日間</span>。',
     description:
-      "Cafe n' Brasserie Expo、FLEI、MoreFood Expo。JIExpo Kemayoranで4日間、すべて入場できます。",
-    cta: "チケットを取得",
+      "バッジ1枚あれば、NICE PIK 2の3つの展示会を自由に行き来できます。お目当てのコーヒーからスタートして、そのまま隣のFLEI（フランチャイズ）やIOITE（トラベル）のフロアまで足をのばしてみてください。",
+    cta: "チケットを購入",
+  },
+  eventStats: {
+    subtitle: "これまでの実績",
+    title: "数字で見るCBE",
+    description:
+      "直近の開催データからまとめました。あなたが足を踏み入れるのは、こんな空間です。",
+    stats: {
+      visitors: {
+        label: "来場者数",
+        description: "CBE・FLEI・MoreFoodの合計",
+      },
+      brands: {
+        label: "出展ブランド",
+        description: "多数の企業から",
+      },
+      media: {
+        label: "掲載メディア",
+        description: "全国紙・デジタル媒体",
+      },
+      transaction: {
+        label: "平均取引額",
+        description: "過去の開催あたり",
+      },
+      activities: {
+        label: "プログラム",
+        description: "ワークショップ・トーク・新商品発表",
+      },
+    },
+  },
+  themeConcept: {
+    subtitle: "第9回のテーマ",
+    title: "360° Networking Bowl of the Culinary World",
+    description:
+      "今年の会場は、まるで営業中のカフェ。まずは味わって、淹れて。そのあと、いま口にしたものを届けている作り手と出会えます。オーナーは仕入れ先と、ブランドはバイヤーと。会場での何気ない一言が、そのまま注文につながることもよくあります。",
+    pillars: {
+      tasteCircle: {
+        title: "テイスティングの輪",
+        description:
+          "試飲・試食のステーションが会場のあちこちに。ガラス越しに眺めるだけで終わるものは、ここにはありません。",
+      },
+      networking: {
+        title: "ネットワーキング",
+        description:
+          "バイヤーとぴったりの仕入れ先を、事前にマッチングしてお引き合わせします。",
+      },
+      experientialZones: {
+        title: "体験型ゾーン",
+        description:
+          "中に入って、実際に使えるブランド空間。展示を眺めるだけでは終わりません。",
+      },
+    },
+  },
+  whoVisits: {
+    subtitle: "会場で出会う人たち",
+    title: "ひとつのフロアに、2つの顔ぶれ",
+    description:
+      "CBEは、B2Bの商談の場でありながら、一般公開の展示会でもあります。実際に集まるのは、こんな人たちです。",
+    b2bTitle: "業界バイヤー（B2B）",
+    b2bItems: [
+      "カフェ・レストランのオーナー",
+      "ホテルグループや小売チェーン",
+      "食品・飲料のメーカー、サプライヤー、卸業者",
+      "新商品を探す輸入業者",
+      "調達・サプライチェーンの担当者",
+      "料理学校や業界ネットワーク",
+    ],
+    b2cTitle: "愛好家（B2C）",
+    b2cItems: [
+      "おうちバリスタやコーヒー好きの方",
+      "いつかカフェやベーカリーを開きたい人",
+      "パンやスイーツ好きの方",
+      "食べること・飲むことが好きな人",
+      "豆や器具、手土産を探しにきた人",
+    ],
+  },
+  whyExhibit: {
+    subtitle: "ブランドのみなさまへ",
+    title: "出展をおすすめしたいブランド",
+    description:
+      "カフェやレストラン、ホテルに商品を届けているなら、あなたのバイヤーはすでに会場にいます。自分に合うカテゴリーを、下からチェックしてみてください。",
+    types: {
+      manufacturers: {
+        title: "メーカー",
+        description: "豆やマシン、素材を、その場で発注したいバイヤーの目の前へ。",
+      },
+      importersDistributors: {
+        title: "輸入・卸業者",
+        description:
+          "海外ブランドを、いちばん勢いのあるカフェ市場のひとつへ届けませんか。",
+      },
+      oemOdm: {
+        title: "OEM・ODMブランド",
+        description:
+          "プライベートブランドやオリジナル生産を探す事業者と出会えます。",
+      },
+      retailersResellers: {
+        title: "小売・リセラー",
+        description:
+          "シーズンに向けて仕入れを進めるカフェやレストランとつながれます。",
+      },
+      artisansSpecialty: {
+        title: "職人・スペシャルティ生産者",
+        description:
+          "こだわりの商品を、はじめて業界のプロたちに披露するチャンスです。",
+      },
+    },
+    cta: "出展を申し込む",
   },
   mediaCoverage: {
     title: "メディア掲載",
@@ -218,9 +341,9 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
+      title: "Cafe & Brasserie Expo Indonesia (CBE)",
       description:
-        "ジャカルタのCBEで数百ブランドのコーヒー、紅茶、ワイン、チョコレートを体験。テイスティング、ワークショップ、コンペティションなど盛りだくさんです。",
+        "インドネシアのカフェ＆ブラッスリー展示会が、9回目の開催へ。2026年10月9日から11日、NICE PIK 2で開かれます。コーヒー、紅茶、チョコレート、ブラッスリーのブランドを味わって、あなたのビジネスに合う仕入れ先を探しましょう。チケットは今すぐこちらから。",
     },
     brands: {
       title: "ブランド一覧",

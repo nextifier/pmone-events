@@ -1,10 +1,14 @@
 <template>
   <div class="space-y-16 overflow-hidden pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
+    <LazyEventStats />
     <LazyBrandPreview v-if="brandPreviewVisible" />
-    <LazyRundown v-if="rundownVisible" />
-    <LazyHotels v-if="hotelSectionVisible" :show-event-header="false" />
     <LazyAboutEvent />
+    <LazyThemeConcept />
+    <LazyRundown v-if="rundownVisible" />
+    <LazyWhoVisits />
+    <LazyHotels v-if="hotelSectionVisible" :show-event-header="false" />
+    <LazyWhyExhibit />
     <LazyPartnerships />
     <LazyVisitorCta />
     <!-- <LazyMediaCoveragesSlider /> -->

@@ -11,44 +11,74 @@
 }
 
 @theme {
+  --font-display:
+    Sink, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Neutral */
+  --color-gray-50: oklch(0.985 0 0);
+  --color-gray-100: oklch(0.97 0 0);
+  --color-gray-200: oklch(0.922 0 0);
+  --color-gray-300: oklch(0.87 0 0);
+  --color-gray-400: oklch(0.708 0 0);
+  --color-gray-500: oklch(0.556 0 0);
+  --color-gray-600: oklch(0.439 0 0);
+  --color-gray-700: oklch(0.371 0 0);
+  --color-gray-800: oklch(0.269 0 0);
+  --color-gray-900: oklch(0.205 0 0);
+  --color-gray-950: oklch(0.145 0 0);
+
   /* KV-Brown */
   --color-kv-brown-50: oklch(0.9681 0.0074 80.72);
-  --color-kv-brown-100: oklch(0.9306 0.0202 84.59);
-  --color-kv-brown-200: oklch(0.9056 0.0391 85.34);
+  --color-kv-brown-100: oklch(0.9206 0.0202 84.59);
+  --color-kv-brown-200: oklch(0.8442 0.04 82.32);
   --color-kv-brown-300: oklch(0.7469 0.0603 78.65);
   --color-kv-brown-400: oklch(0.6654 0.0753 73.53);
-  --color-kv-brown-500: oklch(0.6082 0.0746 67.05);
+  --color-kv-brown-500: oklch(0.6103 0.0746 68.47);
   --color-kv-brown-600: oklch(0.5327 0.0676 59.13);
   --color-kv-brown-700: oklch(0.4502 0.0562 49.34);
-  --color-kv-brown-800: oklch(0.4057 0.0465 42.68);
-  --color-kv-brown-900: oklch(0.2807 0.0384 38.49);
-  --color-kv-brown-950: oklch(0.2104 0.0207 34.52);
+  --color-kv-brown-800: oklch(0.4055 0.0471 44.34);
+  --color-kv-brown-900: oklch(0.3707 0.0384 38.49);
+  --color-kv-brown-950: oklch(0.2526 0.0296 33.02);
+
+  /* KV-Red */
+  --color-kv-red-50: oklch(0.9691 0.0151 17.42);
+  --color-kv-red-100: oklch(0.93 0.0355 17.81);
+  --color-kv-red-200: oklch(0.8751 0.0665 18.51);
+  --color-kv-red-300: oklch(0.7959 0.1174 20);
+  --color-kv-red-400: oklch(0.7017 0.1895 23.33);
+  --color-kv-red-500: oklch(0.6666 0.2204 25.5);
+  --color-kv-red-600: oklch(0.5995 0.2383 28.54);
+  --color-kv-red-700: oklch(0.5267 0.2108 28.68);
+  --color-kv-red-800: oklch(0.4593 0.18 28.26);
+  --color-kv-red-900: oklch(0.4049 0.1503 27.25);
+  --color-kv-red-950: oklch(0.2638 0.1018 27.95);
 
   /* KV-Green */
-  --color-kv-green-50: oklch(0.9741 0.0182 127.14);
-  --color-kv-green-100: oklch(0.9423 0.0415 129.62);
-  --color-kv-green-200: oklch(0.8908 0.0777 130.17);
-  --color-kv-green-300: oklch(0.8192 0.1184 131.54);
-  --color-kv-green-400: oklch(0.7488 0.1475 132.91);
-  --color-kv-green-500: oklch(0.6615 0.1519 133.95);
-  --color-kv-green-600: oklch(0.579 0.1366 134.66);
-  --color-kv-green-700: oklch(0.4631 0.1017 134.76);
-  --color-kv-green-800: oklch(0.4006 0.0788 134.55);
-  --color-kv-green-900: oklch(0.3649 0.066 134.71);
-  --color-kv-green-950: oklch(0.2439 0.0457 135.66);
+  --color-kv-green-50: oklch(0.9827 0.0323 127.98);
+  --color-kv-green-100: oklch(0.9586 0.0665 129.66);
+  --color-kv-green-200: oklch(0.9242 0.1269 131.71);
+  --color-kv-green-300: oklch(0.8766 0.1872 133.37);
+  --color-kv-green-400: oklch(0.8244 0.2191 135.18);
+  --color-kv-green-500: oklch(0.6857 0.1996 136.67);
+  --color-kv-green-600: oklch(0.6292 0.1872 137.4);
+  --color-kv-green-700: oklch(0.516 0.1485 137.21);
+  --color-kv-green-800: oklch(0.4414 0.1195 136.58);
+  --color-kv-green-900: oklch(0.3949 0.1005 136.77);
+  --color-kv-green-950: oklch(0.2659 0.0713 137.64);
 
   /* KV-Purple */
   --color-kv-purple-50: oklch(0.9776 0.0146 312.25);
   --color-kv-purple-100: oklch(0.9453 0.0348 309.76);
-  --color-kv-purple-200: oklch(0.903 0.0632 310.13);
+  --color-kv-purple-200: oklch(0.9011 0.0649 310.52);
   --color-kv-purple-300: oklch(0.8263 0.1162 309.73);
-  --color-kv-purple-400: oklch(0.7252 0.1887 308.59);
-  --color-kv-purple-500: oklch(0.6366 0.2484 306.93);
-  --color-kv-purple-600: oklch(0.5722 0.2652 305.48);
-  --color-kv-purple-700: oklch(0.5107 0.2482 304.97);
-  --color-kv-purple-800: oklch(0.4503 0.2093 306.74);
-  --color-kv-purple-900: oklch(0.4202 0.1902 308.04);
-  --color-kv-purple-950: oklch(0.3 0.1499 305.94);
+  --color-kv-purple-400: oklch(0.7258 0.1909 309.48);
+  --color-kv-purple-500: oklch(0.6409 0.2515 308.09);
+  --color-kv-purple-600: oklch(0.5881 0.2638 307.31);
+  --color-kv-purple-700: oklch(0.5175 0.2507 306.57);
+  --color-kv-purple-800: oklch(0.4558 0.212 308.23);
+  --color-kv-purple-900: oklch(0.3942 0.1766 309.41);
+  --color-kv-purple-950: oklch(0.3048 0.1524 307.61);
 }
 
 @theme inline {
@@ -58,44 +88,27 @@
   --color-accent-purple: var(--accent-purple);
 }
 
-/* Stone gray palette */
 :root {
-  --color-gray-50: oklch(0.985 0.001 106.423);
-  --color-gray-100: oklch(0.97 0.001 106.424);
-  --color-gray-200: oklch(0.923 0.003 48.717);
-  --color-gray-300: oklch(0.869 0.005 56.366);
-  --color-gray-400: oklch(0.709 0.01 56.259);
-  --color-gray-500: oklch(0.553 0.013 58.071);
-  --color-gray-600: oklch(0.444 0.011 73.639);
-  --color-gray-700: oklch(0.374 0.01 67.558);
-  --color-gray-800: oklch(0.268 0.007 34.298);
-  --color-gray-900: oklch(0.216 0.006 56.043);
-  --color-gray-950: oklch(0.147 0.004 49.25);
-
-  --font-display:
-    Sink, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
   --accent: var(--color-kv-brown-900);
   --accent-foreground: var(--color-white);
 
-  --accent-brown: var(--color-kv-brown-800);
-  --accent-green: var(--color-kv-green-600);
-  --accent-red: var(--color-red-700);
-  --accent-purple: var(--color-kv-purple-800);
+  --accent-brown: var(--color-kv-brown-600);
+  --accent-green: var(--color-kv-green-500);
+  --accent-red: var(--color-red-500);
+  --accent-purple: var(--color-kv-purple-600);
 }
 
 .dark {
   --accent: var(--color-kv-brown-300);
   --accent-foreground: var(--color-kv-brown-950);
 
-  --accent-brown: var(--color-kv-brown-300);
+  --accent-brown: var(--color-kv-brown-400);
   --accent-green: var(--color-kv-green-400);
   --accent-red: var(--color-red-400);
   --accent-purple: var(--color-kv-purple-400);
 }
 
-.theme-brown {
+/* .theme-brown {
   --background: var(--color-kv-brown-50);
   --border: var(--color-gray-300);
   --muted: var(--color-kv-brown-100);
@@ -110,7 +123,7 @@
   --border: var(--color-gray-600);
   --muted: var(--color-gray-700);
   --popover: var(--color-gray-800);
-}
+} */
 
 .font-display {
   @apply leading-none! tracking-[-0.02em] uppercase;

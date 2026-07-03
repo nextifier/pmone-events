@@ -167,40 +167,56 @@ export default {
     edition: "{n}{ordinal} edition",
   },
   about: {
-    title:
-      "All Your <span class='text-accent'>Cravings</span>, All in One Place.",
-    description:
-      "From artisan coffee and premium tea to craft chocolate and fine wine, CBE brings together the best of the F&B world under one roof. Whether you're a cafe owner, an aspiring entrepreneur, or a passionate foodie, this is where flavor meets opportunity.",
-    sectionTitle: "Choose Your Flavor Adventure.",
+    sectionTitle: "The show floor, zone by zone",
     sectionDescription:
-      "We've set up four distinct zones for you to explore: coffee, tea, wine, and chocolate. Take a look below and see which one calls to you first.",
-    zones: {
-      coffee: {
-        title: "Indonesia Coffee Festival",
+      "The floor breaks into eight zones, from the Coffee & Brew Pavilion to the Sustainability corner. Wander through, taste as you go, and find the suppliers that fit your menu.",
+    eventZones: {
+      coffeeBrew: {
+        title: "Coffee & Brew Pavilion",
         description:
-          "This is the lively center of the expo. Hear the sound of espresso machines, watch the best baristas compete for titles, and find your new favorite coffee.",
+          "Specialty roasters, espresso gear, and enough tastings to find your next house blend.",
       },
-      tea: {
-        title: "Indonesia Tea Festival",
+      chocolatePastry: {
+        title: "Chocolate & Pastry Avenue",
         description:
-          "Step into a calmer space dedicated to tea. Taste a wide variety of teas, from rare leaves to new blends, and learn simple ways to make a better cup at home.",
+          "Artisan chocolate, desserts, and live patisserie demos you can watch and taste.",
       },
-      wine: {
-        title: "Indonesia Wine Festival",
+      wineSpirits: {
+        title: "Wine & Spirits Lounge",
         description:
-          "Enjoy wine tasting without the pressure. We've created a relaxed space to explore different wines from here and abroad. No complicated rules, just good wine.",
+          "Tastings, mixology, and a relaxed corner to explore wines and spirits without the fuss.",
       },
-      chocolate: {
-        title: "Cokelat Expo Indonesia",
+      culinaryHub: {
+        title: "Culinary Hub",
         description:
-          "Welcome to a chocolate lover's paradise. Meet the people who make the chocolate, see how it's done, and taste unique flavors you can't find anywhere else.",
+          "Live cooking, chef collaborations, and ideas for putting real food back on the cafe menu.",
+      },
+      equipment: {
+        title: "Equipment & Machinery Zone",
+        description:
+          "Machines, kitchen tech, and packaging built for cafes ready to upgrade.",
+      },
+      supplierMarket: {
+        title: "Supplier Marketplace",
+        description:
+          "Where cafes, restaurants, and hotels meet the brands that stock their shelves.",
+      },
+      mainStage: {
+        title: "Main Stage",
+        description:
+          "Talks, panels, and competitions running through all three days.",
+      },
+      sustainability: {
+        title: "Sustainability Zone",
+        description:
+          "Zero-waste ideas, ethical sourcing, and packaging that goes easy on the planet.",
       },
     },
   },
   mainPrograms: {
     title: "<span>Main Programs</span>",
     description:
-      "This is where the real action happens. We've packed the schedule with live competitions, hands-on workshops, and endless tastings to make sure every moment of your visit is filled with energy and inspiration.",
+      "Across three days you'll find competitions, hands-on workshops, tastings, and talks with the people shaping the industry. Plan your visit around the ones you don't want to miss.",
   },
   partnerships: {
     title: "Become a <span class='text-primary'>Part of our Story</span>",
@@ -231,10 +247,118 @@ export default {
   },
   visitorCta: {
     title:
-      'One ticket. <span class="text-accent">Three expos.</span> <span class="text-accent">Four days.</span>',
+      'One ticket. <span class="text-accent">Three expos.</span> <span class="text-accent">Three days.</span>',
     description:
-      "Cafe n' Brasserie Expo, FLEI, and MoreFood Expo, all at JIExpo Kemayoran. One pass covers everything for four days.",
+      "One badge covers all three shows at NICE PIK 2. Come for the coffee, then wander into the franchise floor at FLEI and the travel expo at IOITE next door.",
     cta: "Get Ticket",
+  },
+  eventStats: {
+    subtitle: "Track record",
+    title: "The numbers behind the show",
+    description:
+      "Pulled from recent editions. This is the room you'll be walking into.",
+    stats: {
+      visitors: {
+        label: "Visitors",
+        description: "across CBE, FLEI & MoreFood",
+      },
+      brands: {
+        label: "Brands",
+        description: "from 150+ companies",
+      },
+      media: {
+        label: "Media outlets",
+        description: "national & digital",
+      },
+      transaction: {
+        label: "Avg. transaction",
+        description: "per past edition",
+      },
+      activities: {
+        label: "Activities",
+        description: "workshops, talks & launches",
+      },
+    },
+  },
+  themeConcept: {
+    subtitle: "9th edition theme",
+    title: "360° Networking Bowl of the Culinary World",
+    description:
+      "This year the floor runs like a working cafe. You taste and brew first, then meet the people who supply what you just tried. Owners meet suppliers, brands meet buyers, and plenty of first conversations turn into orders.",
+    pillars: {
+      tasteCircle: {
+        title: "Taste Circle",
+        description:
+          "Trial and tasting stations spread across the floor, so nothing stays behind glass.",
+      },
+      networking: {
+        title: "Networking",
+        description:
+          "Planned introductions that put buyers in front of the right suppliers.",
+      },
+      experientialZones: {
+        title: "Experiential Zones",
+        description:
+          "Brand spaces you can walk into and use, not displays you just look at.",
+      },
+    },
+  },
+  whoVisits: {
+    subtitle: "Who you'll meet",
+    title: "Two crowds, one floor",
+    description:
+      "CBE is a trade show and a public one at once. These are the people who show up.",
+    b2bTitle: "Trade buyers (B2B)",
+    b2bItems: [
+      "Cafe and restaurant owners",
+      "Hotel groups and retail chains",
+      "F&B manufacturers, suppliers, and distributors",
+      "Importers scouting new products",
+      "Procurement and supply-chain teams",
+      "Culinary schools and industry networks",
+    ],
+    b2cTitle: "Enthusiasts (B2C)",
+    b2cItems: [
+      "Home baristas and coffee lovers",
+      "Aspiring cafe and bakery owners",
+      "Bakers, pastry, and dessert fans",
+      "Food and drink enthusiasts",
+      "Shoppers after beans, gear, and gifts",
+    ],
+  },
+  whyExhibit: {
+    subtitle: "For brands",
+    title: "Who should take a booth",
+    description:
+      "If you sell to cafes, restaurants, or hotels, your buyers are already here. Find your spot below.",
+    types: {
+      manufacturers: {
+        title: "Manufacturers",
+        description:
+          "Put your beans, machines, and ingredients in front of buyers ready to order.",
+      },
+      importersDistributors: {
+        title: "Importers & Distributors",
+        description:
+          "Bring global brands into one of the fastest-growing cafe markets around.",
+      },
+      oemOdm: {
+        title: "OEM / ODM Brands",
+        description:
+          "Meet operators looking for private-label and custom production.",
+      },
+      retailersResellers: {
+        title: "Retailers & Resellers",
+        description:
+          "Connect with cafes and restaurants stocking up for the season.",
+      },
+      artisansSpecialty: {
+        title: "Artisans & Specialty Makers",
+        description:
+          "Get your craft products in front of the trade for the first time.",
+      },
+    },
+    cta: "Book Your Space",
   },
   mediaCoverage: {
     title: "Recognized by Industry Voices",
@@ -335,9 +459,9 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
+      title: "Cafe & Brasserie Expo Indonesia (CBE)",
       description:
-        "Join the Cafe n' Brasserie Expo, a vibrant celebration of the nation's coffee culture. Explore tastings, workshops, competitions, and more. Get your tickets now!",
+        "Indonesia's cafe and brasserie trade show is back for a 9th run, 9-11 October 2026 at NICE PIK 2. Taste coffee, tea, chocolate, and brasserie brands, then source the ones that fit your business. Get your tickets.",
     },
     brands: {
       title: "Brands",

@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
+      title: "Cafe & Brasserie Expo Indonesia (CBE)",
     },
   },
 
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
 
   site: {
     url: "https://cafebrasserieexpo.com",
-    name: "Cafe n' Brasserie Expo Jakarta",
+    name: "Cafe & Brasserie Expo Indonesia",
   },
 
   schemaOrg: {
@@ -112,7 +112,7 @@ export default defineNuxtConfig({
 
   pwa: {
     manifest: {
-      name: "Cafe n' Brasserie Expo Jakarta (CBE)",
+      name: "Cafe & Brasserie Expo Indonesia (CBE)",
       short_name: "CBE",
       description:
         "Pameran industri kafe dan restoran terbesar di Indonesia. Temukan peralatan, bahan baku, dan peluang bisnis F&B terkini.",

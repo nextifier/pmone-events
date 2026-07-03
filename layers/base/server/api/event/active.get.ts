@@ -7,9 +7,11 @@ export default defineCachedEventHandler(
     const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     try {
-      // Event identity is per-app (its own project), even when brands/blog are
-      // sourced from a shared dataSourceUsername (e.g. icf/cokelat -> cbe).
-      const username = appConfig.app.projectUsername;
+      // Follow the shared data source when set (icf/cokelat -> cbe) so the event
+      // header (dates, venue, edition, in-conjunction) matches the borrowed
+      // content; apps without a dataSourceUsername use their own project.
+      const username =
+        appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
       const data = await $fetch(
         `${config.public.apiUrl}/api/public/projects/${username}/events/active`,
         {

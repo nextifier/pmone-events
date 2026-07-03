@@ -19,7 +19,7 @@ const settings = {
     logoClass: "h-12",
   },
   ogImage: {
-    isDarkMode: true,
+    isDarkMode: false,
   },
 };
 

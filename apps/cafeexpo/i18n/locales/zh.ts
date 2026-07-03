@@ -47,38 +47,49 @@ export default {
     edition: "第{n}届",
   },
   about: {
-    title: "<span class='text-accent'>好吃的</span>，都在这。",
-    description:
-      "精品咖啡、好茶、手工巧克力、葡萄酒，CBE 把 F&B 的好东西汇聚到一起。开咖啡馆的、准备创业的、纯粹爱吃的，这里是味道和机会碰撞的地方。",
-    sectionTitle: "选一个区，先逛起来。",
+    sectionTitle: "现场展区，一区一区逛过去",
     sectionDescription:
-      "咖啡、茶、葡萄酒、巧克力，四个主题区等你来。看看下面的介绍，挑个最感兴趣的先走一圈。",
-    zones: {
-      coffee: {
-        title: "Indonesia Coffee Festival",
+      "整个展馆分成八个区，从咖啡冲煮到可持续采购，各有各的地盘。边逛边尝，把跟你菜单对得上的供应商挑出来。",
+    eventZones: {
+      coffeeBrew: {
+        title: "Coffee & Brew Pavilion",
         description:
-          "整个展会最热闹的地方。咖啡机轰鸣、顶尖咖啡师现场比拼，说不定你的新宠咖啡就在这等着你。",
+          "精品烘焙商、意式设备，再加上尝到手软的试饮，帮你找到下一款店里主打的拼配豆。",
       },
-      tea: {
-        title: "Indonesia Tea Festival",
-        description:
-          "一个安静的茶空间。从稀有茶叶到新式拼配，慢慢品。还能学到在家泡出好茶的小窍门。",
+      chocolatePastry: {
+        title: "Chocolate & Pastry Avenue",
+        description: "手作巧克力、各式甜点，还有能边看边尝的现场甜品演示。",
       },
-      wine: {
-        title: "Indonesia Wine Festival",
-        description:
-          "轻松的品酒空间，没有繁琐的规矩。国产的、进口的，随意试。好喝就行。",
+      wineSpirits: {
+        title: "Wine & Spirits Lounge",
+        description: "品酒、调酒，一个轻松的角落，慢慢逛葡萄酒和烈酒，不用端着。",
       },
-      chocolate: {
-        title: "Cokelat Expo Indonesia",
-        description:
-          "巧克力爱好者的天堂。跟制作人面对面聊、看工艺流程、尝别处找不到的独特风味。",
+      culinaryHub: {
+        title: "Culinary Hub",
+        description: "现场烹饪、主厨联手，帮你把像样的正餐重新放回咖啡馆菜单。",
+      },
+      equipment: {
+        title: "Equipment & Machinery Zone",
+        description: "各类机器、厨房设备和包装方案，给准备升级的咖啡馆准备的。",
+      },
+      supplierMarket: {
+        title: "Supplier Marketplace",
+        description: "咖啡馆、餐厅和酒店在这里，遇上给他们供货的品牌。",
+      },
+      mainStage: {
+        title: "Main Stage",
+        description: "分享、圆桌和比赛，三天不停歇。",
+      },
+      sustainability: {
+        title: "Sustainability Zone",
+        description: "零废弃的做法、可追溯的采购，还有对环境更友好的包装。",
       },
     },
   },
   mainPrograms: {
     title: "<span>核心项目</span>",
-    description: "现场比赛、动手工作坊、无限品鉴。CBE 每个时段都有看点。",
+    description:
+      "三天下来，比赛、工作坊、品鉴，还有跟行业里的人面对面的分享会都排上了。把不想错过的先圈出来，再决定怎么逛。",
   },
   partnerships: {
     title:
@@ -106,10 +117,108 @@ export default {
   },
   visitorCta: {
     title:
-      '一张票，<span class="text-accent">三场展</span>，<span class="text-accent">四天。</span>',
+      '一张门票，<span class="text-accent">三场展会，</span><span class="text-accent">连逛三天。</span>',
     description:
-      "Cafe n' Brasserie Expo、FLEI、MoreFood Expo，都在 JIExpo Kemayoran。一票四天，全场通行。",
-    cta: "领门票",
+      "一张证件，NICE PIK 2 里的三场展会随便逛。冲着咖啡来的，看完顺路拐去隔壁 FLEI 的加盟展区，再到 IOITE 逛逛旅游会展。",
+    cta: "购票入场",
+  },
+  eventStats: {
+    subtitle: "历届成绩",
+    title: "展会背后的数字",
+    description: "数据来自最近几届。这就是你要走进的现场。",
+    stats: {
+      visitors: {
+        label: "观众",
+        description: "来自 CBE、FLEI 和 MoreFood",
+      },
+      brands: {
+        label: "品牌",
+        description: "来自上百家参展企业",
+      },
+      media: {
+        label: "媒体",
+        description: "全国与线上媒体",
+      },
+      transaction: {
+        label: "平均成交",
+        description: "历届单届平均",
+      },
+      activities: {
+        label: "现场活动",
+        description: "工作坊、分享与新品发布",
+      },
+    },
+  },
+  themeConcept: {
+    subtitle: "第九届主题",
+    title: "360° Networking Bowl of the Culinary World",
+    description:
+      "今年整个展馆就像一家正在营业的咖啡馆。先喝、先冲，再去认识刚刚那杯背后的供应商。店主碰上供应商，品牌碰上买家，很多第一次搭话就直接谈成了订单。",
+    pillars: {
+      tasteCircle: {
+        title: "Taste Circle",
+        description: "试用和品鉴台散布在整个展馆，没有一样东西只能隔着玻璃看。",
+      },
+      networking: {
+        title: "Networking",
+        description: "提前安排好的引荐，让买家直接坐到对的供应商面前。",
+      },
+      experientialZones: {
+        title: "Experiential Zones",
+        description: "能走进去、能上手用的品牌空间，不是只让你看的展台。",
+      },
+    },
+  },
+  whoVisits: {
+    subtitle: "你会遇到谁",
+    title: "两拨人，同一个展馆",
+    description: "CBE 既是行业展，也对公众开放。来的都是这些人。",
+    b2bTitle: "行业买家 (B2B)",
+    b2bItems: [
+      "咖啡馆和餐厅老板",
+      "酒店集团和零售连锁",
+      "餐饮制造商、供应商和经销商",
+      "找新品的进口商",
+      "采购和供应链团队",
+      "餐饮院校和行业圈子",
+    ],
+    b2cTitle: "爱好者 (B2C)",
+    b2cItems: [
+      "在家玩手冲的咖啡迷",
+      "想开咖啡馆、烘焙店的人",
+      "烘焙、甜点爱好者",
+      "爱吃爱喝的人",
+      "来淘豆子、器材和礼物的顾客",
+    ],
+  },
+  whyExhibit: {
+    subtitle: "写给品牌方",
+    title: "谁适合来摆展位",
+    description:
+      "你的客户是咖啡馆、餐厅或酒店？他们已经在现场了。看看你属于下面哪一类。",
+    types: {
+      manufacturers: {
+        title: "Manufacturers",
+        description: "把你的豆子、设备和原料，摆到准备下单的买家面前。",
+      },
+      importersDistributors: {
+        title: "Importers & Distributors",
+        description: "把海外品牌带进增长最快的咖啡市场之一。",
+      },
+      oemOdm: {
+        title: "OEM / ODM Brands",
+        description: "对接想做自有品牌和代工生产的经营者。",
+      },
+      retailersResellers: {
+        title: "Retailers & Resellers",
+        description: "对接正在备货的咖啡馆和餐厅。",
+      },
+      artisansSpecialty: {
+        title: "Artisans & Specialty Makers",
+        description: "让你的手作产品第一次走到行业买家面前。",
+      },
+    },
+    cta: "预订展位",
   },
   mediaCoverage: {
     title: "媒体报道",
@@ -200,9 +309,9 @@ export default {
   },
   pages: {
     home: {
-      title: "Cafe n' Brasserie Expo Jakarta (CBE)",
+      title: "Cafe & Brasserie Expo Indonesia (CBE)",
       description:
-        "来雅加达 CBE，尝数百个咖啡、茶、葡萄酒、巧克力品牌。品鉴会、工作坊、比赛，全都有。",
+        "印尼咖啡与餐酒行业展第九届回归，2026 年 10 月 9 至 11 日在 NICE PIK 2 举办。现场品咖啡、茶、巧克力和各类餐酒品牌，再挑出适合你生意的供应商。现在购票。",
     },
     brands: {
       title: "品牌",

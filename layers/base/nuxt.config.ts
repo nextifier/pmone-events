@@ -20,6 +20,15 @@ export default defineNuxtConfig({
     // Cloudflare Turnstile secret (server-side siteverify). When empty, the
     // contact form skips captcha verification entirely (safe to deploy first).
     turnstileSecret: process.env.NUXT_TURNSTILE_SECRET || "",
+    // Stable secret for signing nuxt-og-image render URLs. The committed
+    // fallback keeps it consistent across builds (silences the module's
+    // "auto-generated secret changes every build" warning); override per
+    // deploy with NUXT_OG_IMAGE_SECRET when desired.
+    ogImage: {
+      secret:
+        process.env.NUXT_OG_IMAGE_SECRET ||
+        "04045fc080f032a4186ccdc13922dd2fe6276b1a76d5825f5c52f16ecf240b59",
+    },
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
