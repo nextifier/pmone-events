@@ -70,6 +70,13 @@ export default defineNitroPlugin((nitroApp) => {
     if (!ogMatch) return;
 
     const encodedSegment = ogMatch[1];
+
+    // Hash-form URLs (o_<hash>, used when prerendering /_og/s/ images) carry
+    // no encoded props — nuxt-og-image resolves them from its options cache.
+    // Parsing "o_<hash>" here would yield garbage ({ o: "<hash>" }) and WIPE
+    // the real props (blank page title on prerendered OG images).
+    if (/^o_[A-Za-z0-9]+$/.test(encodedSegment)) return;
+
     const parts = encodedSegment.split(RE_COMMA_PARAM);
 
     // Parse component props from raw URL

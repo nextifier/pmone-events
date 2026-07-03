@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "CampX Holiday Park Jatiluhur",
   shortName: "CampX",
   projectUsername: "campx",
-  url: isProduction ? "https://campx.id" : "http://localhost:3000",
+  url: "https://campx.id",
   company: {
     name: "CampX",
     address:

@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Franchise & License Expo Indonesia (FLEI)",
   shortName: "FLEI",
   projectUsername: "flei",
-  url: isProduction ? "https://franchise-expo.co.id" : "http://localhost:3000",
+  url: "https://franchise-expo.co.id",
   company: {
     name: "PT Pameran Peluang Bisnis",
     address:

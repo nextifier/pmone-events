@@ -1,67 +1,76 @@
-export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
-  const appConfig = useAppConfig();
-  const query = getQuery(event);
-  const locale = (query.locale as string) || "en";
+export default defineCachedEventHandler(
+  async (event) => {
+    const config = useRuntimeConfig();
+    const appConfig = useAppConfig();
+    const query = getQuery(event);
+    const locale = (query.locale as string) || "en";
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-  try {
-    const username = appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
+    try {
+      const username =
+        appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
 
-    const headers = {
-      "X-API-Key": config.pmOneApiKey,
-      Accept: "application/json",
-    };
+      const headers = {
+        "X-API-Key": config.pmOneApiKey,
+        Accept: "application/json",
+      };
 
-    const baseOpts = { headers, signal: controller.signal };
+      const baseOpts = { headers, signal: controller.signal };
 
-    // Resolve event slug. Prefer the project's active event; fall back to the
-    // most recent event by start_date so FAQ still renders even when no event
-    // is currently flagged is_active=true. Only when neither exists do we return
-    // an empty payload so the component shows its empty state instead of a
-    // generic fetch-error UI.
-    const active = await $fetch<{ data: { slug: string } }>(
-      `${config.public.apiUrl}/api/public/projects/${username}/events/active`,
-      baseOpts,
-    ).catch(() => null);
-
-    let eventSlug = active?.data?.slug;
-
-    if (!eventSlug) {
-      const latest = await $fetch<{ data: Array<{ slug: string }> }>(
-        `${config.public.apiUrl}/api/public/projects/${username}/events`,
-        { ...baseOpts, query: { per_page: 1, sort: "-start_date" } },
+      // Resolve event slug. Prefer the project's active event; fall back to the
+      // most recent event by start_date so FAQ still renders even when no event
+      // is currently flagged is_active=true. Only when neither exists do we return
+      // an empty payload so the component shows its empty state instead of a
+      // generic fetch-error UI.
+      const active = await $fetch<{ data: { slug: string } }>(
+        `${config.public.apiUrl}/api/public/projects/${username}/events/active`,
+        baseOpts,
       ).catch(() => null);
-      eventSlug = latest?.data?.[0]?.slug;
-    }
 
-    if (!eventSlug) {
-      return { data: [] };
-    }
+      let eventSlug = active?.data?.slug;
 
-    const faq = await $fetch(
-      `${config.public.apiUrl}/api/public/projects/${username}/events/${eventSlug}/faqs`,
-      {
-        ...baseOpts,
-        query: { locale },
-      },
-    );
+      if (!eventSlug) {
+        const latest = await $fetch<{ data: Array<{ slug: string }> }>(
+          `${config.public.apiUrl}/api/public/projects/${username}/events`,
+          { ...baseOpts, query: { per_page: 1, sort: "-start_date" } },
+        ).catch(() => null);
+        eventSlug = latest?.data?.[0]?.slug;
+      }
 
-    return faq;
-  } catch (error: any) {
-    if (error.name === "AbortError") {
+      if (!eventSlug) {
+        return { data: [] };
+      }
+
+      const faq = await $fetch(
+        `${config.public.apiUrl}/api/public/projects/${username}/events/${eventSlug}/faqs`,
+        {
+          ...baseOpts,
+          query: { locale },
+        },
+      );
+
+      return faq;
+    } catch (error: any) {
+      if (error.name === "AbortError") {
+        throw createError({
+          statusCode: 504,
+          message: "Request timeout - API server took too long to respond",
+        });
+      }
       throw createError({
-        statusCode: 504,
-        message: "Request timeout - API server took too long to respond",
+        statusCode: error.response?.status || 500,
+        message: error.message || "Failed to fetch FAQ",
       });
+    } finally {
+      clearTimeout(timeoutId);
     }
-    throw createError({
-      statusCode: error.response?.status || 500,
-      message: error.message || "Failed to fetch FAQ",
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
-});
+  },
+  {
+    name: "api-event-faq",
+    maxAge: 300,
+    swr: true,
+    getKey: (event) => `l:${(getQuery(event).locale as string) || "en"}`,
+  },
+);

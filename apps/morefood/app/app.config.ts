@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "More Food Expo Indonesia",
   shortName: "MoreFood Expo",
   projectUsername: "morefood",
-  url: isProduction ? "https://morefoodexpo.com" : "http://localhost:3000",
+  url: "https://morefoodexpo.com",
   company: {
     name: "PT Panorama Media",
     address:

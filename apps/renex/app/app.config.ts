@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Renovation Expo",
   shortName: "RENEX",
   projectUsername: "renex",
-  url: isProduction ? "https://renex.megabuild.co.id" : "http://localhost:3000",
+  url: "https://renex.megabuild.co.id",
   company: {
     name: "PT Pameran Masa Kini",
     address:

@@ -4,7 +4,7 @@ const app = {
   name: "Panorama Media",
   shortName: "Panorama Media",
   projectUsername: "pm",
-  url: isProduction ? "https://panoramamedia.co.id" : "http://localhost:3000",
+  url: "https://panoramamedia.co.id",
   company: {
     name: "PT Panorama Media",
     address:

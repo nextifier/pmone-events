@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Indonesia Outing & Incentive Travel Expo (IOITE)",
   shortName: "IOITE",
   projectUsername: "ioe",
-  url: isProduction ? "https://indooutingexpo.co.id" : "http://localhost:3000",
+  url: "https://indooutingexpo.co.id",
   company: {
     name: "PT Panorama Media",
     address:

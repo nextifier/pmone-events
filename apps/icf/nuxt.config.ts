@@ -17,7 +17,7 @@ export default defineNuxtConfig({
     },
   },
 
-  colorMode: { preference: "dark", fallback: "dark" },
+  colorMode: { preference: "light", fallback: "light" },
 
   site: {
     url: "https://indocoffeefestival.com",
@@ -34,11 +34,36 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] },
-      { code: "id", language: "id-ID", name: "Indonesia", files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"] },
-      { code: "zh", language: "zh-CN", name: "中文", files: ["../../../../layers/base/i18n/locales/zh.ts", "zh.ts"] },
-      { code: "ja", language: "ja-JP", name: "日本語", files: ["../../../../layers/base/i18n/locales/ja.ts", "ja.ts"] },
-      { code: "ko", language: "ko-KR", name: "한국어", files: ["../../../../layers/base/i18n/locales/ko.ts", "ko.ts"] },
+      {
+        code: "en",
+        language: "en-US",
+        name: "English",
+        files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"],
+      },
+      {
+        code: "id",
+        language: "id-ID",
+        name: "Indonesia",
+        files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"],
+      },
+      {
+        code: "zh",
+        language: "zh-CN",
+        name: "中文",
+        files: ["../../../../layers/base/i18n/locales/zh.ts", "zh.ts"],
+      },
+      {
+        code: "ja",
+        language: "ja-JP",
+        name: "日本語",
+        files: ["../../../../layers/base/i18n/locales/ja.ts", "ja.ts"],
+      },
+      {
+        code: "ko",
+        language: "ko-KR",
+        name: "한국어",
+        files: ["../../../../layers/base/i18n/locales/ko.ts", "ko.ts"],
+      },
     ],
     lazy: true,
     langDir: "../i18n/locales",
@@ -89,7 +114,8 @@ export default defineNuxtConfig({
     manifest: {
       name: "Indonesia Coffee Festival (ICF)",
       short_name: "ICF",
-      description: "Festival kopi terbesar di Indonesia. Jelajahi ragam kopi nusantara, peralatan brewing, dan peluang bisnis di industri kopi.",
+      description:
+        "Festival kopi terbesar di Indonesia. Jelajahi ragam kopi nusantara, peralatan brewing, dan peluang bisnis di industri kopi.",
     },
   },
 

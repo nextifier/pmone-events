@@ -158,9 +158,9 @@ export default {
   },
   hero: {
     countdownLabel: "Let the flavor festival begin in:",
-    title: "All Your Cravings, All in One Place.",
+    title: "Taste First, Decide Later",
     description:
-      "Come taste everything from hundreds of coffee, tea, wine, and chocolate brands. Your ticket is your all-access pass to three days of flavor.",
+      "Sip through hundreds of coffee, tea, chocolate, and beverage brands before you stock a single shelf.",
     ctaTicket: "Get ticket",
     ctaExhibit: "I want to exhibit",
     playRecap: "Play Recap",

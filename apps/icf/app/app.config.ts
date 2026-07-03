@@ -1,13 +1,9 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Indonesia Coffee Festival (ICF)",
   shortName: "ICF",
   projectUsername: "icf",
   dataSourceUsername: "cbe",
-  url: isProduction
-    ? "https://indocoffeefestival.com"
-    : "http://localhost:3000",
+  url: "https://indocoffeefestival.com",
   company: {
     name: "PT Panorama Media",
     address:

@@ -48,6 +48,12 @@ export default defineNuxtConfig({
     tags: [{ id: "G-QH1BX5M3WH" }],
   },
 
+  // /book-space is skipped: this app's content store defines no bookSpace
+  // keys, so the page 500s on SSR (runtime included) — not relevant here.
+  cfCache: {
+    skipStaticPages: ["/book-space"],
+  },
+
   nitro: {
     preset: "cloudflare-pages",
   },

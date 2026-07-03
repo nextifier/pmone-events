@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "The 9th Indonesia International Cocoa Conference & Dinner",
   shortName: "The 9th IICC",
   projectUsername: "askindo",
-  url: isProduction ? "https://iicc.askindo.id" : "http://localhost:3000",
+  url: "https://iicc.askindo.id",
   company: {
     name: "Indonesian Cocoa Association",
     nameId: "Asosiasi Kakao Indonesia",

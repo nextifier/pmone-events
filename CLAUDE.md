@@ -303,6 +303,32 @@ Setiap event di-deploy ke Cloudflare Pages secara terpisah.
 - Output directory: `apps/<event>/.output/public`
 - Preset: `cloudflare-pages` (sudah dikonfigurasi di nuxt.config.ts)
 
+## Caching / Workers CPU (JANGAN DIRUSAK)
+
+Strategi pemangkasan biaya Workers CPU (2026-07). Tiga lapisan:
+
+1. **Prerender** halaman statis × locale — `layers/base/modules/cf-cache.ts`
+   (`STATIC_PAGES` + knob per-app `cfCache: { extraStaticPages, skipStaticPages }`).
+   Prerender error = build GAGAL — kalau halaman baru 500 saat build, halaman itu
+   juga 500 di production (biasanya key content store hilang di app tsb) →
+   perbaiki kontennya atau `skipStaticPages`.
+2. **Edge cache** HTML dinamis + GET API publik — header `cache-control` di-set
+   runtime oleh `layers/base/server/plugins/cacheControl.ts` (tabel TTL di
+   `layers/base/shared/cf-cache-rules.ts`), HANYA respons 200. Zone Cache Rule
+   "respect origin" per domain (lihat `docs/cloudflare-cache-rule.md`).
+   JANGAN tambah header caching lewat `routeRules` — semuanya ditulis ke
+   `_headers` yang limit 100 rule (pernah menendang rule kritis sw.js no-cache).
+3. **Cached handlers** — 12 GET proxy di `layers/base/server/api/` pakai
+   `defineCachedEventHandler` (maxAge 300). Route baru yang publik & GET
+   sebaiknya ikut pola ini + daftarkan TTL-nya di `cf-cache-rules.ts`.
+
+Gotchas: `/tickets` & `/hotels` di-cache EXACT saja (sub-flow = PII, jangan
+pernah di-cache); `/` tidak pernah di-cache (302 i18n vary cookie); OG image
+TTL via `ogImage.cacheMaxAgeSeconds` (JANGAN tulis routeRules `/_og/**` manual
+— mematikan injeksi header module); SW precache exclude `_og/**`; build script
+wajib `NODE_ENV=production` + heap 6GB (prerender OOM di 2GB, dan tanpa
+NODE_ENV app.config `isProduction` false → URL localhost ter-bake ke OG).
+
 ## Original Source Projects
 
 Beberapa event awalnya di repo terpisah (referensi jika butuh file original):

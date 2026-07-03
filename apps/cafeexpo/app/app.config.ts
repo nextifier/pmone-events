@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Cafe n' Brasserie Expo Jakarta (CBE)",
   shortName: "CBE",
   projectUsername: "cbe",
-  url: isProduction ? "https://cafebrasserieexpo.com" : "http://localhost:3000",
+  url: "https://cafebrasserieexpo.com",
   company: {
     name: "PT Panorama Media",
     address:
@@ -20,10 +18,9 @@ const settings = {
     logoClass: "h-12",
   },
   ogImage: {
-    isDarkMode: true,
+    isDarkMode: false,
   },
 };
-
 
 const routes = {
   home: {

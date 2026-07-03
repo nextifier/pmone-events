@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Indonesia Anime Con (INACON)",
   shortName: "INACON",
   projectUsername: "inacon",
-  url: isProduction ? "https://indonesiaanimecon.com" : "http://localhost:3000",
+  url: "https://indonesiaanimecon.com",
   company: {
     name: "PT Ekspresi Generasi Kreatif",
     address:

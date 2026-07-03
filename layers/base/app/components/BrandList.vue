@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative isolate">
     <div class="container-wider">
       <div class="flex flex-col items-center text-center">
         <h2

@@ -31,6 +31,14 @@ const cart = useTicketCartStore();
 const event = useEvent();
 const accessCodeErrors = useAccessCodeErrors();
 
+// Event lifecycle drives the closed-sale label: a ticket with no live/upcoming
+// sale phase reads as "Coming soon" until the event itself is over, and only
+// then as "Sales ended". Status is client-only (null until mounted), so the
+// safe default before mount is the optimistic "Coming soon".
+const eventStartTime = computed(() => new Date(event.startTime));
+const eventEndTime = computed(() => new Date(event.endTime));
+const { status: eventStatus } = useEventStatus(eventStartTime, eventEndTime);
+
 // Tickets always come from PM One; there is no static fallback. The locale is
 // forwarded so ticket copy + meta.terms come back localized. On failure we show
 // a clear error/empty state rather than fabricating ticket data.
@@ -342,21 +350,33 @@ function priceLabel(ticket) {
   return price > 0 ? `Rp${fmtRupiah(price)}` : t("tickets.free");
 }
 
+// Single source of truth for the unavailable state, shared by the label, icon,
+// and toast so they never contradict. "Sales ended" is only valid once the
+// event is actually over; before that (event upcoming/live) a closed sale phase
+// reads as "Coming soon". Sold out always wins.
+function unavailableState(ticket) {
+  if (soldOut(ticket)) return "sold_out";
+  if (ticket.sales_status === "upcoming") return "coming_soon";
+  return eventStatus.value === "completed" ? "sales_ended" : "coming_soon";
+}
+
 // Status label that replaces the Add button when a ticket can't be bought now.
-// "Sold out" and "Sales ended" (closed) are distinct from "Coming soon" (an
-// upcoming sale phase).
 function unavailableLabel(ticket) {
-  if (soldOut(ticket)) return t("tickets.soldOut");
-  if (ticket.sales_status === "upcoming") return t("tickets.comingSoon");
+  const state = unavailableState(ticket);
+  if (state === "sold_out") return t("tickets.soldOut");
+  if (state === "coming_soon") return t("tickets.comingSoon");
   return t("tickets.salesEnded");
 }
 
 function onUnavailableClick(ticket) {
-  if (soldOut(ticket)) {
+  const state = unavailableState(ticket);
+  if (state === "sold_out") {
     toast.error(t("tickets.soldOutToast"));
     return;
   }
-  if (ticket.sales_status === "upcoming") {
+  if (state === "coming_soon") {
+    // Only an upcoming sale phase carries a known start date; an event that just
+    // hasn't opened sales yet falls back to the generic "not started" message.
     const when = ticket.sales_starts_at
       ? $dayjs(ticket.sales_starts_at).format("MMMM D, YYYY")
       : null;
@@ -902,9 +922,9 @@ const subtotalLabel = computed(() =>
                   >
                     <Icon
                       :name="
-                        soldOut(ticket)
+                        unavailableState(ticket) === 'sold_out'
                           ? 'hugeicons:ticket-02'
-                          : ticket.sales_status === 'upcoming'
+                          : unavailableState(ticket) === 'coming_soon'
                             ? 'hugeicons:clock-01'
                             : 'hugeicons:calendar-block-01'
                       "
@@ -1181,9 +1201,9 @@ const subtotalLabel = computed(() =>
                   >
                     <Icon
                       :name="
-                        soldOut(ticket)
+                        unavailableState(ticket) === 'sold_out'
                           ? 'hugeicons:ticket-02'
-                          : ticket.sales_status === 'upcoming'
+                          : unavailableState(ticket) === 'coming_soon'
                             ? 'hugeicons:clock-01'
                             : 'hugeicons:calendar-block-01'
                       "

@@ -1,10 +1,8 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Indonesia Comic Con (ICC)",
   shortName: "ICC",
   projectUsername: "icc",
-  url: isProduction ? "https://indonesiacomiccon.com" : "http://localhost:3000",
+  url: "https://indonesiacomiccon.com",
   company: {
     name: "PT Ekspresi Generasi Kreatif",
     address:

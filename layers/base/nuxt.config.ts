@@ -34,13 +34,6 @@ export default defineNuxtConfig({
     },
   },
 
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      ignore: ["/", "/brands", "/brands/**", "/rundown", "/news", "/news/**"],
-    },
-  },
-
   app: {
     head: {
       htmlAttrs: {
@@ -103,6 +96,10 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    // Local: prerender static pages + cache-control routeRules + _routes.json
+    // wildcards for Cloudflare Pages (cuts Workers CPU billing). Absolute path
+    // so app builds resolve it from the layer, not the app dir.
+    resolve(__dirname, "modules/cf-cache"),
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
@@ -171,6 +168,11 @@ export default defineNuxtConfig({
     defaults: {
       renderer: "takumi",
     },
+    // 30 days. The module self-injects `public, max-age, s-maxage, immutable`
+    // routeRules on /_og/d/** with this TTL — do NOT hand-write /_og/**
+    // routeRules or that injection is skipped. OG URLs hash their props, so
+    // long-lived immutable caching is self-busting when content changes.
+    cacheMaxAgeSeconds: 60 * 60 * 24 * 30,
   },
 
   robots: {
@@ -250,9 +252,13 @@ export default defineNuxtConfig({
       // JANGAN precache html: route SSR selalu fresh dari network → referensi
       // chunk selalu current. Cegah SW serve HTML basi yang nunjuk chunk lama (404).
       globPatterns: ["**/*.{js,css,png,svg,ico}"],
+      // OG images (prerendered by nuxt-og-image into /_og/s/) are only ever
+      // fetched by social crawlers — never precache them to visitors.
+      globIgnores: ["**/_og/**"],
     },
     injectManifest: {
       globPatterns: ["**/*.{js,css,png,svg,ico}"],
+      globIgnores: ["**/_og/**"],
     },
     client: {
       installPrompt: true,

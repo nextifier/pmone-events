@@ -46,9 +46,9 @@ export default {
   },
   hero: {
     countdownLabel: "CBE 시작까지:",
-    title: "맛있는 건 다 여기에.",
+    title: "먼저 맛보고, 결정은 그다음에.",
     description:
-      "커피, 차, 와인, 초콜릿. 수백 개 브랜드를 직접 시음할 수 있어요. 티켓으로 3일간 마음껏 즐겨 보세요.",
+      "커피, 차, 초콜릿, 음료까지. 매장에 들여놓기 전에 수백 개 브랜드를 직접 맛볼 수 있어요.",
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 영상 보기",

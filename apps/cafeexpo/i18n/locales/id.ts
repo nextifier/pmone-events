@@ -28,9 +28,9 @@ export default {
   },
   hero: {
     countdownLabel: "Hitung mundur menuju CBE:",
-    title: "Semua yang Kamu Cari, Ada di Sini.",
+    title: "Cicipi Dulu, Baru Putuskan",
     description:
-      "Coba langsung ratusan brand kopi, teh, wine, dan cokelat. Tiket kamu = akses penuh ke tiga hari penuh rasa.",
+      "Coba dulu ratusan brand kopi, teh, cokelat, dan minuman sebelum satu pun masuk rak toko kamu.",
     ctaTicket: "Dapatkan Tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Recap",

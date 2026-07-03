@@ -77,8 +77,8 @@
             {{ event.title }}
           </h1>
 
-          <div class="flex flex-col gap-y-2.5">
-            <div v-if="event.edition?.value" class="mt-2.5 flex">
+          <div class="mt-2.5 flex flex-col gap-y-2.5 sm:mt-1.5 sm:gap-y-3">
+            <div v-if="event.edition?.value" class="flex">
               <span
                 class="text-foreground bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
                 >{{ event.edition.value

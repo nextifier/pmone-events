@@ -1,11 +1,9 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 const app = {
   name: "Cokelat Expo Indonesia",
   shortName: "CEI",
   projectUsername: "cei",
   dataSourceUsername: "cbe",
-  url: isProduction ? "https://cokelatexpo.id" : "http://localhost:3000",
+  url: "https://cokelatexpo.id",
   company: {
     name: "PT Panorama Media",
     address:

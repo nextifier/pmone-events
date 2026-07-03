@@ -306,7 +306,6 @@ Base layer menyediakan server routes yang proxy ke PM One API:
 | GET | `/api/blog/posts/[slug]` | Fetch single blog post by slug |
 | POST | `/api/contact/submit` | Submit contact form |
 | GET | `/api/sitemap-urls` | Generate dynamic sitemap URLs |
-| GET | `/image-proxy` | Proxy external images |
 
 ## UI Components
 

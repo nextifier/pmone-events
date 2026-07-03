@@ -38,9 +38,9 @@ export default {
   },
   hero: {
     countdownLabel: "CBE 开幕倒计时：",
-    title: "好吃的，都在这。",
+    title: "先尝，再决定。",
     description:
-      "咖啡、茶、葡萄酒、巧克力，数百个品牌等你来尝。门票一张，3 天畅享。",
+      "咖啡、茶、巧克力、饮品，数百个品牌，上架前先尝个够。",
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看回顾视频",

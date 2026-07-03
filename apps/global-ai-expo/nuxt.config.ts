@@ -78,6 +78,11 @@ export default defineNuxtConfig({
     "/blog/**": { redirect: "/news/**", statusCode: 301 },
   },
 
+  // App-specific static pages prerendered by the base cf-cache module.
+  cfCache: {
+    extraStaticPages: ["/speakers", "/brand-guidelines", "/quotation"],
+  },
+
   sitemap: {
     urls: [
       "/",

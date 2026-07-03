@@ -13,7 +13,7 @@
       </p>
 
       <!-- Form -->
-      <form @submit.prevent="handleSubmit" class="mt-8 grid gap-6">
+      <form @submit.prevent="handleSubmit" class="relative mt-8 grid gap-y-6">
         <!-- Dynamic Fields -->
         <template v-for="field in visibleFields" :key="field.name">
           <div class="input-group">
@@ -142,8 +142,18 @@
           {{ disclaimerText }}
         </p>
 
-        <!-- Cloudflare Turnstile (renders only when a site key is configured) -->
-        <div v-if="turnstileSiteKey" ref="turnstileWidget" />
+        <!-- Cloudflare Turnstile (renders only when a site key is configured).
+             In "interaction-only" mode the widget is invisible (height 0) unless
+             a challenge is actually needed. While collapsed we pull it out of the
+             grid flow with `absolute` so the surrounding `gap-y-6` doesn't stack
+             into a double gap before the submit button; it rejoins the flow
+             (reserving space) only when a visible challenge appears, tracked via
+             ResizeObserver on `turnstileInline`. -->
+        <div
+          v-if="turnstileSiteKey"
+          ref="turnstileWidget"
+          :class="{ absolute: !turnstileInline }"
+        />
 
         <!-- Submit Button -->
         <button
@@ -152,7 +162,7 @@
           :disabled="isLoading"
           v-ripple
         >
-          <Spinner v-if="isLoading" class="size-4 text-background" />
+          <Spinner v-if="isLoading" class="text-background size-4" />
           <span>{{ submitLabelText }}</span>
         </button>
       </form>
@@ -257,12 +267,20 @@ const props = defineProps({
 });
 
 // Computed defaults using i18n
-const titleText = computed(() => props.title || t('contact.title'));
-const submitLabelText = computed(() => props.submitLabel || t('ui.sendMessage'));
-const subjectText = computed(() => props.subject || t('contact.formTitle'));
-const successTitleText = computed(() => props.successTitle || t('contact.successTitle'));
-const successMessageText = computed(() => props.successMessage || t('contact.successMessage'));
-const successButtonText = computed(() => props.successButtonLabel || t('contact.successButton'));
+const titleText = computed(() => props.title || t("contact.title"));
+const submitLabelText = computed(
+  () => props.submitLabel || t("ui.sendMessage"),
+);
+const subjectText = computed(() => props.subject || t("contact.formTitle"));
+const successTitleText = computed(
+  () => props.successTitle || t("contact.successTitle"),
+);
+const successMessageText = computed(
+  () => props.successMessage || t("contact.successMessage"),
+);
+const successButtonText = computed(
+  () => props.successButtonLabel || t("contact.successButton"),
+);
 
 // Emits
 const emit = defineEmits(["submit", "success", "error"]);
@@ -287,27 +305,49 @@ const showCustomProductInput = ref(false);
 const turnstileSiteKey = useRuntimeConfig().public.turnstileSiteKey;
 const turnstileWidget = ref(null);
 const turnstileToken = ref("");
+const turnstileInline = ref(false); // true when a visible challenge reserves layout space
 let turnstileWidgetId = null;
+let turnstileResizeObserver = null;
 
 // All available fields definition
 const allFields = computed(() => [
-  { name: "name", label: props.nameLabel || t('contact.name'), type: "text", required: true },
-  { name: "jobTitle", label: t('contact.jobTitle'), type: "text", required: false },
-  { name: "brandName", label: props.brandNameLabel || t('contact.brandName'), type: "text", required: false },
-  { name: "products", label: t('contact.products'), type: "text", required: false },
-  { name: "email", label: t('contact.email'), type: "email", required: true },
-  { name: "phone", label: t('contact.phone'), type: "phone", required: true },
+  {
+    name: "name",
+    label: props.nameLabel || t("contact.name"),
+    type: "text",
+    required: true,
+  },
+  {
+    name: "jobTitle",
+    label: t("contact.jobTitle"),
+    type: "text",
+    required: false,
+  },
+  {
+    name: "brandName",
+    label: props.brandNameLabel || t("contact.brandName"),
+    type: "text",
+    required: false,
+  },
+  {
+    name: "products",
+    label: t("contact.products"),
+    type: "text",
+    required: false,
+  },
+  { name: "email", label: t("contact.email"), type: "email", required: true },
+  { name: "phone", label: t("contact.phone"), type: "phone", required: true },
   {
     name: "referralSource",
-    label: t('contact.referralSource'),
+    label: t("contact.referralSource"),
     type: "select",
     required: false,
   },
   {
     name: "message",
-    label: t('contact.message'),
+    label: t("contact.message"),
     type: "textarea",
-    placeholder: t('ui.leaveAMessage'),
+    placeholder: t("ui.leaveAMessage"),
     required: true,
   },
 ]);
@@ -336,9 +376,20 @@ onMounted(() => {
 
   // Initialize Turnstile widget (no-op when no site key is configured)
   setupTurnstile();
+
+  // Keep the invisible widget out of the grid flow; only reserve space (rejoin
+  // the flow) once a challenge actually renders with a non-zero height.
+  if (turnstileSiteKey && turnstileWidget.value && "ResizeObserver" in window) {
+    turnstileResizeObserver = new ResizeObserver((entries) => {
+      turnstileInline.value = (entries[0]?.contentRect.height || 0) > 0;
+    });
+    turnstileResizeObserver.observe(turnstileWidget.value);
+  }
 });
 
 onBeforeUnmount(() => {
+  turnstileResizeObserver?.disconnect();
+  turnstileResizeObserver = null;
   if (turnstileWidgetId !== null && window.turnstile) {
     window.turnstile.remove(turnstileWidgetId);
     turnstileWidgetId = null;
@@ -358,10 +409,13 @@ const visibleFields = computed(() => {
 
 const disclaimerText = computed(() => {
   if (props.disclaimer) return props.disclaimer;
-  if (props.title === "Exhibitor Registration" || props.subject === "Exhibitor Registration") {
-    return t('contact.disclaimerExhibitor');
+  if (
+    props.title === "Exhibitor Registration" ||
+    props.subject === "Exhibitor Registration"
+  ) {
+    return t("contact.disclaimerExhibitor");
   }
-  return t('contact.disclaimerDefault');
+  return t("contact.disclaimerDefault");
 });
 
 // Methods
@@ -487,16 +541,13 @@ async function handleSubmit() {
       isSubmitted.value = true;
       emit("success", result);
     } else {
-      toast.error(
-        result.message || t('contact.errorSend'),
-      );
+      toast.error(result.message || t("contact.errorSend"));
       resetTurnstile();
       emit("error", result);
     }
   } catch (error) {
     console.error("Contact form error:", error);
-    const message =
-      error?.data?.message || t('contact.errorNetwork');
+    const message = error?.data?.message || t("contact.errorNetwork");
     toast.error(message);
     resetTurnstile();
     emit("error", error);
