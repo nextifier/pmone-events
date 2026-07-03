@@ -6,6 +6,7 @@ export const usePostStore = defineStore("posts", {
     pending: false,
     error: null,
     hasFetchedPosts: false,
+    lastFetchedLocale: null,
     meta: {
       current_page: 1,
       last_page: 1,
@@ -26,8 +27,15 @@ export const usePostStore = defineStore("posts", {
         return;
       }
 
-      // Skip if already fetched same page and not forced
-      if (this.hasFetchedPosts && !force && page === this.meta.current_page) {
+      const locale = useNuxtApp().$i18n?.locale?.value || "en";
+
+      // Skip if already fetched same page in the same locale and not forced
+      if (
+        this.hasFetchedPosts &&
+        !force &&
+        page === this.meta.current_page &&
+        locale === this.lastFetchedLocale
+      ) {
         return;
       }
 
@@ -42,6 +50,7 @@ export const usePostStore = defineStore("posts", {
             page,
             per_page: 50,
             sort: "-published_at",
+            locale,
           },
         });
 
@@ -49,6 +58,7 @@ export const usePostStore = defineStore("posts", {
         if (response?.data) {
           this.posts = response.data;
           this.hasFetchedPosts = true;
+          this.lastFetchedLocale = locale;
         }
 
         if (response?.meta) {
@@ -87,6 +97,8 @@ export const usePostStore = defineStore("posts", {
       this.pending = true;
       this.error = null;
 
+      const locale = useNuxtApp().$i18n?.locale?.value || "en";
+
       try {
         // Use $fetch instead of useFetch since this action is called
         // after component is mounted (during user search interaction)
@@ -96,11 +108,13 @@ export const usePostStore = defineStore("posts", {
             page,
             per_page: 50,
             sort: "-published_at",
+            locale,
           },
         });
 
         if (response?.data) {
           this.posts = response.data;
+          this.lastFetchedLocale = locale;
         }
 
         if (response?.meta) {

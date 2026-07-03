@@ -228,7 +228,11 @@ if (import.meta.dev) {
 
 // Call local Nuxt server API (which proxies to PM One API)
 // API key is kept secure on the server, not exposed to browser
-const { data, pending, error } = await useFetch(`/api/blog/posts/${route.params.slug}`);
+const { locale } = useI18n();
+const { data, pending, error } = await useFetch(`/api/blog/posts/${route.params.slug}`, {
+  query: { locale },
+  watch: [locale],
+});
 
 const post = computed(() => data?.value?.data);
 

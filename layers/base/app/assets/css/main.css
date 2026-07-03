@@ -545,7 +545,12 @@ html.appearance-switching *::after {
 
 @layer base {
   html {
-    scrollbar-gutter: stable;  }
+    scrollbar-gutter: stable;
+
+    &:has(body[style*="overflow: hidden"]) {
+      scrollbar-gutter: auto;
+    }
+  }
 
   *,
   ::after,

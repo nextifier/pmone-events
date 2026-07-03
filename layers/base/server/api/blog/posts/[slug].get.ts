@@ -1,6 +1,7 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const slug = getRouterParam(event, "slug");
+  const locale = (getQuery(event).locale as string) || "en";
 
   if (!slug) {
     throw createError({
@@ -20,6 +21,7 @@ export default defineEventHandler(async (event) => {
           "X-API-Key": config.pmOneApiKey, // Private - not exposed to browser
           Accept: "application/json",
         },
+        query: { locale },
         signal: controller.signal,
       },
     );

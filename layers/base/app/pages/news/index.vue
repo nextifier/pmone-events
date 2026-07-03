@@ -245,6 +245,19 @@ watch(debouncedSearchInput, (newSearchTerm) => {
   router.push({ query });
 });
 
+// Locale changes -> refetch so post titles/excerpts follow the new language.
+// The language switcher swaps the route prefix but reuses this component,
+// so the initial SSR fetch above does not re-run.
+const { locale } = useI18n();
+watch(locale, async () => {
+  const searchTerm = debouncedSearchInput.value.trim();
+  if (searchTerm) {
+    await postStore.searchPosts(searchTerm, { page: currentPage.value });
+  } else {
+    await postStore.fetchPosts({ page: currentPage.value, force: true });
+  }
+});
+
 // Route query changes -> fetch data
 // Handles: pagination clicks, search, browser back/forward
 watch(

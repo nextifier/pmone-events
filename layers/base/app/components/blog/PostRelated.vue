@@ -135,13 +135,17 @@ const { setOpenMobile } = useSidebar();
 const route = useRoute();
 const { $dayjs } = useNuxtApp();
 
-// Use lazy fetch to avoid hydration mismatch in lazy-loaded component
+// Use lazy fetch to avoid hydration mismatch in lazy-loaded component.
+// No static key: the auto-generated key varies with the locale query so a
+// language switch refetches instead of reusing another locale's cache entry.
+const { locale } = useI18n();
 const { data: postsData, pending } = useLazyFetch("/api/blog/posts", {
   query: {
     per_page: props.limit + 1,
     sort: "-published_at",
+    locale,
   },
-  key: "post-related-posts",
+  watch: [locale],
 });
 
 const filteredPosts = computed(() => {

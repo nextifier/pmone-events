@@ -51,7 +51,7 @@
             >{{ $t("ui.getTicket") }}</nuxt-link
           >
 
-          <LanguageSwitcher v-if="!route.name?.toString().startsWith('news')" />
+          <LanguageSwitcher />
 
           <ColorModeToggle v-if="!route.meta.colorMode" />
 
