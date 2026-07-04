@@ -2,9 +2,6 @@
   <section id="icgp-requirements" class="container">
     <div class="flex flex-col items-center text-center">
       <h2 class="section-title">{{ $t("icgp.reqTitle") }}</h2>
-      <p class="section-description mx-auto mt-3">
-        {{ $t("icgp.reqDescription") }}
-      </p>
     </div>
 
     <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:mt-10">
@@ -44,7 +41,7 @@
             class="flex items-start gap-x-2"
           >
             <Icon
-              name="hugeicons:checkmark-badge-01"
+              name="hugeicons:checkmark-circle-02"
               class="text-muted-foreground mt-0.5 size-5 shrink-0"
             />
             <span class="text-base tracking-tight sm:text-lg">{{

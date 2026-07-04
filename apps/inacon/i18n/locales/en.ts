@@ -460,11 +460,8 @@ export default {
     "whatIsIcgpText": "The Indonesia Cosplay Grand Prix is the country's top cosplay championship. Teams of two are judged on costume craft and stage performance, and the winner earns Indonesia's place at the World Cosplay Summit.",
     "whatIsWcsTitle": "What is WCS?",
     "whatIsWcsText": "The World Cosplay Summit is the biggest stage in cosplay. Every year, champions from more than 40 countries meet in Nagoya, Japan to compete for the world title.",
-    "formatNote": "No regional rounds this year. ICGP 2027 goes straight to the National Final at Indonesia Comic Con 2026.",
     "galleryTitle": "ICGP 2027 at a glance",
-    "galleryDescription": "Tap an image to open it full screen, then swipe through all four.",
     "reqTitle": "How to take part",
-    "reqDescription": "Enter as a team of two and have everything ready before registration closes.",
     "reqEligibilityTitle": "Who can enter",
     "reqEligibility": {
       "0": "A team of two Indonesian citizens, both at least 18 years old",
@@ -482,8 +479,65 @@ export default {
     },
     "reqCta": "Register your team",
     "rulesTitle": "Rules and regulations",
-    "rulesDescription": "The full competition rules, from team composition to scoring. The official document is in Bahasa Indonesia.",
+    "rulesDescription": "The full competition rules, from team composition to scoring.",
     "downloadRules": "Download the full rules (PDF)",
+    "rulesSections": [
+      {
+        "title": "A. Team Composition",
+        "points": [
+          "A team is two Indonesian citizens, each at least 18 years old.",
+          "Both members build the costumes themselves. A costume made by only one member or by someone else is not allowed."
+        ]
+      },
+      {
+        "title": "B. Eligible Characters",
+        "points": [
+          "Both members wear costumes from the same series, drawn from Japanese manga, anime, video games, or tokusatsu.",
+          "Characters from dojinshi (fan works) or from adaptations that are not originally Japanese are not allowed.",
+          "For video game costumes, the character must be originally Japanese. Characters from Disney, Star Wars, or Marvel Anime are not eligible even if the game was made in Japan.",
+          "A costume from a stage adaptation or live-action version can serve as reference, but judging focuses on the original work."
+        ]
+      },
+      {
+        "title": "C. Costume Judging",
+        "points": [
+          "Points reward the elements that express the character (costume, accessories, makeup, and so on). A participant's gender or size does not affect the score.",
+          "Everything judged must be made by both members, with at least 75 percent done by hand. The rest may include ready-made bases (wig, shoe, accessory bases) and automated tools (3D machines, laser cutting, embroidery machines, fabric printing). Items less than 75 percent handmade are not scored.",
+          "Outside help is capped at 5 percent (assembly, cutting, or other minor help). Armor, fabric costumes, hand props, stage props, and wig styling must be done by the participants, and any help must be noted in the report.",
+          "Commercial items bought and used as-is are not scored.",
+          "Any change to the original design, including additions for a gimmick, must be explained in the costume report.",
+          "Total weight of the costume and props must not exceed 40 kg. Penalties: 40.1 to 41.0 kg loses 5 points, and 41.1 to 42.0 kg loses 10 points."
+        ]
+      },
+      {
+        "title": "D. 3D Printing",
+        "points": [
+          "Automated tools such as 3D printers or fabric (screen) printers are allowed.",
+          "The steps and post-processing of 3D-printed parts are judged. Participants explain the process in their portfolio or skills presentation.",
+          "Buying a 3D model is allowed as long as the creator is credited. Prints where the participant did at least 50 percent of the work are considered. Raw prints with no significant extra work are not scored.",
+          "Participants must show proof they made the 3D model themselves. Buying a print file and not disclosing it means that item is not scored."
+        ]
+      },
+      {
+        "title": "E. Performance Judging",
+        "points": [
+          "Stage props: up to 3 props, maximum 10 kg each, maximum size 2.1 m x 2.1 m x 0.9 m. Props over 10 kg cannot go on stage, and oversized props lose 1 point per centimeter over the limit.",
+          "Stage setup: placing and setting up props during the stage change takes at most 40 seconds. The performance runs 2 minutes 30 seconds at most.",
+          "Replica weapons bought from a store are not allowed. Organizers may ban any item considered dangerous.",
+          "Using another party's illustrations or official logos in the performance is not allowed.",
+          "Audio and background video (BGV) are not scored directly, but they add to the overall quality of the performance. All assets (sound effects, dubbing, music, visual effects, green screen, stock photos or video) must be copyright-free or made by the participants. The BGV uses a 16:9 ratio, 1920x1080 resolution, mp4 format, and runs 2 minutes 30 seconds at most.",
+          "Subtitles are recommended for dialogue. At the WCS stage, however, the video must be submitted without subtitles.",
+          "Special effects: performing in the audience area or off stage is not allowed. Materials such as powder, metal confetti, fire, water, and small paper confetti are banned. Clear any special effect, including laser lights, with the organizers."
+        ]
+      },
+      {
+        "title": "F. Score Structure (200 points total)",
+        "points": [
+          "Costume (100 points): Costume Quality 40, Accuracy 20, Creativity 20, Technique 20.",
+          "Performance (100 points): Performance 50, Acting and Stage Skill 20, Costume Impact on Stage 20, WOW Factor 10."
+        ]
+      }
+    ],
     "ctaTitle": "Ready to represent Indonesia?",
     "ctaDescription": "Your road to Nagoya begins now. Find a partner, build your best cosplay, and take the stage at Indonesia Comic Con 2026.",
     "ctaButton": "Register now",

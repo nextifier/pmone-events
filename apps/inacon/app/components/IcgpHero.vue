@@ -23,10 +23,14 @@
         {{ $t("icgp.heroTagline") }}
       </p>
 
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
-        <Badge icon="hugeicons:calendar-03">{{ $t("icgp.heroDate") }}</Badge>
-        <Badge icon="hugeicons:location-01">{{ $t("icgp.heroVenue") }}</Badge>
-        <Badge icon="hugeicons:champion">{{ $t("icgp.heroStage") }}</Badge>
+      <div
+        class="text-muted-foreground mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm tracking-tight sm:text-base"
+      >
+        <span>{{ $t("icgp.heroDate") }}</span>
+        <span aria-hidden="true" class="opacity-40">·</span>
+        <span>{{ $t("icgp.heroVenue") }}</span>
+        <span aria-hidden="true" class="opacity-40">·</span>
+        <span>{{ $t("icgp.heroStage") }}</span>
       </div>
     </div>
   </section>
