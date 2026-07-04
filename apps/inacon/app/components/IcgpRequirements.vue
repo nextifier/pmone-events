@@ -6,20 +6,16 @@
 
     <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:mt-10">
       <div
-        class="flex flex-col gap-3 rounded-2xl bg-gray-100 px-4 py-6 sm:px-6 sm:py-8 dark:bg-gray-900"
+        class="border-border flex flex-col gap-3 rounded-2xl border px-4 py-6 sm:px-6 sm:py-8"
       >
         <span class="font-semibold text-black uppercase dark:text-white">{{
           $t("icgp.reqEligibilityTitle")
         }}</span>
         <ul class="flex flex-col gap-2.5">
-          <li
-            v-for="i in 4"
-            :key="i"
-            class="flex items-start gap-x-2"
-          >
+          <li v-for="i in 4" :key="i" class="flex items-center gap-x-2">
             <Icon
               name="hugeicons:checkmark-circle-02"
-              class="text-muted-foreground mt-0.5 size-5 shrink-0"
+              class="text-muted-foreground size-5 shrink-0"
             />
             <span class="text-base tracking-tight sm:text-lg">{{
               $t(`icgp.reqEligibility.${i - 1}`)
@@ -29,20 +25,16 @@
       </div>
 
       <div
-        class="flex flex-col gap-3 rounded-2xl bg-gray-100 px-4 py-6 sm:px-6 sm:py-8 dark:bg-gray-900"
+        class="border-border flex flex-col gap-3 rounded-2xl border px-4 py-6 sm:px-6 sm:py-8"
       >
         <span class="font-semibold text-black uppercase dark:text-white">{{
           $t("icgp.reqChecklistTitle")
         }}</span>
         <ul class="flex flex-col gap-2.5">
-          <li
-            v-for="i in 5"
-            :key="i"
-            class="flex items-start gap-x-2"
-          >
+          <li v-for="i in 5" :key="i" class="flex items-center gap-x-2">
             <Icon
               name="hugeicons:checkmark-circle-02"
-              class="text-muted-foreground mt-0.5 size-5 shrink-0"
+              class="text-muted-foreground size-5 shrink-0"
             />
             <span class="text-base tracking-tight sm:text-lg">{{
               $t(`icgp.reqChecklist.${i - 1}`)

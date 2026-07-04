@@ -14,7 +14,7 @@
           :key="i"
           :value="`rule-${i}`"
         >
-          <AccordionTrigger>
+          <AccordionTrigger class="py-2.5 sm:py-3">
             <span
               class="text-lg font-medium tracking-tighter text-balance sm:text-xl"
               >{{ rt(item.title) }}</span

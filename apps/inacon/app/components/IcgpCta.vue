@@ -27,9 +27,22 @@
           {{ $t("icgp.ctaTitle") }}
         </h2>
 
-        <p class="mt-3 max-w-screen-md text-base tracking-tight sm:text-lg">
-          {{ $t("icgp.ctaDescription") }}
-        </p>
+        <i18n-t
+          keypath="icgp.ctaDescription"
+          tag="p"
+          scope="global"
+          class="mt-3 max-w-screen-md text-base tracking-tight sm:text-lg"
+        >
+          <template #icc>
+            <a
+              href="https://indonesiacomiccon.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline underline-offset-2 transition hover:opacity-80"
+              >Indonesia Comic Con 2026</a
+            >
+          </template>
+        </i18n-t>
 
         <div class="mt-6 lg:mt-8">
           <nuxt-link

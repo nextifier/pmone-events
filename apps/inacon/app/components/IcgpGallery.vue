@@ -11,13 +11,13 @@
             v-for="(item, i) in items"
             :key="i"
             type="button"
-            class="group block aspect-[3/4] w-full cursor-zoom-in overflow-hidden rounded-2xl bg-gray-100 transition active:scale-[0.98] dark:bg-gray-900"
+            class="block aspect-[3/4] w-full cursor-zoom-in overflow-hidden rounded-2xl bg-gray-100 transition active:scale-[0.98] dark:bg-gray-900"
             @click="openAt(i)"
           >
             <img
               :src="item.url"
               :alt="item.alt"
-              class="size-full object-cover transition duration-300 group-hover:scale-105"
+              class="size-full object-cover"
               loading="lazy"
               decoding="async"
               draggable="false"

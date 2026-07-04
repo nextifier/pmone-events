@@ -369,7 +369,7 @@ export default {
     heroTagline: "Dua cosplayer, satu panggung, satu kesempatan bawa nama Indonesia ke Nagoya.",
     heroDate: "3-4 Oktober 2026",
     heroVenue: "JIExpo Kemayoran, Jakarta",
-    heroStage: "Grand Final di Indonesia Comic Con 2026",
+    heroStage: "Grand Final di {icc}",
     whatIsIcgpTitle: "Apa itu ICGP?",
     whatIsIcgpText: "Indonesia Cosplay Grand Prix adalah kompetisi cosplay paling bergengsi di Indonesia. Tim berisi dua orang dinilai dari kualitas kostum dan penampilan panggung, dan pemenangnya berhak membawa Indonesia ke World Cosplay Summit.",
     whatIsWcsTitle: "Apa itu WCS?",
@@ -397,14 +397,14 @@ export default {
     downloadRules: "Unduh aturan lengkap (PDF)",
     rulesSections: [
       {
-        title: "A. Komposisi Tim",
+        title: "Komposisi Tim",
         points: [
           "Tim terdiri dari 2 orang Warga Negara Indonesia, minimal berusia 18 tahun.",
           "Kostum wajib dibuat oleh kedua peserta, bukan salah satu peserta saja atau dibuatkan orang lain."
         ]
       },
       {
-        title: "B. Karakter yang Diperbolehkan",
+        title: "Karakter yang Diperbolehkan",
         points: [
           "Kedua peserta mengenakan kostum dari satu seri yang sama, berasal dari manga, anime, video game, atau tokusatsu Jepang.",
           "Karakter dari dojinshi (fanzine) atau adaptasi karya yang bukan asli Jepang tidak diperbolehkan.",
@@ -413,7 +413,7 @@ export default {
         ]
       },
       {
-        title: "C. Kriteria Penilaian Kostum",
+        title: "Kriteria Penilaian Kostum",
         points: [
           "Poin diberikan berdasarkan produksi elemen yang mengekspresikan karakter (kostum, aksesoris, makeup, dan lainnya). Gender atau ukuran peserta tidak memengaruhi penilaian.",
           "Semua item yang dinilai harus dibuat sendiri oleh kedua peserta, minimal 75 persen dibuat tangan. Sisanya mencakup bahan jadi (base wig, base sepatu, base aksesoris) dan alat otomatis (mesin 3D, laser cutting, mesin bordir, printing kain). Item yang kurang dari 75 persen buatan tangan tidak dinilai.",
@@ -424,7 +424,7 @@ export default {
         ]
       },
       {
-        title: "D. 3D Printing",
+        title: "3D Printing",
         points: [
           "Penggunaan alat otomatis seperti printer 3D atau printer kain (screen printing) diperbolehkan.",
           "Langkah dan proses pengolahan hasil cetakan printer 3D akan dinilai. Peserta menjelaskan prosesnya dalam portofolio atau presentasi keterampilan.",
@@ -433,7 +433,7 @@ export default {
         ]
       },
       {
-        title: "E. Kriteria Penilaian Performance",
+        title: "Kriteria Penilaian Performance",
         points: [
           "Props panggung: maksimal 3 props, berat maksimal 10 kg per props, dimensi maksimal 2,1 m x 2,1 m x 0,9 m. Props di atas 10 kg tidak diizinkan naik panggung, dan kelebihan ukuran dikurangi 1 poin per sentimeter.",
           "Persiapan panggung: peletakan dan setup properti saat pergantian panggung maksimal 40 detik. Durasi penampilan maksimal 2 menit 30 detik.",
@@ -445,7 +445,7 @@ export default {
         ]
       },
       {
-        title: "F. Struktur Skor (Total 200 poin)",
+        title: "Struktur Skor (Total 200 poin)",
         points: [
           "Penilaian Kostum (100 poin): Kualitas Kostum 40, Keakuratan 20, Kreativitas 20, Teknik 20.",
           "Penilaian Performance (100 poin): Penampilan 50, Akting dan Keahlian Panggung 20, Dampak Kostum di Panggung 20, Faktur WOW 10."
@@ -453,7 +453,7 @@ export default {
       }
     ],
     ctaTitle: "Siap mewakili Indonesia?",
-    ctaDescription: "Jalan kamu ke Nagoya dimulai sekarang. Ajak satu partner, siapkan cosplay terbaikmu, dan tampil di Indonesia Comic Con 2026.",
+    ctaDescription: "Jalan kamu ke Nagoya dimulai sekarang. Ajak satu partner, siapkan cosplay terbaikmu, dan tampil di {icc}.",
     ctaButton: "Daftar sekarang",
     wallOfFame: "ICGP Wall of Fame",
     wallOfFameSubtitle: "Alumni World Cosplay Summit (WCS) Indonesia 2012-2025",

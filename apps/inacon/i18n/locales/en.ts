@@ -455,21 +455,21 @@ export default {
     "heroTagline": "Two cosplayers, one stage, one shot at representing Indonesia in Nagoya.",
     "heroDate": "3-4 October 2026",
     "heroVenue": "JIExpo Kemayoran, Jakarta",
-    "heroStage": "Grand Final at Indonesia Comic Con 2026",
-    "whatIsIcgpTitle": "What is ICGP?",
+    "heroStage": "Grand Final at {icc}",
+    "whatIsIcgpTitle": "What Is ICGP?",
     "whatIsIcgpText": "The Indonesia Cosplay Grand Prix is the country's top cosplay championship. Teams of two are judged on costume craft and stage performance, and the winner earns Indonesia's place at the World Cosplay Summit.",
-    "whatIsWcsTitle": "What is WCS?",
+    "whatIsWcsTitle": "What Is WCS?",
     "whatIsWcsText": "The World Cosplay Summit is the biggest stage in cosplay. Every year, champions from more than 40 countries meet in Nagoya, Japan to compete for the world title.",
-    "galleryTitle": "ICGP 2027 at a glance",
-    "reqTitle": "How to take part",
-    "reqEligibilityTitle": "Who can enter",
+    "galleryTitle": "ICGP 2027 at a Glance",
+    "reqTitle": "How to Take Part",
+    "reqEligibilityTitle": "Who Can Enter",
     "reqEligibility": {
       "0": "A team of two Indonesian citizens, both at least 18 years old",
       "1": "Both cosplay a character from the same Japanese series (manga, anime, game, or tokusatsu)",
       "2": "Costumes made by the team, at least 75 percent by hand",
       "3": "A stage performance of 2 minutes 30 seconds or less"
     },
-    "reqChecklistTitle": "What to prepare",
+    "reqChecklistTitle": "What to Prepare",
     "reqChecklist": {
       "0": "Cosplay photos of both members",
       "1": "A practice video link",
@@ -478,19 +478,19 @@ export default {
       "4": "Background video and audio on Google Drive"
     },
     "reqCta": "Register your team",
-    "rulesTitle": "Rules and regulations",
+    "rulesTitle": "Rules and Regulations",
     "rulesDescription": "The full competition rules, from team composition to scoring.",
     "downloadRules": "Download the full rules (PDF)",
     "rulesSections": [
       {
-        "title": "A. Team Composition",
+        "title": "Team Composition",
         "points": [
           "A team is two Indonesian citizens, each at least 18 years old.",
           "Both members build the costumes themselves. A costume made by only one member or by someone else is not allowed."
         ]
       },
       {
-        "title": "B. Eligible Characters",
+        "title": "Eligible Characters",
         "points": [
           "Both members wear costumes from the same series, drawn from Japanese manga, anime, video games, or tokusatsu.",
           "Characters from dojinshi (fan works) or from adaptations that are not originally Japanese are not allowed.",
@@ -499,7 +499,7 @@ export default {
         ]
       },
       {
-        "title": "C. Costume Judging",
+        "title": "Costume Judging",
         "points": [
           "Points reward the elements that express the character (costume, accessories, makeup, and so on). A participant's gender or size does not affect the score.",
           "Everything judged must be made by both members, with at least 75 percent done by hand. The rest may include ready-made bases (wig, shoe, accessory bases) and automated tools (3D machines, laser cutting, embroidery machines, fabric printing). Items less than 75 percent handmade are not scored.",
@@ -510,7 +510,7 @@ export default {
         ]
       },
       {
-        "title": "D. 3D Printing",
+        "title": "3D Printing",
         "points": [
           "Automated tools such as 3D printers or fabric (screen) printers are allowed.",
           "The steps and post-processing of 3D-printed parts are judged. Participants explain the process in their portfolio or skills presentation.",
@@ -519,7 +519,7 @@ export default {
         ]
       },
       {
-        "title": "E. Performance Judging",
+        "title": "Performance Judging",
         "points": [
           "Stage props: up to 3 props, maximum 10 kg each, maximum size 2.1 m x 2.1 m x 0.9 m. Props over 10 kg cannot go on stage, and oversized props lose 1 point per centimeter over the limit.",
           "Stage setup: placing and setting up props during the stage change takes at most 40 seconds. The performance runs 2 minutes 30 seconds at most.",
@@ -531,15 +531,15 @@ export default {
         ]
       },
       {
-        "title": "F. Score Structure (200 points total)",
+        "title": "Score Structure (200 points total)",
         "points": [
           "Costume (100 points): Costume Quality 40, Accuracy 20, Creativity 20, Technique 20.",
           "Performance (100 points): Performance 50, Acting and Stage Skill 20, Costume Impact on Stage 20, WOW Factor 10."
         ]
       }
     ],
-    "ctaTitle": "Ready to represent Indonesia?",
-    "ctaDescription": "Your road to Nagoya begins now. Find a partner, build your best cosplay, and take the stage at Indonesia Comic Con 2026.",
+    "ctaTitle": "Ready to Represent Indonesia?",
+    "ctaDescription": "Your road to Nagoya begins now. Find a partner, build your best cosplay, and take the stage at {icc}.",
     "ctaButton": "Register now",
     "wallOfFame": "ICGP Wall of Fame",
     "wallOfFameSubtitle": "World Cosplay Summit (WCS) Indonesia's Alumni 2012-2025",
