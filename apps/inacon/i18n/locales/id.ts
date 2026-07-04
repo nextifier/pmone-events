@@ -364,85 +364,45 @@ export default {
       "Peserta terpilih akan dihubungi oleh tim Indonesia Anime Con dan mendapatkan tiket masuk gratis (tidak perlu membeli tiket).",
   },
   icgp: {
-    heroSubtitle: "✨ Tunjukkan Skill Cosplay Kamu di",
-    heroTitle: "Indonesia Cosplay Grand Prix (ICGP) 2026!",
-    citiesTitle:
-      "Countdown Dimulai! 5 Kota, 1 Misi. Siapa Juara ICGP Selanjutnya?",
-    citiesDescription:
-      "ICGP hadir di 5 kota! Cek daftarnya dan siap-siap join perjalanan cosplay paling seru tahun ini!",
-    judge: "Juri",
-    judges: "Juri",
-    organizedBy: "Diselenggarakan oleh",
-    introduction: "Tentang ICGP",
-    introductionText:
-      "Indonesia Cosplay Grand Prix (ICGP) adalah kompetisi cosplay nasional paling bergengsi. Cosplayer berbakat tampil di panggung, dinilai dari keahlian kostum dan penampilan. Setiap tim terdiri dari dua orang, tampil dengan dukungan audio dan video latar.",
-    competitionDetails: "Detail Kompetisi",
-    competitionDetailsText:
-      "ICGP diadakan di berbagai kota di Indonesia. Pemenang tiap kota maju ke Grand Final di Indonesia Anime Con Jakarta. Tim juara Grand Final akan mewakili Indonesia di World Cosplay Summit di Jepang!",
-    basicRules: "Aturan Dasar ICGP",
-    downloadRules: "Download Aturan",
-    rules: {
-      "0": {
-        title: "Komposisi Tim",
-        description: "Setiap tim terdiri dari 2 WNI berusia minimal 18 tahun.",
-      },
-      "1": {
-        title: "Pembuatan Kostum",
-        description:
-          "Kostum wajib dibuat oleh kedua anggota tim. Kostum buatan satu orang atau pihak ketiga tidak diperbolehkan. Wajib sertakan foto dokumentasi proses pembuatan.",
-      },
-      "2": {
-        title: "Asal Karakter",
-        description:
-          "Kedua anggota harus cosplay karakter dari sumber yang sama: manga, anime, video game, atau tokusatsu Jepang.",
-      },
-      "3": {
-        title: "Durasi Penampilan",
-        description: "Maksimal 2 menit 30 detik per penampilan.",
-      },
-      "4": {
-        title: "Audio dan Background Video (BGV)",
-        description:
-          "Tim wajib menggunakan audio dan BGV untuk mendukung penampilan panggung.",
-      },
-      "5": {
-        title: "Pendaftaran",
-        description:
-          "Semua peserta wajib daftar sebelum deadline seleksi regional masing-masing.",
-      },
+    heroSubtitle: "Jalan menuju World Cosplay Summit",
+    heroTitle: "Indonesia Cosplay Grand Prix (ICGP) 2027",
+    heroTagline: "Dua cosplayer, satu panggung, satu kesempatan bawa nama Indonesia ke Nagoya.",
+    heroDate: "3-4 Oktober 2026",
+    heroVenue: "JIExpo Kemayoran, Jakarta",
+    heroStage: "Grand Final di Indonesia Comic Con 2026",
+    whatIsIcgpTitle: "Apa itu ICGP?",
+    whatIsIcgpText: "Indonesia Cosplay Grand Prix adalah kompetisi cosplay paling bergengsi di Indonesia. Tim berisi dua orang dinilai dari kualitas kostum dan penampilan panggung, dan pemenangnya berhak membawa Indonesia ke World Cosplay Summit.",
+    whatIsWcsTitle: "Apa itu WCS?",
+    whatIsWcsText: "World Cosplay Summit adalah panggung cosplay terbesar di dunia. Tiap tahun, juara dari lebih dari 40 negara berkumpul di Nagoya, Jepang untuk memperebutkan gelar juara dunia.",
+    formatNote: "Tahun ini tanpa babak regional. ICGP 2027 langsung ke Final Nasional di Indonesia Comic Con 2026.",
+    galleryTitle: "Sekilas ICGP 2027",
+    galleryDescription: "Ketuk gambar untuk membukanya penuh layar, lalu geser antar keempatnya.",
+    reqTitle: "Cara ikut serta",
+    reqDescription: "Daftar sebagai tim berdua dan siapkan semuanya sebelum pendaftaran ditutup.",
+    reqEligibilityTitle: "Syarat peserta",
+    reqEligibility: {
+      "0": "Tim dua orang WNI, keduanya minimal 18 tahun",
+      "1": "Keduanya cosplay karakter dari satu seri Jepang yang sama (manga, anime, game, atau tokusatsu)",
+      "2": "Kostum dibuat sendiri oleh tim, minimal 75 persen buatan tangan",
+      "3": "Penampilan panggung maksimal 2 menit 30 detik"
     },
-    timelineTitle: "Timeline ICGP",
-    timeline: {
-      "0": {
-        title: "Pendaftaran Regional oleh Event Organizer",
-        description:
-          "Event organizer di berbagai kota bisa mendaftar ke Indonesia Anime Con untuk menyelenggarakan seleksi awal ICGP.",
-      },
-      "1": {
-        title: "Seleksi Awal",
-        description:
-          "Peserta berkompetisi di seleksi awal yang diadakan di berbagai kota oleh event organizer terafiliasi. Info kota dan tanggal akan diumumkan di website dan media sosial kami.",
-      },
-      "2": {
-        title: "Grand Final ICGP",
-        description:
-          "Pemenang seleksi awal maju ke Grand Final ICGP di Indonesia Anime Con Jakarta.",
-      },
-      "3": {
-        title: "World Cosplay Summit (WCS) Jepang",
-        description:
-          "Tim juara Grand Final mewakili Indonesia di World Cosplay Summit (WCS) di Jepang.",
-      },
+    reqChecklistTitle: "Yang perlu disiapkan",
+    reqChecklist: {
+      "0": "Foto cosplay kedua anggota",
+      "1": "Link video latihan",
+      "2": "File costume construction",
+      "3": "Dokumen performance sheet",
+      "4": "Background video dan audio di Google Drive"
     },
-    joinTitle: "Bawa ICGP 2026 ke Kotamu. Daftar Jadi Regional Organizer!",
-    joinDescription:
-      "Kamu event organizer yang passionate soal cosplay? Indonesia Anime Con membuka kesempatan untuk EO yang ingin menyelenggarakan Seleksi Awal ICGP 2026 di kota masing-masing!",
-    joinDeadline: "Batas waktu: 21 November 2025",
-    joinApply: "Daftar",
-    joinOrSend: "atau kirim proposal ke icc{'@'}panoramamedia.co.id",
+    reqCta: "Daftarkan tim kamu",
+    rulesTitle: "Aturan dan regulasi",
+    rulesDescription: "Aturan lengkap kompetisi, dari komposisi tim sampai penilaian.",
+    downloadRules: "Unduh aturan lengkap (PDF)",
+    ctaTitle: "Siap mewakili Indonesia?",
+    ctaDescription: "Jalan kamu ke Nagoya dimulai sekarang. Ajak satu partner, siapkan cosplay terbaikmu, dan tampil di Indonesia Comic Con 2026.",
+    ctaButton: "Daftar sekarang",
     wallOfFame: "ICGP Wall of Fame",
     wallOfFameSubtitle: "Alumni World Cosplay Summit (WCS) Indonesia 2012-2025",
-    wallOfFameCta:
-      "Jadi juara ICGP dan nama kamu akan tercantum di Wall of Fame ini!",
-  },
+    wallOfFameCta: "Jadi juara ICGP dan nama kamu akan tercantum di Wall of Fame ini!"
+  }
 };

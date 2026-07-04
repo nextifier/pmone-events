@@ -402,83 +402,8 @@ export default {
       "選ばれた方にはIndonesia Anime Conから連絡があり、入場チケットが無料で提供されます。",
   },
   icgp: {
-    heroSubtitle: "✨ コスプレの腕を見せつけろ",
-    heroTitle: "Indonesia Cosplay Grand Prix (ICGP) 2026!",
-    citiesTitle:
-      "カウントダウン開始！5都市、1つの頂点。次のICGPチャンピオンは？",
-    citiesDescription:
-      "ICGPが5都市で開催！各都市をチェックして、今年最もアツいコスプレバトルに参戦しよう！",
-    judge: "審査員",
-    judges: "審査員",
-    organizedBy: "主催",
-    introduction: "ICGPとは",
-    introductionText:
-      "Indonesia Cosplay Grand Prix（ICGP）は、インドネシア最大の全国コスプレ大会。2人1組のチームがステージで衣装のクオリティとパフォーマンスを競います。音響と映像演出付き。",
-    competitionDetails: "大会について",
-    competitionDetailsText:
-      "ICGPはインドネシア各地で地区予選を開催。予選を勝ち抜いたチームは、ジャカルタのIndonesia Anime Conで行われるグランドファイナルへ。優勝チームは日本のWorld Cosplay Summitにインドネシア代表として出場します！",
-    basicRules: "ICGPの基本ルール",
-    downloadRules: "ルールをダウンロード",
-    rules: {
-      "0": {
-        title: "チーム構成",
-        description: "18歳以上のインドネシア国籍者2名で1チーム。",
-      },
-      "1": {
-        title: "衣装制作",
-        description:
-          "衣装は2人で制作すること。片方だけ、または外部委託は不可。制作過程の写真記録が必要。",
-      },
-      "2": {
-        title: "キャラクターの出典",
-        description:
-          "2人とも同じ作品のキャラクター。出典は日本のマンガ、アニメ、ゲーム、特撮に限る。",
-      },
-      "3": {
-        title: "パフォーマンス時間",
-        description: "1演技あたり2分30秒以内。",
-      },
-      "4": {
-        title: "音響・背景映像（BGV）",
-        description: "パフォーマンスにはオーディオとBGVを使用すること。",
-      },
-      "5": {
-        title: "登録",
-        description: "各地区予選の締め切りまでに登録すること。",
-      },
-    },
-    timelineTitle: "ICGPタイムライン",
-    timeline: {
-      "0": {
-        title: "イベント主催者による地区予選の登録",
-        description:
-          "地域のイベント主催者がIndonesia Anime Conに登録し、ICGP予選を開催できます。",
-      },
-      "1": {
-        title: "地区予選",
-        description:
-          "各都市で提携イベント主催者が開催する予選に出場。開催都市と日程はWebサイト・SNSで発表。",
-      },
-      "2": {
-        title: "ICGPグランドファイナル",
-        description:
-          "予選優勝チームがジャカルタのIndonesia Anime Conで決勝に進出。",
-      },
-      "3": {
-        title: "World Cosplay Summit（WCS）日本",
-        description:
-          "グランドファイナル優勝チームが日本のWCSにインドネシア代表として出場。",
-      },
-    },
-    joinTitle:
-      "ICGP 2026をあなたの街で開催しませんか？地域オーガナイザー募集中！",
-    joinDescription:
-      "コスプレイベントを主催しているオーガナイザーの皆さん！Indonesia Anime ConがICGP 2026地区予選の開催パートナーを募集中です！",
-    joinDeadline: "締切：2025年11月21日",
-    joinApply: "応募する",
-    joinOrSend: "またはicc{'@'}panoramamedia.co.idに企画書を送付",
     wallOfFame: "ICGP Wall of Fame",
     wallOfFameSubtitle: "World Cosplay Summit (WCS) インドネシア代表 2012-2025",
     wallOfFameCta: "ICGPチャンピオンになって、Wall of Fameに名前を刻もう！",
-  },
+  }
 };

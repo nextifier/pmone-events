@@ -13,12 +13,21 @@
         />
       </div>
 
-      <span class="mt-6 tracking-tight text-black lg:mt-10 dark:text-white">
+      <span class="text-muted-foreground mt-6 tracking-tight lg:mt-10">
         {{ $t("icgp.heroSubtitle") }}
       </span>
       <h1 class="section-title mt-3 text-center">
         {{ $t("icgp.heroTitle") }}
       </h1>
+      <p class="section-description mx-auto mt-4 text-center">
+        {{ $t("icgp.heroTagline") }}
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
+        <Badge icon="hugeicons:calendar-03">{{ $t("icgp.heroDate") }}</Badge>
+        <Badge icon="hugeicons:location-01">{{ $t("icgp.heroVenue") }}</Badge>
+        <Badge icon="hugeicons:champion">{{ $t("icgp.heroStage") }}</Badge>
+      </div>
     </div>
   </section>
 </template>

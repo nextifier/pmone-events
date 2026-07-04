@@ -372,80 +372,8 @@ export default {
     noteContact: "入选者会收到 Indonesia Anime Con 的通知，并获得免费入场券。",
   },
   icgp: {
-    heroSubtitle: "✨ 秀出你的 Cosplay 实力",
-    heroTitle: "Indonesia Cosplay Grand Prix (ICGP) 2026!",
-    citiesTitle: "倒计时开始！5 城争锋，谁是下一个 ICGP 冠军？",
-    citiesDescription:
-      "ICGP 在 5 座城市开赛！看看有哪些城市，加入今年最火的 Cosplay 征程！",
-    judge: "评委",
-    judges: "评委",
-    organizedBy: "主办方",
-    introduction: "关于 ICGP",
-    introductionText:
-      "Indonesia Cosplay Grand Prix (ICGP) 是印尼最大的全国性 Cosplay 大赛。两人一组登台竞技，评判衣装工艺和舞台表现力，配合音频和背景视频演出。",
-    competitionDetails: "赛事说明",
-    competitionDetailsText:
-      "ICGP 在印尼多个城市设有地区预选赛。预选冠军晋级雅加达 Indonesia Anime Con 的总决赛，总决赛冠军队代表印尼出征日本 World Cosplay Summit！",
-    basicRules: "ICGP 基本规则",
-    downloadRules: "下载规则",
-    rules: {
-      "0": {
-        title: "队伍组成",
-        description: "每队 2 名印尼公民，年满 18 岁。",
-      },
-      "1": {
-        title: "服装制作",
-        description:
-          "服装必须由两名队员共同制作，不允许单人或外包。需提供制作过程照片。",
-      },
-      "2": {
-        title: "角色来源",
-        description:
-          "两人必须扮演同一部作品的角色，来源限定日本漫画、动画、游戏或特摄。",
-      },
-      "3": {
-        title: "表演时长",
-        description: "每场表演不超过 2 分 30 秒。",
-      },
-      "4": {
-        title: "音频与背景视频 (BGV)",
-        description: "队伍须使用音频和 BGV 配合舞台表演。",
-      },
-      "5": {
-        title: "报名",
-        description: "所有参赛者须在各地区预选赛截止前完成报名。",
-      },
-    },
-    timelineTitle: "ICGP 时间线",
-    timeline: {
-      "0": {
-        title: "活动主办方注册 ICGP 地区赛",
-        description:
-          "各地区活动主办方向 Indonesia Anime Con 注册，即可在当地举办 ICGP 预选赛。",
-      },
-      "1": {
-        title: "地区预选赛",
-        description:
-          "参赛者在各城市合作主办方举办的预选赛中角逐。城市和日期将在官网和社交媒体公布。",
-      },
-      "2": {
-        title: "ICGP 总决赛",
-        description:
-          "预选赛冠军晋级雅加达 Indonesia Anime Con 的 ICGP 总决赛。",
-      },
-      "3": {
-        title: "World Cosplay Summit (WCS) 日本",
-        description: "总决赛冠军队代表印尼出征日本 WCS。",
-      },
-    },
-    joinTitle: "把 ICGP 2026 带到你的城市！报名成为地区主办方！",
-    joinDescription:
-      "你是热爱 Cosplay 的活动主办方吗？Indonesia Anime Con 正在征集 ICGP 2026 地区预选赛的合作主办方！",
-    joinDeadline: "截止日期：2025 年 11 月 21 日",
-    joinApply: "申请",
-    joinOrSend: "或发送提案至 icc{'@'}panoramamedia.co.id",
     wallOfFame: "ICGP 荣誉墙",
     wallOfFameSubtitle: "World Cosplay Summit (WCS) 印尼代表 2012-2025",
     wallOfFameCta: "成为 ICGP 冠军，让你的名字出现在荣誉墙上！",
-  },
+  }
 };

@@ -450,69 +450,43 @@ export default {
     "noteContact": "The chosen participants will be contacted by the Indonesia Anime Con and get a free entry ticket to Indonesia Anime Con (no need to buy the ticket)."
   },
   "icgp": {
-    "heroSubtitle": "✨ Unleash Your Cosplay Creativity at",
-    "heroTitle": "Indonesia Cosplay Grand Prix (ICGP) 2026!",
-    "citiesTitle": "Countdown Begins! 5 Cities, 1 Goal. Who Will Be the Next ICGP Champion?",
-    "citiesDescription": "ICGP is kicking off in 5 cities! Check out the list and get ready to join the most exciting cosplay journey of the year!",
-    "judge": "Judge",
-    "judges": "Judges",
-    "organizedBy": "Organized by",
-    "introduction": "Introduction",
-    "introductionText": "The Indonesia Cosplay Grand Prix (ICGP) is the premier national cosplay competition, where talented cosplayers showcase their creativity and passion on stage. Each team, consisting of two members, will perform a cosplay act, judged on costume craftsmanship and stage performance, supported by background audio and video.",
-    "competitionDetails": "Competition Details",
-    "competitionDetailsText": "The ICGP will be held in multiple regions throughout Indonesia. Regional winners will advance to the ICGP Finals at Indonesia Anime Con in Jakarta. The champion team from the ICGP Finals will represent Indonesia at the World Cosplay Summit in Japan, the world's largest cosplay event!",
-    "basicRules": "Basic Rules for ICGP",
-    "downloadRules": "Download Rules",
-    "rules": {
-      "0": {
-        "title": "Team Composition",
-        "description": "Each team must consist of 2 Indonesian nationals, both at least 18 years old."
-      },
-      "1": {
-        "title": "Costume Creation",
-        "description": "Costumes must be made by both team members. Costumes created by a single team member or by a third party are not allowed. Participants must provide photographic documentation of the costume-making process."
-      },
-      "2": {
-        "title": "Cosplay Character Origin",
-        "description": "Both team members must wear costumes from the same source, which must originate from Japanese manga, anime, video games, or tokusatsu."
-      },
-      "3": {
-        "title": "Performance Duration",
-        "description": "Each cosplay performance must not exceed 2 minutes and 30 seconds."
-      },
-      "4": {
-        "title": "Audio and Background Video (BGV)",
-        "description": "Teams must use audio and BGV to enhance their stage performance."
-      },
-      "5": {
-        "title": "Registration",
-        "description": "All participants must register before the deadline for their respective regional selection."
-      }
+    "heroSubtitle": "Road to the World Cosplay Summit",
+    "heroTitle": "Indonesia Cosplay Grand Prix (ICGP) 2027",
+    "heroTagline": "Two cosplayers, one stage, one shot at representing Indonesia in Nagoya.",
+    "heroDate": "3-4 October 2026",
+    "heroVenue": "JIExpo Kemayoran, Jakarta",
+    "heroStage": "Grand Final at Indonesia Comic Con 2026",
+    "whatIsIcgpTitle": "What is ICGP?",
+    "whatIsIcgpText": "The Indonesia Cosplay Grand Prix is the country's top cosplay championship. Teams of two are judged on costume craft and stage performance, and the winner earns Indonesia's place at the World Cosplay Summit.",
+    "whatIsWcsTitle": "What is WCS?",
+    "whatIsWcsText": "The World Cosplay Summit is the biggest stage in cosplay. Every year, champions from more than 40 countries meet in Nagoya, Japan to compete for the world title.",
+    "formatNote": "No regional rounds this year. ICGP 2027 goes straight to the National Final at Indonesia Comic Con 2026.",
+    "galleryTitle": "ICGP 2027 at a glance",
+    "galleryDescription": "Tap an image to open it full screen, then swipe through all four.",
+    "reqTitle": "How to take part",
+    "reqDescription": "Enter as a team of two and have everything ready before registration closes.",
+    "reqEligibilityTitle": "Who can enter",
+    "reqEligibility": {
+      "0": "A team of two Indonesian citizens, both at least 18 years old",
+      "1": "Both cosplay a character from the same Japanese series (manga, anime, game, or tokusatsu)",
+      "2": "Costumes made by the team, at least 75 percent by hand",
+      "3": "A stage performance of 2 minutes 30 seconds or less"
     },
-    "timelineTitle": "ICGP Timeline",
-    "timeline": {
-      "0": {
-        "title": "Registration for ICGP Regional by Event Organizers",
-        "description": "Regional event organizers can register with Indonesia Anime Con to host the ICGP Preliminary Selection in their city."
-      },
-      "1": {
-        "title": "Preliminary Selection",
-        "description": "Participants compete in the Preliminary Selection held in different cities by affiliated event organizers. Cities and dates will be announced on our website and social media as soon as they are available."
-      },
-      "2": {
-        "title": "ICGP Grand Final",
-        "description": "Winners from the Preliminary Selection will advance to the ICGP Grand Final at Indonesia Anime Con in Jakarta."
-      },
-      "3": {
-        "title": "World Cosplay Summit (WCS) Japan",
-        "description": "The team that wins the ICGP Grand Final will represent Indonesia at the World Cosplay Summit (WCS) in Japan."
-      }
+    "reqChecklistTitle": "What to prepare",
+    "reqChecklist": {
+      "0": "Cosplay photos of both members",
+      "1": "A practice video link",
+      "2": "Your costume construction file",
+      "3": "A performance sheet document",
+      "4": "Background video and audio on Google Drive"
     },
-    "joinTitle": "Bring ICGP 2026 to Your City. Sign Up as a Regional Organizer!",
-    "joinDescription": "Are you an Event Organizer passionate about cosplay and ready to take part in the biggest national competition? Indonesia Anime Con is now accepting proposals from Event Organizers to conduct the ICGP 2026 Regional Preliminary Selection!",
-    "joinDeadline": "Deadline: November 21, 2025",
-    "joinApply": "Apply",
-    "joinOrSend": "or send your proposal to icc{'@'}panoramamedia.co.id",
+    "reqCta": "Register your team",
+    "rulesTitle": "Rules and regulations",
+    "rulesDescription": "The full competition rules, from team composition to scoring. The official document is in Bahasa Indonesia.",
+    "downloadRules": "Download the full rules (PDF)",
+    "ctaTitle": "Ready to represent Indonesia?",
+    "ctaDescription": "Your road to Nagoya begins now. Find a partner, build your best cosplay, and take the stage at Indonesia Comic Con 2026.",
+    "ctaButton": "Register now",
     "wallOfFame": "ICGP Wall of Fame",
     "wallOfFameSubtitle": "World Cosplay Summit (WCS) Indonesia's Alumni 2012-2025",
     "wallOfFameCta": "Become the ICGP Champion and have your name featured on this Wall of Fame!"
