@@ -58,7 +58,6 @@ const ROUTES_EXCLUDE_WILDCARDS = [
   "/img/*",
   "/images/*",
   "/sfx/*",
-  "/og/*",
   "/temp/*",
   "/screenshots/*",
   "/_i18n/*",

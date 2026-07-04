@@ -6,7 +6,6 @@ export const useContentStore = defineStore("content", {
       home: {
         title: `CampX Holiday Park Jatiluhur`,
         description: `Lepas penat & hirup segarnya alam di CampX Jatiluhur! 🏕️ Tempat camping dan outing kekinian di tepi danau. Cek semua paket serunya di sini!`,
-        ogImage: "/og/og-home.jpg",
         withoutTitleTemplate: true,
       },
       contact: {

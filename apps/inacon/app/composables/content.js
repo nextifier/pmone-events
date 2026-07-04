@@ -8,7 +8,6 @@ export const useContentStore = defineStore("content", () => {
     home: {
       title: t("pages.home.title"),
       description: t("pages.home.description"),
-      ogImage: "/og/og-home.jpg",
       withoutTitleTemplate: true,
     },
     icgp: {
@@ -22,32 +21,26 @@ export const useContentStore = defineStore("content", () => {
     brands: {
       title: t("pages.brands.title"),
       description: t("pages.brands.description", { appName }),
-      ogImage: "/og/og-brands.jpg",
     },
     rundown: {
       title: t("pages.rundown.title"),
       description: t("pages.rundown.description", { appName }),
-      ogImage: "/og/og-rundown.jpg",
     },
     programs: {
       title: t("pages.programs.title"),
       description: t("pages.programs.description", { appName }),
-      ogImage: "/og/og-programs.jpg",
     },
     contact: {
       title: t("pages.contact.title"),
       description: t("pages.contact.description"),
-      ogImage: "/og/og-contact.jpg",
     },
     bookSpace: {
       title: t("pages.bookSpace.title"),
       description: t("pages.bookSpace.description", { appName }),
-      ogImage: "/og/og-book-space.jpg",
     },
     ticket: {
       title: t("pages.ticket.title", { appName }),
       description: t("pages.ticket.description", { appName }),
-      ogImage: "/og/og-ticket.jpg",
     },
     gallery: {
       title: t("pages.gallery.title"),

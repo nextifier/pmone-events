@@ -3,8 +3,11 @@ export default defineCachedEventHandler(
     const config = useRuntimeConfig();
     const appConfig = useAppConfig();
 
+    // Short timeout: the projectSettings plugin awaits this during SSR of
+    // every page, so a PM One outage with a cold cache must not stall
+    // renders for long. Errors are not cached - recovery is immediate.
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
 
     try {
       const username =

@@ -15,11 +15,7 @@
  * exposed here.
  */
 export function useProjectSettings() {
-  const { data } = useFetch("/api/event/website-settings", {
-    key: "project-settings",
-    server: true,
-    default: () => null,
-  });
+  const { data } = useProjectSettingsData();
 
   const settings = () => data.value?.data?.settings ?? null;
   const blog = () => settings()?.blog ?? {};
@@ -72,6 +68,9 @@ export function useProjectSettings() {
     },
     get termsLastUpdate() {
       return formatTermsDate(settings()?.terms?.last_update);
+    },
+    get ogPages() {
+      return settings()?.og_pages ?? {};
     },
   });
 }

@@ -6,7 +6,6 @@ export const useContentStore = defineStore("content", {
       home: {
         title: `Panorama Events: HR-Driven Corporate Outings for Team Growth`,
         description: `Transform your team with purposeful corporate outings by Panorama Events. We design HR-driven experiences in Indonesia that boost engagement & build lasting connections.`,
-        ogImage: "/og/og-home.jpg",
         withoutTitleTemplate: true,
       },
       about: {

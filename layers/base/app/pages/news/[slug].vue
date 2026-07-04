@@ -272,6 +272,9 @@ const description = computed(
 usePageMeta(null, {
   title: title,
   description: description,
+  // Post og_image from PM One: manual upload if set, otherwise the
+  // auto-generated card from the featured image; null falls back to Takumi.
+  ogImage: computed(() => post.value?.og_image || null),
 });
 
 const rawHtml = computed(() => post.value?.content || "");

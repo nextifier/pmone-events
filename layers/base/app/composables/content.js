@@ -6,38 +6,31 @@ export const useContentStore = defineStore("content", {
       home: {
         title: `Megabuild Indonesia: Building Materials, Architecture, Construction, and Interior Design Expo`,
         description: `Discover the latest trends and innovations in building materials, architecture, and interior design at MEGABUILD Indonesia.`,
-        ogImage: "/og/og-home.jpg",
         withoutTitleTemplate: true,
       },
       brands: {
         title: `Brands`,
         description: `Explore the diverse range of brands showcasing the latest innovations and products in the building materials, architecture, and interior design industries.`,
-        ogImage: "/og/og-brands.jpg",
       },
       rundown: {
         title: `Rundown`,
         description: `Stay updated with the detailed schedule of events and programs happening at ${useAppConfig().app.name}.`,
-        ogImage: "/og/og-rundown.jpg",
       },
       programs: {
         title: `Main Programs`,
         description: `Explore the main programs at ${useAppConfig().app.name}, including exhibitions, business conferences, seminars, and business matching. Gain insights and network with industry experts.`,
-        ogImage: "/og/og-programs.jpg",
       },
       contact: {
         title: `Contact us`,
         description: `Need assistance or have questions? Contact us for information on tickets, partnerships, and event details.`,
-        ogImage: "/og/og-contact.jpg",
       },
       bookSpace: {
         title: `Book Your Space`,
         description: `Secure your booth at ${useAppConfig().app.name} and showcase your brand to thousands of potential customers. Join leading brands and enhance your business growth.`,
-        ogImage: "/og/og-book-space.jpg",
       },
       ticket: {
         title: `Get Your Ticket`,
         description: `Get your entry tickets for the ${useAppConfig().app.name}. Find all the details you need, including dates, venue, and ticket options.`,
-        ogImage: "/og/og-ticket.jpg",
       },
       gallery: {
         title: `Event Gallery`,
