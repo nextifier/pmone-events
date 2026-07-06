@@ -1,9 +1,9 @@
 <template>
   <div class="relative space-y-16 overflow-hidden pb-10 lg:space-y-24">
-    <Hero />
-    <LazyAbout class="-mt-10" />
-    <LazyTopics />
-    <LazyPrograms />
+    <Hero v-if="heroVisible" />
+    <LazyAbout v-if="aboutVisible" class="-mt-10" />
+    <LazyTopics v-if="topicsVisible" />
+    <LazyPrograms v-if="programsVisible" />
     <LazyRundown v-if="rundownVisible" :show-search="false">
       <template #header>
         <div class="flex flex-col items-center text-center">
@@ -26,15 +26,15 @@
         </div>
       </template>
     </LazyRundown>
-    <LazyWhyAttend />
-    <LazyWhoAttends />
-    <LazyWhyYogyakarta />
-    <LazyTickets />
+    <LazyWhyAttend v-if="whyAttendVisible" />
+    <LazyWhoAttends v-if="whoAttendsVisible" />
+    <LazyWhyYogyakarta v-if="whyYogyakartaVisible" />
+    <LazyTickets v-if="ticketsVisible" />
     <div v-if="hotelSectionVisible" class="container">
       <LazyHotels :show-event-header="false" />
     </div>
-    <LazyFAQ />
-    <LazyPastEvents />
+    <LazyFAQ v-if="faqVisible" />
+    <LazyPastEvents v-if="pastEventsVisible" />
     <LazyCredits
       v-if="creditsVisible"
       class="container flex flex-col items-center text-center"
@@ -49,6 +49,30 @@ const route = useRoute();
 const { visible: rundownVisible } = useRundownVisibility();
 const { visible: hotelSectionVisible } = useHotelSectionVisibility();
 const { visible: creditsVisible } = useCreditsVisibility();
+const { visible: heroVisible } = useHomeSection("hero", { defaultVisible: true });
+const { visible: aboutVisible } = useHomeSection("about", { defaultVisible: true });
+const { visible: topicsVisible } = useHomeSection("topics", {
+  defaultVisible: true,
+});
+const { visible: programsVisible } = useHomeSection("programs", {
+  defaultVisible: true,
+});
+const { visible: whyAttendVisible } = useHomeSection("why_attend", {
+  defaultVisible: true,
+});
+const { visible: whoAttendsVisible } = useHomeSection("who_attends", {
+  defaultVisible: true,
+});
+const { visible: whyYogyakartaVisible } = useHomeSection("why_yogyakarta", {
+  defaultVisible: true,
+});
+const { visible: ticketsVisible } = useHomeSection("tickets", {
+  defaultVisible: true,
+});
+const { visible: faqVisible } = useHomeSection("faq", { defaultVisible: true });
+const { visible: pastEventsVisible } = useHomeSection("past_events", {
+  defaultVisible: true,
+});
 
 const siteUrl = config.app.url;
 const pageUrl = siteUrl + route.path;
