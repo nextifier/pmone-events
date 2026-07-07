@@ -66,9 +66,10 @@ export default {
   hero: {
     countdownLabel: "倒计时：",
     subHeadline: "印尼最大的动漫 & 流行文化盛会",
-    title: "动漫迷的两天狂欢，就在这里！",
+    title: "动漫迷的狂欢，就在这里！",
     description:
       "海外嘉宾、限定周边、Cosplay 巡游、游戏竞技，还有几千个和你一样的粉丝。宅在家不如来现场。",
+    datesTba: "日期与场地即将公布。",
     ctaTicket: "购票",
     ctaExhibit: "参展报名",
     playRecap: "看看上届精彩",
@@ -104,7 +105,7 @@ export default {
     },
   },
   visitorCta: {
-    title: "动漫、Cosplay、流行文化的两天狂欢",
+    title: "动漫、Cosplay、流行文化的狂欢现场",
     description:
       "{appName} 回来了！特邀嘉宾、舞台表演、Cosplay 巡游、限定周边……今年更不能错过。赶紧锁定门票！",
     cta: "领取门票",
@@ -243,7 +244,7 @@ export default {
     guests: {
       title: "嘉宾",
       description:
-        "看看 {appName} 的嘉宾阵容！声优、画师、创作者等来雅加达的特邀嘉宾都在这里。",
+        "看看 {appName} 的嘉宾阵容！声优、画师、创作者等到场的特邀嘉宾都在这里。",
     },
     brands: {
       title: "品牌",

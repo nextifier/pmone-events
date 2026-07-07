@@ -16,6 +16,7 @@ export default {
     back: "Kembali",
     comingSoon: "Coming soon",
     backToHome: "Ke beranda",
+    followInstagram: "Ikuti kami di Instagram",
     bookSpace: "Book Space",
     getTicket: "Get Ticket",
     copyright: "Copyright",
@@ -55,6 +56,9 @@ export default {
   brands: {
     conjunctionExplore:
       "Jelajahi brand dari {eventName} dengan tiket yang sama.",
+    emptyTitle: "Daftar brand segera hadir",
+    emptyDescription:
+      "Exhibitor sedang berdatangan. Cek lagi untuk lihat siapa saja yang ikut.",
   },
   brandPreview: {
     empty: "Belum ada brand unggulan. Pantau terus, ya.",
@@ -65,8 +69,14 @@ export default {
     bodyWithBooth: "Cari {brandName} di booth {booth}. Mampir buat lihat yang mereka pamerkan dan ngobrol langsung sama timnya.",
     cta: "Ambil tiketmu",
   },
+  guests: {
+    emptyTitle: "Tamu segera diumumkan",
+    emptyDescription: "Kami masih menyusun lineup. Nantikan kabar siapa saja yang akan hadir.",
+  },
   rundown: {
     comingSoon: "Rundown segera hadir. Cek lagi nanti!",
+    emptyTitle: "Rundown segera hadir",
+    emptyDescription: "Jadwal acara masih kami susun. Cek lagi nanti, ya.",
     nothingYet: "Belum ada jadwal tersedia.",
     finish: "Selesai",
   },

@@ -16,6 +16,7 @@ export default {
     back: "뒤로",
     comingSoon: "곧 공개돼요",
     backToHome: "홈으로 돌아가기",
+    followInstagram: "인스타그램에서 팔로우하기",
     bookSpace: "부스 예약",
     getTicket: "티켓 받기",
     copyright: "저작권",
@@ -54,6 +55,8 @@ export default {
   },
   brands: {
     conjunctionExplore: "같은 티켓으로 {eventName}의 브랜드까지 둘러보세요.",
+    emptyTitle: "브랜드 리스트 곧 공개",
+    emptyDescription: "참가 브랜드가 속속 확정되고 있어요. 곧 다시 확인해 보세요.",
   },
   brandPreview: {
     empty: "선보일 브랜드를 준비 중이에요. 곧 만나보실 수 있어요.",
@@ -64,8 +67,14 @@ export default {
     bodyWithBooth: "{brandName}은(는) {booth} 부스에 있습니다. 들러서 전시를 보고 담당자와 직접 이야기 나눠보세요.",
     cta: "티켓 받기",
   },
+  guests: {
+    emptyTitle: "게스트 곧 공개",
+    emptyDescription: "라인업을 준비하고 있습니다. 곧 합류할 게스트를 확인해 보세요.",
+  },
   rundown: {
     comingSoon: "Rundown을 준비 중이에요. 조금만 기다려 주세요!",
+    emptyTitle: "런다운 곧 공개",
+    emptyDescription: "일정을 준비하고 있어요. 조금만 기다려 주세요.",
     nothingYet: "아직 준비 중이에요!",
     finish: "종료",
   },

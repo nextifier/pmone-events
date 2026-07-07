@@ -37,16 +37,29 @@
       </Empty>
 
       <!-- ===================== DATA EMPTY ===================== -->
-      <Empty v-else-if="!allBrands?.length" class="border-none">
-        <EmptyHeader>
-          <EmptyMedia class="perspective-midrange mb-0">
-            <BrandListEmptyStateImage
-              class="shadow-wrapper w-full max-w-80 rounded-md transition duration-300 hover:rotate-x-40"
-            />
-          </EmptyMedia>
-          <EmptyTitle>Brand list is coming soon. Check back later!</EmptyTitle>
-        </EmptyHeader>
-      </Empty>
+      <EmptyState
+        v-else-if="!allBrands?.length"
+        class="mt-6"
+        :title="$t('brands.emptyTitle', 'Brand list coming soon')"
+        :description="
+          $t(
+            'brands.emptyDescription',
+            'Exhibitors are signing up now. Check back to see who\'s in.',
+          )
+        "
+      >
+        <template #image>
+          <BrandListEmptyStateImage />
+        </template>
+        <template v-if="instagramUrl" #actions>
+          <Button as-child variant="outline">
+            <NuxtLink :to="instagramUrl" target="_blank" rel="noopener">
+              <Icon name="hugeicons:instagram" class="size-4 shrink-0" />
+              {{ $t("ui.followInstagram", "Follow us on Instagram") }}
+            </NuxtLink>
+          </Button>
+        </template>
+      </EmptyState>
 
       <!-- ===================== RESULTS ===================== -->
       <template v-else>
@@ -173,6 +186,7 @@ watch(viewMode, () => {
 });
 
 const localePath = useLocalePath();
+const instagramUrl = useInstagramUrl();
 
 const NuxtLinkComp = resolveComponent("NuxtLink");
 const AvatarComp = resolveComponent("Avatar");

@@ -12,7 +12,7 @@
 
         <p>
           <strong>What if I get hurt?</strong><br />
-          If you are injured, seek out ICC staff or nearby security, and we'll
+          If you are injured, seek out INACON staff or nearby security, and we'll
           provide the assistance you need.
         </p>
 
@@ -26,20 +26,20 @@
 
         <p>
           <strong>Weapons and Bag Check</strong><br />
-          Please read the entire weapons policy before attending Indonesia Comic
+          Please read the entire weapons policy before attending Indonesia Anime
           Con. Failure to comply with this policy may result in your removal
-          from the convention without a refund. Indonesia Comic Con and Security
+          from the convention without a refund. Indonesia Anime Con and Security
           Management will conduct a weapons and bag check before allowing anyone
           to enter the convention. All weapons deemed unsafe will not be allowed
           into the event. Misuse of any prop weapon, such as swinging it in a
           public area or causing a hazard to attendees, will result in the
           weapon or prop being deemed unsafe and must be removed from the show
-          floor. Indonesia Comic Con will not tolerate any weapon that could
+          floor. Indonesia Anime Con will not tolerate any weapon that could
           damage or cause serious bodily harm to another attendee or property at
           the convention.
         </p>
 
-        <strong>The following items are forbidden at ICC:</strong>
+        <strong>The following items are forbidden at INACON:</strong>
         <ul>
           <li>
             Functional firearms (including airsoft guns, BB guns, cap guns,
@@ -87,7 +87,7 @@
         >
 
         <p>
-          ICC staff has sole discretion in any matter that it believes may
+          INACON staff has sole discretion in any matter that it believes may
           affect public safety or be important to protect the integrity of the
           event. The decisions are final and irrevocable.
         </p>

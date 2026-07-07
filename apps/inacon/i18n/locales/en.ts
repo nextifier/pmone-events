@@ -162,8 +162,9 @@ export default {
   "hero": {
     "countdownLabel": "The hype unleashes in:",
     "subHeadline": "The Ultimate Asian Pop Culture Event in Indonesia",
-    "title": "Your Epic Pop Culture Crossover is Here!",
-    "description": "Gear up for two awesome days packed with international guests, exclusive drops, epic cosplay, and thousands of other fans just like you. This is your party!",
+    "title": "Your Anime World, All in One Place!",
+    "description": "International guests, exclusive drops, cosplay everywhere, and thousands of fans who love what you love. This is your party!",
+    "datesTba": "Dates and venue to be announced.",
     "ctaTicket": "Get Ticket",
     "ctaExhibit": "Book Space",
     "playRecap": "Play Recap",
@@ -197,7 +198,7 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "Experience the Epic Pop Culture Crossover of the Year",
+    "title": "Anime, Cosplay, and Pop Culture at Full Blast",
     "description": "{appName} is back and bigger than ever! Don't miss out on meeting legendary guests, watching epic stage performances, and creating amazing memories. Secure your spot now!",
     "cta": "Get Ticket"
   },
@@ -332,7 +333,7 @@ export default {
     },
     "guests": {
       "title": "Guests",
-      "description": "Meet the stars of {appName}! Explore our lineup of special guests, including celebrities, artists, and industry icons joining us in Jakarta."
+      "description": "Meet the stars of {appName}! Explore our lineup of special guests, including celebrities, artists, and industry icons."
     },
     "brands": {
       "title": "Brands",

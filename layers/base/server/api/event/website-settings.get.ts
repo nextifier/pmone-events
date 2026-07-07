@@ -41,7 +41,9 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-website-settings",
-    maxAge: 300,
+    // Shorter than the other API handlers (300s): this payload drives the
+    // home-page section toggles admins expect to see propagate quickly.
+    maxAge: 60,
     swr: true,
     getKey: () => "default",
   },

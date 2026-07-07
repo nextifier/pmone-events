@@ -16,6 +16,7 @@ export default {
     "back": "Back",
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
+    "followInstagram": "Follow us on Instagram",
     "bookSpace": "Book Space",
     "getTicket": "Get Ticket",
     "copyright": "Copyright",
@@ -53,7 +54,9 @@ export default {
     "latestUpdates": "Latest updates"
   },
   "brands": {
-    "conjunctionExplore": "Explore brands from {eventName} with your same ticket."
+    "conjunctionExplore": "Explore brands from {eventName} with your same ticket.",
+    "emptyTitle": "Brand list coming soon",
+    "emptyDescription": "Exhibitors are signing up now. Check back to see who's in."
   },
   "brandPreview": {
     "empty": "No featured brands yet. Check back soon."
@@ -64,8 +67,14 @@ export default {
     "bodyWithBooth": "Find {brandName} at booth {booth}. Drop by to see what they are showing and chat with the team in person.",
     "cta": "Get your ticket"
   },
+  "guests": {
+    "emptyTitle": "Guests coming soon",
+    "emptyDescription": "We're still locking in the lineup. Check back soon to see who's joining.",
+  },
   "rundown": {
     "comingSoon": "Rundown is coming soon. Check back later!",
+    "emptyTitle": "Rundown coming soon",
+    "emptyDescription": "We're still putting the schedule together. Check back soon.",
     "nothingYet": "Nothing to see here… yet!",
     "finish": "Finish"
   },

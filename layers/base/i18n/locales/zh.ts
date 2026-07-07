@@ -16,6 +16,7 @@ export default {
     back: "返回",
     comingSoon: "即将推出",
     backToHome: "回到首页",
+    followInstagram: "在 Instagram 关注我们",
     bookSpace: "预订展位",
     getTicket: "领取门票",
     copyright: "Copyright",
@@ -54,6 +55,8 @@ export default {
   },
   brands: {
     conjunctionExplore: "凭同一张门票，畅游 {eventName} 的精彩 Brand。",
+    emptyTitle: "品牌名单即将公布",
+    emptyDescription: "参展商正在陆续加入，敬请期待。",
   },
   brandPreview: {
     empty: "精选 Brand 即将登场，敬请期待。",
@@ -64,8 +67,14 @@ export default {
     bodyWithBooth: "{brandName} 在 {booth} 号展位等你。过来看看他们的展示，和团队当面聊聊。",
     cta: "立即购票",
   },
+  guests: {
+    emptyTitle: "嘉宾即将公布",
+    emptyDescription: "阵容仍在敲定中，敬请期待即将登场的嘉宾。",
+  },
   rundown: {
     comingSoon: "Rundown 即将公布，过段时间再来看看！",
+    emptyTitle: "日程即将公布",
+    emptyDescription: "活动日程正在筹备中，敬请期待。",
     nothingYet: "还没有日程安排，敬请期待！",
     finish: "结束",
   },

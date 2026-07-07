@@ -17,6 +17,8 @@
 export const HTML_TTL = "public, max-age=0, s-maxage=300"; // 5 min edge
 export const HTML_TTL_LONG = "public, max-age=0, s-maxage=900"; // 15 min edge
 export const API_TTL = "public, max-age=60, s-maxage=300";
+// Admin-toggled settings must propagate fast: no browser cache, 1 min edge.
+export const API_TTL_SHORT = "public, max-age=0, s-maxage=60";
 
 // i18n path prefixes to strip before matching HTML routes (superset across
 // apps; strategy is prefix_except_default so the default locale has none).
@@ -59,7 +61,7 @@ export const CACHED_GLOBAL_EXACT: Record<string, string> = {
   "/api/event/partners": API_TTL,
   "/api/event/programs": API_TTL,
   "/api/event/rundown": API_TTL,
-  "/api/event/website-settings": API_TTL,
+  "/api/event/website-settings": API_TTL_SHORT,
   "/api/banners": API_TTL,
   "/api/blog/posts": API_TTL,
   "/api/project/profile": API_TTL,

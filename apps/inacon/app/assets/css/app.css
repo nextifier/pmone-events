@@ -3,20 +3,6 @@
 @source "../../components/**/*.vue";
 @source "../../pages/**/*.vue";
 
-@font-face {
-  font-family: "DisplayGF";
-  src: url("/fonts/DisplayGF.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "HeadingElv";
-  src: url("/fonts/HeadingElv.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-
 @theme {
   /* Yellow (custom) */
   --color-yellow-50: oklch(0.99 0.0287 109.03);
@@ -33,13 +19,8 @@
 }
 
 :root {
-  --font-display:
-    DisplayGF, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-  --font-heading:
-    HeadingElv, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: var(--font-sans);
+  --font-heading: var(--font-sans);
 
   --accent: var(--color-yellow-400);
   --accent-foreground: var(--color-black);
@@ -55,7 +36,7 @@
 }
 
 .section-title-large {
-  @apply xs:text-6xl 3xl:text-8xl font-display bg-linear-to-r from-black to-black/80 bg-clip-text text-5xl !leading-[1] tracking-tight text-balance text-transparent md:text-7xl lg:text-[5.5rem] dark:from-white dark:to-white/40;
+  @apply xs:text-6xl 3xl:text-8xl bg-linear-to-r from-black to-black/80 bg-clip-text text-5xl !leading-[1] tracking-tight text-balance text-transparent md:text-7xl lg:text-[5.5rem] dark:from-white dark:to-white/40;
 }
 
 .section-description {
@@ -63,7 +44,7 @@
 }
 
 .section-title-heading {
-  @apply font-display 3xl:text-8xl 3xl:leading-[1] text-5xl leading-[1] tracking-[-0.0125em] text-balance text-black sm:text-6xl sm:leading-[1] xl:text-7xl xl:leading-[1] dark:text-white;
+  @apply 3xl:text-8xl 3xl:leading-[1] text-5xl leading-[1] tracking-[-0.0125em] text-balance text-black sm:text-6xl sm:leading-[1] xl:text-7xl xl:leading-[1] dark:text-white;
 }
 
 .gradient-accent,

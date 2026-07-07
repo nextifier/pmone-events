@@ -1,9 +1,49 @@
 <template>
-  <div id="ticket-page" class="pb-16 lg:pt-6 lg:pb-20">
+  <!-- Nothing to sell yet (ticketing disabled or an empty listing): a focused
+       coming-soon page instead of the full shell. Invite links and previously
+       applied access codes bypass this so hidden tickets stay reachable. -->
+  <div v-if="showComingSoon" class="min-h-screen-offset pt-4 pb-16 lg:pt-10 lg:pb-24">
+    <div class="container flex flex-col items-center">
+      <div class="flex flex-col items-center text-center">
+        <h1 class="section-title">{{ title }}</h1>
+        <p
+          v-if="description"
+          class="mt-3 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
+        >
+          {{ description }}
+        </p>
+      </div>
+
+      <EmptyState
+        class="mt-10"
+        :title="t('tickets.unavailableTitle')"
+        :description="t('tickets.unavailableDescription')"
+      >
+        <template #image>
+          <TicketListEmptyStateImage />
+        </template>
+        <template #actions>
+          <Button v-if="instagramUrl" as-child variant="outline">
+            <NuxtLink :to="instagramUrl" target="_blank" rel="noopener">
+              <Icon name="hugeicons:instagram" class="size-4 shrink-0" />
+              {{ t("ui.followInstagram") }}
+            </NuxtLink>
+          </Button>
+          <Button as-child>
+            <NuxtLink :to="localePath('/')">
+              {{ t("ui.backToHome") }}
+            </NuxtLink>
+          </Button>
+        </template>
+      </EmptyState>
+    </div>
+  </div>
+
+  <div v-else id="ticket-page" class="pb-16 lg:pt-6 lg:pb-20">
     <div
       class="grid grid-cols-1 gap-4 sm:container sm:max-w-5xl lg:grid-cols-12 lg:gap-10"
     >
-      <div class="px-1 sm:px-0 lg:col-span-5">
+      <div v-if="event.posterImage" class="px-1 sm:px-0 lg:col-span-5">
         <Lightbox
           :items="posterItems"
           :show-thumbnails="false"
@@ -59,11 +99,18 @@
         </Lightbox>
       </div>
 
-      <div class="px-4 sm:px-0 lg:col-span-7 lg:pt-6">
+      <div
+        class="px-4 sm:px-0 lg:pt-6"
+        :class="
+          event.posterImage
+            ? 'lg:col-span-7'
+            : 'mx-auto w-full lg:col-span-12 lg:max-w-2xl'
+        "
+      >
         <div class="flex flex-col">
           <div class="flex items-center justify-between">
             <EventStatus
-              class="h-10"
+              :class="event.startTime ? 'h-10' : ''"
               :startTime="new Date(event.startTime)"
               :endTime="new Date(event.endTime)"
             />
@@ -93,6 +140,7 @@
           </div>
 
           <WhenAndWhere
+            v-if="event.date || event.location || event.hall"
             class="mt-5"
             :date="event.date"
             :time="event.time"
@@ -187,6 +235,7 @@
 
 <script setup>
 import { useIntersectionObserver } from "@vueuse/core";
+import { useTicketCartStore } from "../../stores/ticketCart";
 
 const { title, description } = usePageMeta("ticket");
 defineOptions({
@@ -196,6 +245,32 @@ defineOptions({
 const { t } = useI18n();
 const event = useEvent();
 const uiStore = useUiStore();
+const route = useRoute();
+const localePath = useLocalePath();
+const cart = useTicketCartStore();
+
+const { data: ticketsData, error: ticketsError } = await useTicketsListing(
+  () => event.slug,
+);
+
+// A 404 with this code means the organizer has not enabled ticketing yet,
+// rendered as a full-page "coming soon" instead of the regular ticket shell.
+const ticketsDisabled = computed(() => {
+  const body = ticketsError.value?.data;
+  return (
+    body?.error_code === "TICKETS_DISABLED" ||
+    body?.data?.error_code === "TICKETS_DISABLED"
+  );
+});
+
+const instagramUrl = useInstagramUrl();
+
+// Hidden tickets are reached via an invite link (?invite= / ?code=) or a
+// previously applied access code persisted in the cart, all of which must
+// reach <TicketList> instead of the coming-soon state.
+onMounted(() => {
+  cart.hydrate();
+});
 
 // Ticket poster: display a smaller conversion (lg) for fast load; the Lightbox
 // shows the larger xl version. Sourced from PM One (already optimized), so no
@@ -259,6 +334,16 @@ import TicketList from "../../components/tickets/TicketList.vue";
 // Ticket tabs visibility now comes from PM One (website settings).
 const projectSettings = useProjectSettings();
 const tabSettings = computed(() => projectSettings.ticketTabs);
+
+const showComingSoon = computed(
+  () =>
+    tabSettings.value.showTickets &&
+    !route.query.invite &&
+    !route.query.code &&
+    !cart.accessCode &&
+    (ticketsDisabled.value ||
+      (!ticketsError.value && !ticketsData.value?.data?.length)),
+);
 
 const tabList = computed(() => {
   const tabs = [];

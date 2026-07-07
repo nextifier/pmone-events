@@ -5,7 +5,7 @@
         <h1>Anti-Harassment Policy</h1>
 
         <p>
-          Indonesia Comic Con has a <strong>ZERO TOLERANCE POLICY</strong> for
+          Indonesia Anime Con has a <strong>ZERO TOLERANCE POLICY</strong> for
           harassment of any kind, including but not limited to:
         </p>
         <ul>
@@ -40,24 +40,24 @@
         </ul>
 
         <p>
-          Hate symbols are not permitted at Indonesia Comic Con (ICC), including
-          as part of cosplay. ICC will not allow costumes that contain hate
+          Hate symbols are not permitted at Indonesia Anime Con (INACON), including
+          as part of cosplay. INACON will not allow costumes that contain hate
           symbols or appropriate the symbolism of hate groups, including, but
           not limited to, historical/comic-related/satirical costumes associated
           with Nazis. Whether a behavior or a costume violates this policy shall
-          be determined by ICC in its sole discretion.
+          be determined by INACON in its sole discretion.
         </p>
 
         <p>
-          <strong>To report an incident onsite at ICC</strong>, please visit the
+          <strong>To report an incident onsite at INACON</strong>, please visit the
           <nuxt-link :to="localePath('/contact')">Contact page</nuxt-link>. If you're still in
           the area where the incident took place and it's safe to stay, our
           Security Team will meet you there.
         </p>
 
         <p>
-          If a person engages in harassing behavior, ICC Staff will take prompt
-          action in any form they deem appropriate, including expulsion from ICC
+          If a person engages in harassing behavior, INACON Staff will take prompt
+          action in any form they deem appropriate, including expulsion from INACON
           with no refund. Our policy applies to EVERYONE at the convention.
           Exhibitors, fans (attendees), speakers, guests, professionals, press,
           staff, crew, and security are all subject to our Anti-Harassment
@@ -67,20 +67,20 @@
         <p>
           Anyone can report harassment. If someone’s behavior has made you
           uncomfortable, or if you witness the same happening to someone else,
-          you should immediately contact ICC Staff, Security Team, or a Crew
+          you should immediately contact INACON Staff, Security Team, or a Crew
           member.
         </p>
 
         <p>
           If necessary, we will contact local law enforcement, provide an
           escort, offer a safe place, or otherwise assist those experiencing
-          harassment to ensure they feel safe for the rest of ICC.
+          harassment to ensure they feel safe for the rest of INACON.
         </p>
 
         <p>
           Keep your hands to yourself. If you would like to take a picture with
-          or of another ICC fan, always ask first and respect that person's
-          right to say no. When at ICC, be respectful, be nice, be cool, and be
+          or of another INACON fan, always ask first and respect that person's
+          right to say no. When at INACON, be respectful, be nice, be cool, and be
           kind to each other.
         </p>
 
@@ -88,7 +88,7 @@
           We want you to not only have the most amazing weekend ever but also to
           experience it in an environment where you are safe and accepted. As
           fans ourselves, we understand the importance of creating a safe space
-          for everyone who attends ICC.
+          for everyone who attends INACON.
         </p>
       </div>
     </div>

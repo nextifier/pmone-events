@@ -42,14 +42,8 @@ const { status: eventStatus } = useEventStatus(eventStartTime, eventEndTime);
 // Tickets always come from PM One; there is no static fallback. The locale is
 // forwarded so ticket copy + meta.terms come back localized. On failure we show
 // a clear error/empty state rather than fabricating ticket data.
-const { data, pending, error, refresh } = await useFetch(
-  () => `/api/tickets/${props.eventSlug}`,
-  {
-    key: () => `tickets-${props.eventSlug}-${locale.value}`,
-    query: { locale },
-    watch: [locale, () => props.eventSlug],
-    default: () => null,
-  },
+const { data, pending, error, refresh } = await useTicketsListing(
+  () => props.eventSlug,
 );
 
 const tickets = computed(() => data.value?.data ?? []);
@@ -501,39 +495,26 @@ const subtotalLabel = computed(() =>
   <!-- Load failure or ticketing not enabled. We never fabricate ticket data:
        a real failure is retryable, a disabled event reads as "coming soon". -->
   <div v-else-if="error" class="container">
-    <Empty class="border-border bg-muted/30 mx-auto max-w-md border">
+    <EmptyState
+      v-if="ticketsDisabled"
+      :title="t('tickets.unavailableTitle')"
+      :description="t('tickets.unavailableDescription')"
+    >
+      <template #image>
+        <TicketListEmptyStateImage />
+      </template>
+    </EmptyState>
+    <Empty v-else class="border-border bg-muted/30 mx-auto max-w-md border">
       <EmptyHeader>
         <EmptyMedia variant="icon">
-          <Icon
-            :name="
-              ticketsDisabled ? 'hugeicons:ticket-01' : 'hugeicons:alert-02'
-            "
-            :class="
-              ticketsDisabled ? 'text-muted-foreground' : 'text-destructive'
-            "
-          />
+          <Icon name="hugeicons:alert-02" class="text-destructive" />
         </EmptyMedia>
-        <EmptyTitle>
-          {{
-            ticketsDisabled
-              ? t("tickets.unavailableTitle")
-              : t("tickets.loadErrorTitle")
-          }}
-        </EmptyTitle>
+        <EmptyTitle>{{ t("tickets.loadErrorTitle") }}</EmptyTitle>
         <EmptyDescription>
-          {{
-            ticketsDisabled
-              ? t("tickets.unavailableDescription")
-              : t("tickets.loadErrorDescription")
-          }}
+          {{ t("tickets.loadErrorDescription") }}
         </EmptyDescription>
       </EmptyHeader>
-      <Button
-        v-if="!ticketsDisabled"
-        variant="outline"
-        :disabled="pending"
-        @click="refresh()"
-      >
+      <Button variant="outline" :disabled="pending" @click="refresh()">
         <Icon v-if="pending" name="svg-spinners:180-ring" class="size-4" />
         {{ t("tickets.loadErrorRetry") }}
       </Button>
@@ -617,37 +598,15 @@ const subtotalLabel = computed(() =>
     </div>
 
     <!-- Empty: the listing loaded fine but there are no tickets yet -->
-    <Empty
+    <EmptyState
       v-if="!entryTickets.length && !addOnTickets.length"
-      class="mx-auto max-w-md"
+      :title="t('tickets.emptyTitle')"
+      :description="t('tickets.noTickets')"
     >
-      <EmptyHeader>
-        <div class="mb-2 flex items-center justify-center">
-          <Stack aria-hidden="true">
-            <template #layer-1>
-              <Icon
-                name="hugeicons:ticket-01"
-                class="text-foreground size-7 shrink-0"
-              />
-            </template>
-            <template #layer-2>
-              <Icon
-                name="hugeicons:calendar-03"
-                class="text-muted-foreground size-6 shrink-0"
-              />
-            </template>
-            <template #layer-3>
-              <Icon
-                name="hugeicons:coupon-01"
-                class="text-muted-foreground size-6 shrink-0"
-              />
-            </template>
-          </Stack>
-        </div>
-        <EmptyTitle>{{ t("tickets.emptyTitle") }}</EmptyTitle>
-        <EmptyDescription>{{ t("tickets.noTickets") }}</EmptyDescription>
-      </EmptyHeader>
-    </Empty>
+      <template #image>
+        <TicketListEmptyStateImage />
+      </template>
+    </EmptyState>
 
     <div v-else class="grid grid-cols-1 gap-y-10 lg:gap-y-16">
       <!-- Entry tickets -->

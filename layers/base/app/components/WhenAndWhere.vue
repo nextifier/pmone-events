@@ -33,7 +33,10 @@
       </div>
     </div>
 
-    <div class="flex items-center gap-x-3">
+    <div
+      v-if="props.location || props.hall"
+      class="flex items-center gap-x-3"
+    >
       <div
         class="outline-inside flex size-10 shrink-0 flex-col items-center justify-center rounded-xl text-center sm:size-12"
       >

@@ -1,8 +1,5 @@
 <template>
-  <section
-    id="hero"
-    class="relative isolate overflow-hidden bg-linear-to-b from-[oklch(100%_0_0)] via-[oklch(98%_0.0252_var(--accent-hue))] to-[oklch(94%_0.0537_var(--accent-hue))] lg:bg-radial-[at_25%_25%] dark:from-[oklch(12%_0.125_var(--accent-hue))] dark:via-[oklch(18%_0.0764_var(--accent-hue))] dark:to-[oklch(36%_0.1537_var(--accent-hue))]"
-  >
+  <section id="hero" class="relative isolate overflow-hidden">
     <KVHalftone
       class="text-foreground/5 absolute inset-x-0 bottom-0 z-0 w-full xl:translate-y-[40%]"
     />
@@ -19,9 +16,17 @@
         class="min-h-screen-offset grid grid-cols-1 gap-y-10 pt-6 md:grid-cols-2 md:items-center md:pt-4 xl:grid-cols-3"
       >
         <div
-          class="order-first flex h-full flex-col justify-between gap-y-10 md:justify-start xl:justify-between xl:pb-32 2xl:pt-4 2xl:pb-24"
+          class="order-first flex h-full flex-col gap-y-10 md:justify-start xl:pb-32 2xl:pt-4 2xl:pb-24"
+          :class="
+            event.startTime
+              ? 'justify-between xl:justify-between'
+              : 'justify-start xl:justify-end'
+          "
         >
-          <div class="flex flex-col items-start gap-y-2.5">
+          <div
+            v-if="event.startTime"
+            class="flex flex-col items-start gap-y-2.5"
+          >
             <!-- <span class="text-foreground/70 text-sm tracking-tight">{{
               content.countdownLabel
             }}</span> -->
@@ -36,13 +41,14 @@
           </div>
 
           <div class="flex flex-col items-start">
-            <!-- <span
-              class="font-semibold tracking-tighter text-[oklch(50%_0.2_var(--accent-hue))] dark:text-[oklch(80%_0.2_var(--accent-hue))]"
-              >{{ content.subHeadline }}</span
-            > -->
+            <span
+              class="bg-accent text-accent-foreground inline-flex items-center gap-x-1.5 px-3 py-1.5 text-xs font-semibold tracking-tight uppercase shadow-[0.3rem_0.3rem_0_0] shadow-black/85 sm:text-sm dark:shadow-white/15"
+            >
+              {{ content.subHeadline }}
+            </span>
 
             <h1
-              class="font-display 3xl:text-7xl text-foreground mt-3 text-5xl !leading-[1] tracking-[-0.0125em] text-balance sm:text-6xl xl:text-6xl"
+              class="3xl:text-7xl text-foreground mt-4 text-5xl !leading-[1] font-medium tracking-tighter text-balance sm:text-6xl xl:text-6xl"
             >
               {{ content.title }}
             </h1>
@@ -118,38 +124,45 @@
               <div
                 class="text-primary-foreground relative z-20 flex h-full flex-col items-start justify-center px-7 py-10"
               >
-                <span
-                  class="font-display line-clamp-1 text-lg tracking-tight text-[oklch(80%_0.2_var(--accent-hue))] dark:text-[oklch(40%_0.2_var(--accent-hue))]"
-                  >{{ event.title }}</span
-                >
-                <div
-                  class="font-heading mt-3 line-clamp-3 flex flex-col text-[4rem] !leading-[0.9] tracking-tighter text-balance uppercase"
-                >
-                  <span>{{ event.dateOnly }}</span>
-                  <span>{{ event.month }}</span>
-                  <span>{{ event.year }}</span>
-                </div>
-                <span
-                  class="mt-4 line-clamp-1 text-xl font-bold tracking-tighter"
-                  >{{ event.locationShort }}</span
-                >
-                <span class="mt-1 line-clamp-1 text-sm tracking-tight">{{
-                  event.hall
+                <span class="line-clamp-1 text-lg tracking-tight">{{
+                  event.title
                 }}</span>
+                <template v-if="event.startTime">
+                  <div
+                    class="mt-3 line-clamp-3 flex flex-col text-[4rem] !leading-[0.9] tracking-tighter text-balance uppercase"
+                  >
+                    <span>{{ event.dateOnly }}</span>
+                    <span>{{ event.month }}</span>
+                    <span>{{ event.year }}</span>
+                  </div>
+                  <span
+                    class="mt-4 line-clamp-1 text-xl font-bold tracking-tighter"
+                    >{{ event.locationShort }}</span
+                  >
+                  <span class="mt-1 line-clamp-1 text-sm tracking-tight">{{
+                    event.hall
+                  }}</span>
+                </template>
+                <template v-else>
+                  <div
+                    class="mt-3 flex flex-col text-[4rem] !leading-[0.9] font-medium tracking-tighter text-balance uppercase"
+                  >
+                    <span
+                      v-for="(word, i) in $t('ui.comingSoon').split(' ')"
+                      :key="i"
+                      >{{ word }}</span
+                    >
+                  </div>
+                  <span class="mt-4 text-sm tracking-tight text-balance">{{
+                    $t("hero.datesTba", "Dates and venue to be announced.")
+                  }}</span>
+                </template>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <ClientOnly>
-      <div
-        class="absolute top-7 right-5 z-30 rounded-full border border-black/5 bg-white/40 p-1 backdrop-blur-lg md:top-1/2 md:right-4 md:-translate-y-full dark:border-white/10 dark:bg-white/10"
-      >
-        <AccentColorSwitcher orientation="vertical" />
-      </div>
-    </ClientOnly>
   </section>
 </template>
 

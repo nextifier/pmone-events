@@ -536,17 +536,29 @@
             </span>
           </div>
         </div>
-        <div v-else class="mt-6 flex flex-col items-center gap-y-6 text-center">
-          <div class="perspective-midrange">
-            <RundownEmptyStateImage
-              class="shadow-wrapper w-full max-w-80 rounded-md transition duration-300 hover:rotate-x-40"
-            />
-          </div>
-
-          <span class="text-foreground text-xl font-semibold tracking-tight"
-            >{{ $t("rundown.comingSoon") }}
-          </span>
-        </div>
+        <EmptyState
+          v-else
+          class="mt-6"
+          :title="$t('rundown.emptyTitle', 'Rundown coming soon')"
+          :description="
+            $t(
+              'rundown.emptyDescription',
+              'We\'re still putting the schedule together. Check back soon.',
+            )
+          "
+        >
+          <template #image>
+            <RundownEmptyStateImage />
+          </template>
+          <template v-if="instagramUrl" #actions>
+            <Button as-child variant="outline">
+              <NuxtLink :to="instagramUrl" target="_blank" rel="noopener">
+                <Icon name="hugeicons:instagram" class="size-4 shrink-0" />
+                {{ $t("ui.followInstagram", "Follow us on Instagram") }}
+              </NuxtLink>
+            </Button>
+          </template>
+        </EmptyState>
       </div>
     </div>
   </section>
@@ -565,6 +577,7 @@ const uiStore = useUiStore();
 const route = useRoute();
 const { t, te, locale } = useI18n();
 const appConfig = useAppConfig();
+const instagramUrl = useInstagramUrl();
 
 const content = computed(() => {
   const fromStore = useContentStore().components.rundown;

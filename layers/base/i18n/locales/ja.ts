@@ -16,6 +16,7 @@ export default {
     back: "戻る",
     comingSoon: "近日公開",
     backToHome: "ホームに戻る",
+    followInstagram: "Instagramでフォロー",
     bookSpace: "ブースを予約",
     getTicket: "チケットを取得",
     copyright: "著作権",
@@ -55,6 +56,8 @@ export default {
   brands: {
     conjunctionExplore:
       "同じチケットで{eventName}のブランドもお楽しみいただけます。",
+    emptyTitle: "ブランドリストは近日公開",
+    emptyDescription: "出展者が続々と決定中。誰が参加するかお楽しみに。",
   },
   brandPreview: {
     empty: "注目ブランドはまだありません。もう少しお待ちください。",
@@ -65,8 +68,14 @@ export default {
     bodyWithBooth: "{brandName}はブース{booth}でお待ちしています。立ち寄って展示を見て、スタッフと直接話してみてください。",
     cta: "チケットを手に入れる",
   },
+  guests: {
+    emptyTitle: "ゲスト近日発表",
+    emptyDescription: "ラインナップを準備中です。登場するゲストをお楽しみに。",
+  },
   rundown: {
     comingSoon: "Rundownは近日公開です。もう少しお待ちください。",
+    emptyTitle: "タイムテーブルは近日公開",
+    emptyDescription: "スケジュールは現在準備中です。もうしばらくお待ちください。",
     nothingYet: "まだ情報はありません。",
     finish: "終了",
   },

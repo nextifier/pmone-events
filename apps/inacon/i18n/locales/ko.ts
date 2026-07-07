@@ -67,9 +67,10 @@ export default {
   hero: {
     countdownLabel: "시작까지:",
     subHeadline: "인도네시아 최대 애니메이션 & 팝컬처 페스티벌",
-    title: "애니메 팬이 모이는 이틀, 여기서 만나요!",
+    title: "애니메 팬이 모이는 곳, 여기서 만나요!",
     description:
       "해외 게스트, 한정판 굿즈, 코스프레, 게임 대회, 그리고 나랑 같은 팬 수천 명. 오타쿠라면 빠질 수 없는 축제예요.",
+    datesTba: "일정과 장소는 곧 공개돼요.",
     ctaTicket: "티켓 구매",
     ctaExhibit: "참가 신청",
     playRecap: "하이라이트 보기",
@@ -108,7 +109,7 @@ export default {
     },
   },
   visitorCta: {
-    title: "애니메, 코스프레, 팝컬처로 가득한 이틀",
+    title: "애니메, 코스프레, 팝컬처로 가득한 축제",
     description:
       "{appName}이 돌아왔어요! 스페셜 게스트, 무대 공연, 코스프레 퍼레이드, 한정 굿즈까지. 올해도 빠질 수 없죠. 지금 바로 티켓 확보하세요!",
     cta: "티켓 받기",
@@ -248,7 +249,7 @@ export default {
     guests: {
       title: "게스트",
       description:
-        "{appName}의 게스트 라인업을 확인하세요! 성우, 아티스트, 크리에이터 등 자카르타에 오는 스페셜 게스트를 소개해요.",
+        "{appName}의 게스트 라인업을 확인하세요! 성우, 아티스트, 크리에이터 등 현장에서 만날 스페셜 게스트를 소개해요.",
     },
     brands: {
       title: "브랜드",

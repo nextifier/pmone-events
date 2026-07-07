@@ -43,9 +43,10 @@ export default {
   hero: {
     countdownLabel: "Countdown dimulai:",
     subHeadline: "Festival Anime & Pop Culture Terbesar di Indonesia",
-    title: "Dunia Anime Kamu, Satu Tempat, Dua Hari!",
+    title: "Dunia Anime Kamu, Semua di Satu Tempat!",
     description:
       "Guest internasional, cosplay kece, exclusive merch, artist alley, dan ribuan fans yang satu frekuensi sama kamu. Ini bukan cuma event, ini rumah kamu.",
+    datesTba: "Tanggal dan venue akan segera diumumkan.",
     ctaTicket: "Beli Tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",
@@ -85,7 +86,7 @@ export default {
     },
   },
   visitorCta: {
-    title: "Dua Hari Penuh Anime, Cosplay, dan Keseruan",
+    title: "Anime, Cosplay, dan Keseruan Tanpa Henti",
     description:
       "{appName} hadir kembali! Guest istimewa, panggung seru, cosplay parade, dan masih banyak lagi. Amankan tiket kamu sebelum kehabisan.",
     cta: "Beli Tiket",
@@ -227,7 +228,7 @@ export default {
     guests: {
       title: "Guests",
       description:
-        "Cek lineup guest spesial {appName}! Dari selebriti, voice actor, sampai ikon industri anime yang akan hadir di Jakarta.",
+        "Cek lineup guest spesial {appName}! Dari selebriti, voice actor, sampai ikon industri anime yang akan hadir.",
     },
     brands: {
       title: "Brands",

@@ -27,12 +27,29 @@
     </div>
 
     <!-- Empty -->
-    <div
+    <EmptyState
       v-else-if="!data?.data?.length"
-      class="text-muted-foreground mt-8 flex justify-center text-sm tracking-tight"
+      class="mt-10"
+      :title="$t('guests.emptyTitle', 'Guests coming soon')"
+      :description="
+        $t(
+          'guests.emptyDescription',
+          'We\'re still locking in the lineup. Check back soon to see who\'s joining.',
+        )
+      "
     >
-      {{ $t("guests.comingSoon", $t("ui.comingSoon")) }}
-    </div>
+      <template #image>
+        <GuestListEmptyStateImage />
+      </template>
+      <template v-if="instagramUrl" #actions>
+        <Button as-child variant="outline">
+          <NuxtLink :to="instagramUrl" target="_blank" rel="noopener">
+            <Icon name="hugeicons:instagram" class="size-4 shrink-0" />
+            {{ $t("ui.followInstagram", "Follow us on Instagram") }}
+          </NuxtLink>
+        </Button>
+      </template>
+    </EmptyState>
 
     <!-- Featured -->
     <template v-else>
@@ -68,6 +85,8 @@ const appConfig = useAppConfig();
 
 const { data, pending, error } = await useGuests();
 
+const instagramUrl = useInstagramUrl();
+
 const isGuestProject = computed(() => {
   const username = (appConfig.app as any).projectUsername || (appConfig.app as any).dataSourceUsername;
   return username === "icc" || username === "inacon";
@@ -79,7 +98,11 @@ const pageTitle = computed(() => {
 });
 
 const pageDescription = computed(() => {
-  if (te("pages.guests.description")) return t("pages.guests.description");
+  if (te("pages.guests.description")) {
+    return t("pages.guests.description", {
+      appName: (appConfig.app as any).name,
+    });
+  }
   return "";
 });
 

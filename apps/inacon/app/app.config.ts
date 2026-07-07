@@ -253,33 +253,4 @@ export default defineAppConfig({
       },
     ],
   },
-
-  theme: {
-    accentColorOptions: [
-      {
-        name: "pink",
-        hue: "350",
-        background: "oklch(59.2% 0.249 0.584)",
-        foreground: "oklch(100% 0 0)",
-      },
-      {
-        name: "purple",
-        hue: "306",
-        background: "oklch(54.1% 0.281 293.009)",
-        foreground: "oklch(100% 0 0)",
-      },
-      {
-        name: "cyan",
-        hue: "200",
-        background: "oklch(60.9% 0.126 221.723)",
-        foreground: "oklch(100% 0 0)",
-      },
-      {
-        name: "yellow",
-        hue: "106",
-        background: "oklch(85.2% 0.199 91.936)",
-        foreground: "oklch(0% 0 0)",
-      },
-    ],
-  },
 });
