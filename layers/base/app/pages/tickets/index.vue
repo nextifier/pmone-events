@@ -335,9 +335,23 @@ import TicketList from "../../components/tickets/TicketList.vue";
 const projectSettings = useProjectSettings();
 const tabSettings = computed(() => projectSettings.ticketTabs);
 
+/**
+ * The event header is worth showing on its own when the active event carries
+ * real details (date, venue, or poster). The full-page coming-soon state is
+ * reserved for placeholder events with none of those - a real event with
+ * unopened ticket sales keeps the regular shell, and <TicketList> shows its
+ * own in-tab empty state.
+ */
+const eventHasDetails = computed(() =>
+  Boolean(
+    event.startTime || event.location || event.hall || event.posterImage,
+  ),
+);
+
 const showComingSoon = computed(
   () =>
     tabSettings.value.showTickets &&
+    !eventHasDetails.value &&
     !route.query.invite &&
     !route.query.code &&
     !cart.accessCode &&

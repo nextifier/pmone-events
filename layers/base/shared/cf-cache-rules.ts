@@ -16,7 +16,10 @@
 
 export const HTML_TTL = "public, max-age=0, s-maxage=300"; // 5 min edge
 export const HTML_TTL_LONG = "public, max-age=0, s-maxage=900"; // 15 min edge
-export const API_TTL = "public, max-age=60, s-maxage=300";
+// max-age=0: the browser cache is the one layer no invalidation can reach, so
+// admin edits would sit behind it for its full lifetime. The edge (2 min) +
+// Nitro swr (1 min) layers still shield the origin from request bursts.
+export const API_TTL = "public, max-age=0, s-maxage=120";
 // Admin-toggled settings must propagate fast: no browser cache, 1 min edge.
 export const API_TTL_SHORT = "public, max-age=0, s-maxage=60";
 

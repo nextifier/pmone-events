@@ -42,7 +42,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-blog-posts",
-    maxAge: 300,
+    maxAge: 60,
     swr: true,
     getKey: (event) => {
       const q = getQuery(event);

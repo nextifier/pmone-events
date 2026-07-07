@@ -69,7 +69,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-programs",
-    maxAge: 300,
+    maxAge: 60,
     swr: true,
     getKey: (event) => `l:${(getQuery(event).locale as string) || "en"}`,
   },
