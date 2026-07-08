@@ -8,6 +8,7 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const token = getRouterParam(event, "token");
+  const locale = (getQuery(event).locale as string) || "en";
 
   const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
   const apiKey = (config as any).pmOneApiKey;
@@ -17,6 +18,8 @@ export default defineEventHandler(async (event) => {
       `${baseUrl}/api/public/ticket-orders/magic/${token}`,
       {
         headers: { "X-API-Key": apiKey },
+        // Forward the locale so registration field labels come back localized.
+        query: { locale },
       }
     );
   } catch (err: any) {

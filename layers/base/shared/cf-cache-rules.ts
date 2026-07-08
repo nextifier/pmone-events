@@ -49,6 +49,10 @@ export const CACHED_HTML_PREFIX: Record<string, string> = {
   "/news/": HTML_TTL,
   "/brands/": HTML_TTL,
   "/guests/": HTML_TTL,
+  // Public embeddable forms. The SSR shell is identical per slug+locale
+  // (prefill + duplicate check are client-side after mount), so edge-caching
+  // it is safe like /news/*.
+  "/forms/": HTML_TTL,
 };
 
 // Exact-path global rules (no locale expansion): public GET API proxies +
@@ -80,6 +84,11 @@ export const CACHED_GLOBAL_PREFIX: Record<string, string> = {
   "/api/event/rundown/": API_TTL,
   "/api/blog/posts/": API_TTL,
   "/api/exhibitors/": API_TTL,
+  // Public form endpoints: only the GET show route is cacheable. submit +
+  // upload are POST/DELETE (skipped - plugin only touches GET) and /check
+  // self-sets `private, no-store`. WARNING: any NEW per-user GET added under
+  // /api/forms/ MUST self-set no-store, or this prefix rule will edge-cache it.
+  "/api/forms/": API_TTL_SHORT,
   "/__sitemap__/": "public, max-age=600, s-maxage=3600",
 };
 

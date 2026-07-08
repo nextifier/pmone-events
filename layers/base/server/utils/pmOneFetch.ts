@@ -50,8 +50,12 @@ export async function pmOneFetch<T = any>(
     throw createError({
       statusCode: error.response?.status || 500,
       message:
+        error.data?.message ||
         error.message ||
         (opts.errorPrefix ? `${opts.errorPrefix} failed` : "Upstream fetch failed"),
+      // Passthrough the upstream body so pages can map 422 field errors, read a
+      // form's closed_message on 403, etc.
+      data: error.data,
     });
   } finally {
     clearTimeout(timeoutId);

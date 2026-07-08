@@ -316,6 +316,31 @@ export default {
       "dashboardError": "Could not open the dashboard. Please try again.",
       "pendingTitle": "Awaiting payment",
       "pendingNote": "This ticket will be available once your payment is confirmed."
+    },
+    "registration": {
+      "heading": "Registration details",
+      "subtitle": "Tell us a bit more to complete your registration.",
+      "othersNote": "Other attendees can fill in their details from their ticket links after checkout.",
+      "attendeeHeading": "Registration details",
+      "progress": "{done} of {total} answered",
+      "saved": "Registration saved"
     }
+  },
+  "forms": {
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "uploadingFiles": "Uploading files...",
+    "emailLabel": "Email",
+    "notFoundTitle": "Form not found",
+    "notFoundMessage": "This form does not exist or is no longer available.",
+    "closedTitle": "Form unavailable",
+    "closedMessage": "This form is not accepting responses right now.",
+    "errorTitle": "Something went wrong",
+    "errorMessage": "We couldn't load this form. Please try again later.",
+    "successTitle": "Thank you",
+    "successMessage": "Your response has been recorded.",
+    "alreadyTitle": "You're all set",
+    "alreadyMessage": "We've received your response. This form only accepts one submission per person.",
+    "submitFailed": "Failed to submit the form. Please try again."
   }
 };

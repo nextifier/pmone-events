@@ -135,6 +135,48 @@
           </Button>
         </div>
       </div>
+
+      <!-- Registration details (event's active ticket_registration fields) -->
+      <div v-if="registrationFields.length" class="frame">
+        <Collapsible v-model:open="regOpen" class="frame-panel">
+          <CollapsibleTrigger
+            class="flex w-full items-center justify-between gap-2 text-left"
+          >
+            <span class="text-foreground text-sm font-medium tracking-tight">
+              {{ t("tickets.registration.attendeeHeading") }}
+            </span>
+            <span class="flex items-center gap-2">
+              <span class="text-muted-foreground text-xs tracking-tight tabular-nums">
+                {{ t("tickets.registration.progress", regProgress) }}
+              </span>
+              <Icon
+                name="hugeicons:arrow-down-01"
+                class="text-muted-foreground size-4 shrink-0 transition-transform"
+                :class="regOpen ? 'rotate-180' : ''"
+              />
+            </span>
+          </CollapsibleTrigger>
+          <CollapsibleContent class="space-y-4 pt-4">
+            <CustomFieldGroup
+              v-model="regDraft"
+              :fields="registrationFields"
+              :errors="regErrors"
+              error-prefix="registration."
+              :locale="locale"
+              :disabled="attendee.is_checked_in"
+            />
+            <Button
+              type="button"
+              class="w-full"
+              :disabled="attendee.is_checked_in || regSaving"
+              @click="saveRegistration"
+            >
+              <Icon v-if="regSaving" name="svg-spinners:180-ring" class="size-4 shrink-0" />
+              <span>{{ regSaving ? t("tickets.attendee.saving") : t("tickets.attendee.save") }}</span>
+            </Button>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
     </template>
   </div>
 </template>
@@ -146,6 +188,12 @@ import { Label } from "../../components/ui/label";
 import { InputPhone } from "../../components/ui/input-phone";
 import { FieldError } from "../../components/ui/field";
 import { Skeleton } from "../../components/ui/skeleton";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../../components/ui/collapsible";
+import { CustomFieldGroup, isEmptyValue } from "../../components/ui/custom-field";
 import ETicket from "../../components/tickets/ETicket.vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 import { toast } from "vue-sonner";
@@ -155,18 +203,25 @@ definePageMeta({
   noFooter: true,
 });
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const route = useRoute();
 const ulid = computed(() => route.params.attendeeUlid);
 
 const { data, pending, refresh } = await useLazyAsyncData(
   () => `attendee-${ulid.value}`,
-  () => $fetch(`/api/tickets/attendees/${ulid.value}`).catch(() => null)
+  () =>
+    $fetch(`/api/tickets/attendees/${ulid.value}`, {
+      query: { locale: locale.value },
+    }).catch(() => null)
 );
 
 const attendee = computed(() => data.value?.data ?? null);
 const orderInfo = computed(() => data.value?.order ?? null);
 const eventTitle = computed(() => data.value?.event?.title ?? "");
+
+// Registration questions the holder can still answer, empty when the event has
+// none - so existing e-tickets render unchanged.
+const registrationFields = computed(() => data.value?.registration_fields ?? []);
 
 // The backend withholds qr_token until the order is confirmed, so a missing
 // token on a loaded attendee means the ticket is still awaiting payment.
@@ -199,6 +254,40 @@ usePageMeta(null, {
 const form = reactive({ name: "", email: "", phone: "" });
 const errors = ref({});
 const saving = ref(false);
+
+// Registration answers (keyed by field ulid), its own draft + save state.
+const regDraft = ref({});
+const regOpen = ref(false);
+const regErrors = ref({});
+const regSaving = ref(false);
+let regSeeded = false;
+
+const regProgress = computed(() => {
+  const done = registrationFields.value.filter(
+    (f) => !isEmptyValue(regDraft.value[f.ulid])
+  ).length;
+  return { done, total: registrationFields.value.length };
+});
+
+async function saveRegistration() {
+  if (attendee.value?.is_checked_in) return;
+  regSaving.value = true;
+  regErrors.value = {};
+  try {
+    await $fetch(`/api/tickets/attendees/${ulid.value}`, {
+      method: "PATCH",
+      body: { registration: regDraft.value },
+    });
+    toast.success(t("tickets.registration.saved"));
+    await refresh();
+  } catch (err) {
+    const body = err?.data || {};
+    regErrors.value = body.errors || body.data?.errors || {};
+    toast.error(body.message || body.data?.message || t("tickets.attendee.saveError"));
+  } finally {
+    regSaving.value = false;
+  }
+}
 
 const dashboardLoading = ref(false);
 const signingIn = ref(false);
@@ -249,6 +338,10 @@ watch(
       form.name = a.name || "";
       form.phone = a.phone || "";
       form.email = a.email || "";
+    }
+    if (a && !regSeeded) {
+      regDraft.value = { ...(a.registration_answers || {}) };
+      regSeeded = true;
     }
   },
   { immediate: true }

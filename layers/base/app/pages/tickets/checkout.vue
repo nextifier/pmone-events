@@ -7,7 +7,11 @@ import { FieldError } from "../../components/ui/field";
 import { InputPhone } from "../../components/ui/input-phone";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import DialogResponsive from "../../components/ui/dialog-responsive/DialogResponsive.vue";
-import CustomFieldRenderer from "../../components/CustomFieldRenderer.vue";
+import {
+  CustomFieldRenderer,
+  CustomFieldGroup,
+  isEmptyValue,
+} from "../../components/ui/custom-field";
 import TicketCartSummary from "../../components/tickets/TicketCartSummary.vue";
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { computed, onMounted, ref, watch } from "vue";
@@ -106,6 +110,63 @@ const customFieldsLoading = ref(false);
 const customFieldsLoaded = ref(false);
 const bmResponses = ref({});
 const bmErrors = ref({});
+
+// --- Registration details (event's active ticket_registration fields) ---
+const registrationFields = ref([]);
+const registrationLoaded = ref(false);
+const regResponses = ref({});
+const regErrors = ref({});
+
+const hasRegistrationFields = computed(() => registrationFields.value.length > 0);
+// The buyer answers for their own ticket; extra attendees fill their own from
+// their ticket links after checkout.
+const showRegistrationOthersNote = computed(() => cart.count > 1);
+
+// Fail-soft: an old API (404) or an event with no fields ([]) simply hides the
+// whole section, leaving the pre-existing checkout untouched.
+async function loadRegistrationFields() {
+  if (!eventSlug.value) return;
+  try {
+    const res = await $fetch(`/api/tickets/${eventSlug.value}/registration-fields`, {
+      query: { locale: locale.value },
+    });
+    registrationFields.value = (res?.data ?? res ?? []).filter((f) => f.is_active);
+  } catch {
+    registrationFields.value = [];
+  } finally {
+    registrationLoaded.value = true;
+  }
+}
+
+onMounted(loadRegistrationFields);
+// Re-fetch so field labels re-localize when the visitor switches language.
+watch(locale, loadRegistrationFields);
+
+function validateRegistration() {
+  regErrors.value = {};
+  if (!hasRegistrationFields.value) return true;
+  let ok = true;
+  for (const field of registrationFields.value) {
+    const required = field.validation?.required ?? field.required;
+    if (!required) continue;
+    if (isEmptyValue(regResponses.value[field.ulid])) {
+      regErrors.value[`registration.responses.${field.ulid}`] = t("tickets.fieldRequired");
+      ok = false;
+    }
+  }
+  return ok;
+}
+
+function buildRegistrationPayload() {
+  const responses = {};
+  for (const field of registrationFields.value) {
+    const value = regResponses.value[field.ulid];
+    if (!isEmptyValue(value)) {
+      responses[field.ulid] = value;
+    }
+  }
+  return { responses };
+}
 
 // Pre-fill the buyer's contact details on reload, mirroring how the cart already
 // persists to localStorage. We deliberately do NOT persist the T&C consent (it
@@ -268,6 +329,10 @@ const summaryRef = ref(null);
 
 async function submit() {
   if (!canSubmit.value) return;
+  if (!validateRegistration()) {
+    toast.error(t("tickets.fieldRequired"));
+    return;
+  }
   if (!validateBusinessMatching()) {
     toast.error(t("tickets.fieldRequired"));
     return;
@@ -292,6 +357,12 @@ async function submit() {
     business_matching: buildBusinessMatchingPayload(),
   };
 
+  // Registration answers are keyed by field ulid; only added when the event has
+  // active registration fields, so the pre-existing payload shape is unchanged.
+  if (hasRegistrationFields.value) {
+    payload.registration = buildRegistrationPayload();
+  }
+
   const promo = (summaryRef.value?.appliedPromo || form.value.promo_code || "").trim();
   if (promo) payload.promo_code = promo;
 
@@ -315,6 +386,13 @@ async function submit() {
   } catch (err) {
     const body = err?.data || {};
     errors.value = body.errors || body.data?.errors || {};
+    // Split `registration.responses.{ulid}` keys out so the CustomFieldGroup can
+    // show them inline against the right field.
+    regErrors.value = Object.fromEntries(
+      Object.entries(errors.value).filter(([key]) =>
+        key.startsWith("registration.responses.")
+      )
+    );
     const message =
       body.message || body.data?.message || t("tickets.submitError");
     toast.error(message);
@@ -401,6 +479,31 @@ const termsOpen = ref(false);
           </div>
         </section>
 
+        <!-- Registration details (event's active ticket_registration fields) -->
+        <section v-if="hasRegistrationFields" class="frame">
+          <div class="frame-header">
+            <div class="frame-title">{{ t("tickets.registration.heading") }}</div>
+            <p class="text-muted-foreground mt-1 text-xs tracking-tight sm:text-sm">
+              {{ t("tickets.registration.subtitle") }}
+            </p>
+          </div>
+          <div class="frame-panel space-y-4">
+            <p
+              v-if="showRegistrationOthersNote"
+              class="text-muted-foreground bg-muted/50 rounded-md px-3 py-2 text-xs tracking-tight sm:text-sm"
+            >
+              {{ t("tickets.registration.othersNote") }}
+            </p>
+            <CustomFieldGroup
+              v-model="regResponses"
+              :fields="registrationFields"
+              :errors="regErrors"
+              error-prefix="registration.responses."
+              :locale="locale"
+            />
+          </div>
+        </section>
+
         <!-- Connect with exhibitors (only when the event has custom fields) -->
         <section v-if="hasCustomFields" class="frame">
           <div class="frame-header">
@@ -437,6 +540,7 @@ const termsOpen = ref(false);
                 v-else
                 :key="field.id"
                 :field="field"
+                :locale="locale"
                 :model-value="bmResponses[field.id]"
                 :error="bmErrors[field.id]"
                 @update:model-value="(v) => (bmResponses[field.id] = v)"

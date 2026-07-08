@@ -162,6 +162,55 @@
               </Button>
             </div>
 
+            <!-- Registration details (event's active ticket_registration fields) -->
+            <Collapsible
+              v-if="registrationFields.length"
+              v-model:open="regOpen[att.ulid]"
+              class="border-t pt-3"
+            >
+              <CollapsibleTrigger
+                class="flex w-full items-center justify-between gap-2 text-left"
+              >
+                <span class="text-foreground text-sm font-medium tracking-tight">
+                  {{ t("tickets.registration.attendeeHeading") }}
+                </span>
+                <span class="flex items-center gap-2">
+                  <span class="text-muted-foreground text-xs tracking-tight tabular-nums">
+                    {{ t("tickets.registration.progress", regProgress(att)) }}
+                  </span>
+                  <Icon
+                    name="hugeicons:arrow-down-01"
+                    class="text-muted-foreground size-4 shrink-0 transition-transform"
+                    :class="regOpen[att.ulid] ? 'rotate-180' : ''"
+                  />
+                </span>
+              </CollapsibleTrigger>
+              <CollapsibleContent class="space-y-4 pt-4">
+                <CustomFieldGroup
+                  :model-value="regDrafts[att.ulid] || {}"
+                  :fields="registrationFields"
+                  :errors="regErrorsById[att.ulid] || {}"
+                  error-prefix="registration."
+                  :locale="locale"
+                  :disabled="att.is_checked_in"
+                  @update:model-value="(v) => (regDrafts[att.ulid] = v)"
+                />
+                <Button
+                  type="button"
+                  size="sm"
+                  :disabled="att.is_checked_in || regSavingId === att.ulid"
+                  @click="saveRegistration(att)"
+                >
+                  <Icon
+                    v-if="regSavingId === att.ulid"
+                    name="svg-spinners:180-ring"
+                    class="size-4 shrink-0"
+                  />
+                  {{ t("tickets.manage.save") }}
+                </Button>
+              </CollapsibleContent>
+            </Collapsible>
+
             <div class="flex flex-wrap items-center gap-2 border-t pt-3">
               <Button type="button" variant="outline" size="sm" @click="copyLink(att)">
                 <Icon name="hugeicons:link-01" class="size-4 shrink-0" />
@@ -189,6 +238,12 @@ import { Textarea } from "../../../components/ui/textarea";
 import { Label } from "../../../components/ui/label";
 import { FieldError } from "../../../components/ui/field";
 import { Skeleton } from "../../../components/ui/skeleton";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../../../components/ui/collapsible";
+import { CustomFieldGroup, isEmptyValue } from "../../../components/ui/custom-field";
 import { computed, reactive, ref, watch } from "vue";
 import { toast } from "vue-sonner";
 
@@ -197,17 +252,29 @@ definePageMeta({
   noFooter: true,
 });
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const route = useRoute();
 const config = useRuntimeConfig();
 const token = computed(() => route.params.token);
 
 const { data, pending, refresh } = await useLazyAsyncData(
   () => `ticket-order-${token.value}`,
-  () => $fetch(`/api/tickets/orders/magic/${token.value}`).catch(() => null)
+  () =>
+    $fetch(`/api/tickets/orders/magic/${token.value}`, {
+      query: { locale: locale.value },
+    }).catch(() => null)
 );
 
 const order = computed(() => data.value?.data ?? null);
+
+// Registration questions + each attendee's saved answers (keyed by attendee
+// ulid), empty when the event has none - so existing orders render unchanged.
+const registrationFields = computed(
+  () => data.value?.meta?.registration_fields ?? []
+);
+const registrationAnswers = computed(
+  () => data.value?.meta?.registration_answers ?? {}
+);
 
 usePageMeta(null, {
   title: computed(() => `${t("tickets.manage.title")} · ${order.value?.order_number ?? ""}`),
@@ -217,6 +284,12 @@ const nameDrafts = reactive({});
 const errorsById = reactive({});
 const savingId = ref(null);
 
+// Per-attendee registration drafts, open state, errors, and in-flight save.
+const regDrafts = reactive({});
+const regOpen = reactive({});
+const regErrorsById = reactive({});
+const regSavingId = ref(null);
+
 watch(
   order,
   (o) => {
@@ -224,10 +297,40 @@ watch(
       if (nameDrafts[att.ulid] === undefined) {
         nameDrafts[att.ulid] = att.name || "";
       }
+      if (regDrafts[att.ulid] === undefined) {
+        regDrafts[att.ulid] = { ...(registrationAnswers.value[att.ulid] || {}) };
+      }
     }
   },
   { immediate: true }
 );
+
+function regProgress(att) {
+  const fields = registrationFields.value;
+  const draft = regDrafts[att.ulid] || {};
+  const done = fields.filter((f) => !isEmptyValue(draft[f.ulid])).length;
+  return { done, total: fields.length };
+}
+
+async function saveRegistration(att) {
+  if (att.is_checked_in) return;
+  regSavingId.value = att.ulid;
+  regErrorsById[att.ulid] = {};
+  try {
+    await $fetch(`/api/tickets/attendees/${att.ulid}`, {
+      method: "PATCH",
+      body: { registration: regDrafts[att.ulid] || {} },
+    });
+    toast.success(t("tickets.registration.saved"));
+    await refresh();
+  } catch (err) {
+    const body = err?.data || {};
+    regErrorsById[att.ulid] = body.errors || body.data?.errors || {};
+    toast.error(body.message || body.data?.message || t("tickets.manage.saveError"));
+  } finally {
+    regSavingId.value = null;
+  }
+}
 
 async function save(att) {
   const name = nameDrafts[att.ulid]?.trim();

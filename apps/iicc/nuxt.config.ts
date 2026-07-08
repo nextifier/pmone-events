@@ -98,6 +98,24 @@ export default defineNuxtConfig({
     },
   },
 
+  // This app exposes only /, /contact, /terms, /privacy and /hotels/* (see the
+  // `pages:extend` filter above). The base cf-cache module prerenders the full
+  // STATIC_PAGES list, so every static page this app dropped must be skipped.
+  // Otherwise nitro prerenders a route that 404s and hard-fails the build.
+  // Keep this list in sync with the `pages:extend` allowlist.
+  cfCache: {
+    skipStaticPages: [
+      "/event-policy",
+      "/help-center",
+      "/ticket-terms-and-conditions",
+      "/ticket-refund-and-return-policy",
+      "/media-partner-registration",
+      "/sponsorship-registration",
+      "/book-space",
+      "/winner",
+    ],
+  },
+
   pwa: {
     manifest: {
       name: "The 9th Indonesia International Cocoa Conference & Dinner",

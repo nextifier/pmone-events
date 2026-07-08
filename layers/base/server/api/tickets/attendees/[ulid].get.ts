@@ -8,6 +8,7 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const ulid = getRouterParam(event, "ulid");
+  const locale = (getQuery(event).locale as string) || "en";
 
   const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
   const apiKey = (config as any).pmOneApiKey;
@@ -15,6 +16,8 @@ export default defineEventHandler(async (event) => {
   try {
     return await $fetch(`${baseUrl}/api/public/attendees/${ulid}`, {
       headers: { "X-API-Key": apiKey },
+      // Forward the locale so registration field labels come back localized.
+      query: { locale },
     });
   } catch (err: any) {
     throw createError({
