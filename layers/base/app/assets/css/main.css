@@ -9,6 +9,7 @@
    @apply token utilities, so component shape composes with the appearance
    tokens (Base Color / Theme / Radius). A style is ALWAYS active. ========== */
 @import "./styles/style-mono.css" layer(base); /* ← ACTIVE (default) */
+/* @import "./styles/_base.css" layer(base); */ /* shared cn-* for non-mono styles; uncomment together with any style below */
 /* @import "./styles/style-vega.css" layer(base); */
 /* @import "./styles/style-nova.css" layer(base); */
 /* @import "./styles/style-maia.css" layer(base); */
