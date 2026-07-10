@@ -40,9 +40,9 @@
           <div
             class="lg:no-scrollbar flex flex-col items-center py-0 text-center *:shrink-0 lg:sticky lg:top-24 lg:col-span-6 lg:max-h-[calc(100dvh-6rem)] lg:items-start lg:self-start lg:overflow-y-auto lg:text-left"
           >
-            <!-- Avatar (opens the logo; Instagram gradient frame when present) -->
+            <!-- Avatar (opens the profile image; Instagram gradient frame when present) -->
             <Lightbox
-              v-if="brand.brand_logo"
+              v-if="brand.profile_image ?? brand.brand_logo"
               :items="logoLightboxItems"
               fullKey="xl"
               :show-thumbnails="false"
@@ -57,7 +57,7 @@
                   <Avatar
                     :model="{
                       name: brand.brand_name,
-                      profile_image: brand.brand_logo,
+                      profile_image: brand.profile_image ?? brand.brand_logo,
                     }"
                     size="xl"
                     class="size-28 sm:size-32 lg:size-36"
@@ -73,7 +73,7 @@
               v-else
               :model="{
                 name: brand.brand_name,
-                profile_image: brand.brand_logo,
+                profile_image: brand.profile_image ?? brand.brand_logo,
               }"
               size="xl"
               class="size-28 sm:size-32 lg:size-36"
@@ -200,7 +200,7 @@
                     <Avatar
                       :model="{
                         name: brand.brand_name,
-                        profile_image: brand.brand_logo,
+                        profile_image: brand.profile_image ?? brand.brand_logo,
                       }"
                       size="sm"
                       class="size-9"
@@ -438,7 +438,22 @@ const formatCurrencyValue = (value, key) => {
 
 const customFields = computed(() => {
   const fields = brand.value?.custom_fields;
-  if (!fields || typeof fields !== "object") return [];
+  if (!fields) return [];
+
+  // Current API shape: array of { key, label, value } formatted server-side.
+  if (Array.isArray(fields)) {
+    return fields
+      .filter((f) => f && f.value != null && f.value !== "")
+      .map((f) => ({
+        key: f.key,
+        label: f.label || humanizeKey(f.key),
+        // Compact rupiah for currency-shaped values; everything else stays as-is.
+        value: formatCurrencyValue(f.value, f.key),
+      }));
+  }
+
+  // Legacy object shape { key: value } (kept for backward compatibility).
+  if (typeof fields !== "object") return [];
   return Object.entries(fields)
     .filter(
       ([, value]) => value !== null && value !== undefined && value !== "",
@@ -446,7 +461,6 @@ const customFields = computed(() => {
     .map(([key, value]) => ({
       key,
       label: humanizeKey(key),
-      // Compact rupiah for currency-shaped values; everything else stays as-is.
       value: formatCurrencyValue(value, key),
     }));
 });
@@ -494,10 +508,11 @@ const router = useRouter();
 
 // --- Design-specific derived state ---
 
-// Single-item Lightbox for the brand logo.
-const logoLightboxItems = computed(() =>
-  brand.value?.brand_logo ? [brand.value.brand_logo] : [],
-);
+// Single-item Lightbox for the brand avatar (profile image).
+const logoLightboxItems = computed(() => {
+  const image = brand.value?.profile_image ?? brand.value?.brand_logo;
+  return image ? [image] : [];
+});
 
 // Promotion posts that actually carry images (the only ones we render).
 const postsWithImages = computed(

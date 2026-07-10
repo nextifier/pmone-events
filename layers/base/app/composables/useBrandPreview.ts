@@ -18,6 +18,7 @@ const PREVIEW_MAX = 36;
 interface BrandPreviewItem {
   slug?: string;
   brand_name?: string;
+  profile_image?: unknown;
   brand_logo?: unknown;
   business_categories?: string[];
   score?: number;
@@ -49,7 +50,7 @@ export function useBrandPreview() {
     const list = data.value?.data ?? [];
     return list
       .filter((b) => {
-        const logo = b.brand_logo;
+        const logo = b.profile_image ?? b.brand_logo;
         if (!logo) return false;
         if (Array.isArray(logo)) return logo.length > 0;
         if (typeof logo === "object") return Object.keys(logo).length > 0;

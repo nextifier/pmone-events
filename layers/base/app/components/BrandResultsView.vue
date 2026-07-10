@@ -203,7 +203,7 @@ const brandNameCell = (ctx) => {
       () => [
         h("div", { class: "flex items-center gap-x-3" }, [
           h(AvatarComp, {
-            model: { name: b.brand_name, profile_image: b.brand_logo },
+            model: { name: b.brand_name, profile_image: b.profile_image ?? b.brand_logo },
             class: "size-10 shrink-0",
             rounded: "rounded-full",
             colorful: false,

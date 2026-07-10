@@ -12,7 +12,7 @@
       <Avatar
         :model="{
           name: brand.brand_name,
-          profile_image: brand.brand_logo,
+          profile_image: brand.profile_image ?? brand.brand_logo,
         }"
         class="size-16"
         rounded="rounded-full"

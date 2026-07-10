@@ -47,7 +47,7 @@
             <Avatar
               :model="{
                 name: brand.brand_name,
-                profile_image: brand.brand_logo,
+                profile_image: brand.profile_image ?? brand.brand_logo,
               }"
               class="size-16 transition-transform duration-300 group-hover:scale-105"
               rounded="rounded-full"
