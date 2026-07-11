@@ -1,5 +1,5 @@
 <template>
-  <section id="visitor-cta">
+  <section v-if="content" id="visitor-cta">
     <div class="container">
       <div
         class="flex flex-col gap-x-6 gap-y-16 lg:flex-row lg:items-start lg:justify-between xl:gap-x-8"
@@ -13,29 +13,29 @@
           <div
             class="relative isolate w-full [clip-path:inset(-100%_0_0_-100%)]"
             :class="
-              content.img.src.endsWith('.png')
+              content?.img?.src?.endsWith('.png')
                 ? ''
                 : 'aspect-square sm:aspect-auto'
             "
           >
             <NuxtImg
-              :src="content.img.src"
+              :src="content?.img?.src"
               alt=""
               class="pointer-events-none relative z-10 size-full rounded-3xl select-none"
               :class="
-                content.img.src.endsWith('.png')
+                content?.img?.src?.endsWith('.png')
                   ? 'origin-bottom-right scale-110 object-contain'
                   : 'object-cover'
               "
               sizes="100vw lg:1600px"
-              :width="content.img.width"
-              :height="content.img.height"
+              :width="content?.img?.width"
+              :height="content?.img?.height"
               loading="lazy"
               format="webp"
             />
             <div
               class="border-foreground/5 dark:border-primary/10 bg-pattern-diagonal absolute inset-x-0 bottom-0 z-0 rounded-3xl border [--pattern-fg:var(--color-primary)]/5 dark:[--pattern-fg:var(--color-primary)]/10"
-              :class="content.img.src.endsWith('.png') ? 'h-[90%]' : 'h-full'"
+              :class="content?.img?.src?.endsWith('.png') ? 'h-[90%]' : 'h-full'"
             ></div>
 
             <div
@@ -93,11 +93,11 @@
 
             <div class="xs:w-auto mt-6 flex w-full items-center gap-2">
               <NuxtLink
-                :to="lp(content.cta.url)"
-                :target="content.cta.url.startsWith('http') ? '_blank' : ''"
+                :to="lp(content?.cta?.url || '#')"
+                :target="content?.cta?.url?.startsWith('http') ? '_blank' : ''"
                 class="bg-primary text-primary-foreground hover:bg-primary/80 xs:grow-0 rainbow-button flex grow items-center justify-center gap-x-1.5 rounded-xl px-5 py-3 text-base font-medium tracking-tight transition active:scale-95 sm:text-lg"
               >
-                <span>{{ content.cta.label }}</span>
+                <span>{{ content?.cta?.label }}</span>
               </NuxtLink>
             </div>
           </div>
@@ -107,7 +107,7 @@
           v-if="banners.length"
           ref="bannersRef"
           class="grid shrink-0 grid-cols-1 gap-y-8"
-          :class="content.img.src.endsWith('.png') ? 'lg:mt-[10%]' : ''"
+          :class="content?.img?.src?.endsWith('.png') ? 'lg:mt-[10%]' : ''"
         >
           <div
             v-for="(banner, index) in banners"
@@ -181,7 +181,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const localePath = useLocalePath();
 const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 
-const content = computed(() => useContentStore().components.visitorCta);
+const content = computed(() => useContentStore().components.visitorCta ?? null);
 const event = useEvent();
 
 // Cross-promo banners now come from PM One (ProjectBanner, placement=visitor-cta)

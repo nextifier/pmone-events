@@ -1,5 +1,5 @@
 <template>
-  <section class="media-coverages">
+  <section v-if="content" class="media-coverages">
     <div class="container">
       <h2 class="section-title">{{ content.title }}</h2>
 
@@ -75,7 +75,7 @@
 const localePath = useLocalePath();
 const { data: mediaCoverageData } = await useMediaCoverages();
 const news = computed(() => mediaCoverageData.value?.data ?? []);
-const content = computed(() => useContentStore().components.mediaCoverage);
+const content = computed(() => useContentStore().components.mediaCoverage ?? null);
 
 // Source edition when the press items were borrowed from a previous event.
 const fallbackSource = computed(() => {

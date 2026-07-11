@@ -1,7 +1,7 @@
 <template>
   <section
     id="main-programs"
-    v-if="list.length"
+    v-if="content && list.length"
     class="overflow-hidden"
   >
     <div class="container">
@@ -40,7 +40,7 @@
 const route = useRoute();
 const { locale } = useI18n();
 
-const content = computed(() => useContentStore().components.mainPrograms);
+const content = computed(() => useContentStore().components.mainPrograms ?? null);
 
 // Program items are managed in PM One and fetched per active event + locale.
 // The section heading (title/description) still comes from i18n.
