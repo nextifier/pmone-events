@@ -102,6 +102,10 @@ const acceptTerms = ref(false);
 
 const errors = ref({});
 const submitting = ref(false);
+// Stable per-checkout-attempt key so a lost-response retry (or a corrected
+// resubmit after a validation error) dedupes against the backend instead of
+// creating a duplicate order. Reset once an order is successfully created.
+const idempotencyKey = ref(null);
 
 // --- Business matching (only shown when the event has active custom fields) ---
 const businessMatching = ref(false);
@@ -370,11 +374,15 @@ async function submit() {
   // any price effect). The backend re-validates + holds it authoritatively.
   if (cart.accessCode) payload.access_code = cart.accessCode;
 
+  if (!idempotencyKey.value) idempotencyKey.value = crypto.randomUUID();
+  payload.idempotency_key = idempotencyKey.value;
+
   try {
     const res = await $fetch("/api/tickets/orders", { method: "POST", body: payload });
     const data = res?.data ?? res;
 
     cart.clear();
+    idempotencyKey.value = null;
 
     // Hard redirects only: a client-side navigateTo races the page teardown
     // here, so use window.location for both the gateway and the result page.
