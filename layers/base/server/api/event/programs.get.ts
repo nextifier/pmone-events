@@ -19,6 +19,17 @@ export default defineCachedEventHandler(
 
       const baseOpts = { headers, signal: controller.signal };
 
+      // Resolve to null ONLY when the upstream says "no such resource" (404).
+      // Any other failure (network, 5xx, timeout/abort) must propagate so
+      // Nitro does not cache an empty 200 and the edge does not pin a blank
+      // page for this handler's swr window.
+      const orNullIf404 = (err: any) => {
+        if (err?.response?.status === 404 || err?.statusCode === 404) {
+          return null;
+        }
+        throw err;
+      };
+
       // Resolve event slug. Prefer the project's active event; fall back to the
       // most recent event by start_date so programs still render even when no
       // event is currently flagged is_active=true. Only when neither exists do we
@@ -27,7 +38,7 @@ export default defineCachedEventHandler(
       const active = await $fetch<{ data: { slug: string } }>(
         `${config.public.apiUrl}/api/public/projects/${username}/events/active`,
         baseOpts,
-      ).catch(() => null);
+      ).catch(orNullIf404);
 
       let eventSlug = active?.data?.slug;
 
@@ -35,7 +46,7 @@ export default defineCachedEventHandler(
         const latest = await $fetch<{ data: Array<{ slug: string }> }>(
           `${config.public.apiUrl}/api/public/projects/${username}/events`,
           { ...baseOpts, query: { per_page: 1, sort: "-start_date" } },
-        ).catch(() => null);
+        ).catch(orNullIf404);
         eventSlug = latest?.data?.[0]?.slug;
       }
 
