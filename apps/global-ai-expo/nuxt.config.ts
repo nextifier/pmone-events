@@ -34,8 +34,11 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
+  // TODO(plan 015): no real GA4 measurement id available for this app yet.
+  // The production site currently has no analytics. Get a GA4 property id
+  // from the operator, then enable:
   // gtag: {
-  //   tags: [{ id: "G-PLACEHOLDER" }],
+  //   tags: [{ id: "G-XXXXXXXXXX" }],
   // },
 
   i18n: {

@@ -171,6 +171,11 @@ export default {
   "factsAndFigures": {
     "subtitle": "Facts & Figures",
     "title": "Why Keramika Indonesia Leads the Industry",
+    // TODO(plan 015): "21 editions" is inherited from Megabuild's copy
+    // (Megabuild has run 21 editions; Keramika's real edition count is
+    // unverified here). Confirm the correct number with the event owner
+    // before publishing - do not guess. See
+    // plans/015-content-contract-and-campx-500.md.
     "description": "The facts & figures gathered from 21 editions are testament to the powerful platform that Keramika Indonesia has provided for thousands of businesses to grow.",
     "stats": {
       "visitors": {

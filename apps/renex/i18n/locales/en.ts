@@ -158,7 +158,7 @@ export default {
     "edition": "{n}{ordinal} edition"
   },
   "trustedBy": {
-    "title": "Trusted by Leading Brands at Megabuild Indonesia"
+    "title": "Trusted by Leading Brands at Renex"
   },
   "mainPrograms": {
     "title": "<span class='text-outline'>Main</span> <span class='text-accent'>Programs</span>",
@@ -166,8 +166,8 @@ export default {
   },
   "factsAndFigures": {
     "subtitle": "Facts & Figures",
-    "title": "Why Megabuild Indonesia Leads the Industry",
-    "description": "The facts & figures gathered from 21 editions are testament to the powerful platform that Megabuild Indonesia has provided for thousands of businesses to grow.",
+    "title": "Why Renex Leads the Industry",
+    "description": "The facts & figures gathered from 21 editions are testament to the powerful platform that Renex has provided for thousands of businesses to grow.",
     "stats": {
       "visitors": {
         "label": "Total Visitors",
