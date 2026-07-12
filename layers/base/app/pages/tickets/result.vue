@@ -13,12 +13,23 @@
       <Skeleton class="h-64 w-full rounded-xl" />
     </div>
 
-    <div
-      v-else-if="!order"
-      class="text-muted-foreground rounded-md border border-dashed py-12 text-center text-sm tracking-tight"
-    >
-      {{ t("tickets.result.orderNotFound") }}
-    </div>
+    <Empty v-else-if="!order" class="mx-auto max-w-md py-12">
+      <EmptyHeader>
+        <EmptyMedia variant="stacked">
+          <Icon
+            name="hugeicons:invoice-03"
+            class="text-muted-foreground size-6 shrink-0"
+          />
+        </EmptyMedia>
+        <EmptyTitle>{{ t("tickets.result.orderNotFound") }}</EmptyTitle>
+      </EmptyHeader>
+      <Button as-child variant="outline">
+        <NuxtLink :to="localePath('/tickets')">
+          <Icon name="hugeicons:arrow-left-01" class="size-4 shrink-0" />
+          {{ t("tickets.backToTickets") }}
+        </NuxtLink>
+      </Button>
+    </Empty>
 
     <template v-else>
       <!-- Hero -->
@@ -79,6 +90,31 @@
             <Icon name="svg-spinners:180-ring" class="size-3.5 shrink-0" />
             {{ t("tickets.result.autoUpdating") }}
           </p>
+        </div>
+      </div>
+
+      <!-- Preparing payment: the checkout link is still being generated -->
+      <div v-else-if="isPending && !magicToken" class="frame">
+        <div class="frame-header">
+          <div class="frame-title">{{ t("tickets.result.preparingPayment") }}</div>
+        </div>
+        <div class="frame-panel space-y-3">
+          <p
+            v-if="!checkoutTimedOut"
+            class="text-muted-foreground flex items-center gap-1.5 text-sm tracking-tight"
+          >
+            <Icon name="svg-spinners:180-ring" class="size-4 shrink-0" />
+            {{ t("tickets.result.preparingPaymentDescription") }}
+          </p>
+          <template v-else>
+            <p class="text-sm tracking-tight">
+              {{ t("tickets.result.preparingPaymentSlow") }}
+            </p>
+            <Button type="button" variant="outline" :disabled="pending" @click="refresh()">
+              <Spinner v-if="pending" class="size-4" />
+              {{ t("tickets.result.checkAgain") }}
+            </Button>
+          </template>
         </div>
       </div>
 
@@ -192,6 +228,12 @@
 <script setup>
 import { Badge } from "../../components/ui/badge";
 import { Button } from "../../components/ui/button";
+import {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "../../components/ui/empty";
 import { Skeleton } from "../../components/ui/skeleton";
 import { Spinner } from "../../components/ui/spinner";
 import ETicket from "../../components/tickets/ETicket.vue";
@@ -297,7 +339,14 @@ const heroTitle = computed(() => {
 
 const heroDescription = computed(() => {
   if (isConfirmed.value) return t("tickets.result.confirmedDescription");
-  if (isPending.value) return t("tickets.result.pendingDescription");
+  if (isPending.value) {
+    // Arrived via magic link => the buyer came back from the gateway (or the
+    // emailed link), so their payment is genuinely being confirmed.
+    if (magicToken.value) return t("tickets.result.pendingDescription");
+    // Fresh from checkout: the link is either ready (pay now) or still generating.
+    if (order.value?.payment_url) return t("tickets.result.awaitingPaymentDescription");
+    return t("tickets.result.preparingPaymentDescription");
+  }
   return t("tickets.result.receivedDescription");
 });
 
@@ -305,6 +354,10 @@ const heroDescription = computed(() => {
 // webhook lands (mirror hotels/success.vue).
 const pollTimer = ref(null);
 const isPolling = ref(false);
+// Set once the payment link is still not ready after ~15s of polling, so the
+// preparing state can offer a "taking longer than usual" hint + manual retry
+// instead of leaving the buyer on a silent spinner (slow or failed checkout job).
+const checkoutTimedOut = ref(false);
 onMounted(() => {
   if (isConfirmed.value) return;
   let attempts = 0;
@@ -312,6 +365,14 @@ onMounted(() => {
   pollTimer.value = setInterval(async () => {
     attempts += 1;
     await refresh();
+    if (
+      isPending.value &&
+      !order.value?.payment_url &&
+      !magicToken.value &&
+      attempts >= 5
+    ) {
+      checkoutTimedOut.value = true;
+    }
     if (isConfirmed.value || attempts >= 10) {
       clearInterval(pollTimer.value);
       pollTimer.value = null;

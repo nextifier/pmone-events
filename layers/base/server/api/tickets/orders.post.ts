@@ -9,7 +9,16 @@ export default defineEventHandler(async (event) => {
   // it): lets the backend redirect the buyer back to THIS event website after
   // payment instead of a single global frontend. Validated against an allowlist
   // server-side. Mirrors `hotels/book.post.ts`.
-  const siteUrl = (config.public as any).siteUrl;
+  //
+  // In production this is the canonical `siteUrl`. In dev the app's `siteUrl` is
+  // baked to the production domain, so the post-payment bounce would land on prod
+  // (where a locally-created order does not exist -> "Order not found"). Use the
+  // real request origin (e.g. http://localhost:3001) in dev so the buyer returns
+  // to THIS dev site instead.
+  const siteUrl =
+    process.env.NODE_ENV === "production"
+      ? (config.public as any).siteUrl
+      : getRequestURL(event).origin;
   if (siteUrl) {
     body.origin = siteUrl;
   }
