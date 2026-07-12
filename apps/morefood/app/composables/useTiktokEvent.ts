@@ -1,8 +1,22 @@
 export function useTiktokEvent() {
   const appConfig = useAppConfig();
+  const siteConfig = useSiteConfig();
   const route = useRoute();
 
+  // Resolve the SAME pixel id(s) analytics.client.ts loads: the dashboard-
+  // managed `site_config.analytics.tiktok_pixel` first, falling back to the
+  // baked `settings.tiktokPixelId`. Keeps the server-side Events API
+  // (`pixel_code`) firing to whichever pixel the client pixel was booted with,
+  // so changing the id in the dashboard never splits client vs server events.
   const pixelIds = computed(() => {
+    const dashboard = ([] as string[])
+      .concat((siteConfig.analytics as { tiktok_pixel?: string | string[] } | null)?.tiktok_pixel ?? [])
+      .filter(Boolean);
+
+    if (dashboard.length) {
+      return dashboard;
+    }
+
     return ([] as string[]).concat(appConfig.settings.tiktokPixelId).filter(Boolean);
   });
 

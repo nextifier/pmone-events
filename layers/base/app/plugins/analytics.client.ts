@@ -27,13 +27,12 @@
  *   from the baked one, that stale command would otherwise win once the
  *   script loads (the dashboard override would be silently ignored) - see
  *   the override-handling block in `initGa4()`.
- * - any app-specific TikTok pixel bootstrap that predates this plugin (e.g.
- *   `apps/morefood/app/plugins/tiktok-pixel.client.js`, which has no
- *   idempotency guard of its own), so the `window.ttq` presence check in
- *   `initTikTokPixel()` reliably detects it and this plugin never injects a
- *   second pixel load / duplicate pageview for that app. (That app keeps
- *   tracking via its own legacy plugin; it does not yet gain the dashboard
- *   override for TikTok until that plugin is retired - out of scope here.)
+ * - any app-specific TikTok pixel bootstrap. morefood's legacy
+ *   `tiktok-pixel.client.js` has now been retired so its TikTok pixel flows
+ *   through this unified plugin (dashboard `tiktok_pixel` first, baked
+ *   `settings.tiktokPixelId` fallback) like every other channel; the
+ *   `window.ttq` presence check in `initTikTokPixel()` stays as a defensive
+ *   guard so any future per-app pixel bootstrap can never cause a double load.
  */
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook("app:mounted", () => {
@@ -144,9 +143,8 @@ function initTikTokPixel(nuxtApp: ReturnType<typeof useNuxtApp>): void {
     return;
   }
 
-  // Standard TikTok pixel bootstrap (verbatim from TikTok's own snippet -
-  // mirrors apps/morefood/app/plugins/tiktok-pixel.client.js, the one
-  // existing per-app copy of this code).
+  // Standard TikTok pixel bootstrap (verbatim from TikTok's own snippet - this
+  // is now the single copy, having replaced morefood's retired per-app plugin).
   const w = window as any;
   const d = document;
   const t = "ttq";

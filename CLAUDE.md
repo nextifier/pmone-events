@@ -104,6 +104,20 @@ defineAppConfig({
 })
 ```
 
+### Config precedence: dashboard overrides baked (fail-open)
+
+Since the PM One integration, several baked values are ALSO manageable from the
+PM One dashboard, stored in `projects.settings.website_settings.site_config`
+(nav, analytics, appearance, identity) or dedicated tables (legal pages, SEO
+copy). At runtime the **dashboard value wins when set; the baked
+`app.config.ts` / `nuxt.config.ts` value is the fail-open fallback** used only
+when the dashboard has nothing saved (or PM One is unreachable). So there is a
+single effective source of truth per field - the baked value is the safety net,
+not a competing config. If you edit a baked value and see no change on the live
+site, check the dashboard for an override. Analytics ids resolve from each
+site's OWN project (see the App ↔ PM One Project Map below and
+`layers/base/server/api/event/website-settings.get.ts`).
+
 ## 11 Events Overview
 
 | App | Domain | Color Mode | Unique Features |
