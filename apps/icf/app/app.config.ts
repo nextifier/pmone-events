@@ -1,7 +1,10 @@
 const app = {
   name: "Indonesia Coffee Festival (ICF)",
   shortName: "ICF",
+  // Binds to PM One project "icf" (Indonesia Coffee Festival). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "icf",
+  // Content + nav come from "cbe" (Cafe & Brasserie Expo); analytics/identity stay on this project.
+  // Content + nav come from "cbe" (Cafe & Brasserie Expo); analytics/identity stay on this project.
   dataSourceUsername: "cbe",
   url: "https://indocoffeefestival.com",
   company: {

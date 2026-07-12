@@ -1,6 +1,7 @@
 const app = {
   name: "Global AI Expo",
   shortName: "Global AI Expo",
+  // Binds to PM One project "globalaiexpo" (Global AI Expo). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "globalaiexpo",
   url: "https://global-ai-expo.pages.dev",
   company: {

@@ -1,6 +1,7 @@
 const app = {
   name: "Indonesia Anime Con (INACON)",
   shortName: "INACON",
+  // Binds to PM One project "inacon" (Indonesia Anime Con). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "inacon",
   url: "https://indonesiaanimecon.com",
   company: {

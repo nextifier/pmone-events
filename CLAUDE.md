@@ -125,6 +125,38 @@ defineAppConfig({
 - **cafeexpo + icf + cokelatexpo**: Share design language (AnimatedShapes, AccentRandomLetters, KVPatterns), each has logos of sibling events. Custom font: Sink.woff2
 - **icc + inacon**: Share guest system, cosplay event pages (special-show, meet-and-greet, workshop, raya-championship-of-cosplay, portfolio-review), AccentColorSwitcher. Both need GSAP plugin.
 
+## App ↔ PM One Project Map (authoritative)
+
+The app **folder name** (and its `@events/<folder>` package) is descriptive; the
+PM One **project username** it binds to is a short slug and often DIFFERS. Always
+resolve a project via this table - never guess from the folder name (e.g. folder
+`cafeexpo` is project `cbe`, not "cafeexpo").
+
+- **projectUsername** = where this app's OWN config resolves: analytics, identity, website settings.
+- **dataSourceUsername** (when set) = where CONTENT (posts/brands/tickets) + nav come from - a co-located sibling sharing another event's data pool. Analytics still resolves from `projectUsername` (see `layers/base/server/api/event/website-settings.get.ts`).
+
+| App folder (`@events/…`) | projectUsername | dataSource | GA4 (baked = seeded) | PM One project name |
+|---|---|---|---|---|
+| cafeexpo | **cbe** | - | G-896FDXSRSL | Cafe & Brasserie Expo |
+| cokelatexpo | **cei** | cbe | G-9KLJTWG6QF | Cokelat Expo Indonesia |
+| icf | icf | cbe | G-YFZVWEFRHF | Indonesia Coffee Festival |
+| iicc | **askindo** | - | G-Y96T5YPS3H | ASKINDO |
+| outingexpo | **ioe** | - | G-RMZ65GCEJV | Indonesia Outing & Incentive Travel Expo |
+| panorama-events | **pe** | - | G-343DPRDD5M | Panorama Events |
+| panorama-media | **pm** | - | G-4ZNWF3G5DM | Panorama Media |
+| global-ai-expo | globalaiexpo | - | (none yet — placeholder) | Global AI Expo |
+| megabuild | megabuild | - | G-2PJCW7S32V | Megabuild Indonesia |
+| renex | renex | - | G-2PJCW7S32V (shares megabuild's) | Renovation Expo |
+| keramika | keramika | - | G-1V56RJ2Q78 | Keramika Indonesia |
+| flei | flei | - | G-VQ61WCGV98 | Franchise & License Expo Indonesia |
+| morefood | morefood | - | G-4STNHTGXQQ (+ TikTok) | More Food Expo |
+| icc | icc | - | G-JCGZGZQZ56 | Indonesia Comic Con |
+| inacon | inacon | - | G-QH16B87QEK | Indonesia Anime Con |
+| campx | campx | - | G-QH1BX5M3WH | CampX |
+
+**Bold** projectUsername = folder name differs from the slug (easy to misread).
+cokelatexpo & icf draw their data from **cbe** but keep their own analytics/GA4.
+
 ## Backend API Integration
 
 Runtime config di base layer:

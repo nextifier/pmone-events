@@ -1,6 +1,7 @@
 const app = {
   name: "Indonesia Outing & Incentive Travel Expo (IOITE)",
   shortName: "IOITE",
+  // Binds to PM One project "ioe" (Indonesia Outing & Incentive Travel Expo). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "ioe",
   url: "https://indooutingexpo.co.id",
   company: {

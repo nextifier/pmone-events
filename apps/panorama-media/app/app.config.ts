@@ -3,6 +3,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const app = {
   name: "Panorama Media",
   shortName: "Panorama Media",
+  // Binds to PM One project "pm" (Panorama Media). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "pm",
   url: "https://panoramamedia.co.id",
   company: {

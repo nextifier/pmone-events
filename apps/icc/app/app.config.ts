@@ -1,6 +1,7 @@
 const app = {
   name: "Indonesia Comic Con (ICC)",
   shortName: "ICC",
+  // Binds to PM One project "icc" (Indonesia Comic Con). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "icc",
   url: "https://indonesiacomiccon.com",
   company: {

@@ -1,6 +1,7 @@
 const app = {
   name: "Renovation Expo",
   shortName: "RENEX",
+  // Binds to PM One project "renex" (Renovation Expo). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "renex",
   url: "https://renex.megabuild.co.id",
   company: {
