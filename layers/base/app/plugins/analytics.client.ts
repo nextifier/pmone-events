@@ -8,6 +8,12 @@
  * they simply do nothing when the dashboard has not configured an id - no
  * fallback to resolve.
  *
+ * Every id field accepts a single id OR a list of ids (`null | string |
+ * string[]`, normalized by `toIds()`): multiple GA4 properties, several Meta
+ * or TikTok pixels, and multiple GTM containers all fire together. For GA4 the
+ * dashboard list overrides the baked id(s) as a whole (else falls back to the
+ * baked GA4 ids); for TikTok the dashboard list overrides the baked pixel(s).
+ *
  * Deferred to the `app:mounted` hook (not run inline in `setup()`, mirroring
  * `hashScroll.client.ts` / `appearanceStylePrune.client.ts`) so this always
  * runs *after* every other client plugin has finished, specifically:
@@ -54,42 +60,72 @@ export default defineNuxtPlugin((nuxtApp) => {
   });
 });
 
+/**
+ * Normalizes a dashboard analytics value (null | string | string[]) into a
+ * clean, de-duplicated list of trimmed non-empty id strings. Every id field
+ * supports one or many ids (multi-property GA4, multi-pixel Meta/TikTok,
+ * multi-container GTM), so all four init functions route through this.
+ */
+function toIds(raw: unknown): string[] {
+  const list = ([] as unknown[])
+    .concat(raw ?? [])
+    .filter((v): v is string => typeof v === "string" && v.trim() !== "")
+    .map((v) => v.trim());
+
+  return [...new Set(list)];
+}
+
 function initGa4(): void {
   const siteConfig = useSiteConfig();
   const gtagOptions = useRuntimeConfig().public.gtag as
     | { id?: string; tags?: Array<string | { id?: string }> }
     | undefined;
 
-  const firstTag = gtagOptions?.tags?.[0];
-  const bakedGa4 =
-    gtagOptions?.id ||
-    (typeof firstTag === "string" ? firstTag : firstTag?.id) ||
-    null;
+  const bakedTagIds = toIds([
+    gtagOptions?.id,
+    ...(gtagOptions?.tags ?? []).map((t) => (typeof t === "string" ? t : t?.id)),
+  ]);
+  // Only GA4 measurement ids (G-...) take part in the dashboard override /
+  // fallback. Any other statically-configured tag some apps ship - e.g. flei's
+  // Google Ads `AW-16673311348` - is left exactly as nuxt-gtag queued it.
+  const bakedGa4Ids = bakedTagIds.filter((id) => id.startsWith("G-"));
 
-  const ga4 = siteConfig.analytics?.ga4 || bakedGa4 || null;
-  if (!ga4) {
+  const dashboardGa4Ids = toIds(siteConfig.analytics?.ga4);
+  const ga4Ids = dashboardGa4Ids.length ? dashboardGa4Ids : bakedGa4Ids;
+  if (!ga4Ids.length) {
     return;
   }
 
   const { gtag, initialize } = useGtag();
 
-  if (bakedGa4 && ga4 !== bakedGa4 && Array.isArray((window as any).dataLayer)) {
-    // Dashboard override differs from the baked id: drop the stale `config`
-    // command nuxt-gtag already queued for the baked id at boot, then push
-    // the resolved id ourselves. Scoped to just that one entry (not a full
-    // dataLayer reset) so a second static tag some apps ship - e.g. flei's
-    // Google Ads `AW-16673311348` alongside its GA4 id - is left untouched.
-    (window as any).dataLayer = (window as any).dataLayer.filter(
-      (entry: any) => !(entry?.[0] === "config" && entry?.[1] === bakedGa4),
-    );
-    gtag("config", ga4, {});
+  if (dashboardGa4Ids.length && Array.isArray((window as any).dataLayer)) {
+    // Dashboard overrides the baked GA4 id(s): drop the stale `config` commands
+    // nuxt-gtag already queued at boot for baked GA4 ids that are no longer
+    // wanted, leaving non-GA4 static tags (Ads etc.) untouched.
+    const stale = bakedGa4Ids.filter((id) => !ga4Ids.includes(id));
+    if (stale.length) {
+      (window as any).dataLayer = (window as any).dataLayer.filter(
+        (entry: any) => !(entry?.[0] === "config" && stale.includes(entry?.[1])),
+      );
+    }
   }
 
-  // `initialize()` is a no-op past this point for the id-already-queued
-  // case above (dataLayer already has the right `config` command); its own
-  // `document.head.querySelector('script[data-gtag]')` guard still ensures
-  // the gtag.js `<script>` is only ever injected once.
-  initialize(ga4);
+  // Queue a `config` command for every resolved id that nuxt-gtag has not
+  // already configured at boot (the baked case) - no double-count.
+  const configured = new Set(
+    (Array.isArray((window as any).dataLayer) ? (window as any).dataLayer : [])
+      .filter((entry: any) => entry?.[0] === "config")
+      .map((entry: any) => entry?.[1]),
+  );
+  for (const id of ga4Ids) {
+    if (!configured.has(id)) {
+      gtag("config", id, {});
+    }
+  }
+
+  // Loads the gtag.js `<script>` exactly once (nuxt-gtag's own
+  // `script[data-gtag]` guard); a single library load serves every property.
+  initialize(ga4Ids[0]);
 }
 
 function initTikTokPixel(nuxtApp: ReturnType<typeof useNuxtApp>): void {
@@ -100,8 +136,10 @@ function initTikTokPixel(nuxtApp: ReturnType<typeof useNuxtApp>): void {
   const siteConfig = useSiteConfig();
   const appConfig = useAppConfig();
 
-  const raw = siteConfig.analytics?.tiktok_pixel || appConfig.settings?.tiktokPixelId;
-  const pixelIds = ([] as string[]).concat(raw as string | string[]).filter(Boolean);
+  const dashboardIds = toIds(siteConfig.analytics?.tiktok_pixel);
+  const pixelIds = dashboardIds.length
+    ? dashboardIds
+    : toIds(appConfig.settings?.tiktokPixelId);
   if (!pixelIds.length) {
     return;
   }
@@ -179,17 +217,15 @@ function initTikTokPixel(nuxtApp: ReturnType<typeof useNuxtApp>): void {
 }
 
 function initMetaPixel(): void {
-  if ((window as any).fbq) {
-    return; // already loaded by another plugin - do not inject a second bootstrap
-  }
-
   const siteConfig = useSiteConfig();
-  const pixelId = siteConfig.analytics?.meta_pixel;
-  if (!pixelId) {
+  const pixelIds = toIds(siteConfig.analytics?.meta_pixel);
+  if (!pixelIds.length) {
     return; // no baked fallback - new id, absent means do nothing
   }
 
-  // Standard Meta Pixel bootstrap (verbatim from Meta's own snippet).
+  // Standard Meta Pixel bootstrap (verbatim from Meta's own snippet). The IIFE
+  // self-guards via `if (f.fbq) return`, so it is safe to call even when fbq
+  // already exists - Meta supports several pixels via repeated `fbq('init')`.
   (function (f: any, b: Document, e: string, v: string, n?: any, t?: any, s?: any) {
     if (f.fbq) {
       return;
@@ -212,31 +248,36 @@ function initMetaPixel(): void {
   })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
 
   const fbq = (window as any).fbq;
-  fbq("init", pixelId);
+  for (const id of pixelIds) {
+    fbq("init", id);
+  }
+  // A single PageView fans out to every initialized pixel.
   fbq("track", "PageView");
 }
 
 function initGtm(): void {
   const siteConfig = useSiteConfig();
-  const gtmId = siteConfig.analytics?.gtm;
-  if (!gtmId) {
+  const gtmIds = toIds(siteConfig.analytics?.gtm);
+  if (!gtmIds.length) {
     return; // no baked fallback - new id, absent means do nothing
   }
 
-  if ((window as any).google_tag_manager?.[gtmId]) {
-    return; // container already loaded - do not inject a second one
-  }
+  for (const gtmId of gtmIds) {
+    if ((window as any).google_tag_manager?.[gtmId]) {
+      continue; // container already loaded - do not inject a second one
+    }
 
-  // Standard GTM container bootstrap (verbatim from Google Tag Manager's own
-  // snippet).
-  (function (w: any, d: Document, s: string, l: string, i: string) {
-    w[l] = w[l] || [];
-    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-    const f = d.getElementsByTagName(s)[0];
-    const j = d.createElement(s) as HTMLScriptElement;
-    const dl = l !== "dataLayer" ? `&l=${l}` : "";
-    j.async = true;
-    j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
-    f?.parentNode?.insertBefore(j, f);
-  })(window, document, "script", "dataLayer", gtmId);
+    // Standard GTM container bootstrap (verbatim from Google Tag Manager's own
+    // snippet). Multiple containers share the one `dataLayer`.
+    (function (w: any, d: Document, s: string, l: string, i: string) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      const f = d.getElementsByTagName(s)[0];
+      const j = d.createElement(s) as HTMLScriptElement;
+      const dl = l !== "dataLayer" ? `&l=${l}` : "";
+      j.async = true;
+      j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
+      f?.parentNode?.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", gtmId);
+  }
 }
