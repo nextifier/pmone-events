@@ -1,9 +1,12 @@
 /**
- * Initializes GA4 and the TikTok pixel from the dashboard-managed
- * `site_config.analytics` block (PM One plan 009), falling back to each
- * app's baked nuxt-gtag id / `app.config` `tiktokPixelId` when the dashboard
- * has not configured a value - fail-open, per `docs/site-config-contract.md`
- * rule 2.
+ * Initializes GA4, the TikTok pixel, the Meta (Facebook) pixel, and Google
+ * Tag Manager from the dashboard-managed `site_config.analytics` block (PM
+ * One plans 009 + meta_pixel/gtm follow-up), falling back to each app's
+ * baked nuxt-gtag id / `app.config` `tiktokPixelId` when the dashboard has
+ * not configured a value - fail-open, per `docs/site-config-contract.md`
+ * rule 2. The Meta pixel and GTM are new (no legacy baked equivalent), so
+ * they simply do nothing when the dashboard has not configured an id - no
+ * fallback to resolve.
  *
  * Deferred to the `app:mounted` hook (not run inline in `setup()`, mirroring
  * `hashScroll.client.ts` / `appearanceStylePrune.client.ts`) so this always
@@ -35,6 +38,16 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     try {
       initTikTokPixel(nuxtApp);
+    } catch {
+      /* third-party analytics must never break the app */
+    }
+    try {
+      initMetaPixel();
+    } catch {
+      /* third-party analytics must never break the app */
+    }
+    try {
+      initGtm();
     } catch {
       /* third-party analytics must never break the app */
     }
@@ -163,4 +176,67 @@ function initTikTokPixel(nuxtApp: ReturnType<typeof useNuxtApp>): void {
   nuxtApp.hook("page:finish", () => {
     ttq.page();
   });
+}
+
+function initMetaPixel(): void {
+  if ((window as any).fbq) {
+    return; // already loaded by another plugin - do not inject a second bootstrap
+  }
+
+  const siteConfig = useSiteConfig();
+  const pixelId = siteConfig.analytics?.meta_pixel;
+  if (!pixelId) {
+    return; // no baked fallback - new id, absent means do nothing
+  }
+
+  // Standard Meta Pixel bootstrap (verbatim from Meta's own snippet).
+  (function (f: any, b: Document, e: string, v: string, n?: any, t?: any, s?: any) {
+    if (f.fbq) {
+      return;
+    }
+    n = f.fbq = function (...args: unknown[]) {
+      n.callMethod ? n.callMethod.apply(n, args) : n.queue.push(args);
+    };
+    if (!f._fbq) {
+      f._fbq = n;
+    }
+    n.push = n;
+    n.loaded = true;
+    n.version = "2.0";
+    n.queue = [];
+    t = b.createElement(e);
+    t.async = true;
+    t.src = v;
+    s = b.getElementsByTagName(e)[0];
+    s.parentNode?.insertBefore(t, s);
+  })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+
+  const fbq = (window as any).fbq;
+  fbq("init", pixelId);
+  fbq("track", "PageView");
+}
+
+function initGtm(): void {
+  const siteConfig = useSiteConfig();
+  const gtmId = siteConfig.analytics?.gtm;
+  if (!gtmId) {
+    return; // no baked fallback - new id, absent means do nothing
+  }
+
+  if ((window as any).google_tag_manager?.[gtmId]) {
+    return; // container already loaded - do not inject a second one
+  }
+
+  // Standard GTM container bootstrap (verbatim from Google Tag Manager's own
+  // snippet).
+  (function (w: any, d: Document, s: string, l: string, i: string) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    const f = d.getElementsByTagName(s)[0];
+    const j = d.createElement(s) as HTMLScriptElement;
+    const dl = l !== "dataLayer" ? `&l=${l}` : "";
+    j.async = true;
+    j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
+    f?.parentNode?.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", gtmId);
 }
