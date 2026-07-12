@@ -81,6 +81,8 @@
               height="955"
               sizes="100vw sm:1000px"
               format="webp"
+              fetchpriority="high"
+              preload
             />
           </div>
         </div>

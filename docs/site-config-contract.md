@@ -71,3 +71,68 @@ Writing through `updateWebsiteSettings` already busts
 `ResponseCache::clear($project->settingsResponseCacheTags())` the same way, so
 the public payload never serves a stale `site_config` for the remainder of
 its 24h TTL. Cross-reference plan 013 (cache-invalidation hardening).
+
+## Perf regression gates (plan 029)
+
+Plan 029 (Core Web Vitals) is the measure-first companion to this contract: it
+established that the current baseline (image provider, font preload, OG
+caching - see plan 029 "Current state") is good and must not regress as
+008-012 move nav/analytics/appearance/identity/copy from baked config to the
+runtime `site_config` payload. These are the gates every one of those plans
+must pass before merge. A reviewer should run this checklist against the diff,
+not just read it.
+
+1. **SSR-rendered, never client-only.** View-source (or `curl` the page,
+   not `curl` the API) the migrated surface and confirm the nav links / copy /
+   appearance values are present in the raw server HTML. If a value only
+   appears after hydration, the migration violates Rule 3 - reject it.
+2. **No new network request.** Open the network panel (or grep the diff for a
+   new `useFetch`/`$fetch` call) and confirm config rides the existing
+   `useProjectSettingsData()` payload (Rule 1). A second round-trip for config
+   is an automatic reject regardless of how small it looks.
+3. **CLS ≈ 0 on the header/nav.** Load the page, let it fully hydrate, and
+   confirm no visible reflow of the header/nav/hero once the runtime value
+   resolves (Lighthouse CLS score on the migrated route, or manually toggle
+   the dashboard value and reload to see whether previously-cached HTML pops).
+   Concretely: **do not ship a nav/section toggle that follows the
+   `useHomeSection` "default-off" pattern**
+   (`layers/base/app/composables/useHomeSection.ts`) - that mode uses
+   `server: false, lazy: true`, so the section renders nothing during SSR and
+   only appears after a client-side fetch resolves post-hydration. It avoids a
+   hydration *mismatch* but not a post-load layout *shift*, and it is the
+   opposite of what Rule 3/Rule 4 require for nav/copy. If a migrated section
+   needs a hide/show toggle, use the "default-on, fail-open" mode
+   (`useProjectSettingsData()`, SSR-resolved) the same composable already
+   supports, or reserve space for the off state.
+4. **Analytics is client-only and deferred.** Confirm the analytics
+   init call still lives solely in
+   `layers/base/app/plugins/analytics.client.ts` (manual `initMode`,
+   `loadingStrategy: "defer"` in `layers/base/nuxt.config.ts:205-215`) and
+   that no migrated code path moves `gtag.js` init earlier or duplicates it -
+   double-init or an earlier init both cost main-thread time at first paint.
+5. **PageSpeed within the Step 1 baseline.** Run PageSpeed Insights /
+   Lighthouse (mobile + desktop) against the migrated route and diff LCP,
+   CLS, INP, TBT, FCP, TTFB against the plan 029 Step 1 baseline table for
+   that app. No metric may regress. **As of this writing the Step 1 baseline
+   has not been captured** (no production/browser access in this session) -
+   until it exists, this gate can only be checked structurally (gates 1-4);
+   treat any migration merged before the baseline exists as provisionally
+   gated and re-verify once real numbers land.
+
+### Known pre-existing patterns to not copy into the migration
+
+These are not caused by 008-012 and are out of scope to fix under plan 029
+(no measured baseline to justify the trade-off), but they are exactly the
+shape of bug the gates above exist to catch, so migrated code must not
+reproduce them:
+
+- **Text hidden until client JS (`SplitText3D`,
+  `layers/base/app/components/SplitText3D.vue`).** The component sets
+  `visibility: hidden` on its root until `onMounted` -> `document.fonts.ready`
+  -> GSAP `SplitText` all resolve client-side. Two hero H1s
+  (`apps/iicc/app/components/Hero.vue`, `apps/outingexpo/app/components/Hero.vue`)
+  wrap their headline in it, which removes the headline as a candidate LCP
+  element on first paint and hands LCP to whatever is visible instead (in both
+  cases, the hero image - now `fetchpriority="high"` + `preload`ed as of this
+  plan). Do not gate migrated copy behind a component with this pattern.
+- **`useHomeSection` "default-off" mode** - see gate 3 above.

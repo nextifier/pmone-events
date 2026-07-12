@@ -10,7 +10,7 @@
         class="hero-panel pointer-events-none relative z-10 w-full select-none transition-[filter] duration-700"
         width="1080"
         height="450"
-        size="400px sm:800px"
+        sizes="400px sm:800px"
         format="webp"
       />
       <NuxtImg
@@ -19,7 +19,7 @@
         class="hero-panel pointer-events-none relative z-10 w-full select-none transition-[filter] duration-700"
         width="1083"
         height="630"
-        size="400px sm:800px"
+        sizes="400px sm:800px"
         format="webp"
       />
       <NuxtImg
@@ -28,7 +28,7 @@
         class="hero-panel pointer-events-none relative z-10 w-full select-none transition-[filter] duration-700"
         width="1084"
         height="816"
-        size="400px sm:800px"
+        sizes="400px sm:800px"
         format="webp"
       />
       <NuxtImg
@@ -37,7 +37,7 @@
         class="hero-panel pointer-events-none relative z-10 w-full select-none transition-[filter] duration-700"
         width="1084"
         height="852"
-        size="400px sm:800px"
+        sizes="400px sm:800px"
         format="webp"
       />
     </div>
