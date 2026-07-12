@@ -24,4 +24,12 @@
 
 <script setup>
 const route = useRoute();
+
+// Dev-only loud signal for a missing content-store key (see
+// plans/015-content-contract-and-campx-500.md). No-ops in production.
+if (import.meta.dev) {
+  watch(() => route.name, () => checkContentContract(route.name), {
+    immediate: true,
+  });
+}
 </script>

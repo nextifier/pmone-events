@@ -46,7 +46,7 @@ export default {
     edition: "제{n}회",
   },
   trustedBy: {
-    title: "Megabuild Indonesia 참가 브랜드 실적",
+    title: "Renex 참가 브랜드 실적",
   },
   mainPrograms: {
     title:
@@ -58,7 +58,7 @@ export default {
     subtitle: "데이터로 보는 성과",
     title: "21회 개최, 수천 기업이 성장한 무대",
     description:
-      "21회에 걸친 개최 실적이 증명해요. Megabuild Indonesia는 수천 개 기업이 새로운 비즈니스 기회를 찾은 플랫폼이에요.",
+      "21회에 걸친 개최 실적이 증명해요. Renex는 수천 개 기업이 새로운 비즈니스 기회를 찾은 플랫폼이에요.",
     stats: {
       visitors: {
         label: "총 방문자",

@@ -1,5 +1,5 @@
 <template>
-  <section v-if="partners.length" id="credits">
+  <section v-if="content && partners.length" id="credits">
     <h2 class="section-title">{{ content.title }}</h2>
     <p class="mt-3 text-base tracking-tight text-pretty sm:text-lg">
       {{ content.description }}
@@ -82,7 +82,7 @@
 <script setup>
 import { NuxtLink } from "#components";
 const localePath = useLocalePath();
-const content = computed(() => useContentStore().components.credits);
+const content = computed(() => useContentStore().components.credits ?? null);
 
 // Partners are managed in PM One and fetched per active event (the server route
 // resolves active->latest and maps the API shape to this component's old shape).

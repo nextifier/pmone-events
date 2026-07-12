@@ -53,7 +53,7 @@ export default {
     edition: "第{n}届",
   },
   trustedBy: {
-    title: "Megabuild Indonesia 参展品牌实绩",
+    title: "Renex 参展品牌实绩",
   },
   mainPrograms: {
     title:
@@ -65,7 +65,7 @@ export default {
     subtitle: "数据与成果",
     title: "21 届办展，数千企业在此成长",
     description:
-      "21 届的积累说明一切。数千家企业在 Megabuild Indonesia 找到了新的商业机会。",
+      "21 届的积累说明一切。数千家企业在 Renex 找到了新的商业机会。",
     stats: {
       visitors: {
         label: "总访客数",

@@ -29,6 +29,10 @@ export default defineNuxtConfig({
   },
 
   gtag: {
+    // Intentionally shares megabuild's GA4 property (id matches
+    // apps/megabuild/nuxt.config.ts): renex.megabuild.co.id is a Megabuild
+    // Indonesia sub-brand on Megabuild's own subdomain, not an independent
+    // event site. See plans/015-content-contract-and-campx-500.md.
     tags: [{ id: "G-2PJCW7S32V" }],
   },
 
