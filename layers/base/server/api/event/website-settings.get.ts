@@ -10,18 +10,45 @@ export default defineCachedEventHandler(
     const timeoutId = setTimeout(() => controller.abort(), 3000);
 
     try {
-      const username =
-        appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
+      const dataSourceUsername = appConfig.app.dataSourceUsername;
+      const projectUsername = appConfig.app.projectUsername;
+      const username = dataSourceUsername || projectUsername;
 
       const headers = {
         "X-API-Key": config.pmOneApiKey,
         Accept: "application/json",
       };
 
-      const response = await $fetch(
+      const response: any = await $fetch(
         `${config.public.apiUrl}/api/public/projects/${username}/website-settings`,
         { headers, signal: controller.signal },
       );
+
+      // Sites that draw their CONTENT from another project
+      // (dataSourceUsername, e.g. cokelatexpo/icf sharing "cbe" = Cafe &
+      // Brasserie Expo) must still resolve their ANALYTICS from their OWN
+      // project so each co-located site tracks to its own GA4/pixels instead
+      // of the shared data-source project's. Override just the analytics block;
+      // nav/identity/home sections stay inherited from the data source. Fail
+      // open to null - the app then uses its baked nuxt.config gtag id - so a
+      // hiccup on this second call never mis-attributes to the wrong property.
+      if (
+        dataSourceUsername &&
+        projectUsername &&
+        dataSourceUsername !== projectUsername &&
+        response?.data?.settings?.site_config
+      ) {
+        try {
+          const own: any = await $fetch(
+            `${config.public.apiUrl}/api/public/projects/${projectUsername}/website-settings`,
+            { headers, signal: controller.signal },
+          );
+          response.data.settings.site_config.analytics =
+            own?.data?.settings?.site_config?.analytics ?? null;
+        } catch {
+          response.data.settings.site_config.analytics = null;
+        }
+      }
 
       return response;
     } catch (error: any) {
