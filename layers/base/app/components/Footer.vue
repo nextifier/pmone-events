@@ -61,7 +61,7 @@
         <span
           ><span class="hidden sm:inline">Copyright</span> ©
           {{ new Date().getFullYear() }}
-          {{ useAppConfig().app?.company?.name ?? useAppConfig().app?.name }}.
+          {{ companyName }}.
           All rights reserved.</span
         >
       </div>
@@ -82,4 +82,7 @@ const tLabel = (label) => {
 // Sourced from the dashboard-managed site_config.nav.footer (plan 008) when
 // saved, falling back to the baked app.config.ts routes.footer otherwise.
 const footerRoutes = useDynamicHeaderRoutes("footer");
+
+// Company name from the dashboard identity (plan 011), app.config fallback.
+const { companyName } = useCompanyIdentity();
 </script>

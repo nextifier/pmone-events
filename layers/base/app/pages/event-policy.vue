@@ -1,7 +1,10 @@
 <template>
   <div class="pt-6 pb-16 lg:pt-10 lg:pb-24">
     <div class="container">
-      <div class="format-html mx-auto">
+      <!-- Dashboard override (plan 011): sanitized/processed admin HTML. Falls
+        back to the baked body below so a legal page is NEVER empty. -->
+      <div v-if="overrideBody" class="format-html mx-auto" v-html="processedOverride" />
+      <div v-else class="format-html mx-auto">
         <h1>Event Policy</h1>
 
         <p>Last updated: {{ lastUpdate }}</p>
@@ -162,7 +165,16 @@ const localePath = useLocalePath();
 const config = useAppConfig();
 const event = useEvent();
 const eventTitle = computed(() => event.title);
-const companyName = config.app.company.name;
+
+// Company identity from the dashboard (plan 011), app.config fallback.
+const { companyName } = useCompanyIdentity();
+
+// Dashboard-managed body override (plan 011); processed like Posts render
+// TipTap HTML. Null override => baked body renders (fail-open).
+const { overrideBody } = useWebsitePage("event-policy");
+const { processedHtml: processedOverride } = useProcessedContent(
+  computed(() => overrideBody.value || ""),
+);
 // Contact email + WhatsApp + "last updated" date now come from PM One.
 const profile = useProjectProfile();
 const projectSettings = useProjectSettings();
