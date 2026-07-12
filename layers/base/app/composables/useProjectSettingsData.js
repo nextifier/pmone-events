@@ -1,41 +1,31 @@
 /**
  * Shared raw fetch for the PM One project website-settings payload. A single
- * useFetch keyed per-locale so the server plugin (which awaits it before any
- * page setup runs), `useProjectSettings`, `useSiteConfig`, and `usePageMeta`
- * all read the same asyncData entry for a given locale - never duplicate
- * requests within one render.
+ * useFetch keyed "project-settings" so the server plugin (which awaits it
+ * before any page setup runs), `useProjectSettings`, `useSiteConfig`, and
+ * `usePageMeta` all read the same asyncData entry - never duplicate requests.
  *
  * The server plugin guarantees the payload is resolved during SSR, which lets
  * `usePageMeta` decide synchronously between a real `og:image`/dashboard-copy
  * value from PM One and the generated Takumi card / baked content.js value.
  *
- * The `locale` query param (plan 012) only affects one sub-key of the
- * response - `site_config.copy` (dashboard SEO meta, translatable). Every
- * other sub-key (nav/analytics/appearance/identity/og_pages/home sections) is
- * locale-agnostic and returns identically regardless of the value sent here;
- * they simply ride along on the same already-awaited fetch, per the
- * zero-round-trip rule in docs/site-config-contract.md. Keying the fetch (and
- * the Nitro proxy's cache, see server/api/event/website-settings.get.ts) by
- * locale is required so `<title>`/description resolve correctly on the
- * server for the requested language - mirrors `useWebsitePage.ts`'s
- * per-locale key for the sibling `website-pages` endpoint.
- *
- * `watch: [locale]` is required, not just the per-locale `key`: this fetch is
- * first resolved once inside the `projectSettings` plugin at app boot, and a
- * client-side locale switch under `prefix_except_default` routing can reuse
- * the same page component instance (no remount, so composables do not
- * re-run) - without an explicit watch, `dashboardCopy` in `usePageMeta` would
- * keep serving the previous locale's value after such a switch. Mirrors
- * `useWebsitePage.ts`'s identical `watch: [locale]` for the same reason.
+ * Deliberately locale-agnostic - this must NOT call `useI18n()` or otherwise
+ * depend on the current locale. This composable is invoked from the
+ * `projectSettings` plugin's `setup()` (see app/plugins/projectSettings.ts),
+ * which runs before any page/component `setup()`; calling `useI18n()` there
+ * throws ("Must be called at the top of a setup function") because Nuxt/Vue's
+ * injection context isn't a component setup context inside a plugin. Every
+ * OTHER sub-key of this payload is already locale-agnostic (nav/analytics/
+ * appearance/identity/og_pages/home sections). `site_config.copy` (plan 012,
+ * dashboard-managed SEO meta) is the one locale-DEPENDENT sub-key - the
+ * backend resolves that by returning every saved locale in one response (see
+ * `PublicProjectController::websiteCopyPayload()`), so this fetch stays a
+ * single locale-agnostic request and `usePageMeta` (which DOES run inside its
+ * own component setup(), where `useI18n()` is valid) picks the current locale
+ * itself out of that per-locale map.
  */
-export const useProjectSettingsData = () => {
-  const { locale } = useI18n();
-
-  return useFetch("/api/event/website-settings", {
-    query: { locale },
-    key: () => `project-settings-${locale.value}`,
-    watch: [locale],
+export const useProjectSettingsData = () =>
+  useFetch("/api/event/website-settings", {
+    key: "project-settings",
     server: true,
     default: () => null,
   });
-};

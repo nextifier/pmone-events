@@ -103,9 +103,13 @@ the 17-key baseline exactly.
 **Totals**: 17 shared keys x 2 fields = 34 meta strings/app baseline;
 icc adds 9 x 2 = 18 more (52 total for icc). Across 5 locales that is
 170-260 meta strings per app, x 16 apps - the bulk of the rollout's SEO-meta
-surface. **The spike covers exactly 2 of these 17 shared keys** (`home`,
-`brands`), i.e. 4 leaf strings x 5 locales = 20 dashboard-writable strings
-for megabuild.
+surface. The original spike covered exactly 2 of these 17 shared keys
+(`home`, `brands`), i.e. 4 leaf strings x 5 locales = 20 dashboard-writable
+strings for megabuild. **Superseded by `advisor/012-complete`**: all 17
+shared keys are now dashboard-writable for every project, not just megabuild
+- see `docs/copy-migration-design.md` section 7 ("Post-spike fix and
+generalization"). The 9 icc-only keys and `components.*` body copy (Table 2)
+remain future rollout scope, unchanged.
 
 ## Table 2 - `components.*` (type: **body**, rendered directly in section components, never in `<head>`)
 

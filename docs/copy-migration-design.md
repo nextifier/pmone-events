@@ -85,6 +85,18 @@ page's `credits` section should not inflate the payload every Home/Rundown/
 Contact page render pays for - it belongs behind a page-scoped, separately
 cached fetch, exactly like `website-pages`.
 
+> **SUPERSEDED (advisor/012-complete)**: the "fix" described in this
+> subsection - making `useProjectSettingsData()` call `useI18n()` and
+> query-parameterize the fetch by locale - is WRONG and was reverted. That
+> composable is invoked from the `projectSettings` **plugin**'s `setup()`
+> (`app/plugins/projectSettings.ts`), and `useI18n()` throws ("Must be called
+> at the top of a setup function") when called from a plugin instead of a
+> page/component. This produced an HTTP 500 on every page of every event site
+> - confirmed by browser testing. See "Post-spike fix and generalization"
+> at the end of this document for the corrected design (kept as the current
+> approach) and what changed. The rest of this subsection is left intact as a
+> record of the rejected approach and why it seemed reasonable at the time.
+
 **Locale-awareness gap found and fixed during the spike**: `website-settings`
 was previously **not** locale-parameterized (`getKey: () => "default"` in the
 Nitro proxy, no `?locale=` forwarded) because none of its existing sub-keys
@@ -257,3 +269,69 @@ locale's value) exactly like `websitePages()` does for `body`.
 
 All three are recommended, concrete pre-rollout checks - the plan's STOP
 conditions require them to pass before a broader migration proceeds.
+
+## 7. Post-spike fix and generalization (advisor/012-complete)
+
+The spike prototype (`a91e5ef1`/`99da840`) shipped with the plugin-context bug
+flagged as an open risk in section 6: `useProjectSettingsData()` called
+`useI18n()`, but that composable runs inside the `projectSettings` **Nuxt
+plugin**'s `setup()` (which `await`s it before any page's own `setup()` runs -
+that ordering is the whole point of the plugin). Calling `useI18n()` from a
+plugin instead of a component/page throws `"Must be called at the top of a
+setup function"` because a plugin's `setup()` is not a component injection
+context. Result: HTTP 500 on every page of every event site - confirmed by
+browser testing. This section records the fix and the resulting generalized
+(non-spike) design that superseded sections 2-5 above.
+
+### The fix: resolve locale where `useI18n()` is actually valid
+
+- **`useProjectSettingsData()` reverted to locale-agnostic** - no `useI18n()`
+  call, no `query: { locale }`, no per-locale `key`/`watch`. Back to the
+  single shared `key: "project-settings"` fetch it had before this plan,
+  because this composable's whole reason to exist is being safely callable
+  from the `projectSettings` plugin.
+- **The Nitro proxy (`server/api/event/website-settings.get.ts`) reverted to
+  locale-agnostic** too - no `?locale=` forwarded, `getKey: () => "default"`
+  (a single cache entry, not one per locale).
+- **The backend (`PublicProjectController::websiteSettings`/
+  `websiteCopyPayload`) reverted to no `Request $request`/no `$locale`
+  param**, and `websiteCopyPayload()` now returns **every saved locale** for
+  every configured page/field in one response, instead of resolving a single
+  requested locale server-side. Shape:
+  `site_config.copy.pages.<pageKey>.<locale>.{title,description}` - only
+  page keys, locales, and fields that have an actual saved (non-empty) value
+  are present; anything unset is simply absent from the JSON (never a `null`
+  placeholder), mirroring the existing `og_pages` "only keys with a value"
+  convention.
+- **`usePageMeta.js` now calls `useI18n()` itself**, inside its own setup()
+  call (every one of its ~86 call sites is a page's `<script setup>` block,
+  the same valid context `useRoute()`/`useSeoMeta()` already relied on there).
+  It reads `projectSettings.value?.data?.settings?.site_config?.copy?.pages?.
+  [pageKey]?.[locale.value]` to pick the current-locale slice out of the
+  per-locale map, then applies it with the same precedence as before
+  (override > dashboardCopy > baked `content.js` value). This keeps the
+  locale-sensitive read exactly where `useI18n()` is valid, while the shared
+  plugin-awaited fetch stays locale-agnostic.
+
+Net effect: zero new fetches (same one already-awaited `website-settings`
+request), zero new round-trips, and the per-locale resolution now happens in
+a context where Vue/Nuxt's injection APIs actually work.
+
+### Generalization: from megabuild-home+brands to every page key
+
+The spike scoped `WebsiteCopy::PAGE_KEYS` to `['home', 'brands']` only. This
+is widened to every `pages.*` key the base content store
+(`layers/base/app/composables/content.js`) defines meta for - all 17 keys:
+`home`, `brands`, `rundown`, `programs`, `contact`, `bookSpace`, `ticket`,
+`gallery`, `faq`, `links`, `news`, `ticketPolicy`, `eventPolicy`, `partners`,
+`terms`, `privacy`, `winner`. `FIELDS` stays `['title', 'description']`. No
+schema change was needed - `WebsiteCopy.key` was always a flat dot-path
+string, not a DB enum, so widening the whitelist is an app-level constant
+change plus widening the PM One admin editor's page grid
+(`frontend/.../settings/seo-meta.vue`) to all 17 rows. Any project may now
+save SEO meta for any of these page keys; an unconfigured key still fails
+open to the baked `content.js` value, exactly as in the spike.
+
+This remains scoped to SEO meta only (title/description) - body/section copy
+(`components.*`) is still future rollout scope per section 5's rollout order,
+unchanged by this fix.

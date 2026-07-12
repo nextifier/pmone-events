@@ -4,19 +4,29 @@ const OG_KEY_MAP = { bookSpace: "book-space", ticket: "tickets" };
 export const usePageMeta = (pageKey, overrides = {}) => {
   const pageStore = useContentStore();
   const route = useRoute();
+  const { locale } = useI18n();
 
   const meta = computed(() => pageKey ? pageStore.getMetaByKey(pageKey) : null);
 
-  // Dashboard-managed SEO meta (PM One project settings -> SEO Meta).
-  // Spike scope (plan 012): only `pages.home`/`pages.brands` are ever
-  // populated server-side - every other pageKey resolves to `null` here and
-  // falls through to the baked content.js value below, exactly like an
-  // unconfigured project would. The projectSettings plugin awaits this
-  // payload before page setup runs, so it is readable synchronously here
-  // during SSR - same precedent as `apiOg` below.
+  // Dashboard-managed SEO meta and per-page OG overrides (PM One project
+  // settings -> SEO Meta / OG Images) share the one already-awaited
+  // `website-settings` fetch - one shared asyncData entry per
+  // docs/site-config-contract.md rule 1 (zero-round-trip).
   const { data: projectSettings } = useProjectSettingsData();
+
+  // `site_config.copy.pages[pageKey]` is a per-locale map - the backend
+  // returns every saved locale in one response because the shared
+  // `useProjectSettingsData()` fetch above must stay locale-agnostic (it also
+  // runs inside the `projectSettings` plugin's setup(), where `useI18n()` is
+  // not valid - see that composable's docblock). The current locale is
+  // picked HERE instead, inside `usePageMeta`'s own setup() call (this
+  // composable is only ever invoked from a page/component's setup()), where
+  // `useI18n()` IS valid. The projectSettings plugin awaits the underlying
+  // fetch before page setup runs, so `projectSettings.value` is already
+  // resolved (not a pending promise) here during SSR - same precedent as
+  // `apiOg` below.
   const dashboardCopy = pageKey
-    ? (projectSettings.value?.data?.settings?.site_config?.copy?.pages?.[pageKey] ?? null)
+    ? (projectSettings.value?.data?.settings?.site_config?.copy?.pages?.[pageKey]?.[locale.value] ?? null)
     : null;
 
   // Precedence: an explicit per-call override (e.g. a blog post's own title,
@@ -32,8 +42,6 @@ export const usePageMeta = (pageKey, overrides = {}) => {
   );
 
   // Per-page OG overrides managed in PM One (project settings -> OG Images).
-  // Reuses the same `projectSettings` fetch resolved above (dashboardCopy) -
-  // one shared asyncData entry per docs/site-config-contract.md rule 1.
   const ogKey = pageKey ? OG_KEY_MAP[pageKey] || pageKey : null;
   const apiOg = ogKey
     ? (projectSettings.value?.data?.settings?.og_pages?.[ogKey] ?? null)
