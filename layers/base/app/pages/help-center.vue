@@ -1,7 +1,10 @@
 <template>
   <div class="pt-6 pb-16 lg:pt-10 lg:pb-24">
     <div class="container">
-      <div class="format-html mx-auto">
+      <!-- Dashboard override (plan 011): sanitized/processed admin HTML. Falls
+        back to the baked body below so a legal page is NEVER empty. -->
+      <div v-if="overrideBody" class="format-html mx-auto" v-html="processedOverride" />
+      <div v-else class="format-html mx-auto">
         <h1>Help Center</h1>
 
         <p>
@@ -153,6 +156,13 @@ const config = useAppConfig();
 const event = useEvent();
 const eventTitle = computed(() => event.title);
 const shortName = config.app.shortName;
+
+// Dashboard-managed body override (plan 011); processed like Posts render
+// TipTap HTML. Null override => baked body renders (fail-open).
+const { overrideBody } = useWebsitePage("help-center");
+const { processedHtml: processedOverride } = useProcessedContent(
+  computed(() => overrideBody.value || ""),
+);
 // Contact email + WhatsApp now come from PM One.
 const profile = useProjectProfile();
 const email = computed(() => profile.email);
