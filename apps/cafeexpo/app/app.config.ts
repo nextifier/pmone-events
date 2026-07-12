@@ -1,6 +1,7 @@
 const app = {
   name: "Cafe & Brasserie Expo Indonesia (CBE)",
   shortName: "CBE",
+  // Binds to PM One project "cbe" (Cafe & Brasserie Expo). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "cbe",
   url: "https://cafebrasserieexpo.com",
   company: {

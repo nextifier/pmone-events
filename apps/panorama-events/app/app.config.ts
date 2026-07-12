@@ -1,6 +1,7 @@
 const app = {
   name: "Panorama Events",
   shortName: "Panorama Events",
+  // Binds to PM One project "pe" (Panorama Events). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "pe",
   url: "https://panoramaevents.id",
   company: {

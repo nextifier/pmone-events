@@ -1,7 +1,10 @@
 const app = {
   name: "Cokelat Expo Indonesia",
   shortName: "CEI",
+  // Binds to PM One project "cei" (Cokelat Expo Indonesia). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "cei",
+  // Content + nav come from "cbe" (Cafe & Brasserie Expo); analytics/identity stay on this project.
+  // Content + nav come from "cbe" (Cafe & Brasserie Expo); analytics/identity stay on this project.
   dataSourceUsername: "cbe",
   url: "https://cokelatexpo.id",
   company: {

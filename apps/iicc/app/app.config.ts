@@ -1,6 +1,7 @@
 const app = {
   name: "The 9th Indonesia International Cocoa Conference & Dinner",
   shortName: "The 9th IICC",
+  // Binds to PM One project "askindo" (ASKINDO). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "askindo",
   url: "https://iicc.askindo.id",
   company: {

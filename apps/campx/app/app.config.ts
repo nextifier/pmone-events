@@ -1,6 +1,7 @@
 const app = {
   name: "CampX Holiday Park Jatiluhur",
   shortName: "CampX",
+  // Binds to PM One project "campx" (CampX). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "campx",
   url: "https://campx.id",
   company: {

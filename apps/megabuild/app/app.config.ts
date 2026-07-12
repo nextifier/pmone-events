@@ -1,6 +1,7 @@
 const app = {
   name: "Megabuild Indonesia",
   shortName: "Megabuild",
+  // Binds to PM One project "megabuild" (Megabuild Indonesia). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "megabuild",
   url: "https://megabuild.co.id",
   company: {

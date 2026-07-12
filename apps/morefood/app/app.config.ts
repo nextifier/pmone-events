@@ -1,6 +1,7 @@
 const app = {
   name: "More Food Expo Indonesia",
   shortName: "MoreFood Expo",
+  // Binds to PM One project "morefood" (More Food Expo). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "morefood",
   url: "https://morefoodexpo.com",
   company: {

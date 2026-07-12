@@ -1,6 +1,7 @@
 const app = {
   name: "Keramika Indonesia",
   shortName: "Keramika",
+  // Binds to PM One project "keramika" (Keramika Indonesia). Folder name may differ. See root CLAUDE.md "App ↔ PM One Project Map".
   projectUsername: "keramika",
   url: "https://keramika.co.id",
   company: {
