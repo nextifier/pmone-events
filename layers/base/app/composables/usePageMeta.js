@@ -7,15 +7,34 @@ export const usePageMeta = (pageKey, overrides = {}) => {
 
   const meta = computed(() => pageKey ? pageStore.getMetaByKey(pageKey) : null);
 
-  // Support both plain values and computed/ref values
-  const title = computed(() => toValue(overrides.title) || meta.value?.title || "");
-  const description = computed(() => toValue(overrides.description) || meta.value?.description || "");
+  // Dashboard-managed SEO meta (PM One project settings -> SEO Meta).
+  // Spike scope (plan 012): only `pages.home`/`pages.brands` are ever
+  // populated server-side - every other pageKey resolves to `null` here and
+  // falls through to the baked content.js value below, exactly like an
+  // unconfigured project would. The projectSettings plugin awaits this
+  // payload before page setup runs, so it is readable synchronously here
+  // during SSR - same precedent as `apiOg` below.
+  const { data: projectSettings } = useProjectSettingsData();
+  const dashboardCopy = pageKey
+    ? (projectSettings.value?.data?.settings?.site_config?.copy?.pages?.[pageKey] ?? null)
+    : null;
+
+  // Precedence: an explicit per-call override (e.g. a blog post's own title,
+  // a brand's own name) > dashboard-managed copy > baked content.js value.
+  // Overrides always win because they represent a specific entity's identity,
+  // not generic page-level copy - a dashboard edit to "Brands" page meta must
+  // never shadow an individual brand detail page's own title.
+  const title = computed(
+    () => toValue(overrides.title) || dashboardCopy?.title || meta.value?.title || "",
+  );
+  const description = computed(
+    () => toValue(overrides.description) || dashboardCopy?.description || meta.value?.description || "",
+  );
 
   // Per-page OG overrides managed in PM One (project settings -> OG Images).
-  // The projectSettings server plugin awaits this payload before page setup,
-  // so it is readable synchronously here during SSR.
+  // Reuses the same `projectSettings` fetch resolved above (dashboardCopy) -
+  // one shared asyncData entry per docs/site-config-contract.md rule 1.
   const ogKey = pageKey ? OG_KEY_MAP[pageKey] || pageKey : null;
-  const { data: projectSettings } = useProjectSettingsData();
   const apiOg = ogKey
     ? (projectSettings.value?.data?.settings?.og_pages?.[ogKey] ?? null)
     : null;

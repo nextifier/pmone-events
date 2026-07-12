@@ -2,6 +2,8 @@ export default defineCachedEventHandler(
   async (event) => {
     const config = useRuntimeConfig();
     const appConfig = useAppConfig();
+    const query = getQuery(event);
+    const locale = (query.locale as string) || "en";
 
     // Short timeout: the projectSettings plugin awaits this during SSR of
     // every page, so a PM One outage with a cold cache must not stall
@@ -20,7 +22,7 @@ export default defineCachedEventHandler(
 
       const response = await $fetch(
         `${config.public.apiUrl}/api/public/projects/${username}/website-settings`,
-        { headers, signal: controller.signal },
+        { headers, query: { locale }, signal: controller.signal },
       );
 
       return response;
@@ -45,6 +47,10 @@ export default defineCachedEventHandler(
     // home-page section toggles admins expect to see propagate quickly.
     maxAge: 60,
     swr: true,
-    getKey: () => "default",
+    // Keyed per-locale (plan 012) so site_config.copy resolves the right
+    // language server-side, mirroring website-pages.get.ts. Every other
+    // sub-key is locale-agnostic, so this only multiplies the cache by the
+    // handful of supported locales (~5), not per-page.
+    getKey: (event) => `l:${(getQuery(event).locale as string) || "en"}`,
   },
 );
