@@ -45,6 +45,11 @@ export default defineCachedEventHandler(
     // home-page section toggles admins expect to see propagate quickly.
     maxAge: 60,
     swr: true,
+    // Deliberately NOT keyed per-locale: this route (and the upstream PM One
+    // endpoint it proxies) is locale-agnostic by design - see
+    // useProjectSettingsData.js's docblock. `site_config.copy` (plan 012),
+    // the one locale-dependent sub-key, carries every saved locale in a
+    // single response instead of needing a per-locale cache entry here.
     getKey: () => "default",
   },
 );

@@ -4,18 +4,45 @@ const OG_KEY_MAP = { bookSpace: "book-space", ticket: "tickets" };
 export const usePageMeta = (pageKey, overrides = {}) => {
   const pageStore = useContentStore();
   const route = useRoute();
+  const { locale } = useI18n();
 
   const meta = computed(() => pageKey ? pageStore.getMetaByKey(pageKey) : null);
 
-  // Support both plain values and computed/ref values
-  const title = computed(() => toValue(overrides.title) || meta.value?.title || "");
-  const description = computed(() => toValue(overrides.description) || meta.value?.description || "");
+  // Dashboard-managed SEO meta and per-page OG overrides (PM One project
+  // settings -> SEO Meta / OG Images) share the one already-awaited
+  // `website-settings` fetch - one shared asyncData entry per
+  // docs/site-config-contract.md rule 1 (zero-round-trip).
+  const { data: projectSettings } = useProjectSettingsData();
+
+  // `site_config.copy.pages[pageKey]` is a per-locale map - the backend
+  // returns every saved locale in one response because the shared
+  // `useProjectSettingsData()` fetch above must stay locale-agnostic (it also
+  // runs inside the `projectSettings` plugin's setup(), where `useI18n()` is
+  // not valid - see that composable's docblock). The current locale is
+  // picked HERE instead, inside `usePageMeta`'s own setup() call (this
+  // composable is only ever invoked from a page/component's setup()), where
+  // `useI18n()` IS valid. The projectSettings plugin awaits the underlying
+  // fetch before page setup runs, so `projectSettings.value` is already
+  // resolved (not a pending promise) here during SSR - same precedent as
+  // `apiOg` below.
+  const dashboardCopy = pageKey
+    ? (projectSettings.value?.data?.settings?.site_config?.copy?.pages?.[pageKey]?.[locale.value] ?? null)
+    : null;
+
+  // Precedence: an explicit per-call override (e.g. a blog post's own title,
+  // a brand's own name) > dashboard-managed copy > baked content.js value.
+  // Overrides always win because they represent a specific entity's identity,
+  // not generic page-level copy - a dashboard edit to "Brands" page meta must
+  // never shadow an individual brand detail page's own title.
+  const title = computed(
+    () => toValue(overrides.title) || dashboardCopy?.title || meta.value?.title || "",
+  );
+  const description = computed(
+    () => toValue(overrides.description) || dashboardCopy?.description || meta.value?.description || "",
+  );
 
   // Per-page OG overrides managed in PM One (project settings -> OG Images).
-  // The projectSettings server plugin awaits this payload before page setup,
-  // so it is readable synchronously here during SSR.
   const ogKey = pageKey ? OG_KEY_MAP[pageKey] || pageKey : null;
-  const { data: projectSettings } = useProjectSettingsData();
   const apiOg = ogKey
     ? (projectSettings.value?.data?.settings?.og_pages?.[ogKey] ?? null)
     : null;
