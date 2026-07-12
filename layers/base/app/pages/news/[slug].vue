@@ -300,6 +300,71 @@ usePageMeta(null, {
   ogImage: computed(() => post.value?.og_image || null),
 });
 
+// BreadcrumbList JSON-LD: Home -> News -> {post title}. Uses the real
+// display title, not `title` above (which prefers the SEO-tuned meta_title).
+useDetailBreadcrumbs(() => post.value?.title);
+
+// Article/BlogPosting JSON-LD, sourced from the same post payload the page
+// renders so it can never drift. Raw JSON-LD via useHead (same pattern as
+// FAQ.vue's FAQPage block) rather than useSchemaOrg, for full field control.
+const articleUrl = computed(
+  () => `${useAppConfig().app.url}${localePath(`/news/${post.value?.slug}`)}`
+);
+
+const articleSchema = computed(() => {
+  if (!post.value) return null;
+
+  const image = post.value.featured_image;
+  const imageUrl =
+    image?.lg?.url ||
+    image?.md?.url ||
+    image?.original ||
+    (typeof image === "string" ? image : undefined);
+
+  const authors = post.value.authors?.length
+    ? post.value.authors
+    : post.value.primaryAuthor
+      ? [post.value.primaryAuthor]
+      : [];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.value.title,
+    description: description.value || undefined,
+    image: imageUrl ? [imageUrl] : undefined,
+    datePublished: post.value.published_at || undefined,
+    dateModified: post.value.updated_at || post.value.published_at || undefined,
+    author: authors.length
+      ? authors.map((author) => ({ "@type": "Person", name: author.name }))
+      : undefined,
+    publisher: {
+      "@type": "Organization",
+      name: useAppConfig().app.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${useAppConfig().app.url}/icons/icon-512x512.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl.value,
+    },
+    url: articleUrl.value,
+  };
+});
+
+useHead(() => ({
+  script: articleSchema.value
+    ? [
+        {
+          type: "application/ld+json",
+          innerHTML: JSON.stringify(articleSchema.value),
+        },
+      ]
+    : [],
+}));
+
 const rawHtml = computed(() => post.value?.content || "");
 const { processedHtml } = useProcessedContent(rawHtml);
 
