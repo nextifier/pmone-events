@@ -24,6 +24,10 @@ export default defineNuxtConfig({
     name: "CampX Holiday Park Jatiluhur",
   },
 
+  schemaOrg: {
+    enabled: true,
+  },
+
   i18n: {
     locales: [{ code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] }],
     lazy: true,
