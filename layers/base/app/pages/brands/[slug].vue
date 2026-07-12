@@ -403,6 +403,9 @@ usePageMeta("", {
   description: description,
 });
 
+// BreadcrumbList JSON-LD: Home -> Brands -> {brand name}.
+useDetailBreadcrumbs(title);
+
 const humanizeKey = (key) =>
   String(key)
     .replace(/[_-]+/g, " ")

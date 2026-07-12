@@ -100,6 +100,9 @@ usePageMeta("", {
   description: () => guest.value?.organization || "",
 });
 
+// BreadcrumbList JSON-LD: Home -> Guests -> {guest name}.
+useDetailBreadcrumbs(() => guest.value?.name);
+
 
 
 function iconForLabel(label) {

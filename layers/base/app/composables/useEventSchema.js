@@ -64,7 +64,19 @@ export function useEventSchema() {
       availability: "https://schema.org/InStock",
       priceCurrency: "IDR",
       validFrom: event.startTime || undefined,
+      // NOTE (plan 030): the lowest ticket price isn't wired in here because
+      // it requires an extra SSR fetch (`useTicketsListing`) on every event
+      // homepage purely for schema enrichment - real TTFB cost for a "nice
+      // to have" rich-result field, and per-event `tickets_enabled` toggles
+      // make the failure modes non-trivial. Left as a follow-up; the offer
+      // still carries a valid url/currency/validFrom.
     };
+
+    // Event.image wants a real event photo, not the site logo. The poster
+    // (EventResource.poster_image, exposed via useEvent().poster) is an
+    // absolute Spatie media URL when present; fall back to the logo only
+    // when no poster has been uploaded.
+    const image = event.poster || `${siteUrl}/icons/icon-512x512.png`;
 
     return {
       "@context": "https://schema.org",
@@ -73,7 +85,14 @@ export function useEventSchema() {
       description,
       startDate: event.startTime || undefined,
       endDate: event.endTime || undefined,
+      // The Event model only tracks a draft/published workflow status
+      // (App\Models\Event::$status) - there is no cancelled/postponed/
+      // rescheduled flag to derive a dynamic eventStatus from, so this stays
+      // hardcoded to EventScheduled (audited in plan 030, not an oversight).
       eventStatus: "https://schema.org/EventScheduled",
+      // Likewise there is no online/hybrid attendance flag on the Event
+      // model; every event here is a physical trade show, so this stays
+      // hardcoded to OfflineEventAttendanceMode.
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       location: {
         "@type": "Place",
@@ -85,7 +104,7 @@ export function useEventSchema() {
           addressCountry: "ID",
         },
       },
-      image: [`${siteUrl}/icons/icon-512x512.png`],
+      image: [image],
       organizer: {
         "@type": "Organization",
         "@id": `${siteUrl}/#identity`,
