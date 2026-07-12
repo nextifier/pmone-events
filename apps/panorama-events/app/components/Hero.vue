@@ -53,7 +53,6 @@
             height="1488"
             sizes="100vw lg:800px"
             format="webp"
-            loading="lazy"
           />
 
           <div
