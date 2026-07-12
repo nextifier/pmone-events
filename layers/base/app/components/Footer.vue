@@ -16,7 +16,7 @@
           class="grid grow grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-x-2 gap-y-10 lg:gap-x-4"
         >
           <div
-            v-for="(item, index) in useAppConfig().routes.footer"
+            v-for="(item, index) in footerRoutes"
             :key="index"
             class="flex flex-col"
           >
@@ -78,4 +78,8 @@ const tLabel = (label) => {
   const key = `nav.${label}`;
   return te(key) ? t(key) : label;
 };
+
+// Sourced from the dashboard-managed site_config.nav.footer (plan 008) when
+// saved, falling back to the baked app.config.ts routes.footer otherwise.
+const footerRoutes = useDynamicHeaderRoutes("footer");
 </script>
