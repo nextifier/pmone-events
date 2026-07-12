@@ -40,7 +40,7 @@ export default {
     edition: "Edisi ke-{n}",
   },
   trustedBy: {
-    title: "Mereka Sudah Pernah Ikut Megabuild Indonesia",
+    title: "Mereka Sudah Pernah Ikut Renex",
   },
   mainPrograms: {
     title:
@@ -52,7 +52,7 @@ export default {
     subtitle: "Fakta & Angka",
     title: "21 Edisi, Ribuan Bisnis Bertumbuh",
     description:
-      "Data dari 21 edisi bicara sendiri. Megabuild Indonesia konsisten jadi tempat ribuan bisnis ketemu peluang baru.",
+      "Data dari 21 edisi bicara sendiri. Renex konsisten jadi tempat ribuan bisnis ketemu peluang baru.",
     stats: {
       visitors: {
         label: "Total Pengunjung",

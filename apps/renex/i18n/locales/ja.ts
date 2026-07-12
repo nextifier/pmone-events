@@ -52,7 +52,7 @@ export default {
     edition: "第{n}回",
   },
   trustedBy: {
-    title: "Megabuild Indonesia 参加ブランド実績",
+    title: "Renex 参加ブランド実績",
   },
   mainPrograms: {
     title:
@@ -64,7 +64,7 @@ export default {
     subtitle: "データで見る実績",
     title: "21回の開催で積み上げた信頼",
     description:
-      "21回の開催実績が証明する、Megabuild Indonesiaのビジネスプラットフォームとしての力。数千社がここで新たなビジネスチャンスを掴んでいます。",
+      "21回の開催実績が証明する、Renexのビジネスプラットフォームとしての力。数千社がここで新たなビジネスチャンスを掴んでいます。",
     stats: {
       visitors: {
         label: "来場者数",

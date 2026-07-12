@@ -1,5 +1,5 @@
 <template>
-  <section id="partnerships">
+  <section v-if="content" id="partnerships">
     <div class="container">
       <div class="flex flex-col items-center text-center">
         <h2
@@ -33,21 +33,21 @@
             <h3
               class="text-foreground mt-8 text-[clamp(2rem,2.5vw,6rem)] !leading-[1.2] font-semibold tracking-tighter text-balance"
             >
-              {{ content.exhibitor.title }}
+              {{ content?.exhibitor?.title }}
             </h3>
 
             <p class="section-description mt-3">
-              {{ content.exhibitor.description }}
+              {{ content?.exhibitor?.description }}
             </p>
 
             <nuxt-link
-              :to="lp(content.exhibitor.cta.url)"
+              :to="lp(content?.exhibitor?.cta?.url || '#')"
               :target="
-                content.exhibitor.cta.url.startsWith('http') ? '_blank' : ''
+                content?.exhibitor?.cta?.url?.startsWith('http') ? '_blank' : ''
               "
               class="bg-primary text-primary-foreground hover:bg-primary/80 mt-6 flex items-center justify-center rounded-lg px-4 py-3 text-center font-semibold tracking-tight transition active:scale-98"
               v-ripple
-              >{{ content.exhibitor.cta.label }}</nuxt-link
+              >{{ content?.exhibitor?.cta?.label }}</nuxt-link
             >
           </div>
           <Cross position="top-left" />
@@ -117,14 +117,14 @@
             <div
               class="text-foreground dark:text-muted-foreground text-3xl font-semibold tracking-tighter text-balance sm:text-4xl"
             >
-              {{ content.reservedSpace.title }}
+              {{ content?.reservedSpace?.title }}
             </div>
 
             <nuxt-link
               :to="lp(reservedSpaceUrl)"
               :target="reservedSpaceUrl.startsWith('http') ? '_blank' : ''"
               class="bg-muted hover:bg-primary hover:text-primary-foreground mt-5 rounded-lg border px-4 py-2 text-sm font-semibold tracking-tight transition active:scale-98"
-              >{{ content.reservedSpace.cta.label }}</nuxt-link
+              >{{ content?.reservedSpace?.cta?.label }}</nuxt-link
             >
           </div>
         </div>
@@ -140,7 +140,7 @@ const lp = (path) => (path?.startsWith("http") ? path : localePath(path));
 const appConfig = useAppConfig();
 const profile = useProjectProfile();
 
-const content = computed(() => useContentStore().components.partnerships);
+const content = computed(() => useContentStore().components.partnerships ?? null);
 
 // Built here (not in the content store) so the WhatsApp number can come from PM
 // One via useProjectProfile instead of a hardcoded app.config contact.

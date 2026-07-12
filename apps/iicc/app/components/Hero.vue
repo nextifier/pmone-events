@@ -70,10 +70,12 @@
             src="/img/iicc-yogyakarta.png"
             alt="IICC Yogyakarta"
             class="pointer-events-none mx-auto size-full max-w-xl shrink-0 scale-120 object-contain select-none md:scale-100 xl:scale-110"
-            size="400px md:800px"
+            sizes="400px md:800px"
             width="800"
             height="1057"
             format="webp"
+            fetchpriority="high"
+            preload
           />
         </div>
 

@@ -11,11 +11,11 @@
               ),
           }"
         >
-          {{ content.title }}
+          {{ content?.title }}
         </h2>
 
         <p class="section-description mt-1.5 max-w-2xl!">
-          {{ content.description }}
+          {{ content?.description }}
         </p>
       </div>
     </div>

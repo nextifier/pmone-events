@@ -48,12 +48,13 @@ export default defineNuxtConfig({
     tags: [{ id: "G-QH1BX5M3WH" }],
   },
 
-  // /book-space is skipped: this app's content store defines no bookSpace
-  // keys, so the page 500s on SSR (runtime included) — not relevant here.
-  cfCache: {
-    skipStaticPages: ["/book-space"],
-  },
-
+  // Plan 015: /book-space no longer 500s (base VisitorCta/BrandList/etc. now
+  // guard missing `components.*` keys instead of throwing - see
+  // plans/015-content-contract-and-campx-500.md). Restored to prerender +
+  // crawl like every other app; it now renders ContactForm's generic
+  // "Contact us" fallback (this app's content store defines no bookSpace
+  // copy). Revisit if CampX decides exhibitor-registration copy should be
+  // added, or the route should be hidden/redirected instead.
   nitro: {
     preset: "cloudflare-pages",
   },

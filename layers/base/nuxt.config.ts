@@ -203,6 +203,14 @@ export default defineNuxtConfig({
   },
 
   gtag: {
+    // Manual init: the baked `id`/`tags` below (set per app, e.g.
+    // apps/campx/nuxt.config.ts) are used only as a *fallback* value. The
+    // single init point is layers/base/app/plugins/analytics.client.ts
+    // (plan 009), which resolves the dashboard-managed
+    // `site_config.analytics.ga4` (falling back to this baked id) and calls
+    // `useGtag().initialize()` itself. Auto-init must stay off here so that
+    // plugin is the only place `gtag.js` ever gets loaded - no double-count.
+    initMode: "manual",
     loadingStrategy: "defer",
   },
 

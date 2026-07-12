@@ -6,9 +6,16 @@
  * 300s SWR cache; on API failure the payload stays null and every page falls
  * back to the Takumi card. The client reads the same key from the hydration
  * payload, so this never blocks in the browser.
+ *
+ * Explicit `name` so other plugins (e.g. `appearance.ts`) can declare
+ * `dependsOn: ["projectSettings"]` and run only after this payload resolves,
+ * instead of relying on filename sort order.
  */
-export default defineNuxtPlugin(async () => {
-  if (import.meta.server) {
-    await useProjectSettingsData();
-  }
+export default defineNuxtPlugin({
+  name: "projectSettings",
+  async setup() {
+    if (import.meta.server) {
+      await useProjectSettingsData();
+    }
+  },
 });

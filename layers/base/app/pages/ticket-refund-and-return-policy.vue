@@ -1,7 +1,10 @@
 <template>
   <div class="pt-6 pb-16 lg:pt-10 lg:pb-24">
     <div class="container">
-      <div class="format-html mx-auto">
+      <!-- Dashboard override (plan 011): sanitized/processed admin HTML. Falls
+        back to the baked body below so a legal page is NEVER empty. -->
+      <div v-if="overrideBody" class="format-html mx-auto" v-html="processedOverride" />
+      <div v-else class="format-html mx-auto">
         <h1>Kebijakan Pengembalian Dana (Refund & Return Policy)</h1>
 
         <h2>1. Ketentuan Umum</h2>
@@ -164,6 +167,14 @@ usePageMeta(null, {
 });
 
 const config = useAppConfig();
+
+// Dashboard-managed body override (plan 011); processed like Posts render
+// TipTap HTML. Null override => baked body renders (fail-open).
+const { overrideBody } = useWebsitePage("ticket-refund-and-return-policy");
+const { processedHtml: processedOverride } = useProcessedContent(
+  computed(() => overrideBody.value || ""),
+);
+
 // Contact email + WhatsApp now come from PM One.
 const profile = useProjectProfile();
 const email = computed(() => profile.email);

@@ -1,5 +1,5 @@
 <template>
-  <section id="brand-preview" class="container mx-auto">
+  <section v-if="content" id="brand-preview" class="container mx-auto">
     <div class="flex flex-col items-center text-center">
       <h2 class="section-title">{{ content.title }}</h2>
       <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
@@ -100,7 +100,7 @@ import { hasInstagram } from "../composables/useBrandHelpers";
 const contentStore = useContentStore();
 const localePath = useLocalePath();
 
-const content = computed(() => contentStore.components.brandPreview);
+const content = computed(() => contentStore.components.brandPreview ?? null);
 
 // Brands (with the previous-edition fallback) come from a shared composable so
 // the data is fetched once and reused by useBrandPreviewVisibility.

@@ -4,10 +4,10 @@
 
     <section id="media" v-if="news?.length" class="container-wider">
       <div class="flex flex-col items-center text-center">
-        <h1 class="section-title">{{ content.title }}</h1>
+        <h1 class="section-title">{{ content?.title }}</h1>
 
         <p class="mt-3 text-base tracking-tight text-pretty sm:text-lg">
-          {{ content.description }}
+          {{ content?.description }}
         </p>
 
         <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-6" />

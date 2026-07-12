@@ -8,7 +8,6 @@
         width="1000"
         height="931"
         sizes="400px lg:800px"
-        loading="lazy"
         format="webp"
       />
     </div>
@@ -21,7 +20,6 @@
         width="1000"
         height="1077"
         sizes="400px lg:800px"
-        loading="lazy"
         format="webp"
       />
     </div>

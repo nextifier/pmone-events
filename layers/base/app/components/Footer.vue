@@ -16,7 +16,7 @@
           class="grid grow grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-x-2 gap-y-10 lg:gap-x-4"
         >
           <div
-            v-for="(item, index) in useAppConfig().routes.footer"
+            v-for="(item, index) in footerRoutes"
             :key="index"
             class="flex flex-col"
           >
@@ -61,7 +61,7 @@
         <span
           ><span class="hidden sm:inline">Copyright</span> ©
           {{ new Date().getFullYear() }}
-          {{ useAppConfig().app?.company?.name ?? useAppConfig().app?.name }}.
+          {{ companyName }}.
           All rights reserved.</span
         >
       </div>
@@ -78,4 +78,11 @@ const tLabel = (label) => {
   const key = `nav.${label}`;
   return te(key) ? t(key) : label;
 };
+
+// Sourced from the dashboard-managed site_config.nav.footer (plan 008) when
+// saved, falling back to the baked app.config.ts routes.footer otherwise.
+const footerRoutes = useDynamicHeaderRoutes("footer");
+
+// Company name from the dashboard identity (plan 011), app.config fallback.
+const { companyName } = useCompanyIdentity();
 </script>
