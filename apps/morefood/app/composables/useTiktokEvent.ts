@@ -1,6 +1,6 @@
 export function useTiktokEvent() {
   const appConfig = useAppConfig();
-  const siteConfig = useSiteConfig();
+  const siteConfig = useProjectSiteConfig();
   const route = useRoute();
 
   // Resolve the SAME pixel id(s) analytics.client.ts loads: the dashboard-

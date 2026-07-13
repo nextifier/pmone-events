@@ -1,7 +1,7 @@
 /**
  * Shared raw fetch for the PM One project website-settings payload. A single
  * useFetch keyed "project-settings" so the server plugin (which awaits it
- * before any page setup runs), `useProjectSettings`, `useSiteConfig`, and
+ * before any page setup runs), `useProjectSettings`, `useProjectSiteConfig`, and
  * `usePageMeta` all read the same asyncData entry - never duplicate requests.
  *
  * The server plugin guarantees the payload is resolved during SSR, which lets
@@ -28,7 +28,7 @@ export const useProjectSettingsData = () =>
     key: "project-settings",
     server: true,
     default: () => null,
-    // Every consumer (projectSettings plugin, useSiteConfig, useProjectSettings,
+    // Every consumer (projectSettings plugin, useProjectSiteConfig, useProjectSettings,
     // usePageMeta) calls this with the same key. Without getCachedData, each
     // re-invocation in a fresh component setup re-registers the fetch and reads
     // back the `default` null before the shared SSR result is linked, so nav /

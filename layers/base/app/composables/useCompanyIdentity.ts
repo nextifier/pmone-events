@@ -6,7 +6,7 @@
  * or the API is unavailable.
  */
 export function useCompanyIdentity() {
-  const siteConfig = useSiteConfig();
+  const siteConfig = useProjectSiteConfig();
   const appConfig = useAppConfig();
 
   const companyName = computed<string>(

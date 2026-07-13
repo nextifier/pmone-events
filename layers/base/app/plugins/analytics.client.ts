@@ -75,7 +75,7 @@ function toIds(raw: unknown): string[] {
 }
 
 function initGa4(): void {
-  const siteConfig = useSiteConfig();
+  const siteConfig = useProjectSiteConfig();
   const gtagOptions = useRuntimeConfig().public.gtag as
     | { id?: string; tags?: Array<string | { id?: string }> }
     | undefined;
@@ -132,7 +132,7 @@ function initTikTokPixel(nuxtApp: ReturnType<typeof useNuxtApp>): void {
     return; // already loaded by another plugin - do not inject a second pixel
   }
 
-  const siteConfig = useSiteConfig();
+  const siteConfig = useProjectSiteConfig();
   const appConfig = useAppConfig();
 
   const dashboardIds = toIds(siteConfig.analytics?.tiktok_pixel);
@@ -215,7 +215,7 @@ function initTikTokPixel(nuxtApp: ReturnType<typeof useNuxtApp>): void {
 }
 
 function initMetaPixel(): void {
-  const siteConfig = useSiteConfig();
+  const siteConfig = useProjectSiteConfig();
   const pixelIds = toIds(siteConfig.analytics?.meta_pixel);
   if (!pixelIds.length) {
     return; // no baked fallback - new id, absent means do nothing
@@ -254,7 +254,7 @@ function initMetaPixel(): void {
 }
 
 function initGtm(): void {
-  const siteConfig = useSiteConfig();
+  const siteConfig = useProjectSiteConfig();
   const gtmIds = toIds(siteConfig.analytics?.gtm);
   if (!gtmIds.length) {
     return; // no baked fallback - new id, absent means do nothing

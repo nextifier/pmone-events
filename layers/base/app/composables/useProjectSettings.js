@@ -18,7 +18,7 @@ export function useProjectSettings() {
   // Access-time read via useNuxtData (not a setup-captured useFetch ref, which
   // stayed on `default: null` in component contexts). The projectSettings
   // plugin already awaited the `project-settings` asyncData during SSR, so this
-  // returns the resolved payload every time. See useSiteConfig for the full
+  // returns the resolved payload every time. See useProjectSiteConfig for the full
   // rationale.
   const settings = () => {
     const { data } = useNuxtData("project-settings");

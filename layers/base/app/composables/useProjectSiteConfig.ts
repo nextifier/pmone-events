@@ -13,6 +13,14 @@
  * supply their own `app.config` / `content.js` fallback when a value is
  * `null` - this composable does not bake in defaults, per the fail-open rule
  * (rule 2) in the contract doc.
+ *
+ * NAMED `useProjectSiteConfig` (not `useSiteConfig`) ON PURPOSE: `@nuxtjs/seo`
+ * (nuxt-site-config) auto-imports its own global `useSiteConfig()` returning
+ * the SEO site config (`{ name, url, env, … }`, no site_config sub-keys). That
+ * name collides and shadows this one in Nuxt's auto-import, so every
+ * `useSiteConfig().appearance/nav/analytics/identity` read resolved to the SEO
+ * object and came back `undefined` - the dashboard palette/identity/analytics
+ * silently never applied. A distinct name keeps this consumer unambiguous.
  */
 
 interface SiteConfig {
@@ -23,7 +31,7 @@ interface SiteConfig {
   identity: unknown | null;
 }
 
-export function useSiteConfig() {
+export function useProjectSiteConfig() {
   // Read the shared payload at ACCESS time via useNuxtData, not a ref captured
   // once at setup. The projectSettings plugin awaits useProjectSettingsData()
   // during SSR, populating the `project-settings` asyncData; reading it back
