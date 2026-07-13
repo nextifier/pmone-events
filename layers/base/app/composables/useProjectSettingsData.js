@@ -28,4 +28,13 @@ export const useProjectSettingsData = () =>
     key: "project-settings",
     server: true,
     default: () => null,
+    // Every consumer (projectSettings plugin, useSiteConfig, useProjectSettings,
+    // usePageMeta) calls this with the same key. Without getCachedData, each
+    // re-invocation in a fresh component setup re-registers the fetch and reads
+    // back the `default` null before the shared SSR result is linked, so nav /
+    // analytics / identity silently fell back to baked app.config values even
+    // though the plugin already resolved the payload. Reading the shared
+    // asyncData cache makes every call return the one SSR-awaited result.
+    getCachedData: (key, nuxtApp) =>
+      nuxtApp.payload.data[key] ?? nuxtApp.static.data[key],
   });

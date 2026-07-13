@@ -24,11 +24,21 @@ interface SiteConfig {
 }
 
 export function useSiteConfig() {
-  const { data } = useProjectSettingsData();
+  // Read the shared payload at ACCESS time via useNuxtData, not a ref captured
+  // once at setup. The projectSettings plugin awaits useProjectSettingsData()
+  // during SSR, populating the `project-settings` asyncData; reading it back
+  // through useNuxtData here returns that resolved entry in every component
+  // context. Destructuring `useProjectSettingsData().data` at setup instead
+  // captured a ref stuck on its `default: null` in component setups (plugin-
+  // first fetch + re-registration), so nav/analytics/appearance/identity
+  // silently fell back to baked app.config values even though the SSR payload
+  // held the real data.
+  const siteConfig = (): SiteConfig | null => {
+    const { data } = useNuxtData("project-settings");
 
-  const siteConfig = (): SiteConfig | null =>
-    (data.value as { data?: { settings?: { site_config?: SiteConfig } } })
+    return (data.value as { data?: { settings?: { site_config?: SiteConfig } } })
       ?.data?.settings?.site_config ?? null;
+  };
 
   return reactive({
     get _raw() {

@@ -36,10 +36,13 @@ export function useHomeSection(
 
   const { locale } = useI18n();
 
-  // Default-on sections share the SSR-resolved project settings; default-off
-  // sections use their own lazy client fetch (deduped by matching url + query).
+  // Default-on sections share the SSR-resolved project settings (read via
+  // useNuxtData so the awaited `project-settings` payload resolves in component
+  // setups - a captured useProjectSettingsData().data ref stayed null there);
+  // default-off sections use their own lazy client fetch (deduped by matching
+  // url + query).
   const { data } = defaultVisible
-    ? useProjectSettingsData()
+    ? useNuxtData("project-settings")
     : useFetch<{
         data?: { settings?: { home_sections?: Record<string, boolean> } };
       }>("/api/event/website-settings", {

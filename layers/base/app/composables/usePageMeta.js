@@ -12,7 +12,12 @@ export const usePageMeta = (pageKey, overrides = {}) => {
   // settings -> SEO Meta / OG Images) share the one already-awaited
   // `website-settings` fetch - one shared asyncData entry per
   // docs/site-config-contract.md rule 1 (zero-round-trip).
-  const { data: projectSettings } = useProjectSettingsData();
+  // Read the resolved payload via useNuxtData (the projectSettings plugin
+  // awaited useProjectSettingsData during SSR). A setup-captured
+  // useProjectSettingsData().data ref stayed on its `default: null` in page
+  // setups, so dashboard SEO copy and per-page OG overrides were silently
+  // dropped in favour of the baked content.js / Takumi fallbacks.
+  const { data: projectSettings } = useNuxtData("project-settings");
 
   // `site_config.copy.pages[pageKey]` is a per-locale map - the backend
   // returns every saved locale in one response because the shared
