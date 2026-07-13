@@ -732,6 +732,24 @@ html.appearance-switching *::after {
   @apply xs:px-[calc((100%-(540px-(1rem*2)))/2)] 3xl:px-[calc((100%-(1600px-(1rem*2)))/2)] px-4 sm:px-[calc((100%-(640px-(1rem*2)))/2)] md:px-[calc((100%-(768px-(1rem*2)))/2)] lg:px-[calc((100%-(1024px-(1rem*2)))/2)] xl:px-[calc((100%-(1280px-(1rem*2)))/2)] 2xl:px-[calc((100%-(1500px-(1rem*2)))/2)];
 }
 
+/* Rich text rendered from the editor must never carry baked-in colours (e.g.
+   pasted from Word / Google Docs) that break theming. Any rendered node with an
+   inline colour / background — or the legacy color/bgcolor attributes — is forced
+   back to the theme colour so it always follows light/dark mode. The live editor
+   (.ProseMirror) and code / syntax blocks keep their own colours. */
+@layer utilities {
+  :is(.prose, .format-html):not(.ProseMirror)
+    :is([style*="color" i], [style*="background" i], font[color], [bgcolor]):not(
+      pre,
+      pre *,
+      code,
+      code *
+    ) {
+    color: inherit !important;
+    background-color: transparent !important;
+  }
+}
+
 @utility format-html {
   @apply prose dark:prose-invert prose-h1:font-semibold! prose-headings:font-medium! prose-strong:font-semibold prose-headings:tracking-tighter sm:prose-lg prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-muted-foreground prose-img:w-full prose-img:my-0 prose-figure:mt-2 prose-figure:mb-0 prose-headings:not-first:mt-[1.5em] prose-headings:mb-[0.5em] prose-p:not-first:mt-[1em] prose-p:not-last:mb-[1em] prose-ul:my-[1em] prose-p:first:mt-0 prose-p:last:mb-0 text-foreground dark:text-body max-w-2xl tracking-[-0.015em] wrap-break-word;
 
