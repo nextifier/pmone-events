@@ -1,13 +1,20 @@
 <template>
   <div id="terms-page" class="my-8 md:my-12">
     <div class="container">
+      <!-- Per-page "Last updated" (dashboard-managed, PM One plan 036). Shown
+        above both the override and baked bodies; hidden when no date is set. -->
+      <p
+        v-if="lastUpdate"
+        class="text-muted-foreground mx-auto mb-6 max-w-2xl text-sm tracking-tight sm:text-base"
+      >
+        Last updated: {{ lastUpdate }}
+      </p>
+
       <!-- Dashboard override (plan 011): sanitized/processed admin HTML. Falls
         back to the baked body below so a legal page is NEVER empty. -->
       <div v-if="overrideBody" class="format-html mx-auto" v-html="processedOverride" />
       <div v-else class="format-html mx-auto">
         <h1>Terms and Conditions</h1>
-
-        <p>Last updated: {{ lastUpdate }}</p>
 
         <p>
           Please read these terms and conditions carefully before using Our
@@ -304,14 +311,14 @@ const { companyName, companyAddress: address } = useCompanyIdentity();
 // Dashboard-managed body override (plan 011); processed exactly like Posts
 // render TipTap HTML. Null override => baked body renders (fail-open). The
 // coalesce to "" keeps useProcessedContent (which calls .replace) null-safe.
-const { overrideBody } = useWebsitePage("terms");
+// `lastUpdate` is the per-page date (PM One plan 036), already resolved with a
+// legacy fallback server-side.
+const { overrideBody, lastUpdate } = useWebsitePage("terms");
 const { processedHtml: processedOverride } = useProcessedContent(
   computed(() => overrideBody.value || ""),
 );
 
-// Contact email + Terms "last updated" date now come from PM One.
+// Contact email now comes from PM One.
 const profile = useProjectProfile();
-const projectSettings = useProjectSettings();
 const email = computed(() => profile.email);
-const lastUpdate = computed(() => projectSettings.termsLastUpdate);
 </script>

@@ -1,6 +1,15 @@
 <template>
   <div class="pt-6 pb-16 lg:pt-10 lg:pb-24">
     <div class="container">
+      <!-- Per-page "Last updated" (dashboard-managed, PM One plan 036). Shown
+        above both the override and baked bodies; hidden when no date is set. -->
+      <p
+        v-if="lastUpdate"
+        class="text-muted-foreground mx-auto mb-6 max-w-2xl text-sm tracking-tight sm:text-base"
+      >
+        Last updated: {{ lastUpdate }}
+      </p>
+
       <!-- Dashboard override (plan 011): sanitized/processed admin HTML. Falls
         back to the baked body below so a legal page is NEVER empty. -->
       <div v-if="overrideBody" class="format-html mx-auto" v-html="processedOverride" />
@@ -159,7 +168,7 @@ const shortName = config.app.shortName;
 
 // Dashboard-managed body override (plan 011); processed like Posts render
 // TipTap HTML. Null override => baked body renders (fail-open).
-const { overrideBody } = useWebsitePage("help-center");
+const { overrideBody, lastUpdate } = useWebsitePage("help-center");
 const { processedHtml: processedOverride } = useProcessedContent(
   computed(() => overrideBody.value || ""),
 );
