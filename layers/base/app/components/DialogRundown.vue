@@ -11,7 +11,7 @@
       <BlurImage
         :src="activity.poster_image.lg || activity.poster_image.url"
         :lqip="activity.poster_image.lqip || ''"
-        alt=""
+        :alt="activity.poster_image.alt || activity.title || ''"
         image-class="size-full object-cover"
       />
     </div>

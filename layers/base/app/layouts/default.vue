@@ -1,8 +1,14 @@
 <template>
   <SidebarProvider>
     <SidebarInset>
+      <a
+        href="#main"
+        class="bg-background focus-visible:ring-ring sr-only rounded-lg px-4 py-2 text-sm font-medium shadow-lg outline-none focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-50 focus-visible:ring-2"
+      >
+        Skip to content
+      </a>
       <Header v-if="!route?.meta?.noHeader" :class="route?.meta?.headerClass" />
-      <main class="flex-auto">
+      <main id="main" tabindex="-1" class="flex-auto outline-none">
         <slot />
       </main>
 

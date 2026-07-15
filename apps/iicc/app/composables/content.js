@@ -2,6 +2,10 @@ import { defineStore } from "pinia";
 
 export const useContentStore = defineStore("content", {
   state: () => ({
+    // iicc ships a bespoke Hero.vue + index.vue, so it intentionally does not
+    // provide `components.hero` (the base Hero's content). Declared here so the
+    // dev-only content-contract check treats the omission as correct, not a gap.
+    contentContractOmit: ["components.hero"],
     pages: {
       home: {
         title: `The 9th Indonesia International Cocoa Conference & Dinner`,

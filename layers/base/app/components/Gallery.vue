@@ -3,7 +3,7 @@
     <div v-if="items.length" class="gallery-container">
       <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mb-4" />
 
-      <Lightbox :items="items" alt="Gallery" thumbnail-key="sm" full-key="xl">
+      <Lightbox :items="items" :alt="`${eventName} gallery`" thumbnail-key="sm" full-key="xl">
         <template #trigger="{ openAt }">
           <!-- Grid (left-to-right): each tile is cropped to the event's chosen
                aspect ratio (PM One setting, default 1:1) via object-cover. -->
@@ -19,7 +19,7 @@
               <BlurImage
                 :src="item.sm || item.url"
                 :lqip="item.lqip"
-                :alt="item.alt || 'Gallery'"
+                :alt="item.alt || `${eventName} gallery photo ${i + 1}`"
                 loading="lazy"
                 decoding="async"
                 draggable="false"
@@ -42,6 +42,10 @@ const { data: galleryData } = await useFetch("/api/event/gallery", {
 });
 
 const items = computed(() => galleryData.value?.data ?? []);
+
+// Event name for descriptive image alt text when a photo has no per-image alt.
+const event = useEvent();
+const eventName = computed(() => event.title || "Event");
 
 // Aspect ratio comes from PM One (event setting), e.g. "4:5" -> CSS "4 / 5".
 const aspectRatio = computed(() =>

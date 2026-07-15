@@ -96,7 +96,9 @@
 
 <script setup>
 const props = defineProps({
-  tag: { type: String, default: "h1" },
+  // Defaults to h2: the common case is an embedded home-page section sitting
+  // under the Hero's h1. The dedicated /faq page passes tag="h1" explicitly.
+  tag: { type: String, default: "h2" },
 });
 
 const localePath = useLocalePath();

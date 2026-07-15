@@ -1,6 +1,7 @@
 <template>
   <div id="faq-page" class="min-h-screen-offset pt-4 pb-16">
-    <FAQ />
+    <!-- Dedicated FAQ page: the FAQ heading is the page's main heading. -->
+    <FAQ tag="h1" />
   </div>
 </template>
 

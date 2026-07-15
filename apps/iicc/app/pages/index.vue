@@ -44,8 +44,6 @@
 
 <script setup>
 const { t } = useI18n();
-const config = useAppConfig();
-const route = useRoute();
 const { visible: rundownVisible } = useRundownVisibility();
 const { visible: hotelSectionVisible } = useHotelSectionVisibility();
 const { visible: creditsVisible } = useCreditsVisibility();
@@ -74,44 +72,15 @@ const { visible: pastEventsVisible } = useHomeSection("past_events", {
   defaultVisible: true,
 });
 
-const siteUrl = config.app.url;
-const pageUrl = siteUrl + route.path;
-
-useSeoMeta({
+// SEO meta + structured data, aligned with the other event apps. iicc keeps its
+// own i18n copy and OG image as explicit per-call overrides, while usePageMeta
+// layers on the shared title-template / canonical (ogUrl) / OG / WebSite JSON-LD
+// handling plus the dashboard SEO-copy plumbing; useEventSchema adds the
+// Organization + Event structured data iicc previously lacked.
+usePageMeta("home", {
   title: t("meta.title"),
-  ogTitle: t("meta.title"),
   description: t("meta.description"),
-  ogDescription: t("meta.description"),
-  ogUrl: pageUrl,
-  ogType: "website",
-  ogSiteName: config.app.name,
-  twitterCard: "summary_large_image",
-  twitterTitle: t("meta.title"),
-  twitterDescription: t("meta.description"),
-});
-
-useSeoMeta({
   ogImage: "/og/og-home.jpg",
 });
-
-useHead({
-  link: [
-    {
-      rel: "canonical",
-      href: pageUrl,
-    },
-  ],
-  script: [
-    {
-      type: "application/ld+json",
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: config.app.name,
-        url: siteUrl,
-        alternateName: config.app.shortName,
-      }),
-    },
-  ],
-});
+useEventSchema();
 </script>
