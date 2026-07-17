@@ -74,7 +74,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-gallery",
-    maxAge: 60,
+    maxAge: 15,
     swr: true,
     getKey: () => "default",
   },

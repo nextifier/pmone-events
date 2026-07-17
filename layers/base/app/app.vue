@@ -13,7 +13,7 @@
           }"
         />
       </NuxtLayout>
-      <ScrollToTop v-if="!['index', 'ticket'].some((n) => route.name?.toString().startsWith(n))" />
+      <ScrollToTop v-if="!['index', 'tickets', 'winner'].some((n) => route.name?.toString().startsWith(n))" />
       <Toaster class="pointer-events-auto" />
     </Body>
   </Html>

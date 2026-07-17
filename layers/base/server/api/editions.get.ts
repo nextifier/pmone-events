@@ -6,7 +6,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-editions",
-    maxAge: 60,
+    maxAge: 15,
     swr: true,
     getKey: () => "default",
   },

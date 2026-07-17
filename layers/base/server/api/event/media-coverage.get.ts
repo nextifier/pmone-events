@@ -73,7 +73,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-media-coverage",
-    maxAge: 60,
+    maxAge: 15,
     swr: true,
     getKey: () => "default",
   },

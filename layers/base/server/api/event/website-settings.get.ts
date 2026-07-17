@@ -70,7 +70,7 @@ export default defineCachedEventHandler(
     name: "api-website-settings",
     // Shorter than the other API handlers (300s): this payload drives the
     // home-page section toggles admins expect to see propagate quickly.
-    maxAge: 60,
+    maxAge: 15,
     swr: true,
     // Deliberately NOT keyed per-locale: this route (and the upstream PM One
     // endpoint it proxies) is locale-agnostic by design - see

@@ -20,7 +20,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-form-public",
-    maxAge: 60,
+    maxAge: 15,
     swr: true,
     getKey: (event) =>
       `${getRouterParam(event, "slug")}:${(getQuery(event).locale as string) || "en"}`,

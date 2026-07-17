@@ -38,7 +38,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-project-profile",
-    maxAge: 60,
+    maxAge: 15,
     swr: true,
     getKey: () => "default",
   },

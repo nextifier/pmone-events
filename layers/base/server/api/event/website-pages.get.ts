@@ -40,7 +40,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-website-pages",
-    maxAge: 60,
+    maxAge: 15,
     swr: true,
     getKey: (event) => `l:${(getQuery(event).locale as string) || "en"}`,
   },
