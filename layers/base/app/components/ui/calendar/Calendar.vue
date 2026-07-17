@@ -148,6 +148,40 @@ const yearRange = computed(() => {
   );
 });
 
+function setMonth(value: unknown): void {
+  placeholder.value = placeholder.value.set({ month: Number(value) });
+}
+
+/**
+ * A year switch can land the visible month outside min/max (viewing March,
+ * then picking the year whose bound starts in July): clamp to the nearest
+ * bound so the calendar never opens on a fully-disabled month.
+ */
+function setYear(value: unknown): void {
+  let next = placeholder.value.set({ year: Number(value) });
+  if (props.minValue && next.compare(props.minValue) < 0) {
+    next = next.set({ month: props.minValue.month, day: props.minValue.day });
+  }
+  if (props.maxValue && next.compare(props.maxValue) > 0) {
+    next = next.set({ month: props.maxValue.month, day: props.maxValue.day });
+  }
+  placeholder.value = next;
+}
+
+/**
+ * First-of-next-month on or before minValue means the whole month sits before
+ * the range; a month starting after maxValue sits wholly after it.
+ */
+function isMonthDisabled(month: DateValue): boolean {
+  if (props.minValue && month.add({ months: 1 }).compare(props.minValue) <= 0) {
+    return true;
+  }
+  if (props.maxValue && month.compare(props.maxValue) > 0) {
+    return true;
+  }
+  return false;
+}
+
 const [DefineMonthTemplate, ReuseMonthTemplate] = createReusableTemplate<{
   date: DateValue;
 }>();
@@ -184,15 +218,14 @@ const forwardedRange = useForwardPropsEmits(delegatedRange, emits);
 
 <template>
   <DefineMonthTemplate v-slot="{ date }">
-    <Select
-      :model-value="date.month"
-      @update:model-value="
-        (v) => {
-          placeholder = placeholder.set({ month: Number(v) });
-        }
-      "
-    >
-      <SelectTrigger size="sm" class="h-8 gap-1 px-2 text-sm">
+    <Select :model-value="date.month" @update:model-value="setMonth">
+      <!-- No own surface (theme adds dark:bg-background): inside a popover the
+           trigger should sit on the popover's color, as shadcn's caption does. -->
+      <SelectTrigger
+        size="sm"
+        class="h-8 gap-1 px-2 text-sm dark:bg-transparent"
+        aria-label="Select month"
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -200,6 +233,7 @@ const forwardedRange = useForwardPropsEmits(delegatedRange, emits);
           v-for="month in createYear({ dateObj: date })"
           :key="month.toString()"
           :value="month.month"
+          :disabled="isMonthDisabled(month)"
         >
           {{ formatter.custom(toDate(month), { month: "short" }) }}
         </SelectItem>
@@ -208,15 +242,12 @@ const forwardedRange = useForwardPropsEmits(delegatedRange, emits);
   </DefineMonthTemplate>
 
   <DefineYearTemplate v-slot="{ date }">
-    <Select
-      :model-value="date.year"
-      @update:model-value="
-        (v) => {
-          placeholder = placeholder.set({ year: Number(v) });
-        }
-      "
-    >
-      <SelectTrigger size="sm" class="h-8 gap-1 px-2 text-sm">
+    <Select :model-value="date.year" @update:model-value="setYear">
+      <SelectTrigger
+        size="sm"
+        class="h-8 gap-1 px-2 text-sm dark:bg-transparent"
+        aria-label="Select year"
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -232,9 +263,11 @@ const forwardedRange = useForwardPropsEmits(delegatedRange, emits);
   </DefineYearTemplate>
 
   <DefineCalendarContent v-slot="{ grid, weekDays, date }">
-    <CalendarHeader class="pt-0">
+    <CalendarHeader>
+      <!-- inset-0 + items-center keeps the arrows on the same optical line as
+           the heading, whatever the layout makes the caption row's height. -->
       <nav
-        class="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between gap-1 [&>*]:pointer-events-auto"
+        class="pointer-events-none absolute inset-0 flex items-center justify-between gap-1 [&>*]:pointer-events-auto"
       >
         <CalendarPrevButton>
           <slot name="calendar-prev-icon" />
@@ -287,7 +320,7 @@ const forwardedRange = useForwardPropsEmits(delegatedRange, emits);
           <CalendarGridRow
             v-for="(weekDates, index) in month.rows"
             :key="`weekDate-${index}`"
-            class="mt-1.5 w-full"
+            class="mt-2 w-full"
           >
             <CalendarCell
               v-for="weekDate in weekDates"
