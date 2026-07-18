@@ -217,7 +217,7 @@
             <SharePage
               model="post"
               :title="post.title"
-              :url="`${useAppConfig().app.url}${localePath(`/news/${post.slug}`)}`"
+              :url="`${appConfig.app.url}${localePath(`/news/${post.slug}`)}`"
             />
           </div>
         </main>
@@ -238,6 +238,10 @@
 const route = useRoute();
 const localePath = useLocalePath();
 const getRouteBaseName = useRouteBaseName();
+// Captured once in setup: the computeds below are first evaluated inside
+// unhead's async renderSSRHead, where calling useAppConfig() would throw
+// "composable called outside setup" and 500 every SSR of this page.
+const appConfig = useAppConfig();
 
 const { $dayjs } = useNuxtApp();
 
@@ -308,7 +312,7 @@ useDetailBreadcrumbs(() => post.value?.title);
 // renders so it can never drift. Raw JSON-LD via useHead (same pattern as
 // FAQ.vue's FAQPage block) rather than useSchemaOrg, for full field control.
 const articleUrl = computed(
-  () => `${useAppConfig().app.url}${localePath(`/news/${post.value?.slug}`)}`
+  () => `${appConfig.app.url}${localePath(`/news/${post.value?.slug}`)}`
 );
 
 const articleSchema = computed(() => {
@@ -340,10 +344,10 @@ const articleSchema = computed(() => {
       : undefined,
     publisher: {
       "@type": "Organization",
-      name: useAppConfig().app.name,
+      name: appConfig.app.name,
       logo: {
         "@type": "ImageObject",
-        url: `${useAppConfig().app.url}/icons/icon-512x512.png`,
+        url: `${appConfig.app.url}/icons/icon-512x512.png`,
       },
     },
     mainEntityOfPage: {

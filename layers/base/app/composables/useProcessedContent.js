@@ -22,7 +22,11 @@ export const useProcessedContent = (htmlContent) => {
   };
 
   const processedHtml = computed(() => {
-    const rawHtml = htmlContent.value;
+    // Non-string content (null, or a raw translations object from the API)
+    // must never reach .replace()/DOMParser — during SSR that throw becomes a
+    // 500 on the whole page.
+    const rawValue = htmlContent.value;
+    const rawHtml = typeof rawValue === "string" ? rawValue : "";
     if (!rawHtml || typeof document === "undefined") {
       // Jika tidak ada HTML atau berada di lingkungan non-browser (saat SSR awal),
       // kita gunakan DOM parser sederhana dari sisi server jika perlu, atau regex.
