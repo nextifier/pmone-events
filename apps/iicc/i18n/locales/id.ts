@@ -142,7 +142,7 @@ export default {
     headline2: "Cocoa Conference & Dinner",
     tagline: "Mutiara dari Asia",
     description:
-      "Membentuk Masa Depan Industri Kakao & Cokelat Indonesia Melalui Kolaborasi dan Inovasi.",
+      "Kakao Indonesia Bangkit: Mutiara dari Asia untuk Dunia",
     exploreMore: "Pelajari Lebih Lanjut",
     stats: {
       edition: "Edisi",

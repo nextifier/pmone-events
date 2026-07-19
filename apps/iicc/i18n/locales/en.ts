@@ -160,7 +160,7 @@ export default {
     headline2: "Cocoa Conference & Dinner",
     tagline: "The Pearl of Asia",
     description:
-      "Shaping the Future of Indonesia's Cocoa & Chocolate Industry Through Collaboration and Innovation.",
+      "The Rise of Indonesian Cocoa: The Pearl of Asia for the World",
     exploreMore: "Learn More",
     stats: {
       edition: "Edition",
