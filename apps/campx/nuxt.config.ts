@@ -25,7 +25,7 @@ export default defineNuxtConfig({
   },
 
   schemaOrg: {
-    enabled: true,
+    enabled: false,
   },
 
   i18n: {

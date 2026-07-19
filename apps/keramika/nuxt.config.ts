@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
 
   schemaOrg: {
-    enabled: true,
+    enabled: false,
   },
 
   gtag: {

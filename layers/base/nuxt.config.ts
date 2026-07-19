@@ -74,8 +74,10 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
+      // "@unhead/schema-org/vue" deliberately absent from `include`: the module
+      // is disabled (unhead v3 incompatibility, see useEventSchema.js) and the
+      // alias only exists while it is enabled, so pre-bundling would fail.
       include: [
-        "@unhead/schema-org/vue",
         "embla-carousel-vue",
         "embla-carousel-autoplay",
         "embla-carousel-auto-scroll",
@@ -285,6 +287,19 @@ export default defineNuxtConfig({
       suppressWarnings: true,
       navigateFallbackAllowlist: [/^\/$/],
       type: "module",
+    },
+  },
+
+  nitro: {
+    alias: {
+      // Nuxt 4.5 statically imports unhead's SSR-streaming IIFE (a JS module
+      // exporting the whole script as one big string) even when ssrStreaming is
+      // off. Nitro's replace plugin rewrites `typeof window` INSIDE that string,
+      // breaking its quote escaping and failing the server build with
+      // "RollupError: Expected a semicolon". Streaming is disabled here, so the
+      // module is dead code — stub it out until nitro/unhead fix this upstream.
+      "@unhead/vue/stream/iife": resolve(__dirname, "./mock/unhead-stream-iife.mjs"),
+      "unhead/stream/iife": resolve(__dirname, "./mock/unhead-stream-iife.mjs"),
     },
   },
 

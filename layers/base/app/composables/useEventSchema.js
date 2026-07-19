@@ -34,23 +34,29 @@ export function useEventSchema() {
   }
 
   // --- Organization via useSchemaOrg (proper @id/#identity linking in @graph) ---
-  useSchemaOrg([
-    defineOrganization({
-      name: config.app.name,
-      url: siteUrl,
-      logo: `${siteUrl}/icons/icon-512x512.png`,
-      email: profile.email,
-      sameAs,
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          contactType: "customer support",
-          email: profile.email,
-          url: siteUrl,
-        },
-      ],
-    }),
-  ]);
+  // Raw JSON-LD instead of useSchemaOrg/defineOrganization: nuxt-schema-org's
+  // unhead plugin is incompatible with unhead v3 (Nuxt 4.5) - it crashes head
+  // rendering and emits an empty ld+json tag - so the module is disabled in
+  // every app and this schema is emitted directly. The `@id` matches the
+  // `organizer.@id` reference in the Event schema below.
+  const organizationSchema = computed(() => ({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#identity`,
+    name: config.app.name,
+    url: siteUrl,
+    logo: `${siteUrl}/icons/icon-512x512.png`,
+    email: profile.email,
+    sameAs: sameAs.value,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: profile.email,
+        url: siteUrl,
+      },
+    ],
+  }));
 
   // --- Event schema (raw JSON-LD for full control over all fields) ---
   const eventSchema = computed(() => {
@@ -125,6 +131,7 @@ export function useEventSchema() {
   // data, so it is not duplicated here.
   useHead(() => ({
     script: [
+      { type: "application/ld+json", innerHTML: JSON.stringify(organizationSchema.value) },
       { type: "application/ld+json", innerHTML: JSON.stringify(eventSchema.value) },
     ],
   }));

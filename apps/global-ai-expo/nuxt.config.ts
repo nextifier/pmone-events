@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   },
 
   schemaOrg: {
-    enabled: true,
+    enabled: false,
   },
 
   // TODO(plan 015): no real GA4 measurement id available for this app yet.
