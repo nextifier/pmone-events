@@ -100,6 +100,18 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: "cloudflare-pages",
+    // Deploy target: Cloudflare Workers (+ Static Assets), migrated from the
+    // cloudflare-pages preset. deployConfig generates .output/server/wrangler.json
+    // (assets binding + nodejs_compat + compat date); deploy with
+    // `npx wrangler --cwd apps/inacon/.output deploy`. wrangler.name sets the
+    // Worker name. Base layer nitro.alias (unhead stub) merges in.
+    preset: "cloudflare_module",
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+      wrangler: {
+        name: "inacon",
+      },
+    },
   },
 });

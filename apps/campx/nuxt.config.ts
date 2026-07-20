@@ -60,6 +60,18 @@ export default defineNuxtConfig({
   // copy). Revisit if CampX decides exhibitor-registration copy should be
   // added, or the route should be hidden/redirected instead.
   nitro: {
-    preset: "cloudflare-pages",
+    // Deploy target: Cloudflare Workers (+ Static Assets), migrated from the
+    // cloudflare-pages preset. deployConfig generates .output/server/wrangler.json
+    // (assets binding + nodejs_compat + compat date); deploy with
+    // `npx wrangler --cwd apps/campx/.output deploy`. wrangler.name sets the
+    // Worker name. Base layer nitro.alias (unhead stub) merges in.
+    preset: "cloudflare_module",
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+      wrangler: {
+        name: "campx",
+      },
+    },
   },
 });
