@@ -95,6 +95,20 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: "cloudflare-pages",
+    // Deploy target: Cloudflare Workers (+ Static Assets), migrated from the
+    // cloudflare-pages preset. deployConfig generates the wrangler.json into
+    // .output/server (assets binding + nodejs_compat + compat date) plus the
+    // .wrangler/deploy/config.json redirect; deploy with
+    // `npx wrangler --cwd apps/megabuild/.output deploy`. wrangler.name sets the
+    // Worker name so no hand-written root wrangler config is needed. The base
+    // layer's nitro.alias (unhead stream stub) merges in.
+    preset: "cloudflare_module",
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+      wrangler: {
+        name: "megabuild",
+      },
+    },
   },
 });
