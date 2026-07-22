@@ -28,6 +28,36 @@ Cara ambil angkanya (butuh sesi dashboard Cloudflare, atau token `Account Analyt
 | 2026-07-14 | 23/30 | 256,02 | 227,56 | 54,7% | Pra-perbaikan. "Cache rate" di sini cache rate zona (mayoritas aset statis), bukan penghindaran Worker — menyesatkan, itu sebabnya CPU tetap tinggi walau angkanya terlihat bagus. |
 | 2026-07-23 | 2/31 | — | — | — | **Hari perbaikan.** WAF anti-scanner aktif di 27 zone (±18.600 invocation/hari hilang). Edge cache in-worker di-deploy ke 16 app. `browser_cache_ttl` 27 zone diubah 120 → 0. Backend purge-by-URL live & terverifikasi end-to-end. Angka hari ini campuran sebelum/sesudah — baseline bersih mulai 24 Jul. |
 
+## Kenapa TTL dinaikkan, bukan diturunkan (23 Jul 2026)
+
+Diukur dari trafik 24 jam (22 Jul), request HTML status 200 yang sampai ke Worker:
+
+| Kategori | Request/hari | URL unik | Rata-rata/URL |
+|---|---:|---:|---:|
+| `/news/{artikel}` | 21.689 | 1.847 | 11,7 |
+| root `/` telanjang | 5.134 | 50 host | 103 |
+| halaman tetap lain | 2.538 | 503 | 5,0 |
+| `/brands/{brand}` | 1.953 | 439 | 4,4 |
+
+**95% URL dapat <24 request/hari.** Pada ekor sedatar itu TTL pendek tidak menolong —
+halaman tetap di-render hampir setiap kali diminta. Render/hari untuk halaman detail:
+
+| TTL | Render/hari | CPU/hari |
+|---|---:|---:|
+| 1 jam | 11.053 | 2,76M ms |
+| 6 jam | 6.207 | 1,55M ms |
+| 24 jam | 2.291 | 0,57M ms |
+| **7 hari** | **327** | **0,08M ms** |
+
+Menurunkan TTL ke 5 menit malah menaikkan CPU ~+73% (+84M ms/siklus ≈ +$1,70) tanpa
+manfaat kesegaran apa pun — kesegaran datang dari **purge**, bukan dari TTL. Karena itu
+halaman detail dipasang 7 hari (aman karena Post/Brand/Guest punya `edgeCachePaths()`),
+HTML umum 6 jam, dan root `/` dibuat cacheable dengan cache key yang memuat cookie
+`i18n_locale` + `Accept-Language`.
+
+⚠️ **Ketergantungan yang harus dijaga:** kalau `edgeCachePaths()` dihapus dari salah satu
+model, TTL 7 hari untuk rute itu HARUS ikut diturunkan, atau editan tidak terlihat seminggu.
+
 ## Gate keputusan
 
 - **H+1 (24 Jul):** CPU harian harus **< 3M ms**. Kalau tidak → periksa hit-rate `x-edge-cache`.
