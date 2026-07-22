@@ -26,6 +26,7 @@ Cara ambil angkanya (butuh sesi dashboard Cloudflare, atau token `Account Analyt
 | Tanggal | Hari siklus | CPU total (M ms) | Billable | Cache rate | Catatan |
 |---|---|---|---|---|---|
 | 2026-07-14 | 23/30 | 256,02 | 227,56 | 54,7% | Pra-perbaikan. "Cache rate" di sini cache rate zona (mayoritas aset statis), bukan penghindaran Worker — menyesatkan, itu sebabnya CPU tetap tinggi walau angkanya terlihat bagus. |
+| 2026-07-16 | 25/30 | 289,26 | 260,79 | 53,2% | Pra-perbaikan (dilebur dari `cloudflare-cpu-daily-log.md` yang duplikat, kini dihapus). |
 | 2026-07-22 | 1/31 | 14,81 | — | — | **Hari 1 siklus, PRA-perbaikan.** Sudah membakar separuh kuota bulanan (14,8 dari 30M) sebelum fix ada. Konsekuensi: invoice 22 Ags kemungkinan masih memuat kelebihan kecil sekalipun sisa siklus sempurna. |
 | 2026-07-23 | 2/31 | — | — | — | **Hari perbaikan (5 deploy).** WAF 27→28 zone. Edge cache in-worker + build-id keying + bot-variant collapse di 16 app. `browser_cache_ttl` → 0. Purge-by-URL live, celah tag (`rundowns`≠`rundown` dll) ditutup. Tiap deploy me-reset cache HTML → angka hari ini tinggi & tidak representatif. JANGAN deploy tanpa perlu — biarkan cache menghangat. |
 
