@@ -1,5 +1,10 @@
 import { resolveCacheControl } from "../../shared/cf-cache-rules";
-import { EDGE_CACHE_KEY, getEdgeCache } from "../utils/edgeCache";
+import {
+  EDGE_BUILD_HEADER,
+  EDGE_CACHE_KEY,
+  currentBuildId,
+  getEdgeCache,
+} from "../utils/edgeCache";
 
 /**
  * Two jobs, both on `beforeResponse`:
@@ -122,6 +127,12 @@ function storeInEdgeCache(event: any, response: { body?: unknown }) {
   if (fallbackContentType && !headers.has("content-type")) {
     headers.set("content-type", fallbackContentType);
   }
+
+  // Validated on lookup: HTML from an older build is treated as a miss so a
+  // deploy can never serve pages referencing deleted /_nuxt chunks. Lives in a
+  // header, NOT the key, so the backend's purge-by-URL keeps matching — see
+  // EDGE_BUILD_HEADER in server/utils/edgeCache.ts.
+  headers.set(EDGE_BUILD_HEADER, currentBuildId(event));
 
   const cached = new Response(payload, { status: 200, headers });
 

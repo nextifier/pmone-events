@@ -54,9 +54,18 @@ export const HTML_TTL_LONG = "public, max-age=0, s-maxage=21600"; // 6 h edge
 export const HTML_TTL_STATIC = "public, max-age=0, s-maxage=21600"; // 6 h edge
 // max-age=0: the browser cache is the one layer no invalidation can reach, so
 // admin edits would sit behind it for its full lifetime. Only the edge caches.
-export const API_TTL = "public, max-age=0, s-maxage=600";
+//
+// API TTLs are deliberately SHORT, unlike HTML. The cache key includes the
+// original query string, and the query space (?page, ?placement, ?per_page,
+// ?fallback, usernames…) is not enumerable by the backend's purge-by-URL — the
+// purge covers the bare path and per-locale variants, everything else can only
+// self-heal via TTL. API renders are also cheap (~20 ms vs 150-350 ms for
+// HTML; the entire API surface costs <0.1M ms/day), so a short window buys
+// freshness at almost no CPU. Raising these again would NOT meaningfully cut
+// CPU but WOULD let paginated/filtered API variants go stale for that long.
+export const API_TTL = "public, max-age=0, s-maxage=120";
 // Admin-toggled settings must propagate fast even if a purge is missed.
-export const API_TTL_SHORT = "public, max-age=0, s-maxage=120";
+export const API_TTL_SHORT = "public, max-age=0, s-maxage=60";
 // OG cards hash their props into the URL, so a long window is self-busting.
 // nuxt-og-image sets its own header on /_og/d/**; this entry exists so the
 // edge-cache middleware treats those routes as cacheable at all.
