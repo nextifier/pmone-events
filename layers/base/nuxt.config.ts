@@ -73,6 +73,15 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      // vue-sonner menyimpan state toast di module scope; pnpm bisa membuat
+      // beberapa salinan fisik versi yang sama (peer-hash berbeda) sehingga
+      // layer dan app ter-resolve ke real path berbeda. Di build produksi itu
+      // menjadi dua instance state — toast() menulis ke instance yang tidak
+      // di-subscribe Toaster dan tidak ada toast yang tampil. dedupe memaksa
+      // satu resolusi untuk semua importer.
+      dedupe: ["vue-sonner"],
+    },
     optimizeDeps: {
       // "@unhead/schema-org/vue" deliberately absent from `include`: the module
       // is disabled (unhead v3 incompatibility, see useEventSchema.js) and the
