@@ -58,8 +58,26 @@ export function getEdgeCache(): Cache | null {
  */
 export function buildEdgeCacheKey(event: H3Event, url: URL): Request {
   const keyUrl = new URL(url.toString());
+  const isHtml =
+    !keyUrl.pathname.startsWith("/api/") && !keyUrl.pathname.startsWith("/_og/");
 
-  if (!keyUrl.pathname.startsWith("/api/")) {
+  if (isHtml) {
+    // THE BUILD ID IS NOT OPTIONAL. SSR HTML embeds hashed asset URLs
+    // (/_nuxt/DxzM4Sv5.js). A deploy replaces those assets, so HTML cached
+    // before it points at files that no longer exist. Worse, the app is
+    // configured with `emitRouteChunkError: "automatic-immediate"` plus
+    // plugins/chunkReload.client.js, so a failed chunk triggers a page reload —
+    // which fetches the SAME stale cached HTML, fails again, and loops. The
+    // visitor sees a permanent blank page.
+    //
+    // That is exactly what happened to iicc.askindo.id on 23 Jul 2026: rolling
+    // the Worker back did nothing (the edge, not the Worker, was serving the
+    // stale HTML) and only Purge Everything cleared it.
+    //
+    // Keying on the build id makes every deploy start with a clean namespace:
+    // pre-deploy entries become unreachable and simply age out.
+    keyUrl.searchParams.set("__b", useRuntimeConfig(event).app?.buildId ?? "dev");
+
     const preference = getCookie(event, COLOR_MODE_COOKIE);
     keyUrl.searchParams.set("__cm", preference === "light" ? "light" : "dark");
   }
