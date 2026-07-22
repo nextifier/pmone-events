@@ -1,4 +1,5 @@
 import type { H3Event } from "h3";
+import { LOCALE_CODES } from "../../shared/cf-cache-rules";
 
 /**
  * Shared helpers for the in-worker edge cache (Cloudflare Cache API).
@@ -22,6 +23,9 @@ import type { H3Event } from "h3";
 
 /** Cookie written by @nuxtjs/color-mode (`colorMode.storageKey`). */
 const COLOR_MODE_COOKIE = "events-color-mode";
+
+/** Cookie written by @nuxtjs/i18n (`detectBrowserLanguage.cookieKey`). */
+const LOCALE_COOKIE = "i18n_locale";
 
 /**
  * Marks the cache key on the event so the `cacheControl` server plugin knows
@@ -60,5 +64,48 @@ export function buildEdgeCacheKey(event: H3Event, url: URL): Request {
     keyUrl.searchParams.set("__cm", preference === "light" ? "light" : "dark");
   }
 
+  // "/" is the one route whose response is negotiated rather than determined by
+  // its path: @nuxtjs/i18n's detectBrowserLanguage reads the i18n_locale cookie,
+  // falls back to Accept-Language, and either renders the default locale or
+  // redirects. Both inputs therefore belong in the key.
+  //
+  // Note this does NOT reimplement i18n's matching — that would rot silently as
+  // the module changes. It records the inputs, so any two requests sharing a key
+  // handed i18n identical information and cannot have produced different output.
+  if (keyUrl.pathname === "/") {
+    keyUrl.searchParams.set("__lc", getCookie(event, LOCALE_COOKIE) ?? "none");
+    keyUrl.searchParams.set("__al", normalizeAcceptLanguage(event));
+  }
+
   return new Request(keyUrl.toString(), { method: "GET" });
+}
+
+/**
+ * Reduce Accept-Language to the ordered list of languages this app actually
+ * has, e.g. "en-US,en;q=0.9,id;q=0.8,fr;q=0.7" -> "en,id".
+ *
+ * Hashing the raw header would also be correct but explodes the number of cache
+ * entries, since browsers send hundreds of distinct strings. Dropping q-values,
+ * region subtags and unknown languages collapses that variety without losing
+ * anything i18n consults: it matches by language subtag, in header order,
+ * against the configured locales.
+ */
+function normalizeAcceptLanguage(event: H3Event): string {
+  const header = getRequestHeader(event, "accept-language");
+  if (!header) {
+    return "none";
+  }
+
+  const seen: string[] = [];
+
+  for (const part of header.split(",")) {
+    const tag = part.trim().split(";")[0]?.trim().toLowerCase();
+    const language = tag?.split("-")[0];
+
+    if (language && LOCALE_CODES.includes(language) && !seen.includes(language)) {
+      seen.push(language);
+    }
+  }
+
+  return seen.length ? seen.join(",") : "other";
 }

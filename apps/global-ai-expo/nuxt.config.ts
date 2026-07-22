@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      siteUrl: "https://global-ai-expo.pages.dev",
+      siteUrl: "https://ai.pmone.id",
       blogUsernames: "globalaiexpo",
       turnstileSiteKey: "0x4AAAAAADpOkX83QOOwxmmc",
     },
@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "https://global-ai-expo.pages.dev",
+    url: "https://ai.pmone.id",
     name: "Global AI Expo",
   },
 
@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     ],
     lazy: true,
     langDir: "../i18n/locales",
-    baseUrl: "https://global-ai-expo.pages.dev",
+    baseUrl: "https://ai.pmone.id",
     defaultLocale: "en",
     strategy: "prefix_except_default",
     detectBrowserLanguage: {

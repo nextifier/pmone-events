@@ -29,7 +29,24 @@
  * only bound how stale things can get if a purge fails.
  */
 
-export const HTML_TTL = "public, max-age=0, s-maxage=3600"; // 1 h edge
+export const HTML_TTL = "public, max-age=0, s-maxage=21600"; // 6 h edge
+
+/**
+ * Detail pages (an article, a brand, a guest) — 7 days.
+ *
+ * Counter-intuitive but measured: on 22 Jul 2026 these were 2,291 distinct URLs
+ * serving 23,657 requests/day, i.e. ~10 requests per URL per day. A short TTL
+ * buys almost nothing on a tail like that — at 1 hour they still cost 11,053
+ * renders/day, at 7 days only 327. That is the difference between missing and
+ * meeting the CPU allowance.
+ *
+ * Safe only because invalidation is exact: Post/Brand/Guest each declare
+ * `edgeCachePaths()` in the pmone dashboard, so publishing drops that specific
+ * URL within seconds. If you ever remove a model's edgeCachePaths(), move its
+ * routes back to HTML_TTL or edits will sit behind this for a week.
+ */
+export const HTML_TTL_DETAIL = "public, max-age=0, s-maxage=604800"; // 7 d edge
+
 export const HTML_TTL_LONG = "public, max-age=0, s-maxage=21600"; // 6 h edge
 // Pages whose content is effectively frozen (legal text, contact, forms shell).
 // These used to be prerendered at build; they are cached instead so dashboard
@@ -95,9 +112,10 @@ export const CACHED_HTML_EXACT: Record<string, string> = {
 
 // Prefix HTML rules (trailing slash = only children), after locale strip.
 export const CACHED_HTML_PREFIX: Record<string, string> = {
-  "/news/": HTML_TTL,
-  "/brands/": HTML_TTL,
-  "/guests/": HTML_TTL,
+  // Detail pages — see HTML_TTL_DETAIL for why these are a week and not an hour.
+  "/news/": HTML_TTL_DETAIL,
+  "/brands/": HTML_TTL_DETAIL,
+  "/guests/": HTML_TTL_DETAIL,
   // Public embeddable forms. The SSR shell is identical per slug+locale
   // (prefill + duplicate check are client-side after mount), so edge-caching
   // it is safe like /news/*.
@@ -170,25 +188,28 @@ export function resolveCacheControl(pathname: string): string | undefined {
     return undefined;
   }
 
-  // Strip one locale prefix for HTML matching. "/" itself is never cached, but
-  // locale homepages ("/id") are distinct cacheable URLs.
-  //
-  // Why "/" stays uncached even though it is a heavy render: with
-  // detectBrowserLanguage.alwaysRedirect, the response for "/" is negotiated
-  // from the i18n_locale cookie and then Accept-Language. Caching the default
-  // locale's 200 would serve English HTML to a visitor who should have been
-  // redirected to /id. Reproducing that negotiation in the cache key means
-  // duplicating i18n's logic, which would fail silently as it drifts — so this
-  // one route keeps paying for a real render. Everything it links to is cached.
+  // Strip one locale prefix for HTML matching.
   let path = pathname;
-  let localeStripped = false;
   const seg = path.split("/")[1];
   if (seg && LOCALE_CODES.includes(seg)) {
     path = path.slice(seg.length + 1) || "/";
-    localeStripped = true;
   }
   if (path === "/") {
-    return localeStripped ? HTML_TTL : undefined;
+    // Both "/" and locale homepages ("/id") are cacheable.
+    //
+    // "/" is the single most expensive route on the account — 5,134 requests a
+    // day across 50 hosts, 40M ms of CPU per billing cycle on its own, more than
+    // the entire monthly allowance. It was left uncached at first because
+    // detectBrowserLanguage.alwaysRedirect negotiates the response from the
+    // i18n_locale cookie and then Accept-Language, so one cached copy would
+    // serve English HTML to a visitor who should have been redirected to /id.
+    //
+    // It is cacheable now because the cache KEY carries both negotiation inputs
+    // verbatim (see buildEdgeCacheKey in server/utils/edgeCache.ts). The key
+    // does not reimplement i18n's matching — it just guarantees that two
+    // requests sharing a key fed i18n identical input, so they must have
+    // produced identical output. Redirects are still never stored (200 only).
+    return HTML_TTL;
   }
 
   if (CACHED_HTML_EXACT[path]) {

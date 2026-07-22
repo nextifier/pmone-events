@@ -45,7 +45,7 @@ Dashboard membatasi **maks 10 hostname / widget**. Karena ada 16 domain event, d
 
 | Widget | Site key (public) | Domain |
 |---|---|---|
-| **`pmone-events-forms`** (Widget 1, 10 host) | `0x4AAAAAADpOkX83QOOwxmmc` | keramika.co.id, global-ai-expo.pages.dev, megabuild.co.id, renex.megabuild.co.id, campx.id, cokelatexpo.id, cafebrasserieexpo.com, morefoodexpo.com, indocoffeefestival.com, indooutingexpo.co.id |
+| **`pmone-events-forms`** (Widget 1, 10 host) | `0x4AAAAAADpOkX83QOOwxmmc` | keramika.co.id, ai.pmone.id, megabuild.co.id, renex.megabuild.co.id, campx.id, cokelatexpo.id, cafebrasserieexpo.com, morefoodexpo.com, indocoffeefestival.com, indooutingexpo.co.id |
 | **`pmone-events-forms-2`** (Widget 2, 6 host) | `0x4AAAAAADpOqQtuQn6UfF_P` | iicc.askindo.id, franchise-expo.co.id, indonesiaanimecon.com, indonesiacomiccon.com, panoramaevents.id, panoramamedia.co.id |
 
 > **Secret key TIDAK ditulis di sini.** Ambil dari dashboard: Turnstile → klik widget → "View Turnstile Keys" (atau "Edit Widget") → Secret key (Click to copy).
@@ -58,7 +58,7 @@ Nama project Pages = `<app>-v5` kecuali `global-ai-expo`. (Versi `-v4`/non-`v5` 
 
 | app (`apps/`) | domain | Widget | Pages project | Status |
 |---|---|---|---|---|
-| global-ai-expo | global-ai-expo.pages.dev | 1 | `global-ai-expo` | ✅ live + tested |
+| global-ai-expo | ai.pmone.id | 1 | `global-ai-expo` | ✅ live + tested |
 | keramika | keramika.co.id | 1 | `keramika-v5` | ✅ secret set (form di-disable user) |
 | megabuild | megabuild.co.id | 1 | `megabuild-v5` | ⏳ secret pending |
 | renex | renex.megabuild.co.id | 1 | `renex-v5` | ⏳ secret pending |
