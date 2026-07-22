@@ -116,10 +116,13 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    // Local: prerender static pages + cache-control routeRules + _routes.json
-    // wildcards for Cloudflare Pages (cuts Workers CPU billing). Absolute path
-    // so app builds resolve it from the layer, not the app dir.
-    resolve(__dirname, "modules/cf-cache"),
+    // The local `cf-cache` module was removed on 23 Jul 2026. It did two things,
+    // both obsolete: it prerendered 11 static pages (which baked the
+    // dashboard-managed nav/appearance payload into them, so nav edits needed a
+    // rebuild — those pages are now SSR + edge-cached instead), and it wrote
+    // `_routes.json` excludes, which only the `cloudflare-pages` preset reads
+    // and became dead code when the deploy preset moved to `cloudflare_module`.
+    // Caching now lives in server/middleware/00.edge-cache.ts.
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
@@ -233,7 +236,14 @@ export default defineNuxtConfig({
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: "i18n_locale",
-      redirectOn: "all",
+      // "root" (not "all"): with "all" + alwaysRedirect, a locale-prefixed URL
+      // could still redirect based on the i18n_locale cookie — i.e. the response
+      // for a given URL varies by cookie, which makes it unsafe to edge-cache
+      // (see server/middleware/00.edge-cache.ts). Only "/" negotiates locale;
+      // every other URL renders exactly what its path says. All 16 apps already
+      // override to "root"; this default just stops a new app from silently
+      // reintroducing the hazard.
+      redirectOn: "root",
       alwaysRedirect: true,
       fallbackLocale: "en",
     },
@@ -300,6 +310,17 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    // Nothing is prerendered: every public page is SSR + edge-cached (see
+    // server/middleware/00.edge-cache.ts). Stated explicitly rather than left to
+    // defaults so a future Nuxt/Nitro change cannot quietly start crawling and
+    // baking pages again — a prerendered page freezes the dashboard-managed
+    // nav/appearance payload into its HTML until the next code deploy, which is
+    // exactly what this migration removed.
+    prerender: {
+      crawlLinks: false,
+      routes: [],
+    },
+
     alias: {
       // Nuxt 4.5 statically imports unhead's SSR-streaming IIFE (a JS module
       // exporting the whole script as one big string) even when ssrStreaming is

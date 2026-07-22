@@ -81,10 +81,9 @@ export default defineNuxtConfig({
     "/blog/**": { redirect: "/news/**", statusCode: 301 },
   },
 
-  // App-specific static pages prerendered by the base cf-cache module.
-  cfCache: {
-    extraStaticPages: ["/speakers", "/brand-guidelines", "/quotation"],
-  },
+  // /speakers, /brand-guidelines and /quotation used to be prerendered here via
+  // `cfCache.extraStaticPages`. They are now SSR + edge-cached; their TTLs live
+  // in layers/base/shared/cf-cache-rules.ts (CACHED_HTML_EXACT).
 
   sitemap: {
     urls: [

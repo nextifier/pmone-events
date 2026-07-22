@@ -170,7 +170,7 @@ Request dengan `cacheStatus` bukan `hit` (yaitu yang sampai ke worker), host `ap
 |---|---:|---:|---|
 | HTML SSR | 22.372 | 23,2% | Sumber CPU utama (±150–350 ms/render) |
 | Bot scan 404 (`/wp-admin`, `/wp-login.php`, `/wp-json`, `.php`, `.env`) | 18.640 | 19,3% | Murni sampah, bisa 0 |
-| `/api/_nuxt_icon/*.json` | 12.966 | 13,4% | **Semua balas `204` kosong** — invocation sia-sia |
+| `/api/_nuxt_icon/*.json` | 12.966 | 13,4% | Trafik sah (lihat koreksi di bawah tabel) — serap dengan Cache API |
 | `/cdn-cgi/rum` | 11.069 | 11,5% | Beacon Web Analytics, tidak memanggil worker |
 | `/_nuxt/*` uncached | 9.211 | 9,5% | |
 | File statis lain (`robots.txt`, `sitemap`, ikon) | 7.386 | 7,6% | |
@@ -241,10 +241,24 @@ Per zone (Free plan dapat 5 custom rule):
 
 Hilangkan ±18.600 invocation/hari.
 
-### P0-D — Matikan endpoint `/api/_nuxt_icon/*`
+### P0-D — ~~Matikan endpoint `/api/_nuxt_icon/*`~~ → DIBATALKAN
 
-12.966 request/hari, semuanya balas `204` kosong. Set `icon.serverBundle: false`
-(atau lengkapi `clientBundle.icons`) supaya ikon tidak pernah minta ke server.
+> **Koreksi 23 Jul 2026 (temuan salah pada revisi pertama).** Dokumen ini semula menyatakan
+> endpoint `/api/_nuxt_icon/*` "membalas `204` kosong / invocation sia-sia" dan menyarankan
+> mematikannya. **Itu keliru** — kesimpulannya lahir dari `curl` tanpa query string.
+> Endpoint ini menerima `?icons=a,b,c`:
+>
+> ```
+> /api/_nuxt_icon/lucide.json                 → 204, 0 byte   (tanpa query)
+> /api/_nuxt_icon/lucide.json?icons=x,menu    → 200, 604 byte (trafik asli)
+> ```
+>
+> Jadi 12.966 request/hari itu **melayani data ikon sungguhan**. `icon.fallbackToApi: false`
+> akan menghilangkan ikon yang nama koleksinya datang dari data dashboard (tidak bisa di-scan
+> statis oleh `clientBundle.scan`). Penanganan yang benar: **biarkan endpoint-nya**, lalu serap
+> bebannya lewat Cache API di P0-A — response-nya sudah membawa
+> `cache-control: s-maxage=604800`, jadi setelah edge cache aktif hampir semuanya jadi cache
+> hit (±3 ms) alih-alih invocation penuh.
 
 ### P1-A — Prerender halaman publik (paling ampuh, 0 invocation)
 
