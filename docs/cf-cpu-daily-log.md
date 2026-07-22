@@ -26,7 +26,8 @@ Cara ambil angkanya (butuh sesi dashboard Cloudflare, atau token `Account Analyt
 | Tanggal | Hari siklus | CPU total (M ms) | Billable | Cache rate | Catatan |
 |---|---|---|---|---|---|
 | 2026-07-14 | 23/30 | 256,02 | 227,56 | 54,7% | Pra-perbaikan. "Cache rate" di sini cache rate zona (mayoritas aset statis), bukan penghindaran Worker — menyesatkan, itu sebabnya CPU tetap tinggi walau angkanya terlihat bagus. |
-| 2026-07-23 | 2/31 | — | — | — | **Hari perbaikan.** WAF anti-scanner aktif di 27 zone (±18.600 invocation/hari hilang). Edge cache in-worker di-deploy ke 16 app. `browser_cache_ttl` 27 zone diubah 120 → 0. Backend purge-by-URL live & terverifikasi end-to-end. Angka hari ini campuran sebelum/sesudah — baseline bersih mulai 24 Jul. |
+| 2026-07-22 | 1/31 | 14,81 | — | — | **Hari 1 siklus, PRA-perbaikan.** Sudah membakar separuh kuota bulanan (14,8 dari 30M) sebelum fix ada. Konsekuensi: invoice 22 Ags kemungkinan masih memuat kelebihan kecil sekalipun sisa siklus sempurna. |
+| 2026-07-23 | 2/31 | — | — | — | **Hari perbaikan (5 deploy).** WAF 27→28 zone. Edge cache in-worker + build-id keying + bot-variant collapse di 16 app. `browser_cache_ttl` → 0. Purge-by-URL live, celah tag (`rundowns`≠`rundown` dll) ditutup. Tiap deploy me-reset cache HTML → angka hari ini tinggi & tidak representatif. JANGAN deploy tanpa perlu — biarkan cache menghangat. |
 
 ## Kenapa TTL dinaikkan, bukan diturunkan (23 Jul 2026)
 
@@ -60,10 +61,25 @@ model, TTL 7 hari untuk rute itu HARUS ikut diturunkan, atau editan tidak terlih
 
 ## Gate keputusan
 
-- **H+1 (24 Jul):** CPU harian harus **< 3M ms**. Kalau tidak → periksa hit-rate `x-edge-cache`.
+- **H+1 (24 Jul):** CPU harian harus **< 3M ms** (gate transisi — cache masih mengisi). Kalau
+  tidak → periksa hit-rate `x-edge-cache`.
 - **H+3 (26 Jul):** CPU harian **< 1,2M ms** dan HIT-rate > 85% di halaman teratas.
-- **H+7 (30 Jul):** kumulatif on-track untuk < 30M ms. Kalau tidak → mulai fase optimasi payload
-  (HTML home 340 KB: `__NUXT_DATA__` 98 KB + inline SVG 93 KB), yang sengaja ditunda.
+- **H+7 (30 Jul):** CPU harian mapan **< 1M ms**. Kalau tidak → mulai fase optimasi payload
+  (HTML home 340 KB: `__NUXT_DATA__` 98 KB + inline SVG 93 KB) untuk memangkas biaya per-render
+  dari ±150 ms.
+
+## Matematika tagihan yang jujur (ditulis 23 Jul)
+
+- Tarif kelebihan: **$0,02 per 1 juta ms**. Jadi 3M ms/hari = 90M/siklus = 60M billable =
+  **+$1,20** — bukan 3× tagihan. Tetap bukan target; target = $5,00 flat.
+- **Hari 1 siklus (22 Jul) sudah membakar 14,81M** dari kuota 30M — sebelum perbaikan ada.
+  Sisa kuota ≈ 15M untuk 30 hari ≈ 0,5M/hari. Maka **invoice 22 Agustus kemungkinan masih
+  memuat kelebihan kecil (puluhan sen s.d. ±$1)** sekalipun steady state tercapai.
+  **$5,00 bersih yang realistis adalah invoice 22 September.**
+- Sisa CPU yang tak bisa hilang oleh TTL: (1) Cache API **per-colo** — tiap colo bayar MISS
+  sendiri per URL per varian; (2) **tiap deploy me-reset seluruh cache HTML** (build-id) —
+  disiplin deploy = bagian dari biaya; (3) biaya per-render masih ±150 ms sampai fase payload
+  dikerjakan.
 
 ## Cek cepat tanpa dashboard
 
