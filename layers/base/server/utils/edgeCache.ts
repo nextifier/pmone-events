@@ -28,6 +28,20 @@ const COLOR_MODE_COOKIE = "events-color-mode";
 const LOCALE_COOKIE = "i18n_locale";
 
 /**
+ * Crawlers and preview fetchers. Two thirds of HTML traffic is a flat tail of
+ * ~1,850 article URLs averaging ~12 hits/day, much of it bots — and the Cache
+ * API is per-colo, so every colo pays its own MISS per URL *per variant*.
+ * Collapsing bots onto the default variant (dark, no locale negotiation) halves
+ * their key space and lets bot visits pre-warm the cache humans actually use.
+ *
+ * Safe because a bot never observes the difference: the colour-mode class is
+ * cosmetic, and on "/" a bot that would have been locale-redirected gets a 302,
+ * which is never cached (200s only) — so a wrong-variant body cannot stick.
+ */
+const BOT_UA_RE =
+  /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|whatsapp|telegram|linkedin|pinterest|petalbot|ahrefs|semrush|mj12|applebot|bytespider|ccbot|amazonbot|gptbot|claude|perplexity|yandex|baidu|duckduck/i;
+
+/**
  * Marks the cache key on the event so the `cacheControl` server plugin knows
  * this response is worth storing once its body exists.
  */
@@ -61,6 +75,8 @@ export function buildEdgeCacheKey(event: H3Event, url: URL): Request {
   const isHtml =
     !keyUrl.pathname.startsWith("/api/") && !keyUrl.pathname.startsWith("/_og/");
 
+  const isBot = BOT_UA_RE.test(getRequestHeader(event, "user-agent") ?? "");
+
   if (isHtml) {
     // THE BUILD ID IS NOT OPTIONAL. SSR HTML embeds hashed asset URLs
     // (/_nuxt/DxzM4Sv5.js). A deploy replaces those assets, so HTML cached
@@ -78,7 +94,9 @@ export function buildEdgeCacheKey(event: H3Event, url: URL): Request {
     // pre-deploy entries become unreachable and simply age out.
     keyUrl.searchParams.set("__b", useRuntimeConfig(event).app?.buildId ?? "dev");
 
-    const preference = getCookie(event, COLOR_MODE_COOKIE);
+    // Bots (no cookies) always land on the default variant anyway; pinning them
+    // there keeps one bot with an odd header from minting extra cache entries.
+    const preference = isBot ? undefined : getCookie(event, COLOR_MODE_COOKIE);
     keyUrl.searchParams.set("__cm", preference === "light" ? "light" : "dark");
   }
 
@@ -90,7 +108,12 @@ export function buildEdgeCacheKey(event: H3Event, url: URL): Request {
   // Note this does NOT reimplement i18n's matching — that would rot silently as
   // the module changes. It records the inputs, so any two requests sharing a key
   // handed i18n identical information and cannot have produced different output.
-  if (keyUrl.pathname === "/") {
+  //
+  // Bots skip the negotiation inputs entirely: a cookieless bot with no (or an
+  // exotic) Accept-Language resolves to the default-locale 200, and one that
+  // WOULD have been redirected gets a 302 — which is never stored, so the
+  // collapsed key cannot pin a wrong-locale body.
+  if (keyUrl.pathname === "/" && !isBot) {
     keyUrl.searchParams.set("__lc", getCookie(event, LOCALE_COOKIE) ?? "none");
     keyUrl.searchParams.set("__al", normalizeAcceptLanguage(event));
   }
