@@ -1,21 +1,26 @@
 <template>
   <div class="text-foreground flex items-center justify-center">
-    <Spinner v-if="!isMounted" class="size-4 text-foreground" />
+    <Spinner v-if="!isMounted" class="text-foreground size-4" />
 
     <template v-else>
       <div v-if="status === 'upcoming'" class="flex items-center gap-x-1.5">
         <span class="inline tracking-tighter">
           <Countdown
             :variant="countdownVariant"
-            :textBeforeCountdown="prefix || (withTextPrefix ? $t('eventStatus.startsIn') : '')"
+            :textBeforeCountdown="
+              prefix || (withTextPrefix ? $t('eventStatus.startsIn') : '')
+            "
             :countdownDate="startTime"
           />
         </span>
       </div>
 
       <div v-else-if="status === 'live'" class="flex items-center gap-x-1.5">
-        <LoaderBars />
-        <span class="font-semibold tracking-normal uppercase">{{ $t('eventStatus.live') }}</span>
+        <ThinkingOrb state="composing" :size="24" />
+        <span
+          class="shimmer shimmer-duration-3000 text-muted-foreground text-base tracking-tight uppercase"
+          >{{ $t("eventStatus.live") }}</span
+        >
       </div>
 
       <div
@@ -23,7 +28,9 @@
         class="flex items-center gap-x-1.5"
       >
         <IconCompleted class="size-5 shrink-0 text-green-500" />
-        <span class="text-sm tracking-tight">{{ $t('eventStatus.completed') }} </span>
+        <span class="text-sm tracking-tight"
+          >{{ $t("eventStatus.completed") }}
+        </span>
       </div>
     </template>
   </div>
