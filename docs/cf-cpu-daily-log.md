@@ -60,14 +60,26 @@ HTML umum 6 jam, dan root `/` dibuat cacheable dengan cache key yang memuat cook
 ⚠️ **Ketergantungan yang harus dijaga:** kalau `edgeCachePaths()` dihapus dari salah satu
 model, TTL 7 hari untuk rute itu HARUS ikut diturunkan, atau editan tidak terlihat seminggu.
 
-## Gate keputusan
+## FASE 2 di-deploy 23 Jul ±18:45 WIB (commit `3c59036` events + `c55e54ce` pmone)
 
-- **H+1 (24 Jul):** CPU harian harus **< 3M ms** (gate transisi — cache masih mengisi). Kalau
-  tidak → periksa hit-rate `x-edge-cache`.
-- **H+3 (26 Jul):** CPU harian **< 1,2M ms** dan HIT-rate > 85% di halaman teratas.
-- **H+7 (30 Jul):** CPU harian mapan **< 1M ms**. Kalau tidak → mulai fase optimasi payload
-  (HTML home 340 KB: `__NUXT_DATA__` 98 KB + inline SVG 93 KB) untuk memangkas biaya per-render
-  dari ±150 ms.
+Isi: TTL maksimal (list+home 7 hari, detail+statis 30 hari; API tetap 120/60 dtk) ·
+key `/` dikolapskan (AL first-match, cookie-precedence) → **home kini purgeable & di-purge oleh
+tag blog-posts/banners/media-coverages/events/rundown** (`homeVariantUrls()`, 26 URL/site) ·
+**404 HTML di-cache 1 jam** (2 jalur capture, klien JSON tetap dapat JSON segar) ·
+diet logo (icc `<img>` −82 KB/halaman artikel; megabuild/renex CSS mask; flei mark) ·
+`php artisan edge:purge {--project=|--all}` sebagai katup darurat · global-ai-expo → provider
+gambar cloudflare. Regresi workerd 10/10; visual light+dark diverifikasi.
+
+⚠️ Aturan sinkron BARU: skema key worker (`buildEdgeCacheKey`) ⟷ `EdgeCache::homeVariantUrls()`
+pmone WAJIB berubah bersamaan. Dan setiap menaikkan TTL rute → pastikan ada tag purge yang
+menjangkaunya.
+
+## Gate keputusan (di-reset pasca-deploy fase 2)
+
+- **H+1 (24 Jul):** CPU harian **< 1M ms** (cache mengisi ulang pasca-deploy sore).
+- **H+3 (26 Jul):** CPU harian **< 0,6M ms** dan p50 icc ≤ 8 ms (agregat 24 jam).
+- Kalau meleset → satu-satunya tuas tersisa: full diet field posts (payload `pinia` ±58 KB) —
+  butuh keputusan user karena menyentuh data flow.
 
 ## Matematika tagihan yang jujur (ditulis 23 Jul)
 
