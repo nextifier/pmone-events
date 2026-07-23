@@ -29,29 +29,42 @@
  * only bound how stale things can get if a purge fails.
  */
 
-export const HTML_TTL = "public, max-age=0, s-maxage=21600"; // 6 h edge
+/**
+ * List pages and (locale) homepages — 7 days.
+ *
+ * Safe because every tag that renders on these pages purges them: list pages
+ * were covered from day one, and as of phase 2 the pmone backend also purges
+ * the homepage variants for blog-posts / banners / media-coverages / events /
+ * rundown (the sections the home actually SSRs — BrandPreview is client-side).
+ * TTL DEPENDENCY RULE: before raising a route's TTL, verify the tag map in
+ * pmone's config/edge-sites.php reaches that route; the TTL is only the
+ * fallback when a purge fails.
+ */
+export const HTML_TTL = "public, max-age=0, s-maxage=604800"; // 7 d edge
 
 /**
- * Detail pages (an article, a brand, a guest) — 7 days.
+ * Detail pages (an article, a brand, a guest) — 30 days.
  *
  * Counter-intuitive but measured: on 22 Jul 2026 these were 2,291 distinct URLs
  * serving 23,657 requests/day, i.e. ~10 requests per URL per day. A short TTL
- * buys almost nothing on a tail like that — at 1 hour they still cost 11,053
- * renders/day, at 7 days only 327. That is the difference between missing and
- * meeting the CPU allowance.
+ * buys almost nothing on a tail like that — at 1 hour they cost 11,053
+ * renders/day, at 7 days 327, at 30 days ~76. That is the difference between
+ * missing and comfortably beating the CPU allowance.
  *
- * Safe only because invalidation is exact: Post/Brand/Guest each declare
+ * Safe only because invalidation is exact: Post/Brand/Guest/Form each declare
  * `edgeCachePaths()` in the pmone dashboard, so publishing drops that specific
  * URL within seconds. If you ever remove a model's edgeCachePaths(), move its
- * routes back to HTML_TTL or edits will sit behind this for a week.
+ * routes back down or edits will sit behind this for a month. Emergency valve:
+ * `php artisan edge:purge --project=<x> | --all` in the pmone repo.
  */
-export const HTML_TTL_DETAIL = "public, max-age=0, s-maxage=604800"; // 7 d edge
+export const HTML_TTL_DETAIL = "public, max-age=0, s-maxage=2592000"; // 30 d edge
 
-export const HTML_TTL_LONG = "public, max-age=0, s-maxage=21600"; // 6 h edge
+export const HTML_TTL_LONG = "public, max-age=0, s-maxage=604800"; // 7 d edge
 // Pages whose content is effectively frozen (legal text, contact, forms shell).
 // These used to be prerendered at build; they are cached instead so dashboard
-// edits to nav/appearance/identity reach them without a rebuild.
-export const HTML_TTL_STATIC = "public, max-age=0, s-maxage=21600"; // 6 h edge
+// edits to nav/appearance/identity reach them without a rebuild — those edits
+// arrive via the global tags' full-zone purge, so the TTL can be long.
+export const HTML_TTL_STATIC = "public, max-age=0, s-maxage=2592000"; // 30 d edge
 // max-age=0: the browser cache is the one layer no invalidation can reach, so
 // admin edits would sit behind it for its full lifetime. Only the edge caches.
 //

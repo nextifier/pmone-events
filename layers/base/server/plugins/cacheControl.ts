@@ -1,7 +1,10 @@
 import { resolveCacheControl } from "../../shared/cf-cache-rules";
 import {
   EDGE_BUILD_HEADER,
+  EDGE_CACHE_404_ONLY,
   EDGE_CACHE_KEY,
+  EDGE_CACHE_STORE_404,
+  NOT_FOUND_TTL,
   currentBuildId,
   getEdgeCache,
 } from "../utils/edgeCache";
@@ -19,8 +22,12 @@ import {
  * this on the Workers preset — the Worker runs before the cache — so caching has
  * to happen inside the Worker. See server/utils/edgeCache.ts for the full why.
  *
- * Deliberately status-200-only: 404s under /news/**, i18n 302s on "/", and
- * error responses are never edge-cached.
+ * Status rules: 200s are stored for routes in the cf-cache tables; **404 HTML**
+ * is stored for one hour regardless of table membership (each unknown path
+ * rendered Nuxt's full SSR error page ~2,400×/day). Redirects and every other
+ * error status are never cached. A key flagged 404-only can never store a 200 —
+ * that is what keeps per-visitor pages (checkout, order status) out of the
+ * cache even though their 404s are cacheable.
  *
  * Precedence for `cache-control`, in order:
  *   1. A handler that says `no-store` or `private` — never cached, never
@@ -28,14 +35,59 @@ import {
  *   2. layers/base/shared/cf-cache-rules.ts — the table wins over whatever a
  *      handler set, so Nitro's short `defineCachedEventHandler` windows cannot
  *      cap the edge TTL.
- *   3. Unlisted routes — left untouched and never stored.
+ *   3. Unlisted routes — left untouched; only their 404s are stored.
  */
 export default defineNitroPlugin((nitroApp) => {
-  nitroApp.hooks.hook("beforeResponse", (event, response) => {
+  nitroApp.hooks.hook("beforeResponse", async (event, response) => {
     if (event.method !== "GET") {
       return;
     }
+
+    // The inner `/__nuxt_error` render (see the middleware) responds 200-shaped
+    // but its body IS the branded 404 page for the original URL. Store it as a
+    // 404 under that URL's key so the next visitor HITs without any render.
+    // The response actually sent keeps its own headers; NOT_FOUND_TTL only
+    // governs the stored copy.
+    //
+    // AWAITED, not waitUntil: this hook runs on the INNER localFetch request,
+    // whose mock event has no platform waitUntil — an un-awaited cache.put
+    // would be cancelled when the outer request finishes. A 404 render is rare
+    // (that is the whole point), so blocking it a few extra ms is free.
+    if (event.context[EDGE_CACHE_STORE_404]) {
+      if (typeof (response as any)?.body === "string") {
+        await storeInEdgeCache(event, response, 404, NOT_FOUND_TTL);
+      }
+      return;
+    }
+
+    // Direct 404s: when a page's data fetch throws createError(404), Nuxt
+    // renders the branded error page inside the SAME request and returns it as
+    // an ordinary handler response — so it lands here with status 404 (no
+    // /__nuxt_error round trip; verified in workerd). Store it under the key
+    // the middleware built. IMPORTANT: html-ness is judged from the body, not
+    // the content-type header — h3 only sets content-type at send time, AFTER
+    // this hook, and requiring it here silently disabled 404 caching once
+    // already.
+    if (getResponseStatus(event) === 404) {
+      const body = (response as any)?.body;
+      if (
+        event.context[EDGE_CACHE_KEY] &&
+        typeof body === "string" &&
+        /<(!doctype|html)/i.test(body.slice(0, 200))
+      ) {
+        await storeInEdgeCache(event, response, 404, NOT_FOUND_TTL);
+      }
+      return;
+    }
+
     if (getResponseStatus(event) !== 200) {
+      return;
+    }
+
+    // A 404-only key must never admit a 200 — the route is per-visitor or
+    // otherwise uncacheable (that is why it is not in the tables).
+    if (event.context[EDGE_CACHE_404_ONLY]) {
+      delete event.context[EDGE_CACHE_KEY];
       return;
     }
 
@@ -76,7 +128,12 @@ export default defineNitroPlugin((nitroApp) => {
  * `event.waitUntil`, and any failure (quota, malformed header, API missing) is
  * swallowed — a failed write just means the next request re-renders.
  */
-function storeInEdgeCache(event: any, response: { body?: unknown }) {
+function storeInEdgeCache(
+  event: any,
+  response: { body?: unknown },
+  status: 200 | 404 = 200,
+  cacheControlOverride?: string,
+) {
   const key: Request | undefined = event.context[EDGE_CACHE_KEY];
   if (!key) {
     return;
@@ -118,14 +175,24 @@ function storeInEdgeCache(event: any, response: { body?: unknown }) {
   // emitted here is @nuxtjs/i18n's `i18n_locale`, and on a cacheable URL the
   // locale is already encoded in the path (or the route is locale-agnostic), so
   // dropping it from the cached copy changes nothing a visitor can observe.
-  // "/" — the one URL whose response really does depend on that cookie — is
-  // never cacheable (resolveCacheControl returns undefined for it).
+  // "/" is safe too: its cache key carries the exact negotiation inputs, so a
+  // HIT would have been offered the same cookie value it already holds.
   headers.delete("set-cookie");
   // Recomputed per request by the middleware; storing it would pin "MISS".
   headers.delete("x-edge-cache");
 
   if (fallbackContentType && !headers.has("content-type")) {
     headers.set("content-type", fallbackContentType);
+  }
+  // h3 sets content-type only at send time, after this hook — a stored HTML
+  // entry without one would be served as text/plain on HIT.
+  if (!headers.has("content-type") && typeof payload === "string") {
+    headers.set(
+      "content-type",
+      status === 404 || /<(!doctype|html)/i.test(payload.slice(0, 200))
+        ? "text/html; charset=utf-8"
+        : "text/plain; charset=utf-8",
+    );
   }
 
   // Validated on lookup: HTML from an older build is treated as a miss so a
@@ -134,10 +201,24 @@ function storeInEdgeCache(event: any, response: { body?: unknown }) {
   // EDGE_BUILD_HEADER in server/utils/edgeCache.ts.
   headers.set(EDGE_BUILD_HEADER, currentBuildId(event));
 
-  const cached = new Response(payload, { status: 200, headers });
+  // For stored 404s: the visitor's copy keeps its own headers (Nuxt sends
+  // `no-cache`); this override governs only the edge entry's TTL.
+  if (cacheControlOverride) {
+    headers.set("cache-control", cacheControlOverride);
+  }
 
+  const cached = new Response(payload, { status, headers });
+
+  // Stored 404s are AWAITED by the caller (inner /__nuxt_error renders have no
+  // platform waitUntil, so a floating put would be cancelled with the outer
+  // request); 200s stay fire-and-forget via waitUntil so visitors never wait.
+  const put = cache
+    .put(key, cached)
+  if (status === 404) {
+    return put;
+  }
   try {
-    event.waitUntil(cache.put(key, cached).catch(() => {}));
+    event.waitUntil(put);
   } catch {
     // waitUntil unavailable — skip caching rather than break the response.
   }

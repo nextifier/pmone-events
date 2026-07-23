@@ -48,6 +48,25 @@ const BOT_UA_RE =
 export const EDGE_CACHE_KEY = "__edgeCacheKey";
 
 /**
+ * Set alongside EDGE_CACHE_KEY for HTML paths that are NOT in the cf-cache
+ * tables: only a 404 response may be stored under such a key (1 h TTL). This is
+ * the guard that lets unknown-path error pages be cached without ever risking a
+ * per-visitor 200 (checkout, order status…) entering the cache.
+ */
+export const EDGE_CACHE_404_ONLY = "__edgeCache404Only";
+
+/**
+ * Set on the INNER `/__nuxt_error` render (see the middleware): its 200-shaped
+ * response body is the branded 404 page for the original URL, and must be
+ * stored as a 404 under the original URL's key.
+ */
+export const EDGE_CACHE_STORE_404 = "__edgeCacheStore404";
+
+/** Edge TTL for cached 404 pages. Short: it only exists to absorb bot floods
+ * and dead links; publishing at the URL purges it exactly anyway. */
+export const NOT_FOUND_TTL = "public, max-age=0, s-maxage=3600";
+
+/**
  * Header stamped onto every stored HTML entry and validated on lookup.
  *
  * WHY A HEADER AND NOT PART OF THE KEY: purge-by-URL is an exact match
@@ -124,32 +143,40 @@ export function buildEdgeCacheKey(event: H3Event, url: URL): Request {
   // WOULD have been redirected gets a 302 — which is never stored, so the
   // collapsed key cannot pin a wrong-locale body.
   //
-  // These variants are NOT enumerable by the backend, so "/" cannot be purged
-  // by URL — any tag that touches the homepage must purge the whole zone
-  // (see `global_tags` in pmone's config/edge-sites.php) or accept the TTL.
+  // The variant space is deliberately SMALL AND ENUMERABLE so the PM One
+  // backend can purge "/" by listing every combination (homeVariantUrls() in
+  // pmone's app/Support/EdgeCache.php — keep both sides in lockstep):
+  //   __lc ∈ {none} ∪ LOCALE_CODES   ×   __al ∈ {"-"} or {none, other} ∪ codes
+  // When the cookie is present, __al is pinned to "-" because i18n gives the
+  // cookie precedence and never consults Accept-Language.
   if (keyUrl.pathname === "/" && !isBot) {
     const cookie = getCookie(event, LOCALE_COOKIE);
     // Clamp to known codes: this is visitor-controlled input, and an arbitrary
     // cookie value would otherwise mint unbounded cache entries.
+    const lc = cookie && LOCALE_CODES.includes(cookie) ? cookie : "none";
+    keyUrl.searchParams.set("__lc", lc);
     keyUrl.searchParams.set(
-      "__lc",
-      cookie && LOCALE_CODES.includes(cookie) ? cookie : "none",
+      "__al",
+      lc === "none" ? normalizeAcceptLanguage(event) : "-",
     );
-    keyUrl.searchParams.set("__al", normalizeAcceptLanguage(event));
   }
 
   return new Request(keyUrl.toString(), { method: "GET" });
 }
 
 /**
- * Reduce Accept-Language to the ordered list of languages this app actually
- * has, e.g. "en-US,en;q=0.9,id;q=0.8,fr;q=0.7" -> "en,id".
+ * Reduce Accept-Language to the FIRST language this app actually has, e.g.
+ * "en-US,en;q=0.9,id;q=0.8,fr;q=0.7" -> "en".
  *
- * Hashing the raw header would also be correct but explodes the number of cache
- * entries, since browsers send hundreds of distinct strings. Dropping q-values,
- * region subtags and unknown languages collapses that variety without losing
- * anything i18n consults: it matches by language subtag, in header order,
- * against the configured locales.
+ * First-match only (not the full ordered list) for two reasons: it is what
+ * i18n's browser-language detection resolves to — it walks the header in order
+ * and settles on the first configured locale — so two requests sharing this
+ * value hand i18n equivalent input; and a single value keeps the "/" key space
+ * enumerable so the backend can purge the homepage by URL. Theoretical caveat:
+ * a client sending q-values out of descending order could disagree with i18n's
+ * quality-aware pick, but real browsers always emit q-descending, and the
+ * worst case is being served the default-locale 200 instead of a redirect —
+ * redirects themselves are never cached, so a wrong-locale body cannot stick.
  */
 function normalizeAcceptLanguage(event: H3Event): string {
   const header = getRequestHeader(event, "accept-language");
@@ -157,16 +184,14 @@ function normalizeAcceptLanguage(event: H3Event): string {
     return "none";
   }
 
-  const seen: string[] = [];
-
   for (const part of header.split(",")) {
     const tag = part.trim().split(";")[0]?.trim().toLowerCase();
     const language = tag?.split("-")[0];
 
-    if (language && LOCALE_CODES.includes(language) && !seen.includes(language)) {
-      seen.push(language);
+    if (language && LOCALE_CODES.includes(language)) {
+      return language;
     }
   }
 
-  return seen.length ? seen.join(",") : "other";
+  return "other";
 }

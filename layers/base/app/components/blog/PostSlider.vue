@@ -80,10 +80,17 @@ const route = useRoute();
 // Use Pinia store - data is cached and shared across components
 const postStore = usePostStore();
 
-// Fetch posts on component mount (works for both SSR and client-side)
+// Fetch posts on component mount (works for both SSR and client-side).
+//
+// Return `true`, NOT `postStore.posts`: useAsyncData serializes its return
+// value into the __NUXT_DATA__ payload, and the store state is serialized by
+// Pinia as well — returning the posts shipped the same ~70 KB twice on every
+// SSR page (measured on megabuild's home: 69.8 KB data + 70.1 KB pinia).
+// Nothing reads this asyncData's value; `filteredPosts` below reads the store.
+// The useAsyncData wrapper only exists so SSR awaits the fetch exactly once.
 await useAsyncData("post-slider-posts", async () => {
   await postStore.fetchPosts();
-  return postStore.posts;
+  return true;
 });
 
 const filteredPosts = computed(() => {

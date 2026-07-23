@@ -20,7 +20,12 @@ export default defineNuxtConfig({
   colorMode: { preference: "light", fallback: "light" },
 
   image: {
-    provider: process.env.NODE_ENV === "production" ? "ipx" : "ipx",
+    // Cloudflare Image Transformations in production, like every other app
+    // (base layer default). This app used to force ipx because its old
+    // *.pages.dev host had no zone to transform through; since the move to
+    // ai.pmone.id it sits in the pmone.id zone, and running ipx inside the
+    // Worker would burn CPU doing image resizing per request.
+    provider: process.env.NODE_ENV === "production" ? "cloudflare" : "ipx",
     quality: 85,
     format: ["webp"],
   },
