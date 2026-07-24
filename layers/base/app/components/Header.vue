@@ -55,7 +55,12 @@
 
           <ColorModeToggle v-if="!route.meta.colorMode" />
 
-          <Tippy v-if="route.name?.toString().startsWith('news-slug')">
+          <!-- The sidebar only holds the table of contents, and below 1024px
+               that moved to the sticky ScrollSpyPopover — so on mobile news
+               pages fall back to the regular menu. -->
+          <Tippy
+            v-if="route.name?.toString().startsWith('news-slug') && !isMobile"
+          >
             <button
               data-sidebar="trigger"
               data-slot="sidebar-trigger"
