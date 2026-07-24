@@ -130,6 +130,25 @@ res.end wrap (sendRedirect mem-bypass beforeResponse) · 20 ikon runtime → cli
 getCachedData di useProjectProfile/useEvent · list posts trim 109,7→58,3 KB (field terukur
 dari konsumen; detail route utuh). Regresi workerd 13/13.
 
+## 24 Jul ±16:10 — INSIDEN: trim payload fase-3 merusak semua gambar posts (RESOLVED ±17:30)
+
+Trim allowlist di `blog/posts.get.ts` membuang `featured_image.md/.sm/.original` — persis
+rantai `src` PostCard (`md.url || sm.url || original`). Grep verifikasi pra-deploy tidak
+menjangkau PostCard.vue, dan gejala yang sama SUDAH terlihat di uji lokal tapi di-wave-away
+sebagai "provider gambar tak jalan lokal". Dampak: semua kartu posts (news, slider di hampir
+semua halaman) hanya menampilkan LQIP.
+
+Penanganan: trim di-REVERT TOTAL (sisa yang aman cuma ±4 KB — tak sepadan), deploy `29bbcaa`,
+lalu `php artisan edge:purge --all` (pemakaian perdana katup darurat — payload cacat tertanam
+di HTML ter-cache ber-TTL s.d. 30 hari). Catatan tambahan: purge-all juga mengosongkan cache
+`cdn.pmone.id` (satu zone dgn ai.pmone.id) → gambar lambat sesaat ketika CDN menghangat lagi.
+
+Pelajaran wajib: (1) verifikasi konsumen field harus menjangkau SEMUA komponen (layers+apps),
+bukan grep sempit; (2) anomali visual saat verifikasi = temuan, bukan noise; (3) trim payload
+allowlist berisiko tinggi — kalau diulang, pakai denylist field yang terbukti nol pemakaian;
+(4) tab automation membekukan `loading="lazy"` native → verifikasi gambar via probe eager,
+bukan screenshot (lihat memory chrome-automation-freezes-raf-canvas).
+
 ## Gate fase 3 (realistis, berbasis data — bukan fantasi)
 
 - **H+1 (25 Jul): < 3M ms/hari** (jendela bersih, metrik worker-side).
