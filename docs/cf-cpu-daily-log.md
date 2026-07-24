@@ -74,6 +74,41 @@ gambar cloudflare. Regresi workerd 10/10; visual light+dark diverifikasi.
 pmone WAJIB berubah bersamaan. Dan setiap menaikkan TTL rute → pastikan ada tag purge yang
 menjangkaunya.
 
+## 24 Jul — GATE H+1 **GAGAL**, dan temuan yang membatalkan asumsi fase 2
+
+**Angka (jendela bersih 20 jam sejak deploy terakhir 23 Jul 19:05 WIB, nol deploy):**
+
+| Metrik | Nilai | Gate |
+|---|---:|---|
+| Laju harian mapan (20 jam) | **7,78M ms/hari** | <1M → **GAGAL 7,8×** |
+| Laju 12 jam terakhir | **6,60M ms/hari** | <1M → **GAGAL 6,6×** |
+| Harian kalender: 21→22→23 Jul | 18,10 → 15,45 → 9,10M | — |
+| p50 icc | 4,8 ms ✓ | ≤8 ms → lolos |
+
+Perbaikan nyata vs baseline (18,1M → ~7M = **−61%**), tapi jauh dari target.
+
+**TEMUAN UTAMA — kenaikan TTL fase 2 praktis tidak berguna.** Bukti: dari sampel `age` di
+seluruh icc, **entri tertua = 72.872 dtk (20,2 jam) = persis sejak deploy**. Tidak satu pun
+mendekati TTL 7 hari (604.800 dtk), apalagi 30 hari. Dan halaman nav utama (`/brands`,
+`/rundown`, `/programs`, `/partners`) **MISS** setelah 20 jam situs live — padahal terbukti
+tersimpan normal begitu di-request (MISS → HIT age 52–112 dtk).
+
+Kesimpulan: **Cloudflare Cache API meng-evict entri ekor jauh sebelum TTL.** TTL hanya batas
+atas; yang menentukan adalah frekuensi akses per-colo. Menaikkan 7→30 hari tidak mengubah apa
+pun untuk ekor panjang.
+
+**Sebaran kesehatan per worker (jendela bersih):**
+
+| Cache jalan (p50 <12 ms) | Cache tak efektif (p50 74–144 ms) |
+|---|---|
+| icc 4,8 · inacon 9,5 · flei 11,8 · megabuild 11,8 | keramika 74 · morefood 80 · panorama-events 113 · cafeexpo 120 · icf 138 · cokelatexpo 144 |
+
+Polanya: **request per URL per colo**, bukan volume total. Situs dengan banyak URL & trafik
+sedang → hampir tiap request adalah render penuh.
+
+**Proyeksi siklus:** 15,45 + 9,10 + ~7 + (28 × ~7) ≈ **228M ms** → billable ~198M →
+**+$3,96** → invoice 22 Ags ≈ **$8,96**. Lebih baik dari $12,52, jauh dari $5.
+
 ## Gate keputusan (di-reset pasca-deploy fase 2)
 
 - **H+1 (24 Jul):** CPU harian **< 1M ms** (cache mengisi ulang pasca-deploy sore).
