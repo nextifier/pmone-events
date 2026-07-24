@@ -109,6 +109,34 @@ sedang → hampir tiap request adalah render penuh.
 **Proyeksi siklus:** 15,45 + 9,10 + ~7 + (28 × ~7) ≈ **228M ms** → billable ~198M →
 **+$3,96** → invoice 22 Ags ≈ **$8,96**. Lebih baik dari $12,52, jauh dari $5.
 
+## 24 Jul sore — FASE 3 deployed (commit `154661e`) + MODEL TERKOREKSI
+
+**Dua koreksi model penting (jangan dilupakan lagi):**
+1. Sistem punya **DUA lapis cache**: CDN Cloudflare (Cache Rule lama, semua zone) meng-cache
+   respons worker yang **bebas set-cookie** — yaitu respons `x-edge-cache: HIT` kita yang
+   set-cookie-nya di-strip. Render segar (ber-cookie) tak di-cache CDN. Bukti:
+   `cf-cache-status: HIT` di API/HTML/icon. Rantai: CDN → worker → Cache API → render.
+   Purge by-URL menghapus KEDUA lapis sekaligus (satu panggilan).
+2. Komposisi request ZONE ≠ komposisi INVOCATION worker (zone flei 31k req API/20j vs 9,1k
+   invocation total). Analisa CPU wajib dari `workersInvocationsAdaptive`, bukan zone.
+
+**Akar gagalnya gate H+1 (7,78M/hari):** TTL API sendiri (60–120 dtk) → semua endpoint × semua
+colo re-render penuh tiap ≤2 menit selamanya; plus 302 i18n "/" yang boot app penuh tiap
+kunjungan pengunjung ber-bahasa-id; plus eviction dini entri HTML dingin (nyata, bukan teori).
+
+**Isi fase 3:** API STABLE tier 6 jam (11 endpoint ber-?locale saja, semua purge-covered;
+detail per-slug TETAP 120 dtk — variannya tak terenumerasi purge) · 302 "/" di-cache via
+res.end wrap (sendRedirect mem-bypass beforeResponse) · 20 ikon runtime → client bundle ·
+getCachedData di useProjectProfile/useEvent · list posts trim 109,7→58,3 KB (field terukur
+dari konsumen; detail route utuh). Regresi workerd 13/13.
+
+## Gate fase 3 (realistis, berbasis data — bukan fantasi)
+
+- **H+1 (25 Jul): < 3M ms/hari** (jendela bersih, metrik worker-side).
+- **H+3 (27 Jul): < 2M ms/hari.**
+- Meleset → analisa komposisi invocation PER WORKER (workersInvocationsAdaptive), bukan zone,
+  sebelum menyentuh apa pun.
+
 ## Gate keputusan (di-reset pasca-deploy fase 2)
 
 - **H+1 (24 Jul):** CPU harian **< 1M ms** (cache mengisi ulang pasca-deploy sore).
