@@ -1,13 +1,11 @@
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
-  const token = getRouterParam(event, "token");
+  const token = getRouterParam(event, "token") ?? "";
 
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
-
-  return await $fetch(`${baseUrl}/api/public/reservations/magic/${token}`, {
-    headers: {
-      "X-API-Key": apiKey,
+  return await pmOnePublicFetch(
+    `/reservations/magic/${encodeURIComponent(token)}`,
+    {
+      errorShape: "statusMessage",
+      errorPrefix: "This link is invalid or has expired",
     },
-  });
+  );
 });

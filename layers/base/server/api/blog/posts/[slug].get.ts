@@ -1,5 +1,11 @@
+/**
+ * Article detail.
+ *
+ * Deliberately NOT a cached handler: this fetch is what triggers
+ * TrackingHelper::trackVisit upstream, which is where the dashboard's post view
+ * count comes from. Caching it here would silence the counter.
+ */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const slug = getRouterParam(event, "slug");
   const locale = (getQuery(event).locale as string) || "en";
 
@@ -10,35 +16,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
-  try {
-    const data = await $fetch(
-      `${config.public.apiUrl}/api/public/blog/posts/${slug}`,
-      {
-        headers: {
-          "X-API-Key": config.pmOneApiKey, // Private - not exposed to browser
-          Accept: "application/json",
-        },
-        query: { locale },
-        signal: controller.signal,
-      },
-    );
-
-    return data;
-  } catch (error: any) {
-    if (error.name === "AbortError") {
-      throw createError({
-        statusCode: 504,
-        message: "Request timeout - API server took too long to respond",
-      });
-    }
-    throw createError({
-      statusCode: error.response?.status || 500,
-      message: error.message || "Failed to fetch post",
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  return await pmOnePublicFetch(
+    `/blog/posts/${encodeURIComponent(slug)}`,
+    { query: { locale }, errorPrefix: "Post fetch" },
+  );
 });

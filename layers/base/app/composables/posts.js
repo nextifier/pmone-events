@@ -19,9 +19,10 @@ export const usePostStore = defineStore("posts", {
      * Mengambil daftar postingan dengan pagination.
      * @param {Object} [options={}] - Opsi untuk fetch.
      * @param {number} [options.page=1] - Halaman yang akan diambil.
+     * @param {number} [options.perPage=50] - Jumlah item per halaman.
      * @param {boolean} [options.force=false] - Paksa fetch ulang bahkan jika data sudah ada.
      */
-    async fetchPosts({ page = 1, force = false } = {}) {
+    async fetchPosts({ page = 1, perPage = 50, force = false } = {}) {
       // Skip if already pending
       if (this.pending) {
         return;
@@ -29,12 +30,19 @@ export const usePostStore = defineStore("posts", {
 
       const locale = useNuxtApp().$i18n?.locale?.value || "en";
 
-      // Skip if already fetched same page in the same locale and not forced
+      // Skip if already fetched same page in the same locale and not forced.
+      //
+      // `perPage` belongs in this guard: the home-page slider only needs 21 of
+      // these, and without the size check a visitor who landed on the home page
+      // first would then see /news capped at 21 posts instead of 50. Asking for
+      // fewer than we already hold is always a cache hit; asking for more
+      // refetches.
       if (
         this.hasFetchedPosts &&
         !force &&
         page === this.meta.current_page &&
-        locale === this.lastFetchedLocale
+        locale === this.lastFetchedLocale &&
+        perPage <= (this.meta.per_page ?? 0)
       ) {
         return;
       }
@@ -48,7 +56,7 @@ export const usePostStore = defineStore("posts", {
         const response = await $fetch("/api/blog/posts", {
           query: {
             page,
-            per_page: 50,
+            per_page: perPage,
             sort: "-published_at",
             locale,
           },

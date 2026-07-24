@@ -7,14 +7,7 @@
  * / user-agent. Never cached. Longer timeout (60s) for larger uploads.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
-  const appConfig = useAppConfig();
-  const slug = getRouterParam(event, "slug");
-
-  const username =
-    appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
+  const slug = getRouterParam(event, "slug") ?? "";
 
   const clientIp =
     getRequestHeader(event, "cf-connecting-ip") ||
@@ -25,38 +18,16 @@ export default defineEventHandler(async (event) => {
 
   const raw = await readRawBody(event, false);
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 60000);
-
-  try {
-    return await $fetch(
-      `${baseUrl}/api/public/projects/${username}/forms/${slug}/upload`,
-      {
-        method: "POST",
-        body: raw,
-        headers: {
-          "X-API-Key": apiKey,
-          Accept: "application/json",
-          "Content-Type": getRequestHeader(event, "content-type") ?? "",
-          ...(clientIp ? { "X-Forwarded-For": clientIp } : {}),
-          ...(userAgent ? { "User-Agent": userAgent } : {}),
-        },
-        signal: controller.signal,
-      },
-    );
-  } catch (error: any) {
-    if (error.name === "AbortError") {
-      throw createError({
-        statusCode: 504,
-        message: "Request timeout - upload took too long",
-      });
-    }
-    throw createError({
-      statusCode: error.response?.status || 500,
-      message: error.data?.message || error.message || "Upload failed",
-      data: error.data,
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  return await pmOneFetch(`/forms/${encodeURIComponent(slug)}/upload`, {
+    method: "POST",
+    body: raw,
+    headers: {
+      // Keep the original boundary — rewriting it breaks the multipart parse.
+      "Content-Type": getRequestHeader(event, "content-type") ?? "",
+      ...(clientIp ? { "X-Forwarded-For": clientIp } : {}),
+      ...(userAgent ? { "User-Agent": userAgent } : {}),
+    },
+    timeoutMs: 60000,
+    errorPrefix: "Upload",
+  });
 });

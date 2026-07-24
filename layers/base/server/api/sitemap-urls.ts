@@ -28,21 +28,14 @@ interface BrandResponse {
 const fetchBlogUrls = defineCachedFunction(
   async (): Promise<{ loc: string; lastmod?: string }[]> => {
     const config = useRuntimeConfig();
-    const response = await $fetch<BlogResponse>(
-      `${config.public.apiUrl}/api/public/blog/posts`,
-      {
-        headers: {
-          "X-API-Key": config.pmOneApiKey,
-          Accept: "application/json",
-        },
-        query: {
-          per_page: 1000,
-          sort: "-published_at",
-          author: config.public.blogUsernames,
-        },
-        timeout: 15000,
+    const response = await pmOnePublicFetch<BlogResponse>("/blog/posts", {
+      query: {
+        per_page: 1000,
+        sort: "-published_at",
+        author: config.public.blogUsernames,
       },
-    );
+      errorPrefix: "Sitemap posts",
+    });
 
     return response.data.map((post) => ({
       loc: `/news/${post.slug}`,

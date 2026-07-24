@@ -79,9 +79,8 @@ export const useBrandsListing = (opts = {}) => {
   };
 
   // ----- Editions fetch -----
-  const { data: editions } = useFetch("/api/editions", {
-    transform: (res) => res.data,
-  });
+  // Shared key with Header.vue's picker — see useEditions().
+  const { data: editions } = useEditions();
 
   const selectedEdition = computed(() => {
     if (editionValue.value) {

@@ -5,21 +5,10 @@
  * `GET /api/public/ticket-orders/{ulid}`.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const ulid = getRouterParam(event, "ulid");
 
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
-
-  try {
-    return await $fetch(`${baseUrl}/api/public/ticket-orders/${ulid}`, {
-      headers: { "X-API-Key": apiKey },
-    });
-  } catch (err: any) {
-    throw createError({
-      statusCode: err?.response?.status ?? 500,
-      statusMessage: err?.data?.message || err?.message || "Order not found",
-      data: err?.data,
-    });
-  }
+  return await pmOnePublicFetch(
+    `/ticket-orders/${encodeURIComponent(ulid ?? "")}`,
+    { errorShape: "statusMessage", errorPrefix: "Order not found" },
+  );
 });

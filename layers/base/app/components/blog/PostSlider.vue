@@ -18,7 +18,7 @@
     >
       <CarouselContent class="carousel-mx -ml-2 *:select-none">
         <CarouselItem
-          v-for="(post, index) in filteredPosts.slice(0, 20)"
+          v-for="(post, index) in filteredPosts.slice(0, SLIDE_COUNT)"
           :key="index"
           class="carousel-item basis-[280px] pl-2 lg:basis-[320px]"
         >
@@ -77,6 +77,10 @@ const props = defineProps({
 const headlineText = computed(() => props.headline || t('news.latestUpdates'));
 const route = useRoute();
 
+// How many cards the carousel shows. Drives both the template's slice and how
+// many posts we ask the API for — keep them reading the same constant.
+const SLIDE_COUNT = 20;
+
 // Use Pinia store - data is cached and shared across components
 const postStore = usePostStore();
 
@@ -88,8 +92,14 @@ const postStore = usePostStore();
 // SSR page (measured on megabuild's home: 69.8 KB data + 70.1 KB pinia).
 // Nothing reads this asyncData's value; `filteredPosts` below reads the store.
 // The useAsyncData wrapper only exists so SSR awaits the fetch exactly once.
+//
+// SLIDE_COUNT + 1: the template renders slice(0, 20), and on an article page
+// `filteredPosts` drops the post being read, so one spare keeps it at 20. Asking
+// for the store's default 50 shipped 30 posts nobody could see — ~64 KB of the
+// home page's __NUXT_DATA__. /news still asks for 50 and refetches (see the
+// perPage guard in fetchPosts).
 await useAsyncData("post-slider-posts", async () => {
-  await postStore.fetchPosts();
+  await postStore.fetchPosts({ perPage: SLIDE_COUNT + 1 });
   return true;
 });
 

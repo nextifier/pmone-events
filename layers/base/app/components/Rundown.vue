@@ -627,6 +627,10 @@ const {
   error,
   execute: executeRundown,
 } = await useFetch(rundownUrl, {
+  // Must stay byte-identical to useRundownVisibility's key for the active
+  // edition, or the home page fetches this rundown twice (auto-keys are per
+  // call site, and that composable lives in another file).
+  key: () => `rundown-${props.edition ?? "active"}-${locale.value}`,
   query: { locale },
   server: isRundownPage,
   lazy: !isRundownPage,
@@ -636,7 +640,11 @@ const {
 
 if (!isRundownPage && import.meta.client) {
   onMounted(() => {
-    executeRundown();
+    // useRundownVisibility already filled this entry on the home page; execute()
+    // would refetch it regardless of cached data.
+    if (!rundownData.value) {
+      executeRundown();
+    }
   });
 }
 

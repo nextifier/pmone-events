@@ -1,5 +1,6 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
+  const appConfig = useAppConfig();
   const body = await readBody(event);
 
   // Forward the real visitor IP + user-agent to PM One. This route runs at the
@@ -37,6 +38,9 @@ export default defineEventHandler(async (event) => {
           response: token,
           ...(clientIp ? { remoteip: clientIp } : {}),
         },
+        // The only non-PM-One egress in this layer, and it used to have no
+        // ceiling at all — a slow Turnstile would hold the submit open.
+        timeout: 5000,
       },
     );
 
@@ -48,56 +52,25 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
-  try {
-    const data = await $fetch(
-      `${config.public.apiUrl}/api/contact-forms/submit`,
-      {
-        method: "POST",
-        headers: {
-          "X-API-Key": config.pmOneApiKey, // Private - not exposed to browser
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          ...(clientIp ? { "X-Forwarded-For": clientIp } : {}),
-          ...(userAgent ? { "User-Agent": userAgent } : {}),
-        },
-        body: {
-          project_username: body.project_username,
-          subject: body.subject,
-          data: body.data,
-          // Honeypot fields for bot detection
-          website: body.website || "",
-          _token_time: body._token_time || "",
-        },
-        signal: controller.signal,
-      },
-    );
-
-    return data;
-  } catch (error: any) {
-    if (error.name === "AbortError") {
-      throw createError({
-        statusCode: 504,
-        message: "Request timeout - API server took too long to respond",
-      });
-    }
-
-    // Return the error response from PM One API if available
-    if (error.data) {
-      throw createError({
-        statusCode: error.response?.status || 500,
-        message: error.data.message || "Failed to submit contact form",
-        data: error.data,
-      });
-    }
-
-    throw createError({
-      statusCode: error.response?.status || 500,
-      message: error.message || "Failed to submit contact form",
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  return await pmOneRequest("/api/contact-forms/submit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(clientIp ? { "X-Forwarded-For": clientIp } : {}),
+      ...(userAgent ? { "User-Agent": userAgent } : {}),
+    },
+    body: {
+      // Resolved server-side, never taken from the request body — a submission
+      // must land on THIS site's project. Note `projectUsername`, not the data
+      // source: co-located sites (icf/cokelatexpo reading cbe's content) still
+      // own their own contact inbox.
+      project_username: appConfig.app.projectUsername,
+      subject: body.subject,
+      data: body.data,
+      // Honeypot fields for bot detection
+      website: body.website || "",
+      _token_time: body._token_time || "",
+    },
+    errorPrefix: "Contact form submit",
+  });
 });

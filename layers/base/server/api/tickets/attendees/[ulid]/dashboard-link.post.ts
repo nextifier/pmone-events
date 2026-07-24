@@ -6,26 +6,17 @@
  * `POST /api/public/attendees/{ulid}/dashboard-link`.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const ulid = getRouterParam(event, "ulid");
   // Forward the body so the secret email login token reaches the backend.
   const body = await readBody(event).catch(() => ({}));
 
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
-
-  try {
-    return await $fetch(`${baseUrl}/api/public/attendees/${ulid}/dashboard-link`, {
+  return await pmOnePublicFetch(
+    `/attendees/${encodeURIComponent(ulid ?? "")}/dashboard-link`,
+    {
       method: "POST",
-      headers: { "X-API-Key": apiKey },
       body,
-    });
-  } catch (err: any) {
-    throw createError({
-      statusCode: err?.response?.status ?? 500,
-      statusMessage:
-        err?.data?.message || err?.message || "Could not open the dashboard",
-      data: err?.data,
-    });
-  }
+      errorShape: "statusMessage",
+      errorPrefix: "Could not open the dashboard",
+    },
+  );
 });

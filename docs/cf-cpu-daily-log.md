@@ -415,10 +415,58 @@ Perbaikannya dua sisi dan harus tetap lockstep:
   handler yang ditulis sebelum edit sudah kedaluwarsa saat purge mendarat. Naikkan maxAge di
   events = naikkan debounce di pmone.
 
-Bonus dari investigasi yang sama: `zoneForHost()` mem-purge zone list sekali per URL yang
-hostnya tak terjangkau. `iicc.askindo.id` menyumbang 32 URL per purge, jadi satu job bisa
-memanggil Cloudflare API 30+ kali dan menghapus cache zone untuk host valid sesudahnya.
-Sekarang refresh dibatasi sekali per operasi purge.
+Bonus dari investigasi yang sama: `zoneForHost()` me-refresh zone list sekali per URL yang
+hostnya tak terjangkau. Tiap site menyumbang ~32 URL per tag purge, jadi satu domain di luar
+akun bikin satu job memanggil Cloudflare API 30+ kali sekaligus menghapus cache zone untuk
+host valid sesudahnya. Sekarang refresh dibatasi sekali per operasi purge.
+
+Sekalian dicek: token purge menjangkau **semua** 28 zone di akun, `askindo.id` termasuk.
+Komentar lama yang bilang iicc ada di akun Cloudflare lain sudah usang, dan sudah dikoreksi
+di `EdgeCache.php`.
+
+## 25 Jul — cleanup `server/api/**`: request redundan, payload, duplikasi
+
+Bukan soal cache kali ini, tapi soal berapa banyak yang diminta per render. Semua analytics PM One
+dipertahankan utuh (banner impression, brand visit, link click, view count post) — yang dipangkas
+cuma request yang hasilnya tidak dipakai dan item yang tidak pernah dirender.
+
+Yang hilang dari tiap SSR homepage:
+
+| Request | Kenapa hilang |
+|---|---|
+| `/api/editions` | Header memfetch-nya di SETIAP halaman, padahal edition picker cuma ada di 4 route (brands/rundown + varian edisi). Sekarang idle lewat `useEditions({ immediate })`. |
+| resolve active event × N | Enam handler `event/*` menyalin blok resolve yang sama, jadi tiap section = 2 request. Sekarang satu `defineCachedFunction` di `server/utils/resolveEventSlug.ts`. |
+| 29 post | Store selalu minta `per_page: 50`; slider merender 20. Slider sekarang minta 21, `/news` tetap 50 (guard `perPage` di `fetchPosts`). |
+
+Homepage flei: `__NUXT_DATA__` 137 KB → ~73 KB, HTML 451 KB → ~387 KB (perkiraan, ukur ulang
+setelah deploy). Halaman home juga tidak lagi menembak `/api/event/rundown` dua kali: auto-key Nuxt
+dibuat per CALL SITE, jadi `useRundownVisibility` dan `Rundown.vue` yang ada di dua file berbeda
+punya dua key. Sekarang keduanya memakai key eksplisit yang sama.
+
+Dicek dan TIDAK diubah karena ternyata sudah dedupe: `PostRelated` (dipasang 2× di halaman artikel)
+dan `useMediaCoverages` (2 pemanggil di `/partners`) sama-sama punya satu call site, jadi satu key.
+Cara memastikan hal seperti ini tanpa menebak: `grep -o '"/api/...".\{0,120\}' apps/<app>/.output/
+server/chunks/build/*.mjs` — auto-key muncul sebagai literal `"$xxxxxxxx"` di argumen terakhir.
+
+Cleanup yang menyertainya, 56 file, −914 baris bersih:
+
+- `server/utils/pmOneFetch.ts` sekarang punya tiga level: `pmOneRequest` (path penuh),
+  `pmOnePublicFetch` (`/api/public/**`), `pmOneFetch` (project-scoped). Blok AbortController +
+  error mapping yang tadinya disalin di 20 file hilang.
+- 24 file kehilangan `|| "http://localhost:8000"`. Fallback itu membuat config produksi yang hilang
+  berubah jadi request ke loopback worker, bukan kegagalan yang kelihatan.
+- ~24 route (semua `hotels/*`, `tickets/*`, `track/*`) sebelumnya TANPA timeout sama sekali;
+  sekarang semua punya. Route pembayaran dapat 30 s, upload 60 s, tracking 5 s.
+- Empat route PDF yang nyaris identik → `server/utils/streamUpstreamPdf.ts`.
+- Query passthrough ditutup: `blog/posts` dulu menyebar `...query` SETELAH default, jadi
+  `?author=<project-lain>` bisa menarik post project lain lewat situs ini, dan tiap query string
+  jadi cache entry sendiri. Sekarang allowlist + clamp `per_page`. Sama untuk banners dan hotels.
+- `contact/submit` tidak lagi memakai `project_username` dari body client.
+- Dua route tanpa pemakai dihapus: `tickets/email-lookup`, `hotels/.../room-types/.../
+  daily-availability`.
+
+Kontrak error tickets/hotels sengaja dipertahankan (`statusMessage`, bukan `message`) lewat opsi
+`errorShape` — halaman promo dan pembayaran membacanya langsung.
 
 ## Cek cepat tanpa dashboard
 

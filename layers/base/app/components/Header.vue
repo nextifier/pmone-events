@@ -151,8 +151,18 @@ const isEditionableRoute = computed(() => {
   );
 });
 
-const { data: editions } = useFetch("/api/editions", {
-  transform: (res) => res.data,
+// Idle unless the picker can actually appear. This used to fetch on every page
+// of every app; the picker itself only exists on the four routes above, so on
+// anything else the response was parsed and thrown away.
+const { data: editions, execute: loadEditions } = useEditions({
+  immediate: isEditionableRoute.value,
+});
+
+// Client-side navigation into /brands or /rundown still needs the list.
+watch(isEditionableRoute, (editionable) => {
+  if (editionable && !editions.value) {
+    loadEditions();
+  }
 });
 
 const showEditionPicker = computed(

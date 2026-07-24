@@ -8,31 +8,17 @@
  * `<TicketList>` component treats that as "fall back to the static tickets").
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const eventSlug = getRouterParam(event, "eventSlug");
   const locale = (getQuery(event).locale as string) || "en";
 
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
-
-  try {
-    // Forward the locale so PM One returns localized ticket copy and, in
-    // `meta.terms`, the staff-managed purchase terms HTML for this locale.
-    return await $fetch(
-      `${baseUrl}/api/public/events/${eventSlug}/tickets`,
-      {
-        headers: {
-          "X-API-Key": apiKey,
-          Accept: "application/json",
-        },
-        query: { locale },
-      }
-    );
-  } catch (err: any) {
-    throw createError({
-      statusCode: err?.response?.status ?? 500,
-      statusMessage: err?.data?.message || err?.message || "Failed to fetch tickets",
-      data: err?.data,
-    });
-  }
+  // Forward the locale so PM One returns localized ticket copy and, in
+  // `meta.terms`, the staff-managed purchase terms HTML for this locale.
+  return await pmOnePublicFetch(
+    `/events/${encodeURIComponent(eventSlug ?? "")}/tickets`,
+    {
+      query: { locale },
+      errorShape: "statusMessage",
+      errorPrefix: "Tickets fetch",
+    },
+  );
 });

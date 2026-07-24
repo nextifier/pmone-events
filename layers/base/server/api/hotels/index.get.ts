@@ -8,39 +8,24 @@
  * while still being correctly project-scoped here.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const appConfig = useAppConfig();
+  const username =
+    appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000);
+  const query = getQuery(event);
 
-  try {
-    const username =
-      appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
-
-    const response = await $fetch(`${config.public.apiUrl}/api/public/hotels`, {
-      headers: {
-        "X-API-Key": config.pmOneApiKey,
-        Accept: "application/json",
-      },
-      // `project_slug` is appended last so it always wins over any client input.
-      query: { ...getQuery(event), project_slug: username },
-      signal: controller.signal,
-    });
-
-    return response;
-  } catch (error: any) {
-    if (error.name === "AbortError") {
-      throw createError({
-        statusCode: 504,
-        message: "Request timeout - API server took too long to respond",
-      });
-    }
-    throw createError({
-      statusCode: error.response?.status || 500,
-      message: error.message || "Failed to fetch hotels",
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  return await pmOnePublicFetch("/hotels", {
+    // Allowlisted rather than spreading the raw client query: `project_slug` is
+    // what scopes this site to its own hotels, and a forwarded query could
+    // otherwise carry keys the upstream honours.
+    query: {
+      per_page: query.per_page,
+      page: query.page,
+      sort: query.sort,
+      locale: query.locale,
+      project_slug: username,
+    },
+    allowedQueryKeys: ["per_page", "page", "sort", "locale", "project_slug"],
+    errorPrefix: "Hotels fetch",
+  });
 });

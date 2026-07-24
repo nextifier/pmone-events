@@ -1,17 +1,17 @@
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
-  const eventSlug = getRouterParam(event, "eventSlug");
-  const hotelSlug = getRouterParam(event, "hotelSlug");
+  const eventSlug = getRouterParam(event, "eventSlug") ?? "";
+  const hotelSlug = getRouterParam(event, "hotelSlug") ?? "";
   const query = getQuery(event);
 
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
-
-  return await $fetch(
-    `${baseUrl}/api/public/events/${eventSlug}/hotels/${hotelSlug}/daily-availability-aggregate`,
+  return await pmOnePublicFetch(
+    `/events/${encodeURIComponent(eventSlug)}/hotels/${encodeURIComponent(hotelSlug)}/daily-availability-aggregate`,
     {
-      headers: { "X-API-Key": apiKey },
-      query,
-    }
+      // The calendar sends a date window; allowlisted rather than forwarding the
+      // raw client query.
+      query: { start_date: query.start_date, end_date: query.end_date },
+      allowedQueryKeys: ["start_date", "end_date"],
+      errorShape: "statusMessage",
+      errorPrefix: "Availability fetch",
+    },
   );
 });

@@ -1,20 +1,48 @@
-interface PmOneFetchOptions {
+interface PmOneRequestOptions {
   query?: Record<string, any>;
+  /**
+   * Whitelist of query keys forwarded upstream. Without it the caller's query
+   * object is sent as-is — only do that for values the route built itself,
+   * never for a raw getQuery(event).
+   */
   allowedQueryKeys?: string[];
+  method?: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
+  body?: any;
+  /** Extra request headers, e.g. forwarding the visitor's IP / User-Agent. */
+  headers?: Record<string, string>;
   timeoutMs?: number;
+  responseType?: "json" | "arrayBuffer";
   errorPrefix?: string;
+  /**
+   * Which field carries the upstream message.
+   *
+   * "message" is the default. The ticket and hotel routes must stay on
+   * "statusMessage": their pages read `err.statusMessage` directly
+   * (BookingStep4Review.vue, hotels/reservation/[token].vue), so switching them
+   * would silently blank out payment and promo-code error text.
+   */
+  errorShape?: "message" | "statusMessage";
 }
 
-export async function pmOneFetch<T = any>(
+/**
+ * One request to PM One, with the parts every route needs: the API key, an
+ * abort timeout, and an error shape pages can read.
+ *
+ * WHY IT IS CENTRAL: this block used to be copy-pasted into 20 route files,
+ * each with its own drift — some had no timeout at all (a hung upstream then
+ * burned Worker CPU until the platform killed it), some dropped `error.data` so
+ * pages could not read 422 field errors, and 24 of them carried a
+ * `|| "http://localhost:8000"` fallback that turned a missing production config
+ * into requests against the worker's own loopback instead of a loud failure.
+ *
+ * `path` is everything after the origin, e.g. "/api/track/visit". Prefer the
+ * two wrappers below; reach for this only for endpoints outside /api/public.
+ */
+export async function pmOneRequest<T = any>(
   path: string,
-  opts: PmOneFetchOptions = {},
+  opts: PmOneRequestOptions = {},
 ): Promise<T> {
   const config = useRuntimeConfig();
-  const appConfig = useAppConfig();
-
-  const username =
-    appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
-  const url = `${config.public.apiUrl}/api/public/projects/${username}${path}`;
 
   const allowedKeys = opts.allowedQueryKeys;
   const filteredQuery = allowedKeys
@@ -23,7 +51,7 @@ export async function pmOneFetch<T = any>(
           allowedKeys.includes(k),
         ),
       )
-    : opts.query ?? {};
+    : (opts.query ?? {});
 
   const controller = new AbortController();
   const timeoutId = setTimeout(
@@ -32,27 +60,34 @@ export async function pmOneFetch<T = any>(
   );
 
   try {
-    return (await $fetch(url, {
+    return (await $fetch(`${config.public.apiUrl}${path}`, {
+      method: opts.method ?? "GET",
       headers: {
         "X-API-Key": config.pmOneApiKey,
         Accept: "application/json",
+        ...opts.headers,
       },
       query: filteredQuery,
+      body: opts.body,
+      responseType: opts.responseType as any,
       signal: controller.signal,
     })) as T;
   } catch (error: any) {
-    if (error.name === "AbortError") {
-      throw createError({
-        statusCode: 504,
-        message: "Request timeout - API server took too long to respond",
-      });
-    }
-    throw createError({
-      statusCode: error.response?.status || 500,
-      message:
-        error.data?.message ||
+    const timedOut = error.name === "AbortError";
+
+    const message = timedOut
+      ? "Request timeout - API server took too long to respond"
+      : error.data?.message ||
         error.message ||
-        (opts.errorPrefix ? `${opts.errorPrefix} failed` : "Upstream fetch failed"),
+        (opts.errorPrefix
+          ? `${opts.errorPrefix} failed`
+          : "Upstream fetch failed");
+
+    throw createError({
+      statusCode: timedOut ? 504 : error.response?.status || 500,
+      ...(opts.errorShape === "statusMessage"
+        ? { statusMessage: message }
+        : { message }),
       // Passthrough the upstream body so pages can map 422 field errors, read a
       // form's closed_message on 403, etc.
       data: error.data,
@@ -60,4 +95,29 @@ export async function pmOneFetch<T = any>(
   } finally {
     clearTimeout(timeoutId);
   }
+}
+
+/**
+ * Project-scoped endpoint: `/api/public/projects/{username}{path}`.
+ *
+ * The username is ALWAYS resolved from app config, never from client input —
+ * that is what stops one event site from serving another project's content.
+ */
+export async function pmOneFetch<T = any>(
+  path: string,
+  opts: PmOneRequestOptions = {},
+): Promise<T> {
+  const appConfig = useAppConfig();
+  const username =
+    appConfig.app.dataSourceUsername || appConfig.app.projectUsername;
+
+  return pmOneRequest<T>(`/api/public/projects/${username}${path}`, opts);
+}
+
+/** Public but not project-scoped: `/api/public{path}` (banners, hotels, tickets, blog). */
+export async function pmOnePublicFetch<T = any>(
+  path: string,
+  opts: PmOneRequestOptions = {},
+): Promise<T> {
+  return pmOneRequest<T>(`/api/public${path}`, opts);
 }

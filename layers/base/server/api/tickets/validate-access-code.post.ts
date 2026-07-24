@@ -7,27 +7,14 @@
  * tickets so the listing can reveal hidden ones.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const body = await readBody(event);
 
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
-
-  try {
-    return await $fetch(`${baseUrl}/api/public/tickets/validate-access-code`, {
-      method: "POST",
-      headers: {
-        "X-API-Key": apiKey,
-      },
-      body,
-    });
-  } catch (err: any) {
-    // 422 carries the validation payload (error_code/message) — forward it so the
-    // UI can show a precise reason instead of a generic failure.
-    throw createError({
-      statusCode: err?.response?.status ?? 500,
-      statusMessage: err?.data?.message || err?.message || "Validation failed",
-      data: err?.data,
-    });
-  }
+  // 422 carries the validation payload (error_code/message); pmOneRequest
+  // forwards `data` so the UI can show a precise reason.
+  return await pmOnePublicFetch("/tickets/validate-access-code", {
+    method: "POST",
+    body,
+    errorShape: "statusMessage",
+    errorPrefix: "Validation",
+  });
 });

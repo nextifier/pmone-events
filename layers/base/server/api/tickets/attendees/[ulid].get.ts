@@ -6,24 +6,16 @@
  * `GET /api/public/attendees/{ulid}`.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const ulid = getRouterParam(event, "ulid");
   const locale = (getQuery(event).locale as string) || "en";
 
-  const baseUrl = (config.public as any).apiUrl || "http://localhost:8000";
-  const apiKey = (config as any).pmOneApiKey;
-
-  try {
-    return await $fetch(`${baseUrl}/api/public/attendees/${ulid}`, {
-      headers: { "X-API-Key": apiKey },
+  return await pmOnePublicFetch(
+    `/attendees/${encodeURIComponent(ulid ?? "")}`,
+    {
       // Forward the locale so registration field labels come back localized.
       query: { locale },
-    });
-  } catch (err: any) {
-    throw createError({
-      statusCode: err?.response?.status ?? 500,
-      statusMessage: err?.data?.message || err?.message || "Ticket not found",
-      data: err?.data,
-    });
-  }
+      errorShape: "statusMessage",
+      errorPrefix: "Ticket not found",
+    },
+  );
 });
