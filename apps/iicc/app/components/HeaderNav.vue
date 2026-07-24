@@ -42,7 +42,7 @@
           <span>{{ item.label }}</span>
         </NavigationMenuTrigger>
         <NavigationMenuContent>
-          <ul class="flex flex-col gap-y-1">
+          <ul class="flex w-max min-w-[200px] flex-col gap-y-1">
             <li v-for="(link, index) in item.links" :key="index">
               <NavigationMenuLink as-child>
                 <!-- Link dengan hash -->

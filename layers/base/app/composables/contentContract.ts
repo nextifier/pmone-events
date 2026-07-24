@@ -53,15 +53,22 @@ export function checkContentContract(routeName: unknown): void {
   const requiredKeys = REQUIRED_CONTENT_KEYS[baseName];
   if (!requiredKeys) return;
 
-  const store = useContentStore();
+  // Read through the store proxy, NOT `$state`. The base `content.js` is an
+  // options store (so `pages`/`components` live on `$state`), but every app
+  // override is a setup store returning `computed()`s - Pinia files those as
+  // getters and they never appear on `$state`. Going through the proxy
+  // resolves state, getters and actions alike, so both shapes work.
+  const store = useContentStore() as unknown as Record<string, unknown> & {
+    contentContractOmit?: string[];
+  };
 
   // An app that renders a bespoke component (e.g. iicc ships its own Hero.vue
   // and index.vue instead of the base ones) legitimately does not read the base
   // key the base page would. It declares those keys in `contentContractOmit` so
   // this check doesn't flag an intentional, correct omission.
-  const omit = (store.$state as { contentContractOmit?: string[] }).contentContractOmit ?? [];
+  const omit = store.contentContractOmit ?? [];
   const missing = requiredKeys.filter(
-    (key) => !omit.includes(key) && getByPath(store.$state, key) == null,
+    (key) => !omit.includes(key) && getByPath(store, key) == null,
   );
 
   if (missing.length) {

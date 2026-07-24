@@ -94,7 +94,7 @@
 </template>
 
 <script setup>
-import { useElementSize } from "@vueuse/core";
+import { useResizeObserver } from "@vueuse/core";
 import { hasInstagram } from "../composables/useBrandHelpers";
 
 const contentStore = useContentStore();
@@ -110,7 +110,23 @@ const { pending, brandsWithLogo, fallbackSource } = useBrandPreview();
 // penuh: jumlah brand = kelipatan kolom, tanpa filler/cell kosong.
 // Lebar diukur dari wrapper grid (full-bleed di mobile -> ~100vw).
 const wrapRef = ref(null);
-const { width } = useElementSize(wrapRef);
+const width = ref(0);
+
+// Deferred to the next frame on purpose: the width decides targetCols, which
+// decides how many cards render, which changes the wrapper's own size. Writing
+// it straight from the observer callback (what useElementSize does) keeps the
+// resize loop going and Chrome logs "ResizeObserver loop completed with
+// undelivered notifications".
+let pendingFrame = 0;
+useResizeObserver(wrapRef, (entries) => {
+  const w = entries[0]?.contentRect?.width ?? 0;
+  if (w === width.value) return;
+  cancelAnimationFrame(pendingFrame);
+  pendingFrame = requestAnimationFrame(() => {
+    width.value = w;
+  });
+});
+onBeforeUnmount(() => cancelAnimationFrame(pendingFrame));
 
 const targetCols = computed(() => {
   const w = width.value;

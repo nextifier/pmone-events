@@ -249,6 +249,14 @@ const route = useRoute();
 const localePath = useLocalePath();
 const cart = useTicketCartStore();
 
+// Wait for the event payload first: `useEvent()` does not await its own fetch,
+// so `event.slug` is still "" on the next line and the listing would request
+// `/api/tickets/` (no slug). That 404 falls through to the SSR renderer and
+// leaves `ticketsDisabled` / `showComingSoon` reading an error that has nothing
+// to do with ticketing. Shares the `active-event` asyncData entry — no extra
+// request.
+await useEventData();
+
 const { data: ticketsData, error: ticketsError } = await useTicketsListing(
   () => event.slug,
 );

@@ -8,7 +8,7 @@
         <span
           v-for="(_, index) in 2"
           :key="index"
-          class="bg-primary absolute h-px w-5 transition-all duration-200"
+          class="bg-primary absolute h-[1.5px] w-5 transition-all duration-200"
           :class="{
             '-translate-y-1': index === 0 && !isOpen,
             'translate-y-1': index === 1 && !isOpen,
@@ -41,9 +41,9 @@
             <div
               class="grid grid-cols-12 gap-x-1 gap-y-10 px-2 pt-6 pb-10 sm:px-8"
             >
-              <div class="col-span-7 flex flex-col gap-y-4 lg:col-span-6">
+              <div class="col-span-7 flex flex-col gap-y-2 lg:col-span-6">
                 <span
-                  class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
+                  class="text-muted-foreground/90 px-4 text-sm tracking-tight lg:px-6"
                   >{{ dialogGroups[0]?.label }}</span
                 >
 
@@ -68,11 +68,21 @@
                     <!-- Link tanpa hash -->
                     <NuxtLink
                       v-else
-                      :to="link.path.startsWith('/') ? localePath(link.path) : link.path"
+                      :to="
+                        link.path.startsWith('/')
+                          ? localePath(link.path)
+                          : link.path
+                      "
                       :target="link.path.startsWith('http') ? '_blank' : ''"
                       class="text-foreground hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
                       active-class=""
-                      @click="onLinkActivate(link.path.startsWith('/') ? localePath(link.path) : link.path)"
+                      @click="
+                        onLinkActivate(
+                          link.path.startsWith('/')
+                            ? localePath(link.path)
+                            : link.path,
+                        )
+                      "
                       @contextmenu="handleContextMenu($event, link)"
                     >
                       {{ link.label }}
@@ -92,7 +102,7 @@
                   class="flex flex-col gap-y-2"
                 >
                   <span
-                    class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
+                    class="text-muted-foreground/90 px-4 text-sm tracking-tight lg:px-6"
                     >{{ item.label }}</span
                   >
 
@@ -117,11 +127,21 @@
                       <!-- Link tanpa hash -->
                       <NuxtLink
                         v-else
-                        :to="link.path.startsWith('/') ? localePath(link.path) : link.path"
+                        :to="
+                          link.path.startsWith('/')
+                            ? localePath(link.path)
+                            : link.path
+                        "
                         :target="link.path.startsWith('http') ? '_blank' : ''"
                         class="text-foreground hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
                         active-class="bg-muted"
-                        @click="onLinkActivate(link.path.startsWith('/') ? localePath(link.path) : link.path)"
+                        @click="
+                          onLinkActivate(
+                            link.path.startsWith('/')
+                              ? localePath(link.path)
+                              : link.path,
+                          )
+                        "
                         @contextmenu="handleContextMenu($event, link)"
                       >
                         {{ link.label }}
@@ -139,7 +159,7 @@
         >
           <Button
             size="lg"
-            class="bg-accent text-accent-foreground hover:bg-accent/80 h-full flex-1"
+            class="bg-accent text-accent-foreground hover:bg-accent/80 h-full flex-1 text-lg font-semibold tracking-tight"
             @click="handleBuyTicket"
           >
             {{ $t("tickets.buyNow") }}
@@ -149,7 +169,7 @@
             :to="localePath('/hotels')"
             variant="secondary"
             size="lg"
-            class="h-full flex-1"
+            class="h-full flex-1 text-lg font-semibold tracking-tight"
             @click="closeViaLink"
           >
             {{ $t("hotels.bookNow") }}

@@ -66,7 +66,8 @@ Isi: TTL maksimal (list+home 7 hari, detail+statis 30 hari; API tetap 120/60 dtk
 key `/` dikolapskan (AL first-match, cookie-precedence) → **home kini purgeable & di-purge oleh
 tag blog-posts/banners/media-coverages/events/rundown** (`homeVariantUrls()`, 26 URL/site) ·
 **404 HTML di-cache 1 jam** (2 jalur capture, klien JSON tetap dapat JSON segar) ·
-diet logo (icc `<img>` −82 KB/halaman artikel; megabuild/renex CSS mask; flei mark) ·
+~~diet logo (icc `<img>` −82 KB/halaman artikel; megabuild/renex CSS mask; flei mark)~~
+**[DI-REVERT 25 Jul — logo ter-letterbox, lihat catatan di bawah]** ·
 `php artisan edge:purge {--project=|--all}` sebagai katup darurat · global-ai-expo → provider
 gambar cloudflare. Regresi workerd 10/10; visual light+dark diverifikasi.
 
@@ -176,12 +177,258 @@ bukan screenshot (lihat memory chrome-automation-freezes-raf-canvas).
   disiplin deploy = bagian dari biaya; (3) biaya per-render masih ±150 ms sampai fase payload
   dikerjakan.
 
+## 24 Jul malam (21:40 WIB) — pengukuran pasca fase 3, dan temuan yang membatalkan asumsi fase 3
+
+⚠️ **Angka hari ini TIDAK sah untuk menilai gate H+1.** Deploy `154661e`/`29bbcaa` masuk
+±16:00–17:30 WIB, lalu `edge:purge --all` mengosongkan seluruh cache ±17:30. Empat jam terakhir
+adalah cache yang mengisi ulang dari nol. Penilaian gate yang sah: 25 Jul, jendela 24 jam tanpa
+deploy.
+
+**Harian kalender (`workersOverviewRequestsAdaptiveGroups`, cpuTimeUs/1000):**
+
+| Tanggal | CPU (M ms) | Invocation |
+|---|---:|---:|
+| 21 Jul | 18,10 | 128.472 |
+| 22 Jul | 15,45 | 105.809 |
+| 23 Jul | 9,10 | 90.561 |
+| 24 Jul (s.d. 14:40 UTC) | 4,76 | 50.794 |
+
+**Rolling 24 jam (23 Jul 14:00 → 24 Jul 14:00 UTC): 8,36M ms / ~80.000 invocation / avg 105 ms.**
+Turun 54% dari puncak 18,10M, masih 8,6× di atas laju sustainable (30M ÷ 31 hari = 0,97M/hari)
+dan 2,8× di atas gate fase 3 (<3M). Perbandingan jam yang sama 00–14 UTC: 5,95M (23 Jul) →
+4,76M (24 Jul) = **−20%**.
+
+**Kuota siklus praktis habis di hari ke-3:** 15,45 + 9,10 + 4,76 = **29,3M dari 30M**.
+Proyeksi kalau bertahan di 8,4M/hari: ~256M/siklus, billable ~226M, invoice 22 Ags ≈ **$9,50**.
+
+**p50 per worker (jendela 11:00–15:00 UTC, `workersInvocationsAdaptive`):**
+
+| Cache efektif | p50 | Cache tidak efektif | p50 |
+|---|---:|---|---:|
+| icc | 4,8 ms | panorama-media | 45 ms |
+| iicc | 7,3 ms | panorama-events | 51 ms |
+| inacon | 9,7 ms | cafeexpo | 94 ms |
+| flei | 14 ms | icf | 112 ms |
+| campx | 20 ms | morefood | 120 ms |
+| megabuild | 27 ms | keramika | 174 ms |
+| | | outingexpo · renex · cokelatexpo | 185–238 ms |
+
+Pola 24 Jul pagi terulang persis. Fase 3 tidak mengubah sebaran ini.
+
+**Angka kunci yang menjelaskan semuanya: avg CPU per invocation cuma turun ±120 ms → 105 ms.**
+Seluruh penghematan sejauh ini datang dari **invocation yang berkurang** (150k → 80k/hari, CDN
+menyerapnya), bukan dari invocation yang jadi murah. Mayoritas request yang sampai ke worker
+tetap render penuh.
+
+### Kenapa fase 3 tidak bergerak: jalur SSR internal tidak lewat edge cache
+
+`s-maxage=21600` fase 3 hanya melindungi request **eksternal** ke `/api/*`. Jalur yang membakar
+CPU (plugin SSR memanggil route-nya sendiri) tidak pernah menyentuh edge cache.
+
+Bukti dari zona `pmone.id`, host `api.pmone.id`, 24 jam:
+
+| Endpoint | Calls | Hit rate CDN |
+|---|---:|---:|
+| `projects/{u}/website-settings` | 15.719 | 72% |
+| `projects/{u}/events/{e}` | 10.164 | 80% |
+| `projects/{u}` (profile) | 9.479 | 66% |
+| `projects/{u}/editions` | 9.066 | 65% |
+| `blog/posts` | 8.560 | 34% |
+| `banners` | 3.482 | 23% |
+
+Kalau jalur internal ikut ter-cache 6 jam, `website-settings` mestinya ~700 panggilan/hari
+(16 situs × ~12 colo × 4 refresh). Terukur 15.719, yaitu 22×. `editions` sama polanya.
+
+Mekanismenya: `$fetch("/api/...")` internal lewat `localFetch`, jadi `getRequestURL(event)`
+menghasilkan `http://localhost/api/...`. `buildEdgeCacheKey` memakai URL itu apa adanya, dan
+Cache API Cloudflare menolak key dengan hostname di luar zona. `match()` selalu undefined,
+`put()` gagal dan tertelan `catch`. Middleware-nya jalan, tapi tidak pernah bisa menyimpan atau
+menemukan apa pun.
+
+Satu-satunya pelindung jalur SSR adalah `defineCachedEventHandler` dengan **`maxAge: 15`** di
+driver `memory` (per-isolate, mati bersama isolate). Menyerap ±65% panggilan berulang.
+
+**Dimensi `requestSource` memastikan asal trafiknya:** dari 97.423 request ke `api.pmone.id`,
+**86.477 (89%) adalah `edgeWorkerFetch`**. Sisanya eyeball. Agregat worker → PM One: hit 38.372,
+miss 32.682, bypass 11.892 → **~46.000 panggilan/hari tembus ke origin Laravel.**
+
+### Tuas yang SUDAH dihitung dan ditolak (jangan diulang)
+
+1. **Naikkan `maxAge` dari 15 dtk.** Ceiling penghematan: 56.000 panggilan upstream/hari ×
+   ±2 ms (parse JSON + overhead $fetch) = **0,11M ms/hari = 1,3%** dari 8,4M. Biayanya: purge
+   tidak menjangkau cache memory Nitro, jadi editan bisa telat sebesar maxAge tanpa cara
+   memaksa. Trade-off jelek. Bump kecil ke 60 dtk boleh kalau tujuannya meringankan origin,
+   bukan tagihan.
+2. **Normalisasi cache key `blog/posts`/`banners` di Cache Rule.** **TIDAK BISA:** zona
+   `pmone.id` ada di plan **Free**, custom cache key adalah fitur Enterprise. Page Rule
+   "Ignore Query String" (satu-satunya alternatif di Free) akan menyamakan `?page=2` dan
+   `?locale=en` → salah konten. Kardinalitasnya juga asli, bukan bug normalisasi: home minta
+   `per_page=6`, halaman news minta `page=N`, kategori dan search punya param sendiri.
+   Efek ke CPU worker nol juga, karena worker tetap parse response-nya entah hit atau miss.
+3. **Jalur internal pakai URL absolut** supaya masuk lapis CDN. **DITOLAK USER 24 Jul:**
+   hackish, bikin codebase kotor dan susah dimengerti nanti.
+
+Kesimpulan yang jujur: poin 1 dan 2 sama-sama mengurangi beban origin Laravel, bukan tagihan
+Cloudflare. Sisa CPU ada di render pada 12 situs bertrafik rendah yang entri cache-nya
+di-evict duluan, dan itu belum ada tuas yang murah.
+
+### Temuan kecil
+
+Request **HEAD mem-bypass edge cache sepenuhnya**: tidak ada header `x-edge-cache`, `set-cookie`
+ikut keluar, artinya render segar. Volumenya kecil (102/hari di flei), jadi bukan prioritas.
+
+`/api/sheets/*` = 8.764 request/hari dari eyeball (integrasi Google Sheets), semuanya bypass
+cache, dengan ±70 error 520/522/524/525 per hari. Itu sinyal origin sempat kewalahan, bukan
+masalah worker.
+
+## 24 Jul ~23:30 WIB - eksekusi CLOUDFLARE_WORKERS_OPTIMIZATION_PLAN
+
+**Baseline pra-perubahan (23 Jul 16:00 -> 24 Jul 16:00 UTC):** akun **7,942M ms / 76.904
+invocation**. Zona uji tiered cache (flei+keramika) 1,728M ms = 21,8%. Sisa 14 worker
+6,213M ms - itu dasar gate H+1 besok supaya angkanya tidak tercemar eksperimen.
+p50: flei 11,7 ms (p75 146 ms) · keramika 66,8 ms (p75 292 ms) · cokelatexpo 176 ms ·
+outingexpo 23,6 ms.
+
+**DILAKUKAN:**
+1. **Smart Tiered Cache ON di 28 zona (SEMUA).** Awalnya cuma flei + keramika sebagai
+   eksperimen, lalu user memerintahkan langsung ke semua project. Konsekuensi yang diterima:
+   gate H+1 fase 3 hangus karena seluruh jendela tercemar. Pembanding yang dipakai untuk
+   26 Jul adalah baseline 7,942M ms / 76.904 inv di atas.
+   `PATCH /zones/{id}/cache/tiered_cache_smart_topology_enable {"value":"on"}`,
+   UI konfirmasi "Tiered Cache Topology: Active". Gratis di Free. Catatan: endpoint
+   `argo/tiered_caching` tetap membaca `off`/`editable:false` - itu setting Argo legacy,
+   BUKAN indikator smart topology. Jangan bingung lagi.
+2. **AI bot policy diverifikasi di 28 zona:** semua sudah `ai_training=block`,
+   `ai_search=disabled`, `ai_user=disabled`, `fight_mode=false`. Endpoint pembacanya
+   `GET /zones/{id}/bot_management`. Nol zona yang perlu diperbaiki.
+3. **WAF `block-seo-scrapers` di-deploy ke 15 zona** (append ke ruleset existing yang sudah
+   berisi `block-cms-scanners`; tiap zona kini 2/5 rule). Target: AhrefsBot, SemrushBot,
+   PetalBot, MJ12bot, DotBot, DataForSeoBot, BLEXBot, serpstatbot, ZoominfoBot, Barkrowler,
+   SeekportBot, MegaIndex. Volume terukur ±4.200 request/hari yang lolos CDN dan hampir
+   semua ber-status 200 (= render penuh) -> estimasi hemat **0,6-0,8M ms/hari (8-10%)**.
+   Verifikasi: AhrefsBot/SemrushBot -> 403; Chrome/Googlebot/iPhone -> 200; admin pmone.id
+   -> 302 normal. **Baidu/Yandex/Sogou SENGAJA dibiarkan lewat** - itu search engine,
+   punya nilai user-facing, bukan scraper.
+
+### TEMUAN 1 (mahal, jangan diulang): "junk UA 21% trafik" ITU SALAH BACA
+
+Entri UA-kosong yang di plan disebut junk (527.603/hari) ternyata **operasi Cache API worker
+kita sendiri**, terbukti dari dimensi `requestSource: edgeWorkerCacheAPI`:
+
+| Pola | Jumlah/hari (flei) | Artinya |
+|---|---:|---|
+| GET 200 edgeWorkerCacheAPI | 21.998 | `cache.match()` HIT |
+| GET 504 edgeWorkerCacheAPI | 15.908 | `cache.match()` MISS |
+| PUT 204 edgeWorkerCacheAPI | 14.757 | `cache.put()` menyimpan |
+
+Ini juga menjelaskan misteri "PUT 204 ke `/.ssh/id_ecdsa`" dari catatan sebelumnya: itu
+bukan serangan, itu worker menyimpan respons 404 ke cache. **Tidak ada yang bisa/perlu
+diblok di sini.** HeadlessChrome juga gugur sebagai target: mayoritas volumenya cache HIT
+di aset, non-hit-nya cuma puluhan (`/cdn-cgi/rum`, `_nuxt/*.js`) dan berbau layanan render
+yang sah. Aturan: **selalu pecah statistik UA dengan `requestSource` sebelum menyimpulkan
+ada bot.**
+
+### TEMUAN 2: Cache Response Rules TIDAK berlaku untuk respons Worker (diuji, di-rollback)
+
+Hipotesis dari blog CF 2026 (`introducing-cache-response-rules`): render segar tidak pernah
+masuk cache CDN karena membawa `Set-Cookie: i18n_locale`, jadi kalau cookie itu di-strip di
+response phase, render pertama langsung ter-cache dan (dengan tiered cache) dipakai semua
+colo lain. Probe membuktikan premisnya benar:
+
+```
+req1  edge=MISS  cdn=-     set-cookie=1   <- render 150-350 ms, CDN TIDAK menyimpan
+req2  edge=HIT   cdn=HIT   set-cookie=0   <- worker jalan lagi (±3 ms), BARU CDN menyimpan
+req3  edge=HIT   cdn=HIT   age=5          <- worker tidak dipanggil
+```
+
+Rule `http_response_cache_settings` + `set_cache_settings` + `strip_set_cookie:true`
+di-deploy ke 15 zona. **Tidak berpengaruh sama sekali** - req1 tetap membawa Set-Cookie dan
+tetap tidak masuk CDN. Uji isolasi dengan ekspresi paling sederhana (`starts_with(path,
+"/id/news")`, tanpa kondisi response-header) juga nihil. Kesimpulan: phase itu hanya jalan
+pada respons yang Cloudflare ambil dari origin sungguhan; route Worker mengakhiri request
+sebelum jalur tersebut. Semua rule sudah dihapus (`rules: []` di 15 zona), diverifikasi
+kembali normal termasuk admin `pmone.id` (3 Set-Cookie utuh). Biaya percobaan: nol.
+
+⚠️ Celahnya sendiri MASIH ADA dan masih jadi akar biaya situs dingin: render mahal tidak
+pernah mengisi cache CDN, yang mengisi hanya salinan request kedua. Untuk URL ekor yang
+dapat ±11 request/hari tersebar ke 12 colo, request kedua di colo yang sama nyaris tak
+pernah terjadi. Satu-satunya cara menutup ini dari sisi kita adalah worker berhenti
+mengirim `Set-Cookie` pada render yang memang cacheable - itu perubahan kode di
+pmone-events, BELUM diusulkan ke user, dan harus dihitung dulu.
+
+## 25 Jul — diet logo fase 2 DI-REVERT (regresi visual)
+
+Logo FLEI di header patah: mark terpisah jauh dari logotype. Sebabnya bagian "diet logo" di
+`3c59036`, yang mengubah 5 komponen logo dari inline `<svg>` jadi `<img>` / `<span>` + CSS mask.
+
+Akarnya: atribut `width`/`height` pada `<img>` adalah **presentational hint**, bukan cuma info
+aspect ratio. Semua caller hanya mengirim class tinggi (`h-full` di wrapper `h-9`), jadi tinggi
+ikut class tapi lebar tetap terkunci di angka atribut → gambar ter-letterbox di kotak yang jauh
+lebih lebar. FLEI paling kentara (mark 142×143 dipaksa jadi 142×36). icc lebih halus: header `h-8`
+kebetulan pas dengan intrinsic 110×32, tapi footer `h-12` menahan lebar di 110px padahal harusnya
+165px.
+
+Yang dikembalikan ke kondisi sebelum `3c59036` (byte-identical, `git diff 3c59036^` kosong):
+flei `LogoMark.vue`, icc + inacon `LogoICC.vue`, renex `Logo.vue`, override megabuild `Logo.vue`
+dihapus (kembali ke base layer), dan 5 file `public/img/logo-*.svg` dihapus karena tidak ada lagi
+yang mereferensikan.
+
+Penghematan yang hilang: ~82 KB/halaman di icc/inacon, ~38 KB renex, ~18 KB megabuild, ~10 KB flei
+(sebelum kompresi). Kalau mau dicoba lagi, syaratnya `<img>` WAJIB punya class lebar (`w-auto`)
+supaya presentational hint tidak mengunci lebar — atau logo tetap inline tapi dirender sekali lalu
+dipakai ulang lewat `<use>`. Jangan mengandalkan atribut width/height polos.
+
+Bagian `3c59036` yang lain (TTL, key `/`, 404 cache) tidak disentuh. `PostSlider.vue` juga
+dibiarkan seperti sekarang.
+
+## 25 Jul ±03:40 — INSIDEN: purge jalan, konten tetap basi (race SWR × purge)
+
+Gejala: CTA label banner FLEI diganti di dashboard, homepage tetap menampilkan teks lama
+berjam-jam. Origin sudah benar (`/api/banners` dan render MISS keduanya baru), tapi varian
+edge `/?__cm=dark&__lc=en&__al=-` tetap HIT dengan isi lama.
+
+Tersangka yang salah, biar tidak diulang: purge memang **jalan**. Horizon mencatat
+`PurgeEdgeCache` completed 03:39:02, dan purge-by-URL untuk key homepage terbukti bekerja
+kalau diuji manual. Yang bikin diagnosa mutar-mutar: `EdgeCache::purgeUrls()` cuma nge-log
+saat GAGAL, jadi "log kosong" bisa berarti sukses atau tidak pernah dipanggil. Sekarang ada
+`Log::info('Edge purge: urls', [...])` di jalur sukses.
+
+Penyebab sebenarnya, lapisan ketiga yang selama ini tidak dihitung: 14 GET proxy di
+`server/api/` pakai `defineCachedEventHandler` maxAge 15 **+ `swr: true`**, dan cache itu ada
+di DALAM worker, tidak terjangkau purge. Urutannya:
+
+```
+03:38:5x  editor save  → backend response cache clear (origin fresh)
+03:39:02  purge jalan  → semua varian HTML "/" dibuang
+03:39:07  visitor      → SSR baca payload LAMA dari cache handler (SWR sajikan stale)
+          hasilnya disimpan sebagai HTML "fresh" → TTL 7 HARI
+```
+
+Purge yang cepat justru merugikan: dia membuang HTML tepat saat worker masih memegang payload
+lama, lalu render berikutnya memfosilkan isi lama untuk seminggu.
+
+Perbaikannya dua sisi dan harus tetap lockstep:
+
+- events: `swr: false` di 14 cached handler. Dengan SWR, entry kedaluwarsa tetap disajikan
+  sambil revalidasi di background, jadi request yang memicu refresh justru dapat data lama.
+- pmone: `PurgeEdgeCache::DEBOUNCE_SECONDS` 5 → 20, harus di atas maxAge 15 supaya entry
+  handler yang ditulis sebelum edit sudah kedaluwarsa saat purge mendarat. Naikkan maxAge di
+  events = naikkan debounce di pmone.
+
+Bonus dari investigasi yang sama: `zoneForHost()` mem-purge zone list sekali per URL yang
+hostnya tak terjangkau. `iicc.askindo.id` menyumbang 32 URL per purge, jadi satu job bisa
+memanggil Cloudflare API 30+ kali dan menghapus cache zone untuk host valid sesudahnya.
+Sekarang refresh dibatasi sekali per operasi purge.
+
 ## Cek cepat tanpa dashboard
 
 ```bash
 for i in 1 2 3; do curl -sSI https://indonesiacomiccon.com/id/news/urutan-film-marvel \
   | grep -iE 'cf-ray|x-edge-cache'; done
 ```
+
+⚠️ Pakai **GET**, bukan HEAD (`curl -sS -o /dev/null -D -`). HEAD mem-bypass edge cache dan
+selalu terlihat seperti render segar.
 
 `x-edge-cache: HIT` = dilayani cache (±3 ms CPU). `MISS` = render penuh (150–350 ms).
 `SKIP` = memang tidak boleh di-cache (mis. `/`, checkout, tracking).

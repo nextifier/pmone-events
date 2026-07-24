@@ -8,7 +8,7 @@
         <span
           v-for="(_, index) in 2"
           :key="index"
-          class="bg-primary absolute h-px w-5 transition-all duration-200"
+          class="bg-primary absolute h-[1.5px] w-5 transition-all duration-200"
           :class="{
             '-translate-y-1': index === 0 && !isOpen,
             'translate-y-1': index === 1 && !isOpen,
@@ -33,33 +33,77 @@
           <DialogDescription>Navigation menu</DialogDescription>
         </DialogHeader>
 
-        <ScrollArea type="scroll">
+        <div
+          ref="headerMenuContent"
+          class="scroll-fade-y lg:h-[calc(100dvh-var(--navbar-height-desktop)-3.5rem)]d h-[calc(100dvh-var(--navbar-height-mobile)-3.5rem)] overflow-y-auto"
+        >
           <div
-            ref="headerMenuContent"
-            class="h-[calc(100dvh-var(--navbar-height-mobile)-3.5rem)] lg:h-[calc(100dvh-var(--navbar-height-desktop)-3.5rem)]"
+            class="grid grid-cols-12 gap-x-1 gap-y-10 px-2 pt-6 pb-10 sm:px-8"
           >
             <div
-              class="grid grid-cols-12 gap-x-1 gap-y-10 px-2 pt-6 pb-10 sm:px-8"
+              v-if="primaryGroup"
+              class="col-span-7 flex flex-col gap-y-2 lg:col-span-6"
             >
+              <span
+                class="text-muted-foreground/90 px-4 text-sm tracking-tight lg:px-6"
+                >{{ tLabel(primaryGroup.label) }}</span
+              >
+
+              <div class="flex flex-col gap-y-3">
+                <DialogClose
+                  as-child
+                  v-for="(link, index) in primaryGroup.links"
+                  :key="index"
+                >
+                  <NuxtLink
+                    :to="lp(link.path)"
+                    :target="link.path.startsWith('http') ? '_blank' : ''"
+                    class="text-foreground hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
+                    active-class="bg-muted"
+                    @click="onLinkActivate(lp(link.path))"
+                    @contextmenu="
+                      (event) => {
+                        if (link.rightClickLink) {
+                          event.preventDefault();
+                          navigateTo(link.rightClickLink, {
+                            external: true,
+                            open: { target: '_blank' },
+                          });
+                        }
+                      }
+                    "
+                  >
+                    {{ tLabel(link.label) }}
+                  </NuxtLink>
+                </DialogClose>
+              </div>
+            </div>
+
+            <div
+              class="order-first col-span-5 flex flex-col gap-y-6 lg:col-span-6"
+            >
+              <ColorModeButtons />
+
               <div
-                v-if="primaryGroup"
-                class="col-span-7 flex flex-col gap-y-4 lg:col-span-6"
+                v-for="(item, index) in secondaryGroups"
+                :key="index"
+                class="flex flex-col gap-y-2"
               >
                 <span
-                  class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
-                  >{{ tLabel(primaryGroup.label) }}</span
+                  class="text-muted-foreground/90 px-4 text-sm tracking-tight lg:px-6"
+                  >{{ tLabel(item.label) }}</span
                 >
 
-                <div class="flex flex-col gap-y-3">
+                <div class="flex flex-col gap-y-2 sm:gap-y-1">
                   <DialogClose
                     as-child
-                    v-for="(link, index) in primaryGroup.links"
+                    v-for="(link, index) in item.links"
                     :key="index"
                   >
                     <NuxtLink
                       :to="lp(link.path)"
                       :target="link.path.startsWith('http') ? '_blank' : ''"
-                      class="text-foreground hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
+                      class="text-foreground hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
                       active-class="bg-muted"
                       @click="onLinkActivate(lp(link.path))"
                       @contextmenu="
@@ -74,60 +118,14 @@
                         }
                       "
                     >
-                      {{ tLabel(link.label) }}
-                    </NuxtLink>
-                  </DialogClose>
-                </div>
-              </div>
-
-              <div
-                class="order-first col-span-5 flex flex-col gap-y-6 lg:col-span-6"
-              >
-                <ColorModeButtons />
-
-                <div
-                  v-for="(item, index) in secondaryGroups"
-                  :key="index"
-                  class="flex flex-col gap-y-2"
-                >
-                  <span
-                    class="text-muted-foreground/90 px-4 text-sm tracking-tight sm:text-base lg:px-6"
-                    >{{ tLabel(item.label) }}</span
-                  >
-
-                  <div class="flex flex-col gap-y-2 sm:gap-y-1">
-                    <DialogClose
-                      as-child
-                      v-for="(link, index) in item.links"
-                      :key="index"
+                      {{ tLabel(link.label) }}</NuxtLink
                     >
-                      <NuxtLink
-                        :to="lp(link.path)"
-                        :target="link.path.startsWith('http') ? '_blank' : ''"
-                        class="text-foreground hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
-                        active-class="bg-muted"
-                        @click="onLinkActivate(lp(link.path))"
-                        @contextmenu="
-                          (event) => {
-                            if (link.rightClickLink) {
-                              event.preventDefault();
-                              navigateTo(link.rightClickLink, {
-                                external: true,
-                                open: { target: '_blank' },
-                              });
-                            }
-                          }
-                        "
-                      >
-                        {{ tLabel(link.label) }}</NuxtLink
-                      >
-                    </DialogClose>
-                  </div>
+                  </DialogClose>
                 </div>
               </div>
             </div>
           </div>
-        </ScrollArea>
+        </div>
 
         <div
           class="xs:px-4 absolute inset-x-0 bottom-0 grid h-16 w-full grid-cols-2 gap-2 px-2 pb-4 sm:px-8"

@@ -27,6 +27,22 @@
  * TTLs are a SAFETY NET, not the delivery mechanism. Content reaches visitors
  * because the PM One dashboard purges the exact URLs on publish; these windows
  * only bound how stale things can get if a purge fails.
+ *
+ * THE THIRD LAYER, and the one that bit us on 25 Jul 2026: every GET proxy in
+ * server/api/ is a `defineCachedEventHandler` (maxAge 15). That cache lives
+ * INSIDE the worker, so a Cloudflare purge cannot reach it — and SSR reads its
+ * payload through it. A purge that lands while that entry is still warm buys
+ * nothing: the very next visitor re-renders the page from the STALE payload and
+ * the result is stored as fresh HTML for seven days. A banner CTA edited at
+ * 03:38 was purged at 03:39:02 and re-cached, still wrong, at 03:39:07.
+ *
+ * Two rules keep the layers in lockstep — break either and edits fossilise:
+ *   1. Those handlers run `swr: false`. With SWR the expired entry is served
+ *      while it revalidates in the background, so the request that triggers the
+ *      refresh still renders old data — the exact fossilising step above.
+ *   2. pmone's PurgeEdgeCache::DEBOUNCE_SECONDS must stay ABOVE that maxAge, so
+ *      any handler entry written before the edit has expired by the time the
+ *      purge lands. Raising maxAge here means raising the debounce there.
  */
 
 /**

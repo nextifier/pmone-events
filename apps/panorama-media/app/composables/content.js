@@ -2,6 +2,11 @@ import { defineStore } from "pinia";
 
 export const useContentStore = defineStore("content", {
   state: () => ({
+    // This app ships a bespoke Hero.vue + index.vue that read no content-store
+    // copy, so it intentionally does not provide `components.hero`. Declared
+    // here so the dev-only content-contract check treats the omission as
+    // correct, not a gap.
+    contentContractOmit: ["components.hero"],
     pages: {
       home: {
         title: `Panorama Media`,

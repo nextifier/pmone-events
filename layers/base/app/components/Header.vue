@@ -34,22 +34,22 @@
         />
 
         <div class="flex h-full shrink-0 items-center gap-x-2">
-          <nuxt-link
+          <Button
             :to="localePath('/book-space')"
-            class="border-border text-foreground hover:bg-muted hidden items-center justify-center gap-x-2 rounded-xl border px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
+            variant="secondary"
+            class="text-foreground border-border hidden border font-semibold sm:inline-flex"
             @click="$scrollToTopIfCurrentPageIs(localePath('/book-space'))"
-            v-ripple
           >
-            <span>{{ $t("ui.bookSpace") }}</span>
-          </nuxt-link>
+            {{ $t("ui.bookSpace") }}
+          </Button>
 
-          <nuxt-link
+          <Button
             :to="localePath('/tickets')"
-            class="hover:bg-primary/80 bg-primary text-primary-foreground hidden items-center justify-center rounded-xl px-3 py-2 font-semibold tracking-tight select-none active:scale-98 sm:flex"
+            class="hidden font-semibold sm:inline-flex"
             @click="$scrollToTopIfCurrentPageIs(localePath('/tickets'))"
-            v-ripple
-            >{{ $t("ui.getTicket") }}</nuxt-link
           >
+            {{ $t("ui.getTicket") }}
+          </Button>
 
           <LanguageSwitcher />
 

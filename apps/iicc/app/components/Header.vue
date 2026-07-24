@@ -1,7 +1,11 @@
 <template>
   <header
-    class="border-border/30 bg-background/95 supports-backdrop-filter:bg-background/90 sticky inset-x-0 top-0 z-50 flex h-(--navbar-height-mobile) items-center justify-center border-b text-sm backdrop-blur-sm lg:h-(--navbar-height-desktop)"
-    :class="{ 'bg-background': isMenuOpen }"
+    class="border-border/30 sticky inset-x-0 top-0 z-50 flex h-(--navbar-height-mobile) items-center justify-center border-b text-sm lg:h-(--navbar-height-desktop)"
+    :class="
+      isMenuOpen
+        ? 'bg-background'
+        : 'bg-background/95 supports-backdrop-filter:bg-background/90 backdrop-blur-sm'
+    "
   >
     <nav
       class="flex h-full items-center transition-all duration-300"
@@ -43,14 +47,12 @@
             v-if="hotelVisible"
             :to="localePath('/hotels')"
             variant="secondary"
-            size="sm"
             class="hidden xl:inline-flex"
           >
             {{ $t("hotels.bookNow") }}
           </Button>
 
           <Button
-            size="sm"
             class="bg-accent text-accent-foreground hover:bg-accent/80"
             @click="handleBuyTicket"
           >

@@ -20,15 +20,6 @@ export default defineNuxtConfig({
     // Cloudflare Turnstile secret (server-side siteverify). When empty, the
     // contact form skips captcha verification entirely (safe to deploy first).
     turnstileSecret: process.env.NUXT_TURNSTILE_SECRET || "",
-    // Stable secret for signing nuxt-og-image render URLs. The committed
-    // fallback keeps it consistent across builds (silences the module's
-    // "auto-generated secret changes every build" warning); override per
-    // deploy with NUXT_OG_IMAGE_SECRET when desired.
-    ogImage: {
-      secret:
-        process.env.NUXT_OG_IMAGE_SECRET ||
-        "04045fc080f032a4186ccdc13922dd2fe6276b1a76d5825f5c52f16ecf240b59",
-    },
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
@@ -220,6 +211,18 @@ export default defineNuxtConfig({
   ogImage: {
     defaults: {
       renderer: "takumi",
+    },
+    // Signing secret for the /_og render URLs. The module reads it from HERE
+    // (module option `security.secret`) or `process.env.NUXT_OG_IMAGE_SECRET`
+    // — a `runtimeConfig.ogImage.secret` entry is NOT picked up. Without an
+    // explicit value it generates a random secret every build, which warns in
+    // dev and breaks rolling/multi-instance deploys (instances would sign with
+    // different secrets). The committed fallback keeps it stable; override per
+    // deploy with NUXT_OG_IMAGE_SECRET.
+    security: {
+      secret:
+        process.env.NUXT_OG_IMAGE_SECRET ||
+        "04045fc080f032a4186ccdc13922dd2fe6276b1a76d5825f5c52f16ecf240b59",
     },
     // 30 days. The module self-injects `public, max-age, s-maxage, immutable`
     // routeRules on /_og/d/** with this TTL — do NOT hand-write /_og/**

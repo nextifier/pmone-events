@@ -71,7 +71,9 @@ export default defineCachedEventHandler(
     // Shorter than the other API handlers (300s): this payload drives the
     // home-page section toggles admins expect to see propagate quickly.
     maxAge: 15,
-    swr: true,
+    // NOT swr. A stale payload here fossilises: SSR renders the old data into
+    // HTML that is then edge-cached for days. See cf-cache-rules.ts.
+    swr: false,
     // Deliberately NOT keyed per-locale: this route (and the upstream PM One
     // endpoint it proxies) is locale-agnostic by design - see
     // useProjectSettingsData.js's docblock. `site_config.copy` (plan 012),

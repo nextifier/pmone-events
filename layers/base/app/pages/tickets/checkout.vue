@@ -43,9 +43,10 @@ onMounted(() => {
   }
   cart.setEventContext({ eventId: event.id, eventSlug: event.slug });
   cart.fetchPreview({ eventId: event.id });
-  // The SSR fetch ran before the cart hydrated (no event slug server-side), so
-  // re-fetch client-side now that eventSlug is resolved - this is what loads the
-  // staff-managed terms (meta.terms) for the T&C dialog.
+  // The SSR fetch used the active event's slug; the cart may carry a different
+  // one (restored from a previous session), which only becomes readable after
+  // hydrate() above. Re-fetch so the tickets and the staff-managed terms
+  // (meta.terms) for the T&C dialog match the cart.
   refreshTickets();
 
   // Pre-fill the buyer's saved contact details (client-only, after mount).
@@ -63,6 +64,12 @@ watch(
 );
 
 // --- Tickets (data + meta.terms) ---
+// Await the event payload before deriving the URL below: `useEvent()` does not
+// await its own fetch, so without this `event.slug` is still "" during SSR and
+// the request goes to `/api/tickets/` (no slug), which 404s into the SSR
+// renderer. Shares the `active-event` asyncData entry — no extra request.
+await useEventData();
+
 const eventSlug = computed(() => cart.eventSlug || event.slug);
 
 const { data: ticketsData, refresh: refreshTickets } = await useFetch(

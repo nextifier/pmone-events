@@ -16,9 +16,14 @@
       </div>
 
       <div v-else-if="status === 'live'" class="flex items-center gap-x-1.5">
-        <ThinkingOrb state="composing" :size="24" />
+        <LiveAnimation
+          :size="20"
+          speed="1.5s"
+          color="var(--color-red-500)"
+          color-to="var(--color-red-600)"
+        />
         <span
-          class="shimmer shimmer-duration-3000 text-muted-foreground text-base tracking-tight uppercase"
+          class="text-muted-foreground text-base font-semibold tracking-tight uppercase"
           >{{ $t("eventStatus.live") }}</span
         >
       </div>

@@ -51,7 +51,9 @@ export default defineCachedEventHandler(
   {
     name: "api-banners",
     maxAge: 15,
-    swr: true,
+    // NOT swr. A stale payload here fossilises: SSR renders the old data into
+    // HTML that is then edge-cached for days. See cf-cache-rules.ts.
+    swr: false,
     getKey: (event) => {
       const q = getQuery(event);
       return (

@@ -31,8 +31,16 @@ function timeLabel(date) {
   return jakarta(date, opts);
 }
 
-export function useEvent() {
-  const { data } = useFetch("/api/event/active", {
+/**
+ * The raw `AsyncData` handle behind `useEvent()`. `await` it when a later call
+ * in the same setup derives a fetch URL from the event (e.g. `event.slug`) -
+ * `useEvent()` itself never awaits, so without this the derived URL is built
+ * from the empty defaults and fires a doomed request (`/api/tickets/` with no
+ * slug) before the real one. Same key + `getCachedData`, so awaiting here
+ * shares the single asyncData entry instead of adding a fetch.
+ */
+export function useEventData() {
+  return useFetch("/api/event/active", {
     key: "active-event",
     // Read the shared asyncData entry at access time. Without getCachedData a
     // re-invocation in a later component setup (SPA navigation, lazy sections)
@@ -45,6 +53,10 @@ export function useEvent() {
     server: true,
     default: () => null,
   });
+}
+
+export function useEvent() {
+  const { data } = useEventData();
 
   const ev = () => data.value?.data ?? null;
 

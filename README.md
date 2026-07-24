@@ -14,7 +14,7 @@ Nuxt 4 monorepo berisi **website event** yang masing-masing consume API dari bac
 | **ICF** | [indocoffeefestival.com](https://indocoffeefestival.com) | Dark | AnimatedShapes, sibling event logos |
 | **Cokelat Expo** | [cokelatexpo.id](https://cokelatexpo.id) | Dark | AnimatedShapes, sibling event logos |
 | **More Food** | [morefoodexpo.com](https://morefoodexpo.com) | Light | HeroImages, KVPatterns |
-| **Outing Expo** | [indooutingexpo.co.id](https://indooutingexpo.co.id) | Light | LiveAnimation, PastExhibitors |
+| **Outing Expo** | [indooutingexpo.co.id](https://indooutingexpo.co.id) | Light | PastExhibitors |
 | **ICC** | [indonesiacomiccon.com](https://indonesiacomiccon.com) | Dark | Guests, cosplay events, GSAP animations |
 | **INACON** | [indonesiaanimecon.com](https://indonesiaanimecon.com) | Dark | Guests, cosplay events, ICGP page, GSAP animations |
 

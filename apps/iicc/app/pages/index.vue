@@ -39,6 +39,10 @@
       v-if="creditsVisible"
       class="container flex flex-col items-center text-center"
     />
+
+    <!-- app.vue skips ScrollToTop on `index` routes, so the home page opts in
+         here explicitly. -->
+    <ScrollToTop />
   </div>
 </template>
 

@@ -130,7 +130,7 @@ site's OWN project (see the App ↔ PM One Project Map below and
 | icf | indocoffeefestival.com | dark | AnimatedShapes, sibling event logos (shares design with cafeexpo/cokelatexpo) |
 | cokelatexpo | cokelatexpo.id | dark | AnimatedShapes, sibling event logos (shares design with cafeexpo/icf) |
 | morefood | morefoodexpo.com | **light** | HeroImages, KVPatterns |
-| outingexpo | indooutingexpo.co.id | **light** | LiveAnimation, PastExhibitors |
+| outingexpo | indooutingexpo.co.id | **light** | PastExhibitors |
 | icc | indonesiacomiccon.com | dark | Guests, cosplay events, AccentColorSwitcher, GSAP animations |
 | inacon | indonesiaanimecon.com | dark | Guests, cosplay events, ICGP page, GSAP animations |
 

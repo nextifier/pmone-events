@@ -25,6 +25,7 @@
     </div> -->
 
     <div
+      ref="galleryDom"
       class="absolute inset-[6%] z-10 flex items-center justify-center overflow-hidden rounded-full"
     >
       <Carousel3d
@@ -47,9 +48,12 @@
             sizes="320px md:400px"
             format="webp"
             class="block size-full object-cover"
+            :class="revealClass(index)"
             :loading="index === 0 ? 'eager' : 'lazy'"
             :fetchpriority="index === 0 ? 'high' : 'low'"
             :preload="index === 0"
+            @load="onImageSettled(index)"
+            @error="onImageSettled(index)"
           />
         </template>
       </Carousel3d>
@@ -58,6 +62,35 @@
 </template>
 
 <script lang="ts" setup>
+const galleryDom = useTemplateRef<HTMLDivElement>("galleryDom");
+
+// Cards fade in once their image lands, mirroring the Orb's "wait for the first
+// painted frame" reveal. Frame 0 is exempt: it is the eager + preloaded LCP
+// candidate, and an opacity-0 element does not count as painted, so hiding it
+// would push LCP out to whenever hydration finishes.
+const loaded = ref(new Set<number>());
+
+const onImageSettled = (index: number) => {
+  loaded.value.add(index);
+};
+
+const revealClass = (index: number) => {
+  if (index === 0) return "";
+  return [
+    "transition-opacity duration-1000 ease-out",
+    loaded.value.has(index) ? "opacity-100" : "opacity-0",
+  ];
+};
+
+onMounted(() => {
+  // Cached images can finish before hydration wires up @load — sweep the DOM
+  // once so those still play the fade instead of sitting invisible forever.
+  // DOM order matches item order: Carousel3d renders one card per item.
+  galleryDom.value?.querySelectorAll("img").forEach((img, i) => {
+    if (img.complete) onImageSettled(i);
+  });
+});
+
 const items = ref<Array<{ image: string; text: string }>>([
   {
     image: "/img/hero-gallery/0.jpg",
