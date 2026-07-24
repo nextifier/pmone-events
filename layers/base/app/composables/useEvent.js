@@ -34,6 +34,14 @@ function timeLabel(date) {
 export function useEvent() {
   const { data } = useFetch("/api/event/active", {
     key: "active-event",
+    // Read the shared asyncData entry at access time. Without getCachedData a
+    // re-invocation in a later component setup (SPA navigation, lazy sections)
+    // re-registers the fetch and refetches on the client even though the SSR
+    // payload already carries the data — the exact bug documented and fixed in
+    // useProjectSettingsData.js; same cure here.
+    getCachedData: (key, nuxtApp) =>
+      nuxtApp.payload.data[key] ?? nuxtApp.static.data[key],
+
     server: true,
     default: () => null,
   });

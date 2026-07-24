@@ -160,6 +160,36 @@ export default defineNuxtConfig({
     mode: "svg",
     clientBundle: {
       scan: true,
+      // Names the template scanner cannot see because they are built at
+      // runtime from JS maps or dashboard data (SOCIAL_ICON_MAP in
+      // useProjectProfile, brand-view toggles, locale switcher…). Without
+      // this, every visitor's browser fetched them from /api/_nuxt_icon at
+      // runtime — ~55k requests/day across the sites (measured 24 Jul 2026).
+      // The endpoint itself stays enabled as the fallback for icon names that
+      // only exist in dashboard content; do NOT "optimise" it away with
+      // fallbackToApi:false (that breaks those icons — see the daily log).
+      icons: [
+        "hugeicons:instagram",
+        "hugeicons:facebook-01",
+        "hugeicons:new-twitter-rectangle",
+        "hugeicons:tiktok",
+        "hugeicons:linkedin-01",
+        "hugeicons:youtube",
+        "hugeicons:link-02",
+        "hugeicons:grid-view",
+        "hugeicons:layout-grid",
+        "hugeicons:layout-table-01",
+        "hugeicons:ticket-01",
+        "hugeicons:sidebar-right-01",
+        "hugeicons:clock-02",
+        "ri:instagram-line",
+        "lucide:languages",
+        "lucide:x",
+        "lucide:menu",
+        "lucide:search",
+        "lucide:check",
+        "lucide:loader",
+      ],
     },
   },
 

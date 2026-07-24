@@ -68,16 +68,24 @@ export const HTML_TTL_STATIC = "public, max-age=0, s-maxage=2592000"; // 30 d ed
 // max-age=0: the browser cache is the one layer no invalidation can reach, so
 // admin edits would sit behind it for its full lifetime. Only the edge caches.
 //
-// API TTLs are deliberately SHORT, unlike HTML. The cache key includes the
-// original query string, and the query space (?page, ?placement, ?per_page,
-// ?fallback, usernames…) is not enumerable by the backend's purge-by-URL — the
-// purge covers the bare path and per-locale variants, everything else can only
-// self-heal via TTL. API renders are also cheap (~20 ms vs 150-350 ms for
-// HTML; the entire API surface costs <0.1M ms/day), so a short window buys
-// freshness at almost no CPU. Raising these again would NOT meaningfully cut
-// CPU but WOULD let paginated/filtered API variants go stale for that long.
+// API TTLs split by whether the backend can PURGE the endpoint's variants.
+//
+// STABLE (6 h): endpoints whose only query dimension is ?locale — every
+// variant is enumerated by pmone's purge map (config/edge-sites.php, verified
+// live in phase 2), so freshness comes from the purge and the TTL is just the
+// net. The short 120 s TTL these used to carry was the single biggest CPU
+// source left after phase 2: TWO cache layers (Cloudflare's CDN via the zone
+// Cache Rule + the in-worker Cache API) both expire on this header, so every
+// endpoint × every colo re-ran its full handler (upstream fetch to
+// api.pmone.id included) every ≤2 minutes, forever. LOCKSTEP RULE: anything
+// listed with API_TTL_STABLE must stay covered by a purge tag in pmone's
+// config/edge-sites.php.
+export const API_TTL_STABLE = "public, max-age=0, s-maxage=21600";
+// VARIED (120 s): endpoints with query dimensions purge cannot enumerate
+// (?page, ?search, ?placement, ?per_page, ?fallback…). The TTL is their only
+// freshness bound, so it must stay short.
 export const API_TTL = "public, max-age=0, s-maxage=120";
-// Admin-toggled settings must propagate fast even if a purge is missed.
+// Per-visitor-adjacent or fast-toggle endpoints (forms shell).
 export const API_TTL_SHORT = "public, max-age=0, s-maxage=60";
 // OG cards hash their props into the URL, so a long window is self-busting.
 // nuxt-og-image sets its own header on /_og/d/**; this entry exists so the
@@ -148,20 +156,26 @@ export const CACHED_HTML_PREFIX: Record<string, string> = {
 // crawler infra. Cloudflare's cache key includes the query string, so
 // query-varied endpoints (?placement, ?locale, ?page) cache per-variant.
 export const CACHED_GLOBAL_EXACT: Record<string, string> = {
-  "/api/editions": API_TTL,
-  "/api/event/active": API_TTL,
-  "/api/event/faq": API_TTL,
-  "/api/event/gallery": API_TTL,
-  "/api/event/guests": API_TTL,
-  "/api/event/media-coverage": API_TTL,
-  "/api/event/partners": API_TTL,
-  "/api/event/programs": API_TTL,
-  "/api/event/rundown": API_TTL,
-  "/api/event/website-settings": API_TTL_SHORT,
+  // STABLE tier — sole query dimension is ?locale, every variant purge-covered
+  // (pmone tags: events, faqs, gallery, guests, media-coverages, partners,
+  // programs, rundown, projects/global). See API_TTL_STABLE.
+  "/api/editions": API_TTL_STABLE,
+  "/api/event/active": API_TTL_STABLE,
+  "/api/event/faq": API_TTL_STABLE,
+  "/api/event/gallery": API_TTL_STABLE,
+  "/api/event/guests": API_TTL_STABLE,
+  "/api/event/media-coverage": API_TTL_STABLE,
+  "/api/event/partners": API_TTL_STABLE,
+  "/api/event/programs": API_TTL_STABLE,
+  "/api/event/rundown": API_TTL_STABLE,
+  "/api/event/website-settings": API_TTL_STABLE,
+  "/api/project/profile": API_TTL_STABLE,
+
+  // VARIED tier — ?page/?search/?placement/?fallback… not purge-enumerable.
   "/api/banners": API_TTL,
   "/api/blog/posts": API_TTL,
-  "/api/project/profile": API_TTL,
   "/api/exhibitors": API_TTL,
+
   "/robots.txt": "public, max-age=3600, s-maxage=21600",
   "/sitemap_index.xml": "public, max-age=600, s-maxage=3600",
   "/sitemap.xml": "public, max-age=600, s-maxage=3600",
@@ -169,6 +183,9 @@ export const CACHED_GLOBAL_EXACT: Record<string, string> = {
 
 // Prefix global rules.
 export const CACHED_GLOBAL_PREFIX: Record<string, string> = {
+  // Slug-/edition-scoped detail lookups: the purge tags enumerate only the
+  // BARE endpoint's locale variants, not per-slug paths — so these must stay on
+  // the short tier or an edited guest/rundown would serve 6-hour-stale JSON.
   "/api/event/guests/": API_TTL,
   "/api/event/rundown/": API_TTL,
   "/api/blog/posts/": API_TTL,

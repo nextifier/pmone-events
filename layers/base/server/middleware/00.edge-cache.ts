@@ -4,6 +4,7 @@ import {
   EDGE_CACHE_404_ONLY,
   EDGE_CACHE_KEY,
   EDGE_CACHE_STORE_404,
+  REDIRECT_TTL,
   buildEdgeCacheKey,
   currentBuildId,
   getEdgeCache,
@@ -140,5 +141,47 @@ export default defineEventHandler(async (event) => {
   event.context[EDGE_CACHE_KEY] = key;
   if (notFoundOnly) {
     event.context[EDGE_CACHE_404_ONLY] = true;
+  }
+
+  // Cache the i18n locale redirect on "/". An id-language visitor's every hit
+  // on "/" boots the whole app (plugins await the settings fetch) just to emit
+  // a 302 to /id — and h3's sendRedirect bypasses the beforeResponse hook, so
+  // the store plugin never sees it. Wrapping res.end for this ONE path catches
+  // it at send time. Deterministic by construction: the key already encodes
+  // the exact negotiation inputs (__lc/__al/__cm), so every request sharing
+  // this key gets the same verdict. routeRules redirects (/ticket→/tickets…)
+  // are deliberately NOT cached — they cost ~5 ms and the wrap would have to
+  // cover every path.
+  if (url.pathname === "/") {
+    const res = (event.node as any)?.res;
+    if (res?.end) {
+      const origEnd = res.end.bind(res);
+      res.end = (...args: any[]) => {
+        try {
+          const status = res.statusCode;
+          if ([301, 302, 307, 308].includes(status)) {
+            const headers = new Headers();
+            for (const [name, value] of Object.entries(res.getHeaders?.() ?? {})) {
+              if (value != null) {
+                headers.set(
+                  name,
+                  Array.isArray(value) ? value.join(", ") : String(value),
+                );
+              }
+            }
+            headers.delete("set-cookie");
+            headers.delete("x-edge-cache");
+            headers.set("cache-control", REDIRECT_TTL);
+            headers.set(EDGE_BUILD_HEADER, currentBuildId(event));
+            event.waitUntil(
+              cache.put(key, new Response(null, { status, headers })).catch(() => {}),
+            );
+          }
+        } catch {
+          // caching must never break the redirect itself
+        }
+        return origEnd(...args);
+      };
+    }
   }
 });

@@ -22,6 +22,14 @@ const SOCIAL_ICON_MAP = {
 export function useProjectProfile() {
   const { data } = useFetch("/api/project/profile", {
     key: "project-profile",
+    // Read the shared asyncData entry at access time. Without getCachedData a
+    // re-invocation in a later component setup (SPA navigation, lazy sections)
+    // re-registers the fetch and refetches on the client even though the SSR
+    // payload already carries the data — the exact bug documented and fixed in
+    // useProjectSettingsData.js; same cure here.
+    getCachedData: (key, nuxtApp) =>
+      nuxtApp.payload.data[key] ?? nuxtApp.static.data[key],
+
     server: true,
     default: () => null,
   });

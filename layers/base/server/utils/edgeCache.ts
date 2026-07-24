@@ -67,6 +67,15 @@ export const EDGE_CACHE_STORE_404 = "__edgeCacheStore404";
 export const NOT_FOUND_TTL = "public, max-age=0, s-maxage=3600";
 
 /**
+ * Edge TTL for cached HTML redirects. Redirects re-invoked the worker on every
+ * request (~11k/20h measured: i18n's 302 on "/" for id-language visitors,
+ * routeRules like /ticket→/tickets) even though each one is deterministic —
+ * "/"'s key carries the negotiation inputs, and routeRules only change with a
+ * deploy, which the x-edge-build check already invalidates.
+ */
+export const REDIRECT_TTL = "public, max-age=0, s-maxage=3600";
+
+/**
  * Header stamped onto every stored HTML entry and validated on lookup.
  *
  * WHY A HEADER AND NOT PART OF THE KEY: purge-by-URL is an exact match
