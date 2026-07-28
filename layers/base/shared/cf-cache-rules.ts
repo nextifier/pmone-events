@@ -76,6 +76,20 @@ export const HTML_TTL = "public, max-age=0, s-maxage=604800"; // 7 d edge
 export const HTML_TTL_DETAIL = "public, max-age=0, s-maxage=2592000"; // 30 d edge
 
 export const HTML_TTL_LONG = "public, max-age=0, s-maxage=604800"; // 7 d edge
+
+/**
+ * Pages that render LIVE STOCK — 1 hour.
+ *
+ * /tickets SSRs price, quota and on-sale dates. Freshness still comes from the
+ * purge (pmone's Ticket/TicketPricePhase/TicketSession reserve()+release() now
+ * clear the `tickets` tag, which config/edge-sites.php maps to /tickets), so
+ * this TTL is only the blast radius when a purge fails. At 7 days a failed
+ * purge meant a sold-out ticket stayed "available" for a week — people would
+ * click buy and hit a 422. One hour bounds that, and costs nothing measurable:
+ * /tickets gets a few hundred requests a day across 16 sites and ~12 colos, so
+ * nearly every request already misses.
+ */
+export const HTML_TTL_LIVE = "public, max-age=0, s-maxage=3600"; // 1 h edge
 // Pages whose content is effectively frozen (legal text, contact, forms shell).
 // These used to be prerendered at build; they are cached instead so dashboard
 // edits to nav/appearance/identity reach them without a rebuild — those edits
@@ -125,7 +139,7 @@ export const CACHED_HTML_EXACT: Record<string, string> = {
   "/faq": HTML_TTL,
   "/partners": HTML_TTL,
   "/links": HTML_TTL,
-  "/tickets": HTML_TTL,
+  "/tickets": HTML_TTL_LIVE,
   "/hotels": HTML_TTL,
 
   // Formerly prerendered at build time (see modules/cf-cache.ts, now removed).

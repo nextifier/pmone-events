@@ -168,35 +168,35 @@
       </form>
     </template>
 
-    <!-- Success State -->
+    <!-- Success State. The height classes only apply on a full page: inside
+         DialogContact the form sits in a max-h-[85vh] drawer, where a viewport
+         tall block with a negative top margin turns the confirmation into its
+         own scroll area. -->
     <template v-else>
       <div
-        class="min-h-screen-offset -mt-16 flex flex-col items-center justify-center text-center"
+        :class="
+          compact
+            ? 'flex flex-col items-center justify-center py-6'
+            : 'min-h-screen-offset -mt-16 flex flex-col items-center justify-center'
+        "
       >
-        <div
-          class="bg-muted flex size-16 items-center justify-center rounded-full"
+        <Result
+          size="lg"
+          variant="muted"
+          :title="successTitleText"
+          :description="successMessageText"
         >
-          <Icon
-            name="hugeicons:checkmark-circle-03"
-            class="text-foreground size-8"
-          />
-        </div>
-
-        <h2
-          class="text-foreground mt-6 text-3xl font-medium tracking-tighter text-balance sm:text-4xl"
-        >
-          {{ successTitleText }}
-        </h2>
-        <p class="mt-4">{{ successMessageText }}</p>
-
-        <NuxtLink
-          :to="localePath('/')"
-          class="bg-primary text-primary-foreground mt-8 rounded-xl px-6 py-4 font-semibold tracking-tight"
-          v-ripple
-          @click="handleSuccessAction"
-        >
-          {{ successButtonText }}
-        </NuxtLink>
+          <ResultActions class="pt-2">
+            <NuxtLink
+              :to="localePath('/')"
+              class="bg-primary text-primary-foreground rounded-xl px-6 py-4 font-semibold tracking-tight"
+              v-ripple
+              @click="handleSuccessAction"
+            >
+              {{ successButtonText }}
+            </NuxtLink>
+          </ResultActions>
+        </Result>
       </div>
     </template>
   </div>
@@ -264,6 +264,10 @@ const props = defineProps({
   successTitle: { type: String, default: null },
   successMessage: { type: String, default: null },
   successButtonLabel: { type: String, default: null },
+
+  // Set when the form is mounted inside a dialog or drawer rather than owning a
+  // page, so the success state sizes to its content instead of the viewport.
+  compact: { type: Boolean, default: false },
 });
 
 // Computed defaults using i18n

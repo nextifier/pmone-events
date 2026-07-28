@@ -453,7 +453,23 @@ function handleArticleClick(event) {
 
 let lightboxContainer = null;
 
+// View counting. Has to happen in the browser: an edge-cache HIT serves this
+// page without rendering it, so anything counted server-side would only ever
+// see cache misses. See usePostTracking for the full story.
+const { trackVisit: trackPostVisit } = usePostTracking(() => post.value?.id);
+
+// Watch rather than call once: this component instance survives navigation
+// between articles, so onMounted alone would only ever count the first one.
+watch(
+  () => post.value?.id,
+  () => {
+    if (import.meta.client) trackPostVisit();
+  },
+);
+
 onMounted(async () => {
+  trackPostVisit();
+
   await nextTick();
   collectContentImages();
 

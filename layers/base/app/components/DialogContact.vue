@@ -9,6 +9,7 @@
       <div class="container max-w-lg pb-16">
         <div class="grid grid-cols-1 gap-10">
           <ContactForm
+            compact
             :title="dialogConfig.title"
             :description="dialogConfig.description"
             :submitLabel="dialogConfig.submitLabel"

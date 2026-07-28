@@ -135,11 +135,22 @@ const { setOpenMobile } = useSidebar();
 const route = useRoute();
 const { $dayjs } = useNuxtApp();
 
-// Use lazy fetch to avoid hydration mismatch in lazy-loaded component.
+// Client-only on purpose. `lazy` alone still runs the fetch on the server —
+// it only stops it from blocking — so every /news/{slug} render was pulling 21
+// posts, rendering 20 PostCards and serialising ~46 KB into __NUXT_DATA__ for a
+// grid that sits below the fold behind `v-if="!pending"`. /news/{slug} is the
+// largest HTML family on the account, so that is the most expensive place in
+// the codebase to do work nobody sees on first paint.
+//
+// SEO cost, accepted: 20 internal links leave the SSR HTML. Article discovery
+// does not depend on them — every post is in the sitemap
+// (server/api/sitemap-urls.ts) and linked from the SSR-rendered /news list.
+//
 // No static key: the auto-generated key varies with the locale query so a
 // language switch refetches instead of reusing another locale's cache entry.
 const { locale } = useI18n();
 const { data: postsData, pending } = useLazyFetch("/api/blog/posts", {
+  server: false,
   query: {
     per_page: props.limit + 1,
     sort: "-published_at",

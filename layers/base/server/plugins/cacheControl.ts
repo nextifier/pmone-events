@@ -10,11 +10,13 @@ import {
 } from "../utils/edgeCache";
 
 /**
- * Two jobs, both on `beforeResponse`:
+ * Three jobs, all on `beforeResponse`:
  *
  * 1. Set `cache-control: public, s-maxage=N` on cacheable 200 GET responses.
  *    That header is what gives the stored entry its edge TTL.
- * 2. Store the response in the Cloudflare Cache API under the key
+ * 2. Drop `set-cookie` from those same responses, so the CDN in front of the
+ *    Worker is allowed to store them (see stripSetCookie).
+ * 3. Store the response in the Cloudflare Cache API under the key
  *    server/middleware/00.edge-cache.ts left on the event, so the next request
  *    for the same URL is served without re-rendering.
  *
@@ -115,11 +117,54 @@ export default defineNitroPlugin((nitroApp) => {
     // by the dashboard on publish, so it is safe for it to be much longer.
     if (cacheControl) {
       setResponseHeader(event, "cache-control", cacheControl);
+      stripSetCookie(event);
     }
 
     storeInEdgeCache(event, response);
   });
 });
+
+/**
+ * Strip every `set-cookie` from a response the tables say is cacheable.
+ *
+ * There are TWO caches in front of a visitor: Cloudflare's CDN (per-zone Cache
+ * Rule) and our own Cache API copy inside the Worker. The CDN refuses to store
+ * any response carrying Set-Cookie, and @nuxtjs/i18n attaches `i18n_locale` to
+ * every HTML render (nuxt.config.ts `detectBrowserLanguage.useCookie`). So a
+ * fresh render — the expensive one, 150-350 ms — never reached the CDN; only
+ * the cheap second request did, and only in the colo that served it. Cache API
+ * is per-colo with no tiering, so every colo paid its own render for the same
+ * URL.
+ *
+ * Dropping the cookie here is the same call storeInEdgeCache already makes on
+ * the cached copy, for the same reason: on a cacheable URL the locale is
+ * already in the path, or the route is locale-agnostic. What the visitor can
+ * observe does not change.
+ *
+ * What this does NOT touch: the caller returns early on any status other than
+ * 200, so the 302 that `/` issues when it negotiates a locale still sets the
+ * cookie. That redirect is where the cookie actually earns its keep — verified:
+ * `Accept-Language: id` still answers 302 -> /id with `Set-Cookie: i18n_locale`,
+ * and a request already carrying the cookie still redirects by it.
+ *
+ * This removes EVERY Set-Cookie on a cacheable response, not just i18n's. Two
+ * exist today and both are safe to lose here:
+ *   - `i18n_locale` — see above.
+ *   - `brands-view-mode` on /brands, which is only ever the SSR-written default
+ *     "grid" (useBrandsListing.js `useCookie(..., { default: () => "grid" })`).
+ *     The value falls back to "grid" when absent anyway, and a visitor who
+ *     switches to list view has that written by the browser, not by us.
+ * Any NEW per-visitor cookie on a cacheable GET must not rely on this response
+ * to deliver it — set it client-side, or take the route out of the TTL tables.
+ *
+ * Accepted trade-off: a visitor landing straight on a locale-prefixed URL no
+ * longer receives `i18n_locale`, so a later visit to bare `/` negotiates from
+ * Accept-Language instead. A locale picked by hand still sticks — i18n writes
+ * that cookie in the browser.
+ */
+function stripSetCookie(event: any) {
+  removeResponseHeader(event, "set-cookie");
+}
 
 /**
  * Copy the outgoing response into the edge cache.

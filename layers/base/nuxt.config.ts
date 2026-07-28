@@ -249,6 +249,16 @@ export default defineNuxtConfig({
     enabled: false,
   },
 
+  // nuxt-seo-utils. `minify` defaults to true, which installs an unhead
+  // `ssr:render` hook that re-minifies every inline <script>/<style> on EVERY
+  // render. It buys us nothing: the three ld+json blocks are already
+  // JSON.stringify output, and the color-mode script is minified by the
+  // bundler. Only the runtime half is turned off — the build half still
+  // minifies the static head once, for free.
+  seo: {
+    minify: { runtime: false },
+  },
+
   gtag: {
     // Manual init: the baked `id`/`tags` below (set per app, e.g.
     // apps/campx/nuxt.config.ts) are used only as a *fallback* value. The

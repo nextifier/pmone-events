@@ -1,7 +1,9 @@
 <template>
   <div class="mx-auto max-w-3xl space-y-6 px-4 pt-4 pb-16">
-    <!-- Loading skeleton -->
-    <div v-if="pending && !order" class="space-y-6">
+    <!-- Loading skeleton, first fetch only. The confirmation poll flips `pending`
+         back to true, and swapping the hero out for the skeleton every 3 seconds
+         would replay its entrance animation each time. -->
+    <div v-if="pending && !order && !hasLoadedOnce" class="space-y-6">
       <div class="space-y-4 pt-4 text-center">
         <Skeleton class="mx-auto size-14 rounded-full" />
         <div class="space-y-1.5">
@@ -33,37 +35,17 @@
 
     <template v-else>
       <!-- Hero -->
-      <header class="space-y-4 pt-4 text-center">
-        <div class="flex justify-center">
-          <span
-            :class="[
-              'inline-flex size-14 items-center justify-center rounded-full transition duration-500 ease-out motion-safe:starting:scale-50 motion-safe:starting:opacity-0',
-              isConfirmed ? 'bg-success/15' : 'bg-warning/15',
-            ]"
-          >
-            <Icon
-              :name="isConfirmed ? 'hugeicons:checkmark-circle-02' : 'hugeicons:clock-02'"
-              :class="['size-7', isConfirmed ? 'text-success-foreground' : 'text-warning-foreground']"
-            />
-          </span>
-        </div>
-        <div class="space-y-1.5">
-          <h1 class="page-title">{{ heroTitle }}</h1>
-          <p
-            class="text-muted-foreground mx-auto max-w-md text-sm tracking-tight sm:text-base"
-          >
-            {{ heroDescription }}
-          </p>
-        </div>
-        <div class="flex items-center justify-center gap-x-2 pt-1">
-          <code
-            class="bg-muted/60 inline-flex items-center rounded px-2 py-1 font-mono text-sm tracking-tight sm:text-base"
-          >
-            {{ order.order_number }}
-          </code>
+      <Result
+        class="pt-4"
+        :status="isConfirmed ? 'success' : 'pending'"
+        :title="heroTitle"
+        :description="heroDescription"
+        title-as="h1"
+      >
+        <ResultReference :value="String(order.order_number)">
           <ButtonCopy :text="String(order.order_number)" />
-        </div>
-      </header>
+        </ResultReference>
+      </Result>
 
       <!-- Pending payment CTA -->
       <div
@@ -234,11 +216,12 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "../../components/ui/empty";
+import { Result, ResultReference } from "../../components/ui/result";
 import { Skeleton } from "../../components/ui/skeleton";
 import { Spinner } from "../../components/ui/spinner";
 import ETicket from "../../components/tickets/ETicket.vue";
 import { useTicketPdf } from "../../composables/useTicketPdf";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { toast } from "vue-sonner";
 
 definePageMeta({
@@ -270,6 +253,17 @@ const { data, pending, refresh } = await useLazyAsyncData(
 );
 
 const order = computed(() => data.value?.data ?? null);
+
+// Latches once the first fetch settles so the confirmation poll below never
+// sends the page back to the skeleton, which would replay the hero entrance.
+const hasLoadedOnce = ref(false);
+watch(
+  pending,
+  (value) => {
+    if (!value) hasLoadedOnce.value = true;
+  },
+  { immediate: true }
+);
 
 usePageMeta(null, {
   title: computed(() => `${t("tickets.result.orderReceived")} · ${t("tickets.checkout")}`),
