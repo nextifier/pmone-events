@@ -992,8 +992,12 @@ Probe-nya yang salah, bukan kodenya. Tidak ada perubahan kode.
 
 ## Yang HARUS diukur setelah deploy
 
-1. Catat jam deploy. Jendela ukur mulai dari jam penuh berikutnya (deploy me-reset seluruh
-   cache HTML lewat validasi `x-edge-build`, jadi jam-jam pertama tidak sah).
+**Di-push 28 Jul 2026 01:08 UTC / 08:08 WIB** (pmone `6eac70e9`, pmone-events `df6c50b`).
+Build Cloudflare untuk 16 app jalan setelah itu, jadi **jendela ukur bersih mulai 28 Jul
+03:00 UTC** (jam penuh setelah build + refill cache selesai).
+
+1. Deploy me-reset seluruh cache HTML lewat validasi `x-edge-build`, jadi jam-jam pertama
+   selalu tinggi dan tidak sah dipakai.
 2. H+2, banding ke 3,94M ms / 48.808 invocation. Gate < 2,0M ms/hari.
 3. Probe `Set-Cookie` di produksi: request PERTAMA ke URL segar harus tanpa `set-cookie`, dan
    `cf-cache-status` tidak lagi kosong. Itu bukti tuas §1 bekerja.
