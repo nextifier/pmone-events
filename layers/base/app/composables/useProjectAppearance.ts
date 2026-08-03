@@ -1,4 +1,4 @@
-import { appearanceCss, DEFAULT_APPEARANCE } from "@/lib/appearance";
+import { appearanceCss, DEFAULT_APPEARANCE, normalizeAppearance } from "@/lib/appearance";
 
 type AppearanceOverride = Partial<typeof DEFAULT_APPEARANCE> & { enabled?: boolean };
 
@@ -35,7 +35,10 @@ export function useProjectAppearance(): void {
 
   const baked = (appConfig.appearance as AppearanceOverride | undefined) ?? {};
   const dashboard = (siteConfig.appearance as AppearanceOverride | null) ?? {};
-  const appearance = { ...DEFAULT_APPEARANCE, ...baked, ...dashboard };
+  // Normalized because the PM One dashboard form used to default its pickers to
+  // neutral/neutral/neutral, so saved site_config carries that trio without
+  // anyone having deliberately chosen Neutral three times.
+  const appearance = normalizeAppearance({ ...DEFAULT_APPEARANCE, ...baked, ...dashboard });
 
   // Higher-specificity selector (:root:root) so the injected tokens
   // deterministically win over app.css `:root`/`.dark`, independent of <head>

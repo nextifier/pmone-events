@@ -47,68 +47,187 @@ export default {
     YouTube: "YouTube",
   },
   whyVisit: {
-    heading: "为什么一定要来",
-    subheading: "企业团建与激励旅行的一站式商务平台",
+    subheading: "团建和奖励旅游的事，在这里一次办完",
     items: {
       "0": {
-        title: "直接对接企业决策层",
-        description:
-          "60-70% 的参观者是 HR 负责人、高管和企业采购。这不是普通展会，这是成交发生的地方。",
+        title: "一天就能比完价",
+        description: "100 多家团建和奖励旅游供应商在场，报价当场就能要。",
       },
       "1": {
-        title: "100+ 品牌与解决方案，同场呈现",
-        description:
-          "从团建目的地、团队拓展供应商到激励旅行方案，一次逛完，直接对比，找到最适合你公司的选择。",
+        title: "只在展会期间生效的价格",
+        description: "不少参展商带来只做这四天的报价。",
       },
       "2": {
-        title: "4天专业议程，分阶段、有重点",
+        title: "HR 论坛免费听",
         description:
-          "第1-2天聚焦商务洽谈和企业对接，第3-4天侧重现场体验和社区活动。按你的需求选择参加日期。",
+          "Inspiration Talk Series 和 HR Forum 讲员工激励和奖励制度。",
       },
       "3": {
-        title: "精选行业会议与HR论坛",
+        title: "先体验再定供应商",
         description:
-          "参与 Inspiration Talk Series、Corporate Insights 和 HR Forum，深入探讨员工激励趋势、人才发展战略和激励旅行规划。",
+          "Experience Trial Zone 可以先把团建项目试一遍，再决定找谁做。",
       },
     },
   },
   hero: {
     countdownLabel: "距开幕：",
-    title: "Indonesia Outing & Incentive Travel Expo 2026",
-    description:
-      "企业团建与激励旅行的商务平台。100+ 品牌、HR 行业论坛、精准商务对接，尽在一站。",
+    title: "团建和奖励旅游供应商，一次逛完",
+    description: "给正在筹备团建、年会和奖励旅游的 HR 和企业。免费入场。",
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
   },
+  eventFormat: {
+    title: "前两天谈生意，后两天做体验",
+    description: "周四周五面向企业，周六周日对公众开放。",
+    month: "10月",
+    days: {
+      "0": {
+        label: "第 1-2 天",
+        date: "周四、周五",
+        title: "商务与筹划日",
+        description:
+          "商务对接、HR 论坛、参展商分享，手握决定权的人这两天来得最多。",
+      },
+      "1": {
+        label: "第 3-4 天",
+        date: "周六、周日",
+        title: "体验与社群日",
+        description: "现场活动和体验区都在这两天，想带团队来就挑这两天。",
+      },
+    },
+  },
+  whoVisits: {
+    title: "来找供应商的都是些什么人",
+    description: "2025 年来了 10,000 人，其中六成左右是企业决策层。",
+    corporateTitle: "企业与职场",
+    corporateItems: [
+      "HR 负责人和人才发展主管",
+      "董事与高管",
+      "采购与招标负责人",
+      "奖励制度负责人",
+      "活动策划与执行公司",
+    ],
+    communityTitle: "机构与社群",
+    communityItems: [
+      "行业协会与专业团体",
+      "组织研学的学校和高校",
+      "宗教团体与社区组织",
+      "筹办聚会的社团",
+      "来找团队出游灵感的普通观众",
+    ],
+    breakdownLabel: "2025 年观众构成",
+    breakdown: {
+      hr: "人力资源",
+      public: "普通观众",
+      corporateTeam: "企业团队",
+      eventPlanner: "活动策划与执行公司",
+      groupHolidays: "团体出游",
+      community: "社会与宗教团体",
+    },
+  },
+  exhibitorCategories: {
+    title: "做团建和奖励旅游的公司都在这里",
+    description: "五个参展类别，在 NICE PIK 2 摆满四天。",
+    cta: "查看全部品牌",
+    items: {
+      "0": {
+        title: "激励、奖励与企业方案",
+        items: ["员工激励与表彰项目", "企业拓展与邮轮", "纪念品与企业礼品"],
+      },
+      "1": {
+        title: "目的地、场地与住宿",
+        items: [
+          "酒店、度假村、别墅",
+          "旅游目的地与旅游局",
+          "MICE 场地与会展中心",
+        ],
+      },
+      "2": {
+        title: "活动、体验与落地执行",
+        items: ["活动公司与制作公司", "拓展、团建与培训", "体验式项目"],
+      },
+      "3": {
+        title: "旅游与交通",
+        items: [
+          "旅行社与地接社",
+          "DMC 与奖励旅游专业公司",
+          "航空、大巴、租车、铁路",
+        ],
+      },
+      "4": {
+        title: "娱乐、健康与配套服务",
+        items: ["演出与娱乐", "企业健康与 CSR", "餐饮、拍照、跟拍记录"],
+      },
+    },
+  },
+  eventStats: {
+    subtitle: "2025 年回顾",
+    title: "第一届留下的数字",
+    description: "Indonesia Outing Expo 2025 在雅加达办了三天。",
+    stats: {
+      visitors: { label: "观众", description: "来自 70 多家企业" },
+      brands: { label: "参展品牌", description: "目的地、活动公司、旅行社" },
+      businessMatching: { label: "商务对接", description: "一对一洽谈" },
+      speakers: { label: "讲者", description: "HR 与行业从业者" },
+      mediaCoverage: { label: "媒体报道", description: "全国性与网络媒体" },
+      recommendation: { label: "参展商推荐", description: "表示还会再来" },
+    },
+  },
+  galleryPreview: {
+    title: "2025 年现场",
+    description: "展位、团建活动和论坛现场。",
+    cta: "查看全部照片",
+  },
+  whyExhibit: {
+    subtitle: "给参展商",
+    title: "来的人就是冲着找供应商来的",
+    description: "今年目标 25,000 人，大多带着预算和拍板权。",
+    cta: "预订展位",
+    ctaNote: "2026 年展位开始接受预订。",
+    items: {
+      "0": {
+        title: "见到握预算的人",
+        description: "六成左右的观众是 HR 负责人、高管和企业采购。",
+      },
+      "1": {
+        title: "已经在看方案的客户",
+        description: "他们手上就有这个季度的团建或奖励旅游要落地。",
+      },
+      "2": {
+        title: "现场就能演示",
+        description: "Experience Trial Zone 让观众直接体验项目，不用翻册子。",
+      },
+      "3": {
+        title: "四天，两个市场",
+        description: "两天工作日面向企业，两天周末面向社群和公众。",
+      },
+    },
+  },
   mainPrograms: {
     title:
       "<span class='text-outline'>核心</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">项目</span>",
-    description:
-      "行业论坛、HR 峰会、精准对接、现场体验区。以下是 {appName} 为企业管理层和行业从业者精心打造的核心项目。",
+    description: "HR 论坛、商务对接、体验区，为 HR 和团建行业准备的项目。",
   },
   partnerships: {
     title:
       "<span class='text-outline'>加入 </span><span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">IOITE 的故事</span>",
-    description:
-      "IOITE 为解决方案供应商与正在规划团建和激励计划的企业搭建桥梁。加入 {appName}，直接触达精准目标客群。",
+    description: "参展商和正在筹备团建、奖励旅游的企业，在这里直接见面。",
     exhibitor: {
       title: "参展商报名",
-      description:
-        "你有目的地、场地或企业团建服务？目标观众 25,000+，其中 60-70% 是企业决策者。",
+      description: "你做目的地、场地或企业团建服务？今年目标观众 25,000 人。",
       cta: "预订展位",
     },
     sponsor: {
       title: "赞助商报名",
       description:
-        "三档赞助方案：Experience Maker、Core Collaborator、Synergy Partner，选择最契合你品牌目标的合作方式。",
+        "三档方案：Experience Maker、Core Collaborator、Synergy Partner。",
       cta: "赞助合作",
     },
     mediaPartner: {
       title: "媒体合作报名",
-      description:
-        "2025 年展会获得 40 多家全国性媒体支持。加入我们，获取独家内容和行业深度报道。",
+      description: "2025 年有 40 家全国媒体报道。欢迎加入媒体合作。",
       cta: "成为媒体伙伴",
     },
     reservedSpace: {
@@ -118,9 +237,8 @@ export default {
   },
   visitorCta: {
     title:
-      '一张<span class="gradient-accent bg-clip-text  text-transparent pr-1">门票</span>，开启全新可能',
-    description:
-      "100+ 品牌、HR 行业论坛、精准商务对接、现场体验区。IOITE 2026，为期4天，锁定你的参观名额。",
+      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">免费</span>入场',
+    description: "100 多个团建和奖励旅游品牌、HR 论坛、商务对接，四天。",
     cta: "领取门票",
   },
   mediaCoverage: {
@@ -137,12 +255,12 @@ export default {
   brandList: {
     title: "品牌",
     description:
-      "目的地与场地、活动策划与体验服务、旅行与交通、激励与企业解决方案、文娱与配套服务。浏览 IOITE 的全部参展品牌。",
+      "IOITE 2026 的参展旅行社、团建公司、酒店、目的地和奖励旅游专业公司。",
   },
   bookSpace: {
     title: "参展商报名",
     description:
-      "锁定你在 {appName} 的展位。面向 25,000+ 目标观众展示品牌，大多数为企业决策者。",
+      "在 {appName} 摆展位，目标触达 25,000 名观众，大多是 HR 和企业采购。",
   },
   faq: {
     title: "常见问题",
@@ -218,15 +336,15 @@ export default {
   },
   pages: {
     home: {
-      title:
-        "Indonesia Outing & Incentive Travel Expo (IOITE) 2026：企业团建与激励旅行商务平台",
+      // vue-i18n 会把「|」当成复数分隔符，标题里不要用。
+      title: "印尼团建与奖励旅游展 · IOITE 2026",
       description:
-        "印尼最大的团建与激励旅行展会。100+ 品牌、HR 论坛、精准商务对接，2026年8月27-30日，NICE PIK 2。",
+        "IOITE 2026，10月8-11日，NICE PIK 2。团建与奖励旅游展会：100+ 参展品牌、团建供应商、HR 论坛、商务对接。免费入场。",
     },
     brands: {
       title: "品牌",
       description:
-        "目的地与场地、活动策划、旅行交通、激励方案、文娱配套。浏览 IOITE 的全部参展品牌。",
+        "IOITE 2026 的参展旅行社、团建公司、酒店、目的地和奖励旅游专业公司。",
     },
     rundown: {
       title: "活动日程",
@@ -235,7 +353,7 @@ export default {
     programs: {
       title: "核心项目",
       description:
-        "{appName} 的核心项目：行业论坛、HR 峰会、精准对接、现场体验区和社区互动。",
+        "{appName} 的 HR 论坛、商务对接、体验区和社群活动，日程和主题都在这里。",
     },
     contact: {
       title: "联系我们",
@@ -265,7 +383,7 @@ export default {
     },
     news: {
       title: "资讯",
-      description: "企业团建与激励旅行行业的最新动态、趋势和深度洞察。",
+      description: "团建与奖励旅游行业的动态和趋势。",
     },
     ticketPolicy: {
       title: "购票政策",
@@ -281,11 +399,11 @@ export default {
     },
     terms: {
       title: "服务条款",
-      description: "",
+      description: "使用本网站和参加 {appName} 所适用的条款。",
     },
     privacy: {
       title: "隐私政策",
-      description: "",
+      description: "{appName} 如何收集、使用和保护你的个人信息。",
     },
     winner: {
       title: "随机抽奖器",
@@ -295,13 +413,12 @@ export default {
   },
   about: {
     sectionSubtitle: "前身为 Indonesia Outing Expo",
-    sectionTitle: "不只是团建展，更是企业活动商务平台",
+    sectionTitle: "这一届开始，把奖励旅游也纳进来",
     sectionDescription:
-      "Indonesia Outing & Incentive Travel Expo (IOITE) 由 Indonesia Outing Expo 升级而来，覆盖范围更广：企业团建、激励旅行、体验式企业活动，三大板块整合于同一平台。2025 年展会吸引了 10,000+ 观众，来自 70 多家企业，汇集 100+ 品牌。2026 年规模扩大 3 倍，4 天满档，横跨 NICE PIK 2 两个展厅。第1-2天专注商务洽谈和企业对接，第3-4天侧重现场活动体验和社区互动。",
+      "2025 年有 70 家企业、10,000 人到场。今年在 NICE PIK 2 连办四天。",
   },
   pastExhibitors: {
-    title: '受<span class="text-primary"> 100+ 品牌</span>信赖',
-    description:
-      "10,000+ 观众，70+ 参会企业，95% 参展商推荐再次参展。以下是 Indonesia Outing Expo 2025 的参展品牌。",
+    title: '上一届有<span class="text-primary"> 100 多个品牌</span>参展',
+    description: "以下是 Indonesia Outing Expo 2025 的参展品牌。",
   },
 };

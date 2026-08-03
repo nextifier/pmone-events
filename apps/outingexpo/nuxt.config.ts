@@ -19,6 +19,10 @@ export default defineNuxtConfig({
 
   colorMode: { preference: "light", fallback: "light" },
 
+  // shadcn Style (component shape). See layers/base/modules/appearance-style.ts.
+  // style: mono, vega, nova, maia, lyra, mira, luma, sera, rhea). Default: mono.
+  appearance: { style: "luma" },
+
   site: {
     url: "https://indooutingexpo.co.id",
     name: "Indonesia Outing & Incentive Travel Expo",
@@ -34,11 +38,36 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] },
-      { code: "id", language: "id-ID", name: "Indonesia", files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"] },
-      { code: "zh", language: "zh-CN", name: "中文", files: ["../../../../layers/base/i18n/locales/zh.ts", "zh.ts"] },
-      { code: "ja", language: "ja-JP", name: "日本語", files: ["../../../../layers/base/i18n/locales/ja.ts", "ja.ts"] },
-      { code: "ko", language: "ko-KR", name: "한국어", files: ["../../../../layers/base/i18n/locales/ko.ts", "ko.ts"] },
+      {
+        code: "en",
+        language: "en-US",
+        name: "English",
+        files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"],
+      },
+      {
+        code: "id",
+        language: "id-ID",
+        name: "Indonesia",
+        files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"],
+      },
+      {
+        code: "zh",
+        language: "zh-CN",
+        name: "中文",
+        files: ["../../../../layers/base/i18n/locales/zh.ts", "zh.ts"],
+      },
+      {
+        code: "ja",
+        language: "ja-JP",
+        name: "日本語",
+        files: ["../../../../layers/base/i18n/locales/ja.ts", "ja.ts"],
+      },
+      {
+        code: "ko",
+        language: "ko-KR",
+        name: "한국어",
+        files: ["../../../../layers/base/i18n/locales/ko.ts", "ko.ts"],
+      },
     ],
     lazy: true,
     langDir: "../i18n/locales",
@@ -59,10 +88,10 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/ticket": { redirect: "/tickets", statusCode: 301 },
-    "/tiket": { redirect: "/tickets", statusCode: 301 },
-    "/tix": { redirect: "/tickets", statusCode: 301 },
-    "/blog/**": { redirect: "/news/**", statusCode: 301 },
+    "/ticket": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/tiket": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/tix": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
   },
 
   sitemap: {
@@ -89,7 +118,8 @@ export default defineNuxtConfig({
     manifest: {
       name: "Indonesia Outing & Incentive Travel Expo (IOITE)",
       short_name: "IOITE",
-      description: "Pameran corporate outing dan incentive travel di Indonesia. Temukan destinasi, venue, dan solusi event untuk perusahaan Anda.",
+      description:
+        "Pameran corporate outing dan incentive travel di Indonesia. Temukan destinasi, venue, dan solusi event untuk perusahaan Anda.",
       theme_color: "#ffffff",
       background_color: "#ffffff",
     },

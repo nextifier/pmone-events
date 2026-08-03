@@ -41,68 +41,216 @@ export default {
     YouTube: "YouTube",
   },
   whyVisit: {
-    heading: "IOITE에 참가해야 하는 이유",
-    subheading: "기업 인게이지먼트와 인센티브 여행을 위한 단 하나의 플랫폼",
+    subheading: "워크숍과 포상여행 준비, 여기서 끝냅니다",
     items: {
       "0": {
-        title: "의사결정권자를 현장에서 만나세요",
+        title: "하루면 업체 비교가 끝납니다",
         description:
-          "방문객의 60~70%가 HR 리더, C-Level 임원, 기업 바이어입니다. 일반 박람회가 아닙니다. 실제 계약이 성사되는 현장이에요.",
+          "워크숍과 포상여행 업체 100곳 이상이 모입니다. 현장에서 바로 견적을 받을 수 있습니다.",
       },
       "1": {
-        title: "100개 이상의 브랜드와 솔루션, 한자리에서 비교하세요",
-        description:
-          "아웃팅 여행지, 팀빌딩 전문업체, 인센티브 여행 패키지, 기업 웰니스 프로그램까지. 직접 비교하고 우리 회사에 맞는 파트너를 골라보세요.",
+        title: "박람회 기간에만 적용되는 조건",
+        description: "나흘 동안만 유효한 가격을 들고 나오는 참가사가 많습니다.",
       },
       "2": {
-        title: "4일간 전략적으로 설계된 프로그램",
+        title: "HR 컨퍼런스는 무료입니다",
         description:
-          "1~2일차는 비즈니스 플래닝과 기업 네트워킹. 3~4일차는 현장 체험과 커뮤니티 프로그램. 목적에 맞는 날에 방문하세요.",
+          "Inspiration Talk Series와 HR Forum에서 인게이지먼트와 포상 제도를 다룹니다.",
       },
       "3": {
-        title: "엄선된 HR 컨퍼런스 & 포럼",
+        title: "먼저 해보고 고르세요",
         description:
-          "Inspiration Talk Series, Corporate Insights, HR Forum까지. 인게이지먼트 트렌드, 인재 개발, 인센티브 전략을 집중적으로 다룹니다.",
+          "Experience Trial Zone에서 팀빌딩 프로그램을 직접 해본 뒤 업체를 정할 수 있습니다.",
       },
     },
   },
   hero: {
     countdownLabel: "개최까지:",
-    title: "Indonesia Outing & Incentive Travel Expo 2026",
+    title: "워크숍과 포상여행 업체가 한자리에",
     description:
-      "기업 인게이지먼트와 인센티브 여행을 위한 비즈니스 플랫폼. 100+ 브랜드, HR 컨퍼런스, 비즈니스 매칭이 한곳에 모입니다.",
+      "워크숍, 단합 행사, 포상여행을 준비하는 인사·총무 담당자를 위한 자리입니다. 입장은 무료입니다.",
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },
+  eventFormat: {
+    title: "앞의 이틀은 상담, 뒤의 이틀은 체험",
+    description:
+      "목요일과 금요일은 기업 담당자를 위한 날, 토요일과 일요일은 일반 관람객에게 열립니다.",
+    month: "10월",
+    days: {
+      "0": {
+        label: "1~2일차",
+        date: "목·금",
+        title: "상담과 기획의 이틀",
+        description:
+          "비즈니스 매칭과 HR 컨퍼런스가 열리고, 결정권을 가진 참관객이 가장 많은 날입니다.",
+      },
+      "1": {
+        label: "3~4일차",
+        date: "토·일",
+        title: "체험과 커뮤니티의 이틀",
+        description:
+          "현장 액티베이션과 체험존이 열립니다. 팀을 데려오려면 이 이틀입니다.",
+      },
+    },
+  },
+  whoVisits: {
+    title: "업체를 찾으러 오는 사람들",
+    description:
+      "2025년에는 10,000명이 다녀갔고, 그중 60%가량이 기업 의사결정권자였습니다.",
+    corporateTitle: "기업·직장인",
+    corporateItems: [
+      "인사·인재개발 책임자",
+      "임원과 C-Level",
+      "구매·조달 담당자",
+      "포상 제도 담당자",
+      "이벤트 기획자와 대행사",
+    ],
+    communityTitle: "기관·단체",
+    communityItems: [
+      "협회와 직능 단체",
+      "수학여행을 준비하는 학교와 대학",
+      "종교 단체와 지역 커뮤니티",
+      "단합 여행을 준비하는 모임",
+      "단체 여행 아이디어를 찾는 일반 관람객",
+    ],
+    breakdownLabel: "2025년 참관객 구성",
+    breakdown: {
+      hr: "인사",
+      public: "일반",
+      corporateTeam: "기업 팀",
+      eventPlanner: "이벤트 기획자·대행사",
+      groupHolidays: "단체 여행",
+      community: "사회·종교 단체",
+    },
+  },
+  exhibitorCategories: {
+    title: "워크숍과 포상여행을 맡는 업체들",
+    description: "다섯 개 카테고리가 NICE PIK 2에 나흘 동안 자리합니다.",
+    cta: "참가 브랜드 보기",
+    items: {
+      "0": {
+        title: "인센티브·포상·기업 솔루션",
+        items: [
+          "직원 포상과 시상 프로그램",
+          "기업 연수와 크루즈",
+          "기념품과 기업 선물",
+        ],
+      },
+      "1": {
+        title: "여행지·행사장·숙박",
+        items: [
+          "호텔, 리조트, 빌라",
+          "관광지와 관광청",
+          "MICE 행사장과 컨벤션 센터",
+        ],
+      },
+      "2": {
+        title: "이벤트·체험·액티베이션",
+        items: [
+          "이벤트 대행사와 제작사",
+          "아웃바운드, 팀빌딩, 교육",
+          "체험형 프로그램",
+        ],
+      },
+      "3": {
+        title: "여행·교통",
+        items: [
+          "여행사와 투어 오퍼레이터",
+          "DMC와 포상여행 전문사",
+          "항공, 버스, 렌터카, 철도",
+        ],
+      },
+      "4": {
+        title: "엔터테인먼트·웰니스·지원 서비스",
+        items: [
+          "공연과 엔터테인먼트",
+          "기업 웰니스와 CSR",
+          "케이터링, 포토부스, 촬영",
+        ],
+      },
+    },
+  },
+  eventStats: {
+    subtitle: "2025년 결산",
+    title: "첫 회가 남긴 숫자",
+    description:
+      "Indonesia Outing Expo 2025는 자카르타에서 사흘 동안 열렸습니다.",
+    stats: {
+      visitors: { label: "참관객", description: "70개 이상 기업에서" },
+      brands: { label: "참가 브랜드", description: "여행지, 대행사, 여행사" },
+      businessMatching: { label: "비즈니스 매칭", description: "1대1 상담" },
+      speakers: { label: "연사", description: "인사와 업계 실무자" },
+      mediaCoverage: { label: "미디어 보도", description: "전국지와 온라인" },
+      recommendation: {
+        label: "참가사 추천율",
+        description: "다시 참가하겠다는 응답",
+      },
+    },
+  },
+  galleryPreview: {
+    title: "2025년 현장",
+    description: "부스, 팀빌딩 프로그램, 컨퍼런스 세션입니다.",
+    cta: "사진 전체 보기",
+  },
+  whyExhibit: {
+    subtitle: "참가를 고민 중이라면",
+    title: "관람객은 업체를 찾으러 옵니다",
+    description:
+      "올해 목표는 25,000명입니다. 예산과 결정권을 쥐고 오는 사람이 대부분입니다.",
+    cta: "부스 예약하기",
+    ctaNote: "2026년 부스 신청을 받고 있습니다.",
+    items: {
+      "0": {
+        title: "예산을 쥔 사람을 만납니다",
+        description:
+          "참관객의 60%가량이 인사 책임자, 임원, 기업 구매 담당입니다.",
+      },
+      "1": {
+        title: "이미 검토가 시작된 고객",
+        description: "그 분기에 진행할 워크숍이나 포상여행을 들고 옵니다.",
+      },
+      "2": {
+        title: "현장에서 바로 보여주세요",
+        description:
+          "Experience Trial Zone에서는 브로슈어 대신 프로그램을 직접 체험시킬 수 있습니다.",
+      },
+      "3": {
+        title: "나흘, 두 개의 시장",
+        description:
+          "평일 이틀은 기업 대상, 주말 이틀은 커뮤니티와 일반 관람객입니다.",
+      },
+    },
+  },
   mainPrograms: {
     title:
       "<span class='text-outline'>주요</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">프로그램</span>",
     description:
-      "컨퍼런스, HR 포럼, 비즈니스 매칭, 체험존까지. {appName}이 기업 리더와 업계 전문가를 위해 준비한 핵심 프로그램을 소개합니다.",
+      "HR 컨퍼런스, 비즈니스 매칭, 체험존. 인사 담당자와 업계 종사자를 위한 프로그램입니다.",
   },
   partnerships: {
     title:
       "<span class='text-outline'>함께 </span><span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">IOITE를 만들어가요</span>",
     description:
-      "IOITE는 솔루션 제공업체와 인게이지먼트·인센티브 프로그램을 적극적으로 기획하는 기업을 연결합니다. {appName}에 참가해 핵심 타깃 오디언스를 직접 만나세요.",
+      "워크숍과 포상여행을 준비하는 기업과 업체가 직접 만나는 자리입니다.",
     exhibitor: {
       title: "전시업체 등록",
       description:
-        "여행지, 행사장, 기업 아웃팅 서비스를 운영하시나요? 목표 방문객 25,000명 이상, 그중 60~70%가 기업 의사결정권자입니다.",
+        "여행지, 행사장, 기업 행사 서비스를 운영하시나요? 올해 목표 참관객은 25,000명입니다.",
       cta: "부스 예약하기",
     },
     sponsor: {
       title: "스폰서 등록",
       description:
-        "Experience Maker, Core Collaborator, Synergy Partner 세 가지 스폰서십 등급이 있습니다. 브랜드 목표에 맞는 등급을 선택하세요.",
+        "Experience Maker, Core Collaborator, Synergy Partner 세 가지 등급이 있습니다.",
       cta: "스폰서 문의",
     },
     mediaPartner: {
       title: "미디어 파트너 등록",
       description:
-        "2025년에는 40개 이상의 주요 미디어가 함께했습니다. 독점 취재권과 아웃팅·인센티브 업계의 핵심 콘텐츠를 확보하세요.",
+        "2025년에는 전국 매체 40곳이 취재했습니다. 취재 파트너로 함께해 주세요.",
       cta: "미디어 파트너 신청",
     },
     reservedSpace: {
@@ -112,9 +260,9 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">티켓</span> 한 장이면 시작이에요',
+      '입장은 <span class="gradient-accent bg-clip-text  text-transparent pr-1">무료</span>입니다',
     description:
-      "100개 이상의 브랜드, HR 컨퍼런스, 비즈니스 매칭, 체험존까지. 4일간 하나의 박람회에서 전부 만나보세요. IOITE 2026에서 자리를 확보하세요.",
+      "워크숍과 포상여행 브랜드 100곳 이상, HR 컨퍼런스, 비즈니스 매칭. 나흘 동안 이어집니다.",
     cta: "티켓 받기",
   },
   mediaCoverage: {
@@ -131,12 +279,12 @@ export default {
   brandList: {
     title: "브랜드",
     description:
-      "여행지 및 숙박시설, 이벤트 & 체험 업체, 여행 & 교통, 인센티브 & 리워드 솔루션, 엔터테인먼트 & 웰니스까지. IOITE에 참가하는 브랜드를 둘러보세요.",
+      "IOITE 2026에 참가하는 여행사, 팀빌딩 업체, 호텔, 여행지, 포상여행 전문사입니다.",
   },
   bookSpace: {
     title: "전시 참가 신청",
     description:
-      "{appName}에서 부스를 확보하세요. 목표 방문객 25,000명 이상, 대다수가 기업 의사결정권자입니다.",
+      "{appName}에 부스를 내고 목표 25,000명의 참관객을 만나세요. 대부분 인사와 기업 구매 담당입니다.",
   },
   faq: {
     title: "자주 묻는 질문",
@@ -213,15 +361,15 @@ export default {
   },
   pages: {
     home: {
-      title:
-        "Indonesia Outing & Incentive Travel Expo (IOITE) 2026: 기업 인게이지먼트 & 인센티브 여행 비즈니스 플랫폼",
+      // 「|」는 vue-i18n이 복수형 구분자로 읽으니 쓰지 말 것.
+      title: "인도네시아 워크숍·포상여행 박람회 · IOITE 2026",
       description:
-        "인도네시아 최대 아웃팅 및 인센티브 여행 박람회. 100+ 브랜드, HR 컨퍼런스, 비즈니스 매칭. 2026년 8월 27~30일, NICE PIK 2.",
+        "IOITE 2026, 10월 8~11일 NICE PIK 2. 워크숍과 포상여행 박람회입니다. 참가 브랜드 100곳 이상, 팀빌딩 업체, HR 컨퍼런스, 비즈니스 매칭. 입장 무료.",
     },
     brands: {
       title: "브랜드",
       description:
-        "여행지, 행사장, 이벤트 기획사, 여행사, 인센티브 프로그램 업체, 기업 지원 서비스까지. IOITE 참가 브랜드를 둘러보세요.",
+        "IOITE 2026에 참가하는 여행사, 팀빌딩 업체, 호텔, 여행지, 포상여행 전문사입니다.",
     },
     rundown: {
       title: "일정",
@@ -230,7 +378,7 @@ export default {
     programs: {
       title: "주요 프로그램",
       description:
-        "{appName}의 핵심 프로그램: 컨퍼런스, HR 포럼, 비즈니스 매칭, 체험존, 커뮤니티 프로그램을 소개합니다.",
+        "{appName}의 HR 컨퍼런스, 비즈니스 매칭, 체험존, 커뮤니티 프로그램. 일정과 주제를 확인하세요.",
     },
     contact: {
       title: "문의하기",
@@ -262,8 +410,7 @@ export default {
     },
     news: {
       title: "뉴스",
-      description:
-        "기업 인게이지먼트 및 인센티브 여행 업계의 최신 소식과 트렌드를 확인하세요.",
+      description: "워크숍과 포상여행 업계의 소식과 흐름을 전합니다.",
     },
     ticketPolicy: {
       title: "티켓 정책",
@@ -281,11 +428,12 @@ export default {
     },
     terms: {
       title: "이용약관",
-      description: "",
+      description: "이 사이트 이용과 {appName} 참가에 적용되는 약관입니다.",
     },
     privacy: {
       title: "개인정보 처리방침",
-      description: "",
+      description:
+        "{appName}이 개인정보를 어떻게 수집하고 이용하며 보호하는지 안내합니다.",
     },
     winner: {
       title: "랜덤 추첨기",
@@ -295,14 +443,13 @@ export default {
   },
   about: {
     sectionSubtitle: "구 Indonesia Outing Expo",
-    sectionTitle: "단순한 아웃팅 박람회를 넘어서",
+    sectionTitle: "이번 회차부터 포상여행도 함께 다룹니다",
     sectionDescription:
-      "Indonesia Outing & Incentive Travel Expo(IOITE)는 Indonesia Outing Expo에서 진화한 행사입니다. 기업 인게이지먼트, 인센티브 여행, 체험 기반 프로그램을 아우르는 통합 비즈니스 플랫폼으로 확장되었습니다. 2025년에는 70개 이상의 기업에서 10,000명 이상이 방문하고 100개 이상의 브랜드가 참가했습니다. 올해는 규모 3배 확대, NICE PIK 2의 2개 홀에서 4일간 진행됩니다. 1~2일차는 비즈니스 플래닝과 기업 네트워킹, 3~4일차는 현장 체험과 커뮤니티 프로그램에 집중합니다.",
+      "2025년에는 70개 기업에서 10,000명이 다녀갔습니다. 올해는 NICE PIK 2에서 나흘간 열립니다.",
   },
   pastExhibitors: {
     title:
-      '지난 행사에서 <span class="text-primary">100개 이상의 브랜드</span>가 함께했습니다',
-    description:
-      "방문객 10,000명 이상. 참여 기업 70곳 이상. 참가사의 95%가 재참가를 추천. Indonesia Outing Expo 2025에서 전시한 브랜드를 소개합니다.",
+      '지난 회차에 <span class="text-primary">100개 이상 브랜드</span>가 참가했습니다',
+    description: "Indonesia Outing Expo 2025에 부스를 낸 브랜드입니다.",
   },
 };

@@ -176,10 +176,11 @@ export const CACHED_HTML_PREFIX: Record<string, string> = {
   "/news/": HTML_TTL_DETAIL,
   "/brands/": HTML_TTL_DETAIL,
   "/guests/": HTML_TTL_DETAIL,
-  // Public embeddable forms. The SSR shell is identical per slug+locale
-  // (prefill + duplicate check are client-side after mount), so edge-caching
-  // it is safe like /news/*.
-  "/forms/": HTML_TTL,
+  // Public forms, mirroring pmone.id/f/{slug}. The SSR shell is identical for
+  // every visitor — prefill, duplicate check and label translation all happen
+  // client-side after mount — so edge-caching it is safe like /news/*. The page
+  // opts out of the locale prefix, so there is only ever one variant per slug.
+  "/f/": HTML_TTL,
 };
 
 // Exact-path global rules (no locale expansion): public GET API proxies +

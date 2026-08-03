@@ -322,7 +322,6 @@
         :model-value="modelValue || []"
         :max="normalized.validation?.max_selections"
         :disabled="disabled"
-        class="text-sm"
         @update:model-value="$emit('update:modelValue', $event)"
       >
         <TagsInputItem v-for="tag in modelValue || []" :key="tag" :value="tag">
@@ -339,6 +338,7 @@
         :options="countryOptions"
         :pinned="pinnedCountries"
         :disabled="disabled"
+        show-flag
         :placeholder="normalized.placeholder || 'Select country'"
         @update:model-value="$emit('update:modelValue', $event)"
       />

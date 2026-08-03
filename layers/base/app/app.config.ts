@@ -37,15 +37,16 @@ export default defineAppConfig({
   //   B) A curated shadcn palette: in the app's app.config.ts set
   //      appearance: { enabled: true, baseColor: "zinc", theme: "blue", chartColor: "blue" }
   // Valid values:
-  //   baseColor:  neutral | stone | zinc | mauve | olive | mist | taupe
+  //   baseColor:  native | neutral | stone | zinc | mauve | olive | mist | taupe
+  //     ("native" = the palette this repo's main.css/app.css already ships — the default)
   //   theme/chartColor: above + amber blue cyan emerald fuchsia green indigo lime
   //     orange pink purple red rose sky teal violet yellow
   //   radius (optional): default | none | small | medium | large
   appearance: {
     enabled: false,
-    baseColor: "neutral",
-    theme: "neutral",
-    chartColor: "neutral",
+    baseColor: "native",
+    theme: "native",
+    chartColor: "native",
     radius: "default",
   },
 });

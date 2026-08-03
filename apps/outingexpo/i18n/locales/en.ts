@@ -150,60 +150,197 @@ export default {
   },
   "about": {
     "sectionSubtitle": "Formerly Indonesia Outing Expo",
-    "sectionTitle": "Where Corporate Engagement Meets Experience",
-    "sectionDescription": "Indonesia Outing & Incentive Travel Expo (IOITE) started as Indonesia Outing Expo and has grown into a full-scale business platform for corporate engagement, incentive travel, and experience-based programs. The 2025 edition drew 10,000+ visitors from 70+ companies with 100+ brands. This year it's 3x bigger, running 4 full days across 2 halls at NICE PIK 2. Days 1-2 are for business planning and corporate networking. Days 3-4 are for live activations and community engagement."
+    "sectionTitle": "The Scope Now Covers Incentive Travel",
+    "sectionDescription": "The 2025 edition drew 10,000 visitors from 70 companies. This year runs four full days at NICE, PIK 2."
   },
   "whyVisit": {
-    "heading": "Why Attend IOITE",
-    "subheading": "One Platform for Corporate Engagement & Incentive Travel",
+    "subheading": "Everything Your Outing and Incentive Travel Needs",
     "items": {
       "0": {
-        "title": "Direct Access to Decision Makers",
-        "description": "60-70% of visitors are HR leaders, C-Level executives, and corporate buyers. This isn't a generic expo. This is where deals happen."
+        "title": "Compare Vendors in a Single Day",
+        "description": "Hundreds of outing and incentive travel providers on one floor, quotes available on the spot."
       },
       "1": {
-        "title": "100+ Brands & Solutions Under One Roof",
-        "description": "Outing destinations, team building providers, incentive travel packages, corporate wellness programs. Compare options face-to-face and pick what fits your company."
+        "title": "Show-Only Rates",
+        "description": "Many exhibitors bring pricing that holds for these four days only."
       },
       "2": {
-        "title": "4-Day Strategic Format",
-        "description": "Days 1-2 focus on business planning and corporate networking. Days 3-4 shift to live activations and brand experience. Attend the days that match your goals."
+        "title": "Free HR Conferences",
+        "description": "Inspiration Talk Series, Corporate Insights, and HR Forum on engagement and incentive strategy."
       },
       "3": {
-        "title": "Curated HR Conferences & Forums",
-        "description": "Inspiration Talk Series, Corporate Insights, and HR Forum covering engagement trends, people development, and incentive strategy."
+        "title": "Try the Programs First",
+        "description": "The Experience Trial Zone lets you run team building activities before picking a vendor."
       }
     }
   },
   "hero": {
     "countdownLabel": "Starts in:",
-    "title": "Indonesia Outing & Incentive Travel Expo 2026",
-    "description": "The business platform for corporate engagement and incentive travel. 100+ brands, HR conferences, business matching, all in one venue.",
+    "title": "Every Outing and Incentive Travel Vendor in One Room",
+    "description": "For HR and companies planning an outing, a gathering, or an incentive program. Free entry.",
     "ctaTicket": "Get ticket",
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition"
   },
+  "eventFormat": {
+    "title": "Two Days for Business, Two for Experience",
+    "description": "Thursday and Friday are for corporate planning. Saturday and Sunday open up to the public.",
+    "month": "October",
+    "days": {
+      "0": {
+        "label": "Days 1-2",
+        "date": "Thursday-Friday",
+        "title": "Business & Planning Days",
+        "description": "Business matching, HR conferences, and vendor talks while most decision makers are on the floor."
+      },
+      "1": {
+        "label": "Days 3-4",
+        "date": "Saturday-Sunday",
+        "title": "Experience & Community Days",
+        "description": "Live activations and the experience zone, worth it if you want to bring your team."
+      }
+    }
+  },
+  "whoVisits": {
+    "title": "Who You Will Meet on the Floor",
+    "description": "The 2025 edition drew 10,000 people, six in ten of them corporate decision makers.",
+    "corporateTitle": "Corporate and professional",
+    "corporateItems": [
+      "HR leaders and people development managers",
+      "Directors and C-level executives",
+      "Corporate buyers and procurement teams",
+      "Incentive and reward managers",
+      "Event planners and event organisers"
+    ],
+    "communityTitle": "Institutions and communities",
+    "communityItems": [
+      "Associations and professional bodies",
+      "Universities and schools planning study tours",
+      "Communities and religious organisations",
+      "Social groups arranging gatherings",
+      "General visitors looking for team trip ideas"
+    ],
+    "breakdownLabel": "2025 visitor breakdown",
+    "breakdown": {
+      "hr": "Human Resources",
+      "public": "General visitors",
+      "corporateTeam": "Corporate teams",
+      "eventPlanner": "Event planners and EOs",
+      "groupHolidays": "Group holidays",
+      "community": "Social and religious communities"
+    }
+  },
+  "exhibitorCategories": {
+    "title": "The Incentive Travel and Outing Providers Exhibiting",
+    "description": "Five exhibitor categories, all on the floor for four days at NICE, PIK 2.",
+    "cta": "See all brands",
+    "items": {
+      "0": {
+        "title": "Incentive, Reward, and Corporate Solutions",
+        "items": [
+          "Employee incentive and reward programs",
+          "Corporate retreats and cruise experiences",
+          "Merchandise and corporate gifts"
+        ]
+      },
+      "1": {
+        "title": "Destinations, Venues, and Accommodation",
+        "items": [
+          "Hotels, resorts, and villas",
+          "Tourist destinations and tourism boards",
+          "MICE venues and convention centres"
+        ]
+      },
+      "2": {
+        "title": "Events, Experiences, and Activation",
+        "items": [
+          "Event organisers and production houses",
+          "Outbound, team building, and training",
+          "Experiential and activity-based programs"
+        ]
+      },
+      "3": {
+        "title": "Travel, Transport, and Mobility",
+        "items": [
+          "Travel agents and tour operators",
+          "DMCs and incentive travel specialists",
+          "Airlines, buses, rentals, and rail"
+        ]
+      },
+      "4": {
+        "title": "Entertainment, Wellness, and Support Services",
+        "items": [
+          "Entertainment and performances",
+          "Corporate wellness and CSR programs",
+          "Catering, photobooths, and documentation"
+        ]
+      }
+    }
+  },
+  "eventStats": {
+    "subtitle": "2025 recap",
+    "title": "Numbers from the First Edition",
+    "description": "Indonesia Outing Expo 2025 ran for three days in Jakarta.",
+    "stats": {
+      "visitors": { "label": "Visitors", "description": "from 70+ companies" },
+      "brands": { "label": "Brands", "description": "destinations, EOs, travel agents" },
+      "businessMatching": { "label": "Business matchings", "description": "curated 1-on-1 meetings" },
+      "speakers": { "label": "Speakers", "description": "HR and industry practitioners" },
+      "mediaCoverage": { "label": "Media coverage", "description": "national and digital" },
+      "recommendation": { "label": "Exhibitors recommend it", "description": "and plan to return" }
+    }
+  },
+  "galleryPreview": {
+    "title": "Inside the 2025 Edition",
+    "description": "Booths, team building activities, and conference sessions.",
+    "cta": "See all photos"
+  },
+  "whyExhibit": {
+    "subtitle": "For brands",
+    "title": "Meet the Buyers of Incentive and Outing Programs",
+    "description": "We are targeting 25,000 visitors, most arriving with a budget and the authority to decide.",
+    "cta": "Book your booth",
+    "ctaNote": "Booths for the 2026 edition are open.",
+    "items": {
+      "0": {
+        "title": "Meet the People Holding the Budget",
+        "description": "Six in ten visitors are HR leaders, C-level executives, and corporate buyers."
+      },
+      "1": {
+        "title": "Leads That Are Already Warm",
+        "description": "Visitors arrive with an outing or incentive program planned for the current quarter."
+      },
+      "2": {
+        "title": "Demo Your Program On Site",
+        "description": "The Experience Trial Zone lets visitors try your program instead of reading a brochure."
+      },
+      "3": {
+        "title": "Four Days, Two Markets",
+        "description": "Two weekdays for B2B, two weekend days for communities and the public."
+      }
+    }
+  },
   "mainPrograms": {
     "title": "<span class='text-outline'>Main</span> <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Programs</span>",
-    "description": "Conferences, HR forums, business matching, and experience zones. These are the flagship programs at {appName}, built for corporate leaders and industry professionals.",
+    "description": "HR conferences, business matching, and experience zones for HR and the outing industry.",
   },
   "partnerships": {
     "title": "<span class='text-outline'>Become a </span><span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Part of IOITE</span>",
-    "description": "IOITE connects solution providers with companies actively planning engagement and incentive programs. Join {appName} for direct access to the right audience.",
+    "description": "Where vendors meet the companies planning their next outing and incentive travel program.",
     "exhibitor": {
       "title": "Register as Exhibitor",
-      "description": "Have a destination, venue, or corporate outing service? 25,000+ target visitors, 60-70% of them corporate decision makers.",
+      "description": "Run a destination, venue, or corporate outing service? We are targeting 25,000 visitors.",
       "cta": "Book Your Space"
     },
     "sponsor": {
       "title": "Register as Sponsor",
-      "description": "Three sponsorship tiers: Experience Maker, Core Collaborator, and Synergy Partner. Pick the one that fits your brand goals.",
+      "description": "Three tiers: Experience Maker, Core Collaborator, and Synergy Partner.",
       "cta": "Sponsor us"
     },
     "mediaPartner": {
       "title": "Register as Media Partner",
-      "description": "The 2025 edition was backed by 40+ national media outlets. Join for exclusive coverage and top content from the outing & incentive industry.",
+      "description": "The 2025 edition was backed by 40 national media outlets. Join for coverage access.",
       "cta": "Join as Media"
     },
     "reservedSpace": {
@@ -212,8 +349,8 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "It Starts with One <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Ticket</span>",
-    "description": "100+ brands, HR conferences, business matching, and experience zones. All in one expo, 4 days. Secure your spot at IOITE 2026.",
+    "title": "Entry Is <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Free</span>",
+    "description": "100+ outing and incentive travel brands, HR conferences, and business matching. Four days.",
     "cta": "Get Ticket"
   },
   "mediaCoverage": {
@@ -233,11 +370,11 @@ export default {
   },
   "brandList": {
     "title": "Brands",
-    "description": "Destinations, venues, event organizers, travel agents, incentive program providers, and corporate support services. Explore brands exhibiting at IOITE."
+    "description": "Outing vendors, team building organisers, hotels, destinations, and incentive travel providers at IOITE 2026."
   },
   "bookSpace": {
     "title": "Exhibitor Registration",
-    "description": "Secure your booth at {appName} and showcase your brand to 25,000+ target visitors, majority corporate decision makers."
+    "description": "Take a booth at {appName} and reach a target 25,000 visitors, most of them HR and corporate buyers."
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -283,7 +420,7 @@ export default {
       },
       "9": {
         "q": "Are there conferences or seminars at the event?",
-        "a": "<p>Yes. IOITE features four flagship programs: Inspiration Talk Series, Corporate Insights, Business Matching Lounge, and HR Forum & Future Talk. Topics range from employee engagement and people development to incentive strategy. Check the <a href=\"/rundown\">Rundown</a> for the schedule.</p>"
+        "a": "<p>Yes. IOITE features four flagship programs: Inspiration Talk Series, Corporate Insights, Business Matching Lounge, and HR Forum & Future Talk. Topics cover employee engagement, people development, and incentive strategy. Check the <a href=\"/rundown\">Rundown</a> for the schedule.</p>"
       },
       "10": {
         "q": "What's the difference between Days 1-2 and Days 3-4?",
@@ -313,12 +450,12 @@ export default {
   },
   "pages": {
     "home": {
-      "title": "Indonesia Outing & Incentive Travel Expo (IOITE) 2026: The Business Platform for Corporate Engagement & Incentive Travel",
-      "description": "Indonesia's largest outing and incentive travel expo. 100+ brands, HR conferences, business matching, August 27-30, 2026 at NICE PIK 2."
+      "title": "Indonesia Outing & Incentive Travel Expo · IOITE 2026",
+      "description": "IOITE 2026, October 8-11 at NICE PIK 2. Outing and incentive travel expo: 100+ brands, team building vendors, HR conferences, business matching. Free entry."
     },
     "brands": {
-      "title": "Brands",
-      "description": "Destinations, venues, event organizers, travel agents, incentive program providers, and corporate support services. Explore brands exhibiting at IOITE."
+      "title": "Brands & Exhibitors",
+      "description": "Outing vendors, team building organisers, hotels, destinations, and incentive travel providers at IOITE 2026."
     },
     "rundown": {
       "title": "Rundown",
@@ -326,7 +463,7 @@ export default {
     },
     "programs": {
       "title": "Main Programs",
-      "description": "Flagship programs at {appName}: conferences, HR forums, business matching, experience zones, and community activations."
+      "description": "HR conferences, business matching, experience zones, and community activations at {appName}. Check the schedule and topics."
     },
     "contact": {
       "title": "Contact us",
@@ -334,11 +471,11 @@ export default {
     },
     "bookSpace": {
       "title": "Book Your Space",
-      "description": "Secure your booth at {appName} and showcase your brand to 25,000+ target visitors, majority corporate decision makers."
+      "description": "Take a booth at {appName} and reach a target 25,000 visitors, most of them HR and corporate buyers."
     },
     "ticket": {
       "title": "Get Your Ticket",
-      "description": "Get your entry tickets for the {appName}. Find all the details you need, including dates, venue, and ticket options."
+      "description": "Grab your ticket for {appName}. Dates, venue, and ticket options are all here."
     },
     "gallery": {
       "title": "Event Gallery",
@@ -358,31 +495,31 @@ export default {
     },
     "ticketPolicy": {
       "title": "Ticket Policy",
-      "description": "Secure your spot at {appName} by understanding our Ticket Policy. Learn about ticket categories, pricing, and refund guidelines."
+      "description": "Ticket categories, pricing, and refund rules for {appName}."
     },
     "eventPolicy": {
       "title": "Event Policy",
-      "description": "Read the event policy for {appName}. Get details on event rules, regulations, and important guidelines for participants and exhibitors."
+      "description": "Rules and guidelines for visitors and exhibitors at {appName}."
     },
     "partners": {
       "title": "Our Partners",
-      "description": "This event wouldn't be possible without the incredible support from our community. A huge thank you to the partners, sponsors, and media who help us bring this celebration to life."
+      "description": "The partners, sponsors, and media supporting {appName}."
     },
     "terms": {
       "title": "Terms of Service",
-      "description": ""
+      "description": "The terms that apply to using this site and taking part in {appName}."
     },
     "privacy": {
       "title": "Privacy Policy",
-      "description": ""
+      "description": "How {appName} collects, uses, and protects your personal data."
     },
     "winner": {
       "title": "Random Winner Generator",
-      "description": "Generate random winners instantly with our Random Winner Generator. Paste names, spin the slot machine, and pick a winner fairly. Perfect for contests, giveaways, and events!"
+      "description": "Paste your names, spin the slot machine, and pick a winner. Built for contests and giveaways."
     }
   },
   "pastExhibitors": {
     "title": "Trusted by <span class=\"text-primary\">100+ Brands</span> at the Previous Edition",
-    "description": "10,000+ visitors. 70+ companies. 95% of exhibitors recommend joining again. These brands showcased at Indonesia Outing Expo 2025."
+    "description": "The brands that took a booth at Indonesia Outing Expo 2025."
   }
 };

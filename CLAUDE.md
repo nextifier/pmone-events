@@ -5,7 +5,9 @@
 Monorepo berisi 11 website event yang masing-masing consume API dari backend **PM One** (`api.pmone.id`). Kode shared (~85%) ada di base layer, setiap event app hanya berisi konfigurasi, aset, dan komponen/halaman unik.
 
 **Backend**: Laravel 12 + PostgreSQL di `/Users/nextifier/Herd/pmone` (domain: `api.pmone.id`, dev: `localhost:8000`)
-**Frontend**: Nuxt 4 monorepo di `/Users/nextifier/Frontend/pmone-events/` (deploy ke Cloudflare Pages per event)
+**Frontend**: Nuxt 4 monorepo di `/Users/nextifier/Frontend/pmone-events/` (deploy ke Cloudflare Workers per event)
+
+Untuk pekerjaan UI, wajib baca `STYLE_GUIDE.md` di root repo sebelum membuat atau mengubah komponen. Section 1-23 di file itu identik dengan salinan di pmone dan levenium; kalau salah satu diubah, ubah ketiganya.
 
 ## Architecture
 
@@ -46,7 +48,7 @@ pmone-events/
 ```bash
 pnpm dev:megabuild    # Dev server (default port 3000)
 pnpm dev:icc          # Or any event name
-pnpm build:megabuild  # Build for Cloudflare Pages
+pnpm build:megabuild  # Build for Cloudflare Workers
 pnpm build:all        # Build all 11 events
 ```
 
@@ -196,7 +198,7 @@ Server routes di `layers/base/server/` proxy request ke PM One API.
 | SEO | @nuxtjs/seo, nuxt-gtag |
 | Icons | @nuxt/icon (hugeicons, lucide, ri) |
 | Other | dayjs, @number-flow/vue, base-vue-phone-input, vue3-picture-swipe |
-| Deployment | Cloudflare Pages (nitro preset: cloudflare-pages) |
+| Deployment | Cloudflare Workers + Static Assets (nitro preset: cloudflare_module) |
 
 ## Shared Pages (Base Layer)
 
@@ -344,10 +346,10 @@ experimental: {
 
 ## Deployment
 
-Setiap event di-deploy ke Cloudflare Pages secara terpisah.
+Setiap event di-deploy ke Cloudflare Workers (+ Static Assets) secara terpisah, hasil migrasi dari Cloudflare Pages.
 - Build command: `cd apps/<event> && pnpm build`
-- Output directory: `apps/<event>/.output/public`
-- Preset: `cloudflare-pages` (sudah dikonfigurasi di nuxt.config.ts)
+- Deploy: `npx wrangler --cwd apps/<event>/.output deploy`
+- Preset: `cloudflare_module` dengan `cloudflare.deployConfig: true` (sudah dikonfigurasi di nuxt.config.ts tiap app; `deployConfig` yang men-generate `.output/server/wrangler.json`)
 
 ## Caching / Workers CPU (JANGAN DIRUSAK)
 
@@ -395,13 +397,37 @@ Beberapa event awalnya di repo terpisah (referensi jika butuh file original):
 
 ## Conventions
 
-- Semua app menggunakan `nitro.preset: "cloudflare-pages"`
-- Route rules standar: `/tickets -> /ticket` (301), `/blog/** -> /news/**` (301)
+- Semua app menggunakan `nitro.preset: "cloudflare_module"`
+- Route rules standar: `/ticket`, `/tiket`, `/tix` -> `/tickets` (301), `/blog/** -> /news/**` (301), dan di icc/inacon `/tenants/** -> /brands/**` (301). Bentuknya WAJIB `{ redirect: { to: "/tickets", statusCode: 301 } }` — `statusCode` sebagai sibling `redirect` tidak dibaca nitro dan diam-diam jatuh ke 307
 - shadcn-vue components di `layers/base/app/components/ui/` (tanpa prefix)
 - Icon sets: hugeicons (primary), lucide, ri
 - Image optimization: Cloudflare provider (prod), ipx (dev), quality 85, webp format
 - Navigation dikonfigurasi via `routes` di `app.config.ts` (header, dialog, footer arrays)
 - Event status: `"upcoming"` | `"live"` | `"completed"` | `""`
+
+## Appearance / shadcn Style per app
+
+Style shadcn (bentuk komponen: radius, padding, border, shadow, tinggi kontrol) dipilih **per app** lewat satu knob di nuxt.config app-nya:
+
+```ts
+// apps/outingexpo/nuxt.config.ts
+appearance: { style: "luma" },   // default: "mono" (tanpa knob = mono)
+```
+
+Nama yang valid = file `layers/base/app/assets/css/styles/style-<nama>.css`: `mono`, `vega`, `nova`, `maia`, `lyra`, `mira`, `luma`, `sera`, `rhea`. Menambah style baru cukup drop file `style-<nama>.css` ke folder itu.
+
+`layers/base/modules/appearance-style.ts` (auto-registered, Nuxt scan folder `modules/` tiap layer) menurunkan dua hal dari satu nilai itu:
+
+1. **CSS** - generate `<buildDir>/appearance-style.css` berisi `@import` ke `_base.css` (otomatis, untuk semua style non-mono) + `style-<nama>.css`, lalu daftarkan alias `#appearance-style`. `main.css` cuma punya satu baris `@import "#appearance-style" layer(base)`. Hanya style terpilih yang di-compile.
+2. **`<body class="style-X">`** - ditulis ke `appConfig.appearance.style` saat build, dibaca `useAppearance()`.
+
+Aturan dan jebakan:
+
+- CSS dan body class mustahil desync karena keduanya turunan satu variabel di satu proses build. Jangan set `appearance` di `app.config.ts` (app.config menang atas appConfig dari module dan akan memutus jaminan itu).
+- Satu style per deployment. Tidak ada runtime switching di situs publik, jadi `setStyle()` sengaja no-op; picker 9 style hanya ada di admin pmone yang mem-bundle semuanya.
+- Nama style salah = build berhenti dengan daftar nama yang tersedia.
+- Ganti style mengubah SEMUA komponen. Tinggi kontrol beda antar style (`--cn-input-h`: mono 32px, luma 36px), jadi sesudah ganti periksa tempat yang meng-hardcode tinggi (`h-9` di search news, `h-10` di Rundown, BrandControls).
+- Status sekarang: **outingexpo = luma**, 15 app lainnya mono.
 
 ## Shaders (GPU/WebGPU section backgrounds)
 

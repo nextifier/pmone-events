@@ -1,11 +1,16 @@
 /**
- * Public embeddable form definition for an event website (/forms/{slug}).
+ * Public form definition for an event website (/f/{slug}).
  *
  * Cached GET proxy (X-API-Key server-side) that pmOneFetch prefixes to PM One's
  * project-scoped `GET /api/public/projects/{username}/forms/{slug}`. Because it
  * is project-scoped server-side, a slug belonging to another project 404s
  * regardless of what the browser asks for. Only the form definition is cached;
  * per-visitor state (duplicate check) has its own no-store route.
+ *
+ * The page no longer sends ?locale: the payload is the same in every language.
+ * Field labels ship as a `label_translations` map that the renderer resolves
+ * client-side, and Form itself is not translatable. The locale plumbing below
+ * is kept for the day that changes — until then every request keys to `en`.
  */
 export default defineCachedEventHandler(
   async (event) => {

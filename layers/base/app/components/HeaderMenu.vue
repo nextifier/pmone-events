@@ -8,7 +8,7 @@
         <span
           v-for="(_, index) in 2"
           :key="index"
-          class="bg-primary absolute h-[1.5px] w-5 transition-all duration-200"
+          class="bg-primary absolute h-[1.5px] w-5 transition-all duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none"
           :class="{
             '-translate-y-1': index === 0 && !isOpen,
             'translate-y-1': index === 1 && !isOpen,
@@ -21,11 +21,11 @@
 
     <DialogPortal>
       <DialogOverlay
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 !ease-out-swift fixed inset-0 z-40 bg-black/80 transition !duration-500"
+        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 ease-(--panel-ease) data-open:duration-(--panel-open-dur) data-closed:duration-(--panel-close-dur) motion-reduce:animate-none! fixed inset-0 z-40 bg-black/80"
       />
       <DialogContent
         id="header-menu"
-        class="bg-background !ease-out-swift data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right text-primary fixed top-(--navbar-height-mobile) right-0 bottom-0 z-50 min-h-[calc(100dvh-var(--navbar-height-mobile))] w-full max-w-2xl transition !duration-500 lg:top-(--navbar-height-desktop) lg:min-h-[calc(100dvh-var(--navbar-height-desktop))] dark:sm:border dark:sm:border-gray-900"
+        class="bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right ease-(--panel-ease) data-open:duration-(--panel-open-dur) data-closed:duration-(--panel-close-dur) motion-reduce:animate-none! text-primary fixed top-(--navbar-height-mobile) right-0 bottom-0 z-50 min-h-[calc(100dvh-var(--navbar-height-mobile))] w-full max-w-2xl lg:top-(--navbar-height-desktop) lg:min-h-[calc(100dvh-var(--navbar-height-desktop))] dark:sm:border dark:sm:border-gray-900"
         tabindex="-1"
       >
         <DialogHeader class="sr-only">

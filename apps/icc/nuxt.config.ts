@@ -17,15 +17,44 @@ export default defineNuxtConfig({
     },
   },
 
-  colorMode: { preference: "dark", fallback: "dark" },
+  colorMode: { preference: "light", fallback: "light" },
+
+  // shadcn Style (component shape). See layers/base/modules/appearance-style.ts.
+  // style: mono, vega, nova, maia, lyra, mira, luma, sera, rhea). Default: mono.
+  appearance: { style: "lyra" },
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US", name: "English", files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"] },
-      { code: "id", language: "id-ID", name: "Indonesia", files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"] },
-      { code: "zh", language: "zh-CN", name: "中文", files: ["../../../../layers/base/i18n/locales/zh.ts", "zh.ts"] },
-      { code: "ja", language: "ja-JP", name: "日本語", files: ["../../../../layers/base/i18n/locales/ja.ts", "ja.ts"] },
-      { code: "ko", language: "ko-KR", name: "한국어", files: ["../../../../layers/base/i18n/locales/ko.ts", "ko.ts"] },
+      {
+        code: "en",
+        language: "en-US",
+        name: "English",
+        files: ["../../../../layers/base/i18n/locales/en.ts", "en.ts"],
+      },
+      {
+        code: "id",
+        language: "id-ID",
+        name: "Indonesia",
+        files: ["../../../../layers/base/i18n/locales/id.ts", "id.ts"],
+      },
+      {
+        code: "zh",
+        language: "zh-CN",
+        name: "中文",
+        files: ["../../../../layers/base/i18n/locales/zh.ts", "zh.ts"],
+      },
+      {
+        code: "ja",
+        language: "ja-JP",
+        name: "日本語",
+        files: ["../../../../layers/base/i18n/locales/ja.ts", "ja.ts"],
+      },
+      {
+        code: "ko",
+        language: "ko-KR",
+        name: "한국어",
+        files: ["../../../../layers/base/i18n/locales/ko.ts", "ko.ts"],
+      },
     ],
     lazy: true,
     langDir: "../i18n/locales",
@@ -60,20 +89,22 @@ export default defineNuxtConfig({
 
   routeRules: {
     "/raya": {
-      redirect:
-        "https://docs.google.com/forms/d/e/1FAIpQLSf7KsZ7rE7GrBsAr7q7B7pSqMG45N4pnJVqXyJlYH7D_0oaxQ/viewform",
-      statusCode: 301,
+      redirect: {
+        to: "https://docs.google.com/forms/d/e/1FAIpQLSf7KsZ7rE7GrBsAr7q7B7pSqMG45N4pnJVqXyJlYH7D_0oaxQ/viewform",
+        statusCode: 301,
+      },
     },
     "/rules-of-raya": {
-      redirect:
-        "https://drive.google.com/file/d/1HgNuREcAJz4SWQr8_-TBapDDQJAH5_5f/view?usp=sharing",
-      statusCode: 301,
+      redirect: {
+        to: "https://drive.google.com/file/d/1HgNuREcAJz4SWQr8_-TBapDDQJAH5_5f/view?usp=sharing",
+        statusCode: 301,
+      },
     },
-    "/ticket": { redirect: "/tickets", statusCode: 301 },
-    "/tiket": { redirect: "/tickets", statusCode: 301 },
-    "/tix": { redirect: "/tickets", statusCode: 301 },
-    "/blog/**": { redirect: "/news/**", statusCode: 301 },
-    "/tenants/**": { redirect: "/brands/**", statusCode: 301 },
+    "/ticket": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/tiket": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/tix": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
+    "/tenants/**": { redirect: { to: "/brands/**", statusCode: 301 } },
   },
 
   sitemap: {
@@ -104,7 +135,8 @@ export default defineNuxtConfig({
     manifest: {
       name: "Indonesia Comic Con (ICC)",
       short_name: "ICC",
-      description: "Ajang pop culture terbesar di Indonesia. Nikmati pengalaman seru bertemu artis internasional, cosplay, komik, dan merchandise eksklusif.",
+      description:
+        "Ajang pop culture terbesar di Indonesia. Nikmati pengalaman seru bertemu artis internasional, cosplay, komik, dan merchandise eksklusif.",
     },
   },
 

@@ -32,8 +32,8 @@
         v-else-if="status === 'completed'"
         class="flex items-center gap-x-1.5"
       >
-        <IconCompleted class="size-5 shrink-0 text-green-500" />
-        <span class="text-sm tracking-tight"
+        <Icon name="lucide:check-check" class="text-success size-5 shrink-0" />
+        <span class="text-sm font-medium tracking-tight"
           >{{ $t("eventStatus.completed") }}
         </span>
       </div>

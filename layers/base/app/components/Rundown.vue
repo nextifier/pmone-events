@@ -82,44 +82,38 @@
             "
             class="flex gap-1.5"
           >
-            <div
-              v-if="effectiveShowSearch"
-              class="group relative h-full w-full"
-            >
-              <input
-                type="text"
-                v-model="searchInput"
+            <InputGroup v-if="effectiveShowSearch" class="h-10">
+              <InputGroupAddon align="inline-start">
+                <Icon name="hugeicons:search-01" class="text-gray-400" />
+              </InputGroupAddon>
+
+              <InputGroupInput
                 ref="searchInputEl"
-                class="input-base peer h-10 px-9 py-2 text-sm tracking-tight"
+                v-model="searchInput"
+                type="text"
+                class="text-sm tracking-tight"
                 :placeholder="$t('ui.search')"
                 :aria-label="$t('ui.search')"
               />
 
-              <Icon
-                name="hugeicons:search-01"
-                class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400 peer-focus:text-gray-400"
-              />
-
-              <span
-                id="shortcut-key"
-                class="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 items-center justify-center gap-x-0.5 transition peer-placeholder-shown:flex peer-focus-within:hidden"
-              >
-                <kbd class="keyboard-symbol">{{ metaSymbol }} K</kbd>
-              </span>
-
-              <button
-                id="clear-input"
-                type="button"
-                aria-label="Clear search"
-                @click="
-                  searchInput = '';
-                  $refs.searchInputEl.focus();
-                "
-                class="absolute top-1/2 right-3 flex size-6 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 transition-colors peer-placeholder-shown:hidden hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800"
-              >
-                <IconClose class="h-3" />
-              </button>
-            </div>
+              <InputGroupAddon align="inline-end">
+                <kbd v-if="!searchInput" class="keyboard-symbol">
+                  {{ metaSymbol }} K
+                </kbd>
+                <InputGroupButton
+                  v-else
+                  size="icon-xs"
+                  variant="ghost"
+                  aria-label="Clear search"
+                  @click="
+                    searchInput = '';
+                    focusSearchInput();
+                  "
+                >
+                  <IconClose class="size-3" />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
 
             <DropdownMenu
               :modal="false"
@@ -862,11 +856,19 @@ watch(
 );
 
 const searchInputEl = ref();
+
+// InputGroupInput is a component, so the template ref holds its instance; the
+// real <input> lives on $el.
+function focusSearchInput() {
+  const el = searchInputEl.value?.$el ?? searchInputEl.value;
+  el?.focus?.();
+}
+
 const { metaSymbol } = useShortcuts();
 defineShortcuts({
   meta_k: {
     handler: async () => {
-      searchInputEl.value?.focus();
+      focusSearchInput();
     },
   },
 });

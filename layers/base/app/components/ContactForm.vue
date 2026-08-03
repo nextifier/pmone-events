@@ -16,8 +16,8 @@
       <form @submit.prevent="handleSubmit" class="relative mt-8 grid gap-y-6">
         <!-- Dynamic Fields -->
         <template v-for="field in visibleFields" :key="field.name">
-          <div class="input-group">
-            <label :for="field.name">{{ field.label }}</label>
+          <Field>
+            <FieldLabel :for="field.name">{{ field.label }}</FieldLabel>
 
             <!-- Phone Input -->
             <InputPhone
@@ -33,7 +33,7 @@
             >
               <!-- Custom Input for "Other" -->
               <div v-if="showCustomProductInput" class="flex gap-2">
-                <input
+                <Input
                   :id="field.name"
                   v-model="formState[field.name]"
                   type="text"
@@ -41,13 +41,15 @@
                   :placeholder="$t('ui.enterYourProductType')"
                   class="flex-1"
                 />
-                <button
+                <Button
                   type="button"
-                  class="text-muted-foreground hover:text-foreground aspect-square shrink-0 rounded-full text-sm underline transition"
+                  variant="outline"
+                  size="icon"
+                  :aria-label="$t('ui.selectAProduct')"
                   @click="switchToProductSelect"
                 >
                   <Icon name="lucide:chevron-down" class="size-4 shrink-0" />
-                </button>
+                </Button>
               </div>
 
               <!-- Select Dropdown -->
@@ -101,18 +103,18 @@
             </template>
 
             <!-- Textarea -->
-            <textarea
+            <Textarea
               v-else-if="field.type === 'textarea'"
               :id="field.name"
               v-model="formState[field.name]"
               :name="field.name"
               :placeholder="field.placeholder"
               :required="field.required"
-              class="autogrow"
+              class="min-h-20"
             />
 
             <!-- Default Input -->
-            <input
+            <Input
               v-else
               :id="field.name"
               v-model="formState[field.name]"
@@ -121,7 +123,7 @@
               :placeholder="field.placeholder"
               :required="field.required"
             />
-          </div>
+          </Field>
         </template>
 
         <!-- Honeypot Field (hidden from users, visible to bots) -->
@@ -156,15 +158,17 @@
         />
 
         <!-- Submit Button -->
-        <button
+        <Button
           type="submit"
-          class="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center gap-2 justify-self-start rounded-xl px-4 py-3 text-sm font-semibold tracking-tight transition active:scale-98"
+          size="lg"
+          class="justify-self-start"
           :disabled="isLoading"
+          :aria-busy="isLoading"
           v-ripple
         >
-          <Spinner v-if="isLoading" class="text-background size-4" />
+          <Spinner v-if="isLoading" class="size-4" />
           <span>{{ submitLabelText }}</span>
-        </button>
+        </Button>
       </form>
     </template>
 
@@ -187,14 +191,14 @@
           :description="successMessageText"
         >
           <ResultActions class="pt-2">
-            <NuxtLink
+            <Button
               :to="localePath('/')"
-              class="bg-primary text-primary-foreground rounded-xl px-6 py-4 font-semibold tracking-tight"
+              size="lg"
               v-ripple
               @click="handleSuccessAction"
             >
               {{ successButtonText }}
-            </NuxtLink>
+            </Button>
           </ResultActions>
         </Result>
       </div>

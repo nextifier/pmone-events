@@ -15,7 +15,7 @@
  * baked GA4 ids); for TikTok the dashboard list overrides the baked pixel(s).
  *
  * Deferred to the `app:mounted` hook (not run inline in `setup()`, mirroring
- * `hashScroll.client.ts` / `appearanceStylePrune.client.ts`) so this always
+ * `hashScroll.client.ts`) so this always
  * runs *after* every other client plugin has finished, specifically:
  *
  * - nuxt-gtag's own module-registered boot plugin

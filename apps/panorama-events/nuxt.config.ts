@@ -61,10 +61,10 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/ticket": { redirect: "/tickets", statusCode: 301 },
-    "/tiket": { redirect: "/tickets", statusCode: 301 },
-    "/tix": { redirect: "/tickets", statusCode: 301 },
-    "/blog/**": { redirect: "/news/**", statusCode: 301 },
+    "/ticket": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/tiket": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/tix": { redirect: { to: "/tickets", statusCode: 301 } },
+    "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
   },
 
   // App-specific static pages prerendered by the base cf-cache module.

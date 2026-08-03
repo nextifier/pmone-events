@@ -1,23 +1,27 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* === cn-* "Style" system — ACTIVE STYLE: uncomment EXACTLY ONE ============
-   Only the uncommented style is bundled (~25KB), so payload stays small.
-   To switch this project's style: comment the active line, uncomment the
-   desired one, AND set the matching DEFAULT_STYLE in lib/appearance/index.ts.
-   Each file scopes per-component `.cn-*` rules under `body.style-X` and
+/* === cn-* "Style" system — chosen PER APP =================================
+   Each style file scopes per-component `.cn-*` rules under `body.style-X` and
    @apply token utilities, so component shape composes with the appearance
-   tokens (Base Color / Theme / Radius). A style is ALWAYS active. ========== */
-@import "./styles/style-mono.css" layer(base); /* ← ACTIVE (default) */
-/* @import "./styles/_base.css" layer(base); */ /* shared cn-* for non-mono styles; uncomment together with any style below */
-/* @import "./styles/style-vega.css" layer(base); */
-/* @import "./styles/style-nova.css" layer(base); */
-/* @import "./styles/style-maia.css" layer(base); */
-/* @import "./styles/style-lyra.css" layer(base); */
-/* @import "./styles/style-mira.css" layer(base); */
-/* @import "./styles/style-luma.css" layer(base); */
-/* @import "./styles/style-sera.css" layer(base); */
-/* @import "./styles/style-rhea.css" layer(base); */
+   tokens (Base Color / Theme / Radius). A style is ALWAYS active.
+
+   To switch a project's style, edit ONE line — its own nuxt.config:
+
+       // apps/<app>/nuxt.config.ts
+       appearance: { style: "luma" },        // default: "mono"
+
+   `layers/base/modules/appearance-style.ts` turns that value into the import
+   below (adding `_base.css` for every non-mono style) AND into the matching
+   `<body class="style-X">`, so the CSS and the class can never disagree. Only
+   the selected style is compiled — no dead weight. Available names = the
+   `./styles/style-*.css` files. ============================================ */
+@import "#appearance-style" layer(base);
+
+/* Motion untuk shared UI library — satu sumber, identik di levenium,
+   pmone, dan pmone-events. Sengaja UNLAYERED supaya menang atas motion
+   default shadcn yang ada di style-*.css (layer base). */
+@import "./transitions.css";
 
 @source "../../app.vue";
 @source "../../app.config.ts";
@@ -190,7 +194,12 @@ html.appearance-switching *::after {
     --primary-foreground: var(--color-white);
 
     --secondary: var(--color-gray-100);
-    --secondary-foreground: var(--color-gray-900);
+    /* `--native-*` aliases are read by the appearance engine's "native" theme
+       (lib/appearance/themes.ts), shared verbatim across pmone / pmone-events /
+       levenium. Any alias a repo does not declare falls back to pmone's value,
+       so only the tokens that genuinely differ here need one. */
+    --native-secondary-foreground: var(--color-gray-900);
+    --secondary-foreground: var(--native-secondary-foreground);
 
     --muted: var(--color-gray-100);
     --muted-foreground: var(--color-gray-600);
@@ -207,7 +216,8 @@ html.appearance-switching *::after {
     --warning: var(--color-yellow-500);
     --warning-foreground: var(--color-yellow-700);
 
-    --destructive: var(--color-red-500);
+    --native-destructive: var(--color-red-500);
+    --destructive: var(--native-destructive);
     --destructive-foreground: var(--color-red-700);
 
     --card: var(--color-white);
@@ -225,11 +235,11 @@ html.appearance-switching *::after {
     --sidebar-border: var(--color-gray-200);
     --sidebar-ring: var(--color-gray-400);
 
-    --chart-1: var(--color-emerald-500);
-    --chart-2: var(--color-indigo-500);
-    --chart-3: var(--color-yellow-400);
-    --chart-4: var(--color-orange-500);
-    --chart-5: var(--color-rose-500);
+    --chart-1: var(--color-gray-300);
+    --chart-2: var(--color-gray-500);
+    --chart-3: var(--color-gray-600);
+    --chart-4: var(--color-gray-700);
+    --chart-5: var(--color-gray-800);
 
     --radius: 0.625rem;
   }
@@ -246,7 +256,8 @@ html.appearance-switching *::after {
     --primary-foreground: var(--color-black);
 
     --secondary: var(--color-gray-900);
-    --secondary-foreground: var(--color-gray-300);
+    --native-secondary-foreground: var(--color-gray-300);
+    --secondary-foreground: var(--native-secondary-foreground);
 
     --muted: var(--color-gray-900);
     --muted-foreground: --alpha(var(--color-gray-300) / 80%);
@@ -263,10 +274,12 @@ html.appearance-switching *::after {
     --warning: var(--color-yellow-500);
     --warning-foreground: var(--color-yellow-400);
 
-    --destructive: var(--color-red-500);
+    --native-destructive: var(--color-red-500);
+    --destructive: var(--native-destructive);
     --destructive-foreground: var(--color-red-400);
 
-    --card: --alpha(var(--color-gray-900) / 50%);
+    --native-card: --alpha(var(--color-gray-900) / 50%);
+    --card: var(--native-card);
     --card-foreground: var(--color-gray-300);
 
     --popover: var(--color-gray-950);
@@ -281,11 +294,11 @@ html.appearance-switching *::after {
     --sidebar-border: var(--color-gray-800);
     --sidebar-ring: var(--color-gray-600);
 
-    --chart-1: var(--color-emerald-500);
-    --chart-2: var(--color-indigo-500);
-    --chart-3: var(--color-yellow-400);
-    --chart-4: var(--color-orange-500);
-    --chart-5: var(--color-rose-500);
+    --chart-1: var(--color-gray-300);
+    --chart-2: var(--color-gray-500);
+    --chart-3: var(--color-gray-600);
+    --chart-4: var(--color-gray-700);
+    --chart-5: var(--color-gray-800);
   }
 }
 
@@ -523,25 +536,6 @@ html.appearance-switching *::after {
 
 @utility gradient-insta {
   @apply from-yellow-300 via-red-500 to-fuchsia-600;
-}
-
-.input-base,
-.input-group input,
-.input-group textarea {
-  @apply border-border bg-background text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:border-ring flex w-full rounded-md border text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50;
-}
-
-.input-group {
-  @apply grid gap-2.5;
-
-  & input {
-    @apply h-9;
-  }
-
-  & input,
-  & textarea {
-    @apply px-3 py-2;
-  }
 }
 
 @layer base {
@@ -1463,88 +1457,4 @@ html.appearance-switching *::after {
 
 .prose figcaption {
   @apply text-muted-foreground mt-2 text-center text-sm;
-}
-
-/* transitions-dev — Lightbox chrome show/hide + image resize.
-   Card resize (01) + Panel reveal (07) tokens. */
-:root {
-  --resize-dur: 300ms;
-  --resize-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --panel-open-dur: 400ms;
-  --panel-close-dur: 350ms;
-  --panel-translate-y: 100px;
-  --panel-blur: 2px;
-  --panel-ease: cubic-bezier(0.22, 1, 0.36, 1);
-
-  /* Avatar-group / Stack hover + entrance timing (consumed by ui/stack
-     Stack.vue via duration-(--avatar-dur) ease-(--avatar-ease-in)). Without
-     these the stack renders but never animates. */
-  --avatar-lift: -4px;
-  --avatar-dur: 320ms;
-  --avatar-scale: 1.05;
-  --avatar-falloff: 0.45;
-  --avatar-ease-in: cubic-bezier(0.22, 1, 0.36, 1);
-  --avatar-ease-out: cubic-bezier(0.34, 3.85, 0.64, 1);
-}
-
-/* Panel reveal (transitions-dev 07) — verbatim. */
-.t-panel-slide {
-  transform: translateY(var(--panel-translate-y));
-  opacity: 0;
-  filter: blur(var(--panel-blur));
-  pointer-events: none;
-  transition:
-    transform var(--panel-close-dur) var(--panel-ease),
-    opacity var(--panel-close-dur) var(--panel-ease),
-    filter var(--panel-close-dur) var(--panel-ease);
-  will-change: transform, opacity, filter;
-}
-.t-panel-slide[data-open="true"] {
-  transform: translateY(0);
-  opacity: 1;
-  filter: blur(0);
-  pointer-events: auto;
-  transition:
-    transform var(--panel-open-dur) var(--panel-ease),
-    opacity var(--panel-open-dur) var(--panel-ease),
-    filter var(--panel-open-dur) var(--panel-ease);
-}
-@media (prefers-reduced-motion: reduce) {
-  .t-panel-slide {
-    transition: none !important;
-  }
-}
-
-/* Card resize (transitions-dev 01) adapted for auto height via the grid-rows
-   1fr/0fr technique, so a collapsing in-flow region animates its height (and
-   lets a flex sibling grow) without a measured pixel height. Uses the
-   card-resize duration/ease tokens. */
-.t-collapse {
-  display: grid;
-  grid-template-rows: 1fr;
-  transition: grid-template-rows var(--resize-dur) var(--resize-ease);
-  will-change: grid-template-rows;
-}
-.t-collapse[data-open="false"] {
-  grid-template-rows: 0fr;
-}
-.t-collapse > * {
-  min-height: 0;
-  overflow: hidden;
-}
-@media (prefers-reduced-motion: reduce) {
-  .t-collapse {
-    transition: none !important;
-  }
-}
-
-/* Animates the image viewport's top inset (8px when controls are shown, 0 when
-   hidden) in step with the card-resize collapse, using the same tokens. */
-.t-pt {
-  transition: padding-top var(--resize-dur) var(--resize-ease);
-}
-@media (prefers-reduced-motion: reduce) {
-  .t-pt {
-    transition: none !important;
-  }
 }

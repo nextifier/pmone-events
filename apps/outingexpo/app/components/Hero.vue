@@ -50,19 +50,18 @@
             </p>
 
             <div class="mt-6 flex w-full gap-2 md:flex-wrap md:gap-3">
-              <nuxt-link
-                :to="localePath('/tickets')"
-                class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center rounded-xl px-4 py-3 font-semibold tracking-tight transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
-                v-ripple
-                >{{ $t("hero.ctaTicket") }}</nuxt-link
-              >
+              <Button :to="localePath('/tickets')" size="xl" v-ripple>
+                {{ $t("hero.ctaTicket") }}
+              </Button>
 
-              <nuxt-link
+              <Button
                 :to="localePath('/book-space')"
-                class="bg-primary/5 hover:bg-primary/10 dark:bg-primary/8 text-primary dark:border-primary/8 dark:hover:bg-primary/16 flex items-center justify-center rounded-xl border border-transparent px-4 py-3 font-semibold tracking-tight backdrop-blur-lg transition active:scale-95 lg:rounded-2xl lg:px-6 lg:py-3"
+                variant="secondary"
+                size="xl"
                 v-ripple
-                >{{ $t("hero.ctaExhibit") }}</nuxt-link
               >
+                {{ $t("hero.ctaExhibit") }}
+              </Button>
             </div>
           </div>
         </div>

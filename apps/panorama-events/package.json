@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@events/base": "workspace:*",
-    "nuxt": "^4.5.0"
+    "nuxt": "^4.5.1"
   },
   "devDependencies": {
     "nuxt-disqus": "^1.2.0"

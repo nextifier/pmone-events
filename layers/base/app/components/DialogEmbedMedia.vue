@@ -2,10 +2,10 @@
   <DialogRoot v-model:open="isOpen">
     <DialogPortal>
       <DialogOverlay
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
+        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 ease-(--modal-ease) data-open:duration-(--modal-open-dur) data-closed:duration-(--modal-close-dur) motion-reduce:animate-none! fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
       />
       <DialogContent
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 flex aspect-16/9 h-auto max-h-[calc(100%-4rem)] w-[calc(100%-8px)] max-w-6xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-2xl duration-200"
+        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-96 data-[state=open]:zoom-in-96 ease-(--modal-ease) data-open:duration-(--modal-open-dur) data-closed:duration-(--modal-close-dur) motion-reduce:animate-none! fixed top-1/2 left-1/2 z-50 flex aspect-16/9 h-auto max-h-[calc(100%-4rem)] w-[calc(100%-8px)] max-w-6xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-2xl"
         @close-auto-focus.prevent
       >
         <DialogTitle class="hidden"></DialogTitle>

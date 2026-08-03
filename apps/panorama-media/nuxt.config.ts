@@ -61,7 +61,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/blog/**": { redirect: "/news/**", statusCode: 301 },
+    "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
   },
 
   sitemap: {

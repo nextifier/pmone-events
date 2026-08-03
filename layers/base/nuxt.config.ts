@@ -39,7 +39,18 @@ export default defineNuxtConfig({
       htmlAttrs: {
         translate: "no",
       },
-      meta: [{ name: "google", content: "notranslate" }],
+      meta: [
+        { name: "google", content: "notranslate" },
+        // iOS ignores the manifest's `display`, so without these an
+        // Add-to-Home-Screen launch opens a plain Safari tab instead of a
+        // standalone window. "black" (not "black-translucent") keeps the status
+        // bar out of the layout, so no safe-area padding is needed.
+        // apple-mobile-web-app-title is deliberately omitted: it would be wrong
+        // for 15 of the 16 apps, and iOS falls back to the manifest short_name.
+        { name: "mobile-web-app-capable", content: "yes" },
+        { name: "apple-mobile-web-app-capable", content: "yes" },
+        { name: "apple-mobile-web-app-status-bar-style", content: "black" },
+      ],
       link: [
         {
           rel: "apple-touch-icon",
@@ -61,6 +72,26 @@ export default defineNuxtConfig({
   },
 
   css: [],
+
+  // Production-only: cssnano runs postcss-calc, whose grammar predates CSS
+  // relative color syntax. Every style-*.css scales chroma with
+  // `oklch(from var(--primary) 0.93 calc(c * 0.4) h)`, and main.css does the
+  // same with `calc(alpha * 0.2)` / `calc(l + 0.4)`. postcss-calc cannot lex a
+  // bare channel keyword as a calc operand, throws, catches its own throw, and
+  // warns — 22 "Lexical error on line 1: Unrecognized text" per build, in every
+  // one of the 16 apps. The declaration is left untouched either way, so the
+  // pass buys nothing here: every other calc() Tailwind emits references a CSS
+  // variable, which postcss-calc cannot fold at build time either. Turning the
+  // one sub-plugin off keeps the rest of the cssnano preset intact.
+  // Set under $production so `nuxt build` AND `nuxt generate` both get it while
+  // dev keeps Nuxt's own default of skipping cssnano entirely.
+  $production: {
+    postcss: {
+      plugins: {
+        cssnano: { preset: ["default", { calc: false }] },
+      },
+    },
+  },
 
   vite: {
     plugins: [tailwindcss()],
@@ -296,6 +327,10 @@ export default defineNuxtConfig({
     registerType: "autoUpdate",
     registerWebManifestInRouteRules: true,
     manifest: {
+      // Explicit id, so the app identity survives a future start_url change —
+      // without it Chrome derives identity from start_url and would treat an
+      // updated one as an entirely new app.
+      id: "/",
       name: "",
       short_name: "",
       start_url: "/",
@@ -303,22 +338,20 @@ export default defineNuxtConfig({
       theme_color: "#09090b",
       background_color: "#09090b",
       description: "",
+      // Absolute hrefs: relative ones resolve against the manifest's location,
+      // which happens to be correct at the root but breaks under any other scope.
+      // No maskable entry: every app ships full-bleed illustrated artwork, which
+      // needs a per-brand redraw rather than a mechanical rescale.
       icons: [
         {
-          src: "icons/icon-192x192.png",
+          src: "/icons/icon-192x192.png",
           sizes: "192x192",
           type: "image/png",
         },
         {
-          src: "icons/icon-512x512.png",
+          src: "/icons/icon-512x512.png",
           sizes: "512x512",
           type: "image/png",
-        },
-        {
-          src: "icons/icon-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "any",
         },
       ],
     },
@@ -337,12 +370,16 @@ export default defineNuxtConfig({
       // fetched by social crawlers — never precache them to visitors.
       globIgnores: ["**/_og/**"],
     },
-    injectManifest: {
-      globPatterns: ["**/*.{js,css,png,svg,ico}"],
-      globIgnores: ["**/_og/**"],
-    },
+    // No injectManifest block: `strategies` is unset, so vite-plugin-pwa runs
+    // generateSW and reads `workbox` above — an injectManifest block would never
+    // be read.
     client: {
-      installPrompt: true,
+      // The plugin calls preventDefault() on beforeinstallprompt whenever this
+      // is true, which suppresses the browser's own install affordance. Flip it
+      // back to true ONLY together with a component that consumes
+      // $pwa.showInstallPrompt / $pwa.install(); until then, `false` leaves the
+      // mini-infobar (Android) and address-bar install icon (desktop) in place.
+      installPrompt: false,
     },
     devOptions: {
       enabled: false,

@@ -83,8 +83,12 @@ export default defineNuxtConfig({
       ]);
       // `/hotels` plus every nested hotel route (detail, booking, reservation,
       // success) — the listing and the booking flow are exposed as a set.
+      // `/f/*` carries the public forms; each one is reachable only by its own
+      // slug, so exposing the route exposes nothing on its own.
       const isAllowed = (path) =>
-        allowedPaths.has(path) || path.startsWith("/hotels/");
+        allowedPaths.has(path) ||
+        path.startsWith("/hotels/") ||
+        path.startsWith("/f/");
       const filter = (list) =>
         list.filter((page) => {
           if (page.children?.length) {

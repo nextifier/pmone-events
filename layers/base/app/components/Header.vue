@@ -51,7 +51,7 @@
             {{ $t("ui.getTicket") }}
           </Button>
 
-          <LanguageSwitcher />
+          <LanguageSwitcher :codes="localeScope" />
 
           <ColorModeToggle v-if="!route.meta.colorMode" />
 
@@ -137,6 +137,10 @@
 <script setup>
 import { useSidebar } from "@/components/ui/sidebar/utils";
 const { toggleSidebar, open, isMobile } = useSidebar();
+
+// Pages whose content exists in only some languages narrow this; see
+// useLocaleScope. Null on every other page, which offers the full set.
+const localeScope = useLocaleScope();
 
 const route = useRoute();
 const localePath = useLocalePath();

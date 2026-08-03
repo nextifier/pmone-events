@@ -45,69 +45,215 @@ export default {
     YouTube: "YouTube",
   },
   whyVisit: {
-    heading: "IOITEに来るべき理由",
-    subheading:
-      "企業エンゲージメント＆インセンティブトラベルのワンストップ・プラットフォーム",
+    subheading: "社員旅行とインセンティブ旅行の準備が、ここで片づきます",
     items: {
       "0": {
-        title: "意思決定者に直接アクセス",
+        title: "1日で比較できます",
         description:
-          "来場者の60〜70%は、人事部門のリーダー、経営層、法人バイヤー。一般的な展示会とは違い、ここは商談が動く場所です。",
+          "社員旅行とインセンティブ旅行の取引先が100社以上。その場で見積もりも頼めます。",
       },
       "1": {
-        title: "100以上のブランドとソリューションが一堂に",
-        description:
-          "アウティング先、チームビルディング、インセンティブトラベル、企業ウェルネスプログラムまで。会場で直接比較し、自社に合ったパートナーを見つけられます。",
+        title: "会場限定の価格",
+        description: "この4日間だけの条件を出す出展社が多くあります。",
       },
       "2": {
-        title: "4日間の戦略的プログラム構成",
+        title: "HR向けカンファレンスは無料",
         description:
-          "1〜2日目は企業向けの商談・ネットワーキング。3〜4日目は体験型アクティベーションとコミュニティ交流。目的に合わせて参加日を選べます。",
+          "Inspiration Talk SeriesやHR Forumで、エンゲージメントと報奨制度の話が聴けます。",
       },
       "3": {
-        title: "HR向けカンファレンス＆フォーラム",
+        title: "先に体験してから選べます",
         description:
-          "Inspiration Talk Series、Corporate Insights、HR Forumを通じて、エンゲージメントの最新トレンド、人材開発、インセンティブ戦略を学べます。",
+          "Experience Trial Zoneでチームビルディングを試してから発注先を決められます。",
       },
     },
   },
   hero: {
     countdownLabel: "開催まで：",
-    title: "Indonesia Outing & Incentive Travel Expo 2026",
+    title: "社員旅行とインセンティブ旅行の取引先が一堂に",
     description:
-      "企業エンゲージメントとインセンティブトラベルのビジネスプラットフォーム。100超のブランド、HRカンファレンス、ビジネスマッチングを一つの会場で。",
+      "社員旅行や表彰旅行、社内イベントを企画する人事・総務の方へ。事前登録で入場無料です。",
     ctaTicket: "チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
   },
+  eventFormat: {
+    title: "前半は商談、後半は体験",
+    description: "木曜と金曜は法人向け。土曜と日曜は一般公開です。",
+    month: "10月",
+    days: {
+      "0": {
+        label: "1〜2日目",
+        date: "木・金",
+        title: "商談と企画の2日間",
+        description:
+          "ビジネスマッチングとHRカンファレンス。決裁権を持つ来場者が最も多い2日間です。",
+      },
+      "1": {
+        label: "3〜4日目",
+        date: "土・日",
+        title: "体験とコミュニティの2日間",
+        description:
+          "体験ゾーンと現場アクティベーション。チームを連れて来るならこの2日間です。",
+      },
+    },
+  },
+  whoVisits: {
+    title: "どんな人が来場するのか",
+    description: "2025年の来場者は10,000人。うち約6割が企業の決裁層でした。",
+    corporateTitle: "企業・法人",
+    corporateItems: [
+      "人事・人材開発の責任者",
+      "役員・経営層",
+      "購買・調達の担当者",
+      "報奨制度の担当者",
+      "イベントプランナー・EO",
+    ],
+    communityTitle: "団体・コミュニティ",
+    communityItems: [
+      "業界団体・協会",
+      "修学旅行を計画する学校・大学",
+      "宗教団体・地域コミュニティ",
+      "親睦旅行を企画するグループ",
+      "社員旅行のヒントを探しに来た一般の方",
+    ],
+    breakdownLabel: "2025年の来場者内訳",
+    breakdown: {
+      hr: "人事",
+      public: "一般",
+      corporateTeam: "企業チーム",
+      eventPlanner: "イベントプランナー・EO",
+      groupHolidays: "団体旅行",
+      community: "地域・宗教団体",
+    },
+  },
+  exhibitorCategories: {
+    title: "社員旅行とインセンティブ旅行を支える出展社",
+    description: "5つのカテゴリーが、NICE PIK 2に4日間そろいます。",
+    cta: "出展社を見る",
+    items: {
+      "0": {
+        title: "インセンティブ・報奨・法人向けソリューション",
+        items: [
+          "社員向けの報奨・表彰プログラム",
+          "企業研修旅行とクルーズ",
+          "記念品・ノベルティ",
+        ],
+      },
+      "1": {
+        title: "旅行先・会場・宿泊",
+        items: [
+          "ホテル、リゾート、ヴィラ",
+          "観光地と観光局",
+          "MICE会場とコンベンションセンター",
+        ],
+      },
+      "2": {
+        title: "イベント・体験・アクティベーション",
+        items: [
+          "イベント会社と制作会社",
+          "アウトバウンド、チームビルディング、研修",
+          "体験型プログラム",
+        ],
+      },
+      "3": {
+        title: "旅行・交通",
+        items: [
+          "旅行代理店とツアーオペレーター",
+          "DMCとインセンティブ旅行の専門会社",
+          "航空、バス、レンタカー、鉄道",
+        ],
+      },
+      "4": {
+        title: "エンタメ・ウェルネス・サポート",
+        items: [
+          "エンターテインメントと出演者",
+          "企業向けウェルネスとCSR",
+          "ケータリング、フォトブース、記録撮影",
+        ],
+      },
+    },
+  },
+  eventStats: {
+    subtitle: "2025年ふりかえり",
+    title: "初開催の数字",
+    description: "Indonesia Outing Expo 2025はジャカルタで3日間開催しました。",
+    stats: {
+      visitors: { label: "来場者", description: "70社以上から" },
+      brands: { label: "出展ブランド", description: "観光地、EO、旅行代理店" },
+      businessMatching: { label: "商談件数", description: "1対1のマッチング" },
+      speakers: { label: "登壇者", description: "人事と業界の実務者" },
+      mediaCoverage: {
+        label: "メディア掲載",
+        description: "全国紙とWebメディア",
+      },
+      recommendation: {
+        label: "出展社の推薦率",
+        description: "次回も出たいという回答",
+      },
+    },
+  },
+  galleryPreview: {
+    title: "2025年の会場から",
+    description: "ブース、チームビルディング、カンファレンスの様子です。",
+    cta: "写真をすべて見る",
+  },
+  whyExhibit: {
+    subtitle: "出展をお考えの方へ",
+    title: "来場者は取引先を探しに来ています",
+    description:
+      "今回の目標来場者数は25,000人。予算と決裁権を持って来る人が大半です。",
+    cta: "ブースを予約する",
+    ctaNote: "2026年のブース受付中です。",
+    items: {
+      "0": {
+        title: "予算を持つ人に会えます",
+        description: "来場者の約6割が人事責任者、役員、購買担当です。",
+      },
+      "1": {
+        title: "検討が始まっている見込み客",
+        description:
+          "その四半期の社員旅行やインセンティブ施策を抱えて来場します。",
+      },
+      "2": {
+        title: "その場で体験してもらえます",
+        description:
+          "Experience Trial Zoneなら、資料を配るかわりに実演できます。",
+      },
+      "3": {
+        title: "4日間で2つの市場",
+        description: "平日2日は法人向け、週末2日はコミュニティと一般向けです。",
+      },
+    },
+  },
   mainPrograms: {
     title:
       "<span class='text-outline'>メイン</span> <span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">プログラム</span>",
     description:
-      "カンファレンス、HRフォーラム、ビジネスマッチング、体験ゾーン。{appName}が企業リーダーと業界プロフェッショナルに向けて設計した主要プログラムです。",
+      "HRカンファレンス、ビジネスマッチング、体験ゾーン。人事担当者と業界向けのプログラムです。",
   },
   partnerships: {
     title:
       "<span class='text-outline'>IOITEの </span><span class=\"gradient-accent bg-clip-text  text-transparent pr-1\">パートナーになる</span>",
     description:
-      "IOITEは、エンゲージメントプログラムやインセンティブ施策を計画する企業と、ソリューションプロバイダーを直接つなぐ場です。{appName}に参加して、最適なオーディエンスにリーチしましょう。",
+      "社員旅行やインセンティブ施策を計画中の企業と、出展社が直接会う場です。",
     exhibitor: {
       title: "出展登録",
       description:
-        "観光地、会場、法人アウティングサービスをお持ちですか？ 目標来場者数25,000人超。その60〜70%が企業の意思決定者です。",
+        "観光地、会場、法人向けサービスをお持ちですか。目標来場者数は25,000人です。",
       cta: "ブースを予約する",
     },
     sponsor: {
       title: "スポンサー登録",
       description:
-        "Experience Maker、Core Collaborator、Synergy Partnerの3つのスポンサーティアをご用意。ブランド目標に合ったプランをお選びください。",
+        "Experience Maker、Core Collaborator、Synergy Partnerの3つのプランがあります。",
       cta: "スポンサー登録",
     },
     mediaPartner: {
       title: "メディアパートナー登録",
       description:
-        "2025年は40以上の全国メディアが協力。アウティング＆インセンティブ業界の独占取材と良質なコンテンツへのアクセスを得られます。",
+        "2025年は全国40媒体が取材に入りました。取材枠にご参加ください。",
       cta: "メディアとして参加",
     },
     reservedSpace: {
@@ -118,9 +264,9 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">チケット</span>1枚から始めましょう',
+      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">入場無料</span>です',
     description:
-      "100以上のブランド、HRカンファレンス、ビジネスマッチング、体験ゾーン。すべてを4日間の1つの会場で。IOITE 2026でお待ちしています。",
+      "社員旅行とインセンティブ旅行のブランド100社以上、HRカンファレンス、ビジネスマッチング。4日間です。",
     cta: "チケットを取得",
   },
   mediaCoverage: {
@@ -137,12 +283,12 @@ export default {
   brandList: {
     title: "ブランド",
     description:
-      "観光地・会場、イベント企画・体験プロバイダー、旅行・交通、インセンティブ・リワード、エンターテインメント・ウェルネス。IOITEに出展するブランドをご覧ください。",
+      "IOITE 2026に出展する旅行会社、チームビルディング会社、ホテル、観光地、インセンティブ旅行の専門会社です。",
   },
   bookSpace: {
     title: "出展者登録",
     description:
-      "{appName}でブースを確保しましょう。目標来場者数25,000人超、その大半が企業の意思決定者です。",
+      "{appName}にブースを構えて、目標25,000人の来場者に会いましょう。大半が人事と法人の購買担当です。",
   },
   faq: {
     title: "よくある質問",
@@ -219,15 +365,15 @@ export default {
   },
   pages: {
     home: {
-      title:
-        "Indonesia Outing & Incentive Travel Expo (IOITE) 2026：企業エンゲージメント＆インセンティブトラベルのビジネスプラットフォーム",
+      // 「|」は vue-i18n が複数形の区切りとして読むので使わないこと。
+      title: "インドネシアの社員旅行・インセンティブ旅行展 · IOITE 2026",
       description:
-        "インドネシア最大のアウティング＆インセンティブトラベル展示会。100以上のブランド、HRカンファレンス、ビジネスマッチング。2026年8月27〜30日、NICE PIK 2にて。",
+        "IOITE 2026は10月8〜11日、NICE PIK 2で開催。社員旅行とインセンティブ旅行の展示会です。出展100社以上、HRカンファレンス、ビジネスマッチング。入場無料。",
     },
     brands: {
       title: "ブランド一覧",
       description:
-        "観光地・会場、イベント企画、旅行代理店、インセンティブプログラム、法人向けサポートサービス。IOITEの出展ブランドをご覧ください。",
+        "IOITE 2026に出展する旅行会社、チームビルディング会社、ホテル、観光地、インセンティブ旅行の専門会社です。",
     },
     rundown: {
       title: "スケジュール",
@@ -237,7 +383,7 @@ export default {
     programs: {
       title: "メインプログラム",
       description:
-        "{appName}の主要プログラム：カンファレンス、HRフォーラム、ビジネスマッチング、体験ゾーン、コミュニティ・アクティベーション。",
+        "{appName}のHRカンファレンス、ビジネスマッチング、体験ゾーン、コミュニティ企画。日程とテーマはこちらです。",
     },
     contact: {
       title: "お問い合わせ",
@@ -270,7 +416,7 @@ export default {
     news: {
       title: "ニュース",
       description:
-        "企業エンゲージメント＆インセンティブトラベル業界の最新ニュースとインサイトをお届けします。",
+        "社員旅行とインセンティブ旅行の業界ニュースとトレンドをお届けします。",
     },
     ticketPolicy: {
       title: "チケットポリシー",
@@ -288,11 +434,12 @@ export default {
     },
     terms: {
       title: "利用規約",
-      description: "",
+      description: "本サイトの利用と{appName}への参加に適用される規約です。",
     },
     privacy: {
       title: "プライバシーポリシー",
-      description: "",
+      description:
+        "{appName}が個人情報をどのように取得し、利用し、保護するかをご説明します。",
     },
     winner: {
       title: "抽選ジェネレーター",
@@ -302,13 +449,12 @@ export default {
   },
   about: {
     sectionSubtitle: "旧名称：Indonesia Outing Expo",
-    sectionTitle: "企業エンゲージメントと体験が交わる場所",
+    sectionTitle: "今回からインセンティブ旅行も対象に",
     sectionDescription:
-      "Indonesia Outing & Incentive Travel Expo（IOITE）は、Indonesia Outing Expoから進化した展示会です。企業エンゲージメント、インセンティブトラベル、体験型プログラムを一つのプラットフォームに集約しています。2025年は70社以上から10,000人超が来場し、100以上のブランドが出展。2026年は規模を3倍に拡大し、NICE PIK 2の2ホールで4日間にわたり開催します。1〜2日目はビジネスプランニングと企業ネットワーキング。3〜4日目は体験型アクティベーションとコミュニティ交流の場です。",
+      "2025年は70社から10,000人が来場しました。今回はNICE PIK 2で4日間の開催です。",
   },
   pastExhibitors: {
-    title: '前回は<span class="text-primary">100以上のブランド</span>が出展',
-    description:
-      "来場者10,000人超。70社以上が参加。出展者の95%がリピートを推薦。Indonesia Outing Expo 2025に出展したブランドの一部をご紹介します。",
+    title: '前回は<span class="text-primary">100社以上</span>が出展しました',
+    description: "Indonesia Outing Expo 2025に出展したブランドです。",
   },
 };

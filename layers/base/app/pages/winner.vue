@@ -9,41 +9,45 @@
         </h1>
 
         <div class="mt-10 grid gap-y-8">
-          <div class="input-group">
-            <label for="prize">Prize</label>
-            <input id="prize" v-model="prize" class="input-base" />
-          </div>
+          <Field>
+            <FieldLabel for="prize">Prize</FieldLabel>
+            <Input id="prize" v-model="prize" />
+          </Field>
 
-          <div class="input-group">
-            <label for="names">Paste or type names, separated by lines.</label>
-            <textarea
+          <Field>
+            <FieldLabel for="names">
+              Paste or type names, separated by lines.
+            </FieldLabel>
+            <Textarea
               id="names"
               v-model="rawNames"
+              class="min-h-64 tracking-tight"
               @paste="handleInput"
-              class="input-base min-h-64 px-3 py-2 tracking-tight"
-            ></textarea>
-          </div>
+            />
+          </Field>
 
-          <button
+          <Button
             type="button"
+            size="lg"
+            class="justify-self-end"
             @click="handleInput"
-            class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center gap-1 justify-self-end rounded-xl px-4 py-2 font-semibold tracking-tight transition active:scale-98"
           >
             <span>Next</span>
             <Icon name="lucide:arrow-right" class="size-4" />
-          </button>
+          </Button>
         </div>
       </div>
 
       <div v-if="currentStep === 2" class="grid gap-y-4">
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          class="justify-self-start"
           @click="currentStep = 1"
-          class="hover:bg-muted flex items-center gap-x-1.5 justify-self-start rounded-xl px-3 py-2 text-sm tracking-tight transition active:scale-98"
         >
-          <IconArrowLeft class="h-4" />
+          <IconArrowLeft class="size-4" />
           <span>Back</span>
-        </button>
+        </Button>
         <h2
           class="text-foreground text-center text-3xl font-semibold tracking-tighter"
         >

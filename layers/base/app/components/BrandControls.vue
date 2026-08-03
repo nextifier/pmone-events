@@ -9,13 +9,13 @@
         <InputGroupAddon align="inline-start">
           <Icon name="hugeicons:search-01" class="text-gray-400" />
         </InputGroupAddon>
-        <input
+        <InputGroupInput
           ref="searchInputEl"
           v-model="searchInput"
           type="text"
-          data-slot="input-group-control"
           placeholder="Search any brand or category"
-          class="placeholder:text-muted-foreground/70 flex h-full w-full min-w-0 flex-1 rounded-none border-0 bg-transparent px-2 text-sm tracking-tight outline-none"
+          aria-label="Search any brand or category"
+          class="placeholder:text-muted-foreground/70 h-full text-sm tracking-tight"
         />
         <InputGroupAddon align="inline-end">
           <kbd v-if="!searchInput" class="keyboard-symbol">
@@ -28,7 +28,7 @@
             aria-label="Clear search"
             @click="
               searchInput = '';
-              searchInputEl?.focus();
+              focusSearchInput();
             "
           >
             <IconClose class="size-3" />
@@ -242,12 +242,20 @@ defineEmits(["refresh", "clear-events", "clear-categories"]);
 const searchInput = defineModel("searchInput", { type: String, default: "" });
 
 const searchInputEl = ref();
+
+// InputGroupInput is a component, so the template ref holds its instance; the
+// real <input> lives on $el.
+function focusSearchInput() {
+  const el = searchInputEl.value?.$el ?? searchInputEl.value;
+  el?.focus?.();
+}
+
 const { metaSymbol } = useShortcuts();
 
 defineShortcuts({
   meta_k: {
     handler: async () => {
-      searchInputEl.value?.focus();
+      focusSearchInput();
     },
   },
 });
