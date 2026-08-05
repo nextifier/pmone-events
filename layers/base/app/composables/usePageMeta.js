@@ -83,22 +83,20 @@ export const usePageMeta = (pageKey, overrides = {}) => {
         : {}),
     });
   } else {
-    // Sanitize values for OG image URL to prevent unsafe attribute errors.
-    // nuxt-og-image v6 uses comma-separated URL params and doesn't properly
-    // encode special characters (?,!,commas) which breaks Vue server renderer.
-    const sanitize = (val) => (val || "").replace(/[?,!]/g, "").replace(/,/g, " ");
-    const ogTitle = computed(() => sanitize(toValue(title)));
-    const ogDescription = computed(() => sanitize(toValue(description)));
-
+    // No sanitizing here: nuxt-og-image v6.7 base64-encodes any param value
+    // whose encodeURIComponent output contains a `%` (urlEncoding.js:147-156),
+    // so commas, `?` and `!` round-trip intact. Stripping them only mangled the
+    // card copy — "HEX, RGB, HSL" came out as "HEX RGB HSL". Removing it also
+    // drops a local `ogTitle`/`ogDescription` pair that shadowed the ones
+    // computed from `apiOg` above, so the generated card now honours the
+    // dashboard-managed OG copy instead of silently falling back to the page
+    // title/description.
     if (import.meta.dev) {
       useState(`og-image:ssr-exists:${route.path}`, () => false).value = true;
     }
     defineOgImage("Page", {
-      headline: useAppConfig().app.name,
       pageTitle: ogTitle,
       pageDescription: ogDescription,
-      title: ogTitle,
-      description: ogDescription,
     });
   }
 

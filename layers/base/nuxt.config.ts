@@ -240,9 +240,11 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
-    defaults: {
-      renderer: "takumi",
-    },
+    // No `defaults.renderer` here: v6 dropped both `defaults.component` and
+    // `defaults.renderer` (`ModuleOptions.defaults` is
+    // `Omit<OgImageOptions, 'component' | 'renderer' | …>`). The renderer comes
+    // from the `.takumi` filename suffix of OgImage/Page.takumi.vue.
+    //
     // Signing secret for the /_og render URLs. The module reads it from HERE
     // (module option `security.secret`) or `process.env.NUXT_OG_IMAGE_SECRET`
     // — a `runtimeConfig.ogImage.secret` entry is NOT picked up. Without an
