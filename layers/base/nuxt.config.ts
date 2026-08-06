@@ -282,7 +282,24 @@ export default defineNuxtConfig({
   robots: {
     // /winner is a utility tool (random winner generator), intentionally kept
     // out of search. Terms & Privacy are crawlable so they can score SEO 100.
-    disallow: ["/winner"],
+    //
+    // The three transactional routes are per-visitor and were being advertised
+    // to Google as `index, follow` AND submitted in every locale sitemap of
+    // every site — 3 paths x 5 locales x 16 sites. /tickets/checkout is a cart,
+    // /tickets/result is a payment outcome and /hotels/success is a booking
+    // confirmation; none of them has meaningful content for a searcher, and a
+    // stale one in the index sends people to a dead order.
+    //
+    // Listing them here does both jobs at once: nuxt-robots locale-expands each
+    // path into robots.txt, emits `X-Robots-Tag: noindex` for it, AND feeds the
+    // exclusion into @nuxtjs/sitemap (verified: /winner appears in zero
+    // sitemaps). Do not also hand-write sitemap excludes — this is the one list.
+    disallow: [
+      "/winner",
+      "/tickets/checkout",
+      "/tickets/result",
+      "/hotels/success",
+    ],
     // Google-Extended is Google's AI-training crawler. It has NO user agent of
     // its own — it fetches as Googlebot, from Googlebot IPs — so the only way to
     // opt out of AI training without also blocking Google Search is this
