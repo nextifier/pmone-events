@@ -8,8 +8,8 @@
  * and every later handler reuses it.
  *
  * `maxAge` deliberately matches the handlers' own cache window. This entry
- * lives inside the worker where no purge can reach it — see the lockstep rule
- * in shared/cf-cache-rules.ts before changing it.
+ * lives inside the worker where no purge can reach it, so raising it means a
+ * publish can stay invisible for that long — keep it small.
  *
  * Returns null when the project has no events at all; callers turn that into
  * their own empty shape (`{data: []}`, `{data: {days: []}}`, …) so the section

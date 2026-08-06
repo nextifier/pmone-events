@@ -69,10 +69,8 @@ export default defineNuxtConfig({
 
   // App-specific static pages prerendered by the base cf-cache module.
   // /about and /services used to be prerendered here via
-  // `cfCache.extraStaticPages`; they are now SSR + edge-cached from
-  // layers/base/shared/cf-cache-rules.ts. /book-space still 500s in this app
-  // (its content store defines no bookSpace keys) — that needs no config now,
-  // because only status-200 responses are ever cached.
+  // `cfCache.extraStaticPages`; they are plain SSR now. /book-space still 500s
+  // in this app (its content store defines no bookSpace keys).
 
   sitemap: {
     urls: ["/", "/about", "/services", "/events", "/faq", "/contact", "/news"],

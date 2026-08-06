@@ -1,10 +1,9 @@
 /**
  * Duplicate-submission check for a public form (/forms/{slug}/check).
  *
- * Per-visitor (keyed by fingerprint/email), so it must NEVER be edge-cached -
- * the `/api/forms/` prefix rule in cf-cache-rules would otherwise cache it, so
- * this handler self-sets `private, no-store` (the cacheControl plugin leaves an
- * already-set header alone). Plain handler, not a cached one, for the same
+ * Per-visitor (keyed by fingerprint/email), so it must NEVER be cached. It
+ * self-sets `private, no-store`, which the cacheControl plugin treats as an
+ * opt-out and leaves alone. Plain handler, not a cached one, for the same
  * reason.
  */
 export default defineEventHandler(async (event) => {

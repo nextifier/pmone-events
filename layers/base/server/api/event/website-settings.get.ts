@@ -45,8 +45,10 @@ export default defineCachedEventHandler(
     // Shorter than the other API handlers (300s): this payload drives the
     // home-page section toggles admins expect to see propagate quickly.
     maxAge: 15,
-    // NOT swr. A stale payload here fossilises: SSR renders the old data into
-    // HTML that is then edge-cached for days. See cf-cache-rules.ts.
+    // NOT swr. With SWR the expired entry is served while it revalidates, so
+    // the request that triggers the refresh still renders stale data — and a
+    // purge that lands in that window is undone. Kept false even though HTML is
+    // no longer edge-cached (7 Aug 2026): 15 s of staleness is the budget.
     swr: false,
     // Deliberately NOT keyed per-locale: this route (and the upstream PM One
     // endpoint it proxies) is locale-agnostic by design - see

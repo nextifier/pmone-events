@@ -87,8 +87,7 @@ export default defineNuxtConfig({
   },
 
   // /speakers, /brand-guidelines and /quotation used to be prerendered here via
-  // `cfCache.extraStaticPages`. They are now SSR + edge-cached; their TTLs live
-  // in layers/base/shared/cf-cache-rules.ts (CACHED_HTML_EXACT).
+  // `cfCache.extraStaticPages`. They are plain SSR now.
 
   sitemap: {
     urls: [

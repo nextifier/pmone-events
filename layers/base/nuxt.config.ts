@@ -143,8 +143,8 @@ export default defineNuxtConfig({
     // rebuild — those pages are now SSR + edge-cached instead), and it wrote
     // `_routes.json` excludes, which only the `cloudflare-pages` preset reads
     // and became dead code when the deploy preset moved to `cloudflare_module`.
-    // Cache TTLs now live in shared/cf-cache-rules.ts, applied as response
-    // headers by server/plugins/cacheControl.ts.
+    // Nothing replaced it: HTML is no longer cached at the edge at all (see
+    // server/plugins/cacheControl.ts).
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
@@ -354,9 +354,8 @@ export default defineNuxtConfig({
       cookieKey: "i18n_locale",
       // "root" (not "all"): with "all" + alwaysRedirect, a locale-prefixed URL
       // could still redirect based on the i18n_locale cookie — the response for
-      // a given URL would then vary by cookie, and every locale-prefixed page
-      // carries a long edge TTL (shared/cf-cache-rules.ts). Only "/" negotiates
-      // locale, and "/" is deliberately not cacheable. All 16 apps already
+      // a given URL would then vary by cookie. Only "/" negotiates locale, so
+      // every other URL renders exactly what its path says. All 16 apps already
       // override to "root"; this default just stops a new app from silently
       // reintroducing the hazard.
       redirectOn: "root",
