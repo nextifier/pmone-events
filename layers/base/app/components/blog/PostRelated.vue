@@ -142,15 +142,16 @@ const { $dayjs } = useNuxtApp();
 // largest HTML family on the account, so that is the most expensive place in
 // the codebase to do work nobody sees on first paint.
 //
-// SEO cost, accepted: 20 internal links leave the SSR HTML. Article discovery
-// does not depend on them — every post is in the sitemap
-// (server/api/sitemap-urls.ts) and linked from the SSR-rendered /news list.
+// Rendered on the server on purpose: these are ~20 internal links per article,
+// and internal linking is the main way Google walks from one post to the next.
+// This was briefly `server: false` (28 Jul - 6 Aug 2026) to shave payload off
+// each render while the in-Worker cache was being tuned; that cache is gone and
+// the links matter more than the bytes.
 //
 // No static key: the auto-generated key varies with the locale query so a
 // language switch refetches instead of reusing another locale's cache entry.
 const { locale } = useI18n();
 const { data: postsData, pending } = useLazyFetch("/api/blog/posts", {
-  server: false,
   query: {
     per_page: props.limit + 1,
     sort: "-published_at",

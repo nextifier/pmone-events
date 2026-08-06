@@ -6,7 +6,7 @@ import { Label } from "../../components/ui/label";
 import { FieldError } from "../../components/ui/field";
 import { InputPhone } from "../../components/ui/input-phone";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
-import DialogResponsive from "../../components/ui/dialog-responsive/DialogResponsive.vue";
+import ResponsiveDialog from "../../components/ui/responsive-dialog/ResponsiveDialog.vue";
 import {
   CustomFieldRenderer,
   CustomFieldGroup,
@@ -603,7 +603,7 @@ const termsOpen = ref(false);
     </div>
 
     <!-- Terms & Conditions dialog (staff-managed HTML from meta.terms) -->
-    <DialogResponsive v-model:open="termsOpen" :overflow-content="true" dialog-max-width="40rem">
+    <ResponsiveDialog v-model:open="termsOpen" :overflow-content="true" dialog-max-width="40rem">
       <template #default>
         <div class="space-y-4 px-4 pt-5 pb-8 sm:px-6">
           <h3 class="text-foreground text-lg font-semibold tracking-tighter">
@@ -622,6 +622,6 @@ const termsOpen = ref(false);
           </div>
         </div>
       </template>
-    </DialogResponsive>
+    </ResponsiveDialog>
   </div>
 </template>

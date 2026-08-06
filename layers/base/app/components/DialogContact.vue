@@ -1,5 +1,5 @@
 <template>
-  <DialogResponsive
+  <ResponsiveDialog
     v-model:open="isDialogOpen"
     :isResponsive="false"
     :overflowContent="true"
@@ -43,7 +43,7 @@
         </div>
       </div>
     </template>
-  </DialogResponsive>
+  </ResponsiveDialog>
 </template>
 
 <script setup>

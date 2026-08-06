@@ -5,7 +5,36 @@ Applied automatically by pnpm via `pnpm.patchedDependencies` in the root
 dependency makes `pnpm install` fail with "patch not applied", which is the
 intended signal to re-check whether the patch is still needed.
 
-Currently there are no active patches.
+## Active
+
+### `reka-ui@2.10.1.patch` — Drawer, dist only
+
+reka ships a port of Base UI's Drawer, but the port drifts from the original in
+ways that show up as soon as you swipe. The patch closes those gaps; each hunk
+mirrors a specific piece of Base UI, so when reka is bumped, check whether the
+upstream fix landed before re-applying.
+
+| What | Base UI reference |
+| --- | --- |
+| `swipeThreshold` forwarded as `max(size * 0.5, 10)`, release velocity `0.5` | `DrawerViewport.tsx: getBaseSwipeThreshold`, `FAST_SWIPE_VELOCITY` |
+| Progress is `displacement / size`, not `displacement / (size + threshold)` | `useSwipeDismiss.ts: updateSwipeProgress` |
+| Popup height measured border-box, not content-box | `DrawerPopup.tsx: measureHeight` |
+| `--drawer-height` only written while nested or closing; `auto` otherwise | `DrawerPopup.tsx: shouldUseAutoHeight` |
+| Snap drags past the top stop are sqrt-damped | `useDrawerSnapPoints.ts: getSnapPointSwipeMovement` |
+| `snapToNearest` rewritten: velocity ignored in sequential mode, close check after the sequential branch, `shouldForceAdjacent`, reversal correction | `DrawerViewport.tsx: onRelease` |
+| Backdrop progress mapped to the snap-point range instead of raw drag | `DrawerViewport.tsx: snapPointRange` |
+| Dragging against the dismiss direction rubber-bands (`data-rubber-band`) | `useSwipeDismiss.ts: applyDirectionalDamping` |
+| Touch drags may start on buttons, links and fields | `DrawerViewport.tsx: ignoreSelectorWhenTouch: false` |
+| `data-*-swipe-ignore` opt-out honoured on both touch and mouse | `DrawerViewport.tsx: isSwipeIgnoredTarget` |
+| `data-expanded`, `data-nested-drawer-swiping`, `data-swipe-dismiss` exposed | `DrawerPopupDataAttributes.ts` |
+
+Everything reka gets right is left alone, and the patch only touches `dist/` —
+`src/` is shipped but never resolved through the package's exports map.
+
+The remaining differences live outside the patch, in `components/ui/drawer`:
+nested presence/height/progress/swiping are relayed to every ancestor because
+reka forwards them to the grandparent's notifier, and `allowSelection` is
+implemented with `useDrawerSelectionArea` since reka has no `Drawer.Content`.
 
 ## Dropped
 

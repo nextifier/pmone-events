@@ -193,7 +193,7 @@ Server routes di `layers/base/server/` proxy request ke PM One API.
 | Styling | Tailwind CSS v4, shadcn-vue (reka-ui), tw-animate-css |
 | Animation | GSAP 3, @formkit/auto-animate, canvas-confetti |
 | Carousel | embla-carousel-vue + autoplay/auto-scroll/wheel-gestures |
-| UI | vue-sonner (toast), vue-tippy (tooltips), vaul-vue (drawer), v-wave (ripple) |
+| UI | vue-sonner (toast), vue-tippy (tooltips), reka-ui Drawer, v-wave (ripple) |
 | Images | @nuxt/image (Cloudflare provider in prod) |
 | SEO | @nuxtjs/seo, nuxt-gtag |
 | Icons | @nuxt/icon (hugeicons, lucide, ri) |

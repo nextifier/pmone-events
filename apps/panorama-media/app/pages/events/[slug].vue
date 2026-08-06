@@ -6,7 +6,7 @@
           <GallerySlider :event="event" class="lg:hidden" />
           <GalleryBentoGrid :event="event" class="hidden lg:grid" />
 
-          <DialogResponsive
+          <ResponsiveDialog
             v-model:open="isDialogOpen"
             :isResponsive="false"
             :overflowContent="true"
@@ -50,7 +50,7 @@
                 </div>
               </div>
             </template>
-          </DialogResponsive>
+          </ResponsiveDialog>
         </div>
 
         <div

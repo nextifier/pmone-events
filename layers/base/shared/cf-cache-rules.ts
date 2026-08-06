@@ -5,18 +5,18 @@
  * listed here is never stored — that is the safety property the whole design
  * rests on, so widening it requires an audit, not a guess.
  *
- * Consumed by:
- *  - layers/base/server/middleware/00.edge-cache.ts — decides whether to look a
- *    request up in the Cloudflare Cache API.
- *  - layers/base/server/plugins/cacheControl.ts — sets `cache-control` on 200
- *    GET responses (that header becomes the stored entry's edge TTL) and writes
- *    the response into the Cache API.
+ * Consumed by exactly one file: layers/base/server/plugins/cacheControl.ts,
+ * which sets `cache-control` on 200 GET responses. The zone Cache Rule
+ * "Respect origin Cache-Control" turns that header into an edge TTL.
  *
- * HISTORY (do not undo): these TTLs used to feed a per-zone Cache Rule. That
- * stopped working on 21 Jul 2026 when the deploy preset moved from
- * `cloudflare-pages` to `cloudflare_module` — a Worker runs BEFORE Cloudflare's
- * cache, so a Cache Rule can never cache a Worker response. Caching now happens
- * inside the Worker via the Cache API. See server/utils/edgeCache.ts.
+ * HISTORY: between 23 Jul and 6 Aug 2026 these TTLs also drove an in-Worker
+ * Cloudflare Cache API layer (server/middleware/00.edge-cache.ts +
+ * server/utils/edgeCache.ts). That layer was deleted — it saved ~$5-6/month and
+ * cost far more than that in correctness: all bots shared one cache key for `/`,
+ * so a single crawler sending `Accept-Language: id` pinned a `302 -> /id` onto
+ * Googlebot for an hour; transient 404s were cached for an hour; and every
+ * cacheable render had its `set-cookie` stripped, which killed i18n locale
+ * stickiness. Do not reintroduce it without solving those three first.
  *
  * Kept OUT of routeRules on purpose: routeRules headers are all written into the
  * generated `_headers` file, which has a 100-rule limit. Locale-expanded HTML
@@ -28,7 +28,7 @@
  * because the PM One dashboard purges the exact URLs on publish; these windows
  * only bound how stale things can get if a purge fails.
  *
- * THE THIRD LAYER, and the one that bit us on 25 Jul 2026: every GET proxy in
+ * THE SECOND LAYER, and the one that bit us on 25 Jul 2026: every GET proxy in
  * server/api/ is a `defineCachedEventHandler` (maxAge 15). That cache lives
  * INSIDE the worker, so a Cloudflare purge cannot reach it — and SSR reads its
  * payload through it. A purge that lands while that entry is still warm buys
@@ -59,21 +59,19 @@
 export const HTML_TTL = "public, max-age=0, s-maxage=604800"; // 7 d edge
 
 /**
- * Detail pages (an article, a brand, a guest) — 30 days.
+ * Detail pages (an article, a brand, a guest) — 7 days.
  *
- * Counter-intuitive but measured: on 22 Jul 2026 these were 2,291 distinct URLs
- * serving 23,657 requests/day, i.e. ~10 requests per URL per day. A short TTL
- * buys almost nothing on a tail like that — at 1 hour they cost 11,053
- * renders/day, at 7 days 327, at 30 days ~76. That is the difference between
- * missing and comfortably beating the CPU allowance.
+ * Was 30 days between 23 Jul and 6 Aug 2026. That window was measured to buy
+ * nothing over 7 days (~76 renders/day vs ~327, against a 4M ms/day budget)
+ * while giving a failed purge a month-long blast radius, so it is back to 7.
  *
- * Safe only because invalidation is exact: Post/Brand/Guest/Form each declare
+ * Safe because invalidation is exact: Post/Brand/Guest/Form each declare
  * `edgeCachePaths()` in the pmone dashboard, so publishing drops that specific
  * URL within seconds. If you ever remove a model's edgeCachePaths(), move its
- * routes back down or edits will sit behind this for a month. Emergency valve:
+ * routes back down or edits will sit behind this for a week. Emergency valve:
  * `php artisan edge:purge --project=<x> | --all` in the pmone repo.
  */
-export const HTML_TTL_DETAIL = "public, max-age=0, s-maxage=2592000"; // 30 d edge
+export const HTML_TTL_DETAIL = "public, max-age=0, s-maxage=604800"; // 7 d edge
 
 export const HTML_TTL_LONG = "public, max-age=0, s-maxage=604800"; // 7 d edge
 
@@ -265,21 +263,18 @@ export function resolveCacheControl(pathname: string): string | undefined {
     path = path.slice(seg.length + 1) || "/";
   }
   if (path === "/") {
-    // Both "/" and locale homepages ("/id") are cacheable.
+    // Locale homepages ("/id", "/zh", …) are cacheable — their locale is in the
+    // path, so one stored copy is correct for everyone who asks for it.
     //
-    // "/" is the single most expensive route on the account — 5,134 requests a
-    // day across 50 hosts, 40M ms of CPU per billing cycle on its own, more than
-    // the entire monthly allowance. It was left uncached at first because
-    // detectBrowserLanguage.alwaysRedirect negotiates the response from the
-    // i18n_locale cookie and then Accept-Language, so one cached copy would
-    // serve English HTML to a visitor who should have been redirected to /id.
-    //
-    // It is cacheable now because the cache KEY carries both negotiation inputs
-    // verbatim (see buildEdgeCacheKey in server/utils/edgeCache.ts). The key
-    // does not reimplement i18n's matching — it just guarantees that two
-    // requests sharing a key fed i18n identical input, so they must have
-    // produced identical output. Redirects are still never stored (200 only).
-    return HTML_TTL;
+    // Bare "/" is NOT, and must stay that way. `detectBrowserLanguage` with
+    // `alwaysRedirect` negotiates that response from the `i18n_locale` cookie
+    // and then `Accept-Language`, so a single shared copy would hand English
+    // HTML to a visitor who should have been redirected to /id — and hand a
+    // cached `302 -> /id` to Googlebot, which is what de-indexed all 16 sites
+    // in late July 2026. The old in-Worker cache made "/" cacheable by encoding
+    // both negotiation inputs into its key; the CDN has no such key, and it
+    // does not vary on Accept-Language. Nothing here may cache "/".
+    return pathname === "/" ? undefined : HTML_TTL;
   }
 
   if (CACHED_HTML_EXACT[path]) {

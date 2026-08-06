@@ -19,9 +19,15 @@ Section 1-23 di file ini identik di ketiga repo, sama seperti `components/ui`. Y
 
 ### Ukuran teks
 
+Ada dua tangga yang arahnya berlawanan. Memilih yang salah akan langsung kelihatan.
+
+**Teks statis** (paragraf, deskripsi, judul, isi tabel, tooltip, kbd, shortcut) ukurannya tetap, atau membesar di layar besar.
+
 - Default body: `text-sm` atau `text-base`.
 - Hindari `text-xs`, `text-[11px]`, `text-[10px]` berdiri sendiri di layar besar. Kalau butuh kecil, pakai `text-xs sm:text-sm` supaya tetap nyaman dibaca di desktop.
 - Hindari `text-[9px]` kecuali untuk indikator badge yang memang sangat compact (step number, key indicator).
+
+**Kontrol interaktif** (button, field, select, tab, toggle, item menu, label) memakai tangga sebaliknya: `text-base sm:text-sm`. 16px di telepon supaya nyaman disentuh dan dibaca sambil berjalan, 14px di desktop supaya toolbar tidak terlihat berat. Skala ini diambil dari coss.com/ui. Jangan mengembalikan `sm:text-base` ke rule `cn-*` mana pun.
 
 #### Skala button (dimiliki style, jangan di-override di call site)
 
@@ -29,33 +35,33 @@ Semua `style-*.css` memakai skala yang sama. Yang berbeda antar style cuma tingg
 
 | size | font-size |
 | --- | --- |
-| `xs` | `text-xs sm:text-sm` |
-| `sm` | `text-sm` |
-| `default`, `lg` | `text-sm sm:text-base` (diwarisi dari `.cn-button`) |
-| `xl` | `text-base sm:text-lg` |
+| `xs` | `text-sm sm:text-xs` |
+| `sm` | mewarisi `.cn-button`, tidak punya override sendiri |
+| `default`, `lg` | `text-base sm:text-sm` (diwarisi dari `.cn-button`) |
+| `xl` | `text-lg sm:text-base` |
 
-Pengecualian: `style-mira.css` memakai `text-xs` flat di size `xs`, karena `h-5` tidak muat menampung line-box 20px.
+#### Field: 16px saat disentuh, 14px saat pakai mouse
 
-Konsekuensi yang perlu diingat: tombol `size="sm"` tetap 14px di desktop, sementara field di sebelahnya 16px. Itu memang bentuk yang diinginkan untuk toolbar, bukan bug.
+`.cn-input`, `.cn-textarea`, `.cn-native-select`, `.cn-input-otp-slot`, `.cn-command-input`, dan `.cn-combobox-chips` memakai `text-base pointer-fine:text-sm`.
 
-#### Field selalu `text-base`
+Kenapa `pointer-fine:` dan bukan `sm:`: iOS Safari melakukan zoom-on-focus setiap kali font field di bawah 16px, dan itu tetap terjadi di iPad maupun iPhone landscape yang lebarnya sudah lewat breakpoint `sm` (640px). `pointer-fine` cuma menyala di perangkat bermouse, jadi 16px bertahan di semua perangkat sentuh. Jangan menggantinya dengan `sm:text-sm`.
 
-`.cn-input`, `.cn-textarea`, `.cn-native-select`, dan `.cn-input-otp-slot` memakai `text-base` di semua breakpoint. Jangan menambahkan `md:text-sm` kembali: 16px adalah ambang di mana iOS Safari berhenti melakukan zoom-on-focus.
+`.cn-select-trigger` bukan field ketik, jadi ia ikut tangga kontrol biasa (`text-base sm:text-sm`). Varian `data-[size=sm]` sengaja tidak lagi meng-override font: selectornya (0,3,0) mengalahkan `sm:` (0,2,0), jadi kalau dipasang lagi, select kompak akan terkunci 14px di mobile.
 
-`.cn-select-trigger` mengikuti skala button (`text-sm sm:text-base`), dengan `data-[size=sm]:text-sm` supaya varian kompaknya sejajar dengan `<Button size="sm">`.
+#### Tangga tinggi dan ikon
 
-**Batas bawah di mobile.** `text-xs` (12px) adalah ukuran terkecil yang boleh muncul di layar kecil. Apa pun di bawah itu (`text-[11px]`, `text-[10px]`, `text-[9px]`) tidak boleh dipakai di breakpoint dasar. Kalau memang butuh sangat kecil karena ruang sempit, kecilkan di breakpoint besar, bukan di kecil:
+Tiap kontrol punya dua tinggi: mobile satu step (4px) di atas desktop. Nilai desktop milik style dan tidak berubah, jadi layout desktop tidak pernah bergeser.
 
-```
-text-xs lg:text-[0.625rem]     <!-- benar: mengecil saat kolom menyempit -->
-text-[0.625rem] lg:text-xs     <!-- salah: paling kecil justru di mobile -->
-```
+| style | default (mobile / desktop) |
+| --- | --- |
+| `mono`, `nova`, `lyra`, `rhea` | 36px / 32px |
+| `vega`, `maia`, `luma` | 40px / 36px |
+| `mira` | 32px / 28px |
+| `sera` | 44px / 40px |
 
-Alasannya sederhana: layout sempit biasanya terjadi di desktop (grid banyak kolom, sidebar), sementara di mobile grid-nya justru melebar jadi satu atau dua kolom.
+`--cn-input-h` mengikuti tangga yang sama lewat `@media (width >= 40rem)` di dalam blok `.style-X`, jadi `h-(--cn-input-h)` di call site ikut otomatis tanpa perubahan apa pun.
 
-**Konten primer jangan `text-xs`.** Nilai, hasil, isi tabel, pesan error, dan blok kode adalah alasan orang membuka halamannya. Minimal `text-xs sm:text-sm`, lebih baik `text-sm`. `text-xs` polos hanya untuk chrome: helper text, meta, caption, label sekunder.
-
-**Input dan textarea minimal 16px di mobile.** Safari iOS otomatis zoom saat field dengan `font-size` di bawah 16px mendapat fokus, dan zoom itu tidak kembali sendiri. Pakai `text-base sm:text-sm` untuk semua field yang bisa diketik, termasuk yang di dalam `InputGroup`.
+Ikon di dalam kontrol naik setengah step (2px) di mobile: `[&_svg:not([class*=size-])]:size-4.5 sm:[…]:size-4`. Checkbox, radio, dan slider thumb juga setengah step. Badge naik satu step penuh berikut fontnya (`h-6 sm:h-5`, `text-sm sm:text-xs`).
 
 ### Hierarchy
 
@@ -270,7 +276,7 @@ Class `frame`, `frame-header`, `frame-title`, `frame-description`, `frame-panel`
 
 ### Size
 
-Tinggi setiap size dimiliki style aktif, jadi jangan menghafal angkanya. Di style default (`mono`) urutannya `xs` 24px, `sm` 28px, `default` 32px, `lg` 36px, `xl` 44px, tapi di `sera` semuanya lebih besar dan di `mira` lebih kecil. Pilih berdasarkan peran, bukan piksel.
+Tinggi setiap size dimiliki style aktif, jadi jangan menghafal angkanya. Di style default (`mono`) urutan desktopnya `xs` 24px, `sm` 28px, `default` 32px, `lg` 36px, `xl` 44px, dan tiap size 4px lebih tinggi di mobile. Di `sera` semuanya lebih besar, di `mira` lebih kecil. Pilih berdasarkan peran, bukan piksel.
 
 - `xs`: badge-like action di dalam baris padat.
 - `sm`: default untuk toolbar, header halaman, dan aksi di dalam row table. Ini yang paling sering dipakai.
@@ -299,8 +305,8 @@ Kalau tombol harus sejajar dengan field di baris yang sama (misal di samping sea
 
 ## 10. Dialog / Modal
 
-- Wajib pakai `<DialogResponsive>` (`components/ui/dialog-responsive/`). Component ini render Dialog di desktop dan Drawer di mobile.
-- Jangan pakai `confirm()` native browser. Untuk konfirmasi delete, pakai `<DialogResponsive>` dengan footer dua tombol:
+- Wajib pakai `<ResponsiveDialog>` (`components/ui/responsive-dialog/`). Component ini render Dialog di desktop dan Drawer di mobile.
+- Jangan pakai `confirm()` native browser. Untuk konfirmasi delete, pakai `<ResponsiveDialog>` dengan footer dua tombol:
   - Cancel: `variant="outline"`.
   - Delete: `variant="destructive"`.
 - Title dialog: `text-lg font-semibold tracking-tighter`.
@@ -314,7 +320,7 @@ Kalau tombol harus sejajar dengan field di baris yang sama (misal di samping sea
 - Pakai `<TableData>` (`components/ui/table-data/`) untuk list page yang butuh search + filter + sort + pagination. Jangan rakit table dari nol kalau use case-nya cocok.
 - Untuk table statis sederhana: `<Table>` + `<TableHeader>` + `<TableRow>` + `<TableCell>`.
 - Row action: pakai `<DropdownMenu>` dengan trigger `<Button variant="ghost" size="iconSm">`.
-- Delete action di dropdown wajib buka `<DialogResponsive>` konfirmasi, tidak langsung delete.
+- Delete action di dropdown wajib buka `<ResponsiveDialog>` konfirmasi, tidak langsung delete.
 
 ---
 
@@ -473,10 +479,11 @@ Ganti menjadi `<Badge variant="success" plain>Active</Badge>` (atau dengan `icon
 
 ## 22. Hal yang Wajib Dihindari
 
-- `text-xs` standalone di layar besar. Pakai `text-xs sm:text-sm`.
+- `text-xs` standalone di layar besar **pada teks statis**. Pakai `text-xs sm:text-sm`. Aturan ini tidak berlaku untuk kontrol interaktif: di sana tangganya justru mengecil di desktop (§1), jadi `text-sm sm:text-xs` di `.cn-button-size-xs` memang benar.
+- `sm:text-base` di rule `cn-*` mana pun. Tangga kontrol sekarang `text-base sm:text-sm`.
 - Ukuran di bawah `text-xs` pada breakpoint dasar. Kalau perlu kecil, kecilkan di breakpoint besar.
 - `text-xs` untuk konten primer (nilai, hasil, isi tabel, pesan error, blok kode).
-- Input / textarea di bawah 16px pada mobile - memicu auto-zoom iOS. Pakai `text-base sm:text-sm`.
+- Input / textarea di bawah 16px pada perangkat sentuh - memicu auto-zoom iOS. Pakai `text-base pointer-fine:text-sm`, bukan `sm:text-sm`.
 - Gradient text dan nested card.
 - `border-left: 3px solid` sebagai accent stripe.
 - `font-bold`, `font-extrabold`. Maksimum `font-semibold`.
@@ -484,7 +491,7 @@ Ganti menjadi `<Badge variant="success" plain>Active</Badge>` (atau dengan `icon
 - `bg-green-*`, `bg-red-*`, `bg-yellow-*`, `bg-blue-*` literal.
 - Native element `<button>`, `<input>`, `<select>`, `<textarea>`. Tombol toolbar dengan class border sendiri (`border-border hover:bg-muted ... rounded-md border px-2 py-1 text-sm`) termasuk di sini - pakai `<Button variant="outline" size="sm">`, dan `<TableFilterButton>` untuk tombol filter.
 - Memanggil `buttonVariants()` tanpa argumen `size`. Diam-diam jatuh ke `size-default`, sehingga tombol jadi lebih besar dari tetangganya. Selalu sebutkan size-nya.
-- `confirm()` browser. Selalu pakai `<DialogResponsive>`.
+- `confirm()` browser. Selalu pakai `<ResponsiveDialog>`.
 - Pattern card / form dari nol kalau sudah ada `.frame` atau `<Card>`.
 - Em-dash (—) di teks UI. Pakai dash biasa (-) atau koma.
 - Gap form yang lebih besar dari `gap-x-2` saat grid dua kolom.
@@ -514,7 +521,7 @@ Empat kasus di bawah ini melanggar daftar di atas dan tetap boleh, karena aturan
 - Grid form gap-nya `gap-x-2`.
 - Form pakai struktur `Label + Input + helper + FieldError` dalam `space-y-2` wrapper.
 - Section form dibungkus `.frame`.
-- Tombol delete buka `<DialogResponsive>` konfirmasi.
+- Tombol delete buka `<ResponsiveDialog>` konfirmasi.
 - Empty state pakai component `<Empty>`.
 - Skeleton loading pakai component `<Skeleton>`.
 - Tidak ada `font-bold`, `uppercase`, `tracking-wider`.

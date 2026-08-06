@@ -1,5 +1,5 @@
 <template>
-  <DialogResponsive
+  <ResponsiveDialog
     v-model:open="isOpen"
     dialog-max-width="480px"
     :close-button-class="
@@ -152,7 +152,7 @@
         </div>
       </div>
     </div>
-  </DialogResponsive>
+  </ResponsiveDialog>
 </template>
 
 <script setup>

@@ -88,7 +88,7 @@ apps/<event>/
 | **Styling** | Tailwind CSS v4, shadcn-vue (reka-ui), tw-animate-css |
 | **Animation** | GSAP 3, @formkit/auto-animate, canvas-confetti |
 | **Carousel** | embla-carousel-vue + autoplay, auto-scroll, wheel-gestures |
-| **UI Components** | vue-sonner (toast), vue-tippy (tooltips), vaul-vue (drawer), v-wave (ripple) |
+| **UI Components** | vue-sonner (toast), vue-tippy (tooltips), reka-ui Drawer, v-wave (ripple) |
 | **Images** | @nuxt/image (Cloudflare provider prod, ipx dev) |
 | **SEO** | @nuxtjs/seo, nuxt-gtag |
 | **Icons** | @nuxt/icon (hugeicons, lucide, ri) |

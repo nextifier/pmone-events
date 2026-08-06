@@ -130,7 +130,6 @@ export default defineNuxtConfig({
         "clsx",
         "tailwind-merge",
         "lucide-vue-next",
-        "vaul-vue",
         "@vue/devtools-core",
         "@vue/devtools-kit",
       ],
@@ -144,7 +143,8 @@ export default defineNuxtConfig({
     // rebuild — those pages are now SSR + edge-cached instead), and it wrote
     // `_routes.json` excludes, which only the `cloudflare-pages` preset reads
     // and became dead code when the deploy preset moved to `cloudflare_module`.
-    // Caching now lives in server/middleware/00.edge-cache.ts.
+    // Cache TTLs now live in shared/cf-cache-rules.ts, applied as response
+    // headers by server/plugins/cacheControl.ts.
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
@@ -264,10 +264,33 @@ export default defineNuxtConfig({
     cacheMaxAgeSeconds: 60 * 60 * 24 * 30,
   },
 
+  site: {
+    // EXPLICIT ON PURPOSE. nuxt-robots derives indexability as
+    // `site.indexable ?? (site.env === "production")`, and `site.env` comes from
+    // NODE_ENV at build time — supplied only by each app's `build` script
+    // ("NODE_ENV=production nuxt build"). Any build that misses that script
+    // (`nuxt build` by hand, a CI job calling a different script, an edited
+    // Cloudflare build command) bakes `env: "development"`, and nuxt-robots then
+    // emits `Disallow: /` plus `X-Robots-Tag: noindex, nofollow` on every page —
+    // silently, with no error. That is exactly the shape of "all our sites
+    // vanished from Google". Stating it here removes the landmine; canonical
+    // URLs still point at each app's `site.url`, so a preview deployment cannot
+    // outrank production.
+    indexable: true,
+  },
+
   robots: {
     // /winner is a utility tool (random winner generator), intentionally kept
     // out of search. Terms & Privacy are crawlable so they can score SEO 100.
     disallow: ["/winner"],
+    // Google-Extended is Google's AI-training crawler. It has NO user agent of
+    // its own — it fetches as Googlebot, from Googlebot IPs — so the only way to
+    // opt out of AI training without also blocking Google Search is this
+    // robots.txt group. Cloudflare's "Block AI training crawlers" rule cannot
+    // tell them apart: on 6 Aug 2026 it was blocking 1,200-1,800 real Googlebot
+    // requests a day with 403 across all 28 zones, and had de-indexed 612 pages
+    // on franchise-expo.co.id alone.
+    groups: [{ userAgent: ["Google-Extended"], disallow: ["/"] }],
   },
 
   sitemap: {
@@ -313,10 +336,10 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: "i18n_locale",
       // "root" (not "all"): with "all" + alwaysRedirect, a locale-prefixed URL
-      // could still redirect based on the i18n_locale cookie — i.e. the response
-      // for a given URL varies by cookie, which makes it unsafe to edge-cache
-      // (see server/middleware/00.edge-cache.ts). Only "/" negotiates locale;
-      // every other URL renders exactly what its path says. All 16 apps already
+      // could still redirect based on the i18n_locale cookie — the response for
+      // a given URL would then vary by cookie, and every locale-prefixed page
+      // carries a long edge TTL (shared/cf-cache-rules.ts). Only "/" negotiates
+      // locale, and "/" is deliberately not cacheable. All 16 apps already
       // override to "root"; this default just stops a new app from silently
       // reintroducing the hazard.
       redirectOn: "root",
@@ -392,12 +415,11 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    // Nothing is prerendered: every public page is SSR + edge-cached (see
-    // server/middleware/00.edge-cache.ts). Stated explicitly rather than left to
+    // Nothing is prerendered: every public page is SSR, with its edge TTL set
+    // by server/plugins/cacheControl.ts. Stated explicitly rather than left to
     // defaults so a future Nuxt/Nitro change cannot quietly start crawling and
     // baking pages again — a prerendered page freezes the dashboard-managed
-    // nav/appearance payload into its HTML until the next code deploy, which is
-    // exactly what this migration removed.
+    // nav/appearance payload into its HTML until the next code deploy.
     prerender: {
       crawlLinks: false,
       routes: [],

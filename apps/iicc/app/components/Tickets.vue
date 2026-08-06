@@ -147,7 +147,7 @@
       </p>
 
       <!-- Terms & Conditions Dialog -->
-      <DialogResponsive
+      <ResponsiveDialog
         v-model:open="isTermsDialogOpen"
         dialog-max-width="600px"
         :overflow-content="true"
@@ -172,7 +172,7 @@
             </div>
           </div>
         </div>
-      </DialogResponsive>
+      </ResponsiveDialog>
     </div>
   </section>
 </template>

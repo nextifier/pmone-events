@@ -10,6 +10,9 @@
       "commander": "^13.1.0",
       "citty": "^0.2.1",
       "@intlify/unplugin-vue-i18n": "^11.1.1"
+    },
+    "patchedDependencies": {
+      "reka-ui@2.10.1": "patches/reka-ui@2.10.1.patch"
     }
   },
   "devDependencies": {
