@@ -349,9 +349,13 @@ const qrCodeUrl = computed(() => {
   return `${window.location.origin}${route.path}`;
 });
 
+// Resolved in setup, never inside a computed: a composable called lazily can run
+// after the Nuxt instance is gone (NUXT_E1001). See the usePageMeta call below.
+const appConfig = useAppConfig();
+
 const qrCodeText = computed(() => {
-  const siteUrl = useAppConfig()
-    .app.url.replace(/^https?:\/\//, "")
+  const siteUrl = appConfig.app.url
+    .replace(/^https?:\/\//, "")
     .replace(/\/$/, "");
   return `${siteUrl}${route.path}`;
 });
@@ -365,11 +369,20 @@ watchEffect(() => {
   if (profile.value?.id) trackVisit();
 });
 
-usePageMeta(null, {
-  title: computed(() => `Links · ${profile.value?.name || ""}`),
-  description: computed(
-    () =>
-      `Find tickets, brands, the rundown, and other essential links for ${profile.value?.name || useAppConfig().app.name}.`,
-  ),
-});
+// Title and description come from the content store's `pages.links`, like every
+// other page, which makes them translated per locale and lets titleTemplate add
+// " · <site name>" exactly once.
+//
+// This replaced a hand-rolled override that did two things wrong. It interpolated
+// the profile name into the title, which rendered
+// "Links · Keramika Indonesia · Keramika Indonesia" in production because the
+// profile name and the site name are the same string on every project. And its
+// description was a computed calling `useAppConfig()` behind a `||` — a Nuxt
+// composable evaluated during renderSSRHead, after this component's setup context
+// is gone, which throws NUXT_E1001. It only fired when the profile fetch returned
+// nothing: never locally, but it did on the Cloudflare builder while api.pmone.id
+// was under load, and it failed megabuild's deploy. Same bug that took
+// /news/{slug} down in Jul 2026 — never call a composable inside a computed handed
+// to a head API.
+usePageMeta("links");
 </script>

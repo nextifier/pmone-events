@@ -25,6 +25,22 @@ export const useContentStore = defineStore("content", {
         title: `Impactful Corporate Outing Portfolio`,
         description: `See our successful HR-driven corporate outings! Browse the Panorama Events portfolio for inspiring team building events, retreats & engaging employee experiences.`,
       },
+      gallery: {
+        title: `Gallery`,
+        description: `Photos from corporate outings and team events produced by Panorama Events.`,
+      },
+      programs: {
+        title: `Programs`,
+        description: `Outing and team-building programs from Panorama Events.`,
+      },
+      ticket: {
+        title: `Tickets`,
+        description: `Ticketing for events produced by Panorama Events.`,
+      },
+      winner: {
+        title: `Winners`,
+        description: `Winner announcements for Panorama Events giveaways and competitions.`,
+      },
       contact: {
         title: `Plan Your Corporate Outing`,
         description: `Ready for an impactful corporate outing? Contact Panorama Events in Indonesia for a custom proposal. Let's design your team's next growth experience!`,

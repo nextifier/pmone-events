@@ -183,13 +183,16 @@
 </template>
 
 <script setup>
-usePageMeta(null, {
-  title: "Syarat & Ketentuan Tiket",
-  description:
-    "Syarat & Ketentuan Tiket Event Panorama Media untuk pembelian tiket, registrasi event, pembayaran, dan kebijakan lainnya.",
-});
+// English, and named after THIS site — matching the other legal pages. It used
+// to be a hardcoded Indonesian title with "Panorama Media" in the description,
+// shipped to all 16 sites in every locale, including the English-only ones and
+// the ones owned by a different company. The page body itself stays bilingual.
+const siteName = useAppConfig().app.name;
 
-const config = useAppConfig();
+usePageMeta(null, {
+  title: "Ticket Terms & Conditions",
+  description: `Ticket terms and conditions for ${siteName}: purchasing, event registration, payment, and related policies.`,
+});
 
 // "Last updated" comes from app.config (settings.terms.lastUpdate). The
 // dashboard body override this page used to accept was removed in Aug 2026;

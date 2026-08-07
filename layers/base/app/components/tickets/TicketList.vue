@@ -489,12 +489,19 @@ const subtotalLabel = computed(() =>
 </script>
 
 <template>
-  <!-- Loading: a skeleton shaped like the real ticket cards -->
-  <TicketListSkeleton v-if="pending" />
+  <!-- Loading: a skeleton shaped like the real ticket cards. Only when there is
+       nothing to show yet — /tickets is prerendered and re-fetches on mount to
+       pick up a sale that opened since the build, and that refresh flips
+       `pending` back to true. Without the length check every visit would flash a
+       skeleton over the ticket list it had already painted. -->
+  <TicketListSkeleton v-if="pending && !tickets.length" />
 
   <!-- Load failure or ticketing not enabled. We never fabricate ticket data:
-       a real failure is retryable, a disabled event reads as "coming soon". -->
-  <div v-else-if="error" class="container">
+       a real failure is retryable, a disabled event reads as "coming soon".
+       Also gated on having nothing to show: when the on-mount refresh fails,
+       tickets that were already painted must stay on screen rather than being
+       replaced by a retry box. -->
+  <div v-else-if="error && !tickets.length" class="container">
     <EmptyState
       v-if="ticketsDisabled"
       :title="t('tickets.unavailableTitle')"

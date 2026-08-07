@@ -637,11 +637,16 @@ if (!isRundownPage && import.meta.client) {
   });
 }
 
-// Embedded on a home page, an empty rundown must not render as an empty
-// section — the dedicated /rundown page always renders, because it owns its own
-// empty state. This guard used to live in `useRundownVisibility`, called from
-// every app's pages/index.vue; it moved in here so a home page only has to
-// comment the component out to drop the section. `?show-rundown=true` forces it.
+// An empty rundown must not render as an empty section under someone's HERO, so
+// on a home page it hides itself until it has items. Anywhere else it always
+// renders: /rundown owns its own empty state, and the /tickets Rundown tab only
+// exists because the site turned it on — a visitor who clicks it deserves the
+// empty state, not a blank panel.
+//
+// This guard used to live in `useRundownVisibility`, called from every app's
+// pages/index.vue; it moved in here so a home page only has to comment the
+// component out to drop the section. `?show-rundown=true` forces it.
+const isHomePage = rundownBaseName === "index";
 const forcedRundown = useForceShow("show-rundown");
 const hasRundownItems = computed(() =>
   (rundownData.value?.data?.days ?? []).some(
@@ -649,7 +654,7 @@ const hasRundownItems = computed(() =>
   ),
 );
 const sectionVisible = computed(
-  () => isRundownPage || forcedRundown.value || hasRundownItems.value,
+  () => !isHomePage || forcedRundown.value || hasRundownItems.value,
 );
 
 // Day-first "D MMM" e.g. "7 May", "22 Jul"

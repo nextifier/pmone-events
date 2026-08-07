@@ -25,6 +25,26 @@ export const useContentStore = defineStore("content", {
         title: `Events`,
         description: `Discover events organized by Panorama Media, including trade exhibitions, pop culture festivals, and corporate gatherings across Indonesia.`,
       },
+      links: {
+        title: `Links`,
+        description: `Every Panorama Media link in one place — our brands, events, and how to reach us.`,
+      },
+      gallery: {
+        title: `Gallery`,
+        description: `Photos from exhibitions, pop culture events, and corporate events produced by Panorama Media.`,
+      },
+      programs: {
+        title: `Programs`,
+        description: `Programs and activities across Panorama Media's events.`,
+      },
+      ticket: {
+        title: `Tickets`,
+        description: `Ticketing for events produced by Panorama Media.`,
+      },
+      winner: {
+        title: `Winners`,
+        description: `Winner announcements for Panorama Media giveaways and competitions.`,
+      },
       contact: {
         title: `Contact`,
         description: `Get in touch with Panorama Media to discuss your next exhibition, festival, corporate event, or live entertainment project.`,

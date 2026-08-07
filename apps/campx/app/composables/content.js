@@ -8,6 +8,26 @@ export const useContentStore = defineStore("content", {
         description: `Lepas penat & hirup segarnya alam di CampX Jatiluhur! 🏕️ Tempat camping dan outing kekinian di tepi danau. Cek semua paket serunya di sini!`,
         withoutTitleTemplate: true,
       },
+      links: {
+        title: `Links`,
+        description: `Every CampX link in one place — packages, booking, and how to reach us.`,
+      },
+      gallery: {
+        title: `Gallery`,
+        description: `Photos from camping trips, outings, and events at CampX Jatiluhur.`,
+      },
+      programs: {
+        title: `Programs`,
+        description: `Activity and outing programs available at CampX Jatiluhur.`,
+      },
+      ticket: {
+        title: `Tickets`,
+        description: `Book your stay or outing package at CampX Jatiluhur.`,
+      },
+      winner: {
+        title: `Winners`,
+        description: `Winner announcements for CampX giveaways and competitions.`,
+      },
       contact: {
         title: `Contact us`,
         description: `Ada rencana outing atau butuh info lebih lanjut? Hubungi tim CampX di sini! Dapatkan penawaran untuk acara grup, gathering, atau sekadar tanya-tanya.`,

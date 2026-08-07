@@ -165,13 +165,16 @@
 </template>
 
 <script setup>
-usePageMeta(null, {
-  title: "Kebijakan Pengembalian Dana",
-  description:
-    "Kebijakan pengembalian dana (refund) Panorama Media untuk pembelian tiket dan registrasi event.",
-});
+// English, and named after THIS site — matching the other legal pages. It used
+// to be a hardcoded Indonesian title with "Panorama Media" in the description,
+// shipped to all 16 sites in every locale, including the English-only ones and
+// the ones owned by a different company. The page body itself stays bilingual.
+const siteName = useAppConfig().app.name;
 
-const config = useAppConfig();
+usePageMeta(null, {
+  title: "Ticket Refund & Return Policy",
+  description: `Refund and return policy for ${siteName} ticket purchases and event registrations.`,
+});
 
 // "Last updated" comes from app.config (settings.terms.lastUpdate). The
 // dashboard body override this page used to accept was removed in Aug 2026;
