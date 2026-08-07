@@ -10,9 +10,6 @@
       "commander": "^13.1.0",
       "citty": "^0.2.1",
       "@intlify/unplugin-vue-i18n": "^11.1.1"
-    },
-    "patchedDependencies": {
-      "reka-ui@2.10.1": "patches/reka-ui@2.10.1.patch"
     }
   },
   "devDependencies": {
@@ -53,5 +50,8 @@
     "build:panorama-media": "pnpm --filter @events/panorama-media build",
     "build:global-ai-expo": "pnpm --filter @events/global-ai-expo build",
     "build:all": "pnpm -r --filter './apps/*' build"
+  },
+  "dependencies": {
+    "aria-hidden": "^1.2.4"
   }
 }

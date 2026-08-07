@@ -4,7 +4,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-project-profile",
-    maxAge: 15,
+    maxAge: API_MAX_AGE,
     // NOT swr. With SWR the expired entry is served while it revalidates, so
     // the request that triggers the refresh still renders stale data — and a
     // purge that lands in that window is undone. Kept false even though HTML is

@@ -44,7 +44,6 @@
 
         <div class="flex h-full shrink-0 items-center gap-x-1.5">
           <Button
-            v-if="hotelVisible"
             :to="localePath('/hotels')"
             variant="secondary"
             class="hidden xl:inline-flex"
@@ -77,7 +76,6 @@ const route = useRoute();
 const isHomePage = computed(() => route.path === "/" || route.path === "/id");
 
 const isMenuOpen = ref(false);
-const { visible: hotelVisible } = useHotelSectionVisibility();
 
 const handleBuyTicket = () => {
   if (appConfig.ticket?.status !== "available") {

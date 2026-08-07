@@ -27,10 +27,8 @@ import "vue-sonner/style.css";
 // → first paint already correct, no flash).
 useAppearance();
 
-// Dashboard-managed per-project palette (site_config.appearance). Read here at
-// component-setup — after the projectSettings plugin resolved the payload on
-// SSR / after hydration on the client — so it sees the real value; a plugin
-// read snapshots null. Injects <style id="appearance-vars"> into the SSR head.
+// Opt-in per-project palette from app.config `appearance`. Injects
+// <style id="appearance-vars"> into the SSR head; a no-op when disabled.
 useProjectAppearance();
 
 const route = useRoute();

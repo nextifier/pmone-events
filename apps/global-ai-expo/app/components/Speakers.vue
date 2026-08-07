@@ -15,7 +15,7 @@
     </div>
 
     <div
-      v-if="pending"
+      v-if="loading"
       class="mt-0 grid grid-cols-2 gap-x-2 gap-y-3 sm:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
     >
       <div v-for="i in 8" :key="`sp-sk-${i}`" class="flex flex-col gap-y-3">
@@ -98,7 +98,26 @@
 </template>
 
 <script setup>
-const { data, pending, error } = await useGuests();
+const route = useRoute();
+
+// SSR on the dedicated /speakers page (it is on the prerender deny list, so it
+// stays Worker-rendered and crawlable); client-only when embedded on the
+// prerendered home page, or the speaker list would freeze into static HTML.
+// `@nuxtjs/i18n` suffixes route names with `___<locale>`.
+const isSpeakersPage =
+  (route.name?.toString() ?? "").split("___")[0] === "speakers";
+
+const { data, pending, error } = await useGuests({ ssr: isSpeakersPage });
+
+// `pending` is FALSE while the client-only fetch is still `idle`, so without
+// this gate the "coming soon" branch would bake into the prerendered home page.
+const mounted = ref(false);
+onMounted(() => {
+  mounted.value = true;
+});
+const loading = computed(
+  () => pending.value || (!isSpeakersPage && !mounted.value),
+);
 
 const speakers = computed(() => {
   const list = data.value?.data ?? [];

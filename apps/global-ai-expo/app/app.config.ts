@@ -21,6 +21,10 @@ const settings = {
   ogImage: {
     isDarkMode: false,
   },
+  // Reverted from the PM One dashboard — see docs/website-settings-export.json.
+  ticket: { tabs: { showPhotos: false } },
+  bookSpaceForm: { showProducts: true, showJobTitle: true },
+  terms: { lastUpdate: "2026-04-30" },
 };
 
 

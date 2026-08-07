@@ -10,13 +10,13 @@ export default defineCachedEventHandler(
     }
 
     return await pmOneFetch(`/events/${eventSlug}/programs`, {
-      query: { locale },
+      query: { locale, fallback: dataFallbackFlag("programs") },
       errorPrefix: "Programs fetch",
     });
   },
   {
     name: "api-programs",
-    maxAge: 15,
+    maxAge: API_MAX_AGE,
     // NOT swr. With SWR the expired entry is served while it revalidates, so
     // the request that triggers the refresh still renders stale data — and a
     // purge that lands in that window is undone. Kept false even though HTML is

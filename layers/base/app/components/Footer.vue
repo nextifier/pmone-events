@@ -79,10 +79,8 @@ const tLabel = (label) => {
   return te(key) ? t(key) : label;
 };
 
-// Sourced from the dashboard-managed site_config.nav.footer (plan 008) when
-// saved, falling back to the baked app.config.ts routes.footer otherwise.
-const footerRoutes = useDynamicHeaderRoutes("footer");
+const footerRoutes = computed(() => useAppConfig().routes.footer ?? []);
 
-// Company name from the dashboard identity (plan 011), app.config fallback.
+// Company name from app.config.
 const { companyName } = useCompanyIdentity();
 </script>

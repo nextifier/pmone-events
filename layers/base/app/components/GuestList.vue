@@ -13,7 +13,7 @@
 
     <!-- Loading skeleton -->
     <div
-      v-if="pending"
+      v-if="loading"
       class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
     >
       <Skeleton v-for="i in 8" :key="`sk-${i}`" class="aspect-[4/5] rounded-2xl" />
@@ -82,8 +82,31 @@
 <script setup lang="ts">
 const { t, te } = useI18n();
 const appConfig = useAppConfig();
+const route = useRoute();
 
-const { data, pending, error } = await useGuests();
+// On the dedicated /guests and /speakers pages we SSR the data: those pages are
+// on the prerender deny list, so they stay Worker-rendered and crawlable.
+// Embedded on the prerendered home and /tickets pages the fetch must be
+// client-only, or the guest list would be frozen into static HTML.
+// `@nuxtjs/i18n` suffixes route names with `___<locale>`, so match the base name.
+const routeBaseName = (route.name?.toString() ?? "").split("___")[0];
+const isGuestsPage = routeBaseName === "guests" || routeBaseName === "speakers";
+
+const { data, pending, error } = await useGuests({ ssr: isGuestsPage });
+
+// With `server: false` the fetch has not run during SSR/prerender, so its status
+// is `idle` and `pending` is FALSE (experimental.pendingWhenIdle defaults to
+// false in Nuxt 4). Without this gate the empty-state branch below would win on
+// the server and bake "Guests coming soon" into the prerendered HTML. The first
+// client render (before onMounted) also sees `mounted === false`, so the
+// skeleton matches on both sides and hydration stays clean.
+const mounted = ref(false);
+onMounted(() => {
+  mounted.value = true;
+});
+const loading = computed(
+  () => pending.value || (!isGuestsPage && !mounted.value),
+);
 
 const instagramUrl = useInstagramUrl();
 

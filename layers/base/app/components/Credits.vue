@@ -84,9 +84,25 @@ import { NuxtLink } from "#components";
 const localePath = useLocalePath();
 const content = computed(() => useContentStore().components.credits ?? null);
 
+const route = useRoute();
+
 // Partners are managed in PM One and fetched per active event (the server route
 // resolves active->latest and maps the API shape to this component's old shape).
+//
+// SSR on the dedicated /partners page (it is on the prerender deny list, so it
+// stays Worker-rendered and crawlable); client-only when embedded on the
+// prerendered home page — partners change often enough that a build-time
+// snapshot would go stale between deploys. The section's own
+// `v-if="content && partners.length"` keeps it out of the DOM until the client
+// fetch lands, so there is no empty state to bake in.
+// `@nuxtjs/i18n` suffixes route names with `___<locale>`.
+const isPartnersPage =
+  (route.name?.toString() ?? "").split("___")[0] === "partners";
+
 const { data: partnersData } = await useFetch("/api/event/partners", {
+  key: "event-partners",
+  server: isPartnersPage,
+  lazy: !isPartnersPage,
   default: () => ({ data: [] }),
 });
 const partners = computed(() => partnersData.value?.data ?? []);

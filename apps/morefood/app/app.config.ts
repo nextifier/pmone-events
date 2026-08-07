@@ -22,6 +22,8 @@ const settings = {
     isDarkMode: true,
   },
   tiktokPixelId: ["D729G23C77U67GBCUPK0"],
+  // Reverted from the PM One dashboard — see docs/website-settings-export.json.
+  ticket: { tabs: { showPhotos: false } },
 };
 
 

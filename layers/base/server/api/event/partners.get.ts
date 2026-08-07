@@ -18,7 +18,10 @@ export default defineCachedEventHandler(
         }>;
       }>;
       meta?: unknown;
-    }>(`/events/${eventSlug}/partners`, { errorPrefix: "Partners fetch" });
+    }>(`/events/${eventSlug}/partners`, {
+      query: { fallback: dataFallbackFlag("partners") },
+      errorPrefix: "Partners fetch",
+    });
 
     // Map PM One's shape to the shape the Credits component expects (mirrors the old
     // local partners.js store): { category, noContainer, list: [{ img, link, name }] }.
@@ -38,7 +41,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-partners",
-    maxAge: 15,
+    maxAge: API_MAX_AGE,
     // NOT swr. With SWR the expired entry is served while it revalidates, so
     // the request that triggers the refresh still renders stale data — and a
     // purge that lands in that window is undone. Kept false even though HTML is

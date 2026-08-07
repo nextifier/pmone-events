@@ -1,0 +1,4185 @@
+{
+  "_meta": {
+    "exported_at": "2026-08-07T03:50:01+07:00",
+    "source": "PM One production PostgreSQL, read-only",
+    "purpose": "Audit trail captured BEFORE the website-settings / site-config / legal-pages features were reverted to code in pmone-events. Every value that had to be ported into app.config.ts came from here.",
+    "projects_total": 19,
+    "projects_with_website_settings": 17,
+    "website_pages_rows": 2,
+    "website_copy_rows": 0,
+    "project_og_image_media_rows": 58
+  },
+  "projects": [
+    {
+      "id": 1,
+      "username": "pm",
+      "name": "Panorama Media",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": true,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/about",
+                    "label": "About"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Our Brands"
+                  },
+                  {
+                    "path": "/events",
+                    "label": "Events"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              }
+            ],
+            "footer": [],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/about",
+                "label": "About"
+              },
+              {
+                "path": "/brands",
+                "label": "Our Brands"
+              },
+              {
+                "path": "/events",
+                "label": "Events"
+              },
+              {
+                "path": "/faq",
+                "label": "FAQ"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Panorama Media",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-4ZNWF3G5DM",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 2,
+      "username": "pe",
+      "name": "Panorama Events",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "og_pages": {
+          "brands": {
+            "title": null,
+            "description": null
+          },
+          "guests": {
+            "title": null,
+            "description": null
+          },
+          "winner": {
+            "title": null,
+            "description": null
+          },
+          "gallery": {
+            "title": null,
+            "description": null
+          },
+          "rundown": {
+            "title": null,
+            "description": null
+          },
+          "tickets": {
+            "title": null,
+            "description": null
+          },
+          "partners": {
+            "title": null,
+            "description": null
+          },
+          "programs": {
+            "title": null,
+            "description": null
+          },
+          "book-space": {
+            "title": null,
+            "description": null
+          }
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/about",
+                    "label": "About"
+                  },
+                  {
+                    "path": "/services",
+                    "label": "Services"
+                  },
+                  {
+                    "path": "/events",
+                    "label": "Events"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Company",
+                "links": [
+                  {
+                    "path": "/about",
+                    "label": "About"
+                  },
+                  {
+                    "path": "/services",
+                    "label": "Services"
+                  },
+                  {
+                    "path": "/events",
+                    "label": "Events"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/about",
+                "label": "About"
+              },
+              {
+                "path": "/services",
+                "label": "Services"
+              },
+              {
+                "path": "/events",
+                "label": "Events"
+              },
+              {
+                "path": "/faq",
+                "label": "FAQ"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Panorama Evenindo",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-343DPRDD5M",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 3,
+      "username": "pl",
+      "name": "Panorama Live",
+      "status": "active",
+      "website_settings": {
+        "hotels": {
+          "notification_email": {
+            "cc": [],
+            "to": [],
+            "bcc": []
+          },
+          "estimated_price_currency": "USD",
+          "show_hotel_section_on_home_page": false,
+          "show_estimated_price_in_foreign_currency": false
+        },
+        "email_subjects": {
+          "guest_paid": null,
+          "guest_voucher": null,
+          "guest_cancelled": null,
+          "staff_cancelled": null,
+          "staff_confirmed": null
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 4,
+      "username": "megabuild",
+      "name": "Megabuild Indonesia",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "brands": {
+          "show_brand_preview_on_home_page": true
+        },
+        "hotels": {
+          "notification_email": {
+            "cc": [],
+            "to": [
+              "activerow@gmail.com"
+            ],
+            "bcc": []
+          },
+          "estimated_price_currency": "USD",
+          "show_hotel_section_on_home_page": false,
+          "show_estimated_price_in_foreign_currency": false
+        },
+        "rundown": {
+          "show_search_bar": true,
+          "show_location_filter": true,
+          "show_all_rundown_details": false,
+          "show_rundown_on_home_page": true
+        },
+        "og_pages": {
+          "winner": {
+            "title": null,
+            "description": null
+          }
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Panorama Media",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": [
+              "G-2PJCW7S32V"
+            ],
+            "gtm": null,
+            "meta_pixel": null,
+            "tiktok_pixel": null
+          },
+          "appearance": {
+            "theme": "olive",
+            "radius": "default",
+            "enabled": false,
+            "baseColor": "olive",
+            "chartColor": "neutral"
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "data_fallback": {
+          "faqs": true,
+          "brands": true,
+          "guests": true,
+          "gallery": true,
+          "partners": true,
+          "programs": true,
+          "media_coverages": true
+        },
+        "home_sections": {
+          "faq": true,
+          "hero": true,
+          "hotels": false,
+          "rundown": true,
+          "partners": true,
+          "about_event": true,
+          "visitor_cta": true,
+          "partnerships": true,
+          "brand_preview": true,
+          "blog_post_slider": true,
+          "facts_and_figures": true,
+          "mega_property_intro": true,
+          "media_coverages_slider": true,
+          "architect_designer_alley": true
+        },
+        "email_subjects": {
+          "guest_paid": null,
+          "guest_voucher": null,
+          "guest_cancelled": null,
+          "staff_cancelled": null,
+          "staff_confirmed": null
+        },
+        "book_space_form": {
+          "show_products": true,
+          "show_job_title": true,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 5,
+      "username": "keramika",
+      "name": "Keramika Indonesia",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "brands": {
+          "show_brand_preview_on_home_page": true
+        },
+        "hotels": {
+          "notification_email": {
+            "cc": [],
+            "to": [],
+            "bcc": []
+          },
+          "show_hotel_section_on_home_page": false
+        },
+        "rundown": {
+          "show_search_bar": true,
+          "show_location_filter": true,
+          "show_all_rundown_details": false,
+          "show_rundown_on_home_page": true
+        },
+        "og_pages": {
+          "guests": {
+            "title": null,
+            "description": null
+          },
+          "winner": {
+            "title": null,
+            "description": null
+          }
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Panorama Media",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-1V56RJ2Q78",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "email_subjects": {
+          "guest_paid": null,
+          "guest_voucher": null,
+          "guest_cancelled": null,
+          "staff_cancelled": null,
+          "staff_confirmed": null
+        },
+        "book_space_form": {
+          "show_products": true,
+          "show_job_title": true,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 6,
+      "username": "flei",
+      "name": "Franchise & License Expo Indonesia",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-12-30"
+        },
+        "brands": {
+          "show_brand_preview_on_home_page": true
+        },
+        "rundown": {
+          "show_search_bar": true,
+          "show_location_filter": false,
+          "show_all_rundown_details": false,
+          "show_rundown_on_home_page": true
+        },
+        "og_pages": {
+          "guests": {
+            "title": null,
+            "description": null
+          }
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/partners",
+                "label": "Partners"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Pameran Peluang Bisnis",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-VQ61WCGV98",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 7,
+      "username": "cbe",
+      "name": "Cafe & Brasserie Expo",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "brands": {
+          "show_brand_preview_on_home_page": true
+        },
+        "rundown": {
+          "show_search_bar": true,
+          "show_location_filter": true,
+          "show_all_rundown_details": false,
+          "show_rundown_on_home_page": false
+        },
+        "partners": {
+          "show_partners_on_home_page": true
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/partners",
+                "label": "Partners"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Panorama Media",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-896FDXSRSL",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 8,
+      "username": "icf",
+      "name": "Indonesia Coffee Festival",
+      "status": "active",
+      "website_settings": {
+        "site_config": {
+          "analytics": {
+            "ga4": "G-YFZVWEFRHF",
+            "tiktok_pixel": null
+          }
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 9,
+      "username": "cei",
+      "name": "Cokelat Expo Indonesia",
+      "status": "active",
+      "website_settings": {
+        "site_config": {
+          "analytics": {
+            "ga4": "G-9KLJTWG6QF",
+            "tiktok_pixel": null
+          }
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 10,
+      "username": "morefood",
+      "name": "More Food Expo",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "brands": {
+          "show_brand_preview_on_home_page": true
+        },
+        "rundown": {
+          "show_search_bar": true,
+          "show_location_filter": true,
+          "show_all_rundown_details": false,
+          "show_rundown_on_home_page": true
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/partners",
+                "label": "Partners"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Panorama Media",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-4STNHTGXQQ",
+            "tiktok_pixel": "D729G23C77U67GBCUPK0"
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": false,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 11,
+      "username": "renex",
+      "name": "Renovation Expo",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/partners",
+                "label": "Partners"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Pameran Masa Kini",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-2PJCW7S32V",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": true,
+          "show_job_title": true,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 12,
+      "username": "ioe",
+      "name": "Indonesia Outing & Incentive Travel Expo",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/partners",
+                "label": "Partners"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Panorama Media",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-RMZ65GCEJV",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 13,
+      "username": "icc",
+      "name": "Indonesia Comic Con",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/guests",
+                    "label": "Guests"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Tenant Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/event-guidelines",
+                    "label": "Event Guidelines"
+                  },
+                  {
+                    "path": "/safety-and-weapon-policy",
+                    "label": "Safety and Weapon Policy"
+                  },
+                  {
+                    "path": "/anti-harassment-policy",
+                    "label": "Anti-Harassment Policy"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Tenant Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/guests",
+                "label": "Guests"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/event-guidelines",
+                    "label": "Event Guidelines"
+                  },
+                  {
+                    "path": "/safety-and-weapon-policy",
+                    "label": "Safety and Weapon Policy"
+                  },
+                  {
+                    "path": "/anti-harassment-policy",
+                    "label": "Anti-Harassment Policy"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Ekspresi Generasi Kreatif",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-JCGZGZQZ56",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": true,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 14,
+      "username": "inacon",
+      "name": "Indonesia Anime Con",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "brands": {
+          "show_brand_preview_on_home_page": false
+        },
+        "rundown": {
+          "show_search_bar": true,
+          "show_location_filter": true,
+          "show_all_rundown_details": false,
+          "show_rundown_on_home_page": false
+        },
+        "partners": {
+          "show_partners_on_home_page": false
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/icgp",
+                    "label": "ICGP"
+                  },
+                  {
+                    "path": "/guests",
+                    "label": "Guests"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Tenant Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/event-guidelines",
+                    "label": "Event Guidelines"
+                  },
+                  {
+                    "path": "/safety-and-weapon-policy",
+                    "label": "Safety and Weapon Policy"
+                  },
+                  {
+                    "path": "/anti-harassment-policy",
+                    "label": "Anti-Harassment Policy"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Tenant Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/icgp",
+                "label": "ICGP"
+              },
+              {
+                "path": "/guests",
+                "label": "Guests"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/event-guidelines",
+                    "label": "Event Guidelines"
+                  },
+                  {
+                    "path": "/safety-and-weapon-policy",
+                    "label": "Safety and Weapon Policy"
+                  },
+                  {
+                    "path": "/anti-harassment-policy",
+                    "label": "Anti-Harassment Policy"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "PT Ekspresi Generasi Kreatif",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-QH16B87QEK",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": true,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "data_fallback": {
+          "faqs": true,
+          "brands": false,
+          "guests": false,
+          "gallery": true,
+          "partners": false,
+          "programs": true,
+          "media_coverages": false
+        },
+        "home_sections": {
+          "faq": true,
+          "hero": true,
+          "hotels": false,
+          "rundown": false,
+          "partners": false,
+          "guest_list": false,
+          "about_event": true,
+          "visitor_cta": false,
+          "partnerships": true,
+          "brand_preview": false,
+          "blog_post_slider": true,
+          "media_coverages_slider": false
+        },
+        "book_space_form": {
+          "show_products": true,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 23,
+      "username": "campx",
+      "name": "CampX",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2025-08-21"
+        },
+        "site_config": {
+          "identity": {
+            "company_name": "CampX",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": "G-QH1BX5M3WH",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 24,
+      "username": "pmone",
+      "name": "PM One",
+      "status": "active",
+      "website_settings": null,
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 25,
+      "username": "askindo",
+      "name": "ASKINDO",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": true,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2026-01-09"
+        },
+        "brands": {
+          "show_brand_preview_on_home_page": false
+        },
+        "hotels": {
+          "notification_email": {
+            "cc": [],
+            "to": [
+              "events@panoramamedia.co.id"
+            ],
+            "bcc": [
+              "antonius@panoramamedia.co.id",
+              "bagus@panoramamedia.co.id"
+            ]
+          },
+          "estimated_price_currency": "USD",
+          "show_hotel_section_on_home_page": true,
+          "show_estimated_price_in_foreign_currency": true
+        },
+        "rundown": {
+          "show_search_bar": false,
+          "show_location_filter": true,
+          "show_all_rundown_details": true,
+          "show_rundown_on_home_page": true
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/#about",
+                    "label": "About"
+                  },
+                  {
+                    "path": "/#topics",
+                    "label": "Topics"
+                  },
+                  {
+                    "path": "/#rundown",
+                    "label": "Agenda"
+                  },
+                  {
+                    "path": "/#why-yogyakarta",
+                    "label": "Visit Yogyakarta"
+                  },
+                  {
+                    "path": "/#tickets",
+                    "label": "Tickets"
+                  },
+                  {
+                    "path": "/#faq",
+                    "label": "FAQs"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/#about",
+                "label": "About"
+              },
+              {
+                "path": "/#topics",
+                "label": "Topics"
+              },
+              {
+                "path": "/#rundown",
+                "label": "Agenda"
+              },
+              {
+                "path": "/#why-yogyakarta",
+                "label": "Visit Yogyakarta"
+              },
+              {
+                "path": "/#faq",
+                "label": "FAQs"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "Indonesian Cocoa Association",
+            "company_address": "Thamrin City Cosmo Mansion 11-CC, Kebon Kacang Raya, Jakarta, 10340, Indonesia"
+          },
+          "analytics": {
+            "ga4": "G-Y96T5YPS3H",
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": true,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "data_fallback": {
+          "faqs": true,
+          "brands": true,
+          "guests": true,
+          "gallery": true,
+          "partners": true,
+          "programs": true,
+          "media_coverages": true
+        },
+        "home_sections": {
+          "faq": true,
+          "hero": true,
+          "about": true,
+          "hotels": true,
+          "topics": true,
+          "rundown": true,
+          "tickets": true,
+          "partners": true,
+          "programs": true,
+          "why_attend": true,
+          "past_events": true,
+          "who_attends": true,
+          "why_yogyakarta": true
+        },
+        "email_subjects": {
+          "guest_paid": null,
+          "guest_voucher": null,
+          "guest_cancelled": null,
+          "staff_cancelled": null,
+          "staff_confirmed": null
+        },
+        "book_space_form": {
+          "show_products": false,
+          "show_job_title": false,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 27,
+      "username": "testing",
+      "name": "EVENT TESTING",
+      "status": "active",
+      "website_settings": null,
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    },
+    {
+      "id": 28,
+      "username": "globalaiexpo",
+      "name": "Global AI Expo",
+      "status": "active",
+      "website_settings": {
+        "blog": {
+          "show_post_card_author": false,
+          "show_post_card_excerpt": false
+        },
+        "terms": {
+          "last_update": "2026-04-30"
+        },
+        "rundown": {
+          "show_search_bar": true,
+          "show_location_filter": true,
+          "show_all_rundown_details": false,
+          "show_rundown_on_home_page": true
+        },
+        "site_config": {
+          "nav": {
+            "dialog": [
+              {
+                "label": "Menu",
+                "links": [
+                  {
+                    "path": "/",
+                    "label": "Home"
+                  },
+                  {
+                    "path": "/speakers",
+                    "label": "Speakers"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "label": "Discover",
+                "links": [
+                  {
+                    "path": "/speakers",
+                    "label": "Speakers"
+                  },
+                  {
+                    "path": "/brands",
+                    "label": "Brands"
+                  },
+                  {
+                    "path": "/rundown",
+                    "label": "Rundown"
+                  },
+                  {
+                    "path": "/programs",
+                    "label": "Programs"
+                  },
+                  {
+                    "path": "/tickets",
+                    "label": "Ticket"
+                  },
+                  {
+                    "path": "/partners",
+                    "label": "Partners"
+                  }
+                ]
+              },
+              {
+                "label": "For Businesses",
+                "links": [
+                  {
+                    "path": "/book-space",
+                    "label": "Exhibitor Registration"
+                  },
+                  {
+                    "path": "/sponsorship-registration",
+                    "label": "Sponsorship Registration"
+                  },
+                  {
+                    "path": "/media-partner-registration",
+                    "label": "Media Partner Registration"
+                  },
+                  {
+                    "path": "/contact",
+                    "label": "Contact"
+                  }
+                ]
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/gallery",
+                    "label": "Gallery"
+                  },
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  },
+                  {
+                    "path": "/news",
+                    "label": "News"
+                  }
+                ]
+              },
+              {
+                "label": "Terms and policies",
+                "links": [
+                  {
+                    "path": "/ticket-terms-and-conditions",
+                    "label": "Ticket Terms and Conditions"
+                  },
+                  {
+                    "path": "/ticket-refund-and-return-policy",
+                    "label": "Ticket Refund and Return Policy"
+                  },
+                  {
+                    "path": "/event-policy",
+                    "label": "Event Policy"
+                  },
+                  {
+                    "path": "/terms",
+                    "label": "Terms of Service"
+                  },
+                  {
+                    "path": "/privacy",
+                    "label": "Privacy Policy"
+                  },
+                  {
+                    "path": "/help-center",
+                    "label": "Help Center"
+                  }
+                ]
+              }
+            ],
+            "header": [
+              {
+                "path": "/",
+                "label": "Home"
+              },
+              {
+                "path": "/speakers",
+                "label": "Speakers"
+              },
+              {
+                "path": "/brands",
+                "label": "Brands"
+              },
+              {
+                "path": "/rundown",
+                "label": "Rundown"
+              },
+              {
+                "path": "/programs",
+                "label": "Programs"
+              },
+              {
+                "label": "Resources",
+                "links": [
+                  {
+                    "path": "/faq",
+                    "label": "FAQ"
+                  },
+                  {
+                    "path": "/links",
+                    "label": "Links"
+                  }
+                ]
+              },
+              {
+                "path": "/partners",
+                "label": "Partners"
+              },
+              {
+                "path": "/contact",
+                "label": "Contact"
+              },
+              {
+                "path": "/news",
+                "label": "News"
+              }
+            ]
+          },
+          "identity": {
+            "company_name": "Global AI Expo",
+            "company_address": "Panorama Media Building, Jl. Tanjung Selor No.17A, RT.11/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150"
+          },
+          "analytics": {
+            "ga4": null,
+            "tiktok_pixel": null
+          }
+        },
+        "ticket_tabs": {
+          "show_about": true,
+          "show_brands": true,
+          "show_guests": false,
+          "show_photos": false,
+          "show_rundown": true,
+          "show_tickets": true
+        },
+        "book_space_form": {
+          "show_products": true,
+          "show_job_title": true,
+          "show_brand_name": true
+        }
+      },
+      "other_settings_keys": [
+        "contact_form"
+      ]
+    }
+  ],
+  "website_pages": [
+    {
+      "id": 1,
+      "project_id": 4,
+      "project_username": "megabuild",
+      "key": "ticket-terms-and-conditions",
+      "body": {
+        "en": "<p></p>",
+        "id": "<p></p>",
+        "zh": null
+      },
+      "last_updated_at": null,
+      "created_at": "2026-07-13T21:55:07",
+      "updated_at": "2026-07-13T21:57:12"
+    },
+    {
+      "id": 2,
+      "project_id": 4,
+      "project_username": "megabuild",
+      "key": "terms",
+      "body": {
+        "en": "<p></p>",
+        "zh": null
+      },
+      "last_updated_at": null,
+      "created_at": "2026-07-13T21:57:25",
+      "updated_at": "2026-07-13T22:00:07"
+    }
+  ],
+  "website_copy": [],
+  "project_og_image_media": [
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_book_space",
+      "id": 6226,
+      "uuid": "641c994e-e804-4f4c-bf6c-c7513087c34f",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-book-space",
+      "file_name": "og-book-space-aksnml.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:54:47"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_brands",
+      "id": 6217,
+      "uuid": "c023d8f2-c1f5-4511-adcc-a2c3ef1957d7",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-brands",
+      "file_name": "og-brands-v1mb5w.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:47:58"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_gallery",
+      "id": 6233,
+      "uuid": "74d791b9-cd72-4543-8c5c-e85315e65aaa",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-gallery",
+      "file_name": "og-gallery-ruiy8q.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:57:28"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_guests",
+      "id": 6241,
+      "uuid": "0accb7f0-d432-4ac4-a2f2-8b950ee9b89f",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-guests",
+      "file_name": "og-guests-bnomxj.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:58:55"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_home",
+      "id": 6215,
+      "uuid": "1c41f616-3993-4f83-9a7b-14d91513e48e",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-home",
+      "file_name": "og-home-wa3jbd.jpg",
+      "mime_type": "image/jpeg",
+      "size": 105933,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:46:05"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_partners",
+      "id": 6237,
+      "uuid": "a18550a8-2f11-4fd1-9d4a-a02be7203120",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-partners",
+      "file_name": "og-partners-2emfwx.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:58:17"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_programs",
+      "id": 6221,
+      "uuid": "cb0a2676-1be8-4824-bd5e-c2aff9fdccf5",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-programs",
+      "file_name": "og-programs-dung8i.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:50:09"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_rundown",
+      "id": 6219,
+      "uuid": "3c0c713c-c6f2-453d-b5b8-ec739a253146",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-rundown",
+      "file_name": "og-rundown-reag5k.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:48:31"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_tickets",
+      "id": 6229,
+      "uuid": "af335190-a425-4359-98fa-112dede22bec",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-tickets",
+      "file_name": "og-tickets-fjfbjz.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:56:44"
+    },
+    {
+      "project_username": "askindo",
+      "model_id": 25,
+      "collection_name": "og_image_winner",
+      "id": 6240,
+      "uuid": "f3775a5a-e967-4835-8b88-decff61eff0b",
+      "name": "466f1a01-904c-448c-ac08-f3fa8010063c-winner",
+      "file_name": "og-winner-uhouiv.jpg",
+      "mime_type": "image/jpeg",
+      "size": 14393,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:58:45"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_book_space",
+      "id": 6290,
+      "uuid": "46877a26-6ceb-4f4b-8525-9ffbc5cccad5",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-book-space",
+      "file_name": "og-book-space-qydal5.jpg",
+      "mime_type": "image/jpeg",
+      "size": 44423,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:29:41"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_brands",
+      "id": 6286,
+      "uuid": "9841809c-3036-4e89-9a30-348ebdc646b8",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-brands",
+      "file_name": "og-brands-vykfk7.jpg",
+      "mime_type": "image/jpeg",
+      "size": 37590,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:29:04"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_contact",
+      "id": 6289,
+      "uuid": "887dcda1-ffec-4a96-a4d5-547ad8bf8938",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-contact",
+      "file_name": "og-contact-evzg0n.jpg",
+      "mime_type": "image/jpeg",
+      "size": 33454,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:29:32"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_gallery",
+      "id": 6292,
+      "uuid": "5e43314f-fedd-404c-8f8d-063be186f164",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-gallery",
+      "file_name": "og-gallery-u3ld0s.jpg",
+      "mime_type": "image/jpeg",
+      "size": 164943,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:30:02"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_guests",
+      "id": 6295,
+      "uuid": "f16cd2a3-9006-463d-bb7a-8ca34a102c13",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-guests",
+      "file_name": "og-guests-rp8aa6.jpg",
+      "mime_type": "image/jpeg",
+      "size": 16730,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:30:33"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_home",
+      "id": 6285,
+      "uuid": "3d88c168-4838-4ca1-a031-98b4a2a79ee8",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-home",
+      "file_name": "og-home-2owyrs.jpg",
+      "mime_type": "image/jpeg",
+      "size": 86717,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:28:52"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_partners",
+      "id": 6293,
+      "uuid": "f5b7d611-70bb-4b47-ae2a-55e4f95161ee",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-partners",
+      "file_name": "og-partners-6unn8k.jpg",
+      "mime_type": "image/jpeg",
+      "size": 90880,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:30:14"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_programs",
+      "id": 6288,
+      "uuid": "03f771c3-7196-4dd9-89db-7978e192c41a",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-programs",
+      "file_name": "og-programs-7etcfx.jpg",
+      "mime_type": "image/jpeg",
+      "size": 76231,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:29:23"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_rundown",
+      "id": 6287,
+      "uuid": "1a6a9d19-211c-40bf-9216-d016d34b5e39",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-rundown",
+      "file_name": "og-rundown-rp8aj2.jpg",
+      "mime_type": "image/jpeg",
+      "size": 29533,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:29:13"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_tickets",
+      "id": 6291,
+      "uuid": "7d37943e-4c65-4c27-af6c-c6bfe4bbd4f0",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-tickets",
+      "file_name": "og-tickets-807rvq.jpg",
+      "mime_type": "image/jpeg",
+      "size": 73540,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:29:51"
+    },
+    {
+      "project_username": "cbe",
+      "model_id": 7,
+      "collection_name": "og_image_winner",
+      "id": 6294,
+      "uuid": "40c87091-d556-439e-a057-00672fcdb4fe",
+      "name": "4e4067b1-b4e7-438a-88c6-462064df5e46-winner",
+      "file_name": "og-winner-wa0gyu.jpg",
+      "mime_type": "image/jpeg",
+      "size": 24313,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:30:23"
+    },
+    {
+      "project_username": "flei",
+      "model_id": 6,
+      "collection_name": "og_image_brands",
+      "id": 6211,
+      "uuid": "225d7c56-6271-4c3d-9138-3e8a8a36be73",
+      "name": "11095e3f-b374-4d48-b691-c8b0827ec09d-brands",
+      "file_name": "og-brands-sxlxpz.jpg",
+      "mime_type": "image/jpeg",
+      "size": 33977,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:45:34"
+    },
+    {
+      "project_username": "flei",
+      "model_id": 6,
+      "collection_name": "og_image_gallery",
+      "id": 6227,
+      "uuid": "757db697-d3ed-4d9f-98d2-d38fca3f985a",
+      "name": "11095e3f-b374-4d48-b691-c8b0827ec09d-gallery",
+      "file_name": "og-gallery-cjrwha.jpg",
+      "mime_type": "image/jpeg",
+      "size": 153634,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:56:22"
+    },
+    {
+      "project_username": "flei",
+      "model_id": 6,
+      "collection_name": "og_image_home",
+      "id": 6209,
+      "uuid": "7eb5aa3a-be8c-4a04-b29a-675a6878b77a",
+      "name": "11095e3f-b374-4d48-b691-c8b0827ec09d-home",
+      "file_name": "og-home-uhnyh5.jpg",
+      "mime_type": "image/jpeg",
+      "size": 118198,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:45:18"
+    },
+    {
+      "project_username": "flei",
+      "model_id": 6,
+      "collection_name": "og_image_partners",
+      "id": 6230,
+      "uuid": "ffe32277-40eb-4ccf-a6b7-d02a7c674413",
+      "name": "11095e3f-b374-4d48-b691-c8b0827ec09d-partners",
+      "file_name": "og-partners-wpqn5x.jpg",
+      "mime_type": "image/jpeg",
+      "size": 97795,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:56:51"
+    },
+    {
+      "project_username": "flei",
+      "model_id": 6,
+      "collection_name": "og_image_programs",
+      "id": 6216,
+      "uuid": "cfda4795-4f50-4d3d-b5e7-a5742151140d",
+      "name": "11095e3f-b374-4d48-b691-c8b0827ec09d-programs",
+      "file_name": "og-programs-q92sza.jpg",
+      "mime_type": "image/jpeg",
+      "size": 91118,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:46:20"
+    },
+    {
+      "project_username": "flei",
+      "model_id": 6,
+      "collection_name": "og_image_rundown",
+      "id": 6213,
+      "uuid": "6e5124dd-5a65-434f-949f-9a7340c97a4b",
+      "name": "11095e3f-b374-4d48-b691-c8b0827ec09d-rundown",
+      "file_name": "og-rundown-qcjhwq.jpg",
+      "mime_type": "image/jpeg",
+      "size": 30389,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:45:51"
+    },
+    {
+      "project_username": "flei",
+      "model_id": 6,
+      "collection_name": "og_image_tickets",
+      "id": 6224,
+      "uuid": "6d30a578-69b1-4982-ab27-ea378a2a9666",
+      "name": "11095e3f-b374-4d48-b691-c8b0827ec09d-tickets",
+      "file_name": "og-tickets-6a4py4.jpg",
+      "mime_type": "image/jpeg",
+      "size": 85790,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:54:15"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_book_space",
+      "id": 6265,
+      "uuid": "d93c191e-b54b-48b3-beb8-22b701638591",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-book-space",
+      "file_name": "og-book-space-jhgjxv.jpg",
+      "mime_type": "image/jpeg",
+      "size": 34687,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:46:42"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_brands",
+      "id": 6261,
+      "uuid": "5dcfd6b3-8d37-4335-bc2b-24cee1cca4e3",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-brands",
+      "file_name": "og-brands-cuht8m.jpg",
+      "mime_type": "image/jpeg",
+      "size": 70263,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:45:55"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_contact",
+      "id": 6264,
+      "uuid": "9fc024db-be5a-4160-89a2-a09616788759",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-contact",
+      "file_name": "og-contact-rdzw4y.jpg",
+      "mime_type": "image/jpeg",
+      "size": 31930,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:46:31"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_gallery",
+      "id": 6267,
+      "uuid": "bfda869e-2a08-4388-888c-07d62ffdef4f",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-gallery",
+      "file_name": "og-gallery-6v9i66.jpg",
+      "mime_type": "image/jpeg",
+      "size": 38862,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:47:03"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_guests",
+      "id": 6270,
+      "uuid": "e6b1b98b-bce5-4144-b668-ae1cc4c88f6b",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-guests",
+      "file_name": "og-guests-km1nbf.jpg",
+      "mime_type": "image/jpeg",
+      "size": 92839,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:47:35"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_home",
+      "id": 6260,
+      "uuid": "6fa8e06b-54ab-4479-9a53-030ea543ca35",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-home",
+      "file_name": "og-home-uhrpvb.jpg",
+      "mime_type": "image/jpeg",
+      "size": 148059,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:45:40"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_partners",
+      "id": 6268,
+      "uuid": "806c4a52-145b-4b85-b833-a9c3ffff7968",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-partners",
+      "file_name": "og-partners-gommaf.jpg",
+      "mime_type": "image/jpeg",
+      "size": 88577,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:47:13"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_programs",
+      "id": 6263,
+      "uuid": "2bc9c1ef-1dae-40ce-b976-c47779deb26d",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-programs",
+      "file_name": "og-programs-d0igte.jpg",
+      "mime_type": "image/jpeg",
+      "size": 86998,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:46:20"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_rundown",
+      "id": 6262,
+      "uuid": "84177239-337c-4439-b2e5-5f2be1d8ceaa",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-rundown",
+      "file_name": "og-rundown-zskc0q.jpg",
+      "mime_type": "image/jpeg",
+      "size": 45077,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:46:08"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_tickets",
+      "id": 6266,
+      "uuid": "7bc8440c-70d5-4428-a6bb-5eb82ff705eb",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-tickets",
+      "file_name": "og-tickets-j9y0tf.jpg",
+      "mime_type": "image/jpeg",
+      "size": 69363,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:46:53"
+    },
+    {
+      "project_username": "globalaiexpo",
+      "model_id": 28,
+      "collection_name": "og_image_winner",
+      "id": 6269,
+      "uuid": "282605de-f284-4acd-9086-02a7f81827d9",
+      "name": "3cec4aa2-94a7-4898-b9c7-09a3a7f62b64-winner",
+      "file_name": "og-winner-ihkr48.jpg",
+      "mime_type": "image/jpeg",
+      "size": 23930,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T16:47:23"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_book_space",
+      "id": 6284,
+      "uuid": "1165b079-8c1e-4bf5-ac7d-f1cb2fc090a4",
+      "name": "48611b95-c2f6-4e53-9465-bb840ec4ccbf",
+      "file_name": "og-book-space-9hfzit.jpg",
+      "mime_type": "image/jpeg",
+      "size": 34106,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:22:22"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_brands",
+      "id": 6210,
+      "uuid": "6a5c1b53-5d25-460c-ab93-6064015fb8d4",
+      "name": "353ddc46-a173-4763-8fe9-3da75401d806-brands",
+      "file_name": "og-brands-th4ntj.jpg",
+      "mime_type": "image/jpeg",
+      "size": 63087,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:45:28"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_contact",
+      "id": 6283,
+      "uuid": "2196d7cb-36b2-4823-b15a-5457791760c5",
+      "name": "c43b898d-b527-422c-b018-7aa4ac36f407",
+      "file_name": "og-contact-rmwt37.jpg",
+      "mime_type": "image/jpeg",
+      "size": 31788,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:22:07"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_gallery",
+      "id": 6225,
+      "uuid": "c4d2a08d-e169-4257-be9d-e4639fcd61b2",
+      "name": "353ddc46-a173-4763-8fe9-3da75401d806-gallery",
+      "file_name": "og-gallery-xlegjk.jpg",
+      "mime_type": "image/jpeg",
+      "size": 148601,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:54:34"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_home",
+      "id": 6208,
+      "uuid": "66ea3a5e-0eb5-48d6-9d4c-02451862c28a",
+      "name": "353ddc46-a173-4763-8fe9-3da75401d806-home",
+      "file_name": "og-home-j3wg1h.jpg",
+      "mime_type": "image/jpeg",
+      "size": 123562,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:45:01"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_partners",
+      "id": 6228,
+      "uuid": "7d4f215e-61c9-4735-9659-77c8b9abdd3e",
+      "name": "353ddc46-a173-4763-8fe9-3da75401d806-partners",
+      "file_name": "og-partners-81dcuu.jpg",
+      "mime_type": "image/jpeg",
+      "size": 98368,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:56:33"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_programs",
+      "id": 6214,
+      "uuid": "b98d5006-bb7c-41d1-b7cf-57dc14651150",
+      "name": "353ddc46-a173-4763-8fe9-3da75401d806-programs",
+      "file_name": "og-programs-shooam.jpg",
+      "mime_type": "image/jpeg",
+      "size": 103629,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:45:58"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_rundown",
+      "id": 6212,
+      "uuid": "c1c11056-21c6-4e5f-9508-3aa9b6037589",
+      "name": "353ddc46-a173-4763-8fe9-3da75401d806-rundown",
+      "file_name": "og-rundown-ungelo.jpg",
+      "mime_type": "image/jpeg",
+      "size": 51886,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:45:43"
+    },
+    {
+      "project_username": "keramika",
+      "model_id": 5,
+      "collection_name": "og_image_tickets",
+      "id": 6223,
+      "uuid": "2c5179b4-a9b3-4ca3-a617-57c0094c8deb",
+      "name": "353ddc46-a173-4763-8fe9-3da75401d806-tickets",
+      "file_name": "og-tickets-ipydas.jpg",
+      "mime_type": "image/jpeg",
+      "size": 74262,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-05T00:52:24"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_book_space",
+      "id": 6282,
+      "uuid": "bc4036b5-fe3e-4d9c-b9db-83868dbdabdc",
+      "name": "47202edd-e639-4106-9c51-b1f2a4388ed1",
+      "file_name": "og-book-space-jryhet.jpg",
+      "mime_type": "image/jpeg",
+      "size": 43185,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:16:19"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_brands",
+      "id": 6200,
+      "uuid": "2446e9a8-3eb3-49bc-9262-0ca1ef6d13e8",
+      "name": "0917488d-5ae5-4d41-acca-6f6e45f3fe51-brands",
+      "file_name": "og-brands-eosz4f.jpg",
+      "mime_type": "image/jpeg",
+      "size": 91890,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-04T21:51:11"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_gallery",
+      "id": 6204,
+      "uuid": "edd18c54-4306-4afa-b3d5-3f3bdda14fc0",
+      "name": "0917488d-5ae5-4d41-acca-6f6e45f3fe51-gallery",
+      "file_name": "og-gallery-hnu5ek.jpg",
+      "mime_type": "image/jpeg",
+      "size": 131967,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-04T21:55:42"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_home",
+      "id": 6199,
+      "uuid": "19c9050e-fc62-4a23-a5e4-fa30767bb6ba",
+      "name": "0917488d-5ae5-4d41-acca-6f6e45f3fe51-home",
+      "file_name": "og-home-lrvvsf.jpg",
+      "mime_type": "image/jpeg",
+      "size": 132701,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-04T21:50:55"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_partners",
+      "id": 6205,
+      "uuid": "b190903f-9ee4-444a-994d-9485349fc6b8",
+      "name": "0917488d-5ae5-4d41-acca-6f6e45f3fe51-partners",
+      "file_name": "og-partners-0wgw8i.jpg",
+      "mime_type": "image/jpeg",
+      "size": 113930,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-04T21:55:54"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_programs",
+      "id": 6202,
+      "uuid": "b0c1bfe7-92b0-4342-b073-3b1555bcc943",
+      "name": "0917488d-5ae5-4d41-acca-6f6e45f3fe51-programs",
+      "file_name": "og-programs-12a46b.jpg",
+      "mime_type": "image/jpeg",
+      "size": 102157,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-04T21:51:34"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_rundown",
+      "id": 6201,
+      "uuid": "f2f8fa2a-b6d5-42b8-a418-72950ef06a05",
+      "name": "0917488d-5ae5-4d41-acca-6f6e45f3fe51-rundown",
+      "file_name": "og-rundown-tn9sn0.jpg",
+      "mime_type": "image/jpeg",
+      "size": 54753,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-04T21:51:23"
+    },
+    {
+      "project_username": "megabuild",
+      "model_id": 4,
+      "collection_name": "og_image_tickets",
+      "id": 6203,
+      "uuid": "b2e56e03-a8df-4851-be9f-2a60fb7be696",
+      "name": "0917488d-5ae5-4d41-acca-6f6e45f3fe51-tickets",
+      "file_name": "og-tickets-rkzzel.jpg",
+      "mime_type": "image/jpeg",
+      "size": 77777,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-04T21:55:28"
+    },
+    {
+      "project_username": "pe",
+      "model_id": 2,
+      "collection_name": "og_image_contact",
+      "id": 6275,
+      "uuid": "ee513d07-5416-41a1-b2c9-d4dc2a045334",
+      "name": "e7261f47-f5b5-4193-af4f-b21bae9fef31-contact",
+      "file_name": "og-contact-ilw2ul.jpg",
+      "mime_type": "image/jpeg",
+      "size": 31319,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:10:21"
+    },
+    {
+      "project_username": "pe",
+      "model_id": 2,
+      "collection_name": "og_image_home",
+      "id": 6271,
+      "uuid": "484251f3-0cd6-4317-98f5-4176910adc0d",
+      "name": "e7261f47-f5b5-4193-af4f-b21bae9fef31-home",
+      "file_name": "og-home-myeu8c.jpg",
+      "mime_type": "image/jpeg",
+      "size": 102093,
+      "disk": "r2",
+      "conversions_disk": "r2",
+      "created_at": "2026-07-06T17:09:42"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+app            project      section                   db     defVis  SHOWN  guard
+-----------------------------------------------------------------------------------------------
+base           -            hero                      -      true    YES    
+base           -            about_event               -      true    YES    
+base           -            partnerships              -      true    YES    
+base           -            media_coverages_slider    -      true    YES    
+base           -            blog_post_slider          -      true    YES    
+cafeexpo       cbe          rundown                   -      false   no     has >=1 rundown item
+cafeexpo       cbe          brand_preview             -      false   no     has >10 brand logos
+cafeexpo       cbe          partners                  -      false   no     
+cafeexpo       cbe          hotels                    -      false   no     
+cafeexpo       cbe          hero                      -      true    YES    
+cafeexpo       cbe          event_stats               -      true    YES    
+cafeexpo       cbe          about_event               -      true    YES    
+cafeexpo       cbe          theme_concept             -      true    YES    
+cafeexpo       cbe          who_visits                -      true    YES    
+cafeexpo       cbe          why_exhibit               -      true    YES    
+cafeexpo       cbe          partnerships              -      true    YES    
+cafeexpo       cbe          visitor_cta               -      true    YES    
+cafeexpo       cbe          blog_post_slider          -      true    YES    
+cafeexpo       cbe          faq                       -      true    YES    
+cokelatexpo    cbe          rundown                   -      false   no     has >=1 rundown item
+cokelatexpo    cbe          brand_preview             -      false   no     has >10 brand logos
+cokelatexpo    cbe          partners                  -      false   no     
+cokelatexpo    cbe          hotels                    -      false   no     
+cokelatexpo    cbe          hero                      -      true    YES    
+cokelatexpo    cbe          event_stats               -      true    YES    
+cokelatexpo    cbe          about_event               -      true    YES    
+cokelatexpo    cbe          theme_concept             -      true    YES    
+cokelatexpo    cbe          who_visits                -      true    YES    
+cokelatexpo    cbe          why_exhibit               -      true    YES    
+cokelatexpo    cbe          partnerships              -      true    YES    
+cokelatexpo    cbe          visitor_cta               -      true    YES    
+cokelatexpo    cbe          blog_post_slider          -      true    YES    
+cokelatexpo    cbe          faq                       -      true    YES    
+flei           flei         rundown                   -      false   no     has >=1 rundown item
+flei           flei         brand_preview             -      false   no     has >10 brand logos
+flei           flei         partners                  -      false   no     
+flei           flei         hotels                    -      false   no     
+flei           flei         hero                      -      true    YES    
+flei           flei         about_event               -      true    YES    
+flei           flei         partnerships              -      true    YES    
+flei           flei         visitor_cta               -      true    YES    
+flei           flei         blog_post_slider          -      true    YES    
+flei           flei         faq                       -      true    YES    
+global-ai-expo globalaiexpo rundown                   -      false   no     has >=1 rundown item
+global-ai-expo globalaiexpo brand_preview             -      false   no     has >10 brand logos
+global-ai-expo globalaiexpo partners                  -      false   no     
+global-ai-expo globalaiexpo hotels                    -      false   no     
+global-ai-expo globalaiexpo hero                      -      true    YES    
+global-ai-expo globalaiexpo speakers                  -      true    YES    
+global-ai-expo globalaiexpo about_event               -      true    YES    
+global-ai-expo globalaiexpo partnerships              -      true    YES    
+global-ai-expo globalaiexpo visitor_cta               -      true    YES    
+global-ai-expo globalaiexpo blog_post_slider          -      true    YES    
+global-ai-expo globalaiexpo faq                       -      true    YES    
+icc            icc          rundown                   -      false   no     has >=1 rundown item
+icc            icc          brand_preview             -      false   no     has >10 brand logos
+icc            icc          hotels                    -      false   no     
+icc            icc          hero                      -      true    YES    
+icc            icc          about_event               -      true    YES    
+icc            icc          partnerships              -      true    YES    
+icc            icc          blog_post_slider          -      true    YES    
+icc            icc          faq                       -      true    YES    
+icf            cbe          rundown                   -      false   no     has >=1 rundown item
+icf            cbe          brand_preview             -      false   no     has >10 brand logos
+icf            cbe          partners                  -      false   no     
+icf            cbe          hotels                    -      false   no     
+icf            cbe          hero                      -      true    YES    
+icf            cbe          event_stats               -      true    YES    
+icf            cbe          about_event               -      true    YES    
+icf            cbe          theme_concept             -      true    YES    
+icf            cbe          who_visits                -      true    YES    
+icf            cbe          why_exhibit               -      true    YES    
+icf            cbe          partnerships              -      true    YES    
+icf            cbe          visitor_cta               -      true    YES    
+icf            cbe          blog_post_slider          -      true    YES    
+icf            cbe          faq                       -      true    YES    
+iicc           askindo      rundown                   true   false   YES    has >=1 rundown item
+iicc           askindo      partners                  true   false   YES    
+iicc           askindo      hotels                    true   false   YES    
+iicc           askindo      hero                      true   true    YES    
+iicc           askindo      about                     true   true    YES    
+iicc           askindo      topics                    true   true    YES    
+iicc           askindo      programs                  true   true    YES    
+iicc           askindo      why_attend                true   true    YES    
+iicc           askindo      who_attends               true   true    YES    
+iicc           askindo      why_yogyakarta            true   true    YES    
+iicc           askindo      tickets                   true   true    YES    
+iicc           askindo      faq                       true   true    YES    
+iicc           askindo      past_events               true   true    YES    
+inacon         inacon       rundown                   false  false   no     has >=1 rundown item
+inacon         inacon       brand_preview             false  false   no     has >10 brand logos
+inacon         inacon       partners                  false  false   no     
+inacon         inacon       hotels                    false  false   no     
+inacon         inacon       hero                      true   true    YES    
+inacon         inacon       guest_list                false  true    no     
+inacon         inacon       about_event               true   true    YES    
+inacon         inacon       partnerships              true   true    YES    
+inacon         inacon       visitor_cta               false  true    no     
+inacon         inacon       media_coverages_slider    false  true    no     
+inacon         inacon       blog_post_slider          true   true    YES    
+inacon         inacon       faq                       true   true    YES    
+keramika       keramika     rundown                   -      false   no     has >=1 rundown item
+keramika       keramika     brand_preview             -      false   no     has >10 brand logos
+keramika       keramika     partners                  -      false   no     
+keramika       keramika     hotels                    -      false   no     
+keramika       keramika     hero                      -      true    YES    
+keramika       keramika     about_event               -      true    YES    
+keramika       keramika     partnerships              -      true    YES    
+keramika       keramika     visitor_cta               -      true    YES    
+keramika       keramika     media_coverages_slider    -      true    YES    
+keramika       keramika     blog_post_slider          -      true    YES    
+keramika       keramika     faq                       -      true    YES    
+megabuild      megabuild    rundown                   true   false   YES    has >=1 rundown item
+megabuild      megabuild    brand_preview             true   false   YES    has >10 brand logos
+megabuild      megabuild    partners                  true   false   YES    
+megabuild      megabuild    hotels                    false  false   no     
+megabuild      megabuild    hero                      true   true    YES    
+megabuild      megabuild    mega_property_intro       true   true    YES    
+megabuild      megabuild    architect_designer_alley  true   true    YES    
+megabuild      megabuild    about_event               true   true    YES    
+megabuild      megabuild    facts_and_figures         true   true    YES    
+megabuild      megabuild    partnerships              true   true    YES    
+megabuild      megabuild    visitor_cta               true   true    YES    
+megabuild      megabuild    media_coverages_slider    true   true    YES    
+megabuild      megabuild    blog_post_slider          true   true    YES    
+megabuild      megabuild    faq                       true   true    YES    
+morefood       morefood     rundown                   -      false   no     has >=1 rundown item
+morefood       morefood     brand_preview             -      false   no     has >10 brand logos
+morefood       morefood     partners                  -      false   no     
+morefood       morefood     hotels                    -      false   no     
+morefood       morefood     hero                      -      true    YES    
+morefood       morefood     about_event               -      true    YES    
+morefood       morefood     partnerships              -      true    YES    
+morefood       morefood     visitor_cta               -      true    YES    
+morefood       morefood     media_coverages_slider    -      true    YES    
+morefood       morefood     blog_post_slider          -      true    YES    
+morefood       morefood     faq                       -      true    YES    
+outingexpo     ioe          rundown                   -      false   no     has >=1 rundown item
+outingexpo     ioe          brand_preview             -      false   no     has >10 brand logos
+outingexpo     ioe          partners                  -      false   no     
+outingexpo     ioe          hotels                    -      false   no     
+outingexpo     ioe          hero                      -      true    YES    
+outingexpo     ioe          past_exhibitors           -      true    YES    
+outingexpo     ioe          about_event               -      true    YES    
+outingexpo     ioe          theme_concept             -      true    YES    
+outingexpo     ioe          who_visits                -      true    YES    
+outingexpo     ioe          exhibitor_categories      -      true    YES    
+outingexpo     ioe          event_stats               -      true    YES    
+outingexpo     ioe          gallery_preview           -      true    YES    
+outingexpo     ioe          why_exhibit               -      true    YES    
+outingexpo     ioe          partnerships              -      true    YES    
+outingexpo     ioe          media_coverages_slider    -      true    YES    
+outingexpo     ioe          blog_post_slider          -      true    YES    
+outingexpo     ioe          faq                       -      true    YES    
+renex          renex        rundown                   -      false   no     has >=1 rundown item
+renex          renex        brand_preview             -      false   no     has >10 brand logos
+renex          renex        partners                  -      false   no     
+renex          renex        hotels                    -      false   no     
+renex          renex        hero                      -      true    YES    
+renex          renex        about_event               -      true    YES    
+renex          renex        facts_and_figures         -      true    YES    
+renex          renex        partnerships              -      true    YES    
+renex          renex        visitor_cta               -      true    YES    
+renex          renex        media_coverages_slider    -      true    YES    
+renex          renex        blog_post_slider          -      true    YES    
+renex          renex        faq                       -      true    YES    

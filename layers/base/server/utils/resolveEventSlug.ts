@@ -52,7 +52,7 @@ export const resolveEventSlug = defineCachedFunction(
   },
   {
     name: "event-slug",
-    maxAge: 15,
+    maxAge: API_MAX_AGE,
     swr: false,
     getKey: (username: string) => username,
   },

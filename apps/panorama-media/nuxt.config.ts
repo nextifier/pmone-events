@@ -64,6 +64,12 @@ export default defineNuxtConfig({
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
   },
 
+  // This app's /brands is a store-driven static page, not the base layer's API
+  // listing, so it is safe to prerender.
+  staticPages: {
+    allow: ["/brands"],
+  },
+
   sitemap: {
     urls: [
       "/",

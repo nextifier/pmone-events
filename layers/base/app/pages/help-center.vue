@@ -1,8 +1,7 @@
 <template>
   <div class="pt-6 pb-16 lg:pt-10 lg:pb-24">
     <div class="container">
-      <!-- Per-page "Last updated" (dashboard-managed, PM One plan 036). Shown
-        above both the override and baked bodies; hidden when no date is set. -->
+      <!-- "Last updated" from app.config; hidden when no date is set. -->
       <p
         v-if="lastUpdate"
         class="text-muted-foreground mx-auto mb-6 max-w-2xl text-sm tracking-tight sm:text-base"
@@ -10,10 +9,7 @@
         Last updated: {{ lastUpdate }}
       </p>
 
-      <!-- Dashboard override (plan 011): sanitized/processed admin HTML. Falls
-        back to the baked body below so a legal page is NEVER empty. -->
-      <div v-if="overrideBody" class="format-html mx-auto" v-html="processedOverride" />
-      <div v-else class="format-html mx-auto">
+      <div class="format-html mx-auto">
         <h1>Help Center</h1>
 
         <p>
@@ -166,12 +162,10 @@ const event = useEvent();
 const eventTitle = computed(() => event.title);
 const shortName = config.app.shortName;
 
-// Dashboard-managed body override (plan 011); processed like Posts render
-// TipTap HTML. Null override => baked body renders (fail-open).
-const { overrideBody, lastUpdate } = useWebsitePage("help-center");
-const { processedHtml: processedOverride } = useProcessedContent(
-  computed(() => overrideBody.value || ""),
-);
+// "Last updated" comes from app.config (settings.terms.lastUpdate). The
+// dashboard body override this page used to accept was removed in Aug 2026;
+// the copy below is the only body.
+const { termsLastUpdate: lastUpdate } = toRefs(useProjectSettings());
 // Contact email + WhatsApp now come from PM One.
 const profile = useProjectProfile();
 const email = computed(() => profile.email);

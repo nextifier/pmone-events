@@ -1,5 +1,5 @@
 <template>
-  <section v-if="content" id="brand-preview" class="container mx-auto">
+  <section v-if="content && visible" id="brand-preview" class="container mx-auto">
     <div class="flex flex-col items-center text-center">
       <h2 class="section-title">{{ content.title }}</h2>
       <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
@@ -102,9 +102,19 @@ const localePath = useLocalePath();
 
 const content = computed(() => contentStore.components.brandPreview ?? null);
 
-// Brands (with the previous-edition fallback) come from a shared composable so
-// the data is fetched once and reused by useBrandPreviewVisibility.
 const { pending, brandsWithLogo, fallbackSource } = useBrandPreview();
+
+// A thin exhibitor list renders as a sparse, sad grid, so the whole section
+// stays out of the DOM until there are enough logos to fill it. This guard used
+// to live in `useBrandPreviewVisibility`, called from every app's
+// pages/index.vue — it moved in here so a home page only has to comment the
+// component out to drop the section. `?show-brands=true` forces it for QA.
+const BRAND_PREVIEW_MIN = 10;
+const forced = useForceShow("show-brands");
+const hasEnoughBrands = computed(
+  () => brandsWithLogo.value.length > BRAND_PREVIEW_MIN,
+);
+const visible = computed(() => forced.value || hasEnoughBrands.value);
 
 // Kolom dikontrol manual (auto-fit GridFill dimatikan) supaya grid SELALU
 // penuh: jumlah brand = kelipatan kolom, tanpa filler/cell kosong.

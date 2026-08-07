@@ -23,6 +23,9 @@ const settings = {
   ogImage: {
     isDarkMode: false,
   },
+  // Reverted from the PM One dashboard — see docs/website-settings-export.json.
+  blog: { showPostCardAuthor: true },
+  terms: { lastUpdate: "2026-01-09" },
 };
 
 
@@ -46,6 +49,10 @@ const routes = {
   agenda: {
     label: "Agenda",
     path: "/#rundown",
+  },
+  hotels: {
+    label: "Hotels",
+    path: "/hotels",
   },
   tickets: {
     label: "Tickets",
@@ -102,6 +109,9 @@ export default defineAppConfig({
       // routes.whyAttend,
       routes.topics,
       routes.agenda,
+      // Was injected at runtime from the `home_sections.hotels` toggle; iicc is
+      // the only app that ever had it on, so it is a plain nav entry now.
+      routes.hotels,
       routes.whyYogyakarta,
       routes.faq,
       routes.contact,
@@ -115,6 +125,7 @@ export default defineAppConfig({
           routes.about,
           routes.topics,
           routes.agenda,
+          routes.hotels,
           routes.whyYogyakarta,
           routes.tickets,
           routes.faq,

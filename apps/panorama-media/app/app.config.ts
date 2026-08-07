@@ -24,6 +24,8 @@ const settings = {
   ogImage: {
     isDarkMode: false,
   },
+  // Reverted from the PM One dashboard — see docs/website-settings-export.json.
+  blog: { showPostCardAuthor: true },
 };
 
 

@@ -21,6 +21,16 @@ const settings = {
   ogImage: {
     isDarkMode: true,
   },
+  // Reverted from the PM One dashboard — see docs/website-settings-export.json.
+  ticket: { tabs: { showGuests: true } },
+  bookSpaceForm: { showProducts: true },
+  // inacon deliberately shows nothing borrowed from a past edition.
+  dataFallback: {
+    brands: false,
+    guests: false,
+    partners: false,
+    mediaCoverages: false,
+  },
 };
 
 

@@ -76,5 +76,5 @@ const tLabel = (label) => {
   return te(key) ? t(key) : label;
 };
 
-const headerRoutes = useDynamicHeaderRoutes("header");
+const headerRoutes = computed(() => useAppConfig().routes.header ?? []);
 </script>

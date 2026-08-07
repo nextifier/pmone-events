@@ -15,7 +15,11 @@ export default defineEventHandler(async (event) => {
   }
 
   return await pmOneFetch(`/events/${eventSlug}/guests`, {
-    query: { locale, ...(featuredOnly ? { featured_only: 1 } : {}) },
+    query: {
+      locale,
+      fallback: dataFallbackFlag("guests"),
+      ...(featuredOnly ? { featured_only: 1 } : {}),
+    },
     errorPrefix: "Guests fetch",
   });
 });

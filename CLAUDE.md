@@ -83,42 +83,50 @@ File di app/ otomatis override file dengan nama sama dari base layer. Ini berlak
 
 ```ts
 defineAppConfig({
-  app: { name, shortName, projectUsername, url, company: { name, address } },
-  event: {
-    title, edition: { value, ordinal }, poster, status, // "upcoming"|"live"|"completed"|""
-    startTime, endTime, date, dateOnly, month, year, time,
-    location, locationShort, locationLink, hall, teaserVideoId,
-    profileImage, inConjunction: { label, list: [{ name, url, img }] }
-  },
+  app: { name, shortName, projectUsername, dataSourceUsername, url, company: { name, address } },
   settings: {
     header: { logoClass }, footer: { logoClass },
+    ogImage: { isDarkMode },
     ticket: { tabs: { showTickets, showGuests, showBrands, showRundown, showAbout, showPhotos } },
     blog: { showPostCardAuthor, showPostCardExcerpt },
-    ogImage: { isDarkMode },
     bookSpaceForm: { showJobTitle, showBrandName, showProducts },
-    terms: { lastUpdate }
+    terms: { lastUpdate },                       // "YYYY-MM-DD"
+    tiktokPixelId, metaPixelId, gtmId,           // GA4 lives in nuxt.config gtag.tags
+    dataFallback: { brands, guests, partners, mediaCoverages, programs, faqs, gallery },
   },
-  contact: { email, whatsapp, whatsappMarketing },
-  social: { instagram, facebook, linkedin, youtube, tiktok, x },
-  contactLinks: Record<string, { label, path }>,
-  socialLinks: Record<string, { label, path, iconName }>,
-  routes: { header: [], dialog: [], footer: [] }  // Navigation config
+  appearance: { enabled, baseColor, theme, chartColor, radius },
+  routes: { header: [], dialog: [], footer: [] },
 })
 ```
 
-### Config precedence: dashboard overrides baked (fail-open)
+Event data (title, dates, venue, poster) and contact/social come from the API —
+`useEvent()` and `useProjectProfile()` — not from app.config.
 
-Since the PM One integration, several baked values are ALSO manageable from the
-PM One dashboard, stored in `projects.settings.website_settings.site_config`
-(nav, analytics, appearance, identity) or dedicated tables (legal pages, SEO
-copy). At runtime the **dashboard value wins when set; the baked
-`app.config.ts` / `nuxt.config.ts` value is the fail-open fallback** used only
-when the dashboard has nothing saved (or PM One is unreachable). So there is a
-single effective source of truth per field - the baked value is the safety net,
-not a competing config. If you edit a baked value and see no change on the live
-site, check the dashboard for an override. Analytics ids resolve from each
-site's OWN project (see the App ↔ PM One Project Map below and
-`layers/base/server/api/event/website-settings.get.ts`).
+### Config lives in code, not in the dashboard
+
+Between Jun and Aug 2026 nav, analytics, appearance, identity, home-section
+toggles, legal-page bodies and SEO copy were all manageable from PM One, with
+the baked values as a fail-open fallback. That was reverted in Aug 2026 so every
+public page can be prerendered: a prerendered page freezes whatever the dashboard
+said at build time anyway, so the round trip bought nothing and cost a blocking
+fetch on every SSR.
+
+**app.config.ts is now the single source of truth.** The one exception is
+per-page OG title/description/image, still edited in PM One (project settings →
+SEO) and fetched by `useOgPages` — those are prerendered too, so a change there
+needs a rebuild.
+
+The production values captured before the revert are in
+`docs/website-settings-export.json`, and `docs/home-sections-truth-table.txt`
+records which home sections were visible at the time.
+
+### Home-page sections
+
+Each app's `app/pages/index.vue` lists its sections literally. To drop one,
+comment the component out; to add one back, uncomment it. There is no toggle
+layer. Sections that need data to look right guard themselves internally
+(`BrandPreview` needs >10 logos, `Rundown` needs ≥1 item), so a commented-in
+component is safe even when its data is empty.
 
 ## 11 Events Overview
 

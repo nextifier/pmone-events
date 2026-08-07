@@ -1,15 +1,12 @@
 /**
  * Shared data source for the home-page BrandPreview section.
  *
- * Fetches the active event's brands with `fallback=1`, so when the active event
- * has no brands yet the API borrows the most recent previous edition that does.
+ * Fetches the active event's brands with `?fallback` from
+ * `app.config.settings.dataFallback.brands`: when on and the active event has no
+ * brands yet, the API borrows the most recent previous edition that does.
  *
- * Consumed by BOTH `BrandPreview.vue` (renders the grid) and
- * `useBrandPreviewVisibility` (decides whether to render at all). Both share the
- * same `useLazyAsyncData` key, so the brands are fetched only once.
- *
- * `server: false` keeps the fetch client-only — matching the visibility
- * composables for the other home sections and avoiding hydration mismatches.
+ * `server: false` keeps the fetch client-only, so the brand grid is never baked
+ * into a prerendered home page and stays fresh without a rebuild.
  */
 
 // Upper bound on preview candidates (enough to fill wide screens).
@@ -41,7 +38,9 @@ export function useBrandPreview() {
     "brand-preview",
     () =>
       $fetch<BrandPreviewResponse>("/api/exhibitors", {
-        query: { per_page: 200, fallback: 1 },
+        // Opt-in per call site: the /brands listing hits the same route and must
+        // never borrow, so this teaser is the only caller that asks for it.
+        query: { per_page: 200, fallback: useDataFallback().brands },
       }).catch(() => null),
     { server: false },
   );

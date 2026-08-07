@@ -52,10 +52,16 @@ export function useGuests(opts: { featuredOnly?: boolean; ssr?: boolean } = {}) 
   const { locale } = useI18n();
 
   return useFetch<GuestListResponse>("/api/event/guests", {
+    // Explicit key: Nuxt's auto-key is per call site, so two components asking
+    // for the same list from different files would fetch it twice.
+    key: () => `guests-${opts.featuredOnly ? "featured" : "all"}-${locale.value}`,
     query: {
       locale,
       ...(opts.featuredOnly ? { featured_only: 1 } : {}),
     },
+    // SSR on the dedicated /guests and /speakers pages (crawlable, and they are
+    // never prerendered); client-only wherever the list is embedded on a page
+    // that IS prerendered, so it never freezes into static HTML.
     server: opts.ssr ?? true,
     lazy: !(opts.ssr ?? true),
     watch: [locale],

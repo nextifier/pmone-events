@@ -1,8 +1,15 @@
 <template>
-  <DialogRoot v-model:open="isOpen">
-    <DialogTrigger as-child>
+  <Drawer v-model:open="isOpen" side="right">
+    <!--
+      `toggle` because this button is the close control too: the bars morph into
+      a cross while the menu is open. `pointer-events-auto` because the scroll
+      lock sets `pointer-events: none` on the body, and the header sits outside
+      the drawer — without it the cross was purely decorative and the only ways
+      out were Escape, the backdrop, a swipe, or a link.
+    -->
+    <DrawerTrigger toggle as-child>
       <button
-        class="relative flex size-8 items-center justify-center rounded-lg"
+        class="pointer-events-auto relative flex size-8 items-center justify-center rounded-lg"
         aria-label="Menu"
       >
         <span
@@ -17,48 +24,99 @@
           }"
         ></span>
       </button>
-    </DialogTrigger>
+    </DrawerTrigger>
 
-    <DialogPortal>
-      <DialogOverlay
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 ease-(--panel-ease) data-open:duration-(--panel-open-dur) data-closed:duration-(--panel-close-dur) motion-reduce:animate-none! fixed inset-0 z-40 bg-black/80"
-      />
-      <DialogContent
-        id="header-menu"
-        class="bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right ease-(--panel-ease) data-open:duration-(--panel-open-dur) data-closed:duration-(--panel-close-dur) motion-reduce:animate-none! text-primary fixed top-(--navbar-height-mobile) right-0 bottom-0 z-50 min-h-[calc(100dvh-var(--navbar-height-mobile))] w-full max-w-2xl lg:top-(--navbar-height-desktop) lg:min-h-[calc(100dvh-var(--navbar-height-desktop))] dark:sm:border dark:sm:border-gray-900"
-        tabindex="-1"
+    <DrawerPopup
+      id="header-menu"
+      variant="straight"
+      viewport-class="top-(--navbar-height-mobile) bottom-0 lg:top-(--navbar-height-desktop)"
+      overlay-class="z-40 ease-(--panel-ease) duration-(--panel-open-dur) data-ending-style:duration-(--panel-close-dur) motion-reduce:transition-none!"
+      class="bg-background text-primary ease-(--panel-ease) duration-(--panel-open-dur) data-ending-style:duration-(--panel-close-dur) motion-reduce:transition-none! w-full max-w-2xl border-s-0 shadow-none dark:sm:border dark:sm:border-gray-900"
+      tabindex="-1"
+    >
+      <DrawerTitle class="sr-only">Menu</DrawerTitle>
+      <DrawerDescription class="sr-only">Navigation menu</DrawerDescription>
+
+      <!--
+        `touch-auto` hands vertical scrolling back to the browser: the popup is
+        `touch-none` so the horizontal drag belongs to JS, and without this the
+        list would not scroll on a touch device.
+
+        The `lg:` height used to carry a stray `d` that killed the variant, so the
+        mobile value applied at every breakpoint. Both navbar tokens are 3.5rem
+        today, so the two calcs resolve identically and removing it changes
+        nothing on screen — but the variant works again if they ever diverge.
+      -->
+      <div
+        class="scroll-fade-y lg:h-[calc(100dvh-var(--navbar-height-desktop)-3.5rem)] h-[calc(100dvh-var(--navbar-height-mobile)-3.5rem)] touch-auto overflow-y-auto"
       >
-        <DialogHeader class="sr-only">
-          <DialogTitle>Menu</DialogTitle>
-          <DialogDescription>Navigation menu</DialogDescription>
-        </DialogHeader>
-
         <div
-          ref="headerMenuContent"
-          class="scroll-fade-y lg:h-[calc(100dvh-var(--navbar-height-desktop)-3.5rem)]d h-[calc(100dvh-var(--navbar-height-mobile)-3.5rem)] overflow-y-auto"
+          class="grid grid-cols-12 gap-x-1 gap-y-10 px-2 pt-6 pb-10 sm:px-8"
         >
           <div
-            class="grid grid-cols-12 gap-x-1 gap-y-10 px-2 pt-6 pb-10 sm:px-8"
+            v-if="primaryGroup"
+            class="col-span-7 flex flex-col gap-y-2 lg:col-span-6"
           >
+            <span
+              class="text-muted-foreground/90 px-4 text-sm tracking-tight lg:px-6"
+              >{{ tLabel(primaryGroup.label) }}</span
+            >
+
+            <div class="flex flex-col gap-y-3">
+              <DrawerClose
+                as-child
+                v-for="(link, index) in primaryGroup.links"
+                :key="index"
+              >
+                <NuxtLink
+                  :to="lp(link.path)"
+                  :target="link.path.startsWith('http') ? '_blank' : ''"
+                  class="text-foreground hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
+                  active-class="bg-muted"
+                  @click="onLinkActivate(lp(link.path))"
+                  @contextmenu="
+                    (event) => {
+                      if (link.rightClickLink) {
+                        event.preventDefault();
+                        navigateTo(link.rightClickLink, {
+                          external: true,
+                          open: { target: '_blank' },
+                        });
+                      }
+                    }
+                  "
+                >
+                  {{ tLabel(link.label) }}
+                </NuxtLink>
+              </DrawerClose>
+            </div>
+          </div>
+
+          <div
+            class="order-first col-span-5 flex flex-col gap-y-6 lg:col-span-6"
+          >
+            <ColorModeButtons />
+
             <div
-              v-if="primaryGroup"
-              class="col-span-7 flex flex-col gap-y-2 lg:col-span-6"
+              v-for="(item, index) in secondaryGroups"
+              :key="index"
+              class="flex flex-col gap-y-2"
             >
               <span
                 class="text-muted-foreground/90 px-4 text-sm tracking-tight lg:px-6"
-                >{{ tLabel(primaryGroup.label) }}</span
+                >{{ tLabel(item.label) }}</span
               >
 
-              <div class="flex flex-col gap-y-3">
-                <DialogClose
+              <div class="flex flex-col gap-y-2 sm:gap-y-1">
+                <DrawerClose
                   as-child
-                  v-for="(link, index) in primaryGroup.links"
+                  v-for="(link, index) in item.links"
                   :key="index"
                 >
                   <NuxtLink
                     :to="lp(link.path)"
                     :target="link.path.startsWith('http') ? '_blank' : ''"
-                    class="text-foreground hover:bg-muted overflow-x-hidden rounded-xl px-4 py-1.5 text-3xl leading-snug font-medium tracking-[-0.04em] transition active:scale-98 lg:px-6"
+                    class="text-foreground hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
                     active-class="bg-muted"
                     @click="onLinkActivate(lp(link.path))"
                     @contextmenu="
@@ -73,101 +131,61 @@
                       }
                     "
                   >
-                    {{ tLabel(link.label) }}
-                  </NuxtLink>
-                </DialogClose>
-              </div>
-            </div>
-
-            <div
-              class="order-first col-span-5 flex flex-col gap-y-6 lg:col-span-6"
-            >
-              <ColorModeButtons />
-
-              <div
-                v-for="(item, index) in secondaryGroups"
-                :key="index"
-                class="flex flex-col gap-y-2"
-              >
-                <span
-                  class="text-muted-foreground/90 px-4 text-sm tracking-tight lg:px-6"
-                  >{{ tLabel(item.label) }}</span
-                >
-
-                <div class="flex flex-col gap-y-2 sm:gap-y-1">
-                  <DialogClose
-                    as-child
-                    v-for="(link, index) in item.links"
-                    :key="index"
+                    {{ tLabel(link.label) }}</NuxtLink
                   >
-                    <NuxtLink
-                      :to="lp(link.path)"
-                      :target="link.path.startsWith('http') ? '_blank' : ''"
-                      class="text-foreground hover:bg-muted rounded-lg px-4 py-1 text-sm leading-normal tracking-tight transition active:scale-98 sm:text-base lg:px-6 lg:py-1.5"
-                      active-class="bg-muted"
-                      @click="onLinkActivate(lp(link.path))"
-                      @contextmenu="
-                        (event) => {
-                          if (link.rightClickLink) {
-                            event.preventDefault();
-                            navigateTo(link.rightClickLink, {
-                              external: true,
-                              open: { target: '_blank' },
-                            });
-                          }
-                        }
-                      "
-                    >
-                      {{ tLabel(link.label) }}</NuxtLink
-                    >
-                  </DialogClose>
-                </div>
+                </DrawerClose>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div
-          class="xs:px-4 absolute inset-x-0 bottom-0 grid h-16 w-full grid-cols-2 gap-2 px-2 pb-4 sm:px-8"
+      <div
+        class="xs:px-4 absolute inset-x-0 bottom-0 grid h-16 w-full grid-cols-2 gap-2 px-2 pb-4 sm:px-8"
+      >
+        <DrawerClose as-child>
+          <NuxtLink
+            :to="localePath('/book-space')"
+            class="bg-muted text-foreground hover:bg-border flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
+            @click="onLinkActivate(localePath('/book-space'))"
+            v-ripple
+            >{{ $t("ui.bookSpace") }}</NuxtLink
+          ></DrawerClose
         >
-          <DialogClose as-child>
-            <NuxtLink
-              :to="localePath('/book-space')"
-              class="bg-muted text-foreground hover:bg-border flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
-              @click="onLinkActivate(localePath('/book-space'))"
-              v-ripple
-              >{{ $t("ui.bookSpace") }}</NuxtLink
-            ></DialogClose
-          >
 
-          <DialogClose as-child>
-            <NuxtLink
-              :to="localePath('/tickets')"
-              class="bg-primary text-primary-foreground hover:bg-primary/80 flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
-              @click="onLinkActivate(localePath('/tickets'))"
-              v-ripple
-              >{{ $t("ui.getTicket") }}</NuxtLink
-            >
-          </DialogClose>
-        </div>
-      </DialogContent>
-    </DialogPortal>
-  </DialogRoot>
+        <DrawerClose as-child>
+          <NuxtLink
+            :to="localePath('/tickets')"
+            class="bg-primary text-primary-foreground hover:bg-primary/80 flex size-full items-center justify-center rounded-xl text-lg font-semibold tracking-tight transition select-none active:scale-98"
+            @click="onLinkActivate(localePath('/tickets'))"
+            v-ripple
+            >{{ $t("ui.getTicket") }}</NuxtLink
+          >
+        </DrawerClose>
+      </div>
+    </DrawerPopup>
+  </Drawer>
 </template>
 
 <script setup>
+// Built on the Drawer rather than reka's Dialog primitives, so the panel follows
+// the finger instead of snapping shut on a direction guess. The old `useSwipe`
+// watcher only ever reported which way you moved; there was no drag, no rubber
+// band, and no way to change your mind halfway.
+//
+// The back-button handling that used to live here went with it. `Drawer` calls
+// `usePanelHistory`, which keeps one stack shared with Dialog and Lightbox, and
+// only rewinds while the current history entry is still the one it pushed — the
+// same thing the local `closingViaLink` flag was for, minus the bookkeeping.
 import {
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogOverlay,
-  DialogPortal,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "reka-ui";
+  Drawer,
+  DrawerClose,
+  DrawerDescription,
+  DrawerPopup,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
-const route = useRoute();
 const localePath = useLocalePath();
 const { t, te } = useI18n();
 const lp = useEditionPath();
@@ -177,7 +195,7 @@ const tLabel = (label) => {
   return te(key) ? t(key) : label;
 };
 
-const dialogRoutes = useDynamicHeaderRoutes("dialog");
+const dialogRoutes = computed(() => useAppConfig().routes.dialog ?? []);
 const dialogGroups = computed(() => dialogRoutes.value || []);
 const primaryGroup = computed(() => dialogGroups.value[0] || null);
 
@@ -222,53 +240,8 @@ defineShortcuts({
   },
 });
 
-// Back button/gesture closes the menu instead of navigating away.
-const pushedHistoryState = ref(false);
-// Set synchronously when a nav link is clicked, so the close handler below can
-// tell a navigation apart from a plain dismiss before any async routing runs.
-const closingViaLink = ref(false);
-
 const { $scrollToTopIfCurrentPageIs } = useNuxtApp();
 const onLinkActivate = (path) => {
-  closingViaLink.value = true;
   $scrollToTopIfCurrentPageIs(path);
 };
-
-const onPopState = () => {
-  pushedHistoryState.value = false;
-  isOpen.value = false;
-};
-
-watch(isOpen, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    window.history.pushState({ headerMenuOpen: true }, "");
-    pushedHistoryState.value = true;
-    closingViaLink.value = false;
-    window.addEventListener("popstate", onPopState, { once: true });
-  } else if (!newVal && oldVal && pushedHistoryState.value) {
-    pushedHistoryState.value = false;
-    window.removeEventListener("popstate", onPopState);
-    const viaLink = closingViaLink.value;
-    closingViaLink.value = false;
-    // A nav link closes the menu *and* navigates, pushing its own history
-    // entry, so calling back() would cancel that navigation. Only rewind the
-    // sentinel we pushed on open when the menu is dismissed (button, swipe,
-    // Escape, overlay) without navigating.
-    if (!viaLink) {
-      window.history.back();
-    }
-  }
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("popstate", onPopState);
-});
-
-const headerMenuContent = ref(null);
-const { isSwiping, direction } = useSwipe(headerMenuContent);
-watch(isSwiping, () => {
-  if (direction.value === "right") {
-    isOpen.value = false;
-  }
-});
 </script>

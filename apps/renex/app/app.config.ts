@@ -21,6 +21,8 @@ const settings = {
   ogImage: {
     isDarkMode: true,
   },
+  // Reverted from the PM One dashboard — see docs/website-settings-export.json.
+  bookSpaceForm: { showProducts: true, showJobTitle: true },
 };
 
 

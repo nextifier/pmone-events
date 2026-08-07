@@ -10,35 +10,30 @@ type AppearanceOverride = Partial<typeof DEFAULT_APPEARANCE> & { enabled?: boole
  * (`:root`/`.dark` token overrides) — production look. Token-only,
  * components/ui untouched.
  *
- * Three ways to theme a project, in increasing precedence:
+ * Two ways to theme a project, in increasing precedence:
  *  1) Custom brand palette (recommended for branded sites like iicc/megabuild):
  *     edit that app's `app/assets/css/app.css` — override `--color-gray-*` and
  *     semantic tokens (`--primary`, etc.) in `:root` and `.dark`. Full hex control.
  *  2) A curated shadcn palette baked in-code: set in app.config.ts
  *     `appearance: { enabled: true, baseColor: "zinc", theme: "blue", chartColor: "blue" }`.
- *  3) The same curated palette, dashboard-managed (PM One plan 010): saved via
- *     `site_config.appearance` on the project's website-settings, read through
- *     `useProjectSiteConfig().appearance`. Wins over the baked app.config
- *     value when present, so an operator can retheme without a rebuild - fail-open
- *     when the dashboard has not configured it (`docs/site-config-contract.md`,
- *     rule 2).
  *
- * Called from `app.vue` setup (not a plugin) so the read happens after all
- * plugins have run on the server and after hydration on the client — i.e. after
- * the `projectSettings` plugin resolved the `project-settings` payload — and the
- * resulting plain CSS string is handed to `useHead`, so no payload re-read
- * happens during head serialization. Emitted into the SSR `<head>` → no FOUC.
+ * A third, dashboard-managed layer (`site_config.appearance`) existed between
+ * Jun and Aug 2026 and was removed with the rest of the website-settings
+ * pipeline: a prerendered page would freeze the palette into its HTML anyway.
+ * Only megabuild had ever saved one, with `enabled: false`, so nothing changed.
+ *
+ * Called from `app.vue` setup (not a plugin) so the resulting plain CSS string
+ * is handed to `useHead` before head serialization. Emitted into the SSR
+ * `<head>` → no FOUC.
  */
 export function useProjectAppearance(): void {
   const appConfig = useAppConfig();
-  const siteConfig = useProjectSiteConfig();
 
   const baked = (appConfig.appearance as AppearanceOverride | undefined) ?? {};
-  const dashboard = (siteConfig.appearance as AppearanceOverride | null) ?? {};
-  // Normalized because the PM One dashboard form used to default its pickers to
-  // neutral/neutral/neutral, so saved site_config carries that trio without
-  // anyone having deliberately chosen Neutral three times.
-  const appearance = normalizeAppearance({ ...DEFAULT_APPEARANCE, ...baked, ...dashboard });
+  // Normalized because the retired dashboard form defaulted its pickers to
+  // neutral/neutral/neutral, and an app.config copied from a saved payload can
+  // still carry that trio without anyone having chosen Neutral three times.
+  const appearance = normalizeAppearance({ ...DEFAULT_APPEARANCE, ...baked });
 
   // Higher-specificity selector (:root:root) so the injected tokens
   // deterministically win over app.css `:root`/`.dark`, independent of <head>

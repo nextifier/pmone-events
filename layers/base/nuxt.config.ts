@@ -36,10 +36,25 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      // `interactive-widget=resizes-content` shrinks the layout viewport when
+      // the software keyboard opens, so anything anchored to the bottom edge —
+      // Drawer, ResponsiveDialog, Sheet — rises above it with no JavaScript at
+      // all. Without it browsers fall back to `resizes-visual` and the keyboard
+      // covers the panel. WebKit has never implemented the descriptor, so iOS
+      // still needs the `useDrawerVirtualKeyboard` fallback in ui/drawer.
+      //
+      // Declared as a `meta` entry rather than `app.head.viewport`: Nuxt fills
+      // in a default `viewport` at app level, and defu lets that default win
+      // over a layer's value. A tag in the array is deduped by name instead.
       htmlAttrs: {
         translate: "no",
       },
       meta: [
+        {
+          name: "viewport",
+          content:
+            "width=device-width, initial-scale=1, interactive-widget=resizes-content",
+        },
         { name: "google", content: "notranslate" },
         // iOS ignores the manifest's `display`, so without these an
         // Add-to-Home-Screen launch opens a plain Safari tab instead of a
@@ -431,14 +446,25 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    // Nothing is prerendered: every public page is SSR, with its edge TTL set
-    // by server/plugins/cacheControl.ts. Stated explicitly rather than left to
-    // defaults so a future Nuxt/Nitro change cannot quietly start crawling and
-    // baking pages again — a prerendered page freezes the dashboard-managed
-    // nav/appearance payload into its HTML until the next code deploy.
-    prerender: {
-      crawlLinks: false,
-      routes: [],
+    // `nitro.prerender` is owned entirely by modules/static-pages.ts — one
+    // owner, so the route list and the flags around it cannot disagree.
+
+    cloudflare: {
+      wrangler: {
+        assets: {
+          // Canonical URL has no trailing slash, matching what <NuxtLink>
+          // emits, so a prerendered /contact.html is served at /contact with no
+          // redirect hop. Pairs with `autoSubfolderIndex: false`.
+          html_handling: "drop-trailing-slash",
+          // MUST stay "none". Anything else makes the asset router answer paths
+          // that have no file — which is every SSR route — and the Worker would
+          // never see them.
+          not_found_handling: "none",
+          // Assets win, so a prerendered page never invokes the Worker. This is
+          // the whole point: Cloudflare bills invocations, not asset reads.
+          run_worker_first: false,
+        },
+      },
     },
 
     alias: {
@@ -459,5 +485,13 @@ export default defineNuxtConfig({
     viewTransition: true,
     appManifest: false,
     emitRouteChunkError: "automatic-immediate",
+    // Keep the payload INLINE in each prerendered page. Seeding
+    // nitro.prerender.routes would otherwise switch extraction on, which writes
+    // a _payload.json per route and makes hydration wait on an extra fetch —
+    // while client-side navigation could never use those payloads anyway,
+    // because shouldLoadPayload() needs a routeRules.prerender entry or the app
+    // manifest, and `appManifest` is false above. Same effective value as
+    // before prerendering was enabled.
+    payloadExtraction: false,
   },
 });

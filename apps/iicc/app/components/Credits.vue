@@ -66,7 +66,19 @@
 <script setup>
 import { NuxtLink } from "#components";
 const content = useContentStore().components.credits;
+const route = useRoute();
+
+// Client-only off the /partners page: iicc renders Credits on its prerendered
+// home, and partners change often enough that a build-time snapshot goes stale.
+// The `v-if="partners.length"` above keeps the section out of the DOM until the
+// fetch lands. See layers/base/app/components/Credits.vue.
+const isPartnersPage =
+  (route.name?.toString() ?? "").split("___")[0] === "partners";
+
 const { data: partnersData } = await useFetch("/api/event/partners", {
+  key: "event-partners",
+  server: isPartnersPage,
+  lazy: !isPartnersPage,
   default: () => ({ data: [] }),
 });
 const partners = computed(() => partnersData.value?.data ?? []);

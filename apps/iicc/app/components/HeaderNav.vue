@@ -80,7 +80,7 @@
 <script setup>
 const localePath = useLocalePath();
 const route = useRoute();
-const dynamicHeaderRoutes = useDynamicHeaderRoutes("header");
+const dynamicHeaderRoutes = computed(() => useAppConfig().routes.header ?? []);
 // Hotels dipindah ke action buttons di Header.vue, jadi exclude dari nav center
 const headerRoutes = computed(() =>
   dynamicHeaderRoutes.value.filter(

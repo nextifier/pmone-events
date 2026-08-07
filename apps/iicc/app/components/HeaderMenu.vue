@@ -165,7 +165,6 @@
             {{ $t("tickets.buyNow") }}
           </Button>
           <Button
-            v-if="hotelVisible"
             :to="localePath('/hotels')"
             variant="secondary"
             size="lg"
@@ -198,9 +197,8 @@ const { t } = useI18n();
 const localePath = useLocalePath();
 const route = useRoute();
 
-const dialogRoutes = useDynamicHeaderRoutes("dialog");
+const dialogRoutes = computed(() => useAppConfig().routes.dialog ?? []);
 const dialogGroups = computed(() => dialogRoutes.value || []);
-const { visible: hotelVisible } = useHotelSectionVisibility();
 
 const props = defineProps({
   open: {

@@ -1,5 +1,5 @@
 <template>
-  <section id="hotels">
+  <section v-if="sectionVisible" id="hotels">
     <div class="flex flex-col items-center text-center">
       <component :is="tag" class="section-title">Hotels</component>
       <p class="section-description mt-2">
@@ -170,9 +170,30 @@ defineProps({
   },
 });
 
-const { data, pending } = useAsyncData("public-hotels", () => $fetch("/api/hotels"));
+const route = useRoute();
+
+// SSR on the dedicated /hotels page (it is on the prerender deny list, so it
+// stays Worker-rendered, crawlable, and owns its own empty state); client-only
+// when embedded on the prerendered home page, where a stale hotel roster and
+// stale prices would otherwise be baked in until the next deploy.
+// `@nuxtjs/i18n` suffixes route names with `___<locale>`.
+const isHotelsPage = (route.name?.toString() ?? "").split("___")[0] === "hotels";
+
+const { data, pending } = useAsyncData(
+  "public-hotels",
+  () => $fetch("/api/hotels"),
+  { server: isHotelsPage, lazy: !isHotelsPage },
+);
 
 const hotels = computed(() => data.value?.data ?? []);
+
+// Embedded on a home page the section stays out of the DOM until there is
+// something to show: a "no hotels yet" empty state belongs on /hotels, not
+// under someone's hero. Same shape as BrandPreview — the section appears once
+// the client fetch lands rather than flashing a skeleton that may vanish.
+const sectionVisible = computed(
+  () => isHotelsPage || hotels.value.length > 0,
+);
 
 const groupedHotels = computed(() => {
   const map = new Map();

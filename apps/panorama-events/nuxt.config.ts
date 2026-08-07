@@ -67,10 +67,11 @@ export default defineNuxtConfig({
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
   },
 
-  // App-specific static pages prerendered by the base cf-cache module.
-  // /about and /services used to be prerendered here via
-  // `cfCache.extraStaticPages`; they are plain SSR now. /book-space still 500s
-  // in this app (its content store defines no bookSpace keys).
+  // /book-space 500s in this app — its content store defines no bookSpace keys —
+  // so it is excluded from prerendering. Remove this once the keys exist.
+  staticPages: {
+    deny: ["/book-space"],
+  },
 
   sitemap: {
     urls: ["/", "/about", "/services", "/events", "/faq", "/contact", "/news"],

@@ -257,9 +257,26 @@ const cart = useTicketCartStore();
 // request.
 await useEventData();
 
-const { data: ticketsData, error: ticketsError } = await useTicketsListing(
-  () => event.slug,
-);
+const {
+  data: ticketsData,
+  error: ticketsError,
+  refresh: refreshTickets,
+} = await useTicketsListing(() => event.slug);
+
+// This page is prerendered, so the SSR payload is a build-time snapshot — and
+// `on_sale` / `sales_status` / `available` are computed server-side against
+// `now()`, not derived in the browser from raw timestamps. Left alone, a sale
+// that opened after the build would keep showing "coming soon" until the next
+// deploy, and a closed one would keep taking orders that then 422 at checkout.
+//
+// So: paint the static HTML instantly, then re-fetch once after hydration.
+// `ticketsListingCachedData` only returns the payload on the server or while
+// hydrating, so this genuinely hits the API. Costs one small JSON request per
+// visitor — roughly a tenth of the CPU of rendering this page server-side —
+// and leaves the data as fresh as the SSR site was (the API caches it 5 min).
+onMounted(() => {
+  refreshTickets();
+});
 
 // A 404 with this code means the organizer has not enabled ticketing yet,
 // rendered as a full-page "coming soon" instead of the regular ticket shell.

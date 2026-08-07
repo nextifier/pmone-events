@@ -11,6 +11,14 @@ export default defineAppConfig({
     },
   },
 
+  // Defaults for every app. Each app overrides only what differs — app.config
+  // deep-merges across layers, so `settings.ticket.tabs.showPhotos: false` in an
+  // app leaves the other five tabs on.
+  //
+  // These lived in the PM One dashboard (Website Settings / Site Config) between
+  // Jun and Aug 2026 and were reverted to code so that every public page can be
+  // prerendered. The values captured from production before the revert are in
+  // docs/website-settings-export.json.
   settings: {
     header: {
       logoClass: "h-6 text-foreground",
@@ -21,7 +29,56 @@ export default defineAppConfig({
     ogImage: {
       isDarkMode: true,
     },
+
+    // Which tabs the /tickets page shows.
+    ticket: {
+      tabs: {
+        showTickets: true,
+        showGuests: false,
+        showBrands: true,
+        showRundown: true,
+        showAbout: true,
+        showPhotos: true,
+      },
+    },
+
+    blog: {
+      showPostCardAuthor: false,
+      showPostCardExcerpt: false,
+    },
+
+    // Optional fields on the /book-space exhibitor registration form.
+    bookSpaceForm: {
+      showJobTitle: false,
+      showBrandName: true,
+      showProducts: false,
+    },
+
+    // "Last updated" date printed on the legal pages, as "YYYY-MM-DD".
+    terms: {
+      lastUpdate: "2025-08-21",
+    },
+
+    // Tracking ids. GA4 is NOT here — it stays in each app's nuxt.config
+    // `gtag.tags` because nuxt-gtag needs it before hydration. The rest are
+    // read by plugins/analytics.client.ts and accept one id or an array.
     tiktokPixelId: "" as string | string[],
+    metaPixelId: "" as string | string[],
+    gtmId: "" as string | string[],
+
+    // Whether an active event with no content of its own may borrow the most
+    // recent previous edition's. Sent to the API as `?fallback=0|1` per
+    // endpoint — see useDataFallback. `brands` only affects the home-page
+    // preview and brand detail resolution; the /brands listing never borrows.
+    dataFallback: {
+      brands: true,
+      guests: true,
+      partners: true,
+      mediaCoverages: true,
+      programs: true,
+      faqs: true,
+      gallery: true,
+    },
   },
 
   routes: {

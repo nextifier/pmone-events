@@ -32,7 +32,7 @@ export default defineCachedEventHandler(
   },
   {
     name: "api-blog-post",
-    maxAge: 15,
+    maxAge: API_MAX_AGE,
     swr: false,
     // Slug AND locale: without the locale the first language to warm an entry
     // would serve every other one for the next 15 s.

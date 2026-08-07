@@ -1,5 +1,5 @@
 <template>
-  <section id="rundown" class="container lg:max-w-3xl">
+  <section v-if="sectionVisible" id="rundown" class="container lg:max-w-3xl">
     <slot name="header" :content="content">
       <div class="flex flex-col items-center text-center">
         <h2 class="section-title">
@@ -621,9 +621,6 @@ const {
   error,
   execute: executeRundown,
 } = await useFetch(rundownUrl, {
-  // Must stay byte-identical to useRundownVisibility's key for the active
-  // edition, or the home page fetches this rundown twice (auto-keys are per
-  // call site, and that composable lives in another file).
   key: () => `rundown-${props.edition ?? "active"}-${locale.value}`,
   query: { locale },
   server: isRundownPage,
@@ -634,13 +631,26 @@ const {
 
 if (!isRundownPage && import.meta.client) {
   onMounted(() => {
-    // useRundownVisibility already filled this entry on the home page; execute()
-    // would refetch it regardless of cached data.
     if (!rundownData.value) {
       executeRundown();
     }
   });
 }
+
+// Embedded on a home page, an empty rundown must not render as an empty
+// section — the dedicated /rundown page always renders, because it owns its own
+// empty state. This guard used to live in `useRundownVisibility`, called from
+// every app's pages/index.vue; it moved in here so a home page only has to
+// comment the component out to drop the section. `?show-rundown=true` forces it.
+const forcedRundown = useForceShow("show-rundown");
+const hasRundownItems = computed(() =>
+  (rundownData.value?.data?.days ?? []).some(
+    (day) => (day.items?.length ?? 0) > 0,
+  ),
+);
+const sectionVisible = computed(
+  () => isRundownPage || forcedRundown.value || hasRundownItems.value,
+);
 
 // Day-first "D MMM" e.g. "7 May", "22 Jul"
 function formatDateShort(dateStr) {
@@ -735,8 +745,8 @@ const activities = computed(() => {
   );
 });
 
-// Settings sourced from /api/projects/{username}/website-settings (admin) and
-// surfaced through the public rundown payload at `data.settings`. The component
+// Display settings ride the public rundown payload at `data.settings` (they are
+// per-rundown, not part of the retired website-settings blob). The component
 // props remain the local fallback when the API hasn't returned settings yet.
 const remoteSettings = computed(
   () => rundownData.value?.data?.settings ?? null,
