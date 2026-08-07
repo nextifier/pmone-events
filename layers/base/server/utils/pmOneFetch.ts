@@ -78,7 +78,26 @@ export async function pmOneRequest<T = any>(
       const status = error?.statusCode ?? 0;
       const timedOut = status === 504;
 
-      if (attempt === PRERENDER_ATTEMPTS || !isRetryable(status, timedOut)) {
+      if (!isRetryable(status, timedOut)) {
+        throw error; // 404 and friends are real answers, not outages
+      }
+
+      if (attempt === PRERENDER_ATTEMPTS) {
+        // Retries exhausted against an API that IS supposed to answer. Throwing
+        // is not enough: `useFetch` catches it, the page renders its empty
+        // state, Nitro writes that to disk and the build goes green — which is
+        // exactly how megabuild shipped a home page with no dates or venue
+        // twice. Nothing downstream can distinguish that from a healthy render,
+        // so the build has to die here.
+        if (import.meta.prerender) {
+          console.error(
+            `\n[pmOneFetch] FATAL: ${path} still failing (${status || "network"}) after ` +
+              `${PRERENDER_ATTEMPTS} attempts.\n` +
+              "Every page built from here would be baked without this data and served " +
+              "until the next deploy. Aborting the build — retry when PM One is healthy.\n",
+          );
+          process.exit(1);
+        }
         throw error;
       }
 
