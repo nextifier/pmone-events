@@ -54,7 +54,10 @@ interface PmOneRequestOptions {
  * degraded render.
  *
  * At BUILD TIME: the opposite. A page rendered from a failed request is written
- * to disk and served for days, so a few seconds of backoff is cheap insurance.
+ * to disk and served for days, so ~45s of backoff is cheap insurance. It needs
+ * to be that long because a push rebuilds all 16 sites at once and api.pmone.id
+ * drops out under that herd — a 7-second budget was not enough to ride out the
+ * peak, and megabuild (the largest build) kept losing.
  * megabuild shipped a home page with no dates, venue or edition on 8 Aug 2026
  * because ONE request lost a race with a loaded api.pmone.id — pages in that
  * build were taking 28 s against a 15 s timeout.
@@ -63,8 +66,10 @@ interface PmOneRequestOptions {
  * timeouts, 429 and 5xx. A 404 is a real answer (a project between editions has
  * no active event) and retrying it just slows the build down.
  */
-const PRERENDER_ATTEMPTS = import.meta.prerender ? 4 : 1;
+const PRERENDER_ATTEMPTS = import.meta.prerender ? 7 : 1;
 const RETRY_BASE_DELAY_MS = 1000;
+/** 1+2+4+8+15+15 = 45s of patience. */
+const RETRY_MAX_DELAY_MS = 15000;
 
 const isRetryable = (status: number, timedOut: boolean): boolean =>
   timedOut || status === 429 || status >= 500 || status === 0;
@@ -116,7 +121,10 @@ export async function pmOneRequest<T = any>(
         throw error;
       }
 
-      const delay = RETRY_BASE_DELAY_MS * 2 ** (attempt - 1);
+      const delay = Math.min(
+        RETRY_BASE_DELAY_MS * 2 ** (attempt - 1),
+        RETRY_MAX_DELAY_MS,
+      );
       console.warn(
         `[pmOneFetch] ${path} failed (${status || "network"}), retrying in ${delay}ms ` +
           `(attempt ${attempt + 1}/${PRERENDER_ATTEMPTS})`,
