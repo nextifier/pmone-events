@@ -76,15 +76,94 @@ const isRetryable = (status: number, timedOut: boolean): boolean =>
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * Paths whose retry ladder already ran out during THIS build.
+ *
+ * Nitro's `defineCachedEventHandler` caches successes but never failures
+ * (nitropack/dist/runtime/internal/cache.mjs — `setItem` sits in the success
+ * branch only). So with `concurrency: 4`, every wave of prerendered routes
+ * re-runs the whole ladder from scratch against an upstream that has already
+ * proven it cannot answer. On 8 Aug 2026 that turned one unreachable API into
+ * hundreds of requests from a single build.
+ *
+ * Once a path is in here the build is already doomed — the fatal path below
+ * exits — but optional endpoints keep running, and they must not re-queue.
+ */
+const exhausted = new Set<string>();
+
+/**
+ * Everything the next person needs to tell "the origin is down" apart from
+ * "something between us and the origin is down", which cost a whole night of
+ * guessing on 8 Aug 2026. `cf-ray` names the Cloudflare data centre, and the
+ * body of a Cloudflare-generated error says which error it is; an origin
+ * response has neither.
+ */
+function upstreamForensics(error: any): string {
+  const headers = error?.data?.__headers as Record<string, string> | undefined;
+  const parts = [
+    headers?.["cf-ray"] && `cf-ray=${headers["cf-ray"]}`,
+    headers?.["cf-cache-status"] && `cf-cache=${headers["cf-cache-status"]}`,
+    headers?.server && `server=${headers.server}`,
+  ].filter(Boolean);
+
+  return parts.length ? ` [${parts.join(" ")}]` : "";
+}
+
+function headerSnapshot(response: unknown): Record<string, string> {
+  const headers = (response as { headers?: Headers } | undefined)?.headers;
+
+  if (!headers?.get) {
+    return {};
+  }
+
+  const wanted = ["cf-ray", "cf-cache-status", "server"];
+  const snapshot: Record<string, string> = {};
+
+  for (const name of wanted) {
+    const value = headers.get(name);
+    if (value) {
+      snapshot[name] = value;
+    }
+  }
+
+  return snapshot;
+}
+
 export async function pmOneRequest<T = any>(
   path: string,
   opts: PmOneRequestOptions = {},
 ): Promise<T> {
   let lastError: unknown;
 
-  for (let attempt = 1; attempt <= PRERENDER_ATTEMPTS; attempt++) {
+  if (import.meta.prerender && exhausted.has(path)) {
+    throw createError({
+      statusCode: 503,
+      message: `[pmOneFetch] ${path} already exhausted its retries earlier in this build`,
+    });
+  }
+
+  // An endpoint the build can finish without does not get to spend the build's
+  // patience. /website-settings (OG overrides only) burned 2m44s of retries on
+  // 8 Aug 2026 before /events/active — the one that actually matters — had made
+  // its first request, on a build that then died with time still on the clock.
+  const attempts = opts.optionalAtBuild
+    ? Math.min(2, PRERENDER_ATTEMPTS)
+    : PRERENDER_ATTEMPTS;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      return await pmOneRequestOnce<T>(path, opts);
+      // The last attempt of a BUILD goes out under a URL nothing can have
+      // cached. If the failure lives in an intermediary rather than the origin,
+      // this is the one request that routes around it — and if it fails too,
+      // the origin really is unreachable and the log says so unambiguously.
+      //
+      // Never at runtime: there `attempts` is 1, so every visitor request would
+      // carry a unique key and miss the origin's response cache outright.
+      return await pmOneRequestOnce<T>(
+        path,
+        opts,
+        import.meta.prerender && attempt === attempts,
+      );
     } catch (error: any) {
       lastError = error;
 
@@ -95,7 +174,9 @@ export async function pmOneRequest<T = any>(
         throw error; // 404 and friends are real answers, not outages
       }
 
-      if (attempt === PRERENDER_ATTEMPTS) {
+      if (attempt === attempts) {
+        exhausted.add(path);
+
         // Retries exhausted against an API that IS supposed to answer. Throwing
         // is not enough: `useFetch` catches it, the page renders its empty
         // state, Nitro writes that to disk and the build goes green — which is
@@ -105,7 +186,8 @@ export async function pmOneRequest<T = any>(
         if (import.meta.prerender && !opts.optionalAtBuild) {
           console.error(
             `\n[pmOneFetch] FATAL: ${path} still failing (${status || "network"}) after ` +
-              `${PRERENDER_ATTEMPTS} attempts.\n` +
+              `${attempts} attempts${upstreamForensics(error)}.\n` +
+              `Upstream said: ${String(error?.message ?? "").slice(0, 300)}\n` +
               "Every page built from here would be baked without this data and served " +
               "until the next deploy. Aborting the build — retry when PM One is healthy.\n",
           );
@@ -114,7 +196,7 @@ export async function pmOneRequest<T = any>(
 
         if (import.meta.prerender) {
           console.warn(
-            `[pmOneFetch] ${path} unavailable after ${PRERENDER_ATTEMPTS} attempts, ` +
+            `[pmOneFetch] ${path} unavailable after ${attempts} attempts, ` +
               "continuing without it (marked optional at build time).",
           );
         }
@@ -126,8 +208,8 @@ export async function pmOneRequest<T = any>(
         RETRY_MAX_DELAY_MS,
       );
       console.warn(
-        `[pmOneFetch] ${path} failed (${status || "network"}), retrying in ${delay}ms ` +
-          `(attempt ${attempt + 1}/${PRERENDER_ATTEMPTS})`,
+        `[pmOneFetch] ${path} failed (${status || "network"})${upstreamForensics(error)}, ` +
+          `retrying in ${delay}ms (attempt ${attempt + 1}/${attempts})`,
       );
       await sleep(delay);
     }
@@ -139,6 +221,7 @@ export async function pmOneRequest<T = any>(
 async function pmOneRequestOnce<T = any>(
   path: string,
   opts: PmOneRequestOptions = {},
+  bypassCaches = false,
 ): Promise<T> {
   const config = useRuntimeConfig();
 
@@ -150,6 +233,13 @@ async function pmOneRequestOnce<T = any>(
         ),
       )
     : (opts.query ?? {});
+
+  // A key nothing upstream has seen, so no edge or response cache can answer
+  // it. Only ever set on the final attempt: it costs the origin a full render,
+  // which is the right price once, and the wrong price on every request.
+  const query = bypassCaches
+    ? { ...filteredQuery, _retry: Date.now().toString(36) }
+    : filteredQuery;
 
   const controller = new AbortController();
   // Prerender waits longer than a visitor would: a slow answer still produces a
@@ -167,7 +257,7 @@ async function pmOneRequestOnce<T = any>(
         Accept: "application/json",
         ...opts.headers,
       },
-      query: filteredQuery,
+      query,
       body: opts.body,
       responseType: opts.responseType as any,
       signal: controller.signal,
@@ -189,8 +279,12 @@ async function pmOneRequestOnce<T = any>(
         ? { statusMessage: message }
         : { message }),
       // Passthrough the upstream body so pages can map 422 field errors, read a
-      // form's closed_message on 403, etc.
-      data: error.data,
+      // form's closed_message on 403, etc. During a build the response headers
+      // ride along too: they are the only way to see whether a 5xx came from
+      // the origin or from Cloudflare in front of it.
+      data: import.meta.prerender
+        ? { ...(error.data ?? {}), __headers: headerSnapshot(error.response) }
+        : error.data,
     });
   } finally {
     clearTimeout(timeoutId);
