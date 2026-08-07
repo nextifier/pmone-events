@@ -54,19 +54,21 @@ interface PmOneRequestOptions {
  * degraded render.
  *
  * At BUILD TIME: the opposite. A page rendered from a failed request is written
- * to disk and served for days, so ~45s of backoff is cheap insurance. It needs
- * to be that long because a push rebuilds all 16 sites at once and api.pmone.id
- * drops out under that herd — a 7-second budget was not enough to ride out the
- * peak, and megabuild (the largest build) kept losing.
- * megabuild shipped a home page with no dates, venue or edition on 8 Aug 2026
- * because ONE request lost a race with a loaded api.pmone.id — pages in that
- * build were taking 28 s against a 15 s timeout.
+ * to disk and served for days, so a short ladder of retries is cheap insurance
+ * against the blips that a single request would lose to.
+ *
+ * Four attempts, not more. This briefly ran at seven on the theory that sixteen
+ * simultaneous builds were overloading api.pmone.id. That theory was wrong — the
+ * origin was never involved; megabuild's Cloudflare project pointed
+ * NUXT_PUBLIC_API_URL at a hostname with no server behind it, and every attempt
+ * sat through Cloudflare's 20-second connect timeout before returning 522. All a
+ * longer ladder bought was a doomed build taking six minutes to admit it.
  *
  * Only worth retrying what can succeed on a second ask: network errors,
  * timeouts, 429 and 5xx. A 404 is a real answer (a project between editions has
  * no active event) and retrying it just slows the build down.
  */
-const PRERENDER_ATTEMPTS = import.meta.prerender ? 7 : 1;
+const PRERENDER_ATTEMPTS = import.meta.prerender ? 4 : 1;
 const RETRY_BASE_DELAY_MS = 1000;
 /** 1+2+4+8+15+15 = 45s of patience. */
 const RETRY_MAX_DELAY_MS = 15000;
@@ -152,18 +154,7 @@ export async function pmOneRequest<T = any>(
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      // The last attempt of a BUILD goes out under a URL nothing can have
-      // cached. If the failure lives in an intermediary rather than the origin,
-      // this is the one request that routes around it — and if it fails too,
-      // the origin really is unreachable and the log says so unambiguously.
-      //
-      // Never at runtime: there `attempts` is 1, so every visitor request would
-      // carry a unique key and miss the origin's response cache outright.
-      return await pmOneRequestOnce<T>(
-        path,
-        opts,
-        import.meta.prerender && attempt === attempts,
-      );
+      return await pmOneRequestOnce<T>(path, opts);
     } catch (error: any) {
       lastError = error;
 
@@ -221,25 +212,17 @@ export async function pmOneRequest<T = any>(
 async function pmOneRequestOnce<T = any>(
   path: string,
   opts: PmOneRequestOptions = {},
-  bypassCaches = false,
 ): Promise<T> {
   const config = useRuntimeConfig();
 
   const allowedKeys = opts.allowedQueryKeys;
-  const filteredQuery = allowedKeys
+  const query = allowedKeys
     ? Object.fromEntries(
         Object.entries(opts.query ?? {}).filter(([k]) =>
           allowedKeys.includes(k),
         ),
       )
     : (opts.query ?? {});
-
-  // A key nothing upstream has seen, so no edge or response cache can answer
-  // it. Only ever set on the final attempt: it costs the origin a full render,
-  // which is the right price once, and the wrong price on every request.
-  const query = bypassCaches
-    ? { ...filteredQuery, _retry: Date.now().toString(36) }
-    : filteredQuery;
 
   const controller = new AbortController();
   // Prerender waits longer than a visitor would: a slow answer still produces a

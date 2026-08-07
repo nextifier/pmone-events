@@ -101,7 +101,21 @@ export default defineNuxtModule<ModuleOptions>({
     // This has to run HERE, in Node. The same check inside an app plugin is dead
     // code: `import.meta.prerender` is a Nitro build flag and is `undefined` in
     // the Nuxt app bundle, so the guard tree-shakes away silently.
-    const activeEventTitle = await assertApiReachable(nuxt.options.rootDir, apiKey, logger);
+    //
+    // It must probe the SAME origin the prerenderer will use, resolved the same
+    // way Nitro resolves it. This check used to hardcode api.pmone.id, and on
+    // 8 Aug 2026 that made it worse than useless: megabuild's Cloudflare project
+    // carried a build variable NUXT_PUBLIC_API_URL=https://api.megabuild.co.id,
+    // a hostname with no origin behind it. The check passed against the wrong
+    // host, then every prerender request spent 20 s waiting for a 522 — four
+    // failed builds before anyone could see which URL was being called.
+    const apiUrl = resolveApiUrl(nuxt);
+    const activeEventTitle = await assertApiReachable(
+      nuxt.options.rootDir,
+      apiUrl,
+      apiKey,
+      logger,
+    );
 
     nuxt.options.nitro.prerender = {
       ...nuxt.options.nitro.prerender,
@@ -228,8 +242,33 @@ export default defineNuxtModule<ModuleOptions>({
  * and adding a second source of truth for the username would be worse than a
  * regex over the file that already owns it.
  */
+/**
+ * The API origin the prerenderer will actually call.
+ *
+ * Nitro resolves `runtimeConfig.public.apiUrl` from `NUXT_PUBLIC_API_URL` when
+ * that variable exists in the environment, which during a Cloudflare build it
+ * does — so the value in nuxt.config is only half the answer. Reading it the
+ * same way here is the whole point: a guard that probes a different host than
+ * the build uses cannot catch a wrong host.
+ */
+function resolveApiUrl(nuxt: Nuxt): string {
+  const configured = (nuxt.options.runtimeConfig as Record<string, any>)?.public
+    ?.apiUrl;
+  const url = process.env.NUXT_PUBLIC_API_URL || configured;
+
+  if (!url) {
+    throw new Error(
+      "[static-pages] No API URL resolved from runtimeConfig.public.apiUrl or " +
+        "NUXT_PUBLIC_API_URL. Prerendering cannot fetch PM One without one.",
+    );
+  }
+
+  return String(url).replace(/\/+$/, "");
+}
+
 async function assertApiReachable(
   rootDir: string,
+  apiUrl: string,
   apiKey: string,
   logger: ReturnType<typeof useLogger>,
 ): Promise<string | null> {
@@ -246,7 +285,11 @@ async function assertApiReachable(
     );
   }
 
-  const url = `https://api.pmone.id/api/public/projects/${project}/events/active`;
+  const url = `${apiUrl}/api/public/projects/${project}/events/active`;
+
+  // Always name the origin, success or failure. Four builds died before anyone
+  // could see that this one was pointed at a hostname with no server behind it.
+  logger.info(`PM One API: ${apiUrl}`);
 
   // Same retry policy as pmOneFetch: api.pmone.id drops out for a second or two
   // at a time, and a single blip must not fail a build that would otherwise be
