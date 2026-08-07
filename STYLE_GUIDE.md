@@ -19,7 +19,7 @@ Section 1-23 di file ini identik di ketiga repo, sama seperti `components/ui`. Y
 
 ### Ukuran teks
 
-Ada dua tangga yang arahnya berlawanan. Memilih yang salah akan langsung kelihatan.
+Ada tiga kelompok, dan memilih yang salah akan langsung kelihatan.
 
 **Teks statis** (paragraf, deskripsi, judul, isi tabel, tooltip, kbd, shortcut) ukurannya tetap, atau membesar di layar besar.
 
@@ -27,7 +27,7 @@ Ada dua tangga yang arahnya berlawanan. Memilih yang salah akan langsung kelihat
 - Hindari `text-xs`, `text-[11px]`, `text-[10px]` berdiri sendiri di layar besar. Kalau butuh kecil, pakai `text-xs sm:text-sm` supaya tetap nyaman dibaca di desktop.
 - Hindari `text-[9px]` kecuali untuk indikator badge yang memang sangat compact (step number, key indicator).
 
-**Kontrol interaktif** (button, field, select, tab, toggle, item menu, label) memakai tangga sebaliknya: `text-base sm:text-sm`. 16px di telepon supaya nyaman disentuh dan dibaca sambil berjalan, 14px di desktop supaya toolbar tidak terlihat berat. Skala ini diambil dari coss.com/ui. Jangan mengembalikan `sm:text-base` ke rule `cn-*` mana pun.
+**Kontrol interaktif** (button, select, tab, toggle, item menu, label) ukurannya **tetap**: `text-sm`, sama di telepon dan di desktop. Tangga `text-base sm:text-sm` pernah dipakai mengikuti coss.com/ui, lalu dibuang karena 16px terlihat terlalu besar di telepon, paling kentara di sel kalender yang lebarnya cuma 28px. Jangan menambahkan step mobile lagi, dan jangan pula mengembalikan `sm:text-base` ke rule `cn-*` mana pun. Yang tetap responsif cuma field ketik, alasannya di bawah.
 
 #### Skala button (dimiliki style, jangan di-override di call site)
 
@@ -35,10 +35,10 @@ Semua `style-*.css` memakai skala yang sama. Yang berbeda antar style cuma tingg
 
 | size | font-size |
 | --- | --- |
-| `xs` | `text-sm sm:text-xs` |
+| `xs` | `text-xs` |
 | `sm` | mewarisi `.cn-button`, tidak punya override sendiri |
-| `default`, `lg` | `text-base sm:text-sm` (diwarisi dari `.cn-button`) |
-| `xl` | `text-lg sm:text-base` |
+| `default`, `lg` | `text-sm` (diwarisi dari `.cn-button`) |
+| `xl` | `text-base` |
 
 #### Field: 16px saat disentuh, 14px saat pakai mouse
 
@@ -46,7 +46,7 @@ Semua `style-*.css` memakai skala yang sama. Yang berbeda antar style cuma tingg
 
 Kenapa `pointer-fine:` dan bukan `sm:`: iOS Safari melakukan zoom-on-focus setiap kali font field di bawah 16px, dan itu tetap terjadi di iPad maupun iPhone landscape yang lebarnya sudah lewat breakpoint `sm` (640px). `pointer-fine` cuma menyala di perangkat bermouse, jadi 16px bertahan di semua perangkat sentuh. Jangan menggantinya dengan `sm:text-sm`.
 
-`.cn-select-trigger` bukan field ketik, jadi ia ikut tangga kontrol biasa (`text-base sm:text-sm`). Varian `data-[size=sm]` sengaja tidak lagi meng-override font: selectornya (0,3,0) mengalahkan `sm:` (0,2,0), jadi kalau dipasang lagi, select kompak akan terkunci 14px di mobile.
+`.cn-select-trigger` bukan field ketik, jadi ia ikut kontrol biasa: `text-sm` rata. Varian `data-[size=sm]` sengaja tidak meng-override font.
 
 #### Tangga tinggi dan ikon
 
@@ -61,7 +61,7 @@ Tiap kontrol punya dua tinggi: mobile satu step (4px) di atas desktop. Nilai des
 
 `--cn-input-h` mengikuti tangga yang sama lewat `@media (width >= 40rem)` di dalam blok `.style-X`, jadi `h-(--cn-input-h)` di call site ikut otomatis tanpa perubahan apa pun.
 
-Ikon di dalam kontrol naik setengah step (2px) di mobile: `[&_svg:not([class*=size-])]:size-4.5 sm:[…]:size-4`. Checkbox, radio, dan slider thumb juga setengah step. Badge naik satu step penuh berikut fontnya (`h-6 sm:h-5`, `text-sm sm:text-xs`).
+Ikon di dalam kontrol naik setengah step (2px) di mobile: `[&_svg:not([class*=size-])]:size-4.5 sm:[…]:size-4`. Checkbox, radio, dan slider thumb juga setengah step. Badge naik satu step penuh (`h-6 sm:h-5`), tapi fontnya tidak ikut — `text-xs` rata seperti kontrol lain.
 
 ### Hierarchy
 
@@ -119,6 +119,8 @@ Border:
 
 - Default: `border` (otomatis ambil `border-border` via base layer).
 - Input border: `border-input`.
+
+Kalau menyalin kelas dari coss.com/ui, **jangan bawa `accent` apa adanya**. Di coss `--accent` itu abu tipis (`black/4%`), di pmone isinya `var(--color-primary)` alias hitam pekat. `bg-accent` coss padanannya `bg-muted` di sini. Tokennya juga tidak boleh diubah jadi netral: mira, sera, dan lyra memakai `bg-accent` + `text-accent-foreground` untuk item menu yang di-highlight, dan blok hitam itu memang identitas mereka. `bg-popover` dan `border-input` aman disalin apa adanya, nilainya sama persis dengan `bg-background` dan `border-border` di pmone.
 
 ---
 
@@ -291,6 +293,16 @@ Kalau tombol harus sejajar dengan field di baris yang sama (misal di samping sea
 - Gap antara icon dan label dimiliki style (`gap-1` di size kecil, `gap-1.5` di size normal).
 - Icon size auto `size-4` kalau tidak ditentukan.
 - Pattern: `<Button><Icon name="hugeicons:add-01" /> Add</Button>`.
+
+### Loading
+
+Pakai prop `loading`, jangan menaruh `<Spinner>` sendiri sebagai anak tombol:
+
+```vue
+<Button type="submit" :loading="saving">Save</Button>
+```
+
+Tombolnya otomatis disabled, labelnya disembunyikan tanpa mengubah lebar, dan spinner muncul di tengah dengan warna yang mengikuti variant. Prop `loading` tidak bekerja bersama `as-child` — mode itu menyerahkan satu-satunya anak slot ke `Primitive`, jadi pembungkusnya akan jadi tombol itu sendiri.
 
 ---
 
@@ -479,8 +491,8 @@ Ganti menjadi `<Badge variant="success" plain>Active</Badge>` (atau dengan `icon
 
 ## 22. Hal yang Wajib Dihindari
 
-- `text-xs` standalone di layar besar **pada teks statis**. Pakai `text-xs sm:text-sm`. Aturan ini tidak berlaku untuk kontrol interaktif: di sana tangganya justru mengecil di desktop (§1), jadi `text-sm sm:text-xs` di `.cn-button-size-xs` memang benar.
-- `sm:text-base` di rule `cn-*` mana pun. Tangga kontrol sekarang `text-base sm:text-sm`.
+- `text-xs` standalone di layar besar **pada teks statis**. Pakai `text-xs sm:text-sm`. Aturan ini tidak berlaku untuk kontrol interaktif: ukurannya sama di semua lebar (§1), jadi `text-xs` di `.cn-button-size-xs` memang benar.
+- `sm:text-*` apa pun di rule `cn-*`. Kontrol tidak lagi punya step ukuran mobile; satu-satunya yang masih responsif adalah field ketik, lewat `pointer-fine:`.
 - Ukuran di bawah `text-xs` pada breakpoint dasar. Kalau perlu kecil, kecilkan di breakpoint besar.
 - `text-xs` untuk konten primer (nilai, hasil, isi tabel, pesan error, blok kode).
 - Input / textarea di bawah 16px pada perangkat sentuh - memicu auto-zoom iOS. Pakai `text-base pointer-fine:text-sm`, bukan `sm:text-sm`.

@@ -605,7 +605,7 @@ const termsOpen = ref(false);
     <!-- Terms & Conditions dialog (staff-managed HTML from meta.terms) -->
     <ResponsiveDialog v-model:open="termsOpen" :overflow-content="true" dialog-max-width="40rem">
       <template #default>
-        <div class="space-y-4 px-4 pt-5 pb-8 sm:px-6">
+        <div class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
           <h3 class="text-foreground text-lg font-semibold tracking-tighter">
             {{ t("tickets.termsDialogTitle") }}
           </h3>
