@@ -67,12 +67,6 @@ export default defineNuxtConfig({
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
   },
 
-  // /book-space 500s in this app — its content store defines no bookSpace keys —
-  // so it is excluded from prerendering. Remove this once the keys exist.
-  staticPages: {
-    deny: ["/book-space"],
-  },
-
   sitemap: {
     urls: ["/", "/about", "/services", "/events", "/faq", "/contact", "/news"],
   },

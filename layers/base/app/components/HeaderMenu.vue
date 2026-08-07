@@ -9,18 +9,37 @@
     -->
     <DrawerTrigger toggle as-child>
       <button
+        type="button"
         class="pointer-events-auto relative flex size-8 items-center justify-center rounded-lg"
         aria-label="Menu"
       >
+        <!--
+          Icon swap (transitions-dev 09) tokens: the two bars are one slot
+          swapping between a hamburger and a cross, rotated rather than
+          cross-faded, so the swap clock applies. `transition-all` is deliberate
+          — translate, rotate and scale all change.
+
+          The two thicknesses aim at the same target, the icons sitting beside
+          this button. Those are 24-unit glyphs drawn at 18px with a 2-unit
+          stroke, so they paint at exactly 1.5px — and being strokes, they paint
+          antialiased. A CSS box does not. Flat, it lands on the pixel grid and
+          comes out hard-edged, which reads thinner than an antialiased stroke of
+          the same width, so it takes 1.75px to look like the icons. Rotated 45°
+          it can no longer snap, picks up the same soft edge the icons have, and
+          wants the icons' own 1.5px back — hence scaling to 6/7 on the way to
+          the cross.
+
+          Calibrated by eye against a clone of the neighbouring icon at DPR 1.
+        -->
         <span
           v-for="(_, index) in 2"
           :key="index"
-          class="bg-primary absolute h-[1.5px] w-5 transition-all duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none"
+          class="bg-primary absolute h-[1.75px] w-5 transition-all duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none"
           :class="{
-            '-translate-y-1': index === 0 && !isOpen,
-            'translate-y-1': index === 1 && !isOpen,
-            'translate-y-0! rotate-45': index === 0 && isOpen,
-            'translate-y-0! -rotate-45': index === 1 && isOpen,
+            '-translate-y-1 scale-y-100': index === 0 && !isOpen,
+            'translate-y-1 scale-y-100': index === 1 && !isOpen,
+            'translate-y-0! scale-y-[.857] rotate-45': index === 0 && isOpen,
+            'translate-y-0! scale-y-[.857] -rotate-45': index === 1 && isOpen,
           }"
         ></span>
       </button>

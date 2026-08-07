@@ -45,6 +45,14 @@ export const useContentStore = defineStore("content", {
         title: `Winners`,
         description: `Winner announcements for Panorama Media giveaways and competitions.`,
       },
+      partners: {
+        title: `Partners`,
+        description: `Partners and sponsors supporting Panorama Media events.`,
+      },
+      rundown: {
+        title: `Rundown`,
+        description: `Schedule and rundown for events produced by Panorama Media.`,
+      },
       contact: {
         title: `Contact`,
         description: `Get in touch with Panorama Media to discuss your next exhibition, festival, corporate event, or live entertainment project.`,

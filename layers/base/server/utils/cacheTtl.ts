@@ -20,4 +20,4 @@ export const API_MAX_AGE = import.meta.prerender ? 3600 : 15;
  * that same 3s would bake an error state into every prerendered page, which is
  * far worse than a slow build — so prerender waits.
  */
-export const API_TIMEOUT_MS = import.meta.prerender ? 15000 : 3000;
+export const API_TIMEOUT_MS = import.meta.prerender ? 45000 : 3000;

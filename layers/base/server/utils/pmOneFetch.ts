@@ -38,7 +38,63 @@ interface PmOneRequestOptions {
  * `path` is everything after the origin, e.g. "/api/track/visit". Prefer the
  * two wrappers below; reach for this only for endpoints outside /api/public.
  */
+/**
+ * How many times a build may re-ask before giving up.
+ *
+ * At RUNTIME: never. A visitor waiting on a page should get the fast failure and
+ * the empty state; making them wait through three retries is worse than the
+ * degraded render.
+ *
+ * At BUILD TIME: the opposite. A page rendered from a failed request is written
+ * to disk and served for days, so a few seconds of backoff is cheap insurance.
+ * megabuild shipped a home page with no dates, venue or edition on 8 Aug 2026
+ * because ONE request lost a race with a loaded api.pmone.id — pages in that
+ * build were taking 28 s against a 15 s timeout.
+ *
+ * Only worth retrying what can succeed on a second ask: network errors,
+ * timeouts, 429 and 5xx. A 404 is a real answer (a project between editions has
+ * no active event) and retrying it just slows the build down.
+ */
+const PRERENDER_ATTEMPTS = import.meta.prerender ? 4 : 1;
+const RETRY_BASE_DELAY_MS = 1000;
+
+const isRetryable = (status: number, timedOut: boolean): boolean =>
+  timedOut || status === 429 || status >= 500 || status === 0;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export async function pmOneRequest<T = any>(
+  path: string,
+  opts: PmOneRequestOptions = {},
+): Promise<T> {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= PRERENDER_ATTEMPTS; attempt++) {
+    try {
+      return await pmOneRequestOnce<T>(path, opts);
+    } catch (error: any) {
+      lastError = error;
+
+      const status = error?.statusCode ?? 0;
+      const timedOut = status === 504;
+
+      if (attempt === PRERENDER_ATTEMPTS || !isRetryable(status, timedOut)) {
+        throw error;
+      }
+
+      const delay = RETRY_BASE_DELAY_MS * 2 ** (attempt - 1);
+      console.warn(
+        `[pmOneFetch] ${path} failed (${status || "network"}), retrying in ${delay}ms ` +
+          `(attempt ${attempt + 1}/${PRERENDER_ATTEMPTS})`,
+      );
+      await sleep(delay);
+    }
+  }
+
+  throw lastError;
+}
+
+async function pmOneRequestOnce<T = any>(
   path: string,
   opts: PmOneRequestOptions = {},
 ): Promise<T> {
@@ -54,9 +110,11 @@ export async function pmOneRequest<T = any>(
     : (opts.query ?? {});
 
   const controller = new AbortController();
+  // Prerender waits longer than a visitor would: a slow answer still produces a
+  // correct page, while an abort produces a permanently wrong one.
   const timeoutId = setTimeout(
     () => controller.abort(),
-    opts.timeoutMs ?? 15000,
+    opts.timeoutMs ?? (import.meta.prerender ? 45000 : 15000),
   );
 
   try {

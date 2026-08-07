@@ -41,6 +41,22 @@ export const useContentStore = defineStore("content", {
         title: `Winners`,
         description: `Winner announcements for Panorama Events giveaways and competitions.`,
       },
+      bookSpace: {
+        title: `Book Your Space`,
+        description: `Reserve a space at an event produced by Panorama Events.`,
+      },
+      brands: {
+        title: `Brands`,
+        description: `Brands that have worked with Panorama Events.`,
+      },
+      partners: {
+        title: `Partners`,
+        description: `Partners and sponsors supporting Panorama Events.`,
+      },
+      rundown: {
+        title: `Rundown`,
+        description: `Schedule and rundown for events produced by Panorama Events.`,
+      },
       contact: {
         title: `Plan Your Corporate Outing`,
         description: `Ready for an impactful corporate outing? Contact Panorama Events in Indonesia for a custom proposal. Let's design your team's next growth experience!`,

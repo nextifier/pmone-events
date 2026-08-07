@@ -28,6 +28,22 @@ export const useContentStore = defineStore("content", {
         title: `Winners`,
         description: `Winner announcements for CampX giveaways and competitions.`,
       },
+      bookSpace: {
+        title: `Book Your Space`,
+        description: `Reserve a camping or outing package at CampX Jatiluhur.`,
+      },
+      brands: {
+        title: `Brands`,
+        description: `Brands and partners working with CampX Jatiluhur.`,
+      },
+      partners: {
+        title: `Partners`,
+        description: `Partners and sponsors supporting CampX Jatiluhur.`,
+      },
+      rundown: {
+        title: `Rundown`,
+        description: `Schedule and activity rundown at CampX Jatiluhur.`,
+      },
       contact: {
         title: `Contact us`,
         description: `Ada rencana outing atau butuh info lebih lanjut? Hubungi tim CampX di sini! Dapatkan penawaran untuk acara grup, gathering, atau sekadar tanya-tanya.`,
