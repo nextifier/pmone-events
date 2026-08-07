@@ -22,6 +22,15 @@ interface PmOneRequestOptions {
    * would silently blank out payment and promo-code error text.
    */
   errorShape?: "message" | "statusMessage";
+  /**
+   * Let the BUILD continue when this endpoint stays unavailable.
+   *
+   * Default is to abort: most of these calls supply content a visitor would
+   * notice missing. Set this for data whose absence still leaves a correct page
+   * — the per-page OG overrides, for instance, fall back to a generated card.
+   * Killing a whole build over a social preview image is the wrong trade.
+   */
+  optionalAtBuild?: boolean;
 }
 
 /**
@@ -37,8 +46,7 @@ interface PmOneRequestOptions {
  *
  * `path` is everything after the origin, e.g. "/api/track/visit". Prefer the
  * two wrappers below; reach for this only for endpoints outside /api/public.
- */
-/**
+ *
  * How many times a build may re-ask before giving up.
  *
  * At RUNTIME: never. A visitor waiting on a page should get the fast failure and
@@ -89,7 +97,7 @@ export async function pmOneRequest<T = any>(
         // exactly how megabuild shipped a home page with no dates or venue
         // twice. Nothing downstream can distinguish that from a healthy render,
         // so the build has to die here.
-        if (import.meta.prerender) {
+        if (import.meta.prerender && !opts.optionalAtBuild) {
           console.error(
             `\n[pmOneFetch] FATAL: ${path} still failing (${status || "network"}) after ` +
               `${PRERENDER_ATTEMPTS} attempts.\n` +
@@ -97,6 +105,13 @@ export async function pmOneRequest<T = any>(
               "until the next deploy. Aborting the build — retry when PM One is healthy.\n",
           );
           process.exit(1);
+        }
+
+        if (import.meta.prerender) {
+          console.warn(
+            `[pmOneFetch] ${path} unavailable after ${PRERENDER_ATTEMPTS} attempts, ` +
+              "continuing without it (marked optional at build time).",
+          );
         }
         throw error;
       }

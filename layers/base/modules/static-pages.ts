@@ -101,7 +101,7 @@ export default defineNuxtModule<ModuleOptions>({
     // This has to run HERE, in Node. The same check inside an app plugin is dead
     // code: `import.meta.prerender` is a Nitro build flag and is `undefined` in
     // the Nuxt app bundle, so the guard tree-shakes away silently.
-    await assertApiReachable(nuxt.options.rootDir, apiKey, logger);
+    const activeEventTitle = await assertApiReachable(nuxt.options.rootDir, apiKey, logger);
 
     nuxt.options.nitro.prerender = {
       ...nuxt.options.nitro.prerender,
@@ -195,6 +195,17 @@ export default defineNuxtModule<ModuleOptions>({
         const broken = [...failedRoutes].filter((route: any) =>
           expected.has(route.route),
         );
+        // The artefact check: watching requests is not enough, because a
+        // degraded API that answers 200 with an empty body trips nothing.
+        if (activeEventTitle) {
+          assertEventRendered(
+            nitro.options.output.publicDir,
+            activeEventTitle,
+            seeded.includes("/"),
+            logger,
+          );
+        }
+
         if (broken.length) {
           throw new Error(
             `[static-pages] ${broken.length} seeded page(s) failed to prerender:\n` +
@@ -221,7 +232,7 @@ async function assertApiReachable(
   rootDir: string,
   apiKey: string,
   logger: ReturnType<typeof useLogger>,
-): Promise<void> {
+): Promise<string | null> {
   const source = readFileSync(join(rootDir, "app/app.config.ts"), "utf8");
   const project =
     /dataSourceUsername:\s*"([^"]+)"/.exec(source)?.[1] ||
@@ -237,29 +248,110 @@ async function assertApiReachable(
 
   const url = `https://api.pmone.id/api/public/projects/${project}/events/active`;
 
-  let response: Response;
-  try {
-    response = await fetch(url, {
-      headers: { "X-API-Key": apiKey },
-      signal: AbortSignal.timeout(20_000),
-    });
-  } catch (error) {
-    throw new Error(
-      `[static-pages] PM One is unreachable (${(error as Error).message}). ` +
-        "Every prerendered page would be baked without its event data. Refusing " +
-        "to build — retry when the API is healthy.",
-    );
+  // Same retry policy as pmOneFetch: api.pmone.id drops out for a second or two
+  // at a time, and a single blip must not fail a build that would otherwise be
+  // perfectly correct. Only a sustained outage is fatal.
+  const ATTEMPTS = 4;
+  let response: Response | null = null;
+  let lastProblem = "";
+
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    try {
+      response = await fetch(url, {
+        headers: { "X-API-Key": apiKey },
+        signal: AbortSignal.timeout(30_000),
+      });
+
+      // 404 is a legitimate answer: a project between editions has no active
+      // event, and the corporate sites never have one. Anything else in the
+      // 4xx range is a real answer too — retrying an auth failure is pointless.
+      if (response.ok || response.status < 500) {
+        break;
+      }
+      lastProblem = `HTTP ${response.status}`;
+    } catch (error) {
+      lastProblem = (error as Error).message;
+      response = null;
+    }
+
+    if (attempt === ATTEMPTS) {
+      throw new Error(
+        `[static-pages] PM One still unavailable after ${ATTEMPTS} attempts ` +
+          `(${lastProblem}). Every prerendered page would be baked without its ` +
+          "event data. Refusing to build — retry when the API is healthy.",
+      );
+    }
+
+    const delay = 2000 * attempt;
+    logger.warn(`PM One check failed (${lastProblem}), retrying in ${delay}ms`);
+    await new Promise((resolve) => setTimeout(resolve, delay));
   }
 
-  // 404 is a legitimate answer: a project between editions has no active event,
-  // and the corporate sites never have one. Only a broken API is fatal.
-  if (!response.ok && response.status !== 404) {
+  if (!response!.ok && response!.status !== 404) {
     throw new Error(
-      `[static-pages] PM One answered ${response.status} for ${project}'s active ` +
+      `[static-pages] PM One answered ${response!.status} for ${project}'s active ` +
         "event. Every prerendered page would be baked without it. Refusing to " +
         "build — retry when the API is healthy.",
     );
   }
 
-  logger.info(`PM One reachable for "${project}" (${response.status})`);
+  const status = response!.status;
+
+  if (status === 404) {
+    logger.info(`PM One reachable for "${project}" (no active event)`);
+    return null;
+  }
+
+  const title = ((await response!.json()) as { data?: { title?: string } })?.data?.title ?? null;
+  logger.info(`PM One reachable for "${project}" (active event: ${title ?? "untitled"})`);
+
+  return title;
+}
+
+/**
+ * If PM One says this project HAS an active event, the built home page must
+ * show it.
+ *
+ * This is the end-to-end check the other guards cannot make. They watch the
+ * requests; this watches the artefact. A degraded API that answers 200 with an
+ * empty body trips no retry, throws no error and produces a page that looks
+ * fine to every layer above it — which is precisely how megabuild shipped a
+ * home page with no dates, venue or edition, twice, on green builds.
+ */
+function assertEventRendered(
+  publicDir: string,
+  eventTitle: string,
+  homeWasSeeded: boolean,
+  logger: ReturnType<typeof useLogger>,
+): void {
+  if (!homeWasSeeded) {
+    return; // this app prunes "/" (iicc); nothing to assert
+  }
+
+  const home = join(publicDir, "index.html");
+
+  let html: string;
+  try {
+    html = readFileSync(home, "utf8");
+  } catch (error) {
+    // Never swallow this. If "/" was seeded the file must exist, so an
+    // unreadable path means the guard is pointed at the wrong directory — and a
+    // guard that silently passes is worse than no guard at all.
+    throw new Error(
+      `[static-pages] Cannot read the prerendered home page at ${home} ` +
+        `(${(error as Error).message}), so its event data cannot be verified.`,
+    );
+  }
+
+  if (html.includes(eventTitle)) {
+    logger.success(`Home page renders the active event ("${eventTitle}")`);
+    return;
+  }
+
+  throw new Error(
+    `[static-pages] PM One reports an active event ("${eventTitle}") but the ` +
+      "prerendered home page does not mention it, so it was built without its " +
+      "event data. That page would be served until the next deploy. Refusing to " +
+      "ship it — retry when PM One is healthy.",
+  );
 }

@@ -13,6 +13,10 @@ export default defineCachedEventHandler(
       // prerender, where the same timeout would bake an OG-less card into every
       // page instead. See server/utils/cacheTtl.ts.
       timeoutMs: API_TIMEOUT_MS,
+      // A missing OG override is cosmetic: usePageMeta falls back to the
+      // generated Takumi card and the page is otherwise identical. Not worth
+      // aborting a build for — unlike the event or profile data.
+      optionalAtBuild: true,
       errorPrefix: "OG pages fetch",
     });
 
