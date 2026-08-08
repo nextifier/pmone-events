@@ -285,14 +285,20 @@ export default defineNuxtConfig({
     // the build artifacts on 8 Aug 2026: /ja/contact, /zh/winner,
     // /ko/sponsorship-registration and friends).
     //
-    // `fontSubsets` is what fontless downloads when it has to supplement a
-    // family that lacks the glyphs, so naming the CJK subsets here gives the
-    // renderer a real fallback. It fetches ttf/woff (satori and takumi cannot
-    // use woff2 subsets), which for CJK is heavy — but it lands in
-    // .nuxt/cache/og-image/fonts-ttf, and Cloudflare build caching is on for
-    // every project, so only the first build after this change pays for it.
-    // Watch that build: the sites with five locales are the ones closest to
-    // Cloudflare's 20-minute ceiling.
+    // THIS DOES NOT FIX IT ON ITS OWN — deployed and measured, the card came
+    // back byte-identical (md5 6cfa9ee31ed54af012ac9db554dbdd72 before and
+    // after). `fontSubsets` only chooses which subsets fontless downloads for
+    // families it has been asked to resolve; it never adds a family. Naming the
+    // Noto faces in the Tailwind `--font-sans` variable did not help either,
+    // even though that is the code path taken here (resolveFontFamilies returns
+    // [] when the OG component uses no font-family class, which sends
+    // resolveOgImageFonts down its `--font-sans` branch). Where it fails after
+    // that is still unknown: resolveMissingFontFamilies swallows a failed
+    // download with `.catch` and a debug-level log, so a build shows nothing.
+    //
+    // Left in place because it is a prerequisite for any working fix, and it
+    // costs nothing measurable — builds stayed at 3.4-4 minutes. Do not remove
+    // it while chasing this; do not assume it works either.
     fontSubsets: ["latin", "latin-ext", "japanese", "korean", "chinese-simplified"],
   },
 

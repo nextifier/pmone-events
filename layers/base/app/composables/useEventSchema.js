@@ -59,7 +59,27 @@ export function useEventSchema() {
   }));
 
   // --- Event schema (raw JSON-LD for full control over all fields) ---
+  //
+  // Emitted ONLY when the event actually has a title and a start date.
+  //
+  // WHY THE GUARD: `name` and `startDate` are the two fields Google requires,
+  // and both come from useEvent(). When a page renders without that data — a
+  // build that shipped against an unreachable API, an SSR fetch that failed —
+  // this composable still emitted an Event object with `name: undefined` and
+  // `startDate: undefined`. JSON.stringify drops those keys, so what reached
+  // Google was a nameless, dateless Event: not a degraded rich result but an
+  // INVALID one, which also drags four warnings (endDate, description,
+  // location.name, offers.validFrom) along with it. GSC on megabuild.co.id,
+  // 8 Aug 2026: 2 invalid items, `/` and `/id`, from exactly that state.
+  //
+  // Emitting nothing costs one rich result on a page that had no event data to
+  // show anyway. Emitting a broken one costs a reported error that outlives the
+  // deploy that caused it.
   const eventSchema = computed(() => {
+    if (!event.title || !event.startTime) {
+      return null;
+    }
+
     const { venue, city } = parseLocation(event.location);
     const description = stripHtml(event.description) || event.title;
 
@@ -132,7 +152,9 @@ export function useEventSchema() {
   useHead(() => ({
     script: [
       { type: "application/ld+json", innerHTML: JSON.stringify(organizationSchema.value) },
-      { type: "application/ld+json", innerHTML: JSON.stringify(eventSchema.value) },
+      ...(eventSchema.value
+        ? [{ type: "application/ld+json", innerHTML: JSON.stringify(eventSchema.value) }]
+        : []),
     ],
   }));
 }
