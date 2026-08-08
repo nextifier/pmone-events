@@ -42,6 +42,22 @@ import { joinURL } from "ufo";
  *
  * Auto-registered — Nuxt scans each layer's `modules/` directory.
  */
+/**
+ * Paths that stay on the Worker.
+ *
+ * Two different reasons, and they are worth keeping apart.
+ *
+ * The listing pages change often enough that a build-time snapshot would be
+ * wrong within the day, and they carry the content search engines index.
+ *
+ * The transactional ones must never become a shared static asset. Matching here
+ * is exact, so naming "/hotels" does NOT cover "/hotels/success" — each one has
+ * to be spelled out. They were being prerendered until 8 Aug 2026, and got away
+ * with it only because both pages happen to key their asyncData on the query
+ * token, so the browser refetched under a different key. That is incidental: a
+ * later edit to a fixed key would bake one visitor's order state into a file
+ * served to everyone, and nothing would report it.
+ */
 const DENY = [
   "/brands",
   "/guests",
@@ -50,6 +66,9 @@ const DENY = [
   "/news",
   "/partners",
   "/hotels",
+  "/tickets/checkout",
+  "/tickets/result",
+  "/hotels/success",
 ];
 
 export interface ModuleOptions {
@@ -227,6 +246,27 @@ export default defineNuxtModule<ModuleOptions>({
                 .map((r: any) => `  ${r.route} — ${r.error?.message ?? "unknown error"}`)
                 .join("\n") +
               "\nFix the page, or add its path to `staticPages.deny` in this app's nuxt.config.ts.",
+          );
+        }
+
+        // A social card that fails to render is NOT cosmetic once pages are
+        // prerendered. Its URL is baked into the HTML unsigned, and at runtime
+        // nuxt-og-image answers an unsigned /_og/s/ request with 403 (or 400
+        // for the hash form) rather than rendering it — so the card is broken
+        // for as long as that HTML is served, where before prerendering the
+        // same page asked the Worker for it and healed itself on the next
+        // crawl. `failOnError: false` means Nitro drops these silently.
+        const brokenCards = [...failedRoutes].filter((route: any) =>
+          String(route.route ?? "").startsWith("/_og/"),
+        );
+
+        if (brokenCards.length) {
+          logger.error(
+            `${brokenCards.length} OG image(s) failed to render. Every page pointing at ` +
+              "one ships a link that answers 403/400 until the next deploy:\n" +
+              brokenCards
+                .map((r: any) => `  ${r.route} — ${r.error?.message ?? "unknown error"}`)
+                .join("\n"),
           );
         }
       });

@@ -13,7 +13,7 @@
     </slot>
 
     <div class="@container mx-auto mt-6 max-w-xl">
-      <div v-if="pending" class="flex flex-col gap-y-6">
+      <div v-if="loading" class="flex flex-col gap-y-6">
         <!-- Search bar skeleton (matches the real input row) -->
         <div v-if="effectiveShowSearch" class="flex gap-1.5">
           <Skeleton class="h-10 w-full rounded-xl" />
@@ -636,6 +636,23 @@ if (!isRundownPage && import.meta.client) {
     }
   });
 }
+
+// Off its own page this fetch never runs on the server, and Nuxt 4 leaves such
+// a request at status "idle" rather than "pending" (experimental
+// .pendingWhenIdle defaults false). Raw `pending` is therefore FALSE during
+// prerender, which walks the template straight past the skeleton and into the
+// "Rundown coming soon" empty state — baked into the HTML and served until the
+// next deploy. GuestList and Speakers already carry this guard; Rundown was
+// only saved by the tickets page keeping its tabs unactivated, which is a
+// different file's business and one refactor away from being untrue.
+const mounted = ref(false);
+onMounted(() => {
+  mounted.value = true;
+});
+
+const loading = computed(
+  () => pending.value || (!isRundownPage && !mounted.value),
+);
 
 // An empty rundown must not render as an empty section under someone's HERO, so
 // on a home page it hides itself until it has items. Anywhere else it always

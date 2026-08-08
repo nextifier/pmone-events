@@ -355,6 +355,8 @@ export default {
     successMessage: "Tanggapan Anda telah kami terima.",
     alreadyTitle: "Semua sudah lengkap",
     alreadyMessage: "Kami telah menerima tanggapan Anda. Formulir ini hanya menerima satu tanggapan per orang.",
+    showMore: "Selengkapnya",
+    showLess: "Sembunyikan",
     submitFailed: "Gagal mengirim formulir. Silakan coba lagi.",
   },
 };

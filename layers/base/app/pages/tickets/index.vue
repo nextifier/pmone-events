@@ -269,13 +269,34 @@ const {
 // that opened after the build would keep showing "coming soon" until the next
 // deploy, and a closed one would keep taking orders that then 422 at checkout.
 //
-// So: paint the static HTML instantly, then re-fetch once after hydration.
-// `ticketsListingCachedData` only returns the payload on the server or while
-// hydrating, so this genuinely hits the API. Costs one small JSON request per
-// visitor — roughly a tenth of the CPU of rendering this page server-side —
-// and leaves the data as fresh as the SSR site was (the API caches it 5 min).
-onMounted(() => {
+// So: paint the static HTML instantly, then re-fetch once hydration is DONE.
+//
+// `onMounted` is too early and silently did nothing. Nuxt's asyncData `execute`
+// still consults `getCachedData` whenever `nuxtApp.isHydrating` is true — manual
+// refreshes included — and `isHydrating` is still true inside a page's mounted
+// hook, because NuxtLayout only releases hydration a tick later. So
+// `ticketsListingCachedData` handed the build-time payload straight back and no
+// request ever left the browser: prices, `on_sale` and `sales_status` stayed
+// frozen at build time for every visitor. `onNuxtReady` runs after hydration
+// settles, which is the same wait `refreshNuxtData` performs internally.
+//
+// Costs one small JSON request per visitor — roughly a tenth of the CPU of
+// rendering this page server-side — and leaves the data as fresh as the SSR
+// site was (the API caches it 5 minutes).
+onNuxtReady(() => {
   refreshTickets();
+});
+
+// Returning to a cached page must re-ask too: a visitor who opens /tickets,
+// browses away and comes back would otherwise keep the snapshot from their
+// first visit. Skipped on the first activation, which onNuxtReady already
+// covers.
+let activatedBefore = false;
+onActivated(() => {
+  if (activatedBefore) {
+    refreshTickets();
+  }
+  activatedBefore = true;
 });
 
 // A 404 with this code means the organizer has not enabled ticketing yet,

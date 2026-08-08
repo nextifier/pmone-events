@@ -65,6 +65,10 @@ export const useContentStore = defineStore("content", {
         title: `Corporate Outing FAQs - Planning & Services`,
         description: `Got questions about corporate outings? Find answers in Panorama Events' FAQ on our HR-driven planning, unique services, budget, customization, and more.`,
       },
+      links: {
+        title: `Links`,
+        description: `Every Panorama Events link in one place — our services, upcoming events, and how to reach us.`,
+      },
       news: {
         title: `News`,
         description: `Stay updated with the latest insights, news, and trends in the business industry. Read our blog for expert articles and event updates.`,

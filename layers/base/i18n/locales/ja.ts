@@ -356,6 +356,8 @@ export default {
     successMessage: "回答を受け付けました。",
     alreadyTitle: "送信済みです",
     alreadyMessage: "回答を受け付けました。このフォームはお一人につき1回のみ回答できます。",
+    showMore: "もっと見る",
+    showLess: "閉じる",
     submitFailed: "フォームの送信に失敗しました。もう一度お試しください。",
   },
 };

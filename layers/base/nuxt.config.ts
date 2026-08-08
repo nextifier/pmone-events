@@ -277,6 +277,23 @@ export default defineNuxtConfig({
     // routeRules or that injection is skipped. OG URLs hash their props, so
     // long-lived immutable caching is self-busting when content changes.
     cacheMaxAgeSeconds: 60 * 60 * 24 * 30,
+
+    // The only font this project registers with @nuxt/fonts is MinusOne, a
+    // Latin-only brand face, and the OG renderer has nothing else to fall back
+    // on. Every card for a zh/ja/ko page therefore drew the title and
+    // description as tofu boxes — 65 such pages in megabuild alone (verified in
+    // the build artifacts on 8 Aug 2026: /ja/contact, /zh/winner,
+    // /ko/sponsorship-registration and friends).
+    //
+    // `fontSubsets` is what fontless downloads when it has to supplement a
+    // family that lacks the glyphs, so naming the CJK subsets here gives the
+    // renderer a real fallback. It fetches ttf/woff (satori and takumi cannot
+    // use woff2 subsets), which for CJK is heavy — but it lands in
+    // .nuxt/cache/og-image/fonts-ttf, and Cloudflare build caching is on for
+    // every project, so only the first build after this change pays for it.
+    // Watch that build: the sites with five locales are the ones closest to
+    // Cloudflare's 20-minute ceiling.
+    fontSubsets: ["latin", "latin-ext", "japanese", "korean", "chinese-simplified"],
   },
 
   site: {

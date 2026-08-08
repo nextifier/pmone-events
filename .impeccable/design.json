@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-08T00:00:00Z",
+  "title": "Design System: PM One Events",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Ink",
+        "canonical": "#000000",
+        "note": "Chassis default primary. Inverts to paper in dark mode.",
+        "tonalRamp": [
+          "oklch(0.13 0.028 261.692)",
+          "oklch(0.21 0.034 264.665)",
+          "oklch(0.278 0.033 256.848)",
+          "oklch(0.373 0.034 259.733)",
+          "oklch(0.446 0.03 256.802)",
+          "oklch(0.551 0.027 264.364)",
+          "oklch(0.707 0.022 261.325)",
+          "oklch(0.872 0.01 258.338)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff",
+        "note": "Page, card, and popover surface in light mode."
+      },
+      "brand-accent": {
+        "role": "secondary",
+        "displayName": "Brand Accent",
+        "canonical": "#000000",
+        "note": "A SLOT, not a fixed value. Declared per app in app/assets/css/app.css as --accent / --accent-foreground. Known values: ICC pink-600, INACON yellow-400 on black, FLEI cyan-600, Megabuild a gold gradient, ICF a custom brown. Defaults to ink when an app sets nothing."
+      },
+      "neutral-ramp": {
+        "role": "neutral",
+        "displayName": "Neutral Ramp",
+        "canonical": "per app",
+        "note": "A SLOT. The chassis leaves every --color-gray-* stop commented out so each app picks its own ramp; Megabuild runs Tailwind Gray, PM One's admin runs Zinc. The ramp shown under Ink is Megabuild's."
+      },
+      "signal-info": {
+        "role": "tertiary",
+        "displayName": "Signal Info",
+        "canonical": "oklch(62.3% 0.214 259.815)",
+        "note": "500 stop for the surface, 700 for text."
+      },
+      "signal-success": {
+        "role": "tertiary",
+        "displayName": "Signal Success",
+        "canonical": "oklch(72.3% 0.219 149.579)"
+      },
+      "signal-warning": {
+        "role": "tertiary",
+        "displayName": "Signal Warning",
+        "canonical": "oklch(79.5% 0.184 86.047)"
+      },
+      "signal-destructive": {
+        "role": "tertiary",
+        "displayName": "Signal Destructive",
+        "canonical": "oklch(63.7% 0.237 25.331)"
+      }
+    },
+    "typographyMeta": {
+      "hero": {
+        "displayName": "Hero",
+        "purpose": "One statement at the top of a landing page, in the app's display face. Owned by section-title-large, defined per app. Current values are legacy and drift wide; new work stays around 3rem to 5.5rem at desktop."
+      },
+      "section": {
+        "displayName": "Section",
+        "purpose": "Every section heading on a public page, via section-title. Identical across all sixteen apps: part of the chassis, not the brand."
+      },
+      "section-description": {
+        "displayName": "Section description",
+        "purpose": "Lead paragraph under a section heading, via section-description. Capped at 36rem."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Cards, lists, metadata, table content."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Buttons, tabs, menu items. Fixed at every viewport width, same as the admin."
+      },
+      "field": {
+        "displayName": "Field",
+        "purpose": "Typed inputs and the select trigger beside them. 16px on touch, 14px on mouse devices via pointer-fine."
+      }
+    },
+    "shadows": [
+      {
+        "name": "resting-lift",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Buttons and focused inputs."
+      },
+      {
+        "name": "card",
+        "value": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "purpose": "Cards floating on a page background rather than sitting in a bordered grid."
+      },
+      {
+        "name": "floating-layer",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Dialogs, popovers, tooltips, sticky action bars."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-swift",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Drawer, sheet, and panel movement. Shared with the admin."
+      },
+      {
+        "name": "accordion",
+        "value": "0.2s ease-out",
+        "purpose": "Accordion and collapsible height transitions."
+      },
+      {
+        "name": "appearance-guard",
+        "value": "transitions suspended for ~1 frame",
+        "purpose": "While <html> carries the appearance-switch class, all transitions are suppressed so a style or color-mode change does not animate."
+      }
+    ],
+    "breakpoints": [
+      { "name": "xs", "value": "540px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1500px" },
+      { "name": "3xl", "value": "1600px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-default",
+      "description": "The committed action: buy a ticket, book a space, send an enquiry.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Book a space</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 10px; border: 1px solid transparent; border-radius: var(--radius-lg, 10px); font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif); font-size: 0.875rem; font-weight: 500; letter-spacing: -0.025em; cursor: pointer; transition: background-color 0.15s, box-shadow 0.15s; } .ds-btn-primary { background: var(--primary, #000); color: var(--primary-foreground, #fff); border-color: var(--primary, #000); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); } .ds-btn-primary:hover { background: color-mix(in oklab, var(--primary, #000) 90%, transparent); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--background, #fff), 0 0 0 3px color-mix(in oklab, var(--ring, #000) 50%, transparent); } .ds-btn-primary:active { transform: translateY(1px); box-shadow: none; }"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "The same button wearing the event's accent. Only for the primary path on a branded surface.",
+      "html": "<button class=\"ds-btn ds-btn-accent\">Get tickets</button>",
+      "css": ".ds-btn-accent { background: var(--accent, #000); color: var(--accent-foreground, #fff); border-color: var(--accent, #000); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); } .ds-btn-accent:hover { background: color-mix(in oklab, var(--accent, #000) 90%, transparent); } .ds-btn-accent:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--background, #fff), 0 0 0 3px color-mix(in oklab, var(--accent, #000) 45%, transparent); } .ds-btn-accent:active { transform: translateY(1px); box-shadow: none; }"
+    },
+    {
+      "name": "Section Heading",
+      "kind": "custom",
+      "refersTo": "section-heading",
+      "description": "The chassis heading used by every public section. Identical in all sixteen apps.",
+      "html": "<div class=\"ds-section\"><h2 class=\"ds-section-title\">Who exhibits</h2><p class=\"ds-section-description\">Over 400 brands across building materials, interiors, and ceramics.</p></div>",
+      "css": ".ds-section { display: flex; flex-direction: column; gap: 12px; font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif); } .ds-section-title { margin: 0; font-size: 2.25rem; font-weight: 500; line-height: 1.2; letter-spacing: -0.05em; text-wrap: balance; color: var(--primary, #000); } @media (min-width: 640px) { .ds-section-title { font-size: 3rem; } } .ds-section-description { margin: 0; max-width: 36rem; font-size: 1rem; line-height: 1.625; letter-spacing: -0.025em; text-wrap: pretty; color: var(--body, oklch(0.373 0.034 259.733)); } @media (min-width: 640px) { .ds-section-description { font-size: 1.125rem; } }"
+    },
+    {
+      "name": "Hero Heading",
+      "kind": "custom",
+      "refersTo": "hero-heading",
+      "description": "The one statement at the top of a landing page, in the app's display face. Kept within the restrained scale.",
+      "html": "<div class=\"ds-hero\"><h1 class=\"ds-hero-title\">Megabuild Indonesia</h1><p class=\"ds-hero-meta\">14-17 May 2026 · JCC Senayan, Jakarta</p></div>",
+      "css": ".ds-hero { display: flex; flex-direction: column; gap: 16px; font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif); } .ds-hero-title { margin: 0; font-family: var(--font-display, var(--font-sans, ui-sans-serif, system-ui, sans-serif)); font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.05em; text-wrap: balance; color: var(--foreground, #000); } .ds-hero-meta { margin: 0; font-size: 1rem; letter-spacing: -0.025em; color: var(--muted-foreground, oklch(0.446 0.03 256.802)); }"
+    },
+    {
+      "name": "Brand Card",
+      "kind": "card",
+      "refersTo": null,
+      "description": "One exhibitor in the directory grid. The logo carries the color; the card stays neutral.",
+      "html": "<a class=\"ds-brandcard\" href=\"#\"><div class=\"ds-brandcard-logo\">LOGO</div><div class=\"ds-brandcard-name\">PT Contoh Material</div><div class=\"ds-brandcard-meta\">Hall A · Booth A-118</div></a>",
+      "css": ".ds-brandcard { display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--border, oklch(0.928 0.006 264.531)); border-radius: var(--radius-xl, 14px); background: var(--card, #fff); text-decoration: none; font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif); letter-spacing: -0.025em; transition: background-color 0.15s, border-color 0.15s; } .ds-brandcard:hover { background: var(--muted, oklch(0.967 0.003 264.542)); } .ds-brandcard-logo { display: flex; height: 72px; align-items: center; justify-content: center; border-radius: var(--radius-lg, 10px); background: linear-gradient(to bottom right, var(--muted, oklch(0.967 0.003 264.542)), color-mix(in oklab, var(--muted, oklch(0.967 0.003 264.542)) 40%, transparent)); font-size: 0.75rem; color: var(--muted-foreground, oklch(0.446 0.03 256.802)); } .ds-brandcard-name { font-size: 0.875rem; font-weight: 500; color: var(--foreground, #000); } .ds-brandcard-meta { font-size: 0.875rem; color: var(--muted-foreground, oklch(0.446 0.03 256.802)); }"
+    },
+    {
+      "name": "Empty State",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "What an edition with no data looks like. Truthful, never backfilled from another edition.",
+      "html": "<div class=\"ds-empty\"><div class=\"ds-empty-title\">Exhibitor list coming soon</div><div class=\"ds-empty-body\">Brands for this edition are still being confirmed. Check back closer to the show.</div></div>",
+      "css": ".ds-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 48px 24px; border: 1px dashed var(--border, oklch(0.928 0.006 264.531)); border-radius: var(--radius-xl, 14px); text-align: center; font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif); letter-spacing: -0.025em; } .ds-empty-title { font-size: 1rem; font-weight: 500; color: var(--foreground, #000); } .ds-empty-body { max-width: 28rem; font-size: 0.875rem; color: var(--muted-foreground, oklch(0.446 0.03 256.802)); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Exhibition Hall",
+    "overview": "Sixteen event sites are one building rented out sixteen times. The hall is fixed: the same entrance sequence, the same aisles, the same signage system, the same stand dimensions. What changes is who is exhibiting, what colors they hang, and what typeface is on the banner. A visitor who has been to one of these sites can navigate any of the others without learning anything new, and still feel they are somewhere specific.\n\nThat split is the whole system. Structure, components, page flow, spacing, and behavior belong to layers/base and must never mention a brand. Identity is a set of slots each app fills in app/assets/css/app.css: the accent color, the neutral ramp, the display typeface, and the hero treatment. A visual decision that cannot be expressed as one of those slots is either a chassis change (make it in base, for all sixteen) or a mistake.\n\nThese are public marketing surfaces, not tools. They can be bolder than an admin screen, and they should be: large type, real photography, generous vertical rhythm, motion that rewards scrolling. What they cannot be is inconsistent about the things a visitor uses to orient, and what they must never be is louder than the exhibitors they are presenting.",
+    "keyCharacteristics": [
+      "Shared chassis, brand-filled slots: accent, neutral ramp, display face, hero",
+      "Marketing scale on public pages, tool scale on forms and interactive controls",
+      "Real exhibitor material and photography carry the persuasion",
+      "Mobile-first weight budget: the first screen decides",
+      "Truthful empty states over decorated placeholders"
+    ],
+    "rules": [
+      {
+        "name": "The Slot Rule",
+        "body": "Brand color exists in exactly one place: the app's app.css. If a component needs to look different for one event, it reads a token; it does not get an if (event === 'icc').",
+        "section": "colors"
+      },
+      {
+        "name": "The One Accent Rule",
+        "body": "One accent per event. It marks the primary path (buy, register, enquire) and the brand's own furniture. A second brand hue means the visitor no longer knows what the accent means.",
+        "section": "colors"
+      },
+      {
+        "name": "The Exhibitor-First Rule",
+        "body": "Exhibitor logos, guest photography, and sponsor marks are the most colorful things on the page, and the chrome around them stays neutral so they read cleanly. The site is the wall, not the artwork.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Scale Rule",
+        "body": "A public page has a marketing scale and a tool scale, and they do not blend. Headings, heroes, and lead paragraphs are marketing. Forms, filters, tables, and every interactive control keep the same sizes as the admin, because the same components are used there.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tighter-As-It-Grows Rule",
+        "body": "Everything is tracking-tight; from text-xl or font-semibold up it becomes tracking-tighter, and display type goes tighter still. Bigger means tighter, always.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hero Restraint Rule",
+        "body": "section-title-large has drifted: text-[12vw], gradient fills, uppercase, skew, and outline treatments now vary widely across apps, and some of that variation is decoration rather than identity. Treat the current values as legacy. New heroes stay within roughly 3rem to 5.5rem at desktop, keep the display face and the accent as the brand signal, and add gradient or outline treatment only when that treatment is genuinely the event's identity. Do not copy one app's hero rule into another.",
+        "section": "typography"
+      },
+      {
+        "name": "The Semibold Ceiling Rule",
+        "body": "font-semibold is the ceiling for interface text. Display type may go heavier when the brand's own typeface requires it, but body, labels, and controls never do.",
+        "section": "typography"
+      },
+      {
+        "name": "The Border-Before-Shadow Rule",
+        "body": "Separate with a border or a surface step first. A shadow is for something that genuinely floats.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Base Is Brand-Blind Rule",
+        "body": "No component in layers/base may name an event, hardcode a brand color, or branch on the app. Everything it needs comes from tokens and app.config.ts.",
+        "section": "components"
+      },
+      {
+        "name": "The Three-Repo Rule",
+        "body": "components/ui changes propagate to all three repositories in the same pass, along with the nine style-*.css files. A fix that lands in one repo is a divergence, not a fix.",
+        "section": "components"
+      },
+      {
+        "name": "The Style-Owns-The-Box Rule",
+        "body": "Never attach bg-*, border-*, h-*, rounded-*, px-*, or shadow-* to an input-like element at the call site; those belong to the cn-* rules in the style files.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do put every brand-specific value in the app's app.css or app.config.ts, and nothing brand-specific anywhere else.",
+      "Do design the first screen at 390px with the date, the venue, and the entry action visible.",
+      "Do let exhibitor logos, guest photos, and gallery images carry the color.",
+      "Do use section-title and section-description for every section heading.",
+      "Do keep forms and controls at tool scale even on marketing pages.",
+      "Do render an honest empty state when an edition has no data.",
+      "Do use <img> or <BlurImage> for CDN images, never NuxtImg."
+    ],
+    "donts": [
+      "Don't introduce a second brand hue, or use the accent on anything that isn't the primary path or the brand's own furniture.",
+      "Don't copy one event's hero rule into another app, and don't add gradient, outline, or skew treatments unless they are that event's actual identity.",
+      "Don't let section-title-large grow past roughly 5.5rem on desktop in new work; the existing 12vw values are legacy.",
+      "Don't branch on the event name inside layers/base.",
+      "Don't round hero imagery or full-bleed media.",
+      "Don't use font-bold, font-extrabold, tracking-wider, or tracking-widest on interface text.",
+      "Don't backfill exhibitor lists, galleries, or numbers from another edition to make a page look full.",
+      "Don't hand-build pills, cards, empty states, or toolbar buttons that a primitive already covers.",
+      "Don't use em dashes in interface copy."
+    ]
+  }
+}

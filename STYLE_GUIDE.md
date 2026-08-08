@@ -46,7 +46,7 @@ Semua `style-*.css` memakai skala yang sama. Yang berbeda antar style cuma tingg
 
 Kenapa `pointer-fine:` dan bukan `sm:`: iOS Safari melakukan zoom-on-focus setiap kali font field di bawah 16px, dan itu tetap terjadi di iPad maupun iPhone landscape yang lebarnya sudah lewat breakpoint `sm` (640px). `pointer-fine` cuma menyala di perangkat bermouse, jadi 16px bertahan di semua perangkat sentuh. Jangan menggantinya dengan `sm:text-sm`.
 
-`.cn-select-trigger` bukan field ketik, jadi ia ikut kontrol biasa: `text-sm` rata. Varian `data-[size=sm]` sengaja tidak meng-override font.
+`.cn-select-trigger` ikut aturan yang sama persis, walaupun ia bukan field ketik. Bukan karena zoom (ia tombol, tidak pernah memicu zoom), tapi karena ia berdiri sebaris dengan `.cn-input` di form yang sama: kalau nilai Select 14px sementara nilai di sebelahnya 16px, barisnya kelihatan timpang di telepon. Varian `data-[size=sm]` sengaja tidak meng-override font.
 
 #### Tangga tinggi dan ikon
 
@@ -61,7 +61,7 @@ Tiap kontrol punya dua tinggi: mobile satu step (4px) di atas desktop. Nilai des
 
 `--cn-input-h` mengikuti tangga yang sama lewat `@media (width >= 40rem)` di dalam blok `.style-X`, jadi `h-(--cn-input-h)` di call site ikut otomatis tanpa perubahan apa pun.
 
-Ikon di dalam kontrol naik setengah step (2px) di mobile: `[&_svg:not([class*=size-])]:size-4.5 sm:[…]:size-4`. Checkbox, radio, dan slider thumb juga setengah step. Badge naik satu step penuh (`h-6 sm:h-5`), tapi fontnya tidak ikut — `text-xs` rata seperti kontrol lain.
+Ikon di dalam kontrol naik setengah step (2px) di mobile: `[&_svg:not([class*=size-])]:size-4.5 sm:[…]:size-4`. Checkbox, radio, dan slider thumb juga setengah step. Badge naik satu step penuh (`h-6 sm:h-5`), tapi fontnya tidak ikut, `text-xs` rata seperti kontrol lain.
 
 ### Hierarchy
 
@@ -92,7 +92,7 @@ Sisanya:
 - Default: `text-foreground`.
 - Teks sekunder, helper, caption, label di samping value: `text-muted-foreground`.
 - Link / emphasis: `text-primary`.
-- Error / delete: `text-destructive` atau `text-destructive-foreground` (untuk error message di bawah input pakai `text-destructive-foreground` mengikuti pattern `InputErrorMessage`).
+- Error / delete: `text-destructive`. Untuk pesan error di bawah input jangan menulis warnanya sendiri - `<FieldError>` sudah membawa `text-destructive` lewat rule `cn-field-error` milik style.
 
 ---
 
@@ -286,7 +286,7 @@ Tinggi setiap size dimiliki style aktif, jadi jangan menghafal angkanya. Di styl
 - `lg` / `xl`: CTA besar di hero atau form panjang.
 - `icon` / `iconSm` / `iconXs` / `iconLg`: tombol icon-only. Wajib `<Tippy>` atau `aria-label`.
 
-Kalau tombol harus sejajar dengan field di baris yang sama (misal di samping search input), pakai `size="sm"` plus `class="h-(--cn-input-h)"`. Variabel itu dideklarasikan tiap style dan bernilai sama dengan tinggi `.cn-input`, jadi barisnya rata di semua style tanpa hardcode `h-8`.
+Kalau tombol harus sejajar dengan field di baris yang sama (misal di samping search input), pakai `size="sm"` plus `class="h-(--cn-input-h)"`. Variabel itu dideklarasikan tiap style dan bernilai sama dengan tinggi `.cn-input`, jadi barisnya rata di semua style tanpa hardcode `h-8`. Ia sendiri sudah responsif (mobile satu step di atas desktop), jadi jangan menambahkan `sm:h-*` di sebelahnya.
 
 ### Icon + text
 
@@ -302,7 +302,33 @@ Pakai prop `loading`, jangan menaruh `<Spinner>` sendiri sebagai anak tombol:
 <Button type="submit" :loading="saving">Save</Button>
 ```
 
-Tombolnya otomatis disabled, labelnya disembunyikan tanpa mengubah lebar, dan spinner muncul di tengah dengan warna yang mengikuti variant. Prop `loading` tidak bekerja bersama `as-child` — mode itu menyerahkan satu-satunya anak slot ke `Primitive`, jadi pembungkusnya akan jadi tombol itu sendiri.
+Tombolnya otomatis disabled, labelnya disembunyikan tanpa mengubah lebar, dan spinner muncul di tengah dengan warna yang mengikuti variant. Prop `loading` tidak bekerja bersama `as-child` - mode itu menyerahkan satu-satunya anak slot ke `Primitive`, jadi pembungkusnya akan jadi tombol itu sendiri.
+
+### Tombol toolbar
+
+Jangan menulis ulang tombol toolbar sebagai `<button>` dengan class border sendiri. Yang benar:
+
+```vue
+<Button variant="outline" size="sm" to="/posts/trash">
+  <Icon name="hugeicons:delete-01" class="size-4 shrink-0" />
+  <span>Trash</span>
+</Button>
+```
+
+`<Button>` menerima `to` dan otomatis merender `NuxtLink` (plus `target`/`rel` kalau URL-nya eksternal), jadi tidak perlu `<nuxt-link>` terpisah.
+
+Untuk tombol filter di `<TableData>`, pakai `<TableFilterButton>` - komponennya sudah membawa `PopoverTrigger`, badge counter, dan versi kotak untuk mobile:
+
+```vue
+<template #filters>
+  <Popover>
+    <TableFilterButton :count="totalActiveFilters" />
+    <PopoverContent align="end">…</PopoverContent>
+  </Popover>
+</template>
+```
+
+`TableFilterButton` untuk sekarang baru ada di pmone. Repo lain memakai `PopoverTrigger` biasa sampai komponennya ikut disinkronkan.
 
 ---
 
@@ -324,6 +350,37 @@ Tombolnya otomatis disabled, labelnya disembunyikan tanpa mengubah lebar, dan sp
 - Title dialog: `text-lg font-semibold tracking-tighter`.
 - Footer alignment: `flex justify-end gap-2`.
 - Default max width: 400px (sudah dari component). Untuk dialog form besar, override via prop `dialogMaxWidth`.
+
+### Padding body
+
+`ResponsiveDialog` sengaja **tidak** memberi padding apa pun, supaya body bisa dibuat full-bleed
+(gambar menempel ke tepi kiri-kanan viewport). Paddingnya milik wrapper pertama di dalam slot
+default, dan nilainya baku:
+
+```
+px-4 pt-5 pb-8 md:px-6 md:py-5
+```
+
+- Drawer (< 768px): atas 20px, bawah 32px. Jangan `pt-0`. Grabber drawer setinggi 28px, `absolute`,
+  dan popup cuma memesan 8px untuknya, jadi tanpa `pt-5` judul akan tertimpa pill.
+- Dialog (>= 768px): `md:py-5` menyamakan atas dan bawah jadi 20px, supaya konten terlihat
+  vertically centered.
+- Breakpoint wajib `md:`, bukan `sm:`. Pergantian Drawer -> Dialog terjadi di `min-width: 768px`
+  (`ResponsiveDialog.vue`, `useMediaQuery`), jadi `sm:` akan memakai padding dialog padahal masih
+  drawer.
+- Safe-area bawah sudah ditangani popup drawer. Jangan tambahkan `env(safe-area-inset-bottom)` lagi.
+- Full-bleed: cukup jangan pasang padding di wrapper, atau pasang `p-0`.
+
+Kalau memakai slot `#sticky-header`, string bakunya:
+
+```
+border-border sticky top-0 z-10 border-b px-4 pt-5 pb-2 text-center md:px-6 md:py-3.5 md:text-left
+```
+
+Jangan pakai `-mt-4` untuk "membetulkan" jarak atas di drawer. Itu justru mendorong header menembus
+area grabber.
+
+Jangan pula membungkus isi dialog dalam `<form>` yang men-submit halaman di belakangnya.
 
 ---
 
@@ -511,6 +568,7 @@ Ganti menjadi `<Badge variant="success" plain>Active</Badge>` (atau dengan `icon
 - Shadow tebal (`shadow-2xl`) di komponen biasa.
 - Border radius yang tidak konsisten dengan skala (jangan tiba-tiba `rounded-3xl` di satu card sedang yang lain `rounded-xl`).
 - Menambahkan `hover:scale-*` / `group-hover:scale-*` pada image atau card di kode baru. Untuk motion yang sudah ada di repo, lihat §13 - itu bukan temuan audit.
+- Menempel `bg-*`, `border-*`, `h-*`, `rounded-*`, `px-*`, `shadow-*` di call site elemen input-like (input, textarea, select trigger, combobox, chips, dropzone). Semua itu milik rule `cn-*` di `assets/css/styles/style-<name>.css`. Meng-hardcode-nya memaku field ke satu tampilan sehingga ia tidak ikut berganti saat user memilih Style lain - dan `dark:bg-background` khususnya membuat field lebur ke latar dialog di dark mode. Kalau butuh nilai yang belum ada, tambahkan rule `cn-*`-nya (ingat: 9 file style x 3 repo), jangan hardcode. Guard di pmone: `bash frontend/scripts/check-input-hardcode.sh`.
 
 ### Pengecualian yang diizinkan
 
@@ -537,6 +595,7 @@ Empat kasus di bawah ini melanggar daftar di atas dan tetap boleh, karena aturan
 - Empty state pakai component `<Empty>`.
 - Skeleton loading pakai component `<Skeleton>`.
 - Tidak ada `font-bold`, `uppercase`, `tracking-wider`.
+- Tidak ada `bg-*` / `h-*` / `rounded-*` / `px-*` yang di-hardcode di elemen input-like. Di pmone, `bash frontend/scripts/check-theming-sync.sh` harus hijau (ia sekaligus menjalankan `check-input-hardcode.sh`).
 
 ---
 
