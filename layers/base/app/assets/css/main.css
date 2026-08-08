@@ -97,27 +97,9 @@ html.appearance-switching *::after {
   --breakpoint-2xl: 1500px;
   --breakpoint-3xl: 1600px;
 
-  /*
-   * The Noto entries are here for the OG image renderer, not for browsers.
-   *
-   * nuxt-og-image reads this exact variable (`tw4FontVars["font-sans"]`),
-   * extracts the non-generic families, and downloads the ones @nuxt/fonts does
-   * not already provide — which is how takumi learns about a font at all. The
-   * only family registered with @nuxt/fonts is MinusOne, a Latin-only brand
-   * face, so every zh/ja/ko card drew its title as tofu boxes until these were
-   * added. Setting `ogImage.fontSubsets` alone did nothing: subsets only apply
-   * to families that are named somewhere.
-   *
-   * They sit AFTER the generic fallbacks deliberately. A browser resolves
-   * `system-ui`/`sans-serif` first and never reaches them, so a Japanese
-   * visitor keeps using the CJK font already on their machine instead of
-   * downloading several megabytes; the renderer has no system fonts, so it
-   * walks the chain until it finds real glyphs.
-   */
   --font-sans:
-    MinusOne, ui-sans-serif, system-ui, sans-serif, "Noto Sans JP",
-    "Noto Sans SC", "Noto Sans KR", "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+    MinusOne, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --font-display:
     ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",

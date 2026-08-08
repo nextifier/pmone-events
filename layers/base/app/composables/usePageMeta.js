@@ -33,6 +33,42 @@ export const usePageMeta = (pageKey, overrides = {}) => {
   const ogTitle = computed(() => apiOg?.title || title.value);
   const ogDescription = computed(() => apiOg?.description || description.value);
 
+  // The generated social card falls back to English for Chinese, Japanese and
+  // Korean.
+  //
+  // The only font registered with @nuxt/fonts is MinusOne, a Latin-only brand
+  // face, so the renderer has no CJK glyphs and drew those titles as rows of
+  // empty boxes. Giving it real CJK fonts was tried twice — `ogImage.fontSubsets`
+  // and naming Noto faces in `--font-sans` — and both shipped to production
+  // without changing a single byte of the rendered card. English copy is a worse
+  // card than a translated one and a far better card than tofu.
+  //
+  // This affects ONLY the generated image. The page's own <title>, og:title and
+  // description above stay in the visitor's language, which is what search
+  // engines and the page itself need.
+  const { t, te, locale } = useI18n();
+  const CARD_NEEDS_LATIN = new Set(["zh", "ja", "ko"]);
+
+  const cardText = (field, current) => {
+    if (!pageKey || !CARD_NEEDS_LATIN.has(locale.value)) {
+      return current;
+    }
+    // A dashboard OG override is authored per project, not per locale, so it is
+    // already the one intended for every language.
+    if (apiOg?.[field]) {
+      return apiOg[field];
+    }
+    const key = `pages.${pageKey}.${field}`;
+    // te() guards the miss: vue-i18n returns the key itself for an unknown
+    // message, and "pages.contact.title" printed on a card is worse than tofu.
+    return te(key, "en") ? t(key, {}, { locale: "en" }) : current;
+  };
+
+  const cardTitle = computed(() => cardText("title", ogTitle.value));
+  const cardDescription = computed(() =>
+    cardText("description", ogDescription.value),
+  );
+
   useSeoMeta({
     titleTemplate: computed(() => meta.value?.withoutTitleTemplate ? "%s" : "%s · %siteName"),
     title: title,
@@ -73,8 +109,8 @@ export const usePageMeta = (pageKey, overrides = {}) => {
       useState(`og-image:ssr-exists:${route.path}`, () => false).value = true;
     }
     defineOgImage("Page", {
-      pageTitle: ogTitle,
-      pageDescription: ogDescription,
+      pageTitle: cardTitle,
+      pageDescription: cardDescription,
     });
   }
 

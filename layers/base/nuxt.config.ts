@@ -277,29 +277,6 @@ export default defineNuxtConfig({
     // routeRules or that injection is skipped. OG URLs hash their props, so
     // long-lived immutable caching is self-busting when content changes.
     cacheMaxAgeSeconds: 60 * 60 * 24 * 30,
-
-    // The only font this project registers with @nuxt/fonts is MinusOne, a
-    // Latin-only brand face, and the OG renderer has nothing else to fall back
-    // on. Every card for a zh/ja/ko page therefore drew the title and
-    // description as tofu boxes — 65 such pages in megabuild alone (verified in
-    // the build artifacts on 8 Aug 2026: /ja/contact, /zh/winner,
-    // /ko/sponsorship-registration and friends).
-    //
-    // THIS DOES NOT FIX IT ON ITS OWN — deployed and measured, the card came
-    // back byte-identical (md5 6cfa9ee31ed54af012ac9db554dbdd72 before and
-    // after). `fontSubsets` only chooses which subsets fontless downloads for
-    // families it has been asked to resolve; it never adds a family. Naming the
-    // Noto faces in the Tailwind `--font-sans` variable did not help either,
-    // even though that is the code path taken here (resolveFontFamilies returns
-    // [] when the OG component uses no font-family class, which sends
-    // resolveOgImageFonts down its `--font-sans` branch). Where it fails after
-    // that is still unknown: resolveMissingFontFamilies swallows a failed
-    // download with `.catch` and a debug-level log, so a build shows nothing.
-    //
-    // Left in place because it is a prerequisite for any working fix, and it
-    // costs nothing measurable — builds stayed at 3.4-4 minutes. Do not remove
-    // it while chasing this; do not assume it works either.
-    fontSubsets: ["latin", "latin-ext", "japanese", "korean", "chinese-simplified"],
   },
 
   site: {
