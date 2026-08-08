@@ -1,3 +1,5 @@
+import { ENGLISH_ONLY, newsRedirects } from "../../layers/base/config/legacy-news-redirects";
+
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
@@ -62,6 +64,24 @@ export default defineNuxtConfig({
 
   routeRules: {
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
+    ...newsRedirects(
+      {
+        "13-ide-usaha-yang-menjanjikan-dengan-modal-kecil-catat": "usaha-yang-menjanjikan",
+        "cara-memulai-bisnis": "cara-memulai-bisnis-1",
+        "cara-mendaftar-nib-1": "cara-mendaftar-nib",
+        "dine-in-adalah": "apa-itu-dine-in",
+        "franchise-vs-bangun-brand-sendiri": "franchise-vs-bangun-brand-sendiri-2",
+        "frozen-food-apa-saja": "frozen-food-itu-apa-saja",
+        "ide-bisnis-makanan-kekinian": "ide-bisnis-makanan-kekinian-1",
+        "joint-venture-adalah-1": "joint-venture-adalah",
+        "kitchen-crew-adalah": "apa-itu-kitchen-crew",
+        // Two slugs repaired in the database 8 Aug 2026: one carried a space,
+        // the other a capital. Both were reachable here too.
+        "Warna-cat-rumah-yang-bagus-dan-elegan": "warna-cat-rumah-yang-bagus-dan-elegan",
+        "ide-bisnis-kreatif-yang-jarang": "ide-bisnis-kreatif-yang-jarang-ada",
+      },
+      ENGLISH_ONLY,
+    ),
   },
 
   // This app's /brands is a store-driven static page, not the base layer's API

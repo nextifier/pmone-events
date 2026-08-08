@@ -1,3 +1,5 @@
+import { newsRedirects } from "../../layers/base/config/legacy-news-redirects";
+
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
@@ -63,6 +65,15 @@ export default defineNuxtConfig({
     "/tiket": { redirect: { to: "/tickets", statusCode: 301 } },
     "/tix": { redirect: { to: "/tickets", statusCode: 301 } },
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
+    ...newsRedirects({
+      // Slug used to carry a space; the sitemap published it double-encoded as
+      // %2520 and Google crawled the form truncated at the space. Both 404'd.
+      "ide-bisnis-kreatif-yang-jarang": "ide-bisnis-kreatif-yang-jarang-ada",
+      "dine-in-adalah": "apa-itu-dine-in",
+      "frozen-food-apa-saja": "frozen-food-itu-apa-saja",
+      "joint-venture-adalah-1": "joint-venture-adalah",
+      "kitchen-crew-adalah": "apa-itu-kitchen-crew",
+    }),
   },
 
   sitemap: {

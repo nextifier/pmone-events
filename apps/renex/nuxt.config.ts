@@ -1,3 +1,5 @@
+import { newsRedirects } from "../../layers/base/config/legacy-news-redirects";
+
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
@@ -41,6 +43,11 @@ export default defineNuxtConfig({
     "/tiket": { redirect: { to: "/tickets", statusCode: 301 } },
     "/tix": { redirect: { to: "/tickets", statusCode: 301 } },
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
+    ...newsRedirects({
+      "franchise-vs-bangun-brand-sendiri": "franchise-vs-bangun-brand-sendiri-2",
+      // renex serves megabuild.blog, so it renders this article at the same slug.
+      "Warna-cat-rumah-yang-bagus-dan-elegan": "warna-cat-rumah-yang-bagus-dan-elegan",
+    }),
   },
 
   sitemap: {

@@ -1,3 +1,5 @@
+import { newsRedirects } from "../../layers/base/config/legacy-news-redirects";
+
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
@@ -38,6 +40,11 @@ export default defineNuxtConfig({
     "/tiket": { redirect: { to: "/tickets", statusCode: 301 } },
     "/tix": { redirect: { to: "/tickets", statusCode: 301 } },
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
+    ...newsRedirects({
+      "13-ide-usaha-yang-menjanjikan-dengan-modal-kecil-catat": "usaha-yang-menjanjikan",
+      "cara-memulai-bisnis": "cara-memulai-bisnis-1",
+      "ide-bisnis-makanan-kekinian": "ide-bisnis-makanan-kekinian-1",
+    }),
   },
 
   sitemap: {

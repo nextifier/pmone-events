@@ -1,3 +1,5 @@
+import { newsRedirects } from "../../layers/base/config/legacy-news-redirects";
+
 export default defineNuxtConfig({
   extends: ["../../layers/base"],
 
@@ -64,6 +66,12 @@ export default defineNuxtConfig({
     "/tiket": { redirect: { to: "/tickets", statusCode: 301 } },
     "/tix": { redirect: { to: "/tickets", statusCode: 301 } },
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
+    ...newsRedirects({
+      "franchise-vs-bangun-brand-sendiri": "franchise-vs-bangun-brand-sendiri-2",
+      // Slug was title-cased, so only the capitalised URL resolved. Lowercased
+      // in the database 8 Aug 2026; this keeps whatever Google indexed alive.
+      "Warna-cat-rumah-yang-bagus-dan-elegan": "warna-cat-rumah-yang-bagus-dan-elegan",
+    }),
   },
 
   sitemap: {
