@@ -46,27 +46,25 @@ export const usePageMeta = (pageKey, overrides = {}) => {
   // This affects ONLY the generated image. The page's own <title>, og:title and
   // description above stay in the visitor's language, which is what search
   // engines and the page itself need.
-  const { t, te, locale } = useI18n();
-  const CARD_NEEDS_LATIN = new Set(["zh", "ja", "ko"]);
+  // The test is on the TEXT, not on the locale. Asking i18n for the English
+  // message instead was tried first and shipped to production doing nothing:
+  // messages are lazy-loaded per locale, so during a zh render the "en" bundle
+  // is not in memory and the lookup silently returned the Chinese string back.
+  // A regex over characters the font cannot draw is the one check that cannot
+  // fail quietly — and it also catches CJK arriving from the API (a blog post
+  // title), which no i18n lookup could have helped with.
+  const RE_UNRENDERABLE = /[぀-ヿ㐀-䶿一-鿿가-힯]/;
+  const appName = useAppConfig().app.name;
 
-  const cardText = (field, current) => {
-    if (!pageKey || !CARD_NEEDS_LATIN.has(locale.value)) {
-      return current;
-    }
-    // A dashboard OG override is authored per project, not per locale, so it is
-    // already the one intended for every language.
-    if (apiOg?.[field]) {
-      return apiOg[field];
-    }
-    const key = `pages.${pageKey}.${field}`;
-    // te() guards the miss: vue-i18n returns the key itself for an unknown
-    // message, and "pages.contact.title" printed on a card is worse than tofu.
-    return te(key, "en") ? t(key, {}, { locale: "en" }) : current;
-  };
+  const cardTitle = computed(() =>
+    RE_UNRENDERABLE.test(ogTitle.value || "") ? appName : ogTitle.value,
+  );
 
-  const cardTitle = computed(() => cardText("title", ogTitle.value));
+  // Dropped rather than substituted: the card already prints the site name and
+  // domain at the bottom, so repeating either as the body reads like a bug. A
+  // title-only card is what the template does for pages with no description.
   const cardDescription = computed(() =>
-    cardText("description", ogDescription.value),
+    RE_UNRENDERABLE.test(ogDescription.value || "") ? "" : ogDescription.value,
   );
 
   useSeoMeta({
