@@ -14,9 +14,18 @@
       </p>
     </div>
 
+    <!--
+      Every geometry class on this skeleton must match the real grid below it
+      verbatim. It used to declare `mt-0 gap-y-3` and a 320px column minimum
+      against the content's `mt-6 gap-y-6` and 240px, so it laid out a different
+      number of columns at the same width — a different row count, a different
+      height, and a visible jump the moment the fetch resolved. It measured
+      CLS 0 only because the response is fast enough that the skeleton rarely
+      survives a frame; on a slow connection it is plain.
+    -->
     <div
       v-if="loading"
-      class="mt-0 grid grid-cols-2 gap-x-2 gap-y-3 sm:grid-cols-[repeat(auto-fit,minmax(320px,1fr))]"
+      class="mt-6 grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-[repeat(auto-fit,minmax(240px,1fr))]"
     >
       <div v-for="i in 8" :key="`sp-sk-${i}`" class="flex flex-col gap-y-3">
         <Skeleton class="aspect-[4/5] w-full rounded-2xl" />
