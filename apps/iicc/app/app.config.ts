@@ -26,6 +26,7 @@ const settings = {
   // Reverted from the PM One dashboard — see docs/website-settings-export.json.
   blog: { showPostCardAuthor: true },
   terms: { lastUpdate: "2026-01-09" },
+  rundown: { showSearch: false, showAllDetails: true },
 };
 
 

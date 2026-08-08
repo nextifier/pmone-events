@@ -20,7 +20,7 @@ export const useBrandTableColumns = (options = {}) => {
         size: 280,
         enableSorting: true,
         enableHiding: false,
-        sortingFn: (a, b) =>
+        sortFn: (a, b) =>
           (a.original.brand_name || "").localeCompare(b.original.brand_name || ""),
         cell: (ctx) =>
           typeof nameCell === "function"
@@ -32,7 +32,7 @@ export const useBrandTableColumns = (options = {}) => {
         header: "Booth",
         size: 110,
         enableSorting: true,
-        sortingFn: (a, b) => {
+        sortFn: (a, b) => {
           const x = normalizeBoothNumber(a.original.booth_number);
           const y = normalizeBoothNumber(b.original.booth_number);
           if (x === null && y !== null) return 1;
@@ -131,7 +131,7 @@ export const useBrandTableColumns = (options = {}) => {
       size: 200,
       enableSorting: true,
       accessorFn: (row) => row._project_title || "",
-      sortingFn: (a, b) =>
+      sortFn: (a, b) =>
         (a.original._project_title || "").localeCompare(b.original._project_title || ""),
       cell: ({ row }) => {
         const title = row.original._project_title;

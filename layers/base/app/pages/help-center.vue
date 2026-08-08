@@ -31,7 +31,7 @@
           please contact:
         </p>
 
-        <div class="not-prose my-8">
+        <div class="not-typeset my-8">
           <div class="grid gap-2.5 sm:grid-cols-2">
             <a
               :href="whatsappLink"

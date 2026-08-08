@@ -1,17 +1,30 @@
 <template>
-  <ClientOnly>
+  <!--
+    Deliberately NOT wrapped in <ClientOnly>. Nothing here needs a browser at
+    render time: `items` is a static array of SVG strings and every GSAP call
+    lives in onMounted, so the server produces the exact same markup the client
+    hydrates.
+
+    It used to be wrapped, and that was the whole bug on cafebrasserieexpo.com:
+    ClientOnly emits nothing on the server, so the prerendered hero reserved
+    zero height here and dropped everything below it the moment hydration filled
+    the grid in — around 640px of movement on a phone. Rendering it server-side
+    removes the shift by construction rather than papering over it with a
+    placeholder, and the shapes are visible before the JS even lands.
+
+    The shuffle animation reorders these children with insertBefore, outside
+    Vue's knowledge. That is safe only because `items` never changes, so Vue
+    never re-patches this list. If it ever becomes reactive, the reorder has to
+    move into the data instead.
+  -->
+  <div ref="containerRef" class="grid size-full grid-cols-3 grid-rows-5 gap-1">
     <div
-      ref="containerRef"
-      class="grid size-full grid-cols-3 grid-rows-5 gap-1"
-    >
-      <div
-        v-for="(item, index) in items"
-        :key="index"
-        class="text-kv-brown-200 *:size-full"
-        v-html="item"
-      />
-    </div>
-  </ClientOnly>
+      v-for="(item, index) in items"
+      :key="index"
+      class="text-kv-brown-200 *:size-full"
+      v-html="item"
+    />
+  </div>
 </template>
 
 <script setup>

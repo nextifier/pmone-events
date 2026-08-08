@@ -23,6 +23,7 @@ const settings = {
   },
   // Reverted from the PM One dashboard — see docs/website-settings-export.json.
   terms: { lastUpdate: "2025-12-30" },
+  rundown: { showLocationFilter: false },
 };
 
 

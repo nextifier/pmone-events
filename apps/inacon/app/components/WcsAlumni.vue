@@ -126,7 +126,7 @@
 </template>
 
 <script setup>
-import { Dot } from "lucide-vue-next";
+import { Dot } from "@lucide/vue";
 
 const items = [
   {

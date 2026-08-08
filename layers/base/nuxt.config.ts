@@ -144,7 +144,7 @@ export default defineNuxtConfig({
         "reka-ui",
         "clsx",
         "tailwind-merge",
-        "lucide-vue-next",
+        "@lucide/vue",
         "@vue/devtools-core",
         "@vue/devtools-kit",
       ],

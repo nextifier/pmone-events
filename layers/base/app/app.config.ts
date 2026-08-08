@@ -47,6 +47,19 @@ export default defineAppConfig({
       showPostCardExcerpt: false,
     },
 
+    // How the rundown itself behaves — NOT whether the section appears (that is
+    // a commented-out component in the app's index.vue). These were the last
+    // three website_settings keys still edited from the PM One dashboard; the
+    // editor was removed with the rest in Aug 2026, so they live here now like
+    // every other display toggle.
+    rundown: {
+      showSearch: true,
+      showLocationFilter: true,
+      // Description, speakers and panelists rendered inline. When false they
+      // sit behind a click, which is what opens the item dialog.
+      showAllDetails: false,
+    },
+
     // Optional fields on the /book-space exhibitor registration form.
     bookSpaceForm: {
       showJobTitle: false,

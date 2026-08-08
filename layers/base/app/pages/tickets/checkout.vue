@@ -612,7 +612,7 @@ const termsOpen = ref(false);
           <div
             v-if="terms"
             v-html="terms"
-            class="format-html prose prose-sm dark:prose-invert max-w-none tracking-tight"
+            class="format-html typeset-sm max-w-none tracking-tight"
           ></div>
           <p v-else class="text-muted-foreground text-sm tracking-tight">
             {{ t("tickets.defaultTerms") }}

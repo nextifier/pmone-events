@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { Dot } from "lucide-vue-next";
+import { Dot } from "@lucide/vue";
 const { t } = useI18n();
 
 const items = computed(() => [

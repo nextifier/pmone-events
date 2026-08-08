@@ -163,15 +163,3 @@
 .frame .frame-footer {
   @apply flex flex-col gap-1 px-3 py-4 lg:px-5;
 }
-
-.prose img {
-  @apply my-6 h-auto max-w-full rounded-lg;
-}
-
-.prose figure {
-  @apply my-6;
-}
-
-.prose figcaption {
-  @apply text-muted-foreground mt-2 text-center text-sm italic;
-}

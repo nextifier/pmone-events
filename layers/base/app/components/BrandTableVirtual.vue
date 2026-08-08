@@ -104,10 +104,14 @@ import {
   nextTick,
 } from "vue";
 import {
+  columnSizingFeature,
+  columnVisibilityFeature,
+  createSortedRowModel,
   FlexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useVueTable,
+  rowSortingFeature,
+  sortFns,
+  tableFeatures,
+  useTable,
 } from "@tanstack/vue-table";
 import { useWindowVirtualizer } from "@tanstack/vue-virtual";
 
@@ -122,7 +126,20 @@ const props = defineProps({
 
 const sorting = ref(props.initialSorting);
 
-const table = useVueTable({
+// TanStack v9 resolves features statically; `sortFns` is registered so the
+// string sort names columns pass (including the default "auto") still resolve.
+const features = tableFeatures({
+  // `header.getSize()` / `column.getSize()` drive the virtual column widths;
+  // both only exist once columnSizingFeature is registered.
+  columnSizingFeature,
+  columnVisibilityFeature,
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+  sortFns,
+});
+
+const table = useTable({
+  features,
   get data() {
     return props.data || [];
   },
@@ -138,8 +155,6 @@ const table = useVueTable({
     sorting.value =
       typeof updater === "function" ? updater(sorting.value) : updater;
   },
-  getCoreRowModel: getCoreRowModel(),
-  getSortedRowModel: getSortedRowModel(),
   enableSortingRemoval: false,
 });
 

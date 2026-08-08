@@ -329,7 +329,7 @@ Tiga icon set tersedia via `@nuxt/icon` (mode: SVG, client bundle scan):
 
 ### Tailwind CSS v4
 
-- Plugin: `@tailwindcss/vite`, `@tailwindcss/forms`, `@tailwindcss/typography`
+- Plugin: `@tailwindcss/vite`, `@tailwindcss/forms`. Rich text pakai shadcn/typeset (`typeset.css`), bukan `@tailwindcss/typography`.
 - Custom breakpoints: `xs` (475px), default sm/md/lg/xl/2xl, `3xl` (1800px)
 - Default font: MinusOne (variable font)
 - Dark mode support dengan CSS custom properties

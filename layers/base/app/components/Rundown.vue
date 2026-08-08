@@ -767,42 +767,25 @@ const activities = computed(() => {
   );
 });
 
-// Display settings ride the public rundown payload at `data.settings` (they are
-// per-rundown, not part of the retired website-settings blob). The component
-// props remain the local fallback when the API hasn't returned settings yet.
-const remoteSettings = computed(
-  () => rundownData.value?.data?.settings ?? null,
+// Display behaviour comes from app.config, like every other website toggle.
+// Props stay as a per-instance override because <Rundown> renders in three
+// places (home section, /rundown, the tickets tab) and one of them may want to
+// differ. Until Aug 2026 these three also arrived on the public rundown payload
+// so the PM One dashboard could set them; that editor is gone and so is the
+// override — one source of truth, in the repo.
+const rundownConfig = computed(() => useAppConfig().settings?.rundown ?? {});
+
+const effectiveShowSearch = computed(() =>
+  props.showSearch === false ? false : (rundownConfig.value.showSearch ?? true),
 );
 
-const effectiveShowSearch = computed(() => {
-  if (
-    remoteSettings.value &&
-    typeof remoteSettings.value.show_search_bar === "boolean"
-  ) {
-    return remoteSettings.value.show_search_bar;
-  }
-  return props.showSearch;
-});
+const effectiveShowLocationFilter = computed(
+  () => rundownConfig.value.showLocationFilter ?? true,
+);
 
-const effectiveShowLocationFilter = computed(() => {
-  if (
-    remoteSettings.value &&
-    typeof remoteSettings.value.show_location_filter === "boolean"
-  ) {
-    return remoteSettings.value.show_location_filter;
-  }
-  return true;
-});
-
-const effectiveShowAllDetails = computed(() => {
-  if (
-    remoteSettings.value &&
-    typeof remoteSettings.value.show_all_rundown_details === "boolean"
-  ) {
-    return remoteSettings.value.show_all_rundown_details;
-  }
-  return false;
-});
+const effectiveShowAllDetails = computed(
+  () => rundownConfig.value.showAllDetails ?? false,
+);
 
 const effectiveClickToOpenDialog = computed(() => {
   // When details render inline, the dialog is redundant.
