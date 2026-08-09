@@ -50,6 +50,13 @@ import { joinURL } from "ufo";
  * The listing pages change often enough that a build-time snapshot would be
  * wrong within the day, and they carry the content search engines index.
  *
+ * `/brands` is NOT among them, and never should have been. useBrandsListing.js
+ * fetches with `server: false`, so the Worker's SSR output for that route is an
+ * empty shell — the markup a crawler sees is identical either way, and
+ * server/api/sitemap-urls.ts already documents that the sitemap is the only
+ * discovery path for brand URLs. Prerendering it produces the same bytes as a
+ * static asset at zero Worker cost. Removed from DENY on 9 Aug 2026.
+ *
  * The transactional ones must never become a shared static asset. Matching here
  * is exact, so naming "/hotels" does NOT cover "/hotels/success" — each one has
  * to be spelled out. They were being prerendered until 8 Aug 2026, and got away
@@ -59,7 +66,6 @@ import { joinURL } from "ufo";
  * served to everyone, and nothing would report it.
  */
 const DENY = [
-  "/brands",
   "/guests",
   "/speakers",
   "/rundown",
