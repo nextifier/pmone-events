@@ -4,18 +4,26 @@ import type { H3Event } from "h3";
  * In-worker edge cache (Cloudflare Cache API), scoped to the two route families
  * that actually cost money.
  *
- * WHY IN THE WORKER AND NOT A ZONE CACHE RULE: on the `cloudflare_module`
- * preset the Worker runs BEFORE Cloudflare's cache, so a zone Cache Rule can
- * never store a Worker-generated response — it only governs the `fetch()`
- * subrequests a Worker makes, and Nuxt renders in-process without any origin
- * fetch. The tell is that Worker responses carry no `cf-cache-status` header at
- * all while static assets show `cf-cache-status: HIT`. Measured again 9 Aug
- * 2026 over the whole estate: 89,247 requests to /news/[slug] + /brands/[slug],
- * zero cache hits, 100% `cacheStatus: none`.
+ * WHAT ACTUALLY BLOCKED CACHING, because the file this replaces got it wrong.
+ * The old docblock claimed a Worker response can never be cached at all,
+ * reasoning that the Worker runs in front of the cache. Half true and the wrong
+ * half: the Worker does run first on the way IN, but its response passes back
+ * out through the CDN, which stores it whenever it is storable — and then
+ * serves later requests without invoking the Worker at all.
  *
- * `caches.default` IS the same zone cache, so entries written here stay
- * removable with an ordinary purge-by-URL call — that is what lets the PM One
- * dashboard invalidate content on publish (app/Support/EdgeCache.php).
+ * The thing that made it unstorable was `Set-Cookie`. @nuxtjs/i18n attaches
+ * `i18n_locale` to every HTML render, no cache will store a response carrying
+ * one, and no `Cache-Control` was set either. Measured 9 Aug 2026 across the
+ * estate: 89,247 requests to /news/[slug] + /brands/[slug], zero cache hits,
+ * 100% `cacheStatus: none`. After dropping the cookie and setting a public
+ * s-maxage, 20 consecutive requests to the hottest article all returned
+ * `cf-cache-status: HIT` with a rising `age` — one stored object, no Worker.
+ *
+ * So this layer buys two separate things. `caches.default` makes the first
+ * request in a colo cheap; the storable response makes every request after it
+ * free. `caches.default` IS the same zone cache, so entries stay removable with
+ * an ordinary purge-by-URL call — that is what lets the PM One dashboard
+ * invalidate content on publish (app/Support/EdgeCache.php).
  *
  * WHY IT IS BACK, AND MUCH SMALLER. A general version of this shipped 23 Jul
  * and was removed 6 Aug 2026 (72adf69) — 393 lines plus a 294-line path→TTL
@@ -55,12 +63,27 @@ const BOT_UA_RE =
   /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|whatsapp|telegram|linkedin|pinterest|petalbot|ahrefs|semrush|mj12|applebot|bytespider|ccbot|amazonbot|gptbot|claude|perplexity|yandex|baidu|duckduck/i;
 
 /**
- * Detail pages. Long TTL because publishing purges them exactly
- * (Post::edgeCachePaths / Brand::edgeCachePaths), and because the long tail is
- * where a short TTL would buy nothing — an article getting a dozen hits a day
- * across twenty colos never gets a second hit inside an hour.
+ * Detail pages, 30 days.
+ *
+ * Freshness does not come from this number. Publishing or editing purges the
+ * exact URL (Post::edgeCachePaths / Brand::edgeCachePaths, expanded across
+ * locales and colour-mode variants by EdgeCache::htmlVariants), so the TTL is
+ * only the backstop for a purge that failed.
+ *
+ * It is long because the long tail is the whole problem. Roughly 25,500 detail
+ * requests a day spread over ~1,850 article URLs is ~14 hits per article per
+ * day, and the cache is per data centre — at one hour, nearly every request is
+ * a miss. At 30 days even the quietest article stays warm.
+ *
+ * WHAT MAKES THIS SAFE. Cached HTML embeds hashed /_nuxt chunk URLs that a
+ * deploy replaces. The `x-edge-build` guard below catches that, but ONLY for
+ * requests that reach the worker — and Cloudflare's CDN now answers most of
+ * them without invoking it. The backstop is the PM One side:
+ * `edge-cache:purge-after-build` polls Workers Builds every five minutes and
+ * purges a site's zone when its Worker has been redeployed. Shorten this TTL
+ * again if that command is ever removed.
  */
-const DETAIL_TTL = "public, max-age=0, s-maxage=86400";
+const DETAIL_TTL = "public, max-age=0, s-maxage=2592000";
 
 /**
  * Listings. Shorter, because they change whenever ANY item is published and a

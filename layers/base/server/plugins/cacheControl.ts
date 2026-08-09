@@ -19,11 +19,12 @@ import {
  *    on the event, so the next request for that URL is served without
  *    re-rendering.
  *
- * ON s-maxage. Cloudflare's CDN never sees a Worker response — the Worker runs
- * in front of the cache on the `cloudflare_module` preset — so `s-maxage` is
- * NOT read by the CDN. It is read by `caches.default`, the Cache API copy this
- * plugin writes from inside the Worker. That is the only reason an s-maxage
- * appears here at all; see server/utils/edgeCache.ts for the measurement.
+ * ON s-maxage. It is read by both caches that matter here: `caches.default`,
+ * the copy this plugin writes from inside the Worker, and Cloudflare's own CDN,
+ * which stores the response on its way out and then answers later requests
+ * without invoking the Worker at all. Neither could store anything while the
+ * response carried `Set-Cookie` — see stripSetCookie and
+ * server/utils/edgeCache.ts for the measurement.
  *
  * `max-age` is a separate matter: the visitor's BROWSER honours it regardless
  * of what any cache in between does, which is what the BROWSER_TTL table below
@@ -31,6 +32,10 @@ import {
  * `s-maxage` with no `max-age`, so without this override a browser re-fetches
  * every icon collection on every page load, and /api/_nuxt_icon/ is 12% of all
  * Worker invocations.
+ *
+ * NOTE both this plugin and server/middleware/00.edge-cache.ts return early on
+ * anything but GET. A `curl -I` sends HEAD, so it shows none of this and every
+ * page looks uncached. Verify with `curl -sD- -o /dev/null`.
  *
  * Deliberately absent: /_og/**. nuxt-og-image self-injects
  * `public, max-age, s-maxage, immutable` route rules from
