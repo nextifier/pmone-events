@@ -76,12 +76,17 @@ const BOT_UA_RE =
  * a miss. At 30 days even the quietest article stays warm.
  *
  * WHAT MAKES THIS SAFE. Cached HTML embeds hashed /_nuxt chunk URLs that a
- * deploy replaces. The `x-edge-build` guard below catches that, but ONLY for
- * requests that reach the worker — and Cloudflare's CDN now answers most of
- * them without invoking it. The backstop is the PM One side:
- * `edge-cache:purge-after-build` polls Workers Builds every five minutes and
- * purges a site's zone when its Worker has been redeployed. Shorten this TTL
- * again if that command is ever removed.
+ * deploy replaces. These pages are rendered by the worker, so the
+ * `x-edge-build` guard in server/middleware/00.edge-cache.ts covers them:
+ * verified 9 Aug 2026 on morefood, cokelatexpo and icf, where a URL warmed
+ * before their rebuild came back `x-edge-cache: STALE-BUILD` afterwards and
+ * re-rendered with every chunk resolving.
+ *
+ * The prerendered pages are the ones that guard cannot reach — the Assets
+ * binding serves them without invoking the worker at all. PM One's
+ * `edge-cache:purge-after-build` covers those by purging a site's zone when its
+ * Worker is redeployed. It is a backstop for this TTL too, but not the thing
+ * holding it up.
  */
 const DETAIL_TTL = "public, max-age=0, s-maxage=2592000";
 
