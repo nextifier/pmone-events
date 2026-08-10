@@ -9,7 +9,7 @@
         Last updated: {{ lastUpdate }}
       </p>
 
-      <div class="format-html mx-auto">
+      <div class="typeset max-w-2xl mx-auto">
         <h1>Kebijakan Pengembalian Dana (Refund & Return Policy)</h1>
 
         <h2>1. Ketentuan Umum</h2>

@@ -1,7 +1,7 @@
 <template>
   <div class="py-10 lg:py-16">
     <div class="container">
-      <div class="format-html mx-auto">
+      <div class="typeset max-w-2xl mx-auto">
         <h1>Safety and Weapons Policy</h1>
 
         <p>

@@ -184,11 +184,19 @@ function canonicalSegments(pathname: string): string[] {
 /**
  * The edge TTL for a path, or undefined when it must never be cached.
  *
- * Deliberately an allowlist of two route families rather than a table. Every
- * other page on these sites is either already a prerendered static asset (and
- * so never reaches the Worker) or per-visitor (checkout, order status, hotel
- * reservations, public forms), and a table invites the next person to add a
+ * Deliberately an allowlist of one route family rather than a table. Every
+ * other page is either a prerendered static asset (never reaches the Worker),
+ * client-rendered (see below), or per-visitor — checkout, order status, hotel
+ * reservations, public forms. A table invites the next person to add a
  * per-visitor route to it by mistake.
+ *
+ * BRANDS ARE DELIBERATELY ABSENT. They were here until 11 Aug 2026 and earned
+ * a 4.5% hit rate against news's 63.9%: thousands of URLs times five locales
+ * against a per-data-centre cache is a tail that never warms. They now carry
+ * `ssr: false` (see the routeRules block in nuxt.config.ts), so the worker
+ * answers them from a shell string memoised for the isolate's lifetime —
+ * cheaper than a cache lookup, and identical for every slug, so storing one
+ * entry per URL would spend cache storage to save nothing.
  */
 export function resolveEdgeTtl(pathname: string): string | undefined {
   if (!looksLikePage(pathname)) {
@@ -197,7 +205,7 @@ export function resolveEdgeTtl(pathname: string): string | undefined {
 
   const segments = canonicalSegments(pathname);
 
-  if (segments.length === 0 || (segments[0] !== "news" && segments[0] !== "brands")) {
+  if (segments[0] !== "news") {
     return undefined;
   }
   if (segments.length === 1) {

@@ -15,7 +15,7 @@
             >Started with one event. Now we run dozens.</span
           >
           <div
-            class="text-foreground/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 typeset max-w-2xl space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               We started in the early 2000s. Back when "event organizer" in
@@ -51,7 +51,7 @@
             >Events are our language. Connections are our purpose.</span
           >
           <div
-            class="text-foreground/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 typeset max-w-2xl space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               Every event has the potential to be a special moment. An

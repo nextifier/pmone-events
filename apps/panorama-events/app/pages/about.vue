@@ -15,7 +15,7 @@
             >The Shift to Purposeful Outings</span
           >
           <div
-            class="text-foreground/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 typeset max-w-2xl space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               We've seen it all, the fun but forgettable day trips, the team
@@ -49,7 +49,7 @@
             >The HR-Driven Approach</span
           >
           <div
-            class="text-foreground/70 format-html space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
+            class="text-foreground/70 typeset max-w-2xl space-y-4 text-xl font-medium tracking-tighter sm:text-2xl"
           >
             <p>
               "HR-Driven" isn't just a buzzword for us. It's the very foundation

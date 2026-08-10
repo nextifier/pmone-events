@@ -9,7 +9,7 @@
         Last updated: {{ lastUpdate }}
       </p>
 
-      <div class="format-html mx-auto">
+      <div class="typeset max-w-2xl mx-auto">
         <h1>Terms and Conditions</h1>
 
         <p>

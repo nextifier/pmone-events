@@ -45,7 +45,7 @@
 
           <div
             v-if="experience.description"
-            class="format-html"
+            class="typeset typeset-cms max-w-2xl"
             v-html="experience.description"
           ></div>
 

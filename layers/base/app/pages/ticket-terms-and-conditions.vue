@@ -9,7 +9,7 @@
         Last updated: {{ lastUpdate }}
       </p>
 
-      <div class="format-html mx-auto">
+      <div class="typeset max-w-2xl mx-auto">
         <h1>Syarat & Ketentuan Tiket (Ticket Terms & Conditions)</h1>
 
         <h2>A. Definisi</h2>

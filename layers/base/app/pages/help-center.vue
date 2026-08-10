@@ -9,7 +9,7 @@
         Last updated: {{ lastUpdate }}
       </p>
 
-      <div class="format-html mx-auto">
+      <div class="typeset max-w-2xl mx-auto">
         <h1>Help Center</h1>
 
         <p>

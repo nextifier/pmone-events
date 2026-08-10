@@ -63,6 +63,12 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    // Opt back out of the layer's `ssr: false` for brand detail. That rule
+    // exists because the event sites render thousands of API-backed brand
+    // pages for crawlers; this app's brands are its own content, read from a
+    // local store with no fetch at all, so the render is already free and the
+    // copy is worth having in the delivered HTML.
+    "/brands/*": { ssr: true },
     "/blog/**": { redirect: { to: "/news/**", statusCode: 301 } },
     ...newsRedirects(
       {

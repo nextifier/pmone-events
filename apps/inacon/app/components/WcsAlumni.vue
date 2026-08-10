@@ -71,7 +71,7 @@
               <div class="hidden w-full grid-cols-1 lg:grid">
                 <div>
                   <div
-                    class="format-html tracking-tight [&_iframe]:aspect-video [&_iframe]:w-full"
+                    class="typeset typeset-cms max-w-2xl tracking-tight [&_iframe]:aspect-video [&_iframe]:w-full"
                     v-html="item.body"
                   ></div>
                 </div>
@@ -87,7 +87,7 @@
             <div class="grid w-full grid-cols-1 lg:hidden">
               <div>
                 <div
-                  class="format-html tracking-tight"
+                  class="typeset typeset-cms max-w-2xl tracking-tight"
                   v-html="item.body"
                 ></div>
               </div>

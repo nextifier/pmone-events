@@ -13,7 +13,7 @@
             {{ item.q }}
           </AccordionTrigger>
           <AccordionContent>
-            <div class="format-html" v-html="item.a"></div>
+            <div class="typeset typeset-cms max-w-2xl" v-html="item.a"></div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

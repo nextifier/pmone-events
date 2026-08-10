@@ -279,6 +279,49 @@ export default defineNuxtConfig({
     cacheMaxAgeSeconds: 60 * 60 * 24 * 30,
   },
 
+  /**
+   * Brand detail pages skip server rendering entirely.
+   *
+   * WHY. Measured 10 Aug 2026 across the estate: /brands/[slug] is 100%
+   * unknown user-agents — crawlers, not one real browser — and its edge-cache
+   * hit rate is 4.5% against 63.9% for /news/[slug]. The reason is structural:
+   * megabuild alone has thousands of brand URLs times five locales, and the
+   * Cloudflare cache is per data centre, so a tail that long never warms. We
+   * were paying a full ~300 ms Vue render, per colo, per URL, to feed crawlers.
+   *
+   * With `ssr: false` Nitro takes getSPARenderer()
+   * (@nuxt/nitro-server/dist/runtime/utils/renderer/build-files.mjs:34-64):
+   * Vue is never invoked, the 4.3 MB server bundle is never imported, and the
+   * shell string is computed once and memoised for the isolate's lifetime.
+   * Milliseconds instead of hundreds, and ~10 KB instead of 140 KB. The page
+   * itself needs no change — its fetch already has no `server: false`, and it
+   * already renders a skeleton while pending.
+   *
+   * Accepted: no <title>, og:image or link preview in the delivered HTML, and
+   * a dead slug answers 200 + shell rather than 404. The page sets a noindex
+   * meta itself in that case (see pages/brands/[slug].vue).
+   *
+   * `*` NOT `**`. radix3 maps `/brands/**` to the key `/brands` and matches it
+   * exactly (dist/index.mjs:216,244), which would drag in the PRERENDERED
+   * listing — and `ssr: false` does not disable prerendering
+   * (nitropack/dist/core/index.mjs:2047 only checks `prerender === false`), so
+   * the build would bake an empty shell into dist/brands.html. `*` takes the
+   * placeholder branch, which requires a following segment.
+   *
+   * Route rules are locale-blind (nitropack/dist/runtime/internal/route-rules.mjs:68-79),
+   * so one segment of wildcard covers `/id|zh|ja|ko/brands/x` AND the edition
+   * form `/2025/brands/x`; two cover `/id/2025/brands/x`.
+   *
+   * panorama-media overrides this back to `ssr: true` — its brand pages are its
+   * own content, read from a local store with no API call, so rendering them is
+   * already free and they carry real copy worth indexing.
+   */
+  routeRules: {
+    "/brands/*": { ssr: false },
+    "/*/brands/*": { ssr: false },
+    "/*/*/brands/*": { ssr: false },
+  },
+
   site: {
     // EXPLICIT ON PURPOSE. nuxt-robots derives indexability as
     // `site.indexable ?? (site.env === "production")`, and `site.env` comes from
