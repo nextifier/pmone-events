@@ -354,5 +354,8 @@ export default {
     showMore: "查看更多",
     showLess: "收起",
     submitFailed: "提交表单失败，请重试。",
+    back: "返回",
+    next: "下一步",
+    stepProgress: "问题 {current} / {total}",
   },
 };

@@ -1566,7 +1566,7 @@ html.appearance-switching *::after {
     &:has(+ input:required)::after,
     &:has(+ select:required)::after,
     &:has(+ textarea:required)::after {
-      @apply text-destructive ml-0 content-['*'];
+      @apply text-destructive-foreground ml-0 content-['*'];
     }
   }
 }

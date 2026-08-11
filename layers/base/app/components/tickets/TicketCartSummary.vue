@@ -183,7 +183,7 @@ defineExpose({ appliedPromo });
                   type="button"
                   variant="ghost"
                   size="iconSm"
-                  class="text-muted-foreground hover:text-destructive ml-1 size-6"
+                  class="text-muted-foreground hover:text-destructive-foreground ml-1 size-6"
                   :aria-label="t('tickets.removeItem')"
                   @click="cart.removeItem(line.ticket_id, line.ticket_session_id, line.selected_event_day_id)"
                 >
@@ -237,7 +237,7 @@ defineExpose({ appliedPromo });
         <p
           v-if="promoError"
           role="alert"
-          class="bg-destructive/10 text-destructive flex items-start gap-1.5 rounded-md px-3 py-2 text-xs tracking-tight sm:text-sm"
+          class="bg-destructive/10 text-destructive-foreground flex items-start gap-1.5 rounded-md px-3 py-2 text-xs tracking-tight sm:text-sm"
         >
           <Icon name="hugeicons:alert-circle" class="mt-0.5 size-4 shrink-0" />
           <span>{{ promoError }}</span>

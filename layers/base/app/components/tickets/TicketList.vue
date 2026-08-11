@@ -514,7 +514,7 @@ const subtotalLabel = computed(() =>
     <Empty v-else class="border-border bg-muted/30 mx-auto max-w-md border">
       <EmptyHeader>
         <EmptyMedia variant="icon">
-          <Icon name="hugeicons:alert-02" class="text-destructive" />
+          <Icon name="hugeicons:alert-02" class="text-destructive-foreground" />
         </EmptyMedia>
         <EmptyTitle>{{ t("tickets.loadErrorTitle") }}</EmptyTitle>
         <EmptyDescription>
@@ -592,7 +592,7 @@ const subtotalLabel = computed(() =>
           <p
             v-if="accessError"
             role="alert"
-            class="bg-destructive/10 text-destructive flex items-start gap-1.5 rounded-md px-3 py-2 text-xs tracking-tight"
+            class="bg-destructive/10 text-destructive-foreground flex items-start gap-1.5 rounded-md px-3 py-2 text-xs tracking-tight"
           >
             <Icon
               name="hugeicons:alert-circle"
@@ -1352,7 +1352,7 @@ const subtotalLabel = computed(() =>
             </button>
             <button
               type="button"
-              class="bg-destructive/15 text-destructive hover:bg-destructive/25 focus-visible:ring-destructive/40 inline-flex size-9 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
+              class="bg-destructive/15 text-destructive-foreground hover:bg-destructive/25 focus-visible:ring-destructive-foreground/40 inline-flex size-9 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
               :aria-label="t('tickets.clearCart')"
               @click="cart.clear()"
             >

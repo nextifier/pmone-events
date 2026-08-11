@@ -358,5 +358,8 @@ export default {
     showMore: "Selengkapnya",
     showLess: "Sembunyikan",
     submitFailed: "Gagal mengirim formulir. Silakan coba lagi.",
+    back: "Kembali",
+    next: "Lanjut",
+    stepProgress: "Pertanyaan {current} dari {total}",
   },
 };

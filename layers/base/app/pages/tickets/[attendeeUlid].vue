@@ -102,27 +102,28 @@
             {{ t("tickets.attendee.personalizeIntro") }}
           </p>
 
-          <div class="space-y-2">
-            <Label for="att_name">{{ t("tickets.attendee.fullName") }}</Label>
-            <Input id="att_name" v-model="form.name" required />
+          <Field :data-invalid="!!errors?.name">
+            <FieldLabel for="att_name">{{ t("tickets.attendee.fullName") }}</FieldLabel>
+            <Input id="att_name" v-model="form.name" required :aria-invalid="!!errors?.name" />
             <FieldError :errors="errors.name" />
-          </div>
+          </Field>
 
-          <div class="space-y-2">
-            <Label for="att_email">{{ t("tickets.attendee.emailOptional") }}</Label>
-            <Input id="att_email" v-model="form.email" type="email" />
+          <Field :data-invalid="!!errors?.email">
+            <FieldLabel for="att_email">{{ t("tickets.attendee.emailOptional") }}</FieldLabel>
+            <Input id="att_email" v-model="form.email" type="email" :aria-invalid="!!errors?.email" />
             <FieldError :errors="errors.email" />
-          </div>
+          </Field>
 
-          <div class="space-y-2">
-            <Label for="att_phone">{{ t("tickets.attendee.phoneOptional") }}</Label>
+          <Field :data-invalid="!!errors?.phone">
+            <FieldLabel for="att_phone">{{ t("tickets.attendee.phoneOptional") }}</FieldLabel>
             <InputPhone
+              :aria-invalid="!!errors?.phone"
               id="att_phone"
               :model-value="form.phone"
               @update:model-value="(v) => (form.phone = v)"
             />
             <FieldError :errors="errors.phone" />
-          </div>
+          </Field>
 
           <Button
             type="button"
@@ -184,9 +185,8 @@
 <script setup>
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
 import { InputPhone } from "../../components/ui/input-phone";
-import { FieldError } from "../../components/ui/field";
+import { Field, FieldError, FieldLabel } from "../../components/ui/field";
 import { Skeleton } from "../../components/ui/skeleton";
 import {
   Collapsible,

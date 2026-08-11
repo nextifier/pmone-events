@@ -3,7 +3,7 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Checkbox } from "../../components/ui/checkbox";
 import { Label } from "../../components/ui/label";
-import { FieldError } from "../../components/ui/field";
+import { Field, FieldError, FieldLabel } from "../../components/ui/field";
 import { InputPhone } from "../../components/ui/input-phone";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import ResponsiveDialog from "../../components/ui/responsive-dialog/ResponsiveDialog.vue";
@@ -459,16 +459,17 @@ const termsOpen = ref(false);
             <div class="frame-title">{{ t("tickets.yourDetails") }}</div>
           </div>
           <div class="frame-panel space-y-5">
-            <div class="space-y-2">
-              <Label for="buyer_name">{{ t("tickets.fullName") }}</Label>
-              <Input id="buyer_name" v-model="form.buyer_name" autocomplete="name" required />
+            <Field :data-invalid="!!errors?.buyer_name">
+              <FieldLabel for="buyer_name">{{ t("tickets.fullName") }}</FieldLabel>
+              <Input id="buyer_name" v-model="form.buyer_name" autocomplete="name" required :aria-invalid="!!errors?.buyer_name" />
               <FieldError :errors="errors.buyer_name" />
-            </div>
+            </Field>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div class="space-y-2">
-                <Label for="buyer_email">{{ t("tickets.email") }}</Label>
+              <Field :data-invalid="!!errors?.buyer_email">
+                <FieldLabel for="buyer_email">{{ t("tickets.email") }}</FieldLabel>
                 <Input
+                  :aria-invalid="!!errors?.buyer_email"
                   id="buyer_email"
                   v-model="form.buyer_email"
                   type="email"
@@ -479,17 +480,18 @@ const termsOpen = ref(false);
                 <p class="text-muted-foreground text-xs tracking-tight sm:text-sm">
                   {{ t("tickets.detailsNote") }}
                 </p>
-              </div>
-              <div class="space-y-2">
-                <Label for="buyer_phone">{{ t("tickets.phone") }}</Label>
+              </Field>
+              <Field :data-invalid="!!errors?.buyer_phone">
+                <FieldLabel for="buyer_phone">{{ t("tickets.phone") }}</FieldLabel>
                 <InputPhone
+                  :aria-invalid="!!errors?.buyer_phone"
                   id="buyer_phone"
                   :model-value="form.buyer_phone"
                   required
                   @update:model-value="(v) => (form.buyer_phone = v)"
                 />
                 <FieldError :errors="errors.buyer_phone" />
-              </div>
+              </Field>
             </div>
           </div>
         </section>

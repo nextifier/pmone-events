@@ -356,5 +356,8 @@ export default {
     showMore: "더 보기",
     showLess: "접기",
     submitFailed: "양식 제출에 실패했습니다. 다시 시도해 주세요.",
+    back: "뒤로",
+    next: "다음",
+    stepProgress: "질문 {current} / {total}",
   },
 };

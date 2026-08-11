@@ -84,7 +84,7 @@ function pick(session) {
         <span
           v-if="availabilityText(s)"
           class="text-xs tracking-tight"
-          :class="isSoldOut(s) ? 'text-destructive' : 'text-success-foreground'"
+          :class="isSoldOut(s) ? 'text-destructive-foreground' : 'text-success-foreground'"
         >
           {{ availabilityText(s) }}
         </span>

@@ -348,6 +348,9 @@ export default {
     "alreadyMessage": "We've received your response. This form only accepts one submission per person.",
     "showMore": "Show more",
     "showLess": "Show less",
-    "submitFailed": "Failed to submit the form. Please try again."
+    "submitFailed": "Failed to submit the form. Please try again.",
+    "back": "Back",
+    "next": "Next",
+    "stepProgress": "Question {current} of {total}"
   }
 };

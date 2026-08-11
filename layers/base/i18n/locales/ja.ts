@@ -359,5 +359,8 @@ export default {
     showMore: "もっと見る",
     showLess: "閉じる",
     submitFailed: "フォームの送信に失敗しました。もう一度お試しください。",
+    back: "戻る",
+    next: "次へ",
+    stepProgress: "質問 {current} / {total}",
   },
 };
