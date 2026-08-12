@@ -82,17 +82,16 @@ export default {
     title: "前半は商談、後半は体験",
     description: "木曜と金曜は法人向け。土曜と日曜は一般公開です。",
     month: "10月",
+    dateRange: "{month}{from}〜{to}日",
     days: {
       "0": {
-        label: "1〜2日目",
-        date: "木・金",
+        schedule: "1〜2日目・木金",
         title: "商談と企画の2日間",
         description:
           "ビジネスマッチングとHRカンファレンス。決裁権を持つ来場者が最も多い2日間です。",
       },
       "1": {
-        label: "3〜4日目",
-        date: "土・日",
+        schedule: "3〜4日目・土日",
         title: "体験とコミュニティの2日間",
         description:
           "体験ゾーンと現場アクティベーション。チームを連れて来るならこの2日間です。",
@@ -101,7 +100,7 @@ export default {
   },
   whoVisits: {
     title: "どんな人が来場するのか",
-    description: "2025年の来場者は10,000人。うち約6割が企業の決裁層でした。",
+    description: "自社の社員のために探す企業と、会員のためにまとめる団体です。",
     corporateTitle: "企業・法人",
     corporateItems: [
       "人事・人材開発の責任者",
@@ -130,7 +129,7 @@ export default {
   },
   exhibitorCategories: {
     title: "社員旅行とインセンティブ旅行を支える出展社",
-    description: "5つのカテゴリーが、NICE PIK 2に4日間そろいます。",
+    description: "旅行を組み立てる順に、カテゴリーを5つに分けています。",
     cta: "出展社を見る",
     items: {
       "0": {
@@ -176,7 +175,6 @@ export default {
     },
   },
   eventStats: {
-    subtitle: "2025年ふりかえり",
     title: "初開催の数字",
     description: "Indonesia Outing Expo 2025はジャカルタで3日間開催しました。",
     stats: {
@@ -240,8 +238,7 @@ export default {
       "社員旅行やインセンティブ施策を計画中の企業と、出展社が直接会う場です。",
     exhibitor: {
       title: "出展登録",
-      description:
-        "観光地、会場、法人向けサービスをお持ちですか。目標来場者数は25,000人です。",
+      description: "観光地、会場、法人向けサービスを手がける事業者の方へ。",
       cta: "ブースを予約する",
     },
     sponsor: {
@@ -451,7 +448,7 @@ export default {
     sectionSubtitle: "旧名称：Indonesia Outing Expo",
     sectionTitle: "今回からインセンティブ旅行も対象に",
     sectionDescription:
-      "2025年は70社から10,000人が来場しました。今回はNICE PIK 2で4日間の開催です。",
+      "NICE PIK 2で4日間。これまでの社員旅行の出展社に、インセンティブ旅行が加わります。",
   },
   pastExhibitors: {
     title: '前回は<span class="text-primary">100社以上</span>が出展しました',

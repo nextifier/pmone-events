@@ -6,7 +6,7 @@
     <!-- <LazyRundown /> -->
     <!-- <LazyHotels :show-event-header="false" /> -->
     <LazyAboutEvent />
-    <!-- <LazyEventFormat /> -->
+    <LazyEventFormat />
     <LazyWhoVisits />
     <LazyExhibitorCategories />
     <LazyEventStats />
@@ -14,7 +14,7 @@
     <LazyWhyExhibit />
     <LazyPartnerships />
     <!-- <LazyVisitorCta /> -->
-    <LazyMediaCoveragesSlider />
+    <!-- <LazyMediaCoveragesSlider /> -->
     <!-- <LazyCredits
            class="container flex flex-col items-center text-center"
          /> -->

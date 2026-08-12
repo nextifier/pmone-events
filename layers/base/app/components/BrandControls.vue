@@ -176,29 +176,24 @@
           class="flex w-44 flex-col rounded-lg px-1 py-2"
         >
           <DropdownMenuLabel> Sort by </DropdownMenuLabel>
+          <!-- Layout and selected marker only. The highlight belongs to
+               `.cn-dropdown-menu-item` in the active style. -->
           <DropdownMenuItem
             v-for="(item, index) in sortOptions"
             :key="index"
-            v-slot="{ active }"
-            as-child
+            :text-value="item.label"
+            :aria-label="`Sort by ${item.label}`"
+            class="w-full gap-x-4 rounded-md py-2 pr-4 pl-8 tracking-tight transition active:scale-98"
+            :class="{
+              'bg-muted text-foreground': selectedSortOption?.val === item.val,
+            }"
+            @select="changeSelectedSortOption(item)"
           >
-            <button
-              :aria-label="`Sort by ${item.label}`"
-              class="relative flex w-full cursor-pointer items-center gap-x-4 rounded-md py-2 pr-4 pl-8 tracking-tight text-black ring-black ring-offset-2 ring-offset-white transition hover:bg-gray-100 hover:text-black focus-visible:ring-1 focus-visible:outline-hidden active:scale-98 dark:text-white dark:ring-white dark:ring-offset-gray-950 dark:hover:bg-gray-900 dark:hover:text-white"
-              :class="{
-                'bg-gray-100 text-black dark:bg-gray-900 dark:text-white':
-                  selectedSortOption?.val === item.val && !active,
-                'bg-blue-600 text-white dark:bg-blue-600 dark:text-white':
-                  active,
-              }"
-              @click="changeSelectedSortOption(item)"
-            >
-              <IconCheck
-                v-if="selectedSortOption?.val === item.val"
-                class="absolute top-1/2 left-2 size-5 -translate-y-1/2"
-              />
-              <span class="text-sm">{{ item.label }}</span>
-            </button>
+            <IconCheck
+              v-if="selectedSortOption?.val === item.val"
+              class="absolute top-1/2 left-2 size-5 -translate-y-1/2"
+            />
+            <span class="text-sm">{{ item.label }}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

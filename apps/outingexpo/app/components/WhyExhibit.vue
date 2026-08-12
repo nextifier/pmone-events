@@ -1,6 +1,6 @@
 <template>
-  <!-- Daftar bernomor dalam satu kolom GridFill, ditutup panel CTA bermotif.
-       Tanpa ikon per baris: angka 01-04 sudah jadi penandanya. -->
+  <!-- Daftar bernomor, ditutup panel CTA bermotif. Tanpa ikon per baris: angka
+       01-04 sudah jadi penandanya. -->
   <section id="why-exhibit">
     <div class="container">
       <div class="max-w-2xl">
@@ -11,20 +11,21 @@
         </p>
       </div>
 
-      <GridFill
-        :count="items.length"
-        :cols="1"
-        :min-col-width="false"
-        rounded="2xl"
-        class="mt-10"
-      >
-        <div
+      <!-- Daftar bernomor tanpa kotak. GridFill dengan cols=1 di sini cuma
+           divide-y yang dibungkus mesin grid: fillerCount-nya secara matematis
+           selalu 0, tapi ResizeObserver-nya tetap jalan tiap resize. Panel CTA
+           di bawah yang jadi satu-satunya kotak, dan itu memang yang harus
+           paling terlihat. Angkanya penanda visual, bukan urutan langkah, jadi
+           <ul> dan bukan <ol>. -->
+      <ul class="divide-border/60 border-border/60 mt-10 divide-y border-y">
+        <li
           v-for="(item, index) in items"
           :key="item.title"
-          class="grid grid-cols-[auto_1fr] items-baseline gap-x-5 p-6 sm:gap-x-8 sm:p-8 lg:grid-cols-[auto_minmax(0,18rem)_1fr]"
+          class="grid grid-cols-[auto_1fr] items-baseline gap-x-5 py-6 sm:gap-x-8 sm:py-8 lg:grid-cols-[auto_minmax(0,18rem)_1fr]"
         >
           <span
-            class="text-muted-foreground/50 text-3xl font-semibold tracking-tighter tabular-nums sm:text-4xl"
+            class="text-muted-foreground text-3xl font-semibold tracking-tighter tabular-nums sm:text-4xl"
+            aria-hidden="true"
             >{{ String(index + 1).padStart(2, "0") }}</span
           >
 
@@ -34,11 +35,15 @@
             {{ item.title }}
           </h3>
 
-          <p class="col-start-2 mt-1 tracking-tight lg:col-start-3 lg:mt-0">
+          <!-- Kolomnya 1fr, tapi teksnya dibatasi: tanpa cap, barisnya mencapai
+               89 karakter di 1440px, jauh di atas measure yang enak dibaca. -->
+          <p
+            class="col-start-2 mt-1 max-w-2xl tracking-tight lg:col-start-3 lg:mt-0"
+          >
             {{ item.description }}
           </p>
-        </div>
-      </GridFill>
+        </li>
+      </ul>
 
       <div
         class="bg-pattern-diagonal border-border mt-10 flex flex-col items-start gap-5 rounded-2xl border p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
@@ -54,7 +59,7 @@
           v-ripple
         >
           {{ $t("whyExhibit.cta") }}
-          <Icon name="hugeicons:arrow-right-01" class="size-4" />
+          <Icon name="hugeicons:arrow-right-01" />
         </Button>
       </div>
     </div>

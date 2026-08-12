@@ -4,20 +4,22 @@
   <section id="event-stats">
     <div class="container">
       <div class="max-w-2xl">
-        <span class="section-subtitle">{{ $t("eventStats.subtitle") }}</span>
-        <h2 class="section-title mt-2">{{ $t("eventStats.title") }}</h2>
+        <h2 class="section-title">{{ $t("eventStats.title") }}</h2>
         <p class="section-description mt-3">
           {{ $t("eventStats.description") }}
         </p>
       </div>
 
+      <!-- Kolomnya naik di `md`, bukan `sm`. Di 640px tiga kolom hanya menyisakan
+           ~154px per sel setelah padding, sedangkan "10.000+" butuh ~157px, dan
+           `rounded="2xl"` membawa overflow-hidden yang memotongnya tanpa jejak. -->
       <GridFill
         ref="statsContainer"
         :count="stats.length"
         :cols="2"
         :min-col-width="false"
         rounded="2xl"
-        class="mt-10 sm:grid-cols-3 2xl:grid-cols-6"
+        class="mt-10 md:grid-cols-3 2xl:grid-cols-6"
       >
         <div
           v-for="(stat, index) in stats"
@@ -72,7 +74,9 @@ const stats = computed(() =>
 // Ref-nya menunjuk ke komponen GridFill, bukan elemen. useElementVisibility
 // lewat unrefElement, jadi $el-nya ikut terbaca.
 const statsContainer = ref();
-const isInView = useElementVisibility(statsContainer, { threshold: 0.5 });
+// Threshold rendah supaya counter tetap jalan waktu grid-nya lebih tinggi dari
+// viewport: di 390px tingginya sudah ~520px, dan di landscape lebih sempit lagi.
+const isInView = useElementVisibility(statsContainer, { threshold: 0.2 });
 
 // Counter mulai dari 0 lalu berjalan ke angka sebenarnya begitu masuk viewport.
 const statValues = ref(definitions.map(() => 0));

@@ -67,17 +67,16 @@ export default {
     description:
       "Kamis dan Jumat fokus ke urusan bisnis dan networking. Sabtu dan Minggu dibuka buat umum.",
     month: "Oktober",
+    dateRange: "{from}-{to} {month}",
     days: {
       "0": {
-        label: "Hari 1-2",
-        date: "Kamis-Jumat",
+        schedule: "Hari 1-2, Kamis-Jumat",
         title: "Business & Planning Days",
         description:
           "Business matching, konferensi HR, dan ngobrol langsung sama vendor. Paling banyak decision maker.",
       },
       "1": {
-        label: "Hari 3-4",
-        date: "Sabtu-Minggu",
+        schedule: "Hari 3-4, Sabtu-Minggu",
         title: "Experience & Community Days",
         description:
           "Aktivasi langsung dan experience zone. Enak kalau kamu mau ajak tim ikut nyoba.",
@@ -87,7 +86,7 @@ export default {
   whoVisits: {
     title: "Siapa Saja yang Datang Cari Vendor",
     description:
-      "Edisi 2025 dihadiri 10.000 orang. Sekitar 60% di antaranya decision maker perusahaan.",
+      "Perusahaan yang beli buat timnya sendiri, dan institusi yang ngurusin rombongan anggotanya.",
     corporateTitle: "Kalangan korporat",
     corporateItems: [
       "HR leader dan people development manager",
@@ -116,8 +115,7 @@ export default {
   },
   exhibitorCategories: {
     title: "Kategori Vendor Outing dan Incentive Travel",
-    description:
-      "Lima kategori, semuanya buka booth selama empat hari di NICE, PIK 2.",
+    description: "Lima kategori, disusun ngikutin urutan orang nyiapin trip.",
     cta: "Lihat semua brand",
     items: {
       "0": {
@@ -163,7 +161,6 @@ export default {
     },
   },
   eventStats: {
-    subtitle: "Rekap 2025",
     title: "Hasil Edisi Pertama",
     description: "Indonesia Outing Expo 2025 digelar tiga hari di Jakarta.",
     stats: {
@@ -185,8 +182,8 @@ export default {
         description: "nasional dan digital",
       },
       recommendation: {
-        label: "Exhibitor puas",
-        description: "dan mau ikut lagi",
+        label: "Rekomendasi exhibitor",
+        description: "mau ikut lagi tahun depan",
       },
     },
   },
@@ -239,7 +236,7 @@ export default {
     exhibitor: {
       title: "Daftar Exhibitor",
       description:
-        "Punya destinasi, venue, atau layanan outing kantor? Target 25.000 pengunjung.",
+        "Buat penyedia destinasi, venue, dan layanan outing kantor.",
       cta: "Book Booth",
     },
     sponsor: {
@@ -450,7 +447,7 @@ export default {
     sectionSubtitle: "Dulu Indonesia Outing Expo",
     sectionTitle: "Cakupannya Melebar ke Incentive Travel",
     sectionDescription:
-      "Edisi 2025 dihadiri 10.000 pengunjung dari 70 perusahaan. Tahun ini digelar empat hari penuh di NICE, PIK 2.",
+      "Empat hari di NICE, PIK 2. Vendor outing-nya tetap ada, sekarang ditambah sisi incentive travel.",
   },
   pastExhibitors: {
     title:

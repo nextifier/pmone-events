@@ -9,7 +9,9 @@
       <div
         class="grid grid-cols-1 items-center gap-x-6 gap-y-6 lg:grid-cols-2 xl:gap-x-12"
       >
-        <div class="bg-muted aspect-square overflow-hidden rounded-2xl">
+        <!-- Rasio mengikuti sumbernya (1000x667). Dengan aspect-square,
+             object-cover membuang sepertiga frame. -->
+        <div class="bg-muted aspect-3/2 overflow-hidden rounded-2xl">
           <NuxtImg
             src="/img/about-img.jpg"
             alt=""

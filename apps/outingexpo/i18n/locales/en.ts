@@ -151,7 +151,7 @@ export default {
   "about": {
     "sectionSubtitle": "Formerly Indonesia Outing Expo",
     "sectionTitle": "The Scope Now Covers Incentive Travel",
-    "sectionDescription": "The 2025 edition drew 10,000 visitors from 70 companies. This year runs four full days at NICE, PIK 2."
+    "sectionDescription": "Four days at NICE, PIK 2. The outing vendors are still here, with incentive travel now beside them."
   },
   "whyVisit": {
     "subheading": "Everything Your Outing and Incentive Travel Needs",
@@ -187,16 +187,15 @@ export default {
     "title": "Two Days for Business, Two for Experience",
     "description": "Thursday and Friday are for corporate planning. Saturday and Sunday open up to the public.",
     "month": "October",
+    "dateRange": "{from}-{to} {month}",
     "days": {
       "0": {
-        "label": "Days 1-2",
-        "date": "Thursday-Friday",
+        "schedule": "Days 1-2, Thursday-Friday",
         "title": "Business & Planning Days",
         "description": "Business matching, HR conferences, and vendor talks while most decision makers are on the floor."
       },
       "1": {
-        "label": "Days 3-4",
-        "date": "Saturday-Sunday",
+        "schedule": "Days 3-4, Saturday-Sunday",
         "title": "Experience & Community Days",
         "description": "Live activations and the experience zone, worth it if you want to bring your team."
       }
@@ -204,8 +203,8 @@ export default {
   },
   "whoVisits": {
     "title": "Who You Will Meet on the Floor",
-    "description": "The 2025 edition drew 10,000 people, six in ten of them corporate decision makers.",
-    "corporateTitle": "Corporate and professional",
+    "description": "Companies buying for their own teams, and institutions organising for their members.",
+    "corporateTitle": "Corporate and Professional",
     "corporateItems": [
       "HR leaders and people development managers",
       "Directors and C-level executives",
@@ -213,7 +212,7 @@ export default {
       "Incentive and reward managers",
       "Event planners and event organisers"
     ],
-    "communityTitle": "Institutions and communities",
+    "communityTitle": "Institutions and Communities",
     "communityItems": [
       "Associations and professional bodies",
       "Universities and schools planning study tours",
@@ -233,7 +232,7 @@ export default {
   },
   "exhibitorCategories": {
     "title": "The Incentive Travel and Outing Providers Exhibiting",
-    "description": "Five exhibitor categories, all on the floor for four days at NICE, PIK 2.",
+    "description": "Five categories, in the order a trip gets planned.",
     "cta": "See all brands",
     "items": {
       "0": {
@@ -279,7 +278,6 @@ export default {
     }
   },
   "eventStats": {
-    "subtitle": "2025 recap",
     "title": "Numbers from the First Edition",
     "description": "Indonesia Outing Expo 2025 ran for three days in Jakarta.",
     "stats": {
@@ -288,7 +286,7 @@ export default {
       "businessMatching": { "label": "Business matchings", "description": "curated 1-on-1 meetings" },
       "speakers": { "label": "Speakers", "description": "HR and industry practitioners" },
       "mediaCoverage": { "label": "Media coverage", "description": "national and digital" },
-      "recommendation": { "label": "Exhibitors recommend it", "description": "and plan to return" }
+      "recommendation": { "label": "Exhibitor recommendation", "description": "would exhibit again" }
     }
   },
   "galleryPreview": {
@@ -299,7 +297,7 @@ export default {
   "whyExhibit": {
     "subtitle": "For brands",
     "title": "Meet the Buyers of Incentive and Outing Programs",
-    "description": "We are targeting 25,000 visitors, most arriving with a budget and the authority to decide.",
+    "description": "The 2026 target is 25,000 visitors, most arriving with a budget and the authority to sign.",
     "cta": "Book your booth",
     "ctaNote": "Booths for the 2026 edition are open.",
     "items": {
@@ -330,7 +328,7 @@ export default {
     "description": "Where vendors meet the companies planning their next outing and incentive travel program.",
     "exhibitor": {
       "title": "Register as Exhibitor",
-      "description": "Run a destination, venue, or corporate outing service? We are targeting 25,000 visitors.",
+      "description": "For destinations, venues, and companies running corporate outing services.",
       "cta": "Book Your Space"
     },
     "sponsor": {

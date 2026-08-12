@@ -79,17 +79,16 @@ export default {
     description:
       "목요일과 금요일은 기업 담당자를 위한 날, 토요일과 일요일은 일반 관람객에게 열립니다.",
     month: "10월",
+    dateRange: "{month} {from}~{to}일",
     days: {
       "0": {
-        label: "1~2일차",
-        date: "목·금",
+        schedule: "1~2일차, 목·금",
         title: "상담과 기획의 이틀",
         description:
           "비즈니스 매칭과 HR 컨퍼런스가 열리고, 결정권을 가진 참관객이 가장 많은 날입니다.",
       },
       "1": {
-        label: "3~4일차",
-        date: "토·일",
+        schedule: "3~4일차, 토·일",
         title: "체험과 커뮤니티의 이틀",
         description:
           "현장 액티베이션과 체험존이 열립니다. 팀을 데려오려면 이 이틀입니다.",
@@ -99,7 +98,7 @@ export default {
   whoVisits: {
     title: "업체를 찾으러 오는 사람들",
     description:
-      "2025년에는 10,000명이 다녀갔고, 그중 60%가량이 기업 의사결정권자였습니다.",
+      "자기 팀을 위해 알아보는 기업과, 회원들을 위해 준비하는 단체입니다.",
     corporateTitle: "기업·직장인",
     corporateItems: [
       "인사·인재개발 책임자",
@@ -128,7 +127,7 @@ export default {
   },
   exhibitorCategories: {
     title: "워크숍과 포상여행을 맡는 업체들",
-    description: "다섯 개 카테고리가 NICE PIK 2에 나흘 동안 자리합니다.",
+    description: "여행을 준비하는 순서대로 다섯 개 카테고리로 나눴습니다.",
     cta: "참가 브랜드 보기",
     items: {
       "0": {
@@ -174,7 +173,6 @@ export default {
     },
   },
   eventStats: {
-    subtitle: "2025년 결산",
     title: "첫 회가 남긴 숫자",
     description:
       "Indonesia Outing Expo 2025는 자카르타에서 사흘 동안 열렸습니다.",
@@ -238,7 +236,7 @@ export default {
     exhibitor: {
       title: "전시업체 등록",
       description:
-        "여행지, 행사장, 기업 행사 서비스를 운영하시나요? 올해 목표 참관객은 25,000명입니다.",
+        "여행지, 행사장, 기업 행사 서비스를 운영하는 곳을 위한 자리입니다.",
       cta: "부스 예약하기",
     },
     sponsor: {
@@ -445,7 +443,7 @@ export default {
     sectionSubtitle: "구 Indonesia Outing Expo",
     sectionTitle: "이번 회차부터 포상여행도 함께 다룹니다",
     sectionDescription:
-      "2025년에는 70개 기업에서 10,000명이 다녀갔습니다. 올해는 NICE PIK 2에서 나흘간 열립니다.",
+      "NICE PIK 2에서 나흘간 열립니다. 워크숍 업체는 그대로 있고, 포상여행이 옆에 붙습니다.",
   },
   pastExhibitors: {
     title:

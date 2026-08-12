@@ -141,35 +141,31 @@
                 align="end"
                 class="flex w-44 flex-col gap-y-1 rounded-xl px-1 py-2 @xl:w-64"
               >
+                <!-- Layout and selected marker only. The highlight belongs to
+                     `.cn-dropdown-menu-item` in the active style. -->
                 <DropdownMenuItem
                   v-for="(location, index) in uniqueLocations"
                   :key="location"
-                  v-slot="{ active }"
-                  as-child
+                  :text-value="location || $t('ui.allLocations')"
+                  :aria-label="location"
+                  class="w-full gap-x-4 rounded-lg py-2 pr-4 pl-8 text-left tracking-tight transition active:scale-98"
+                  :class="{
+                    'bg-muted text-foreground':
+                      selectedLocation === location ||
+                      (!selectedLocation && index === 0),
+                  }"
+                  @select="changeSelectedLocation(location)"
                 >
-                  <button
-                    :aria-label="location"
-                    class="relative flex w-full cursor-pointer items-center gap-x-4 rounded-lg py-2 pr-4 pl-8 text-left tracking-tight text-black ring-black ring-offset-2 ring-offset-white transition hover:bg-gray-100 hover:text-black focus-visible:ring-1 focus-visible:outline-hidden active:scale-98 dark:text-white dark:ring-white dark:ring-offset-gray-950 dark:hover:bg-gray-900 dark:hover:text-white"
-                    :class="{
-                      'bg-gray-100 text-black dark:bg-gray-900 dark:text-white':
-                        selectedLocation === location ||
-                        (!selectedLocation && index === 0 && !active),
-                      'bg-blue-600 text-white dark:bg-blue-600 dark:text-white':
-                        active,
-                    }"
-                    @click="changeSelectedLocation(location)"
-                  >
-                    <IconCheck
-                      v-if="
-                        selectedLocation === location ||
-                        (!selectedLocation && index === 0)
-                      "
-                      class="absolute top-2 left-2 size-5"
-                    />
-                    <span class="text-sm">{{
-                      location || $t("ui.allLocations")
-                    }}</span>
-                  </button>
+                  <IconCheck
+                    v-if="
+                      selectedLocation === location ||
+                      (!selectedLocation && index === 0)
+                    "
+                    class="absolute top-2 left-2 size-5"
+                  />
+                  <span class="text-sm">{{
+                    location || $t("ui.allLocations")
+                  }}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

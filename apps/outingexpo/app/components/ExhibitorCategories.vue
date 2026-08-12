@@ -10,12 +10,16 @@
         </p>
       </div>
 
+      <!-- Kolom ditulis eksplisit, bukan auto-fit. Dengan lima item, auto-fit
+           mendarat di empat kolom sepanjang 1280-1599px dan menyisakan tiga sel
+           bermotif; tidak ada nilai min-col-width yang bisa menghindarinya tanpa
+           mengorbankan dua kolom di tablet. -->
       <GridFill
         :count="categories.length"
         :cols="1"
-        min-col-width="300px"
+        :min-col-width="false"
         rounded="2xl"
-        class="mt-10"
+        class="mt-10 sm:grid-cols-2 xl:grid-cols-3"
       >
         <div
           v-for="category in categories"
@@ -38,7 +42,7 @@
             <li
               v-for="(item, i) in tm(category.itemsKey)"
               :key="i"
-              class="text-muted-foreground tracking-tight"
+              class="tracking-tight"
             >
               {{ rt(item) }}
             </li>
@@ -54,7 +58,7 @@
           v-ripple
         >
           {{ $t("exhibitorCategories.cta") }}
-          <Icon name="hugeicons:arrow-right-01" class="size-4" />
+          <Icon name="hugeicons:arrow-right-01" />
         </Button>
       </div>
     </div>

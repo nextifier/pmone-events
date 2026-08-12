@@ -1,6 +1,6 @@
 <template>
-  <!-- Dua fase berdampingan di grid hairline, masing-masing dibuka angka tanggal
-       besar. Sengaja bukan tabs supaya teks kedua fase tetap ada di DOM. -->
+  <!-- Dua fase berdampingan di grid hairline, masing-masing dibuka tanggalnya.
+       Sengaja bukan tabs supaya teks kedua fase tetap ada di DOM. -->
   <section id="event-format">
     <div class="container">
       <div class="max-w-2xl">
@@ -10,28 +10,33 @@
         </p>
       </div>
 
+      <!-- Kolom ditulis eksplisit, bukan auto-fit: dengan hanya dua item,
+           auto-fit menyisakan track ketiga yang collapse ke 0px tapi tetap
+           terhitung, jadi GridFill menambah satu sel bermotif yang tidak ada
+           gunanya. -->
       <GridFill
         :count="phases.length"
         :cols="1"
-        min-col-width="380px"
+        :min-col-width="false"
         rounded="2xl"
-        class="mt-10"
+        class="mt-10 md:grid-cols-2"
       >
         <div
           v-for="phase in phases"
-          :key="phase.label"
+          :key="phase.title"
           class="flex flex-col p-6 sm:p-8"
         >
-          <div class="flex items-baseline gap-x-2">
+          <!-- Angka tanggalnya visual saja. Screen reader membaca rentang penuh
+               dari satu pesan i18n, bukan "08 09 Oktober". -->
+          <div class="flex items-baseline gap-x-2" aria-hidden="true">
             <template v-for="(date, i) in phase.dates" :key="date">
               <span
                 v-if="i > 0"
-                class="text-muted-foreground/60 text-5xl font-medium tracking-tighter sm:text-6xl"
-                aria-hidden="true"
+                class="text-muted-foreground text-3xl font-medium tracking-tighter sm:text-4xl"
                 >-</span
               >
               <span
-                class="text-foreground text-5xl font-semibold tracking-tighter tabular-nums sm:text-6xl"
+                class="text-foreground text-3xl font-semibold tracking-tighter tabular-nums sm:text-4xl"
                 >{{ date }}</span
               >
             </template>
@@ -39,12 +44,13 @@
               $t("eventFormat.month")
             }}</span>
           </div>
+          <span class="sr-only">{{ phase.dateRange }}</span>
 
           <div class="text-muted-foreground mt-4 flex items-center gap-x-2">
             <Icon :name="phase.icon" class="size-5 shrink-0" />
-            <span class="text-sm tracking-tight sm:text-base"
-              >{{ phase.label }}, {{ phase.date }}</span
-            >
+            <span class="text-sm tracking-tight sm:text-base">{{
+              phase.schedule
+            }}</span>
           </div>
 
           <h3
@@ -72,11 +78,6 @@
             />
           </div>
           -->
-          <div class="mt-auto pt-8">
-            <div
-              class="border-border bg-pattern-diagonal aspect-16/9 w-full rounded-2xl border"
-            ></div>
-          </div>
         </div>
       </GridFill>
     </div>
@@ -104,8 +105,14 @@ const layout = [
 const phases = computed(() =>
   layout.map((item, i) => ({
     ...item,
-    label: t(`eventFormat.days.${i}.label`),
-    date: t(`eventFormat.days.${i}.date`),
+    schedule: t(`eventFormat.days.${i}.schedule`),
+    // Tanpa leading zero: yang dibaca screen reader harus terdengar seperti
+    // tanggal yang diucapkan, bukan seperti angka di kartunya.
+    dateRange: t("eventFormat.dateRange", {
+      from: Number(item.dates[0]),
+      to: Number(item.dates[item.dates.length - 1]),
+      month: t("eventFormat.month"),
+    }),
     title: t(`eventFormat.days.${i}.title`),
     description: t(`eventFormat.days.${i}.description`),
   })),

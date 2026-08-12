@@ -82,17 +82,16 @@ export default {
     title: "前两天谈生意，后两天做体验",
     description: "周四周五面向企业，周六周日对公众开放。",
     month: "10月",
+    dateRange: "{month}{from}-{to}日",
     days: {
       "0": {
-        label: "第 1-2 天",
-        date: "周四、周五",
+        schedule: "第 1-2 天，周四、周五",
         title: "商务与筹划日",
         description:
           "商务对接、HR 论坛、参展商分享，手握决定权的人这两天来得最多。",
       },
       "1": {
-        label: "第 3-4 天",
-        date: "周六、周日",
+        schedule: "第 3-4 天，周六、周日",
         title: "体验与社群日",
         description: "现场活动和体验区都在这两天，想带团队来就挑这两天。",
       },
@@ -100,7 +99,7 @@ export default {
   },
   whoVisits: {
     title: "来找供应商的都是些什么人",
-    description: "2025 年来了 10,000 人，其中六成左右是企业决策层。",
+    description: "一边是给自己团队找方案的企业，一边是给成员张罗的机构。",
     corporateTitle: "企业与职场",
     corporateItems: [
       "HR 负责人和人才发展主管",
@@ -129,7 +128,7 @@ export default {
   },
   exhibitorCategories: {
     title: "做团建和奖励旅游的公司都在这里",
-    description: "五个参展类别，在 NICE PIK 2 摆满四天。",
+    description: "五个类别，按一趟行程实际筹备的顺序排。",
     cta: "查看全部品牌",
     items: {
       "0": {
@@ -163,7 +162,6 @@ export default {
     },
   },
   eventStats: {
-    subtitle: "2025 年回顾",
     title: "第一届留下的数字",
     description: "Indonesia Outing Expo 2025 在雅加达办了三天。",
     stats: {
@@ -216,7 +214,7 @@ export default {
     description: "参展商和正在筹备团建、奖励旅游的企业，在这里直接见面。",
     exhibitor: {
       title: "参展商报名",
-      description: "你做目的地、场地或企业团建服务？今年目标观众 25,000 人。",
+      description: "面向做目的地、场地和企业团建服务的参展商。",
       cta: "预订展位",
     },
     sponsor: {
@@ -415,7 +413,7 @@ export default {
     sectionSubtitle: "前身为 Indonesia Outing Expo",
     sectionTitle: "这一届开始，把奖励旅游也纳进来",
     sectionDescription:
-      "2025 年有 70 家企业、10,000 人到场。今年在 NICE PIK 2 连办四天。",
+      "在 NICE PIK 2 连办四天。原来的团建供应商都在，这一届把奖励旅游也摆进来。",
   },
   pastExhibitors: {
     title: '上一届有<span class="text-primary"> 100 多个品牌</span>参展',
