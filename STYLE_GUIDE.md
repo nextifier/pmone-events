@@ -521,6 +521,64 @@ Ganti menjadi `<Badge variant="success" plain>Active</Badge>` (atau dengan `icon
 
 ---
 
+### 18.1 Edit + preview dua panel (`<PreviewPanel>`)
+
+Halaman yang mengedit sesuatu yang punya hasil terlihat (form builder, brand
+editor, link page, announcement) memakai `components/ui/preview-panel`. Jangan
+bikin grid + Tabs sendiri lagi.
+
+```vue
+<PreviewPanel v-model:tab="activeTab" ratio="3:2" preview-title="Brand page" reloadable>
+  <template #edit><div class="mx-auto w-full max-w-2xl space-y-6">…</div></template>
+  <template #preview><BrandPreviewPage :preview="previewData" class="p-5 sm:p-6" /></template>
+  <template #footer>…save bar…</template>
+</PreviewPanel>
+```
+
+Aturannya:
+
+- **Split dipicu container query, bukan breakpoint viewport.** Sidebar 18rem vs
+  3rem menggeser lebar konten 240px, dan media query tidak melihat itu. Default
+  threshold `5xl` (panel ≥1024px).
+- **Cuma panel preview yang `sticky`.** Panel editor scroll normal ikut body,
+  tanpa border, padding, atau shadow tambahan. Dua pendekatan sebelumnya sudah
+  dicoba dan dibuang: mengunci viewport bikin page header nempel permanen dan
+  memakan tinggi panel, sementara dua-duanya sticky bikin editor tidak bisa
+  di-scroll pakai body.
+- **Halaman kirim `offset`, component tidak tahu tinggi navbar.** Misal
+  `offset="calc(var(--navbar-height-desktop) + 1rem)"`, tambah `--tabnav-height`
+  kalau di bawah TabNav yang sticky. Ini yang bikin component-nya sama di tiga
+  repo dengan tiga header berbeda.
+- **JANGAN taruh padding bawah di halaman yang memuat panel.** Sticky berhenti
+  menempel begitu containing block-nya habis, jadi `pb-16` di halaman + 1rem
+  `insetBottom` = preview terdorong 3rem ke atas dan bagian atasnya masuk ke
+  balik header saat di-scroll mentok bawah. Padding taruh di **dalam** slot
+  `#edit`. Tidak bisa diperbaiki dari dalam component: padding-nya milik
+  ancestor yang tidak kelihatan dari sana.
+- **`min-h-0` dan `min-w-0` di tiap level flex.** Tanpa `min-h-0` panel tidak
+  akan pernah scroll; tanpa `min-w-0` tabel panjang jebol dan terpotong diam-diam
+  oleh `overflow-x-clip` milik layout.
+- **`container-type: inline-size` TIDAK menangkap `position: fixed`.** Ini
+  pernah diasumsikan sebaliknya di sini dan salah — sudah dibuktikan pakai probe:
+  element fixed tetap anchor ke viewport dan computed `contain` terbaca `none`.
+  Jadi pill Edit/Preview memakai `fixed` biasa, sama seperti pane switcher lain.
+  Konsekuensinya: container query TIDAK bisa menyembunyikan element fixed
+  langsung (query resolve lewat containing-block chain, bukan DOM tree) —
+  bungkus dengan element statis yang bawa query-nya, lalu turunkan lewat
+  `visibility` yang sifatnya inherited. JANGAN `transition-[visibility]`, CSS
+  menginterpolasi visibility sebagai step function dan nilainya terkunci di
+  `visible`.
+- **`TabNav :sticky="false"` tidak boleh menambah class `static`.** Nav-nya sudah
+  punya `relative` di base class, dan `static` masuk grup position yang sama lalu
+  menang di cascade — indicator yang `absolute` kehilangan offsetParent dan
+  hilang dari nav. Biarkan branch falsy-nya kosong.
+- Jangan pakai `scroll-fade-b` di dalam panel: mask-nya digerakkan
+  `animation-timeline: scroll(self y)` dengan `fill-mode: both`, jadi scroller
+  yang tidak punya jarak scroll akan terkunci di keyframe 0% dan fade-nya tidak
+  pernah hilang. Pakai prop `fade` (gradien absolut) kalau perlu.
+
+---
+
 ## 19. Skeleton & Loading
 
 - Pakai `<Skeleton>` (`components/ui/skeleton/`) untuk placeholder loading. Jangan bikin div abu manual.
