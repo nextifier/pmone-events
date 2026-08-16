@@ -17,18 +17,23 @@ import type { H3Event } from "h3";
  * key is simply absent when not forced - which matters, because an always-present
  * key would fragment PM One's response cache on every ordinary request.
  */
-const TRUTHY = new Set(["", "1", "true"]);
-
 export function adminPreviewFlag(
   event: H3Event,
   param: string,
 ): Record<string, string> {
   const raw = getQuery(event)[param];
+
+  if (raw === undefined) return {};
+
   const value = Array.isArray(raw) ? raw[0] : raw;
 
-  if (value === undefined || value === null) return {};
+  // Present with no value at all - the shape a hand-typed `?force_show_brands`
+  // arrives as. Matches useForceShow() on the client.
+  if (value === null || value === "") return { [param]: "1" };
 
-  return TRUTHY.has(String(value)) ? { [param]: "1" } : {};
+  const normalized = String(value).trim().toLowerCase();
+
+  return normalized === "true" || normalized === "1" ? { [param]: "1" } : {};
 }
 
 /** Whether the request carries a truthy bypass flag, without building a query. */
