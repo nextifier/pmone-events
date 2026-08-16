@@ -263,6 +263,16 @@ const {
   refresh: refreshTickets,
 } = await useTicketsListing(() => event.slug);
 
+// Staff preview. Written to the cart on EVERY visit (true or false) so an
+// ordinary visit clears a flag left over from an earlier one - the cart is
+// persisted, and /tickets/checkout is a separate route that cannot read this
+// page's query string. The write happens AFTER cart.hydrate() below, which
+// would otherwise restore the stale value straight back over it.
+const forceCheckout = useForceShow("force-checkout-ticket");
+watch(forceCheckout, (value) => {
+  if (cart.hydrated) cart.setForceCheckout(value);
+});
+
 // This page is prerendered, so the SSR payload is a build-time snapshot — and
 // `on_sale` / `sales_status` / `available` are computed server-side against
 // `now()`, not derived in the browser from raw timestamps. Left alone, a sale
@@ -316,6 +326,7 @@ const instagramUrl = useInstagramUrl();
 // reach <TicketList> instead of the coming-soon state.
 onMounted(() => {
   cart.hydrate();
+  cart.setForceCheckout(forceCheckout.value);
 });
 
 // Ticket poster: display a smaller conversion (lg) for fast load; the Lightbox
@@ -400,6 +411,7 @@ const showComingSoon = computed(
     !eventHasDetails.value &&
     !route.query.invite &&
     !route.query.code &&
+    !forceCheckout.value &&
     !cart.accessCode &&
     (ticketsDisabled.value ||
       (!ticketsError.value && !ticketsData.value?.data?.length)),

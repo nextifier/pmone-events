@@ -276,16 +276,47 @@ function soldOut(ticket) {
   return ticket.available != null && ticket.available <= 0;
 }
 
+// Staff preview: `?force-checkout-ticket` lets a switched-off or not-yet-open
+// ticket be added and bought, so checkout can be smoke-tested on production
+// before sales open. Stock is NOT bypassed - the server still refuses a
+// genuinely sold-out ticket, so soldOut() below stays as it is.
+const forceCheckout = useForceShow("force-checkout-ticket");
+
+function saleOpen(ticket) {
+  return Boolean(ticket.on_sale) || forceCheckout.value;
+}
+
+/** Whether this ticket is only reachable because of the preview flag. */
+function isAdminPreviewOnly(ticket) {
+  return forceCheckout.value && (ticket.is_active === false || !ticket.on_sale);
+}
+
+/**
+ * Names the reason, so staff can tell a switched-off ticket from an early one.
+ *
+ * Deliberately not translated: this only ever renders for a staff member who
+ * typed ?force-checkout-ticket, and five locale entries of untranslated English
+ * would be worse than one honest literal. Every string a visitor can reach on
+ * this page goes through t().
+ */
+function adminPreviewLabel(ticket) {
+  return ticket.is_active === false ? "Inactive" : "Not on sale";
+}
+
+/** The Add button / quantity stepper branch, shared by both layouts. */
+function canBuyNow(ticket) {
+  return (
+    ticket.purchase_type === "first_party" &&
+    saleOpen(ticket) &&
+    !soldOut(ticket)
+  );
+}
+
 // A ticket is buyable (so the Add button + day/session pickers make sense) only
 // when it is a first-party ticket whose sale phase is live, with stock left and
 // not gated behind an access code.
 function isBuyable(ticket) {
-  return (
-    ticket.purchase_type === "first_party" &&
-    ticket.on_sale &&
-    !soldOut(ticket) &&
-    !isLocked(ticket)
-  );
+  return canBuyNow(ticket) && !isLocked(ticket);
 }
 
 function canAdd(ticket) {
@@ -690,6 +721,15 @@ const subtotalLabel = computed(() =>
                   >
                     {{ ticket.title }}
                   </p>
+                  <!-- Staff preview only: this ticket is buyable here because
+                       of ?force-checkout-ticket, not because it is on sale. -->
+                  <Badge
+                    v-if="isAdminPreviewOnly(ticket)"
+                    variant="warning"
+                    icon="hugeicons:view-off"
+                  >
+                    {{ adminPreviewLabel(ticket) }}
+                  </Badge>
                   <!-- Sale countdown stays under the title. tabular-nums on the
                        HH:MM:SS digits (Countdown.vue) keeps the per-second width
                        constant, so the line never flips between one and two lines
@@ -850,11 +890,7 @@ const subtotalLabel = computed(() =>
 
                   <!-- First-party, on sale, in stock -->
                   <template
-                    v-else-if="
-                      ticket.purchase_type === 'first_party' &&
-                      ticket.on_sale &&
-                      !soldOut(ticket)
-                    "
+                    v-else-if="canBuyNow(ticket)"
                   >
                     <div
                       v-if="qtyOf(ticket) > 0"
@@ -998,6 +1034,15 @@ const subtotalLabel = computed(() =>
                   >
                     {{ ticket.title }}
                   </p>
+                  <!-- Staff preview only: this ticket is buyable here because
+                       of ?force-checkout-ticket, not because it is on sale. -->
+                  <Badge
+                    v-if="isAdminPreviewOnly(ticket)"
+                    variant="warning"
+                    icon="hugeicons:view-off"
+                  >
+                    {{ adminPreviewLabel(ticket) }}
+                  </Badge>
                   <!-- Sale countdown stays under the title. tabular-nums on the
                        HH:MM:SS digits (Countdown.vue) keeps the per-second width
                        constant, so the line never flips between one and two lines
@@ -1129,11 +1174,7 @@ const subtotalLabel = computed(() =>
                   </Button>
 
                   <template
-                    v-else-if="
-                      ticket.purchase_type === 'first_party' &&
-                      ticket.on_sale &&
-                      !soldOut(ticket)
-                    "
+                    v-else-if="canBuyNow(ticket)"
                   >
                     <div
                       v-if="qtyOf(ticket) > 0"

@@ -23,6 +23,9 @@ export default defineEventHandler(async (event) => {
   return await pmOnePublicFetch("/ticket-orders", {
     method: "POST",
     body,
+    // Query string, not body: PM One reads the bypass from the query only,
+    // because the body above is forwarded verbatim from the browser.
+    query: adminPreviewFlag(event, "force_checkout_ticket"),
     // Longer than the default: this call creates the order and mints the
     // payment session upstream.
     timeoutMs: 30000,

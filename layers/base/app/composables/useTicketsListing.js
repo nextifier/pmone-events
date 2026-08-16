@@ -13,9 +13,20 @@ export function ticketsListingCachedData(key, nuxtApp) {
 
 export function useTicketsListing(eventSlug) {
   const { locale } = useI18n();
+
+  // Staff preview: `?force-checkout-ticket` also lists tickets whose Active
+  // toggle is off, so production checkout can be smoke-tested before sales
+  // open. Distinct data key, so a forced payload is never reused for a public
+  // visitor after client-side navigation.
+  const forceCheckout = useForceShow("force-checkout-ticket");
+
   return useFetch(() => `/api/tickets/${toValue(eventSlug)}`, {
-    key: () => `tickets-${toValue(eventSlug)}-${locale.value}`,
-    query: { locale },
+    key: () =>
+      `tickets-${toValue(eventSlug)}-${locale.value}${forceCheckout.value ? "-forced" : ""}`,
+    query: computed(() => ({
+      locale: locale.value,
+      ...(forceCheckout.value ? { force_checkout_ticket: 1 } : {}),
+    })),
     watch: [locale, () => toValue(eventSlug)],
     dedupe: "defer",
     default: () => null,

@@ -10,6 +10,10 @@ const defaultState = () => ({
   items: [],
   // An applied access code (unlocks gated tickets + optional price effect).
   accessCode: null,
+  // Staff preview mode, set from `?force-checkout-ticket` on the tickets page.
+  // Persisted because /tickets/checkout is a separate route that the buyer
+  // reaches by navigation, so the flag has to survive the hop (and a reload).
+  forceCheckout: false,
 });
 
 function loadFromStorage() {
@@ -91,6 +95,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
           eventSlug: loaded.eventSlug ?? null,
           items: Array.isArray(loaded.items) ? [...loaded.items] : [],
           accessCode: loaded.accessCode ?? null,
+          forceCheckout: Boolean(loaded.forceCheckout),
         });
       }
       this.hydrated = true;
@@ -100,6 +105,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
           eventSlug: state.eventSlug,
           items: state.items.map((i) => ({ ...i })),
           accessCode: state.accessCode,
+          forceCheckout: state.forceCheckout,
         };
         persistDebounced(snapshot);
       });
@@ -117,9 +123,19 @@ export const useTicketCartStore = defineStore("ticketCart", {
         this.cachedSubtotal = 0;
         this.accessCode = null;
         this.accessInfo = null;
+        this.forceCheckout = false;
       }
       this.eventId = eventId ?? null;
       this.eventSlug = eventSlug ?? null;
+    },
+
+    /**
+     * Staff preview mode. Set on every visit to the tickets page (true when the
+     * URL carries the flag, false when it does not), so an ordinary visit
+     * always clears a flag left over from an earlier one.
+     */
+    setForceCheckout(enabled) {
+      this.forceCheckout = Boolean(enabled);
     },
 
     setAccessCode(code) {
@@ -184,6 +200,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
       this.cachedSubtotal = 0;
       this.accessCode = null;
       this.accessInfo = null;
+      this.forceCheckout = false;
     },
 
     reset() {
@@ -226,7 +243,12 @@ export const useTicketCartStore = defineStore("ticketCart", {
         if (this.accessCode) body.access_code = this.accessCode;
         if (email) body.email = email;
         if (phone) body.phone = phone;
-        const res = await $fetch("/api/tickets/preview", { method: "POST", body });
+        const res = await $fetch("/api/tickets/preview", {
+          method: "POST",
+          body,
+          // Query string, not body - PM One reads the bypass from the query.
+          query: this.forceCheckout ? { force_checkout_ticket: 1 } : undefined,
+        });
         const data = res?.data ?? res;
         this.previewLines = data?.lines ?? [];
         this.cachedSubtotal = Number(data?.subtotal ?? 0);

@@ -72,12 +72,22 @@ await useEventData();
 
 const eventSlug = computed(() => cart.eventSlug || event.slug);
 
+// Staff preview carries over from the tickets page through the persisted cart,
+// so it only becomes true after cart.hydrate() on the client. Keeping it in the
+// query, the key AND the watch list means the listing re-fetches at that point
+// and the summary can resolve a switched-off ticket sitting in the cart.
+const forceCheckout = computed(() => Boolean(cart.forceCheckout));
+
 const { data: ticketsData, refresh: refreshTickets } = await useFetch(
   () => `/api/tickets/${eventSlug.value}`,
   {
-    key: () => `checkout-tickets-${eventSlug.value}-${locale.value}`,
-    query: { locale },
-    watch: [locale, eventSlug],
+    key: () =>
+      `checkout-tickets-${eventSlug.value}-${locale.value}${forceCheckout.value ? "-forced" : ""}`,
+    query: computed(() => ({
+      locale: locale.value,
+      ...(forceCheckout.value ? { force_checkout_ticket: 1 } : {}),
+    })),
+    watch: [locale, eventSlug, forceCheckout],
     default: () => ({ data: [], meta: {} }),
   }
 );
@@ -385,7 +395,13 @@ async function submit() {
   payload.idempotency_key = idempotencyKey.value;
 
   try {
-    const res = await $fetch("/api/tickets/orders", { method: "POST", body: payload });
+    const res = await $fetch("/api/tickets/orders", {
+      method: "POST",
+      body: payload,
+      // Staff preview, carried over from the tickets page through the cart.
+      // Query string, not body - PM One reads the bypass from the query only.
+      query: cart.forceCheckout ? { force_checkout_ticket: 1 } : undefined,
+    });
     const data = res?.data ?? res;
 
     cart.clear();

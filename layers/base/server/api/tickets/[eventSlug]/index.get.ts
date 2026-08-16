@@ -16,7 +16,13 @@ export default defineEventHandler(async (event) => {
   return await pmOnePublicFetch(
     `/events/${encodeURIComponent(eventSlug ?? "")}/tickets`,
     {
-      query: { locale },
+      query: {
+        locale,
+        // Staff preview: also lists tickets whose Active toggle is off, so
+        // checkout can be smoke-tested on production before sales open.
+        // Hidden (access-code) tickets are still never listed.
+        ...adminPreviewFlag(event, "force_checkout_ticket"),
+      },
       errorShape: "statusMessage",
       errorPrefix: "Tickets fetch",
     },

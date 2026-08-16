@@ -381,9 +381,15 @@ const { $dayjs } = useNuxtApp();
 const event = useEvent();
 const localePath = useLocalePath();
 
+// Staff preview: a brand opened from a force-shown listing would otherwise 404
+// while the event's brands switch is off.
+const forceShowBrands = useForceShow("force-show-brands");
+
 const { data: brand, pending } = await useFetch(
   `/api/exhibitors/${route.params.slug}`,
   {
+    query: forceShowBrands.value ? { force_show_brands: 1 } : {},
+    key: `brand-${route.params.slug}${forceShowBrands.value ? "-forced" : ""}`,
     transform: (res) => res.data,
   },
 );

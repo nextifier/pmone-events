@@ -1,6 +1,16 @@
 // Content-store page keys -> canonical PM One OG page keys (kebab-case).
 const OG_KEY_MAP = { bookSpace: "book-space", ticket: "tickets" };
 
+// Staff bypass params (see server/utils/adminPreview.ts and useForceShow).
+// Presence alone counts - even `?force-show-brands=0` is a staff URL, and a
+// page that is one edit away from revealing hidden content is not worth
+// indexing either way.
+const ADMIN_PREVIEW_PARAMS = [
+  "force-show-brands",
+  "force-show-rundown",
+  "force-checkout-ticket",
+];
+
 export const usePageMeta = (pageKey, overrides = {}) => {
   const pageStore = useContentStore();
   const route = useRoute();
@@ -67,7 +77,19 @@ export const usePageMeta = (pageKey, overrides = {}) => {
     RE_UNRENDERABLE.test(ogDescription.value || "") ? "" : ogDescription.value,
   );
 
+  // A staff preview URL renders content the public is not meant to see yet -
+  // hidden exhibitors, an unpublished rundown, tickets that are not on sale.
+  // The params are guessable and the links get pasted into chats, so any page
+  // carrying one is kept out of the index. One guard here covers every page
+  // that calls usePageMeta, including ones added later.
+  const isAdminPreview = computed(() =>
+    ADMIN_PREVIEW_PARAMS.some((param) => param in route.query),
+  );
+
   useSeoMeta({
+    robots: computed(() =>
+      isAdminPreview.value ? "noindex, nofollow" : undefined,
+    ),
     titleTemplate: computed(() => meta.value?.withoutTitleTemplate ? "%s" : "%s · %siteName"),
     title: title,
     ogTitle: ogTitle,

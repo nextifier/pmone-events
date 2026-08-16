@@ -611,14 +611,23 @@ const rundownUrl = computed(() =>
     : "/api/event/rundown",
 );
 
+// Staff preview: `?force-show-rundown` reveals the schedule while the event's
+// rundown switch is off. One flag covers all three places this component
+// renders - the /rundown page, the home teaser and the /tickets Rundown tab.
+const forceShowRundown = useForceShow("force-show-rundown");
+
 const {
   data: rundownData,
   pending,
   error,
   execute: executeRundown,
 } = await useFetch(rundownUrl, {
-  key: () => `rundown-${props.edition ?? "active"}-${locale.value}`,
-  query: { locale },
+  key: () =>
+    `rundown-${props.edition ?? "active"}-${locale.value}${forceShowRundown.value ? "-forced" : ""}`,
+  query: computed(() => ({
+    locale: locale.value,
+    ...(forceShowRundown.value ? { force_show_rundown: 1 } : {}),
+  })),
   server: isRundownPage,
   lazy: !isRundownPage,
   immediate: isRundownPage,

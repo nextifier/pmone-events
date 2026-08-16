@@ -324,9 +324,15 @@ const { $dayjs } = useNuxtApp();
 // specific past/current edition rather than the live event.
 const edition = route.params.edition;
 
+// Staff preview: a brand opened from a force-shown listing would otherwise 404
+// while that edition's brands switch is off.
+const forceShowBrands = useForceShow("force-show-brands");
+
 const { data: brand, pending } = await useFetch(
   `/api/exhibitors/by-edition/${edition}/${route.params.slug}`,
   {
+    query: forceShowBrands.value ? { force_show_brands: 1 } : {},
+    key: `brand-${edition}-${route.params.slug}${forceShowBrands.value ? "-forced" : ""}`,
     transform: (res) => res.data,
   },
 );

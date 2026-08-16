@@ -10,6 +10,9 @@ export default defineEventHandler(async (event) => {
   return await pmOnePublicFetch("/tickets/preview", {
     method: "POST",
     body,
+    // Query string, not body: PM One reads the bypass from the query only,
+    // because this proxy forwards the browser's body verbatim.
+    query: adminPreviewFlag(event, "force_checkout_ticket"),
     errorShape: "statusMessage",
     errorPrefix: "Preview",
   });

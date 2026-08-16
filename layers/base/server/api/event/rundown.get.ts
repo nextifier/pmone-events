@@ -10,7 +10,11 @@ export default defineCachedEventHandler(
     }
 
     return await pmOneFetch(`/events/${eventSlug}/rundown`, {
-      query: { locale },
+      query: {
+        locale,
+        // Staff preview: reveals the rundown while the event's switch is off.
+        ...adminPreviewFlag(event, "force_show_rundown"),
+      },
       errorPrefix: "Rundown fetch",
     });
   },
@@ -22,6 +26,10 @@ export default defineCachedEventHandler(
     // purge that lands in that window is undone. Kept false even though HTML is
     // no longer edge-cached (7 Aug 2026): 15 s of staleness is the budget.
     swr: false,
+    // The key is locale-only, so an admin preview MUST skip this cache
+    // entirely: sharing the key would either serve the admin the public body or,
+    // worse, store the revealed rundown under the public key for everyone.
+    shouldBypassCache: (event) => hasAdminPreviewFlag(event, "force_show_rundown"),
     getKey: (event) => `l:${(getQuery(event).locale as string) || "en"}`,
   },
 );

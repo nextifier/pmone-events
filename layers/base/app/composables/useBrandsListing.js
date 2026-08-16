@@ -126,6 +126,12 @@ export const useBrandsListing = (opts = {}) => {
       : "/api/exhibitors";
   });
 
+  // Staff preview: `?force-show-brands` reveals the list (and the conjunction
+  // groups) while the event's brands switch is off, so content can be staged on
+  // production. The forced payload gets its own data key so it can never be
+  // reused for a public visitor after client-side navigation.
+  const forceShowBrands = useForceShow("force-show-brands");
+
   const {
     data: rawData,
     refresh,
@@ -134,9 +140,12 @@ export const useBrandsListing = (opts = {}) => {
   } = useFetch(brandsUrl, {
     lazy: true,
     server: false, // client-only: keeps SSR HTML/payload small; SEO via sitemap
+    query: computed(() =>
+      forceShowBrands.value ? { force_show_brands: 1 } : {},
+    ),
     key: `fetchExhibitors-${editionValue.value || "active"}-${
       useConjunctionEndpoint.value ? "conj" : "single"
-    }`,
+    }${forceShowBrands.value ? "-forced" : ""}`,
     transform: (res) => (res?.data ? markRaw(res.data) : res?.data),
   });
 
