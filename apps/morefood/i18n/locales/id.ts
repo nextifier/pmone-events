@@ -62,11 +62,6 @@ export default {
         description:
           "Pasar Halal sedang berkembang pesat dan peluangnya sangat besar. Di food exhibition ini, kami bantu kamu cari supplier terpercaya yang sudah bersertifikat untuk salah satu pasar terbesar di dunia.",
       },
-      "3": {
-        title: "Tiga Expo, Satu Tiket",
-        description:
-          "Tiket kamu juga berlaku untuk Franchise & License Expo (FLEI) dan Cafe n' Brasserie Expo. Lebih banyak peluang, semuanya di satu tempat.",
-      },
     },
   },
   hero: {

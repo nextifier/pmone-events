@@ -7,7 +7,8 @@
       </div>
 
       <div
-        class="mt-4 grid grid-cols-1 gap-x-8 gap-y-8 sm:mt-6 sm:grid-cols-2 xl:grid-cols-4"
+        class="mt-4 grid grid-cols-1 gap-x-8 gap-y-8 sm:mt-6 sm:grid-cols-2"
+        :class="items.length === 3 ? 'xl:grid-cols-3' : 'xl:grid-cols-4'"
       >
         <div
           v-for="(item, index) in items"
@@ -39,7 +40,7 @@
 </template>
 
 <script setup>
-const { t } = useI18n();
+const { t, te } = useI18n();
 
 const icons = [
   "hugeicons:agreement-01",
@@ -48,11 +49,20 @@ const icons = [
   "hugeicons:ticket-star",
 ];
 
+// The icon list caps how many slots exist; the locale decides how many are
+// actually used. Apps that define fewer items than icons (morefood dropped its
+// fourth when the conjunction lineup went unconfirmed) would otherwise render
+// the raw key "whyVisit.items.3.title" as body copy, because t() falls back to
+// the key itself. Every app currently ships four; this only matters when one
+// deliberately ships fewer.
 const items = computed(() =>
-  icons.map((iconName, i) => ({
-    iconName,
-    title: t(`whyVisit.items.${i}.title`),
-    description: t(`whyVisit.items.${i}.description`),
-  })),
+  icons
+    .map((iconName, i) => ({ iconName, i }))
+    .filter(({ i }) => te(`whyVisit.items.${i}.title`))
+    .map(({ iconName, i }) => ({
+      iconName,
+      title: t(`whyVisit.items.${i}.title`),
+      description: t(`whyVisit.items.${i}.description`),
+    })),
 );
 </script>

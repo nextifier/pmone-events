@@ -72,11 +72,6 @@ export default {
         description:
           "Halal 经济正在爆发。我们帮你快速找到可靠的认证供应商，抓住全球最大市场之一的机会。",
       },
-      "3": {
-        title: "三场大展，一张门票",
-        description:
-          "你的门票同时可以进入 Franchise & License Expo (FLEI) 和 Cafe n' Brasserie Expo。更多机会，一站搞定。",
-      },
     },
   },
   hero: {

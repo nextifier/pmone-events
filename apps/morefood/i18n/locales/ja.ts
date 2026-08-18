@@ -71,11 +71,6 @@ export default {
         description:
           "急成長するHalal経済にアクセスしませんか。世界有数の市場に対応した認証済みサプライヤーを、効率よく見つけることができます。",
       },
-      "3": {
-        title: "3つのExpo、1枚のチケット",
-        description:
-          "お持ちのチケットでFranchise & License Expo (FLEI)とCafe n' Brasserie Expoにも入場できます。ビジネスチャンスが一か所に集まっています。",
-      },
     },
   },
   hero: {

@@ -188,11 +188,6 @@ export default {
         description:
           "Tap into the booming Halal economy. We make it simple to find trusted, certified suppliers for one of the world's biggest markets.",
       },
-      "3": {
-        title: "Three Expos, One Ticket",
-        description:
-          "Your pass also gets you into the Franchise & License Expo (FLEI) and the Cafe n' Brasserie Expo. More opportunities, all in one place.",
-      },
     },
   },
   hero: {
