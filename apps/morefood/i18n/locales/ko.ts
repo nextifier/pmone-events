@@ -48,7 +48,7 @@ export default {
     paragraph3:
       "혁신적인 기술을 발견하고, 고품질 제품을 탐색하고, 신뢰할 수 있는 제조사와 연결하고, 실질적인 비즈니스 기회를 열어보세요. 모두 한 곳에서 가능해요.",
     paragraph4:
-      "지금 등록하세요! MoreFood Expo 2026에서 네트워크를 넓히고 비즈니스에 딱 맞는 파트너를 찾아보세요.",
+      "지금 등록하세요! MoreFood Expo 2027에서 네트워크를 넓히고 비즈니스에 딱 맞는 파트너를 찾아보세요.",
   },
   whyVisit: {
     heading: "꼭 와야 하는 이유",
@@ -143,7 +143,7 @@ export default {
   brandList: {
     title: "브랜드",
     description:
-      "More Food Expo 2026 참가 브랜드 전체 목록이에요. 국내외 다양한 F&B 브랜드에서 새로운 파트너와 제품을 찾아보세요.",
+      "More Food Expo 2027 참가 브랜드 전체 목록이에요. 국내외 다양한 F&B 브랜드에서 새로운 파트너와 제품을 찾아보세요.",
   },
   bookSpace: {
     title: "전시 참가 신청",
@@ -222,12 +222,12 @@ export default {
     home: {
       title: "More Food Expo Indonesia · 식품 산업의 새로운 기회",
       description:
-        "More Food Expo Indonesia가 2026년 5월 7-10일 JIEXPO에서 열려요. 전 세계 식품 비즈니스와 인도네시아 Halal 시장을 연결하는 행사예요.",
+        "More Food Expo Indonesia가 2027년 4월 8-11일 JIEXPO에서 열려요. 전 세계 식품 비즈니스와 인도네시아 Halal 시장을 연결하는 행사예요.",
     },
     brands: {
       title: "브랜드",
       description:
-        "More Food Expo 2026 참가 브랜드 전체 목록이에요. 국내외 다양한 F&B 브랜드에서 새로운 파트너와 제품을 찾아보세요.",
+        "More Food Expo 2027 참가 브랜드 전체 목록이에요. 국내외 다양한 F&B 브랜드에서 새로운 파트너와 제품을 찾아보세요.",
     },
     rundown: {
       title: "일정",
@@ -236,7 +236,7 @@ export default {
     programs: {
       title: "주요 프로그램",
       description:
-        "More Food Expo 2026의 프로그램을 소개해요. Business Matching부터 산업 토크까지, 비즈니스에 도움이 되는 프로그램이 준비돼 있어요.",
+        "More Food Expo 2027의 프로그램을 소개해요. Business Matching부터 산업 토크까지, 비즈니스에 도움이 되는 프로그램이 준비돼 있어요.",
     },
     contact: {
       title: "문의하기",

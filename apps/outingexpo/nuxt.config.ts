@@ -21,7 +21,7 @@ export default defineNuxtConfig({
 
   // shadcn Style (component shape). See layers/base/modules/appearance-style.ts.
   // style: mono, vega, nova, maia, lyra, mira, luma, sera, rhea). Default: mono.
-  appearance: { style: "luma" },
+  // appearance: { style: "luma" },
 
   site: {
     url: "https://indooutingexpo.co.id",

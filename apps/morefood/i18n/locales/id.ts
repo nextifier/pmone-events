@@ -41,7 +41,7 @@ export default {
     paragraph3:
       "Temukan teknologi inovatif, jelajahi produk berkualitas tinggi, terhubung dengan produsen terpercaya, dan buka peluang bisnis nyata di food exhibition terlengkap se-Indonesia.",
     paragraph4:
-      "Daftar sekarang! Perluas jaringan kamu dan temukan partner yang tepat untuk bisnis kamu di MoreFood Expo 2026.",
+      "Daftar sekarang! Perluas jaringan kamu dan temukan partner yang tepat untuk bisnis kamu di MoreFood Expo 2027.",
   },
   whyVisit: {
     heading: "Kenapa Harus Datang?",
@@ -138,7 +138,7 @@ export default {
   brandList: {
     title: "Brand",
     description:
-      "Daftar lengkap brand yang pameran di MoreFood Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional.",
+      "Daftar lengkap brand yang pameran di MoreFood Expo 2027. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional.",
   },
   contact: {
     description:
@@ -226,12 +226,12 @@ export default {
     home: {
       title: "MoreFood Expo Indonesia · Food & Beverage Expo Terbesar",
       description:
-        "MoreFood Expo Indonesia hadir 7-10 Mei 2026 di JIExpo Kemayoran. F&B Expo yang menghubungkan bisnis makanan dan minuman dari seluruh dunia dengan pasar Halal Indonesia.",
+        "MoreFood Expo Indonesia hadir 8-11 April 2027 di JIExpo Kemayoran. F&B Expo yang menghubungkan bisnis makanan dan minuman dari seluruh dunia dengan pasar Halal Indonesia.",
     },
     brands: {
       title: "Brand",
       description:
-        "Lihat daftar lengkap brand yang pameran di MoreFood Expo 2026. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional.",
+        "Lihat daftar lengkap brand yang pameran di MoreFood Expo 2027. Temukan mitra baru dan produk dari berbagai brand F&B lokal dan internasional.",
     },
     rundown: {
       title: "Rundown",
@@ -241,7 +241,7 @@ export default {
     programs: {
       title: "Program Utama",
       description:
-        "Kenali program-program di MoreFood Expo 2026. Dari Business Matching sampai industry talks, semua dirancang buat bantu kamu bangun koneksi di industri F&B.",
+        "Kenali program-program di MoreFood Expo 2027. Dari Business Matching sampai industry talks, semua dirancang buat bantu kamu bangun koneksi di industri F&B.",
     },
     contact: {
       title: "Hubungi Kami",

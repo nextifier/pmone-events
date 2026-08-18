@@ -51,7 +51,7 @@ export default {
     paragraph3:
       "发现创新技术，探索优质产品，对接可靠厂商，解锁真实的商业机会。一个展馆，全部搞定。",
     paragraph4:
-      "立即报名！在 MoreFood Expo 2026 拓展人脉，找到最适合你的合作伙伴。",
+      "立即报名！在 MoreFood Expo 2027 拓展人脉，找到最适合你的合作伙伴。",
   },
   whyVisit: {
     heading: "为什么要来",
@@ -143,7 +143,7 @@ export default {
   brandList: {
     title: "品牌",
     description:
-      "More Food Expo 2026 完整参展品牌列表。从本地到国际，在这里找到新的合作伙伴和优质 F&B 品牌。",
+      "More Food Expo 2027 完整参展品牌列表。从本地到国际，在这里找到新的合作伙伴和优质 F&B 品牌。",
   },
   bookSpace: {
     title: "参展商报名",
@@ -223,12 +223,12 @@ export default {
     home: {
       title: "More Food Expo Indonesia · 发现食品行业新机遇",
       description:
-        "More Food Expo Indonesia 将于 2026 年 5 月 7-10 日在 JIEXPO 举办。连接全球食品企业与印尼 Halal 市场。",
+        "More Food Expo Indonesia 将于 2027 年 4 月 8-11 日在 JIEXPO 举办。连接全球食品企业与印尼 Halal 市场。",
     },
     brands: {
       title: "品牌",
       description:
-        "More Food Expo 2026 完整参展品牌列表。从本地到国际，发现新合作伙伴和优质 F&B 品牌。",
+        "More Food Expo 2027 完整参展品牌列表。从本地到国际，发现新合作伙伴和优质 F&B 品牌。",
     },
     rundown: {
       title: "活动日程",
@@ -237,7 +237,7 @@ export default {
     programs: {
       title: "核心项目",
       description:
-        "了解 More Food Expo 2026 的各项活动。从商务配对到行业论坛，帮你建立有价值的行业连接。",
+        "了解 More Food Expo 2027 的各项活动。从商务配对到行业论坛，帮你建立有价值的行业连接。",
     },
     contact: {
       title: "联系我们",

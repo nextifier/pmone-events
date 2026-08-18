@@ -167,7 +167,7 @@ export default {
     paragraph3:
       "Discover innovative technologies, explore high-quality products, connect with trusted manufacturers, and unlock real business opportunities, all in one venue.",
     paragraph4:
-      "Register today! Expand your network and source the right partners for your business at MoreFood Expo 2026.",
+      "Register today! Expand your network and source the right partners for your business at MoreFood Expo 2027.",
   },
   whyVisit: {
     heading: "Why You'll Love It Here",
@@ -269,7 +269,7 @@ export default {
   brandList: {
     title: "Brands",
     description:
-      "See the full list of brands exhibiting at More Food Expo 2026. Find new partners and source products from a diverse lineup of local and international food brands.",
+      "See the full list of brands exhibiting at More Food Expo 2027. Find new partners and source products from a diverse lineup of local and international food brands.",
   },
   bookSpace: {
     title: "Exhibitor Registration",
@@ -350,12 +350,12 @@ export default {
     home: {
       title: "More Food Expo Indonesia",
       description:
-        "More Food Expo Indonesia is happening 7-10 May 2026 at JIEXPO. We're connecting food businesses from around the world to Indonesia's growing Halal market. See what's new.",
+        "More Food Expo Indonesia is happening 8-11 April 2027 at JIEXPO. We're connecting food businesses from around the world to Indonesia's growing Halal market. See what's new.",
     },
     brands: {
       title: "Brands",
       description:
-        "See the full list of brands exhibiting at More Food Expo 2026. Find new partners and source products from a diverse lineup of local and international food brands.",
+        "See the full list of brands exhibiting at More Food Expo 2027. Find new partners and source products from a diverse lineup of local and international food brands.",
     },
     rundown: {
       title: "Rundown",
@@ -365,7 +365,7 @@ export default {
     programs: {
       title: "Main Programs",
       description:
-        "Learn about the activities at More Food Expo 2026. From our Business Matching service to industry talks, find programs designed to help you make valuable connections.",
+        "Learn about the activities at More Food Expo 2027. From our Business Matching service to industry talks, find programs designed to help you make valuable connections.",
     },
     contact: {
       title: "Contact us",
