@@ -34,8 +34,22 @@ export function usePostTracking(getPostId: PostIdGetter) {
         visitable_type: "App\\Models\\Post",
         visitable_id: id,
       },
-    }).catch(() => {
-      if (lastTrackedId.value === id) lastTrackedId.value = null;
+    }).catch((error) => {
+      // 429 is the only status that guarantees the row was NOT written, so it
+      // is the only one safe to retry on a later navigation. A timeout or a 5xx
+      // is ambiguous — PM One may have committed the row and lost the response
+      // — and clearing the key there would double-count the same page view.
+      const status = error?.statusCode ?? error?.response?.status;
+      if (status === 429 && lastTrackedId.value === id) {
+        lastTrackedId.value = null;
+      }
+
+      // Silent in production by design (a lost view must never break the page),
+      // but a beacon that fails everywhere would otherwise be invisible: the
+      // dashboard would just show a lower number with nothing to explain it.
+      if (import.meta.dev) {
+        console.warn(`[usePostTracking] visit beacon failed (${status ?? "network"})`, error);
+      }
     });
   };
 

@@ -1,9 +1,11 @@
 /**
- * Visit tracking (banner impressions, brand profile visits, link-page visits).
+ * Visit tracking (post views, banner impressions, brand profile visits,
+ * link-page visits).
  *
- * The User-Agent and Referer are forwarded because PM One uses them to drop bot
- * traffic and to build the referer breakdown in the dashboard — without them
- * every visit would look like it came from the Worker.
+ * The client IP, User-Agent and Referer are forwarded because PM One uses them
+ * to drop bot traffic, to build the referer breakdown, and to count unique
+ * visitors — without them every visit would look like it came from the Worker,
+ * and every visitor would share a single per-IP throttle bucket.
  */
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -17,9 +19,18 @@ export default defineEventHandler(async (event) => {
 
   const headers = getRequestHeaders(event);
 
+  // This route runs at the Cloudflare edge, so the actual client sits in
+  // `cf-connecting-ip`. Same resolution order as the contact/form proxies.
+  const clientIp =
+    headers["cf-connecting-ip"] ||
+    headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+    headers["x-real-ip"] ||
+    "";
+
   return await pmOneRequest("/api/track/visit", {
     method: "POST",
     headers: {
+      ...(clientIp ? { "X-Forwarded-For": clientIp } : {}),
       "User-Agent": headers["user-agent"] || "",
       Referer: headers.referer || "",
     },
