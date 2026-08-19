@@ -1,6 +1,7 @@
 export default {
   fallbackNotice: {
-    label: "이전 에디션의 데이터를 표시하고 있습니다",
+    label: "이전 에디션",
+    labelWithEdition: "이전 에디션 · {edition}",
   },
   header: {
     lightDarkMode: "라이트 / 다크 모드",

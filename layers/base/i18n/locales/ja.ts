@@ -1,6 +1,7 @@
 export default {
   fallbackNotice: {
-    label: "前回開催のデータを表示しています",
+    label: "前回開催",
+    labelWithEdition: "前回開催 · {edition}",
   },
   header: {
     lightDarkMode: "ライト / ダークモード",

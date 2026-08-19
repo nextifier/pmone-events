@@ -1,6 +1,7 @@
 export default {
   fallbackNotice: {
-    label: "显示往届数据",
+    label: "往届",
+    labelWithEdition: "往届 · {edition}",
   },
   header: {
     lightDarkMode: "浅色 / 深色模式",

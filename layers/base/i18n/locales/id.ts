@@ -1,6 +1,7 @@
 export default {
   fallbackNotice: {
-    label: "Menampilkan data dari edisi sebelumnya",
+    label: "Edisi sebelumnya",
+    labelWithEdition: "Edisi sebelumnya · {edition}",
   },
   header: {
     lightDarkMode: "Light / Dark Mode",

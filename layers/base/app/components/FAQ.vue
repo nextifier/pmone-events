@@ -13,11 +13,6 @@
         <p class="section-description mt-3">
           {{ content.description }}
         </p>
-        <FallbackNotice
-          v-if="fallbackSource"
-          :source="fallbackSource"
-          class="mt-4 lg:mx-0"
-        />
       </div>
 
       <div class="hidden grow rounded-2xl lg:flex">
@@ -116,11 +111,11 @@ const { data: faqData } = await useFetch("/api/event/faq", {
 
 const list = computed(() => faqData.value?.data ?? []);
 
-// Source edition when the FAQ entries were borrowed from a previous event.
-const fallbackSource = computed(() => {
-  const fb = faqData.value?.meta?.fallback;
-  return fb?.is_fallback ? fb.source_event : null;
-});
+// No FallbackNotice here on purpose. FaqTemplate resolves {{event_title}},
+// {{event_date}}, {{event_time}} and {{event_location}} against the ACTIVE
+// event before the API returns them, so a borrowed FAQ already answers for the
+// current edition. A "previous edition" badge would contradict the answers
+// sitting directly underneath it.
 
 // FAQPage structured data (Google Rich Results), sourced from the same API list
 // so it always matches what is displayed.

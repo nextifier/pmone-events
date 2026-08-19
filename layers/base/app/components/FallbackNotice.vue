@@ -1,27 +1,39 @@
 <template>
-  <div
-    v-if="source"
-    class="text-muted-foreground border-border mx-auto flex w-fit items-center gap-x-1.5 rounded-full border px-3 py-1 text-xs tracking-tight sm:text-sm"
-  >
-    <Icon name="lucide:history" class="size-3.5 shrink-0" />
-    <span>
-      {{ $t("fallbackNotice.label", "Showing data from a previous edition") }}<template
-        v-if="sourceTitle"
-        >: {{ sourceTitle }}</template
-      >
-    </span>
-  </div>
+  <Badge v-if="source" variant="muted" icon="lucide:history" :class="cn('mx-auto', props.class)">
+    {{ label }}
+  </Badge>
 </template>
 
 <script setup>
+import { cn } from "@/lib/utils";
+
 /**
- * Subtle badge shown when a section's data was borrowed from a previous event
- * edition (the active event has none yet). `source` is the API's
+ * Marks a section whose data was borrowed from a previous event edition (the
+ * active event has none of its own yet). `source` is the API's
  * `meta.fallback.source_event` payload; pass null to render nothing.
+ *
+ * The label names the edition by its ordinal ("Previous edition · 26th") rather
+ * than its full title. The title is almost always the site's own name with an
+ * edition marker appended, so it cost a wrapped second line on a 390px phone
+ * and returned nothing the ordinal does not already say. Keeping it short is
+ * what lets this sit in `Badge`, whose contract is `whitespace-nowrap`.
+ *
+ * Not used on FAQ: `FaqTemplate` resolves `{{event_title}}`, `{{event_date}}`
+ * and friends against the ACTIVE event, so a borrowed FAQ already reads as the
+ * current edition's and the notice would contradict the answers below it.
  */
 const props = defineProps({
   source: { type: Object, default: null },
+  class: { type: null, default: undefined },
 });
 
-const sourceTitle = computed(() => props.source?.title || props.source?.edition_label || "");
+const { t } = useI18n();
+
+const edition = computed(() => props.source?.edition_label || "");
+
+const label = computed(() =>
+  edition.value
+    ? t("fallbackNotice.labelWithEdition", { edition: edition.value })
+    : t("fallbackNotice.label"),
+);
 </script>
