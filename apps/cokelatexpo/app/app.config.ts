@@ -24,6 +24,11 @@ const settings = {
   ogImage: {
     isDarkMode: false,
   },
+  // Tracking ids — GA4 is NOT here, it lives in this app's nuxt.config
+  // `gtag.tags`. Empty = not set. Each accepts one id or an array of ids.
+  tiktokPixelId: "",
+  metaPixelId: "",
+  gtmId: "",
 };
 
 

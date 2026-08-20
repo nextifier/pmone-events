@@ -21,6 +21,11 @@ const settings = {
   ogImage: {
     isDarkMode: true,
   },
+  // Tracking ids — GA4 is NOT here, it lives in this app's nuxt.config
+  // `gtag.tags`. Empty = not set. Each accepts one id or an array of ids.
+  tiktokPixelId: "",
+  metaPixelId: "",
+  gtmId: "",
   // Reverted from the PM One dashboard — see docs/website-settings-export.json.
   bookSpaceForm: { showProducts: true },
 };
