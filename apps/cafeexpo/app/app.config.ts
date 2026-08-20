@@ -24,7 +24,7 @@ const settings = {
   // Tracking ids — GA4 is NOT here, it lives in this app's nuxt.config
   // `gtag.tags`. Empty = not set. Each accepts one id or an array of ids.
   tiktokPixelId: "",
-  metaPixelId: "2082283329062117",
+  metaPixelId: "1748952489679901",
   gtmId: "",
 };
 
