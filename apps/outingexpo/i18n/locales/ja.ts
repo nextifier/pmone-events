@@ -57,7 +57,7 @@ export default {
         description: "この4日間だけの条件を出す出展社が多くあります。",
       },
       "2": {
-        title: "HR向けカンファレンスは無料",
+        title: "人事の実務者から直接聴けます",
         description:
           "Inspiration Talk SeriesやHR Forumで、エンゲージメントと報奨制度の話が聴けます。",
       },
@@ -71,8 +71,7 @@ export default {
   hero: {
     countdownLabel: "開催まで：",
     title: "社員旅行とインセンティブ旅行の取引先が一堂に",
-    description:
-      "社員旅行や表彰旅行、社内イベントを企画する人事・総務の方へ。事前登録で入場無料です。",
+    description: "社員旅行や表彰旅行、社内イベントを企画する人事・総務の方へ。",
     ctaTicket: "チケット取得",
     ctaExhibit: "出展登録",
     playRecap: "ハイライトを見る",
@@ -261,7 +260,7 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">入場無料</span>です',
+      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">NICE PIK 2</span>でお待ちしています',
     description:
       "社員旅行とインセンティブ旅行のブランド100社以上、HRカンファレンス、ビジネスマッチング。4日間です。",
     cta: "チケットを取得",
@@ -365,7 +364,7 @@ export default {
       // 「|」は vue-i18n が複数形の区切りとして読むので使わないこと。
       title: "インドネシアの社員旅行・インセンティブ旅行展 · IOITE 2026",
       description:
-        "IOITE 2026は10月8〜11日、NICE PIK 2で開催。社員旅行とインセンティブ旅行の展示会です。出展100社以上、HRカンファレンス、ビジネスマッチング。入場無料。",
+        "IOITE 2026は10月8〜11日、NICE PIK 2で開催。社員旅行とインセンティブ旅行の展示会です。出展100社以上、HRカンファレンス、ビジネスマッチング。チケットはオンラインで取得できます。",
     },
     brands: {
       title: "ブランド一覧",

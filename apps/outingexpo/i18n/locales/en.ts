@@ -165,7 +165,7 @@ export default {
         "description": "Many exhibitors bring pricing that holds for these four days only."
       },
       "2": {
-        "title": "Free HR Conferences",
+        "title": "Hear It From HR Practitioners",
         "description": "Inspiration Talk Series, Corporate Insights, and HR Forum on engagement and incentive strategy."
       },
       "3": {
@@ -177,7 +177,7 @@ export default {
   "hero": {
     "countdownLabel": "Starts in:",
     "title": "Every Outing and Incentive Travel Vendor in One Room",
-    "description": "For HR and companies planning an outing, a gathering, or an incentive program. Free entry.",
+    "description": "For HR and companies planning an outing, a gathering, or an incentive program.",
     "ctaTicket": "Get ticket",
     "ctaExhibit": "I want to exhibit",
     "playRecap": "Play Recap",
@@ -347,7 +347,7 @@ export default {
     }
   },
   "visitorCta": {
-    "title": "Entry Is <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">Free</span>",
+    "title": "See You at <span class=\"gradient-accent bg-clip-text text-transparent pr-1\">NICE PIK 2</span>",
     "description": "100+ outing and incentive travel brands, HR conferences, and business matching. Four days.",
     "cta": "Get Ticket"
   },
@@ -449,7 +449,7 @@ export default {
   "pages": {
     "home": {
       "title": "Indonesia Outing & Incentive Travel Expo · IOITE 2026",
-      "description": "IOITE 2026, October 8-11 at NICE PIK 2. Outing and incentive travel expo: 100+ brands, team building vendors, HR conferences, business matching. Free entry."
+      "description": "IOITE 2026, October 8-11 at NICE PIK 2. Outing and incentive travel expo: 100+ brands, team building vendors, HR conferences, business matching. Get your ticket online."
     },
     "brands": {
       "title": "Brands & Exhibitors",

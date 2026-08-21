@@ -41,7 +41,7 @@ export default {
           "Banyak exhibitor kasih harga yang cuma berlaku selama pameran.",
       },
       "2": {
-        title: "Konferensi HR-nya Gratis",
+        title: "Dengar Langsung dari Praktisi HR",
         description:
           "Inspiration Talk Series, Corporate Insights, dan HR Forum. Bahas employee engagement dan strategi incentive.",
       },
@@ -56,7 +56,7 @@ export default {
     countdownLabel: "Mulai dalam:",
     title: "Semua Vendor Outing dan Incentive Travel di Satu Tempat",
     description:
-      "Buat HR dan perusahaan yang lagi menyiapkan outing kantor, gathering, atau program incentive. Gratis, tinggal daftar.",
+      "Buat HR dan perusahaan yang lagi menyiapkan outing kantor, gathering, atau program incentive.",
     ctaTicket: "Ambil tiket",
     ctaExhibit: "Daftar Exhibitor",
     playRecap: "Tonton Highlight",
@@ -258,7 +258,7 @@ export default {
   },
   visitorCta: {
     title:
-      'Tiketnya <span class="gradient-accent bg-clip-text  text-transparent pr-1">Gratis</span>',
+      'Sampai ketemu di <span class="gradient-accent bg-clip-text  text-transparent pr-1">NICE PIK 2</span>',
     description:
       "100+ brand outing dan incentive travel, konferensi HR, dan business matching. Empat hari penuh.",
     cta: "Ambil tiket",
@@ -363,7 +363,7 @@ export default {
       // dan hanya cabang pertama yang dirender.
       title: "Pameran Outing & Incentive Travel Indonesia · IOITE 2026",
       description:
-        "IOITE 2026, 8-11 Oktober di NICE PIK 2. Pameran outing dan incentive travel: 100+ vendor, EO team building, konferensi HR, business matching. Tiket gratis.",
+        "IOITE 2026, 8-11 Oktober di NICE PIK 2. Pameran outing dan incentive travel: 100+ vendor, EO team building, konferensi HR, business matching. Ambil tiketnya online.",
     },
     brands: {
       title: "Brand & Exhibitor",

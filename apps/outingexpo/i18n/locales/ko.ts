@@ -53,7 +53,7 @@ export default {
         description: "나흘 동안만 유효한 가격을 들고 나오는 참가사가 많습니다.",
       },
       "2": {
-        title: "HR 컨퍼런스는 무료입니다",
+        title: "HR 실무자에게 직접 듣습니다",
         description:
           "Inspiration Talk Series와 HR Forum에서 인게이지먼트와 포상 제도를 다룹니다.",
       },
@@ -68,7 +68,7 @@ export default {
     countdownLabel: "개최까지:",
     title: "워크숍과 포상여행 업체가 한자리에",
     description:
-      "워크숍, 단합 행사, 포상여행을 준비하는 인사·총무 담당자를 위한 자리입니다. 입장은 무료입니다.",
+      "워크숍, 단합 행사, 포상여행을 준비하는 인사·총무 담당자를 위한 자리입니다.",
     ctaTicket: "티켓 받기",
     ctaExhibit: "전시 참가 등록",
     playRecap: "하이라이트 보기",
@@ -258,7 +258,7 @@ export default {
   },
   visitorCta: {
     title:
-      '입장은 <span class="gradient-accent bg-clip-text  text-transparent pr-1">무료</span>입니다',
+      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">NICE PIK 2</span>에서 만나요',
     description:
       "워크숍과 포상여행 브랜드 100곳 이상, HR 컨퍼런스, 비즈니스 매칭. 나흘 동안 이어집니다.",
     cta: "티켓 받기",
@@ -362,7 +362,7 @@ export default {
       // 「|」는 vue-i18n이 복수형 구분자로 읽으니 쓰지 말 것.
       title: "인도네시아 워크숍·포상여행 박람회 · IOITE 2026",
       description:
-        "IOITE 2026, 10월 8~11일 NICE PIK 2. 워크숍과 포상여행 박람회입니다. 참가 브랜드 100곳 이상, 팀빌딩 업체, HR 컨퍼런스, 비즈니스 매칭. 입장 무료.",
+        "IOITE 2026, 10월 8~11일 NICE PIK 2. 워크숍과 포상여행 박람회입니다. 참가 브랜드 100곳 이상, 팀빌딩 업체, HR 컨퍼런스, 비즈니스 매칭. 티켓은 온라인으로 받습니다.",
     },
     brands: {
       title: "브랜드",

@@ -58,7 +58,7 @@ export default {
         description: "不少参展商带来只做这四天的报价。",
       },
       "2": {
-        title: "HR 论坛免费听",
+        title: "听 HR 一线的人怎么做",
         description:
           "Inspiration Talk Series 和 HR Forum 讲员工激励和奖励制度。",
       },
@@ -72,7 +72,7 @@ export default {
   hero: {
     countdownLabel: "距开幕：",
     title: "团建和奖励旅游供应商，一次逛完",
-    description: "给正在筹备团建、年会和奖励旅游的 HR 和企业。免费入场。",
+    description: "给正在筹备团建、年会和奖励旅游的 HR 和企业。",
     ctaTicket: "领取门票",
     ctaExhibit: "参展报名",
     playRecap: "看精彩回顾",
@@ -235,7 +235,7 @@ export default {
   },
   visitorCta: {
     title:
-      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">免费</span>入场',
+      '<span class="gradient-accent bg-clip-text  text-transparent pr-1">NICE PIK 2</span>，我们等你',
     description: "100 多个团建和奖励旅游品牌、HR 论坛、商务对接，四天。",
     cta: "领取门票",
   },
@@ -337,7 +337,7 @@ export default {
       // vue-i18n 会把「|」当成复数分隔符，标题里不要用。
       title: "印尼团建与奖励旅游展 · IOITE 2026",
       description:
-        "IOITE 2026，10月8-11日，NICE PIK 2。团建与奖励旅游展会：100+ 参展品牌、团建供应商、HR 论坛、商务对接。免费入场。",
+        "IOITE 2026，10月8-11日，NICE PIK 2。团建与奖励旅游展会：100+ 参展品牌、团建供应商、HR 论坛、商务对接。门票在线领取。",
     },
     brands: {
       title: "品牌",
