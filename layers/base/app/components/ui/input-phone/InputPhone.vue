@@ -15,7 +15,7 @@
             type="button"
             data-slot="input"
             class="cn-input flex w-auto min-w-0 shrink-0 items-center gap-1 rounded-e-none border-e-0"
-            aria-label="Select country"
+            :aria-label="t('phone.selectCountry')"
             :aria-invalid="isInvalid || undefined"
           >
             <Flag :country="inputValue" />
@@ -24,8 +24,8 @@
         </PopoverTrigger>
         <PopoverContent class="w-[300px] p-0" :align="align">
           <Command :ignore-filter="true">
-            <CommandInput v-model="countrySearch" placeholder="Search country" />
-            <CommandEmpty>No country found.</CommandEmpty>
+            <CommandInput v-model="countrySearch" :placeholder="t('phone.searchCountry')" />
+            <CommandEmpty>{{ t("phone.noCountry") }}</CommandEmpty>
             <CommandList>
               <ComboboxViewport class="max-h-72 p-1">
                 <ComboboxVirtualizer
@@ -58,10 +58,16 @@
     </template>
 
     <template #input="{ inputValue, updateInputValue, placeholder }">
+      <!-- `id` is forwarded explicitly. Left to fall through it lands on
+           PhoneInput's wrapper div, which is not a labelable element, so every
+           `<FieldLabel for="...">` pointing at this control labelled nothing. -->
       <Input
         ref="phoneInput"
+        :id="id"
         class="rounded-s-none"
         type="text"
+        inputmode="tel"
+        autocomplete="tel"
         :model-value="inputValue"
         @input="updateInputValue"
         :placeholder="placeholder"
@@ -83,6 +89,12 @@ const props = withDefaults(
     modelValue?: string;
     required?: boolean;
     /**
+     * Forwarded to the number input so a `<FieldLabel for>` actually points at a
+     * focusable control. Without it the attribute falls through to PhoneInput's
+     * wrapper div and the field is left unlabelled.
+     */
+    id?: string;
+    /**
      * Declared rather than left to fall through: the fallthrough target is
      * `PhoneInput`'s wrapper div, so the `aria-invalid:` rules on `.cn-input`
      * would never see it and an invalid phone field would keep a normal border
@@ -103,6 +115,7 @@ const emit = defineEmits<{
   "update:modelValue": [value: string];
 }>();
 
+const { t } = useI18n();
 const { getCountryCode } = usePhoneCountry();
 
 const open = ref(false);

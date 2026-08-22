@@ -1,5 +1,10 @@
 <template>
-  <span class="bg-foreground/20 flex aspect-3/2 h-4 overflow-hidden rounded-sm">
+  <!-- `outline-inside` is load-bearing, not decoration: flags with a white edge
+       (Indonesia, Poland, Japan) dissolve into a white field without it, and the
+       Indonesian flag in particular reads as a plain red block. -->
+  <span
+    class="bg-foreground/20 outline-inside flex aspect-3/2 h-4 overflow-hidden rounded-sm"
+  >
     <img
       v-if="country"
       :src="flagUrl"

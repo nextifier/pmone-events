@@ -25,7 +25,6 @@ const props = defineProps({
 
 const { t, locale } = useI18n();
 const { $dayjs } = useNuxtApp();
-const localePath = useLocalePath();
 const route = useRoute();
 const cart = useTicketCartStore();
 const event = useEvent();
@@ -170,29 +169,6 @@ onMounted(() => {
   }
 });
 
-const fmtRupiah = (n) => new Intl.NumberFormat("id-ID").format(Number(n) || 0);
-
-// Responsive conversion for the poster lightbox: mobile reuses the same `md` conversion
-// already shown in the trigger thumbnail (instant, no extra download), while larger
-// screens load progressively bigger versions.
-const posterFullKey = { base: "md", sm: "lg", xl: "xl" };
-
-// A single-image lightbox payload for a ticket poster (opens the larger image).
-function posterLightboxItems(ticket) {
-  const p = ticket.poster;
-  if (!p) return [];
-  return [
-    {
-      sm: p.sm,
-      md: p.md,
-      lg: p.lg,
-      xl: p.xl,
-      url: p.url,
-      alt: ticket.title,
-      caption: ticket.title,
-    },
-  ];
-}
 
 // Per-add-on chosen session (add-ons with >1 session require a pick first).
 const selectedSession = reactive({});
@@ -257,24 +233,12 @@ function onDayDatePick(ticket, date) {
   selectedDay[ticket.id] = day ? day.id : null;
 }
 
-function maxFor(ticket) {
-  const caps = [ticket.max_quantity];
-  if (ticket.available != null) caps.push(ticket.available);
-  const valid = caps.filter((n) => n != null && Number(n) > 0);
-  return valid.length ? Math.min(...valid) : 50;
-}
 
-function minFor(ticket) {
-  return Math.max(1, Number(ticket.min_quantity) || 1);
-}
 
 function qtyOf(ticket) {
   return cart.qtyFor(ticket.id, resolveSessionId(ticket), resolveDayId(ticket));
 }
 
-function soldOut(ticket) {
-  return ticket.available != null && ticket.available <= 0;
-}
 
 // Staff preview: `?force-checkout-ticket` lets a switched-off or not-yet-open
 // ticket be added and bought, so checkout can be smoke-tested on production
@@ -372,7 +336,7 @@ function dec(ticket) {
 function priceLabel(ticket) {
   const price = ticket.on_sale ? ticket.price : ticket.display_price;
   if (price == null) return "";
-  return price > 0 ? `Rp${fmtRupiah(price)}` : t("tickets.free");
+  return price > 0 ? fmtIdr(price) : t("tickets.free");
 }
 
 // Single source of truth for the unavailable state, shared by the label, icon,
@@ -441,20 +405,8 @@ function phasePrefix(ticket, mode) {
   return t(mode === "start" ? "tickets.salesStartsIn" : "tickets.salesEndsIn");
 }
 
-// A full page is a better purchase surface than a modal (esp. on mobile), so
-// the cart bar now routes to the dedicated checkout page. The cart is persisted,
-// so the page picks it up after navigation.
-function goToCheckout() {
-  if (cart.isEmpty) return;
-  cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
-  navigateTo(localePath("/tickets/checkout"));
-}
-
-// --- Floating cart bar: tap (anywhere but Checkout) expands the line detail ---
-const cartExpanded = ref(false);
-function toggleCartDetail() {
-  cartExpanded.value = !cartExpanded.value;
-}
+// Navigation to checkout moved to TicketCartBarHost, which owns the one bar that
+// spans both ticket routes.
 
 const ticketsById = computed(() => {
   const byId = new Map();
@@ -464,59 +416,8 @@ const ticketsById = computed(() => {
   return byId;
 });
 
-// A concise "Day · Session" sub-label for a cart line, built from the same
-// valid_days / sessions the picker uses (omitted when neither applies).
-function cartLineSubLabel(ticket, item) {
-  if (!ticket) return "";
-  const parts = [];
-  const day = (ticket.valid_days ?? []).find(
-    (d) => d.id === item.selected_event_day_id,
-  );
-  if (day?.date) {
-    parts.push($dayjs(day.date).format("ddd, D MMM"));
-  }
-  const session = (ticket.sessions ?? []).find(
-    (s) => s.id === item.ticket_session_id,
-  );
-  if (session?.label) {
-    parts.push(session.label);
-  }
-  return parts.join(" · ");
-}
 
-// Cart lines resolved against the loaded tickets so the detail panel can show
-// titles + prices (the store itself only keeps ids + quantities).
-const cartLines = computed(() =>
-  cart.items.map((item) => {
-    const ticket = ticketsById.value.get(item.ticket_id) ?? null;
-    const unit = ticket
-      ? ticket.on_sale
-        ? ticket.price
-        : ticket.display_price
-      : 0;
-    const qty = Number(item.qty) || 0;
-    const lineTotal = (Number(unit) || 0) * qty;
-    return {
-      key: `${item.ticket_id}:${item.ticket_session_id ?? "x"}:${item.selected_event_day_id ?? "x"}`,
-      item,
-      title: ticket?.title ?? "—",
-      subLabel: cartLineSubLabel(ticket, item),
-      qty,
-      lineTotal,
-      priceLabel:
-        lineTotal > 0 ? `Rp${fmtRupiah(lineTotal)}` : t("tickets.free"),
-    };
-  }),
-);
 
-const cartSubtotal = computed(() =>
-  cartLines.value.reduce((sum, line) => sum + line.lineTotal, 0),
-);
-const subtotalLabel = computed(() =>
-  cartSubtotal.value > 0
-    ? `Rp${fmtRupiah(cartSubtotal.value)}`
-    : t("tickets.free"),
-);
 </script>
 
 <template>
@@ -680,7 +581,7 @@ const subtotalLabel = computed(() =>
                 <Lightbox
                   v-if="ticket.poster"
                   :items="posterLightboxItems(ticket)"
-                  :full-key="posterFullKey"
+                  :full-key="POSTER_FULL_KEY"
                   :show-thumbnails="false"
                   :show-share="false"
                   :show-download="false"
@@ -693,12 +594,7 @@ const subtotalLabel = computed(() =>
                       @click="openAt(0)"
                     >
                       <img
-                        :src="
-                          ticket.poster.md ||
-                          ticket.poster.sm ||
-                          ticket.poster.lg ||
-                          ticket.poster.url
-                        "
+                        :src="posterSrc(ticket)"
                         :alt="ticket.title"
                         class="outline-inside size-full rounded-xl object-cover"
                         loading="lazy"
@@ -993,7 +889,7 @@ const subtotalLabel = computed(() =>
                 <Lightbox
                   v-if="ticket.poster"
                   :items="posterLightboxItems(ticket)"
-                  :full-key="posterFullKey"
+                  :full-key="POSTER_FULL_KEY"
                   :show-thumbnails="false"
                   :show-share="false"
                   :show-download="false"
@@ -1006,14 +902,9 @@ const subtotalLabel = computed(() =>
                       @click="openAt(0)"
                     >
                       <img
-                        :src="
-                          ticket.poster.md ||
-                          ticket.poster.sm ||
-                          ticket.poster.lg ||
-                          ticket.poster.url
-                        "
+                        :src="posterSrc(ticket)"
                         :alt="ticket.title"
-                        class="size-full object-cover"
+                        class="outline-inside size-full rounded-xl object-cover"
                         loading="lazy"
                         decoding="async"
                       />
@@ -1245,230 +1136,5 @@ const subtotalLabel = computed(() =>
       </section>
     </div>
 
-    <!-- Sticky cart bar -->
-    <Transition
-      enter-active-class="transition-[translate,opacity,filter] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-      leave-active-class="transition-[translate,opacity,filter] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-      enter-from-class="translate-y-4 opacity-0 blur-[2px]"
-      leave-to-class="translate-y-4 opacity-0 blur-[2px]"
-    >
-      <div
-        v-if="!cart.isEmpty"
-        class="fixed inset-x-0 bottom-0 z-40 px-2 pb-4 sm:px-6"
-      >
-        <!-- Inverted "contrast" pill: bg-foreground/text-background flips with the
-             theme, so it stays high-contrast in light AND dark mode. Tapping the
-             bar anywhere but Checkout expands the line detail (transitions-dev:
-             accordion expand, growing upward from this bottom-anchored bar). -->
-        <div
-          class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden p-1.5 shadow-lg ring-1 ring-white/20 transition-[border-radius,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-          :class="cartExpanded ? 'rounded-3xl sm:p-4' : 'rounded-4xl'"
-          :data-open="cartExpanded"
-        >
-          <!-- Collapsible detail, above the action row -->
-          <div class="t-acc-panel">
-            <div class="t-acc-panel-inner">
-              <div class="px-2.5 pt-1.5 pb-3">
-                <ul class="divide-background/10 flex flex-col divide-y">
-                  <li
-                    v-for="line in cartLines"
-                    :key="line.key"
-                    class="flex items-center gap-3 py-2"
-                  >
-                    <span
-                      class="bg-background/15 inline-flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-medium tabular-nums sm:text-sm"
-                      aria-hidden="true"
-                    >
-                      {{ line.qty }}
-                    </span>
-                    <div class="min-w-0 flex-1 leading-tight">
-                      <p
-                        class="truncate text-sm font-medium tracking-tight sm:text-base"
-                      >
-                        {{ line.title }}
-                      </p>
-                      <p
-                        v-if="line.subLabel"
-                        class="text-background/80 truncate text-xs tracking-tight sm:text-sm"
-                      >
-                        {{ line.subLabel }}
-                      </p>
-                    </div>
-                    <span
-                      class="shrink-0 text-sm font-medium tabular-nums sm:text-base"
-                      >{{ line.priceLabel }}</span
-                    >
-                    <button
-                      type="button"
-                      class="text-background/50 hover:text-background hover:bg-background/15 focus-visible:ring-background/40 -mr-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
-                      :aria-label="t('tickets.remove')"
-                      @click="
-                        cart.removeItem(
-                          line.item.ticket_id,
-                          line.item.ticket_session_id,
-                          line.item.selected_event_day_id,
-                        )
-                      "
-                    >
-                      <Icon name="hugeicons:cancel-01" class="size-4" />
-                    </button>
-                  </li>
-                </ul>
-                <div
-                  class="border-background/10 mt-1 flex items-center border-t pt-3"
-                >
-                  <button
-                    type="button"
-                    class="text-background/70 hover:text-background focus-visible:ring-background/40 inline-flex items-center gap-1.5 rounded-full text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none sm:text-base"
-                    @click="cart.clear()"
-                  >
-                    <Icon
-                      name="hugeicons:delete-01"
-                      class="size-4 shrink-0 sm:size-5"
-                    />
-                    {{ t("tickets.clearCart") }}
-                  </button>
-                  <!-- Mirror the line item's trailing [price][gap-3][size-7 -mr-1] so the
-                       total's price right-edge aligns with each item's price. -->
-                  <div class="flex flex-1 items-center justify-end gap-3">
-                    <p class="leading-tight">
-                      <span
-                        class="text-background/80 text-xs tracking-tight sm:text-sm"
-                        >{{ t("tickets.subtotal") }}</span
-                      >
-                      <span
-                        class="ml-2 text-sm font-semibold tabular-nums sm:text-base"
-                        >{{ subtotalLabel }}</span
-                      >
-                    </p>
-                    <span class="-mr-1 size-7 shrink-0" aria-hidden="true" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Action row (always visible). The toggle covers everything but the
-               Clear + Checkout buttons. -->
-          <div class="flex items-center gap-x-1.5">
-            <button
-              type="button"
-              class="hover:bg-background/10 focus-visible:bg-background/10 flex flex-1 items-center gap-2.5 rounded-[1.4rem] text-left transition-colors focus-visible:outline-none"
-              :aria-expanded="cartExpanded"
-              @click="toggleCartDetail"
-            >
-              <span
-                class="flex h-full min-w-0 items-center justify-center truncate rounded-full px-2.5 py-2.5 text-sm font-medium tracking-tight sm:px-3 sm:text-base"
-                aria-live="polite"
-              >
-                <!-- NumberFlow drops into the {count} slot, so the animated digit
-                     keeps each locale's word order (incl. mid-string CJK forms). -->
-                <i18n-t
-                  keypath="tickets.selected"
-                  :plural="cart.count"
-                  tag="span"
-                  scope="global"
-                  class="whitespace-nowrap"
-                >
-                  <template #count>
-                    <NumberFlow :value="cart.count" class="tabular-nums" />
-                  </template>
-                </i18n-t>
-              </span>
-              <span
-                class="t-acc-chevron bg-background/10 text-background/70 ml-auto flex size-9 shrink-0 items-center justify-center rounded-full"
-              >
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.75"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="size-4 sm:size-5"
-                >
-                  <path d="M4 10L8 6L12 10" />
-                </svg>
-              </span>
-            </button>
-            <button
-              type="button"
-              class="bg-destructive/15 text-destructive-foreground hover:bg-destructive/25 focus-visible:ring-destructive-foreground/40 inline-flex size-9 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
-              :aria-label="t('tickets.clearCart')"
-              @click="cart.clear()"
-            >
-              <Icon name="hugeicons:delete-01" class="size-4 sm:size-5" />
-            </button>
-            <button
-              type="button"
-              class="bg-background text-foreground hover:bg-background/90 focus-visible:ring-background/50 inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium tracking-tight transition focus-visible:ring-2 focus-visible:outline-none active:scale-98 sm:text-base"
-              @click="goToCheckout"
-            >
-              <Icon
-                name="hugeicons:shopping-cart-01"
-                class="size-4 shrink-0 sm:size-5"
-              />
-              {{ t("tickets.checkout") }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </Transition>
   </div>
 </template>
-
-<style scoped>
-/* transitions-dev: accordion expand. Height animates via grid-template-rows
-   0fr -> 1fr (no JS height measuring); the chevron flips vertically. Motion
-   tokens are scoped to .t-acc so they don't leak into the global :root. */
-.t-acc {
-  --acc-expand: 250ms;
-  --acc-collapse: 250ms;
-  --acc-chevron: 250ms;
-  --acc-ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
-.t-acc-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--acc-collapse) var(--acc-ease);
-}
-.t-acc[data-open="true"] .t-acc-panel {
-  grid-template-rows: 1fr;
-  transition: grid-template-rows var(--acc-expand) var(--acc-ease);
-}
-.t-acc-panel-inner {
-  overflow: hidden;
-  opacity: 0;
-  filter: blur(2px);
-  transition:
-    opacity var(--acc-collapse) var(--acc-ease),
-    filter var(--acc-collapse) var(--acc-ease);
-}
-.t-acc[data-open="true"] .t-acc-panel-inner {
-  opacity: 1;
-  filter: blur(0);
-  transition:
-    opacity var(--acc-expand) var(--acc-ease),
-    filter var(--acc-expand) var(--acc-ease);
-}
-/* Rotate the chevron 180° to turn the "^" into a "v". Rotation is Chromium-safe
-   and animates in every browser; duration + easing share the accordion's motion
-   tokens (transitions-dev). */
-.t-acc-chevron {
-  display: inline-flex;
-  transform: rotate(0deg);
-  transform-origin: center;
-  transition: transform var(--acc-chevron) var(--acc-ease);
-}
-.t-acc[data-open="true"] .t-acc-chevron {
-  transform: rotate(180deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .t-acc-panel,
-  .t-acc-panel-inner,
-  .t-acc-chevron {
-    transition: none !important;
-  }
-}
-</style>

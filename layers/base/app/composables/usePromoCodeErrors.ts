@@ -15,3 +15,14 @@ export const usePromoCodeErrors = () => ({
   MIN_PURCHASE_NOT_MET: "Minimum purchase amount not reached for this promo code.",
   STACKING_NOT_ALLOWED: "This promo code cannot be combined with current active promotions.",
 } as Record<string, string>);
+
+/**
+ * i18n key for a promo error code, e.g. `tickets.promo.errors.EXPIRED`.
+ *
+ * The map above is English-only and is still consumed by the hotel booking
+ * review step in that shape, so it stays as it is. New call sites should use
+ * this instead and fall back to the backend's own `message` when the key is
+ * missing, so an unmapped code never renders a raw key path.
+ */
+export const promoErrorKey = (code?: string | null): string =>
+  code ? `tickets.promo.errors.${code}` : "";

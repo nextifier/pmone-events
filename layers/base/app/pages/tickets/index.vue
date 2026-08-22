@@ -39,7 +39,12 @@
     </div>
   </div>
 
-  <div v-else id="ticket-page" class="pb-16 lg:pt-6 lg:pb-20">
+  <!-- overflow-x-clip: the tilting poster below projects ~15px past its layout
+       box, which is off-screen on narrow viewports but still lengthens the
+       document and raises a horizontal scrollbar. `clip` (not `hidden`) drops
+       it without turning the page into a scroll container, so the sticky tab
+       bar keeps sticking. -->
+  <div v-else id="ticket-page" class="overflow-x-clip pb-16 lg:pt-6 lg:pb-20">
     <div
       class="grid grid-cols-1 gap-4 sm:container sm:max-w-5xl lg:grid-cols-12 lg:gap-10"
     >
@@ -51,7 +56,7 @@
           :alt="event.title"
         >
           <template #trigger="{ openAt }">
-            <div
+            <TiltCard
               class="bg-muted relative isolate aspect-4/5 w-full overflow-hidden rounded-xl sm:rounded-2xl"
             >
               <button
@@ -94,7 +99,7 @@
                   />
                 </button>
               </div>
-            </div>
+            </TiltCard>
           </template>
         </Lightbox>
       </div>

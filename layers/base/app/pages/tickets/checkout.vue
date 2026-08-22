@@ -6,6 +6,11 @@ import { Label } from "../../components/ui/label";
 import { Field, FieldError, FieldLabel } from "../../components/ui/field";
 import { InputPhone } from "../../components/ui/input-phone";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../../components/ui/collapsible";
 import ResponsiveDialog from "../../components/ui/responsive-dialog/ResponsiveDialog.vue";
 import {
   CustomFieldRenderer,
@@ -14,7 +19,7 @@ import {
 } from "../../components/ui/custom-field";
 import TicketCartSummary from "../../components/tickets/TicketCartSummary.vue";
 import { useTicketCartStore } from "../../stores/ticketCart";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, watchEffect } from "vue";
 import { toast } from "vue-sonner";
 
 definePageMeta({
@@ -53,15 +58,33 @@ onMounted(() => {
   restoreBuyer();
 });
 
-// Re-check after hydration in case the store cleared the cart.
+/**
+ * Nothing to buy means nothing to check out, so an empty cart goes back to the
+ * ticket list - but not instantly. Removing the last line raises an Undo toast,
+ * and navigating out from under it would leave the buyer on another page with a
+ * button that no longer means anything. Wait out the toast, and cancel the trip
+ * the moment the cart refills.
+ */
+const EMPTY_CART_GRACE_MS = 7000;
+let emptyCartTimer = null;
+
 watch(
   () => cart.isEmpty,
   (empty) => {
-    if (cartReady.value && empty && !submitting.value) {
-      navigateTo(localePath("/tickets"));
+    if (emptyCartTimer) {
+      clearTimeout(emptyCartTimer);
+      emptyCartTimer = null;
     }
+    if (!cartReady.value || !empty || submitting.value) return;
+    emptyCartTimer = setTimeout(() => {
+      if (cart.isEmpty && !submitting.value) navigateTo(localePath("/tickets"));
+    }, EMPTY_CART_GRACE_MS);
   }
 );
+
+onBeforeUnmount(() => {
+  if (emptyCartTimer) clearTimeout(emptyCartTimer);
+});
 
 // --- Tickets (data + meta.terms) ---
 // Await the event payload before deriving the URL below: `useEvent()` does not
@@ -72,25 +95,12 @@ await useEventData();
 
 const eventSlug = computed(() => cart.eventSlug || event.slug);
 
-// Staff preview carries over from the tickets page through the persisted cart,
-// so it only becomes true after cart.hydrate() on the client. Keeping it in the
-// query, the key AND the watch list means the listing re-fetches at that point
-// and the summary can resolve a switched-off ticket sitting in the cart.
-const forceCheckout = computed(() => Boolean(cart.forceCheckout));
-
-const { data: ticketsData, refresh: refreshTickets } = await useFetch(
-  () => `/api/tickets/${eventSlug.value}`,
-  {
-    key: () =>
-      `checkout-tickets-${eventSlug.value}-${locale.value}${forceCheckout.value ? "-forced" : ""}`,
-    query: computed(() => ({
-      locale: locale.value,
-      ...(forceCheckout.value ? { force_checkout_ticket: 1 } : {}),
-    })),
-    watch: [locale, eventSlug, forceCheckout],
-    default: () => ({ data: [], meta: {} }),
-  }
-);
+// Shared with /tickets and with TicketCartBarHost through one asyncData key, so
+// the same endpoint is not fetched twice per session. `useTicketsListing` already
+// carries the locale + staff-preview query and defaults to null, hence the
+// null-guards on `.data` and `.meta` below.
+const { data: ticketsData, refresh: refreshTickets } =
+  await useTicketsListing(eventSlug);
 
 const ticketsById = computed(() => {
   const map = {};
@@ -99,6 +109,13 @@ const ticketsById = computed(() => {
 });
 
 const terms = computed(() => ticketsData.value?.meta?.terms || "");
+
+// Staff-configured payment methods, already in the listing payload. Showing the
+// logos the buyer will actually meet on the gateway is a trust cue that costs
+// nothing: the data was being fetched and thrown away.
+const paymentChannels = computed(
+  () => ticketsData.value?.meta?.allowed_payment_channels ?? [],
+);
 
 // A free cart - free tickets OR a 100%-off promo - gets a "claim" CTA instead
 // of "continue to payment" (the final total after discount is what counts).
@@ -139,6 +156,22 @@ const regResponses = ref({});
 const regErrors = ref({});
 
 const hasRegistrationFields = computed(() => registrationFields.value.length > 0);
+
+// `required` is per-field API data, so an event can flip any of these at any
+// time. Required questions render flat beside the buyer's own fields; optional
+// ones go behind a disclosure so a heavily-configured event cannot bury the pay
+// button. One predicate, two groups, no second code path.
+const isFieldRequired = (f) => Boolean(f.validation?.required ?? f.required);
+const requiredRegistrationFields = computed(() =>
+  registrationFields.value.filter(isFieldRequired),
+);
+const optionalRegistrationFields = computed(() =>
+  registrationFields.value.filter((f) => !isFieldRequired(f)),
+);
+// Only drives the optional disclosure. A required field is never inside it, but
+// a server-side 422 on an optional one still has to be reachable - see
+// revealFirstError().
+const registrationOpen = ref(false);
 // The buyer answers for their own ticket; extra attendees fill their own from
 // their ticket links after checkout.
 const showRegistrationOthersNote = computed(() => cart.count > 1);
@@ -347,15 +380,35 @@ function buildBusinessMatchingPayload() {
 }
 
 const summaryRef = ref(null);
+const pageRef = ref(null);
+
+/**
+ * Put the first problem on screen. A toast on an 1800px page tells the buyer
+ * something is wrong but not where, and the submit button is `aria-disabled`
+ * rather than `disabled` precisely so this path can run and explain itself.
+ */
+async function revealFirstError() {
+  // A required field can be sitting inside a collapsed disclosure.
+  if (Object.keys(regErrors.value).length) registrationOpen.value = true;
+  await nextTick();
+  const target = pageRef.value?.querySelector('[data-slot="field-error"]');
+  target?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 async function submit() {
-  if (!canSubmit.value) return;
+  if (!canSubmit.value) {
+    toast.error(t("tickets.submitDisabledReason"));
+    await revealFirstError();
+    return;
+  }
   if (!validateRegistration()) {
     toast.error(t("tickets.fieldRequired"));
+    await revealFirstError();
     return;
   }
   if (!validateBusinessMatching()) {
     toast.error(t("tickets.fieldRequired"));
+    await revealFirstError();
     return;
   }
   submitting.value = true;
@@ -424,6 +477,7 @@ async function submit() {
         key.startsWith("registration.responses.")
       )
     );
+    await revealFirstError();
     const message =
       body.message || body.data?.message || t("tickets.submitError");
     toast.error(message);
@@ -433,10 +487,40 @@ async function submit() {
 }
 
 const termsOpen = ref(false);
+
+/**
+ * Publish the pay-mode action to the layout-level cart bar.
+ *
+ * The bar lives in app.vue so it survives the navigation from /tickets, which
+ * puts it outside this page's tree - it cannot reach `submit()` on its own. A
+ * watchEffect keeps the label and the disabled/submitting flags in sync, and the
+ * handle is withdrawn on unmount so the bar falls back to `select` mode.
+ */
+const checkoutBar = useTicketCheckoutBar();
+
+watchEffect(() => {
+  publishTicketCheckoutBar({
+    ctaLabel: isFree.value
+      ? t("tickets.claimFreeTickets")
+      : t("tickets.continueToPayment"),
+    ctaIcon: "hugeicons:credit-card",
+    ctaDisabled: !canSubmit.value,
+    submitting: submitting.value,
+  });
+});
+
+// The bar cannot call submit() directly - it lives outside this page and a
+// callback in `useState` breaks SSR serialization. It bumps a counter instead.
+watch(() => checkoutBar.value.primaryRequests, () => submit());
+
+onBeforeUnmount(clearTicketCheckoutBar);
 </script>
 
 <template>
-  <div class="mx-auto max-w-6xl px-4 pt-4 pb-24 sm:pt-6 lg:pb-16">
+  <div
+    ref="pageRef"
+    class="mx-auto max-w-6xl px-4 pt-4 pb-[calc(--spacing(24)+env(safe-area-inset-bottom,0px))] sm:pt-6 lg:pb-16"
+  >
     <!-- Header + back link -->
     <div class="mb-6 flex flex-col gap-3">
       <NuxtLink
@@ -452,103 +536,135 @@ const termsOpen = ref(false);
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
-      <!-- Order summary (sticky on desktop) -->
-      <aside class="lg:col-span-5 lg:order-2">
-        <div class="lg:sticky lg:top-(--navbar-height-desktop)">
-          <div class="frame">
-            <div class="frame-header">
-              <div class="frame-title">{{ t("tickets.orderSummary") }}</div>
-            </div>
-            <div class="frame-panel">
-              <TicketCartSummary ref="summaryRef" :tickets-by-id="ticketsById" editable />
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- Form -->
-      <div class="space-y-6 lg:col-span-7 lg:order-1">
+    <!--
+      A real <form>, so Enter submits from any field and mobile keyboards offer a
+      "Go" key. Three grid blocks rather than two: source order is mobile order,
+      and the buyer must reach the first input before the order summary, while at
+      lg the summary still needs to sit in the right column beside BOTH stacks
+      (hence row-span-2, without which the sticky aside has no travel).
+    -->
+    <form novalidate @submit.prevent="submit">
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
+        <!-- 1. Buyer details, registration, exhibitor consent -->
+        <div class="space-y-6 lg:col-span-7 lg:col-start-1 lg:row-start-1">
         <!-- Buyer details -->
-        <section class="frame">
+        <section class="frame" aria-labelledby="section-your-details">
           <div class="frame-header">
-            <div class="frame-title">{{ t("tickets.yourDetails") }}</div>
+            <h2 id="section-your-details" class="frame-title">
+              {{ t("tickets.yourDetails") }}
+            </h2>
           </div>
-          <div class="frame-panel space-y-5">
+          <!-- space-y-6, not 5: CustomFieldGroup's own root is space-y-6, so a
+               5 here would step the rhythm at the seam between the buyer's
+               fields and the event's registration fields. -->
+          <div class="frame-panel space-y-6">
             <Field :data-invalid="!!errors?.buyer_name">
               <FieldLabel for="buyer_name">{{ t("tickets.fullName") }}</FieldLabel>
               <Input id="buyer_name" v-model="form.buyer_name" autocomplete="name" required :aria-invalid="!!errors?.buyer_name" />
               <FieldError :errors="errors.buyer_name" />
             </Field>
 
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Field :data-invalid="!!errors?.buyer_email">
-                <FieldLabel for="buyer_email">{{ t("tickets.email") }}</FieldLabel>
-                <Input
-                  :aria-invalid="!!errors?.buyer_email"
-                  id="buyer_email"
-                  v-model="form.buyer_email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                />
-                <FieldError :errors="errors.buyer_email" />
-                <p class="text-muted-foreground text-xs tracking-tight sm:text-sm">
-                  {{ t("tickets.detailsNote") }}
-                </p>
-              </Field>
-              <Field :data-invalid="!!errors?.buyer_phone">
-                <FieldLabel for="buyer_phone">{{ t("tickets.phone") }}</FieldLabel>
-                <InputPhone
-                  :aria-invalid="!!errors?.buyer_phone"
-                  id="buyer_phone"
-                  :model-value="form.buyer_phone"
-                  required
-                  @update:model-value="(v) => (form.buyer_phone = v)"
-                />
-                <FieldError :errors="errors.buyer_phone" />
-              </Field>
-            </div>
-          </div>
-        </section>
+            <!-- One column. Email is the ticket-delivery address and the highest
+                 consequence field on the page; it does not belong in half a row
+                 while the name gets a whole one. -->
+            <Field :data-invalid="!!errors?.buyer_email">
+              <FieldLabel for="buyer_email">{{ t("tickets.email") }}</FieldLabel>
+              <Input
+                :aria-invalid="!!errors?.buyer_email"
+                id="buyer_email"
+                v-model="form.buyer_email"
+                type="email"
+                autocomplete="email"
+                required
+              />
+              <FieldError :errors="errors.buyer_email" />
+              <p class="text-muted-foreground text-sm tracking-tight">
+                {{ t("tickets.detailsNote") }}
+              </p>
+            </Field>
+            <Field :data-invalid="!!errors?.buyer_phone">
+              <FieldLabel for="buyer_phone">{{ t("tickets.phone") }}</FieldLabel>
+              <InputPhone
+                :aria-invalid="!!errors?.buyer_phone"
+                id="buyer_phone"
+                :model-value="form.buyer_phone"
+                required
+                @update:model-value="(v) => (form.buyer_phone = v)"
+              />
+              <FieldError :errors="errors.buyer_phone" />
+            </Field>
 
-        <!-- Registration details (event's active ticket_registration fields) -->
-        <section v-if="hasRegistrationFields" class="frame">
-          <div class="frame-header">
-            <div class="frame-title">{{ t("tickets.registration.heading") }}</div>
-            <p class="text-muted-foreground mt-1 text-xs tracking-tight sm:text-sm">
-              {{ t("tickets.registration.subtitle") }}
-            </p>
-          </div>
-          <div class="frame-panel space-y-4">
-            <p
-              v-if="showRegistrationOthersNote"
-              class="text-muted-foreground bg-muted/50 rounded-md px-3 py-2 text-xs tracking-tight sm:text-sm"
-            >
-              {{ t("tickets.registration.othersNote") }}
-            </p>
+            <!--
+              The event's own registration questions, in the same section rather
+              than a frame of their own: it is one job - "tell us who you are" -
+              and two frames made it read as two.
+
+              Required ones sit flat with the buyer's fields so they are
+              unmissable. Optional ones go behind a disclosure, because an event
+              is free to configure fifteen of them and they must not push the pay
+              button off the bottom of a phone. `required` is per-field API data,
+              so both shapes come from one code path.
+            -->
             <CustomFieldGroup
+              v-if="requiredRegistrationFields.length"
               v-model="regResponses"
-              :fields="registrationFields"
+              :fields="requiredRegistrationFields"
               :errors="regErrors"
               error-prefix="registration.responses."
               :locale="locale"
             />
+
+            <Collapsible
+              v-if="optionalRegistrationFields.length"
+              v-model:open="registrationOpen"
+            >
+              <CollapsibleTrigger
+                class="text-foreground hover:text-foreground/80 focus-visible:ring-ring inline-flex items-center gap-1.5 rounded-sm text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none"
+              >
+                <Icon
+                  :name="registrationOpen ? 'hugeicons:minus-sign' : 'hugeicons:plus-sign'"
+                  class="size-4 shrink-0"
+                />
+                {{ t("tickets.moreDetails") }}
+              </CollapsibleTrigger>
+              <CollapsibleContent class="mt-4 space-y-4">
+                <p
+                  v-if="showRegistrationOthersNote"
+                  class="text-muted-foreground bg-muted/50 rounded-md px-3 py-2 text-sm tracking-tight"
+                >
+                  {{ t("tickets.registration.othersNote") }}
+                </p>
+                <CustomFieldGroup
+                  v-model="regResponses"
+                  :fields="optionalRegistrationFields"
+                  :errors="regErrors"
+                  error-prefix="registration.responses."
+                  :locale="locale"
+                />
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </section>
 
         <!-- Connect with exhibitors (only when the event has custom fields) -->
-        <section v-if="hasCustomFields" class="frame">
+        <section v-if="hasCustomFields" class="frame" aria-labelledby="section-connect">
           <div class="frame-header">
-            <div class="frame-title">{{ t("tickets.connectHeading") }}</div>
-            <p class="text-muted-foreground mt-1 text-xs tracking-tight sm:text-sm">
+            <h2 id="section-connect" class="frame-title">
+              {{ t("tickets.connectHeading") }}
+            </h2>
+            <p
+              id="section-connect-desc"
+              class="text-muted-foreground mt-1 text-sm tracking-tight"
+            >
               {{ t("tickets.connectSubtitle") }}
             </p>
           </div>
           <div class="frame-panel space-y-4">
+            <!-- Named, or a screen reader announces two unexplained radios. -->
             <RadioGroup
               :model-value="businessMatching ? 'yes' : 'no'"
               class="flex flex-wrap gap-x-6 gap-y-2"
+              aria-labelledby="section-connect section-connect-desc"
               @update:model-value="(v) => (businessMatching = v === 'yes')"
             >
               <label class="flex items-center gap-2 text-sm tracking-tight">
@@ -581,44 +697,122 @@ const termsOpen = ref(false);
             </div>
           </div>
         </section>
+        </div>
 
-        <!-- Terms consent -->
-        <section class="space-y-1.5">
-          <div class="flex items-start gap-2 text-sm tracking-tight">
-            <Checkbox
-              id="accept-terms"
-              :model-value="acceptTerms"
-              class="mt-0.5"
-              @update:model-value="(v) => (acceptTerms = !!v)"
-            />
-            <Label for="accept-terms" class="block font-normal leading-snug">
-              {{ t("tickets.termsConsentPrefix") }}
-              <button
-                type="button"
-                class="text-primary hover:text-primary/80 focus-visible:ring-ring rounded-sm underline underline-offset-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
-                @click.stop.prevent="termsOpen = true"
-              >
-                {{ t("tickets.termsConsentLink") }}
-              </button>
-              {{ t("tickets.termsConsentSuffix") }}
-            </Label>
-          </div>
-          <FieldError :errors="errors.accept_terms" />
-        </section>
-
-        <Button
-          type="button"
-          class="w-full"
-          size="lg"
-          :disabled="!canSubmit"
-          :aria-busy="submitting"
-          @click="submit"
+        <!-- 2. Order summary. Second on mobile so the buyer types first; on the
+             right, spanning both rows, on desktop. -->
+        <aside
+          class="lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1"
+          aria-labelledby="section-order-summary"
         >
-          <Icon v-if="submitting" name="svg-spinners:180-ring" class="size-4 shrink-0" />
-          <span>{{ isFree ? t("tickets.claimFreeTickets") : t("tickets.continueToPayment") }}</span>
-        </Button>
+          <div class="lg:sticky lg:top-(--navbar-height-desktop)">
+            <div class="frame">
+              <div class="frame-header">
+                <h2 id="section-order-summary" class="frame-title">
+                  {{ t("tickets.orderSummary") }}
+                </h2>
+              </div>
+              <div class="frame-panel">
+                <TicketCartSummary ref="summaryRef" :tickets-by-id="ticketsById" editable />
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- 3. Consent and submit -->
+        <div class="space-y-6 lg:col-span-7 lg:col-start-1 lg:row-start-2">
+          <!--
+            Terms consent. The T&C trigger is a SIBLING of the labels, not a
+            child: a <button> is a labelable element, so nesting one inside a
+            <label> is invalid HTML, and it only behaved before because of a
+            .stop.prevent on the click.
+
+            The label carries the whole sentence and the trigger follows it, so
+            tapping the text still toggles the box. What the buyer is agreeing to
+            lives in the dialog, not in this line.
+          -->
+          <section class="space-y-1.5">
+            <div class="flex items-start gap-2 text-sm tracking-tight">
+              <Checkbox
+                id="accept-terms"
+                :model-value="acceptTerms"
+                class="mt-0.5"
+                @update:model-value="(v) => (acceptTerms = !!v)"
+              />
+              <p class="leading-snug">
+                <Label
+                  for="accept-terms"
+                  class="inline font-normal leading-snug"
+                  ><!-- The nbsp is a real character, not margin: `ml-1` spaces
+                       the words visually but leaves textContent reading
+                       "theterms" to a screen reader. -->{{
+                    t("tickets.termsConsentPrefix")
+                  }}&nbsp;</Label
+                >
+                <button
+                  type="button"
+                  class="text-primary hover:text-primary/80 focus-visible:ring-ring rounded-sm underline underline-offset-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+                  @click="termsOpen = true"
+                >
+                  {{ t("tickets.termsConsentLink") }}
+                </button>
+              </p>
+            </div>
+            <FieldError :errors="errors.accept_terms" />
+          </section>
+
+          <!-- The methods the buyer will meet on the gateway. Staff-configured,
+               already in the listing payload, and previously fetched and thrown
+               away. -->
+          <div v-if="!isFree && paymentChannels.length" class="space-y-1.5">
+            <p class="text-muted-foreground text-sm tracking-tight">
+              {{ t("tickets.paidWith") }}
+            </p>
+            <!-- Gateway logos are supplied as fixed-colour raster art with no
+                 dark variant, so they need a light chip to sit on or they vanish
+                 into a dark page. -->
+            <ul class="flex flex-wrap items-center gap-2">
+              <li
+                v-for="ch in paymentChannels"
+                :key="ch.code"
+                class="ring-border flex h-7 items-center rounded-md bg-white px-2 ring-1"
+              >
+                <img
+                  :src="ch.logo"
+                  :alt="ch.label"
+                  class="h-4 w-auto"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-1.5">
+            <!-- aria-disabled, not disabled: a disabled button is not focusable,
+                 so a keyboard user tabs straight past it and never learns why it
+                 will not accept them. The guard lives in submit(). -->
+            <Button
+              type="submit"
+              class="w-full aria-disabled:cursor-not-allowed aria-disabled:opacity-60"
+              size="lg"
+              :aria-disabled="!canSubmit || undefined"
+              :loading="submitting"
+            >
+              {{ isFree ? t("tickets.claimFreeTickets") : t("tickets.continueToPayment") }}
+            </Button>
+            <!-- A validation message, so never text-xs (STYLE_GUIDE). -->
+            <p
+              v-if="!canSubmit && !submitting"
+              class="text-muted-foreground text-sm tracking-tight"
+            >
+              {{ t("tickets.submitDisabledReason") }}
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </form>
+
 
     <!-- Terms & Conditions dialog (staff-managed HTML from meta.terms) -->
     <ResponsiveDialog v-model:open="termsOpen" :overflow-content="true" dialog-max-width="40rem">

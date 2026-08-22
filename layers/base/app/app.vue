@@ -14,6 +14,12 @@
         />
       </NuxtLayout>
       <ScrollToTop v-if="!['index', 'tickets', 'winner'].some((n) => route.name?.toString().startsWith(n))" />
+      <!-- One cart bar for the whole ticket flow. Outside <NuxtLayout> so it
+           survives /tickets -> /tickets/checkout instead of unmounting and
+           remounting; `startsWith('tickets')` covers both routes. -->
+      <TicketsTicketCartBarHost
+        v-if="route.name?.toString().startsWith('tickets')"
+      />
       <Toaster class="pointer-events-auto" />
     </Body>
   </Html>

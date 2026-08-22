@@ -209,7 +209,7 @@ html.appearance-switching *::after {
     --background: var(--color-white);
     --foreground: var(--color-gray-950);
     --body: var(--color-gray-700);
-    --border: var(--color-gray-200);
+    --border: --alpha(var(--foreground) / 20%);
     --input: var(--color-gray-200);
     --ring: var(--color-black);
 
@@ -271,7 +271,7 @@ html.appearance-switching *::after {
     --background: var(--color-gray-950);
     --foreground: var(--color-gray-50);
     --body: var(--color-gray-300);
-    --border: var(--color-gray-800);
+    --border: --alpha(var(--foreground) / 16%);
     --input: var(--color-gray-800);
     --ring: var(--color-white);
 
@@ -955,12 +955,12 @@ html.appearance-switching *::after {
    Stays in `utilities`: it must not outrank the components-layer Shiki rules. */
 @layer utilities {
   .typeset:not(.ProseMirror)
-    :is([style*="color" i], [style*="background" i], font[color], [bgcolor]):not(
-      pre,
-      pre *,
-      code,
-      code *
-    ) {
+    :is(
+      [style*="color" i],
+      [style*="background" i],
+      font[color],
+      [bgcolor]
+    ):not(pre, pre *, code, code *) {
     color: inherit !important;
     background-color: transparent !important;
   }
@@ -1067,12 +1067,18 @@ html.appearance-switching *::after {
     --scroll-fade-t: 0px;
   }
   to {
-    --scroll-fade-t: var(--_scroll-fade-size-t, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    --scroll-fade-t: var(
+      --_scroll-fade-size-t,
+      var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+    );
   }
 }
 @keyframes scroll-fade-reveal-b {
   from {
-    --scroll-fade-b: var(--_scroll-fade-size-b, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    --scroll-fade-b: var(
+      --_scroll-fade-size-b,
+      var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+    );
   }
   to {
     --scroll-fade-b: 0px;
@@ -1083,12 +1089,18 @@ html.appearance-switching *::after {
     --scroll-fade-s: 0px;
   }
   to {
-    --scroll-fade-s: var(--_scroll-fade-size-s, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    --scroll-fade-s: var(
+      --_scroll-fade-size-s,
+      var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+    );
   }
 }
 @keyframes scroll-fade-reveal-e {
   from {
-    --scroll-fade-e: var(--_scroll-fade-size-e, var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10))));
+    --scroll-fade-e: var(
+      --_scroll-fade-size-e,
+      var(--scroll-fade-size, min(12%, calc(var(--spacing) * 10)))
+    );
   }
   to {
     --scroll-fade-e: 0px;
@@ -1325,7 +1337,7 @@ html.appearance-switching *::after {
   --_base: currentColor;
   --_highlight: var(
     --shimmer-color,
-    oklch(from currentColor l c h / calc(alpha * 0.2))
+    oklch(from currentColor l c h / calc(alpha* 0.2))
   );
 
   background-image: var(
@@ -1394,7 +1406,6 @@ html.appearance-switching *::after {
     -webkit-text-fill-color: currentColor;
   }
 }
-
 
 /*
  * Scroll-driven trigger text colour for swipeable Tabs carousels.
@@ -1557,17 +1568,23 @@ html.appearance-switching *::after {
   }
 }
 
-#layout-app {
-  /* Automatic required marker for labels that only carry the native `required`
-     attribute on their control. `:not(:has([data-slot=label-required]))` stands
-     down whenever `<Label required>` already drew one - otherwise a label that
-     sits directly above a required control gets two asterisks. */
-  & label:not(:has([data-slot="label-required"])) {
-    &:has(+ input:required)::after,
-    &:has(+ select:required)::after,
-    &:has(+ textarea:required)::after {
-      @apply text-destructive-foreground ml-0 content-['*'];
-    }
+/* Automatic required marker for labels that only carry the native `required`
+   attribute on their control. `:not(:has([data-slot=label-required]))` stands
+   down whenever `<Label required>` already drew one - otherwise a label that
+   sits directly above a required control gets two asterisks.
+
+   Not scoped to a layout id. It used to sit inside `#layout-app`, which is an id
+   on pmone's admin layout and does not exist in this repo at all - the layouts
+   here use `<main id="main">` - so the whole rule was inert and no form on any of
+   the 16 sites ever drew an asterisk. The `.base-phone-input` branch is for
+   `InputPhone`: the library wraps its `<input>` in one div, which breaks the
+   adjacent-sibling match the other three selectors rely on. */
+label:not(:has([data-slot="label-required"])) {
+  &:has(+ input:required)::after,
+  &:has(+ select:required)::after,
+  &:has(+ textarea:required)::after,
+  &:has(+ .base-phone-input input:required)::after {
+    @apply text-destructive-foreground ml-0 content-['*'];
   }
 }
 

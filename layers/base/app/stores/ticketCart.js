@@ -47,7 +47,7 @@ function persistDebounced(state) {
   persistTimer = setTimeout(() => saveToStorage(state), 300);
 }
 
-function lineKey(ticketId, sessionId, dayId) {
+export function lineKey(ticketId, sessionId, dayId) {
   return `${ticketId}:${sessionId ?? ""}:${dayId ?? ""}`;
 }
 
@@ -65,6 +65,9 @@ export const useTicketCartStore = defineStore("ticketCart", {
     accessInfo: null,
     previewLines: [],
     previewLoading: false,
+    // Monotonic request counter. Quantity taps fire a preview each; without this
+    // an older response can land last and paint a stale price.
+    _previewSeq: 0,
   }),
 
   getters: {
@@ -83,9 +86,118 @@ export const useTicketCartStore = defineStore("ticketCart", {
       );
       return item ? Number(item.qty) || 0 : 0;
     },
+
+    /**
+     * Cart lines with LOCAL quantity and SERVER pricing, stitched by `_key`.
+     *
+     * Quantity has to come from `items` or a +/- tap does nothing until the
+     * preview round trip returns, which on a venue connection is seconds of dead
+     * UI. Price has to come from the preview, because phase pricing is resolved
+     * server-side. `pending` marks the window where the two disagree.
+     *
+     * Matching is by key, never by index: the server silently drops ineligible
+     * lines (switched-off ticket, gated ticket with no access code), so
+     * positions do not correspond to what was sent.
+     */
+    mergedLines(state) {
+      if (state.previewLines?.length) {
+        return state.previewLines
+          .map((l) => {
+            const item = state.items.find(
+              (i) =>
+                lineKey(
+                  i.ticket_id,
+                  i.ticket_session_id,
+                  i.selected_event_day_id,
+                ) === l._key,
+            );
+            if (!item) return null; // removed while the preview was in flight
+            const qty = Number(item.qty) || 0;
+            const unit = Number(l.unit_price) || 0;
+            return {
+              key: l._key,
+              item,
+              ticket_id: l.ticket_id,
+              ticket_session_id: item.ticket_session_id ?? null,
+              selected_event_day_id: item.selected_event_day_id ?? null,
+              qty,
+              unit,
+              subtotal: qty === l.quantity ? Number(l.subtotal) || 0 : unit * qty,
+              pending: qty !== l.quantity,
+              title: l.title || "",
+              phaseLabel: l.phase_label || "",
+            };
+          })
+          .filter(Boolean);
+      }
+
+      // No preview yet (first paint, or the request failed).
+      return state.items.map((i) => ({
+        key: lineKey(i.ticket_id, i.ticket_session_id, i.selected_event_day_id),
+        item: i,
+        ticket_id: i.ticket_id,
+        ticket_session_id: i.ticket_session_id ?? null,
+        selected_event_day_id: i.selected_event_day_id ?? null,
+        qty: Number(i.qty) || 0,
+        unit: 0,
+        subtotal: 0,
+        pending: false,
+        title: "",
+        phaseLabel: "",
+      }));
+    },
+
+    pricingPending() {
+      return this.mergedLines.some((l) => l.pending);
+    },
+
+    /**
+     * Optimistic while a line is pending: multiplication is deterministic
+     * client-side. The discount deliberately is not - percentage vs fixed vs
+     * capped vs minimum-purchase is only knowable server-side - so consumers
+     * dim the discount and total rows instead of guessing at them.
+     */
+    displaySubtotal(state) {
+      if (this.pricingPending || !state.previewLines?.length) {
+        return this.mergedLines.reduce((sum, l) => sum + l.subtotal, 0);
+      }
+      return Number(state.cachedSubtotal) || 0;
+    },
+
+    displayDiscount(state) {
+      return Number(state.cachedDiscount) || 0;
+    },
+
+    /**
+     * Computed rather than read from `cachedTotal`, so a 100%-off promo making
+     * the total legitimately zero is not mistaken for "not loaded yet".
+     */
+    displayTotal() {
+      return Math.max(0, this.displaySubtotal - this.displayDiscount);
+    },
   },
 
   actions: {
+    /**
+     * Every cached figure from the last /preview, cleared together. They used to
+     * be cleared piecemeal - `cachedSubtotal` here, nothing there - so switching
+     * events left a stale `cachedDiscount` that the summary then subtracted from
+     * a fresh subtotal. Bumping the sequence invalidates any request still in
+     * flight so it cannot repopulate what we just cleared.
+     */
+    _resetPricing() {
+      this.previewLines = [];
+      this.cachedSubtotal = 0;
+      this.cachedDiscount = 0;
+      this.cachedTotal = 0;
+      this.promoInfo = null;
+      this.accessInfo = null;
+      // Bumping the sequence orphans any in-flight request, so nothing else will
+      // ever clear its loading flag. Clear it here.
+      this._previewSeq += 1;
+      this.previewLoading = false;
+    },
+
     hydrate() {
       if (this.hydrated) return;
       const loaded = loadFromStorage();
@@ -99,16 +211,25 @@ export const useTicketCartStore = defineStore("ticketCart", {
         });
       }
       this.hydrated = true;
-      this.$subscribe((_, state) => {
-        const snapshot = {
-          eventId: state.eventId,
-          eventSlug: state.eventSlug,
-          items: state.items.map((i) => ({ ...i })),
-          accessCode: state.accessCode,
-          forceCheckout: state.forceCheckout,
-        };
-        persistDebounced(snapshot);
-      });
+      // `detached` is load-bearing. A Pinia subscription defaults to the
+      // lifetime of the component that registered it, and `hydrate()` returns
+      // early once `hydrated` is true - so the first client-side route change
+      // away from whichever component hydrated the cart tore the subscription
+      // down and nothing re-registered it. The cart then lived in memory only
+      // and was lost on the next reload, mid-purchase.
+      this.$subscribe(
+        (_, state) => {
+          const snapshot = {
+            eventId: state.eventId,
+            eventSlug: state.eventSlug,
+            items: state.items.map((i) => ({ ...i })),
+            accessCode: state.accessCode,
+            forceCheckout: state.forceCheckout,
+          };
+          persistDebounced(snapshot);
+        },
+        { detached: true },
+      );
     },
 
     /**
@@ -119,10 +240,8 @@ export const useTicketCartStore = defineStore("ticketCart", {
       const changed = this.eventId !== eventId || this.eventSlug !== eventSlug;
       if (changed && (this.eventId !== null || this.eventSlug !== null)) {
         this.items = [];
-        this.previewLines = [];
-        this.cachedSubtotal = 0;
+        this._resetPricing();
         this.accessCode = null;
-        this.accessInfo = null;
         this.forceCheckout = false;
       }
       this.eventId = eventId ?? null;
@@ -194,19 +313,28 @@ export const useTicketCartStore = defineStore("ticketCart", {
       );
     },
 
+    /**
+     * Put a removed line back exactly where it was, for the Undo action on the
+     * remove toast. `addItem` appends, which would silently reorder the cart and
+     * make "undo" look like a different edit.
+     */
+    restoreItem(item, index) {
+      if (!item) return;
+      const next = [...this.items];
+      next.splice(Math.min(Math.max(0, index), next.length), 0, { ...item });
+      this.items = next;
+    },
+
     clear() {
       this.items = [];
-      this.previewLines = [];
-      this.cachedSubtotal = 0;
+      this._resetPricing();
       this.accessCode = null;
-      this.accessInfo = null;
       this.forceCheckout = false;
     },
 
     reset() {
       Object.assign(this, defaultState());
-      this.previewLines = [];
-      this.cachedSubtotal = 0;
+      this._resetPricing();
       if (import.meta.client) {
         try {
           localStorage.removeItem(STORAGE_KEY);
@@ -224,15 +352,24 @@ export const useTicketCartStore = defineStore("ticketCart", {
     async fetchPreview({ eventId, promoCode = null, email = null, phone = null } = {}) {
       const id = eventId ?? this.eventId;
       if (!id || this.items.length === 0) {
-        this.previewLines = [];
-        this.cachedSubtotal = 0;
+        this._resetPricing();
         return null;
       }
+
+      // Snapshot what we are about to send. This is the ONLY point where request
+      // and response order is known, so it is the only place a returned line can
+      // be tied back to the cart item that produced it. The server drops
+      // ineligible lines silently (inactive ticket, gated ticket with no access
+      // code), so positional matching after the fact is not merely fragile -
+      // it is wrong the moment a line goes missing.
+      const sentItems = this.items.map((i) => ({ ...i }));
+      const seq = ++this._previewSeq;
+
       this.previewLoading = true;
       try {
         const body = {
           event_id: id,
-          items: this.items.map((i) => ({
+          items: sentItems.map((i) => ({
             ticket_id: i.ticket_id,
             quantity: Number(i.qty) || 1,
             ...(i.ticket_session_id ? { ticket_session_id: i.ticket_session_id } : {}),
@@ -249,8 +386,19 @@ export const useTicketCartStore = defineStore("ticketCart", {
           // Query string, not body - PM One reads the bypass from the query.
           query: this.forceCheckout ? { force_checkout_ticket: 1 } : undefined,
         });
+
+        // A newer request has already been issued; this response is stale money.
+        if (seq !== this._previewSeq) return null;
+
         const data = res?.data ?? res;
-        this.previewLines = data?.lines ?? [];
+        this.previewLines = (data?.lines ?? []).map((line, idx) => ({
+          ...line,
+          _key: lineKey(
+            sentItems[idx]?.ticket_id,
+            sentItems[idx]?.ticket_session_id,
+            sentItems[idx]?.selected_event_day_id,
+          ),
+        }));
         this.cachedSubtotal = Number(data?.subtotal ?? 0);
         this.cachedDiscount = Number(data?.discount ?? 0);
         this.cachedTotal = Number(data?.total ?? data?.subtotal ?? 0);
@@ -258,6 +406,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
         this.accessInfo = data?.access ?? null;
         return data;
       } catch {
+        if (seq !== this._previewSeq) return null;
         this.previewLines = [];
         this.cachedSubtotal = 0;
         this.cachedDiscount = 0;
@@ -266,7 +415,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
         this.accessInfo = null;
         return null;
       } finally {
-        this.previewLoading = false;
+        if (seq === this._previewSeq) this.previewLoading = false;
       }
     },
   },
