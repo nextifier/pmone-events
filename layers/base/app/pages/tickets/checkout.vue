@@ -537,7 +537,18 @@ onBeforeUnmount(clearTicketCheckoutBar);
                fields and the event's registration fields. -->
           <div class="frame-panel space-y-6">
             <Field :data-invalid="!!errors?.buyer_name">
-              <FieldLabel for="buyer_name">{{ t("tickets.fullName") }}</FieldLabel>
+              <!-- `required` on the label, not just on the input. The main.css
+                   fallback would draw an asterisk off the input's `required`
+                   attribute, but as a `::after` it becomes a second flex item
+                   and picks up `.cn-label`'s 8px gap. The prop puts the `*`
+                   inline inside one flex item, 4px out and optically centred -
+                   the same marker the public form pages use - and adds the
+                   screen-reader "(required)" that a pseudo-element cannot.
+                   `text-base leading-snug` matches PublicFormFields.vue: this is
+                   a question a visitor reads, not a dashboard control caption. -->
+              <FieldLabel for="buyer_name" required class="text-base leading-snug">
+                {{ t("tickets.fullName") }}
+              </FieldLabel>
               <Input id="buyer_name" v-model="form.buyer_name" autocomplete="name" required :aria-invalid="!!errors?.buyer_name" />
               <FieldError :errors="errors.buyer_name" />
             </Field>
@@ -546,7 +557,9 @@ onBeforeUnmount(clearTicketCheckoutBar);
                  consequence field on the page; it does not belong in half a row
                  while the name gets a whole one. -->
             <Field :data-invalid="!!errors?.buyer_email">
-              <FieldLabel for="buyer_email">{{ t("tickets.email") }}</FieldLabel>
+              <FieldLabel for="buyer_email" required class="text-base leading-snug">
+                {{ t("tickets.email") }}
+              </FieldLabel>
               <Input
                 :aria-invalid="!!errors?.buyer_email"
                 id="buyer_email"
@@ -561,7 +574,9 @@ onBeforeUnmount(clearTicketCheckoutBar);
               </p>
             </Field>
             <Field :data-invalid="!!errors?.buyer_phone">
-              <FieldLabel for="buyer_phone">{{ t("tickets.phone") }}</FieldLabel>
+              <FieldLabel for="buyer_phone" required class="text-base leading-snug">
+                {{ t("tickets.phone") }}
+              </FieldLabel>
               <InputPhone
                 :aria-invalid="!!errors?.buyer_phone"
                 id="buyer_phone"
@@ -595,6 +610,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
                 :errors="regErrors"
                 error-prefix="registration.responses."
                 :locale="locale"
+                label-size="lg"
               />
             </template>
           </div>
@@ -621,10 +637,13 @@ onBeforeUnmount(clearTicketCheckoutBar);
               aria-labelledby="section-connect section-connect-desc"
               @update:model-value="(v) => (businessMatching = v === 'yes')"
             >
-              <label class="flex items-center gap-2 text-sm tracking-tight">
+              <!-- `text-base`, matching what CustomFieldRenderer's `labelClass`
+                   gives a radio option on this page. Two radio groups at two
+                   sizes in one form reads as a bug. -->
+              <label class="flex items-center gap-2 text-base tracking-tight">
                 <RadioGroupItem value="yes" /> {{ t("tickets.connectYes") }}
               </label>
-              <label class="flex items-center gap-2 text-sm tracking-tight">
+              <label class="flex items-center gap-2 text-base tracking-tight">
                 <RadioGroupItem value="no" /> {{ t("tickets.connectNo") }}
               </label>
             </RadioGroup>
@@ -644,6 +663,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
                 :key="field.id"
                 :field="field"
                 :locale="locale"
+                label-size="lg"
                 :model-value="bmResponses[field.id]"
                 :error="bmErrors[field.id]"
                 @update:model-value="(v) => (bmResponses[field.id] = v)"
@@ -686,7 +706,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
             lives in the dialog, not in this line.
           -->
           <section class="space-y-1.5">
-            <div class="flex items-start gap-2 text-sm tracking-tight">
+            <div class="flex items-start gap-2 text-base tracking-tight">
               <Checkbox
                 id="accept-terms"
                 :model-value="acceptTerms"
@@ -696,7 +716,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
               <p class="leading-snug">
                 <Label
                   for="accept-terms"
-                  class="inline font-normal leading-snug"
+                  class="inline text-base font-normal leading-snug"
                   ><!-- The nbsp is a real character, not margin: `ml-1` spaces
                        the words visually but leaves textContent reading
                        "theterms" to a screen reader. -->{{
