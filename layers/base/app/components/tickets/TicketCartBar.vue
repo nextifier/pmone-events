@@ -1,6 +1,7 @@
 <script setup>
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { BlurImage } from "../ui/blur-image";
+import { onClickOutside } from "@vueuse/core";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { toast } from "vue-sonner";
 
@@ -81,6 +82,16 @@ const headlineLabel = computed(() =>
 const amountLabel = (n) => (n > 0 ? fmtIdr(n) : t("tickets.free"));
 
 const expanded = ref(false);
+
+/**
+ * Tapping the page collapses the detail. Bound to the pill, not to the fixed
+ * strip: the strip spans the full width and would count most of the page as
+ * inside. Only armed while open, so a closed bar never listens.
+ */
+const pillRef = ref(null);
+onClickOutside(pillRef, () => {
+  if (expanded.value) expanded.value = false;
+});
 function toggleDetail() {
   expanded.value = !expanded.value;
 }
@@ -161,6 +172,7 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
            bar anywhere but the CTA expands the line detail (transitions-dev:
            accordion expand, growing upward from this bottom-anchored bar). -->
       <div
+        ref="pillRef"
         class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden p-2 shadow-lg ring-1 ring-white/20 transition-[border-radius,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
         :class="expanded ? 'rounded-3xl sm:p-4' : 'rounded-4xl'"
         :data-open="expanded"
@@ -177,7 +189,7 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
                 >
                   <div
                     v-if="posterSrc(line.ticket)"
-                    class="bg-background/10 size-9 shrink-0 overflow-hidden rounded-lg"
+                    class="bg-background/10 size-11 shrink-0 overflow-hidden rounded-lg"
                   >
                     <BlurImage
                       :src="posterSrc(line.ticket)"

@@ -14,7 +14,15 @@ import {
 } from "../../components/ui/custom-field";
 import TicketCartSummary from "../../components/tickets/TicketCartSummary.vue";
 import { useTicketCartStore } from "../../stores/ticketCart";
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, watchEffect } from "vue";
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+  watchEffect,
+} from "vue";
 import { toast } from "vue-sonner";
 
 definePageMeta({
@@ -74,7 +82,7 @@ watch(
     emptyCartTimer = setTimeout(() => {
       if (cart.isEmpty && !submitting.value) navigateTo(localePath("/tickets"));
     }, EMPTY_CART_GRACE_MS);
-  }
+  },
 );
 
 onBeforeUnmount(() => {
@@ -116,7 +124,8 @@ const paymentChannels = computed(
 // of "continue to payment" (the final total after discount is what counts).
 const isFree = computed(() => {
   if (cart.isEmpty) return false;
-  const net = (Number(cart.cachedSubtotal) || 0) - (Number(cart.cachedDiscount) || 0);
+  const net =
+    (Number(cart.cachedSubtotal) || 0) - (Number(cart.cachedDiscount) || 0);
   return Math.max(0, net) === 0;
 });
 
@@ -150,21 +159,24 @@ const registrationLoaded = ref(false);
 const regResponses = ref({});
 const regErrors = ref({});
 
-const hasRegistrationFields = computed(() => registrationFields.value.length > 0);
-
-// The buyer answers for their own ticket; extra attendees fill their own from
-// their ticket links after checkout.
-const showRegistrationOthersNote = computed(() => cart.count > 1);
+const hasRegistrationFields = computed(
+  () => registrationFields.value.length > 0,
+);
 
 // Fail-soft: an old API (404) or an event with no fields ([]) simply hides the
 // whole section, leaving the pre-existing checkout untouched.
 async function loadRegistrationFields() {
   if (!eventSlug.value) return;
   try {
-    const res = await $fetch(`/api/tickets/${eventSlug.value}/registration-fields`, {
-      query: { locale: locale.value },
-    });
-    registrationFields.value = (res?.data ?? res ?? []).filter((f) => f.is_active);
+    const res = await $fetch(
+      `/api/tickets/${eventSlug.value}/registration-fields`,
+      {
+        query: { locale: locale.value },
+      },
+    );
+    registrationFields.value = (res?.data ?? res ?? []).filter(
+      (f) => f.is_active,
+    );
   } catch {
     registrationFields.value = [];
   } finally {
@@ -176,15 +188,42 @@ onMounted(loadRegistrationFields);
 // Re-fetch so field labels re-localize when the visitor switches language.
 watch(locale, loadRegistrationFields);
 
-function validateRegistration() {
+/**
+ * Province and city withdraw themselves when the country is not Indonesia - the
+ * dataset covers Indonesia only. A field the buyer never saw cannot be required
+ * of them, so it is skipped here exactly as `CustomFieldValidation::errorsFor()`
+ * skips it server-side. The region module is imported on demand because it is
+ * ~39 KB and most events configure neither field.
+ */
+async function withdrawnFieldKeys() {
+  const dependent = registrationFields.value.filter((f) =>
+    ["province", "city"].includes(f.type),
+  );
+  if (!dependent.length) return new Set();
+
+  const { isIndonesia } =
+    await import("../../components/ui/custom-field/indonesiaRegions");
+  const country = registrationFields.value.find(
+    (f) => f.system_key === "country",
+  );
+  if (isIndonesia(country ? regResponses.value[country.ulid] : null))
+    return new Set();
+
+  return new Set(dependent.map((f) => f.ulid));
+}
+
+async function validateRegistration() {
   regErrors.value = {};
   if (!hasRegistrationFields.value) return true;
+  const withdrawn = await withdrawnFieldKeys();
   let ok = true;
   for (const field of registrationFields.value) {
     const required = field.validation?.required ?? field.required;
-    if (!required) continue;
+    if (!required || withdrawn.has(field.ulid)) continue;
     if (isEmptyValue(regResponses.value[field.ulid])) {
-      regErrors.value[`registration.responses.${field.ulid}`] = t("tickets.fieldRequired");
+      regErrors.value[`registration.responses.${field.ulid}`] = t(
+        "tickets.fieldRequired",
+      );
       ok = false;
     }
   }
@@ -220,7 +259,8 @@ function restoreBuyer() {
     if (data.buyer_email) form.value.buyer_email = data.buyer_email;
     if (data.buyer_name) form.value.buyer_name = data.buyer_name;
     if (data.buyer_phone) form.value.buyer_phone = data.buyer_phone;
-    if (typeof data.business_matching === "boolean") businessMatching.value = data.business_matching;
+    if (typeof data.business_matching === "boolean")
+      businessMatching.value = data.business_matching;
   } catch {
     localStorage.removeItem(BUYER_STORAGE_KEY);
   }
@@ -248,13 +288,13 @@ watch(
               buyer_phone: form.value.buyer_phone,
               business_matching: businessMatching.value,
             },
-          })
+          }),
         );
       } catch {
         // private mode / storage full - non-fatal
       }
     }, 300);
-  }
+  },
 );
 
 const hasCustomFields = computed(() => customFields.value.length > 0);
@@ -297,7 +337,9 @@ const ALLOWED_PAYMENT_HOSTS = [
 function isAllowedPaymentUrl(url) {
   try {
     const u = new URL(url);
-    return ALLOWED_PAYMENT_HOSTS.some((h) => u.host === h || u.host.endsWith(`.${h}`));
+    return ALLOWED_PAYMENT_HOSTS.some(
+      (h) => u.host === h || u.host.endsWith(`.${h}`),
+    );
   } catch {
     return false;
   }
@@ -354,7 +396,7 @@ function buildBusinessMatchingPayload() {
       (r) =>
         r.value !== null &&
         r.value !== "" &&
-        !(Array.isArray(r.value) && r.value.length === 0)
+        !(Array.isArray(r.value) && r.value.length === 0),
     );
   return { opt_in: true, responses };
 }
@@ -379,7 +421,7 @@ async function submit() {
     await revealFirstError();
     return;
   }
-  if (!validateRegistration()) {
+  if (!(await validateRegistration())) {
     toast.error(t("tickets.fieldRequired"));
     await revealFirstError();
     return;
@@ -397,8 +439,12 @@ async function submit() {
     items: cart.items.map((i) => ({
       ticket_id: i.ticket_id,
       quantity: Number(i.qty) || 1,
-      ...(i.ticket_session_id ? { ticket_session_id: i.ticket_session_id } : {}),
-      ...(i.selected_event_day_id ? { selected_event_day_id: i.selected_event_day_id } : {}),
+      ...(i.ticket_session_id
+        ? { ticket_session_id: i.ticket_session_id }
+        : {}),
+      ...(i.selected_event_day_id
+        ? { selected_event_day_id: i.selected_event_day_id }
+        : {}),
     })),
     buyer_name: form.value.buyer_name?.trim(),
     buyer_email: form.value.buyer_email?.trim(),
@@ -415,7 +461,11 @@ async function submit() {
     payload.registration = buildRegistrationPayload();
   }
 
-  const promo = (summaryRef.value?.appliedPromo || form.value.promo_code || "").trim();
+  const promo = (
+    summaryRef.value?.appliedPromo ||
+    form.value.promo_code ||
+    ""
+  ).trim();
   if (promo) payload.promo_code = promo;
 
   // Carry the access code applied on the tickets page (unlocks gated tickets +
@@ -452,8 +502,8 @@ async function submit() {
     // show them inline against the right field.
     regErrors.value = Object.fromEntries(
       Object.entries(errors.value).filter(([key]) =>
-        key.startsWith("registration.responses.")
-      )
+        key.startsWith("registration.responses."),
+      ),
     );
     await revealFirstError();
     const message =
@@ -489,7 +539,10 @@ watchEffect(() => {
 
 // The bar cannot call submit() directly - it lives outside this page and a
 // callback in `useState` breaks SSR serialization. It bumps a counter instead.
-watch(() => checkoutBar.value.primaryRequests, () => submit());
+watch(
+  () => checkoutBar.value.primaryRequests,
+  () => submit(),
+);
 
 onBeforeUnmount(clearTicketCheckoutBar);
 </script>
@@ -497,17 +550,26 @@ onBeforeUnmount(clearTicketCheckoutBar);
 <template>
   <div
     ref="pageRef"
-    class="mx-auto max-w-6xl px-4 pt-4 pb-[calc(--spacing(24)+env(safe-area-inset-bottom,0px))] sm:pt-6 lg:pb-16"
+    class="mx-auto max-w-6xl px-4 pt-4 pb-[calc(--spacing(28)+env(safe-area-inset-bottom,0px))] sm:pt-6"
   >
     <!-- Header + back link -->
     <div class="mb-6 flex flex-col gap-3">
-      <NuxtLink
-        :to="localePath('/tickets')"
-        class="text-muted-foreground hover:text-primary inline-flex w-fit items-center gap-1.5 text-sm tracking-tight transition"
-      >
-        <Icon name="hugeicons:arrow-left-01" class="size-4 shrink-0" />
-        {{ t("tickets.backToTickets") }}
-      </NuxtLink>
+      <!-- The dashboard's back control, so the arrow, the label and the `B`
+           shortcut behave the same wherever a page has a parent. `localePath`
+           because ButtonBack pushes the string it is given, and a bare
+           "/tickets" would drop the locale prefix. `force-destination` because
+           `router.back()` from a checkout can land anywhere the buyer came
+           from, including another site. -->
+      <!-- Wrapped, not classed: ButtonBack's root is a `<slot>`, so it renders a
+           fragment and Vue drops any fallthrough class. Without the wrapper the
+           button stretches the full column and centres its own label. -->
+      <div class="w-fit">
+        <ButtonBack
+          :destination="localePath('/tickets')"
+          :label="t('ui.back')"
+          force-destination
+        />
+      </div>
       <div class="space-y-1">
         <h1 class="page-title">{{ t("tickets.checkout") }}</h1>
         <p class="page-description">{{ t("tickets.checkoutSubtitle") }}</p>
@@ -525,19 +587,23 @@ onBeforeUnmount(clearTicketCheckoutBar);
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
         <!-- 1. Buyer details, registration, exhibitor consent -->
         <div class="space-y-6 lg:col-span-7 lg:col-start-1 lg:row-start-1">
-        <!-- Buyer details -->
-        <section class="frame" aria-labelledby="section-your-details">
-          <div class="frame-header">
-            <h2 id="section-your-details" class="frame-title">
-              {{ t("tickets.yourDetails") }}
-            </h2>
-          </div>
-          <!-- space-y-6, not 5: CustomFieldGroup's own root is space-y-6, so a
-               5 here would step the rhythm at the seam between the buyer's
-               fields and the event's registration fields. -->
-          <div class="frame-panel space-y-6">
-            <Field :data-invalid="!!errors?.buyer_name">
-              <!-- `required` on the label, not just on the input. The main.css
+          <!-- Buyer details -->
+          <section class="frame" aria-labelledby="section-your-details">
+            <div class="frame-header">
+              <h2 id="section-your-details" class="frame-title">
+                {{ t("tickets.yourDetails") }}
+              </h2>
+            </div>
+            <!-- The inner wrapper is load-bearing. `.frame-panel` is a flex column
+               with `gap-1`, declared unlayered in main.css, so a call-site
+               `gap-6` loses to it and a call-site `space-y-6` stacks 24px of
+               margin on top of its 4px gap - which is where the 28px vs
+               CustomFieldGroup's 24px came from. Giving the panel a single child
+               takes its gap out of play, and one `space-y-6` owns the rhythm. -->
+            <div class="frame-panel">
+              <div class="space-y-6">
+                <Field :data-invalid="!!errors?.buyer_name">
+                  <!-- `required` on the label, not just on the input. The main.css
                    fallback would draw an asterisk off the input's `required`
                    attribute, but as a `::after` it becomes a second flex item
                    and picks up `.cn-label`'s 8px gap. The prop puts the `*`
@@ -546,48 +612,66 @@ onBeforeUnmount(clearTicketCheckoutBar);
                    screen-reader "(required)" that a pseudo-element cannot.
                    `text-base leading-snug` matches PublicFormFields.vue: this is
                    a question a visitor reads, not a dashboard control caption. -->
-              <FieldLabel for="buyer_name" required class="text-base leading-snug">
-                {{ t("tickets.fullName") }}
-              </FieldLabel>
-              <Input id="buyer_name" v-model="form.buyer_name" autocomplete="name" required :aria-invalid="!!errors?.buyer_name" />
-              <FieldError :errors="errors.buyer_name" />
-            </Field>
+                  <FieldLabel
+                    for="buyer_name"
+                    required
+                    class="text-base leading-snug"
+                  >
+                    {{ t("tickets.fullName") }}
+                  </FieldLabel>
+                  <Input
+                    id="buyer_name"
+                    v-model="form.buyer_name"
+                    autocomplete="name"
+                    required
+                    :aria-invalid="!!errors?.buyer_name"
+                  />
+                  <FieldError :errors="errors.buyer_name" />
+                </Field>
 
-            <!-- One column. Email is the ticket-delivery address and the highest
+                <!-- One column. Email is the ticket-delivery address and the highest
                  consequence field on the page; it does not belong in half a row
                  while the name gets a whole one. -->
-            <Field :data-invalid="!!errors?.buyer_email">
-              <FieldLabel for="buyer_email" required class="text-base leading-snug">
-                {{ t("tickets.email") }}
-              </FieldLabel>
-              <Input
-                :aria-invalid="!!errors?.buyer_email"
-                id="buyer_email"
-                v-model="form.buyer_email"
-                type="email"
-                autocomplete="email"
-                required
-              />
-              <FieldError :errors="errors.buyer_email" />
-              <p class="text-muted-foreground text-sm tracking-tight">
-                {{ t("tickets.detailsNote") }}
-              </p>
-            </Field>
-            <Field :data-invalid="!!errors?.buyer_phone">
-              <FieldLabel for="buyer_phone" required class="text-base leading-snug">
-                {{ t("tickets.phone") }}
-              </FieldLabel>
-              <InputPhone
-                :aria-invalid="!!errors?.buyer_phone"
-                id="buyer_phone"
-                :model-value="form.buyer_phone"
-                required
-                @update:model-value="(v) => (form.buyer_phone = v)"
-              />
-              <FieldError :errors="errors.buyer_phone" />
-            </Field>
+                <Field :data-invalid="!!errors?.buyer_email">
+                  <FieldLabel
+                    for="buyer_email"
+                    required
+                    class="text-base leading-snug"
+                  >
+                    {{ t("tickets.email") }}
+                  </FieldLabel>
+                  <Input
+                    :aria-invalid="!!errors?.buyer_email"
+                    id="buyer_email"
+                    v-model="form.buyer_email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                  />
+                  <FieldError :errors="errors.buyer_email" />
+                  <p class="text-muted-foreground text-sm tracking-tight">
+                    {{ t("tickets.detailsNote") }}
+                  </p>
+                </Field>
+                <Field :data-invalid="!!errors?.buyer_phone">
+                  <FieldLabel
+                    for="buyer_phone"
+                    required
+                    class="text-base leading-snug"
+                  >
+                    {{ t("tickets.phone") }}
+                  </FieldLabel>
+                  <InputPhone
+                    :aria-invalid="!!errors?.buyer_phone"
+                    id="buyer_phone"
+                    :model-value="form.buyer_phone"
+                    required
+                    @update:model-value="(v) => (form.buyer_phone = v)"
+                  />
+                  <FieldError :errors="errors.buyer_phone" />
+                </Field>
 
-            <!--
+                <!--
               The event's own registration questions, in the same section rather
               than a frame of their own: it is one job - "tell us who you are" -
               and two frames made it read as two.
@@ -597,80 +681,96 @@ onBeforeUnmount(clearTicketCheckoutBar);
               button reachable; on a real event that only meant nobody opened it
               and the organizer got empty answers back.
             -->
-            <template v-if="hasRegistrationFields">
-              <p
-                v-if="showRegistrationOthersNote"
-                class="text-muted-foreground bg-muted/50 rounded-md px-3 py-2 text-sm tracking-tight"
-              >
-                {{ t("tickets.registration.othersNote") }}
-              </p>
-              <CustomFieldGroup
-                v-model="regResponses"
-                :fields="registrationFields"
-                :errors="regErrors"
-                error-prefix="registration.responses."
-                :locale="locale"
-                label-size="lg"
-              />
-            </template>
-          </div>
-        </section>
-
-        <!-- Connect with exhibitors (only when the event has custom fields) -->
-        <section v-if="hasCustomFields" class="frame" aria-labelledby="section-connect">
-          <div class="frame-header">
-            <h2 id="section-connect" class="frame-title">
-              {{ t("tickets.connectHeading") }}
-            </h2>
-            <p
-              id="section-connect-desc"
-              class="text-muted-foreground mt-1 text-sm tracking-tight"
-            >
-              {{ t("tickets.connectSubtitle") }}
-            </p>
-          </div>
-          <div class="frame-panel space-y-4">
-            <!-- Named, or a screen reader announces two unexplained radios. -->
-            <RadioGroup
-              :model-value="businessMatching ? 'yes' : 'no'"
-              class="flex flex-wrap gap-x-6 gap-y-2"
-              aria-labelledby="section-connect section-connect-desc"
-              @update:model-value="(v) => (businessMatching = v === 'yes')"
-            >
-              <!-- `text-base`, matching what CustomFieldRenderer's `labelClass`
-                   gives a radio option on this page. Two radio groups at two
-                   sizes in one form reads as a bug. -->
-              <label class="flex items-center gap-2 text-base tracking-tight">
-                <RadioGroupItem value="yes" /> {{ t("tickets.connectYes") }}
-              </label>
-              <label class="flex items-center gap-2 text-base tracking-tight">
-                <RadioGroupItem value="no" /> {{ t("tickets.connectNo") }}
-              </label>
-            </RadioGroup>
-
-            <div v-if="businessMatching" class="space-y-4 border-t pt-4">
-              <div
-                v-if="customFieldsLoading"
-                class="text-muted-foreground flex items-center gap-2 text-sm tracking-tight"
-              >
-                <Icon name="svg-spinners:180-ring" class="size-4" />
-                {{ t("tickets.loadingQuestions") }}
+                <template v-if="hasRegistrationFields">
+                  <CustomFieldGroup
+                    v-model="regResponses"
+                    :fields="registrationFields"
+                    :errors="regErrors"
+                    error-prefix="registration.responses."
+                    :locale="locale"
+                    label-size="lg"
+                  />
+                </template>
               </div>
-
-              <CustomFieldRenderer
-                v-for="field in customFields"
-                v-else
-                :key="field.id"
-                :field="field"
-                :locale="locale"
-                label-size="lg"
-                :model-value="bmResponses[field.id]"
-                :error="bmErrors[field.id]"
-                @update:model-value="(v) => (bmResponses[field.id] = v)"
-              />
             </div>
-          </div>
-        </section>
+          </section>
+
+          <!-- Connect with exhibitors (only when the event has custom fields) -->
+          <section
+            v-if="hasCustomFields"
+            class="frame"
+            aria-labelledby="section-connect"
+          >
+            <div class="frame-header">
+              <h2 id="section-connect" class="frame-title">
+                {{ t("tickets.connectHeading") }}
+              </h2>
+              <p
+                id="section-connect-desc"
+                class="text-muted-foreground mt-1 text-sm tracking-tight"
+              >
+                {{ t("tickets.connectSubtitle") }}
+              </p>
+            </div>
+            <!-- Same single-child wrapper as "Your details", and the same 24px:
+               both panels hold the event's own questions. -->
+            <div class="frame-panel">
+              <div class="space-y-6">
+                <!-- Named, or a screen reader announces two unexplained radios. -->
+                <RadioGroup
+                  :model-value="businessMatching ? 'yes' : 'no'"
+                  class="flex flex-wrap gap-x-6 gap-y-2"
+                  aria-labelledby="section-connect section-connect-desc"
+                  @update:model-value="(v) => (businessMatching = v === 'yes')"
+                >
+                  <!-- Same shape CustomFieldRenderer gives a radio option, so the
+                   event's own questions above and this one below cannot drift:
+                   `Field orientation="horizontal"` for the row, `FieldLabel`
+                   for the caption, `w-auto` so the pair stays on one line. -->
+                  <Field orientation="horizontal" class="w-auto">
+                    <RadioGroupItem id="connect-yes" value="yes" />
+                    <FieldLabel
+                      for="connect-yes"
+                      class="text-base leading-snug font-normal"
+                    >
+                      {{ t("tickets.connectYes") }}
+                    </FieldLabel>
+                  </Field>
+                  <Field orientation="horizontal" class="w-auto">
+                    <RadioGroupItem id="connect-no" value="no" />
+                    <FieldLabel
+                      for="connect-no"
+                      class="text-base leading-snug font-normal"
+                    >
+                      {{ t("tickets.connectNo") }}
+                    </FieldLabel>
+                  </Field>
+                </RadioGroup>
+
+                <div v-if="businessMatching" class="space-y-6 border-t pt-6">
+                  <div
+                    v-if="customFieldsLoading"
+                    class="text-muted-foreground flex items-center gap-2 text-sm tracking-tight"
+                  >
+                    <Icon name="svg-spinners:180-ring" class="size-4" />
+                    {{ t("tickets.loadingQuestions") }}
+                  </div>
+
+                  <CustomFieldRenderer
+                    v-for="field in customFields"
+                    v-else
+                    :key="field.id"
+                    :field="field"
+                    :locale="locale"
+                    label-size="lg"
+                    :model-value="bmResponses[field.id]"
+                    :error="bmErrors[field.id]"
+                    @update:model-value="(v) => (bmResponses[field.id] = v)"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
 
         <!-- 2. Order summary. Second on mobile so the buyer types first; on the
@@ -687,7 +787,11 @@ onBeforeUnmount(clearTicketCheckoutBar);
                 </h2>
               </div>
               <div class="frame-panel">
-                <TicketCartSummary ref="summaryRef" :tickets-by-id="ticketsById" editable />
+                <TicketCartSummary
+                  ref="summaryRef"
+                  :tickets-by-id="ticketsById"
+                  editable
+                />
               </div>
             </div>
           </div>
@@ -705,23 +809,43 @@ onBeforeUnmount(clearTicketCheckoutBar);
             tapping the text still toggles the box. What the buyer is agreeing to
             lives in the dialog, not in this line.
           -->
-          <section class="space-y-1.5">
-            <div class="flex items-start gap-2 text-base tracking-tight">
+          <!-- A real `Field`, so `data-invalid` turns the checkbox and its
+               sentence red alongside the FieldError. The FieldError used to sit
+               outside any Field, which meant the only control on this page that
+               can block submission was also the only one that never went red.
+               `items-start`, because the sentence wraps to two lines and the box
+               belongs beside the first one. -->
+          <Field
+            class="text-base tracking-tight"
+            :data-invalid="!!errors?.accept_terms"
+          >
+            <div class="flex w-full items-start gap-2">
               <Checkbox
                 id="accept-terms"
                 :model-value="acceptTerms"
+                :aria-invalid="!!errors?.accept_terms"
                 class="mt-0.5"
                 @update:model-value="(v) => (acceptTerms = !!v)"
               />
+              <!--
+                Three slots, because the verb does not sit in the same place in
+                every language. English, Indonesian and Chinese put it before the
+                object ("I agree to the ..."), so their suffix is empty. Japanese
+                and Korean put it after ("...に同意します"), so theirs carries the
+                verb and their prefix is empty.
+
+                The space before the link lives in the locale string as a real
+                ` `, not as markup: English and Indonesian need one, Chinese
+                must not have one, and only the translator knows which. It is a
+                character rather than `ml-1` because margin leaves textContent
+                reading "theticket terms" to a screen reader.
+              -->
               <p class="leading-snug">
                 <Label
+                  v-if="t('tickets.termsConsentPrefix')"
                   for="accept-terms"
-                  class="inline text-base font-normal leading-snug"
-                  ><!-- The nbsp is a real character, not margin: `ml-1` spaces
-                       the words visually but leaves textContent reading
-                       "theterms" to a screen reader. -->{{
-                    t("tickets.termsConsentPrefix")
-                  }}&nbsp;</Label
+                  class="inline text-base leading-snug font-normal"
+                  >{{ t("tickets.termsConsentPrefix") }}</Label
                 >
                 <button
                   type="button"
@@ -730,10 +854,16 @@ onBeforeUnmount(clearTicketCheckoutBar);
                 >
                   {{ t("tickets.termsConsentLink") }}
                 </button>
+                <Label
+                  v-if="t('tickets.termsConsentSuffix')"
+                  for="accept-terms"
+                  class="inline text-base leading-snug font-normal"
+                  >{{ t("tickets.termsConsentSuffix") }}</Label
+                >
               </p>
             </div>
             <FieldError :errors="errors.accept_terms" />
-          </section>
+          </Field>
 
           <!-- The methods the buyer will meet on the gateway. Staff-configured,
                already in the listing payload, and previously fetched and thrown
@@ -745,16 +875,16 @@ onBeforeUnmount(clearTicketCheckoutBar);
             <!-- Gateway logos are supplied as fixed-colour raster art with no
                  dark variant, so they need a light chip to sit on or they vanish
                  into a dark page. -->
-            <ul class="flex flex-wrap items-center gap-2">
+            <ul class="flex flex-wrap items-center gap-x-1 gap-y-1.5">
               <li
                 v-for="ch in paymentChannels"
                 :key="ch.code"
-                class="ring-border flex h-7 items-center rounded-md bg-white px-2 ring-1"
+                class="flex items-center rounded-sm bg-white"
               >
                 <img
                   :src="ch.logo"
                   :alt="ch.label"
-                  class="h-4 w-auto"
+                  class="h-7 w-auto"
                   loading="lazy"
                   decoding="async"
                 />
@@ -762,34 +892,33 @@ onBeforeUnmount(clearTicketCheckoutBar);
             </ul>
           </div>
 
-          <div class="space-y-1.5">
-            <!-- aria-disabled, not disabled: a disabled button is not focusable,
-                 so a keyboard user tabs straight past it and never learns why it
-                 will not accept them. The guard lives in submit(). -->
-            <Button
-              type="submit"
-              class="w-full aria-disabled:cursor-not-allowed aria-disabled:opacity-60"
-              size="lg"
-              :aria-disabled="!canSubmit || undefined"
-              :loading="submitting"
-            >
-              {{ isFree ? t("tickets.claimFreeTickets") : t("tickets.continueToPayment") }}
-            </Button>
-            <!-- A validation message, so never text-xs (STYLE_GUIDE). -->
-            <p
-              v-if="!canSubmit && !submitting"
-              class="text-muted-foreground text-sm tracking-tight"
-            >
-              {{ t("tickets.submitDisabledReason") }}
-            </p>
-          </div>
+          <!-- aria-disabled, not disabled: a disabled button is not focusable,
+               so a keyboard user tabs straight past it and never learns why it
+               will not accept them. The guard lives in submit(), which raises the
+               reason as a toast and scrolls to the offending field. -->
+          <Button
+            type="submit"
+            class="w-full aria-disabled:cursor-not-allowed aria-disabled:opacity-60"
+            size="lg"
+            :aria-disabled="!canSubmit || undefined"
+            :loading="submitting"
+          >
+            {{
+              isFree
+                ? t("tickets.claimFreeTickets")
+                : t("tickets.continueToPayment")
+            }}
+          </Button>
         </div>
       </div>
     </form>
 
-
     <!-- Terms & Conditions dialog (staff-managed HTML from meta.terms) -->
-    <ResponsiveDialog v-model:open="termsOpen" :overflow-content="true" dialog-max-width="40rem">
+    <ResponsiveDialog
+      v-model:open="termsOpen"
+      :overflow-content="true"
+      dialog-max-width="40rem"
+    >
       <template #default>
         <div class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
           <h3 class="text-foreground text-lg font-semibold tracking-tighter">
@@ -804,7 +933,9 @@ onBeforeUnmount(clearTicketCheckoutBar);
             {{ t("tickets.defaultTerms") }}
           </p>
           <div class="flex justify-end pt-1">
-            <Button size="sm" @click="termsOpen = false">{{ t("tickets.termsClose") }}</Button>
+            <Button size="sm" @click="termsOpen = false">{{
+              t("tickets.termsClose")
+            }}</Button>
           </div>
         </div>
       </template>
