@@ -159,7 +159,6 @@ export default {
     "paidWith": "Pay securely with",
     "promoDisclose": "Add promo code",
     "promoLabel": "Promo code",
-    "moreDetails": "Add more details (optional)",
     "itemRemoved": "{title} removed",
     "undo": "Undo",
     "maxPerOrder": "Maximum {count} per order",

@@ -168,7 +168,6 @@ export default {
     paidWith: "Bayar dengan aman lewat",
     promoDisclose: "Tambah kode promo",
     promoLabel: "Kode promo",
-    moreDetails: "Tambah detail lain (opsional)",
     itemRemoved: "{title} dihapus",
     undo: "Batalkan",
     maxPerOrder: "Maksimal {count} per pesanan",

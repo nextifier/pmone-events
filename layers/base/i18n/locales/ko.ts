@@ -166,7 +166,6 @@ export default {
     paidWith: "안전한 결제 수단",
     promoDisclose: "프로모션 코드 추가",
     promoLabel: "프로모션 코드",
-    moreDetails: "추가 정보 입력 (선택)",
     itemRemoved: "{title}을(를) 삭제했습니다",
     undo: "실행 취소",
     maxPerOrder: "주문당 최대 {count}장",

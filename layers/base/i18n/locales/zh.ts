@@ -164,7 +164,6 @@ export default {
     paidWith: "安全支付方式",
     promoDisclose: "添加优惠码",
     promoLabel: "优惠码",
-    moreDetails: "填写更多信息（选填）",
     itemRemoved: "已移除 {title}",
     undo: "撤销",
     maxPerOrder: "每单最多 {count} 张",

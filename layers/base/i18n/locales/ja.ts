@@ -169,7 +169,6 @@ export default {
     paidWith: "安全なお支払い方法",
     promoDisclose: "プロモコードを追加",
     promoLabel: "プロモコード",
-    moreDetails: "詳細を追加（任意）",
     itemRemoved: "{title} を削除しました",
     undo: "元に戻す",
     maxPerOrder: "1回のご注文につき最大 {count} 枚",

@@ -6,11 +6,6 @@ import { Label } from "../../components/ui/label";
 import { Field, FieldError, FieldLabel } from "../../components/ui/field";
 import { InputPhone } from "../../components/ui/input-phone";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "../../components/ui/collapsible";
 import ResponsiveDialog from "../../components/ui/responsive-dialog/ResponsiveDialog.vue";
 import {
   CustomFieldRenderer,
@@ -157,21 +152,6 @@ const regErrors = ref({});
 
 const hasRegistrationFields = computed(() => registrationFields.value.length > 0);
 
-// `required` is per-field API data, so an event can flip any of these at any
-// time. Required questions render flat beside the buyer's own fields; optional
-// ones go behind a disclosure so a heavily-configured event cannot bury the pay
-// button. One predicate, two groups, no second code path.
-const isFieldRequired = (f) => Boolean(f.validation?.required ?? f.required);
-const requiredRegistrationFields = computed(() =>
-  registrationFields.value.filter(isFieldRequired),
-);
-const optionalRegistrationFields = computed(() =>
-  registrationFields.value.filter((f) => !isFieldRequired(f)),
-);
-// Only drives the optional disclosure. A required field is never inside it, but
-// a server-side 422 on an optional one still has to be reachable - see
-// revealFirstError().
-const registrationOpen = ref(false);
 // The buyer answers for their own ticket; extra attendees fill their own from
 // their ticket links after checkout.
 const showRegistrationOthersNote = computed(() => cart.count > 1);
@@ -388,8 +368,6 @@ const pageRef = ref(null);
  * rather than `disabled` precisely so this path can run and explain itself.
  */
 async function revealFirstError() {
-  // A required field can be sitting inside a collapsed disclosure.
-  if (Object.keys(regErrors.value).length) registrationOpen.value = true;
   await nextTick();
   const target = pageRef.value?.querySelector('[data-slot="field-error"]');
   target?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -599,50 +577,26 @@ onBeforeUnmount(clearTicketCheckoutBar);
               than a frame of their own: it is one job - "tell us who you are" -
               and two frames made it read as two.
 
-              Required ones sit flat with the buyer's fields so they are
-              unmissable. Optional ones go behind a disclosure, because an event
-              is free to configure fifteen of them and they must not push the pay
-              button off the bottom of a phone. `required` is per-field API data,
-              so both shapes come from one code path.
+              All of them flat, in the order the organizer configured. An earlier
+              build hid the optional ones behind a disclosure to keep the pay
+              button reachable; on a real event that only meant nobody opened it
+              and the organizer got empty answers back.
             -->
-            <CustomFieldGroup
-              v-if="requiredRegistrationFields.length"
-              v-model="regResponses"
-              :fields="requiredRegistrationFields"
-              :errors="regErrors"
-              error-prefix="registration.responses."
-              :locale="locale"
-            />
-
-            <Collapsible
-              v-if="optionalRegistrationFields.length"
-              v-model:open="registrationOpen"
-            >
-              <CollapsibleTrigger
-                class="text-foreground hover:text-foreground/80 focus-visible:ring-ring inline-flex items-center gap-1.5 rounded-sm text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none"
+            <template v-if="hasRegistrationFields">
+              <p
+                v-if="showRegistrationOthersNote"
+                class="text-muted-foreground bg-muted/50 rounded-md px-3 py-2 text-sm tracking-tight"
               >
-                <Icon
-                  :name="registrationOpen ? 'hugeicons:minus-sign' : 'hugeicons:plus-sign'"
-                  class="size-4 shrink-0"
-                />
-                {{ t("tickets.moreDetails") }}
-              </CollapsibleTrigger>
-              <CollapsibleContent class="mt-4 space-y-4">
-                <p
-                  v-if="showRegistrationOthersNote"
-                  class="text-muted-foreground bg-muted/50 rounded-md px-3 py-2 text-sm tracking-tight"
-                >
-                  {{ t("tickets.registration.othersNote") }}
-                </p>
-                <CustomFieldGroup
-                  v-model="regResponses"
-                  :fields="optionalRegistrationFields"
-                  :errors="regErrors"
-                  error-prefix="registration.responses."
-                  :locale="locale"
-                />
-              </CollapsibleContent>
-            </Collapsible>
+                {{ t("tickets.registration.othersNote") }}
+              </p>
+              <CustomFieldGroup
+                v-model="regResponses"
+                :fields="registrationFields"
+                :errors="regErrors"
+                error-prefix="registration.responses."
+                :locale="locale"
+              />
+            </template>
           </div>
         </section>
 
