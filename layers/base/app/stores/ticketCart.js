@@ -386,7 +386,8 @@ export const useTicketCartStore = defineStore("ticketCart", {
      * to the preview and to the order endpoint on every single load.
      *
      * @param {Object|Map} ticketsById
-     * @returns {{ removed: string[] }}
+     * @returns {{ removed: Array<string|null> }} titles, `null` for a ticket the
+     *   listing no longer carries at all
      */
     reconcile(ticketsById) {
       const lookup =
@@ -406,7 +407,9 @@ export const useTicketCartStore = defineStore("ticketCart", {
       for (const item of this.items) {
         const ticket = lookup[item.ticket_id];
         if (!ticket) {
-          removed.push(String(item.ticket_id));
+          // `null`, never the id: the caller turns it into a generic word. A
+          // database primary key is not a thing to show a buyer.
+          removed.push(null);
           continue;
         }
 

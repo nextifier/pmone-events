@@ -53,7 +53,10 @@ onMounted(() => {
   cart.setEventContext({ eventId: event.id, eventSlug: event.slug });
   const { removed } = cart.reconcile(ticketsById.value);
   if (removed.length) {
-    toast.error(t("tickets.cartUpdated", { titles: removed.join(", ") }));
+    const titles = removed
+      .map((r) => r || t("tickets.ticket"))
+      .join(", ");
+    toast.error(t("tickets.cartUpdated", { titles }));
   }
   cart.fetchPreview({ eventId: event.id });
   // The SSR fetch used the active event's slug; the cart may carry a different
@@ -130,7 +133,10 @@ watch(ticketsById, (map) => {
   }
   const { removed } = cart.reconcile(map);
   if (removed.length) {
-    toast.error(t("tickets.cartUpdated", { titles: removed.join(", ") }));
+    const titles = removed
+      .map((r) => r || t("tickets.ticket"))
+      .join(", ");
+    toast.error(t("tickets.cartUpdated", { titles }));
   }
 });
 
@@ -644,8 +650,8 @@ watchEffect(() => {
     ctaLabel: preparing.value
       ? t("tickets.result.preparingPayment")
       : isFree.value
-        ? t("tickets.claimFreeTickets")
-        : t("tickets.continueToPayment"),
+        ? t("tickets.claim")
+        : t("tickets.pay"),
     ctaIcon: "hugeicons:credit-card",
     ctaDisabled: !canSubmit.value,
     submitting: submitting.value,
@@ -1030,8 +1036,8 @@ onBeforeUnmount(clearTicketCheckoutBar);
             <template v-else>
               {{
                 isFree
-                  ? t("tickets.claimFreeTickets")
-                  : t("tickets.continueToPayment")
+                  ? t("tickets.claim")
+                  : t("tickets.pay")
               }}
             </template>
           </Button>

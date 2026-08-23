@@ -111,7 +111,13 @@ const collapse = () => {
   if (expanded.value) expanded.value = false;
 };
 
-onClickOutside(pillRef, collapse);
+// `[role=dialog]` is the clear-cart confirmation, which is teleported to <body>
+// and therefore reads as "outside". Collapsing the panel behind a dialog the
+// panel itself opened, so that cancelling drops the buyer somewhere else, is not
+// what "clicked away" means.
+onClickOutside(pillRef, collapse, {
+  ignore: ['[role="dialog"]', "[data-sonner-toast]"],
+});
 
 useEventListener(window, "keydown", (event) => {
   if (event.key !== "Escape" || !expanded.value) return;
@@ -146,8 +152,17 @@ function toggleDetail() {
 const typing = ref(false);
 let typingTimer = null;
 
+/**
+ * A field the on-screen keyboard would cover. A quantity stepper is not one:
+ * reka marks it `role="spinbutton"` and focuses it on every +/- press, so
+ * counting it as typing tore the bar down and rebuilt it on each tap - the panel
+ * blinked shut and back open under the buyer's thumb. The role, rather than
+ * "is it inside the bar", because the checkout aside has the same stepper and
+ * the same tap must not move the bar there either.
+ */
 const isTextEntry = (el) =>
   !!el &&
+  el.getAttribute("role") !== "spinbutton" &&
   (el.tagName === "INPUT" ||
     el.tagName === "TEXTAREA" ||
     el.isContentEditable === true);

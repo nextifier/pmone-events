@@ -170,7 +170,10 @@ function reconcileCart() {
     Object.fromEntries(mergedTickets.value.map((tk) => [tk.id, tk])),
   );
   if (removed.length) {
-    toast.error(t("tickets.cartUpdated", { titles: removed.join(", ") }));
+    const titles = removed
+      .map((r) => r || t("tickets.ticket"))
+      .join(", ");
+    toast.error(t("tickets.cartUpdated", { titles }));
   }
 }
 
