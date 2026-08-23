@@ -51,6 +51,10 @@ onMounted(() => {
     return;
   }
   cart.setEventContext({ eventId: event.id, eventSlug: event.slug });
+  const { removed } = cart.reconcile(ticketsById.value);
+  if (removed.length) {
+    toast.error(t("tickets.cartUpdated", { titles: removed.join(", ") }));
+  }
   cart.fetchPreview({ eventId: event.id });
   // The SSR fetch used the active event's slug; the cart may carry a different
   // one (restored from a previous session), which only becomes readable after
@@ -113,6 +117,22 @@ const ticketsById = computed(() => {
 });
 
 const terms = computed(() => ticketsData.value?.meta?.terms || "");
+
+/**
+ * Same reconciliation the ticket list runs, because checkout is reachable
+ * directly by URL with a day-old cart. A line whose ticket is gone, or whose day
+ * is no longer valid, is dropped here rather than priced, shown, filled in with
+ * attendee details and then refused by the order endpoint.
+ */
+watch(ticketsById, (map) => {
+  if (!import.meta.client || !cartReady.value || !Object.keys(map).length) {
+    return;
+  }
+  const { removed } = cart.reconcile(map);
+  if (removed.length) {
+    toast.error(t("tickets.cartUpdated", { titles: removed.join(", ") }));
+  }
+});
 
 // Staff-configured payment methods, already in the listing payload. Showing the
 // logos the buyer will actually meet on the gateway is a trust cue that costs
@@ -505,6 +525,17 @@ async function submit() {
   if (!validateBusinessMatching()) {
     toast.error(t("tickets.fieldRequired"));
     await revealFirstError();
+    return;
+  }
+  // A line that needs a day and has none is refused by the order endpoint, and
+  // the day control does not exist on this page - so send the buyer back to the
+  // card that can actually fix it instead of letting them pay into a 422.
+  const daylessLine = cart.items.find((i) =>
+    lineMissingDay(ticketsById.value[i.ticket_id], i),
+  );
+  if (daylessLine) {
+    toast.error(t("tickets.selectDayFirst"));
+    await navigateTo(localePath("/tickets"));
     return;
   }
   submitting.value = true;

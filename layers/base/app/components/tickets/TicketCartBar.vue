@@ -1,6 +1,7 @@
 <script setup>
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { BlurImage } from "../ui/blur-image";
+import TicketLineQuantity from "./TicketLineQuantity.vue";
 import { Button } from "../ui/button";
 import ResponsiveDialog from "../ui/responsive-dialog/ResponsiveDialog.vue";
 import { onClickOutside, useEventListener } from "@vueuse/core";
@@ -16,9 +17,10 @@ const props = defineProps({
   ticketsById: { type: [Object, Map], default: () => ({}) },
   /**
    * `select` on /tickets: the CTA navigates to checkout and the bar shows a
-   * subtotal. `pay` on /tickets/checkout: the CTA submits the order, the bar
-   * shows the real total, and the cart-emptying controls are dropped - clearing
-   * the cart there navigates the buyer out of checkout entirely.
+   * subtotal. `pay` on /tickets/checkout: the CTA submits the order and the bar
+   * shows the real total after the preview's discount. Nothing else differs -
+   * the rows, the stepper and the clear-cart controls are the same on both
+   * pages, because it is the same cart.
    */
   mode: { type: String, default: "select" },
   ctaLabel: { type: String, default: "" },
@@ -49,7 +51,9 @@ const lines = computed(() =>
     // from the ticket record; checkout's comes back priced from the server.
     const unit =
       l.unit ||
-      Number(ticket ? (ticket.on_sale ? ticket.price : ticket.display_price) : 0) ||
+      Number(
+        ticket ? (ticket.on_sale ? ticket.price : ticket.display_price) : 0,
+      ) ||
       0;
     const lineTotal = l.subtotal || unit * l.qty;
     return {
@@ -58,7 +62,10 @@ const lines = computed(() =>
       unit,
       lineTotal,
       title: l.title || ticket?.title || t("tickets.ticket"),
-      subLabel: cartLineSubLabel(ticket, l.item),
+      subLabel:
+        cartLineSubLabel(ticket, l.item) ||
+        (lineMissingDay(ticket, l.item) ? t("tickets.dayMissing") : ""),
+      missingDay: lineMissingDay(ticket, l.item),
       priceLabel: lineTotal > 0 ? fmtIdr(lineTotal) : t("tickets.free"),
     };
   }),
@@ -77,7 +84,9 @@ const discount = computed(() => (isPay.value ? cart.displayDiscount : 0));
 const total = computed(() => Math.max(0, subtotal.value - discount.value));
 
 /** The figure in the always-visible action row: the real total when paying, the subtotal when selecting. */
-const headlineAmount = computed(() => (isPay.value ? total.value : subtotal.value));
+const headlineAmount = computed(() =>
+  isPay.value ? total.value : subtotal.value,
+);
 const headlineLabel = computed(() =>
   isPay.value ? t("tickets.total") : t("tickets.subtotal"),
 );
@@ -128,28 +137,6 @@ function toggleDetail() {
   expanded.value = !expanded.value;
 }
 
-function removeLine(line) {
-  const index = cart.items.findIndex(
-    (i) =>
-      i.ticket_id === line.ticket_id &&
-      (i.ticket_session_id ?? null) === line.ticket_session_id &&
-      (i.selected_event_day_id ?? null) === line.selected_event_day_id,
-  );
-  const snapshot = index >= 0 ? { ...cart.items[index] } : null;
-  cart.removeItem(
-    line.ticket_id,
-    line.ticket_session_id,
-    line.selected_event_day_id,
-  );
-  if (!snapshot) return;
-  toast(t("tickets.itemRemoved", { title: line.title }), {
-    action: {
-      label: t("tickets.undo"),
-      onClick: () => cart.restoreItem(snapshot, index),
-    },
-  });
-}
-
 /**
  * A fixed bottom bar and a virtual keyboard fight for the same space, and on a
  * page that is mostly text inputs the buyer is in that state most of the time.
@@ -185,7 +172,9 @@ onBeforeUnmount(() => {
   if (typingTimer) clearTimeout(typingTimer);
 });
 
-const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typing.value));
+const visible = computed(
+  () => !cart.isEmpty && !(props.hideWhileTyping && typing.value),
+);
 </script>
 
 <template>
@@ -202,10 +191,19 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
       <!-- Inverted "contrast" pill: bg-foreground/text-background flips with the
            theme, so it stays high-contrast in light AND dark mode. Tapping the
            bar anywhere but the CTA expands the line detail (transitions-dev:
-           accordion expand, growing upward from this bottom-anchored bar). -->
+           accordion expand, growing upward from this bottom-anchored bar).
+
+           The destructive pair has to invert with it. `--destructive-foreground`
+           is picked to contrast with the PAGE, so on a surface that is the page
+           inverted it always landed on the wrong end: a dark red glyph on the
+           near-black bar in light mode (2.78:1), a light red glyph on the cream
+           bar in dark mode (2.08:1). Both fail the 3:1 floor for an icon.
+           Swapping the two ends here fixes every destructive descendant at once
+           (the trash button, the missing-day sub-label) with no call site
+           reaching for a raw palette colour. -->
       <div
         ref="pillRef"
-        class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden p-2 shadow-lg ring-1 ring-white/20 transition-[border-radius,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+        class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden p-1 pl-2.5 shadow-lg ring-1 ring-white/20 transition-[border-radius,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] [--destructive-foreground:var(--color-red-400)] motion-reduce:transition-none dark:[--destructive-foreground:var(--color-red-700)]"
         :class="expanded ? 'rounded-3xl sm:p-4' : 'rounded-4xl'"
         :data-open="expanded"
       >
@@ -230,42 +228,51 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
                       image-class="object-cover"
                     />
                   </div>
+                  <!-- Posterless rows keep the poster's footprint so titles and
+                       quantities stay on one column. This slot used to hold the
+                       quantity; that now lives in the stepper on the right, and
+                       showing it twice made two rows of the same ticket harder
+                       to tell apart, not easier. -->
                   <span
                     v-else
-                    class="bg-background/15 inline-flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-medium tabular-nums"
+                    class="bg-background/10 text-background/50 inline-flex size-11 shrink-0 items-center justify-center rounded-lg"
                     aria-hidden="true"
                   >
-                    {{ line.qty }}
+                    <Icon name="hugeicons:ticket-02" class="size-5" />
                   </span>
                   <div class="min-w-0 flex-1 leading-tight">
                     <p
                       class="truncate text-sm font-medium tracking-tight sm:text-base"
                     >
-                      <span v-if="posterSrc(line.ticket)" class="tabular-nums"
-                        >{{ line.qty }}&times;
-                      </span>
                       {{ line.title }}
                     </p>
+                    <!-- A line missing its required day says so, in the
+                         destructive colour: two rows of the same ticket used to
+                         be pixel-identical apart from one absent line. -->
                     <p
                       v-if="line.subLabel"
-                      class="text-background/80 truncate text-sm tracking-tight"
+                      class="truncate text-sm tracking-tight"
+                      :class="
+                        line.missingDay
+                          ? 'text-destructive-foreground'
+                          : 'text-background/80'
+                      "
                     >
                       {{ line.subLabel }}
                     </p>
                   </div>
-                  <span
-                    class="shrink-0 text-sm font-medium tabular-nums transition-opacity sm:text-base"
-                    :class="{ 'opacity-60': line.pending }"
-                    >{{ line.priceLabel }}</span
-                  >
-                  <button
-                    type="button"
-                    class="text-background/50 hover:text-background hover:bg-background/15 focus-visible:ring-background/40 -mr-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
-                    :aria-label="t('tickets.removeItem')"
-                    @click="removeLine(line)"
-                  >
-                    <Icon name="hugeicons:cancel-01" class="size-4" />
-                  </button>
+                  <!-- Price over quantity on the trailing edge. The `x` button
+                       that used to sit here is gone: stepping below the ticket's
+                       minimum removes the line, so one control does both jobs and
+                       the row no longer offers two ways to reach zero. -->
+                  <div class="flex shrink-0 flex-col items-end gap-1.5">
+                    <span
+                      class="text-sm font-medium tabular-nums transition-opacity sm:text-base"
+                      :class="{ 'opacity-60': line.pending }"
+                      >{{ line.priceLabel }}</span
+                    >
+                    <TicketLineQuantity :line="line" tone="inverted" />
+                  </div>
                 </li>
               </ul>
 
@@ -277,7 +284,9 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
                   <span class="text-background/80 text-sm tracking-tight">
                     {{ t("tickets.discount") }}
                   </span>
-                  <span class="ml-2 text-sm font-medium tabular-nums sm:text-base">
+                  <span
+                    class="ml-2 text-sm font-medium tabular-nums sm:text-base"
+                  >
                     -{{ fmtIdr(discount) }}
                   </span>
                 </p>
@@ -286,16 +295,19 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
 
               <div
                 class="mt-1 flex items-center"
-                :class="discount > 0 ? '' : 'border-background/10 border-t pt-3'"
+                :class="
+                  discount > 0 ? '' : 'border-background/10 border-t pt-3'
+                "
               >
-                <!-- Clearing the cart on the checkout page navigates the buyer
-                     straight back out of checkout, so that control only exists
-                     while they are still choosing. -->
+                <!-- Present in both modes. It used to be hidden on checkout
+                     because emptying the cart there throws the buyer out of the
+                     page; the confirmation dialog covers that now, and a bar
+                     that offers different controls on two pages of the same
+                     flow is the worse problem. -->
                 <button
-                  v-if="!isPay"
                   type="button"
                   class="text-background/70 hover:text-background focus-visible:ring-background/40 inline-flex items-center gap-1.5 rounded-full text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none sm:text-base"
-                  @click="cart.clear()"
+                  @click="clearConfirmOpen = true"
                 >
                   <Icon
                     name="hugeicons:delete-01"
@@ -303,20 +315,19 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
                   />
                   {{ t("tickets.clearCart") }}
                 </button>
-                <!-- Mirror the line item's trailing [price][gap-3][size-7 -mr-1] so the
-                     total's price right-edge aligns with each item's price. -->
-                <div class="flex flex-1 items-center justify-end gap-3">
+                <!-- No trailing spacer: each line's price is now the right edge
+                     of its own column, so the total lines up with them by simply
+                     ending where they end. -->
+                <div class="flex flex-1 items-center justify-end">
                   <p class="leading-tight">
-                    <span
-                      class="text-background/80 text-sm tracking-tight"
-                      >{{ headlineLabel }}</span
-                    >
+                    <span class="text-background/80 text-sm tracking-tight">{{
+                      headlineLabel
+                    }}</span>
                     <span
                       class="ml-2 text-sm font-semibold tabular-nums sm:text-base"
                       >{{ amountLabel(headlineAmount) }}</span
                     >
                   </p>
-                  <span class="-mr-1 size-7 shrink-0" aria-hidden="true" />
                 </div>
               </div>
             </div>
@@ -390,24 +401,19 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
               </span>
             </span>
             <span
-              class="t-acc-chevron bg-background/10 text-background/70 ml-auto flex size-9 shrink-0 items-center justify-center self-center rounded-full"
+              class="t-acc-chevron bg-background/10 text-background/70 dark:bg-background/6 ml-auto flex size-9 shrink-0 items-center justify-center self-center rounded-full"
             >
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.75"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="size-4 sm:size-5"
-              >
-                <path d="M4 10L8 6L12 10" />
-              </svg>
+              <!-- Hugeicons, like every other glyph in this row. The
+                   hand-drawn path this replaces was on a 16 grid at stroke
+                   1.75, which renders 2.19px at size-5 against Hugeicons'
+                   1.25px - the trash button right next to it looked 75%
+                   thinner. Rotation lives on the wrapper, so the swap is
+                   free. -->
+              <Icon name="hugeicons:arrow-up-01" class="size-4 sm:size-5" />
             </span>
           </button>
 
           <button
-            v-if="!isPay"
             type="button"
             class="bg-destructive/15 text-destructive-foreground hover:bg-destructive/25 focus-visible:ring-destructive-foreground/40 inline-flex size-9 shrink-0 items-center justify-center self-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
             :aria-label="t('tickets.clearCart')"

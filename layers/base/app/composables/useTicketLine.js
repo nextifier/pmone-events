@@ -62,6 +62,44 @@ export function maxFor(ticket) {
   return valid.length ? Math.min(...valid) : 50;
 }
 
+/**
+ * The cap that actually applies to ONE line, once the rest of the cart is taken
+ * into account.
+ *
+ * `maxFor` answers "how many of this ticket may an order hold", and every
+ * surface used to apply it per line. A day pass keeps one line per day, so a
+ * buyer could take the maximum on Friday and the maximum again on Saturday and
+ * walk past `available` - the server then refuses the whole order at submit.
+ * Subtracting what the ticket's OTHER lines already hold makes the `+` stop
+ * where the order will actually stop.
+ *
+ * `items` is `cart.items`; `dayId`/`sessionId` identify the line being edited.
+ */
+export function lineCapFor(ticket, items = [], sessionId = null, dayId = null) {
+  const total = maxFor(ticket);
+  if (!ticket?.id) return total;
+  const heldElsewhere = (items ?? [])
+    .filter(
+      (i) =>
+        i.ticket_id === ticket.id &&
+        !(
+          (i.ticket_session_id ?? null) === (sessionId ?? null) &&
+          (i.selected_event_day_id ?? null) === (dayId ?? null)
+        ),
+    )
+    .reduce((sum, i) => sum + (Number(i.qty) || 0), 0);
+  return Math.max(0, total - heldElsewhere);
+}
+
+/**
+ * True when this ticket can only ever be bought one at a time, so a `- 1 +`
+ * stepper would be two dead controls around a number that cannot move. Call
+ * sites render a single add/remove toggle instead.
+ */
+export function singleQuantity(ticket) {
+  return maxFor(ticket) <= 1;
+}
+
 /** Lowest quantity this ticket accepts. `addToCart` seeds a new line with this, so `-` must floor here too. */
 export function minFor(ticket) {
   return Math.max(1, Number(ticket?.min_quantity) || 1);
@@ -101,6 +139,19 @@ export function cartLineSubLabel(ticket, item) {
   return parts.join(" · ");
 }
 
+/**
+ * True when a line is missing the day its ticket requires.
+ *
+ * Mirrors the server predicate exactly - `Ticket::offersDaySelection()` is
+ * `isEntry() && requires_day_selection`, and a cart that disagrees with it is a
+ * cart the order endpoint will refuse.
+ */
+export function lineMissingDay(ticket, item) {
+  if (!ticket || !item) return false;
+  if (ticket.kind !== "entry" || !ticket.requires_day_selection) return false;
+  return !item.selected_event_day_id;
+}
+
 export function useTicketLine() {
   return {
     fmtIdr,
@@ -108,8 +159,11 @@ export function useTicketLine() {
     posterLightboxItems,
     POSTER_FULL_KEY,
     maxFor,
+    lineCapFor,
+    singleQuantity,
     minFor,
     soldOut,
     cartLineSubLabel,
+    lineMissingDay,
   };
 }

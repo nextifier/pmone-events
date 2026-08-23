@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { lineCapFor, maxFor } from "../composables/useTicketLine";
 
 const STORAGE_KEY = "pmone.ticketCart.v1";
 const TTL_MS = 24 * 60 * 60 * 1000;
@@ -68,6 +69,11 @@ export const useTicketCartStore = defineStore("ticketCart", {
     // Monotonic request counter. Quantity taps fire a preview each; without this
     // an older response can land last and paint a stale price.
     _previewSeq: 0,
+    // Tickets as the last-loaded page knows them, keyed by id. Set by
+    // `reconcile`, never persisted: a cached copy of a listing that has since
+    // changed is worse than no copy, and it is what `addItem`/`setQty` clamp
+    // against so no path can push a line past the ticket's real cap.
+    catalog: {},
   }),
 
   getters: {
@@ -266,25 +272,43 @@ export const useTicketCartStore = defineStore("ticketCart", {
       this.accessInfo = null;
     },
 
+    /**
+     * The cap for one line, once the catalog is known: the ticket's own limit
+     * minus what the same ticket already holds on its other days or sessions.
+     * Without the subtraction a day pass could take the maximum on Friday and
+     * the maximum again on Saturday and sail past `available` until the server
+     * refused the whole order at submit.
+     *
+     * Returns `Infinity` before `reconcile` has run, so a cart edited before the
+     * listing resolves behaves exactly as it did - unclamped, not blocked.
+     */
+    capFor(ticketId, sessionId = null, dayId = null) {
+      const ticket = this.catalog?.[ticketId];
+      if (!ticket) return Infinity;
+      return lineCapFor(ticket, this.items, sessionId, dayId);
+    },
+
     addItem(ticketId, sessionId = null, qty = 1, dayId = null) {
+      const cap = this.capFor(ticketId, sessionId, dayId);
       const n = Math.max(1, Number(qty) || 1);
       const key = lineKey(ticketId, sessionId, dayId);
       const existing = this.items.find(
         (i) => lineKey(i.ticket_id, i.ticket_session_id, i.selected_event_day_id) === key
       );
       if (existing) {
-        existing.qty = Number(existing.qty) + n;
+        existing.qty = Math.min(cap, Number(existing.qty) + n);
         this.items = [...this.items];
       } else {
         this.items = [
           ...this.items,
-          { ticket_id: ticketId, ticket_session_id: sessionId ?? null, selected_event_day_id: dayId ?? null, qty: n },
+          { ticket_id: ticketId, ticket_session_id: sessionId ?? null, selected_event_day_id: dayId ?? null, qty: Math.min(cap, n) },
         ];
       }
     },
 
     setQty(ticketId, sessionId, qty, dayId = null) {
-      const n = Math.max(0, Number(qty) || 0);
+      const cap = this.capFor(ticketId, sessionId, dayId);
+      const n = Math.min(cap, Math.max(0, Number(qty) || 0));
       const key = lineKey(ticketId, sessionId, dayId);
       if (n === 0) {
         this.items = this.items.filter(
@@ -317,12 +341,115 @@ export const useTicketCartStore = defineStore("ticketCart", {
      * Put a removed line back exactly where it was, for the Undo action on the
      * remove toast. `addItem` appends, which would silently reorder the cart and
      * make "undo" look like a different edit.
+     *
+     * The splice used to be blind: if the buyer re-added the same ticket before
+     * pressing Undo, the cart ended up with two lines sharing a key, which the
+     * preview then priced twice. Merge onto the existing line instead, still
+     * respecting the cap.
      */
     restoreItem(item, index) {
       if (!item) return;
+      const key = lineKey(item.ticket_id, item.ticket_session_id, item.selected_event_day_id);
+      const existing = this.items.find(
+        (i) => lineKey(i.ticket_id, i.ticket_session_id, i.selected_event_day_id) === key
+      );
+      if (existing) {
+        this.setQty(
+          item.ticket_id,
+          item.ticket_session_id ?? null,
+          Number(existing.qty) + (Number(item.qty) || 0),
+          item.selected_event_day_id ?? null,
+        );
+        return;
+      }
+      const cap = this.capFor(
+        item.ticket_id,
+        item.ticket_session_id ?? null,
+        item.selected_event_day_id ?? null,
+      );
       const next = [...this.items];
-      next.splice(Math.min(Math.max(0, index), next.length), 0, { ...item });
+      next.splice(Math.min(Math.max(0, index), next.length), 0, {
+        ...item,
+        qty: Math.min(cap, Math.max(1, Number(item.qty) || 1)),
+      });
       this.items = next;
+    },
+
+    /**
+     * Check the persisted cart against the tickets the page actually loaded and
+     * drop what can no longer be bought, returning the titles dropped so the
+     * caller can say so in one toast.
+     *
+     * `hydrate()` cannot do this: it runs before any ticket has been fetched. So
+     * until now a line survived its ticket being switched off, sold out, or
+     * losing the day it was booked on - for a full 24 hours, and it was re-sent
+     * to the preview and to the order endpoint on every single load.
+     *
+     * @param {Object|Map} ticketsById
+     * @returns {{ removed: string[] }}
+     */
+    reconcile(ticketsById) {
+      const lookup =
+        ticketsById instanceof Map
+          ? Object.fromEntries(ticketsById)
+          : (ticketsById ?? {});
+
+      this.catalog = lookup;
+      if (!Object.keys(lookup).length) return { removed: [] };
+
+      const removed = [];
+      const kept = [];
+      // Running total per ticket: the cap is per ticket, not per line, so two
+      // day lines of the same pass have to share one budget.
+      const spent = {};
+
+      for (const item of this.items) {
+        const ticket = lookup[item.ticket_id];
+        if (!ticket) {
+          removed.push(String(item.ticket_id));
+          continue;
+        }
+
+        const dayId = item.selected_event_day_id ?? null;
+        const validDays = ticket.valid_days ?? [];
+
+        // Same predicate the server uses (`Ticket::offersDaySelection`), so the
+        // client never keeps a line the order endpoint would reject.
+        const needsDay =
+          ticket.kind === "entry" && Boolean(ticket.requires_day_selection);
+
+        if (needsDay && !dayId && validDays.length !== 1) {
+          removed.push(ticket.title);
+          continue;
+        }
+
+        if (dayId && !validDays.some((d) => d.id === dayId)) {
+          removed.push(ticket.title);
+          continue;
+        }
+
+        const budget = maxFor(ticket) - (spent[ticket.id] ?? 0);
+        const headroom = Math.min(budget, Math.max(1, Number(item.qty) || 1));
+
+        if (headroom < 1) {
+          removed.push(ticket.title);
+          continue;
+        }
+
+        spent[ticket.id] = (spent[ticket.id] ?? 0) + headroom;
+
+        kept.push({
+          ...item,
+          // A single valid day is implied rather than chosen, so fill it in here
+          // instead of shipping a null the server has to guess at.
+          selected_event_day_id:
+            needsDay && !dayId ? (validDays[0]?.id ?? null) : dayId,
+          qty: headroom,
+        });
+      }
+
+      this.items = kept;
+      return { removed };
     },
 
     clear() {
@@ -356,12 +483,6 @@ export const useTicketCartStore = defineStore("ticketCart", {
         return null;
       }
 
-      // Snapshot what we are about to send. This is the ONLY point where request
-      // and response order is known, so it is the only place a returned line can
-      // be tied back to the cart item that produced it. The server drops
-      // ineligible lines silently (inactive ticket, gated ticket with no access
-      // code), so positional matching after the fact is not merely fragile -
-      // it is wrong the moment a line goes missing.
       const sentItems = this.items.map((i) => ({ ...i }));
       const seq = ++this._previewSeq;
 
@@ -391,14 +512,30 @@ export const useTicketCartStore = defineStore("ticketCart", {
         if (seq !== this._previewSeq) return null;
 
         const data = res?.data ?? res;
-        this.previewLines = (data?.lines ?? []).map((line, idx) => ({
-          ...line,
-          _key: lineKey(
-            sentItems[idx]?.ticket_id,
-            sentItems[idx]?.ticket_session_id,
-            sentItems[idx]?.selected_event_day_id,
-          ),
-        }));
+        // Keyed off what the response says each line IS, not where it sits.
+        // The server drops ineligible lines silently (inactive ticket, gated
+        // ticket with no access code), so one skipped line used to shift every
+        // later line onto another line's price and title. `sentItems` is only a
+        // fallback for an older API that does not echo the day back.
+        this.previewLines = (data?.lines ?? []).map((line, idx) => {
+          // `in`, not `??`: the server sends an explicit null for a line with no
+          // day, and `??` would fall through to whatever the positional guess
+          // held - reintroducing the very bug this replaces.
+          const echoesDay = line && "selected_event_day_id" in line;
+          const fallback = sentItems[idx] ?? {};
+          return {
+            ...line,
+            _key: lineKey(
+              line.ticket_id ?? fallback.ticket_id,
+              echoesDay
+                ? (line.ticket_session_id ?? null)
+                : fallback.ticket_session_id,
+              echoesDay
+                ? line.selected_event_day_id
+                : fallback.selected_event_day_id,
+            ),
+          };
+        });
         this.cachedSubtotal = Number(data?.subtotal ?? 0);
         this.cachedDiscount = Number(data?.discount ?? 0);
         this.cachedTotal = Number(data?.total ?? data?.subtotal ?? 0);

@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Field, FieldLabel } from "../ui/field";
 import { BlurImage } from "../ui/blur-image";
+import TicketLineQuantity from "./TicketLineQuantity.vue";
 import {
   Collapsible,
   CollapsibleContent,
@@ -11,7 +12,6 @@ import {
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { computed, ref, watch } from "vue";
 import { useDebounceFn, useTimeoutFn } from "@vueuse/core";
-import { toast } from "vue-sonner";
 
 const props = defineProps({
   // Map of ticket_id -> ticket object, so we can render posters/days/limits.
@@ -43,7 +43,10 @@ const lines = computed(() =>
       unit,
       subtotal: l.subtotal || unit * l.qty,
       title: l.title || ticket?.title || t("tickets.ticket"),
-      subLabel: cartLineSubLabel(ticket, l.item),
+      subLabel:
+        cartLineSubLabel(ticket, l.item) ||
+        (lineMissingDay(ticket, l.item) ? t("tickets.dayMissing") : ""),
+      missingDay: lineMissingDay(ticket, l.item),
     };
   }),
 );
@@ -57,38 +60,24 @@ const subtotal = computed(() =>
 const discount = computed(() => cart.displayDiscount);
 const total = computed(() => Math.max(0, subtotal.value - discount.value));
 
-// --- Quantity limits (shared with the ticket listing, so both agree) ---
-const lineMax = (line) => maxFor(line.ticket ?? {});
-const lineMin = (line) => minFor(line.ticket ?? {});
+/**
+ * The cap the hint reads is the same one `TicketLineQuantity` enforces:
+ * `lineCapFor` subtracts what this ticket already holds on its other days, so
+ * "max per order" appears when the buyer has actually reached the limit across
+ * the whole cart rather than on this row alone.
+ */
+const lineMax = (line) =>
+  lineCapFor(
+    line.ticket ?? {},
+    cart.items,
+    line.ticket_session_id,
+    line.selected_event_day_id,
+  );
 const atMax = (line) => line.qty >= lineMax(line);
 const lowStock = (line) => {
   const available = line.ticket?.available;
   return available != null && available > 0 && available <= 10;
 };
-
-function setQty(line, qty) {
-  cart.setQty(
-    line.ticket_id,
-    line.ticket_session_id,
-    qty,
-    line.selected_event_day_id,
-  );
-}
-
-function removeLine(line, index) {
-  const snapshot = { ...cart.items[index] };
-  cart.removeItem(
-    line.ticket_id,
-    line.ticket_session_id,
-    line.selected_event_day_id,
-  );
-  toast(t("tickets.itemRemoved", { title: line.title }), {
-    action: {
-      label: t("tickets.undo"),
-      onClick: () => cart.restoreItem(snapshot, index),
-    },
-  });
-}
 
 // --- Promo code ---
 // Collapsed by default: a visible empty coupon field on a checkout page sends
@@ -209,7 +198,7 @@ defineExpose({ appliedPromo });
 
     <ul v-else class="space-y-4">
       <li
-        v-for="(line, index) in lines"
+        v-for="line in lines"
         :key="line.key"
         class="flex items-start gap-3 text-sm tracking-tight"
       >
@@ -231,7 +220,12 @@ defineExpose({ appliedPromo });
               <p class="text-foreground font-medium">{{ line.title }}</p>
               <p
                 v-if="line.subLabel"
-                class="text-muted-foreground text-sm tracking-tight"
+                class="text-sm tracking-tight"
+                :class="
+                  line.missingDay
+                    ? 'text-destructive-foreground'
+                    : 'text-muted-foreground'
+                "
               >
                 {{ line.subLabel }}
               </p>
@@ -244,53 +238,12 @@ defineExpose({ appliedPromo });
             >
               {{ fmtIdr(line.subtotal) }}
             </span>
-
-            <Button
-              v-if="editable"
-              type="button"
-              variant="ghost"
-              size="iconSm"
-              class="text-muted-foreground hover:text-destructive-foreground focus-visible:text-destructive-foreground -mt-1 -mr-1 shrink-0"
-              :aria-label="t('tickets.removeItem')"
-              @click="removeLine(line, index)"
-            >
-              <Icon name="hugeicons:cancel-01" class="size-4" />
-            </Button>
           </div>
 
           <div class="mt-2 flex items-center justify-between gap-3">
-            <!-- gap-2 is load-bearing: every Button carries a 44px coarse-pointer
-                 hit area, so at size-9 the targets tile edge to edge. Tighter and
-                 they overlap, and the later element wins the hit test - which is
-                 how tapping the right edge of "-" used to increment. -->
-            <div v-if="editable" class="flex items-center gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                :disabled="line.qty <= lineMin(line)"
-                :aria-label="t('tickets.decreaseQty')"
-                @click="setQty(line, line.qty - 1)"
-              >
-                <Icon name="hugeicons:minus-sign" class="size-4" />
-              </Button>
-              <span
-                class="min-w-6 text-center tabular-nums"
-                aria-live="polite"
-                aria-atomic="true"
-                >{{ line.qty }}</span
-              >
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                :disabled="atMax(line)"
-                :aria-label="t('tickets.increaseQty')"
-                @click="setQty(line, line.qty + 1)"
-              >
-                <Icon name="hugeicons:plus-sign" class="size-4" />
-              </Button>
-            </div>
+            <!-- Same control the sticky bar uses, so a line cannot behave one
+                 way in the aside and another in the bar on the same page. -->
+            <TicketLineQuantity v-if="editable" :line="line" />
 
             <!-- A price, so never text-xs (STYLE_GUIDE: no text-xs on values). -->
             <span

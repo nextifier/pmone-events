@@ -16,6 +16,9 @@ const props = defineProps<
     class?: HTMLAttributes["class"];
     variant?: GroupVariant;
     size?: ToggleGroupVariants["size"];
+    // Radio-style dot, same as <Toggle indicator>. For a single-select group
+    // whose options are mutually exclusive, so the chosen one reads at a glance.
+    indicator?: boolean;
   }
 >();
 
@@ -35,7 +38,7 @@ const cvaVariant = computed<ToggleGroupVariants["variant"]>(() =>
   resolvedVariant.value === "pill" ? "default" : resolvedVariant.value
 );
 
-const delegatedProps = reactiveOmit(props, "class", "size", "variant");
+const delegatedProps = reactiveOmit(props, "class", "size", "variant", "indicator");
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
@@ -48,7 +51,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     v-bind="forwardedProps"
     :class="
       resolvedVariant === 'pill'
-        ? cn(togglePillClass, props.class)
+        ? cn(togglePillClass, indicator && 'group/toggle', props.class)
         : cn(
             toggleVariants({
               variant: cvaVariant,
@@ -64,6 +67,23 @@ const forwardedProps = useForwardProps(delegatedProps);
           )
     "
   >
+    <!-- Matches <Toggle indicator> exactly: an empty bordered ring that fills
+         with the primary colour and a contrast dot while the item is on. -->
+    <span
+      v-if="indicator"
+      aria-hidden="true"
+      class="border-border text-primary-foreground flex size-4 shrink-0 items-center justify-center rounded-full border shadow-xs transition-colors group-data-[state=on]/toggle:border-primary group-data-[state=on]/toggle:bg-primary"
+    >
+      <svg
+        width="6"
+        height="6"
+        viewBox="0 0 6 6"
+        fill="currentColor"
+        class="opacity-0 transition-opacity group-data-[state=on]/toggle:opacity-100"
+      >
+        <circle cx="3" cy="3" r="3" />
+      </svg>
+    </span>
     <slot v-bind="slotProps" />
   </ToggleGroupItem>
 </template>

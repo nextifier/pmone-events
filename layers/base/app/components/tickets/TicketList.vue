@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import { toast } from "vue-sonner";
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { Badge } from "../ui/badge";
@@ -14,7 +14,8 @@ import {
 } from "../ui/empty";
 import { Input } from "../ui/input";
 import { Lightbox } from "../ui/lightbox";
-import { Toggle } from "../ui/toggle";
+import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
+import TicketCardQuantity from "./TicketCardQuantity.vue";
 import TicketListSkeleton from "./TicketListSkeleton.vue";
 import TicketSlotPicker from "./TicketSlotPicker.vue";
 import TicketStub from "./TicketStub.vue";
@@ -156,9 +157,31 @@ function removeAccessCode() {
   cart.clearAccessCode();
 }
 
+/**
+ * Check the persisted cart against the tickets this page actually loaded.
+ * `hydrate()` runs before any ticket has been fetched, so until this ran a line
+ * survived its ticket being switched off, sold out, or losing the day it was
+ * booked on - for a full 24 hours, and it went to the preview and to the order
+ * endpoint on every load.
+ */
+function reconcileCart() {
+  if (!import.meta.client || !mergedTickets.value.length) return;
+  const { removed } = cart.reconcile(
+    Object.fromEntries(mergedTickets.value.map((tk) => [tk.id, tk])),
+  );
+  if (removed.length) {
+    toast.error(t("tickets.cartUpdated", { titles: removed.join(", ") }));
+  }
+}
+
+// An access code reveals tickets that were not in the first response, so re-run
+// it - those lines must not be dropped for having been absent a moment ago.
+watch(mergedTickets, reconcileCart);
+
 onMounted(() => {
   cart.hydrate();
   cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
+  reconcileCart();
 
   // Auto-apply a code from a magic invite link (?invite=XXXX) or a persisted cart.
   const invite = route.query.invite || route.query.code;
@@ -189,16 +212,53 @@ function daysFor(ticket) {
   return ticket.valid_days ?? [];
 }
 
-// A day pass with a single valid day needs no picker - that day is implied.
-function requiresDayPick(ticket) {
-  return !!ticket.requires_day_selection && daysFor(ticket).length > 1;
+/**
+ * The server's predicate, verbatim (`Ticket::offersDaySelection`): an entry
+ * ticket flagged `requires_day_selection`. The old version left `kind` out and
+ * added `valid_days.length > 1`, so a day-required ticket with an empty
+ * `valid_days` relation skipped the picker entirely, skipped the Add guard that
+ * depends on it, and added a day-less line through the front door.
+ */
+function mustPickDay(ticket) {
+  return ticket?.kind === "entry" && Boolean(ticket?.requires_day_selection);
 }
 
+/** A single valid day is implied rather than chosen, so no picker is shown. */
+function requiresDayPick(ticket) {
+  return mustPickDay(ticket) && daysFor(ticket).length > 1;
+}
+
+/**
+ * The day this ticket's cart line belongs to: the chosen day, the single implied
+ * day, or `undefined` for **unresolved**.
+ *
+ * `undefined` rather than `null` is the whole point. `null` is a real cart
+ * identity - the key of a line with no day - so returning it for "nothing picked
+ * yet" pointed the stepper at exactly the broken line this work is about, and
+ * `+`/`-` then edited it.
+ */
 function resolveDayId(ticket) {
-  if (!ticket.requires_day_selection) return null;
+  if (!mustPickDay(ticket)) return null;
   const days = daysFor(ticket);
-  if (days.length <= 1) return days[0]?.id ?? null;
-  return selectedDay[ticket.id] ?? null;
+  if (days.length === 1) return days[0].id;
+  return selectedDay[ticket.id] ?? undefined;
+}
+
+/** Every cart line for this ticket, so the card can show what other days hold. */
+function dayLinesFor(ticket) {
+  return cart.items
+    .filter((i) => i.ticket_id === ticket.id && i.selected_event_day_id)
+    .map((i) => {
+      const day = daysFor(ticket).find((d) => d.id === i.selected_event_day_id);
+      return day
+        ? {
+            id: day.id,
+            qty: i.qty,
+            label: $dayjs(day.date).locale(locale.value).format("ddd, D MMM"),
+          }
+        : null;
+    })
+    .filter(Boolean);
 }
 
 // A day pass with more than 4 valid days uses a DatePicker locked to those
@@ -236,7 +296,34 @@ function onDayDatePick(ticket, date) {
 
 
 function qtyOf(ticket) {
-  return cart.qtyFor(ticket.id, resolveSessionId(ticket), resolveDayId(ticket));
+  const dayId = resolveDayId(ticket);
+  if (dayId === undefined) return 0;
+  return cart.qtyFor(ticket.id, resolveSessionId(ticket), dayId);
+}
+
+/**
+ * How many more of this ticket the buyer may take on the day they are looking
+ * at. Stock and `max_quantity` are per ticket, not per day, so what the other
+ * days already hold has to come off the top - otherwise a two-day pass could
+ * take the maximum twice and the server would refuse the whole order at submit.
+ */
+function headroom(ticket) {
+  const dayId = resolveDayId(ticket);
+  if (dayId === undefined) return 0;
+  return lineCapFor(ticket, cart.items, resolveSessionId(ticket), dayId);
+}
+
+function atMax(ticket) {
+  return qtyOf(ticket) >= headroom(ticket);
+}
+
+/**
+ * A ticket nobody may buy more than one of has nothing to step through, so the
+ * card shows Add, then a single Remove - not two permanently dead arrows around
+ * a number that cannot move.
+ */
+function isSingle(ticket) {
+  return singleQuantity(ticket);
 }
 
 
@@ -272,7 +359,8 @@ function canBuyNow(ticket) {
   return (
     ticket.purchase_type === "first_party" &&
     saleOpen(ticket) &&
-    !soldOut(ticket)
+    !soldOut(ticket) &&
+    !dayless(ticket)
   );
 }
 
@@ -286,10 +374,20 @@ function isBuyable(ticket) {
 function canAdd(ticket) {
   if (isLocked(ticket)) return false;
   if (soldOut(ticket)) return false;
+  if (dayless(ticket)) return false;
   const sessions = sessionsFor(ticket);
   if (sessions.length > 1 && !selectedSession[ticket.id]) return false;
   if (requiresDayPick(ticket) && !selectedDay[ticket.id]) return false;
   return true;
+}
+
+/**
+ * A ticket that must be bought for a specific day but carries no valid days at
+ * all. Nothing the buyer can do makes it addable, so it is routed through the
+ * unavailable state instead of offering an Add button that can only ever fail.
+ */
+function dayless(ticket) {
+  return mustPickDay(ticket) && daysFor(ticket).length === 0;
 }
 
 function addToCart(ticket) {
@@ -305,6 +403,11 @@ function addToCart(ticket) {
     toast.error(t("tickets.selectDayFirst"));
     return;
   }
+  if (dayless(ticket)) return;
+  if (headroom(ticket) < minFor(ticket)) {
+    toast.error(t("tickets.maxPerOrder", { count: maxFor(ticket) }));
+    return;
+  }
   cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
   cart.addItem(
     ticket.id,
@@ -316,7 +419,7 @@ function addToCart(ticket) {
 
 function inc(ticket) {
   const next = qtyOf(ticket) + 1;
-  if (next > maxFor(ticket)) return;
+  if (next > headroom(ticket)) return;
   cart.setQty(ticket.id, resolveSessionId(ticket), next, resolveDayId(ticket));
 }
 
@@ -328,6 +431,11 @@ function dec(ticket) {
     Math.max(0, next),
     resolveDayId(ticket),
   );
+}
+
+/** Jump the card to a day the cart already holds, from the per-day chips. */
+function focusDay(ticket, dayId) {
+  selectedDay[ticket.id] = dayId;
 }
 
 // Price stays a price: the live phase price when on sale, otherwise a muted
@@ -345,6 +453,9 @@ function priceLabel(ticket) {
 // reads as "Coming soon". Sold out always wins.
 function unavailableState(ticket) {
   if (soldOut(ticket)) return "sold_out";
+  // A day-required ticket with no valid days cannot be bought on any day, which
+  // reads to a buyer exactly like stock having run out.
+  if (dayless(ticket)) return "sold_out";
   if (ticket.sales_status === "upcoming") return "coming_soon";
   return eventStatus.value === "completed" ? "sales_ended" : "coming_soon";
 }
@@ -708,29 +819,39 @@ const ticketsById = computed(() => {
                 class="mt-4 space-y-2"
               >
                 <p
+                  :id="`day-label-${ticket.id}`"
                   class="text-muted-foreground text-xs font-medium tracking-tight sm:text-sm"
                 >
                   {{ t("tickets.chooseDay") }}
                 </p>
-                <div
+                <!-- One group, not three independent toggles: the days are
+                     mutually exclusive, and the group carries the "Choose a day"
+                     label so the options are announced with it.
+                     Re-tapping the chosen day clears it, matching
+                     TicketSlotPicker - a mis-tap has to be undoable. That used
+                     to be dangerous, because `resolveDayId` answered `null` and
+                     `null` is a real cart identity: the stepper bound to the
+                     day-less line and edited it. It answers `undefined` now, so
+                     "nothing picked" is its own state and clearing is safe. -->
+                <ToggleGroup
                   v-if="daysFor(ticket).length <= 4"
-                  class="flex flex-wrap gap-2"
+                  type="single"
+                  variant="pill"
+                  :aria-labelledby="`day-label-${ticket.id}`"
+                  :model-value="selectedDay[ticket.id] ?? ''"
+                  @update:model-value="
+                    (v) => (selectedDay[ticket.id] = v || null)
+                  "
                 >
-                  <Toggle
+                  <ToggleGroupItem
                     v-for="d in daysFor(ticket)"
                     :key="d.id"
-                    variant="pill"
                     indicator
-                    :model-value="selectedDay[ticket.id] === d.id"
-                    @update:model-value="
-                      () =>
-                        (selectedDay[ticket.id] =
-                          selectedDay[ticket.id] === d.id ? null : d.id)
-                    "
+                    :value="d.id"
                   >
                     {{ formatWeekdayDate(d.date, locale) }}
-                  </Toggle>
-                </div>
+                  </ToggleGroupItem>
+                </ToggleGroup>
                 <DatePicker
                   v-else
                   :model-value="selectedDayDate(ticket)"
@@ -740,6 +861,32 @@ const ticketsById = computed(() => {
                   class="w-full"
                   @update:model-value="(v) => onDayDatePick(ticket, v)"
                 />
+
+                <!-- What the cart holds on the OTHER days. The card only ever
+                     shows the day in focus, so adding 3 for Friday and switching
+                     to Saturday used to look like the Friday tickets had been
+                     lost. Tapping a chip brings that day back into focus. -->
+                <div
+                  v-if="dayLinesFor(ticket).length"
+                  class="flex flex-wrap items-center gap-1.5 pt-0.5"
+                >
+                  <span class="text-muted-foreground text-sm tracking-tight">
+                    {{ t("tickets.inCart") }}
+                  </span>
+                  <button
+                    v-for="line in dayLinesFor(ticket)"
+                    :key="line.id"
+                    type="button"
+                    class="bg-muted text-foreground hover:bg-muted/70 focus-visible:ring-ring rounded-full px-2.5 py-1 text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none"
+                    :class="{ 'ring-primary ring-1': selectedDay[ticket.id] === line.id }"
+                    @click="focusDay(ticket, line.id)"
+                  >
+                    {{ line.label }}
+                    <span class="text-muted-foreground tabular-nums"
+                      >&times;{{ line.qty }}</span
+                    >
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -785,49 +932,16 @@ const ticketsById = computed(() => {
                   </Button>
 
                   <!-- First-party, on sale, in stock -->
-                  <template
+                  <TicketCardQuantity
                     v-else-if="canBuyNow(ticket)"
-                  >
-                    <div
-                      v-if="qtyOf(ticket) > 0"
-                      class="flex items-center gap-1.5"
-                    >
-                      <button
-                        type="button"
-                        class="border-border hover:bg-muted focus-visible:ring-ring flex size-8 items-center justify-center rounded-lg border transition-colors focus-visible:ring-2 focus-visible:outline-none"
-                        :aria-label="t('tickets.decreaseQty')"
-                        @click="dec(ticket)"
-                      >
-                        <Icon name="hugeicons:minus-sign" class="size-4" />
-                      </button>
-                      <span
-                        class="min-w-6 text-center text-sm font-medium tabular-nums"
-                      >
-                        {{ qtyOf(ticket) }}
-                      </span>
-                      <button
-                        type="button"
-                        class="border-border hover:bg-muted focus-visible:ring-ring flex size-8 items-center justify-center rounded-lg border transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-                        :disabled="qtyOf(ticket) >= maxFor(ticket)"
-                        :aria-label="t('tickets.increaseQty')"
-                        @click="inc(ticket)"
-                      >
-                        <Icon name="hugeicons:plus-sign" class="size-4" />
-                      </button>
-                    </div>
-                    <Button
-                      v-else
-                      size="sm"
-                      :class="{ 'opacity-60': !canAdd(ticket) }"
-                      @click="addToCart(ticket)"
-                    >
-                      <Icon
-                        name="hugeicons:plus-sign"
-                        class="size-4 shrink-0"
-                      />
-                      {{ t("tickets.add") }}
-                    </Button>
-                  </template>
+                    :qty="qtyOf(ticket)"
+                    :at-max="atMax(ticket)"
+                    :single="isSingle(ticket)"
+                    :dimmed="!canAdd(ticket)"
+                    @add="addToCart(ticket)"
+                    @increase="inc(ticket)"
+                    @decrease="dec(ticket)"
+                  />
 
                   <!-- Unavailable: sold out / coming soon / sales ended. Clickable
                        so a tap explains why (toast) instead of being a dead control. -->
@@ -1064,49 +1178,16 @@ const ticketsById = computed(() => {
                     }}</a>
                   </Button>
 
-                  <template
+                  <TicketCardQuantity
                     v-else-if="canBuyNow(ticket)"
-                  >
-                    <div
-                      v-if="qtyOf(ticket) > 0"
-                      class="flex items-center gap-1.5"
-                    >
-                      <button
-                        type="button"
-                        class="border-border hover:bg-muted focus-visible:ring-ring flex size-8 items-center justify-center rounded-lg border transition-colors focus-visible:ring-2 focus-visible:outline-none"
-                        :aria-label="t('tickets.decreaseQty')"
-                        @click="dec(ticket)"
-                      >
-                        <Icon name="hugeicons:minus-sign" class="size-4" />
-                      </button>
-                      <span
-                        class="min-w-6 text-center text-sm font-medium tabular-nums"
-                      >
-                        {{ qtyOf(ticket) }}
-                      </span>
-                      <button
-                        type="button"
-                        class="border-border hover:bg-muted focus-visible:ring-ring flex size-8 items-center justify-center rounded-lg border transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-                        :disabled="qtyOf(ticket) >= maxFor(ticket)"
-                        :aria-label="t('tickets.increaseQty')"
-                        @click="inc(ticket)"
-                      >
-                        <Icon name="hugeicons:plus-sign" class="size-4" />
-                      </button>
-                    </div>
-                    <Button
-                      v-else
-                      size="sm"
-                      :class="{ 'opacity-60': !canAdd(ticket) }"
-                      @click="addToCart(ticket)"
-                    >
-                      <Icon
-                        name="hugeicons:plus-sign"
-                        class="size-4 shrink-0"
-                      />
-                      {{ t("tickets.add") }}
-                    </Button>
-                  </template>
+                    :qty="qtyOf(ticket)"
+                    :at-max="atMax(ticket)"
+                    :single="isSingle(ticket)"
+                    :dimmed="!canAdd(ticket)"
+                    @add="addToCart(ticket)"
+                    @increase="inc(ticket)"
+                    @decrease="dec(ticket)"
+                  />
 
                   <!-- Unavailable: sold out / coming soon / sales ended. Clickable
                        so a tap explains why (toast) instead of being a dead control. -->
