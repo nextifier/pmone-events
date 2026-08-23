@@ -339,6 +339,22 @@
   filter: blur(0);
   opacity: 1;
 }
+/* Opt-in wrapper: the hidden line leaves the flow so the slot sizes to the line
+   actually shown. Both lines stay mounted (the cross-fade needs that), but
+   stacked IN flow they all fed the intrinsic width - which is how the checkout
+   CTA stayed as wide as its longest label long after swapping to a short one.
+   Not applied to `.t-bar-line` at large: the icon slot stacks three glyphs of
+   equal size and wants them all in flow. */
+.t-bar-slot {
+  position: relative;
+}
+.t-bar-slot > .t-bar-line[data-shown="false"] {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  inline-size: 100%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .t-bar-line {
     transition: none !important;

@@ -141,10 +141,19 @@ function onUpdate(next) {
     :model-value="line.qty"
     :min="0"
     :max="cap"
-    class="w-26 shrink-0"
+    class="w-24 shrink-0 pointer-fine:w-20"
     @update:model-value="onUpdate"
   >
+    <!-- The stepper's bulk is its arrows: the ui component pads them 12px
+         around a 16px glyph, so each button is 40x40 and the control reads
+         taller than the 36px chevron and trash beside it. Tightened on a fine
+         pointer only - `pointer-fine:`, not `sm:`, because the input method
+         decides how big a target has to be, not the viewport.
+         On touch they come down to 36px rather than 32: that is the full height
+         of the field and the same size as the chevron and trash in the row
+         below, so the bar has one target size throughout. -->
     <NumberFieldContent
+      class="[&_[data-slot=decrement]]:p-2.5 [&_[data-slot=increment]]:p-2.5 pointer-fine:[&_[data-slot=decrement]]:p-2 pointer-fine:[&_[data-slot=increment]]:p-2"
       :class="
         inverted
           ? 'text-background [&_[data-slot=decrement]]:text-background/70 [&_[data-slot=increment]]:text-background/70 [&_[data-slot=decrement]:hover]:text-background [&_[data-slot=increment]:hover]:text-background'
@@ -152,11 +161,15 @@ function onUpdate(next) {
       "
     >
       <NumberFieldDecrement :aria-label="t('tickets.decreaseQty')" />
+      <!-- Height stated here, not left to the tone: `.cn-input` sizes the
+           checkout aside's field on its own (36px) while the bar's was 32, so
+           the same control was two different heights on one page. -->
       <NumberFieldInput
         :aria-label="t('tickets.quantity')"
+        class="h-8 text-sm"
         :class="
           inverted
-            ? 'bg-background/10 dark:bg-background/6 focus-visible:border-background/50 focus-visible:ring-background/30 h-9 text-sm pointer-fine:h-8'
+            ? 'bg-background/10 dark:bg-background/6 focus-visible:border-background/50 focus-visible:ring-background/30'
             : ''
         "
       />

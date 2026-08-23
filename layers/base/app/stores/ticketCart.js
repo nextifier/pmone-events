@@ -106,8 +106,23 @@ export const useTicketCartStore = defineStore("ticketCart", {
      * positions do not correspond to what was sent.
      */
     mergedLines(state) {
+      /** A cart item as a line, with no server price behind it yet. */
+      const unpriced = (i, pending) => ({
+        key: lineKey(i.ticket_id, i.ticket_session_id, i.selected_event_day_id),
+        item: i,
+        ticket_id: i.ticket_id,
+        ticket_session_id: i.ticket_session_id ?? null,
+        selected_event_day_id: i.selected_event_day_id ?? null,
+        qty: Number(i.qty) || 0,
+        unit: 0,
+        subtotal: 0,
+        pending,
+        title: "",
+        phaseLabel: "",
+      });
+
       if (state.previewLines?.length) {
-        return state.previewLines
+        const priced = state.previewLines
           .map((l) => {
             const item = state.items.find(
               (i) =>
@@ -135,22 +150,39 @@ export const useTicketCartStore = defineStore("ticketCart", {
             };
           })
           .filter(Boolean);
+
+        // Every item, not just the priced ones. `previewLines` outlives the
+        // request that produced it - the store is one instance across
+        // /tickets -> /tickets/checkout -> /tickets, and the listing page never
+        // runs a preview at all - so projecting ONLY the preview dropped any
+        // line added since. The cart said "43 tickets selected" while the bar
+        // showed one row and a total for 40 of them. An item the preview has
+        // The appended lines are NOT flagged `pending`: the caller falls back to
+        // the ticket's own price, exactly what the listing does for every line
+        // when no preview exists. Dimming them would split one list into
+        // confident and unsure rows purely because a stale preview happened to
+        // cover the first one.
+        const pricedKeys = new Set(priced.map((l) => l.key));
+
+        return [
+          ...priced,
+          ...state.items
+            .filter(
+              (i) =>
+                !pricedKeys.has(
+                  lineKey(
+                    i.ticket_id,
+                    i.ticket_session_id,
+                    i.selected_event_day_id,
+                  ),
+                ),
+            )
+            .map((i) => unpriced(i, false)),
+        ];
       }
 
       // No preview yet (first paint, or the request failed).
-      return state.items.map((i) => ({
-        key: lineKey(i.ticket_id, i.ticket_session_id, i.selected_event_day_id),
-        item: i,
-        ticket_id: i.ticket_id,
-        ticket_session_id: i.ticket_session_id ?? null,
-        selected_event_day_id: i.selected_event_day_id ?? null,
-        qty: Number(i.qty) || 0,
-        unit: 0,
-        subtotal: 0,
-        pending: false,
-        title: "",
-        phaseLabel: "",
-      }));
+      return state.items.map((i) => unpriced(i, false));
     },
 
     pricingPending() {

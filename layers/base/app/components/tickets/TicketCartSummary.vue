@@ -200,7 +200,7 @@ defineExpose({ appliedPromo });
       <li
         v-for="line in lines"
         :key="line.key"
-        class="flex items-start gap-3 text-sm tracking-tight"
+        class="flex items-center gap-3 text-sm tracking-tight"
       >
         <div
           v-if="posterSrc(line.ticket)"
@@ -215,7 +215,15 @@ defineExpose({ appliedPromo });
         </div>
 
         <div class="min-w-0 flex-1">
-          <div class="flex items-start gap-2">
+          <!-- Price over quantity on the trailing edge, the same shape the
+               sticky bar uses for the same cart on the same page.
+               The "2 x Rp350.000" line this replaces carried one fact the row
+               did not already state - the unit price - and one it stated twice:
+               the quantity, 40px from the stepper that owns it. At quantity 1 it
+               read "1 x Rp350.000" beside "Rp350.000", two identical numbers
+               asking to be compared. The bar has never shown a unit price and
+               nobody has missed it. -->
+          <div class="flex items-center gap-3">
             <div class="min-w-0 flex-1 space-y-0.5">
               <p class="text-foreground font-medium">{{ line.title }}</p>
               <p
@@ -231,26 +239,22 @@ defineExpose({ appliedPromo });
               </p>
             </div>
 
-            <span
-              class="shrink-0 font-medium tabular-nums tracking-tight transition-opacity"
-              :class="{ 'opacity-60': line.pending }"
-              :aria-busy="line.pending || undefined"
-            >
-              {{ fmtIdr(line.subtotal) }}
-            </span>
-          </div>
-
-          <div class="mt-2 flex items-center justify-between gap-3">
-            <!-- Same control the sticky bar uses, so a line cannot behave one
-                 way in the aside and another in the bar on the same page. -->
-            <TicketLineQuantity v-if="editable" :line="line" />
-
-            <!-- A price, so never text-xs (STYLE_GUIDE: no text-xs on values). -->
-            <span
-              class="text-muted-foreground ml-auto text-sm tabular-nums tracking-tight"
-            >
-              {{ line.qty }} &times; {{ fmtIdr(line.unit) }}
-            </span>
+            <div class="flex shrink-0 flex-col items-end gap-1">
+              <span
+                class="font-medium tabular-nums tracking-tight transition-opacity"
+                :class="{ 'opacity-60': line.pending }"
+                :aria-busy="line.pending || undefined"
+              >
+                {{ fmtIdr(line.subtotal) }}
+              </span>
+              <!-- Same control the sticky bar uses, so a line cannot behave one
+                   way in the aside and another in the bar. Rendered even when
+                   read-only: it falls back to a plain "x2", and dropping it
+                   entirely left a read-only summary with no quantity at all -
+                   the number used to come from the "2 x Rp350.000" line that is
+                   now gone. -->
+              <TicketLineQuantity :line="line" :editable="editable" />
+            </div>
           </div>
 
           <p
@@ -278,7 +282,9 @@ defineExpose({ appliedPromo });
         <span>{{ t("tickets.accessApplied", { code: cart.accessCode }) }}</span>
       </div>
 
-      <div class="flex items-baseline justify-between">
+      <!-- Only once a discount has moved it. Without one, Subtotal and Total
+           are the same number printed twice, one line apart. -->
+      <div v-if="discount > 0" class="flex items-baseline justify-between">
         <span class="text-muted-foreground text-sm tracking-tight">
           {{ t("tickets.subtotal") }}
         </span>
@@ -299,9 +305,15 @@ defineExpose({ appliedPromo });
         </span>
       </div>
 
+      <!-- The rule above Total only earns its place when something sits between
+           it and the list's own rule. With no breakdown the two ran 12px apart
+           with nothing in between. -->
       <div
-        class="flex items-baseline justify-between border-t pt-3 transition-opacity"
-        :class="{ 'opacity-60': anyPending }"
+        class="flex items-baseline justify-between transition-opacity"
+        :class="[
+          { 'opacity-60': anyPending },
+          discount > 0 || cart.accessCode ? 'border-t pt-3' : '',
+        ]"
         :aria-busy="anyPending || undefined"
       >
         <span class="text-sm font-medium tracking-tight">
@@ -320,15 +332,14 @@ defineExpose({ appliedPromo });
         <!-- An imperative, not a question. "Have a promo code?" told the buyer
              nothing about what to do if the answer was yes; the plus/minus and
              the control-weight type are what make it read as pressable. -->
-        <CollapsibleTrigger
-          v-if="!appliedPromo"
-          class="text-foreground hover:text-foreground/80 focus-visible:ring-ring inline-flex items-center gap-1.5 rounded-sm text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none"
-        >
-          <Icon
-            :name="promoOpen ? 'hugeicons:minus-sign' : 'hugeicons:plus-sign'"
-            class="size-4 shrink-0"
-          />
-          {{ t("tickets.promoDisclose") }}
+        <CollapsibleTrigger v-if="!appliedPromo" as-child>
+          <Button variant="ghost" size="sm" class="-ml-3 gap-1.5">
+            <Icon
+              :name="promoOpen ? 'hugeicons:minus-sign' : 'hugeicons:plus-sign'"
+              class="size-4 shrink-0"
+            />
+            {{ t("tickets.promoDisclose") }}
+          </Button>
         </CollapsibleTrigger>
 
         <p
@@ -340,13 +351,14 @@ defineExpose({ appliedPromo });
           <span class="flex-1">
             {{ t("tickets.promoApplied", { code: appliedPromo }) }}
           </span>
-          <button
-            type="button"
-            class="focus-visible:ring-ring shrink-0 rounded-sm underline underline-offset-2 focus-visible:ring-2 focus-visible:outline-none"
+          <Button
+            variant="link"
+            size="xs"
+            class="text-success-foreground -my-1 h-auto shrink-0 px-0"
             @click="removePromo"
           >
             {{ t("tickets.remove") }}
-          </button>
+          </Button>
         </p>
 
         <CollapsibleContent v-if="!appliedPromo" class="mt-3 space-y-2">

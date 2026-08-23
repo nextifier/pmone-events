@@ -139,8 +139,19 @@ function confirmClear() {
   clearConfirmOpen.value = false;
 }
 
-function toggleDetail() {
+/**
+ * A pointer press leaves focus on this button. The focus ring stays suppressed
+ * until the next keystroke - and then ANY key flips `:focus-visible` on, so a
+ * global shortcut (the site binds "D" for the theme) rings a control the buyer
+ * was not thinking about.
+ *
+ * `detail > 0` means a real pointer activation. Keyboard activation reports 0,
+ * and there focus is kept: the ring is the only thing telling that buyer where
+ * they are.
+ */
+function toggleDetail(event) {
   expanded.value = !expanded.value;
+  if (event?.detail > 0) event.currentTarget?.blur();
 }
 
 /**
@@ -218,19 +229,32 @@ const visible = computed(
            reaching for a raw palette colour. -->
       <div
         ref="pillRef"
-        class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden p-1 pl-2.5 shadow-lg ring-1 ring-white/20 transition-[border-radius,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] [--destructive-foreground:var(--color-red-400)] motion-reduce:transition-none dark:[--destructive-foreground:var(--color-red-700)]"
-        :class="expanded ? 'rounded-3xl sm:p-4' : 'rounded-4xl'"
+        class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden shadow-lg ring-1 ring-white/20 transition-[border-radius,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] [--destructive-foreground:var(--color-red-400)] motion-reduce:transition-none dark:[--destructive-foreground:var(--color-red-700)]"
+        :class="
+          expanded
+            ? 'rounded-3xl px-2.5 py-3 sm:p-4'
+            : 'rounded-4xl p-1 pl-2.5'
+        "
         :data-open="expanded"
       >
         <!-- Collapsible detail, above the action row -->
         <div class="t-acc-panel">
           <div class="t-acc-panel-inner">
-            <div class="px-2.5 pt-1.5 pb-3">
-              <ul class="divide-background/10 flex flex-col divide-y">
+            <div class="px-2.5 pb-2">
+              <!-- The bottom rule used to come from the summary row that sat below.
+                   With that row gone the list still needs to read as its own
+                   group, separate from the action row. -->
+              <ul
+                class="divide-background/10 border-background/10 flex flex-col divide-y border-b"
+              >
+                <!-- `first:pt-0` so the first row's content starts exactly one
+                     pill-padding from the top edge, the same distance the action
+                     row ends from the bottom edge. Between rows the rhythm is
+                     unchanged: 8px under one row plus 8px over the next. -->
                 <li
                   v-for="line in lines"
                   :key="line.key"
-                  class="flex items-center gap-3 py-2"
+                  class="flex items-center gap-3 py-2 first:pt-0"
                 >
                   <div
                     v-if="posterSrc(line.ticket)"
@@ -280,7 +304,7 @@ const visible = computed(
                        that used to sit here is gone: stepping below the ticket's
                        minimum removes the line, so one control does both jobs and
                        the row no longer offers two ways to reach zero. -->
-                  <div class="flex shrink-0 flex-col items-end gap-1.5">
+                  <div class="flex shrink-0 flex-col items-end gap-1">
                     <span
                       class="text-sm font-medium tabular-nums transition-opacity sm:text-base"
                       :class="{ 'opacity-60': line.pending }"
@@ -291,11 +315,27 @@ const visible = computed(
                 </li>
               </ul>
 
+              <!-- Only a real breakdown earns a row here. This block used to
+                   repeat the action row directly below it - the same amount and
+                   a second Clear cart, one thumb-width apart - which is two ways
+                   to read one number and two ways to empty one cart. The total
+                   and the trash button live in the action row; a subtotal only
+                   means something once a discount has moved it. -->
               <div
                 v-if="discount > 0"
-                class="border-background/10 mt-1 flex items-center justify-end gap-3 border-t pt-3"
+                class="border-background/10 mt-1 space-y-1 border-t pt-3"
               >
-                <p class="leading-tight">
+                <p class="flex items-baseline justify-end leading-tight">
+                  <span class="text-background/80 text-sm tracking-tight">
+                    {{ t("tickets.subtotal") }}
+                  </span>
+                  <span
+                    class="ml-2 text-sm font-medium tabular-nums sm:text-base"
+                  >
+                    {{ fmtIdr(subtotal) }}
+                  </span>
+                </p>
+                <p class="flex items-baseline justify-end leading-tight">
                   <span class="text-background/80 text-sm tracking-tight">
                     {{ t("tickets.discount") }}
                   </span>
@@ -305,45 +345,6 @@ const visible = computed(
                     -{{ fmtIdr(discount) }}
                   </span>
                 </p>
-                <span class="-mr-1 size-7 shrink-0" aria-hidden="true" />
-              </div>
-
-              <div
-                class="mt-1 flex items-center"
-                :class="
-                  discount > 0 ? '' : 'border-background/10 border-t pt-3'
-                "
-              >
-                <!-- Present in both modes. It used to be hidden on checkout
-                     because emptying the cart there throws the buyer out of the
-                     page; the confirmation dialog covers that now, and a bar
-                     that offers different controls on two pages of the same
-                     flow is the worse problem. -->
-                <button
-                  type="button"
-                  class="text-background/70 hover:text-background focus-visible:ring-background/40 inline-flex items-center gap-1.5 rounded-full text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none sm:text-base"
-                  @click="clearConfirmOpen = true"
-                >
-                  <Icon
-                    name="hugeicons:delete-01"
-                    class="size-4 shrink-0 sm:size-5"
-                  />
-                  {{ t("tickets.clearCart") }}
-                </button>
-                <!-- No trailing spacer: each line's price is now the right edge
-                     of its own column, so the total lines up with them by simply
-                     ending where they end. -->
-                <div class="flex flex-1 items-center justify-end">
-                  <p class="leading-tight">
-                    <span class="text-background/80 text-sm tracking-tight">{{
-                      headlineLabel
-                    }}</span>
-                    <span
-                      class="ml-2 text-sm font-semibold tabular-nums sm:text-base"
-                      >{{ amountLabel(headlineAmount) }}</span
-                    >
-                  </p>
-                </div>
               </div>
             </div>
           </div>
@@ -407,7 +408,7 @@ const visible = computed(
                 </i18n-t>
               </span>
               <span
-                class="text-base font-semibold tabular-nums transition-opacity sm:text-lg"
+                class="-mt-0.5 text-base font-semibold tabular-nums transition-opacity sm:text-lg"
                 :class="{ 'opacity-60': isPay && cart.pricingPending }"
                 aria-live="polite"
                 aria-atomic="true"
@@ -428,18 +429,27 @@ const visible = computed(
             </span>
           </button>
 
-          <button
-            type="button"
-            class="bg-destructive/15 text-destructive-foreground hover:bg-destructive/25 focus-visible:ring-destructive-foreground/40 inline-flex size-9 shrink-0 items-center justify-center self-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          <!-- `size-9` pinned rather than left to the size variant: this circle
+               and the chevron beside it are a matched pair the bar draws itself,
+               and each style pack sizes `icon` differently (mono makes it 32px,
+               against the chevron's 36). It also keeps the 44px coarse-pointer
+               pad from reaching its neighbours across the 6px gap. -->
+          <Button
+            variant="ghost"
+            size="icon"
+            class="bg-destructive/15 text-destructive-foreground hover:bg-destructive/25 focus-visible:ring-destructive-foreground/40 size-9 self-center rounded-full"
             :aria-label="t('tickets.clearCart')"
             @click="clearConfirmOpen = true"
           >
             <Icon name="hugeicons:delete-01" class="size-4 sm:size-5" />
-          </button>
+          </Button>
 
-          <button
-            type="button"
-            class="bg-background text-foreground hover:bg-background/90 focus-visible:ring-background/50 inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium tracking-tight transition focus-visible:ring-2 focus-visible:outline-none active:scale-98 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 sm:text-base"
+          <!-- `h-auto` is load-bearing. The row is `items-stretch` so the CTA's
+               top and bottom margin is exactly the pill's padding; a size
+               class's own fixed height would pin it and break that. -->
+          <Button
+            size="lg"
+            class="bg-background text-foreground hover:bg-background/90 focus-visible:ring-background/50 h-auto gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium active:scale-98 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 sm:h-auto sm:text-base"
             :aria-disabled="ctaDisabled || submitting"
             :aria-busy="submitting || undefined"
             @click="emit('primary')"
@@ -468,7 +478,11 @@ const visible = computed(
                 :aria-hidden="true"
               />
             </span>
-            <span class="grid min-w-0">
+            <!-- `t-bar-slot` takes the hidden label out of flow. Stacked in
+                 flow, every label fed the intrinsic width, so the button stayed
+                 as wide as the longest one - "Checkout" - long after it had
+                 swapped to "Pay". -->
+            <span class="t-bar-slot grid min-w-0">
               <span
                 class="t-bar-line col-start-1 row-start-1 truncate"
                 :data-shown="!!ctaLabel"
@@ -482,7 +496,7 @@ const visible = computed(
                 >{{ t("tickets.checkout") }}</span
               >
             </span>
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -498,21 +512,26 @@ const visible = computed(
     dialog-max-width="26rem"
   >
     <template #default>
-      <div class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
-        <!-- `aria-hidden`, because ResponsiveDialog already renders these two
-             strings as the sr-only DialogTitle and DialogDescription. Without
-             it a screen reader reads the whole prompt twice. -->
-        <div class="space-y-1.5" aria-hidden="true">
-          <h3 class="text-foreground text-lg font-semibold tracking-tighter">
+      <!-- Structure copied from pmone's ConfirmDialog.vue, the app's one
+           confirmation shape: same paddings, same type, and the actions always
+           side by side and right-aligned - Cancel, then the destructive one. It
+           used to stack full-width below `sm`, which is a second pattern for the
+           same job.
+           `aria-hidden` on the prompt, because ResponsiveDialog already renders
+           these two strings as the sr-only DialogTitle and DialogDescription;
+           without it a screen reader reads the whole thing twice. -->
+      <div class="px-4 pt-5 pb-8 md:px-6 md:py-5">
+        <div aria-hidden="true">
+          <div
+            class="text-foreground text-lg font-semibold tracking-tighter text-balance"
+          >
             {{ t("tickets.clearCartTitle") }}
-          </h3>
-          <p class="text-muted-foreground text-sm tracking-tight">
+          </div>
+          <p class="text-body mt-1.5 text-sm tracking-tight">
             {{ t("tickets.clearCartBody") }}
           </p>
         </div>
-        <!-- Cancel first and Cancel wider: the whole point is that the buyer
-             arrived here by missing a target. -->
-        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+        <div class="mt-4 flex justify-end gap-2">
           <Button variant="outline" @click="clearConfirmOpen = false">
             {{ t("tickets.clearCartCancel") }}
           </Button>

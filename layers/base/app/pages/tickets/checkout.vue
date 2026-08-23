@@ -671,7 +671,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
 <template>
   <div
     ref="pageRef"
-    class="mx-auto max-w-6xl px-4 pt-4 pb-[calc(--spacing(28)+env(safe-area-inset-bottom,0px))] sm:pt-6"
+    class="container pt-4 pb-[calc(--spacing(28)+env(safe-area-inset-bottom,0px))] sm:pt-6"
   >
     <!-- Header + back link -->
     <div class="mb-6 flex flex-col gap-3">
