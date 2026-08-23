@@ -117,18 +117,32 @@
           <div
             v-for="(item, idx) in order.items || []"
             :key="idx"
-            class="flex justify-between gap-3 text-sm tracking-tight"
+            class="flex items-center gap-3 text-sm tracking-tight"
           >
-            <div>
+            <!-- Same poster and the same sub-label the cart bar showed while the
+                 buyer was choosing, so the receipt line is recognisably the line
+                 they picked. -->
+            <div
+              v-if="posterSrc(item)"
+              class="bg-muted size-11 shrink-0 overflow-hidden rounded-lg"
+            >
+              <BlurImage
+                :src="posterSrc(item)"
+                :lqip="item.poster?.lqip"
+                alt=""
+                image-class="object-cover"
+              />
+            </div>
+            <div class="min-w-0 flex-1">
               <p class="font-medium">{{ ticketTitle(item.ticket_id) }} × {{ item.quantity }}</p>
               <p
-                v-if="item.phase_label"
-                class="text-muted-foreground text-xs tracking-tight sm:text-sm"
+                v-if="itemSubLabel(item)"
+                class="text-muted-foreground truncate text-sm tracking-tight"
               >
-                {{ item.phase_label }}
+                {{ itemSubLabel(item) }}
               </p>
             </div>
-            <p class="font-medium tabular-nums">Rp{{ formatRupiah(item.subtotal) }}</p>
+            <p class="shrink-0 font-medium tabular-nums">Rp{{ formatRupiah(item.subtotal) }}</p>
           </div>
 
           <div class="space-y-1.5 border-t pt-3 text-sm tracking-tight">
@@ -225,6 +239,7 @@ import { Result, ResultReference } from "../../components/ui/result";
 import { Skeleton } from "../../components/ui/skeleton";
 import { Spinner } from "../../components/ui/spinner";
 import ETicket from "../../components/tickets/ETicket.vue";
+import { BlurImage } from "../../components/ui/blur-image";
 import { useTicketPdf } from "../../composables/useTicketPdf";
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { toast } from "vue-sonner";
@@ -284,6 +299,23 @@ const ticketsById = computed(() => {
 
 function ticketTitle(ticketId) {
   return ticketsById.value[ticketId]?.title || t("ui.getTicket");
+}
+
+const posterSrc = (item) => item.poster?.sm || item.poster?.url || null;
+
+/**
+ * Day, session and price phase, joined the way `cartLineSubLabel` joins them in
+ * the cart bar. The receipt used to show the phase alone, so a two-day order
+ * read as two identical lines; the phase stays because on a receipt it is what
+ * explains the price.
+ */
+function itemSubLabel(item) {
+  const { $dayjs } = useNuxtApp();
+  const parts = [];
+  if (item.event_day_date) parts.push($dayjs(item.event_day_date).format("ddd, D MMM"));
+  if (item.session_label) parts.push(item.session_label);
+  if (item.phase_label) parts.push(item.phase_label);
+  return parts.join(" · ");
 }
 
 const isConfirmed = computed(() => order.value?.status === "confirmed");

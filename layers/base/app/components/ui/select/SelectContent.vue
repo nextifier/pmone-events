@@ -43,9 +43,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
            the options passing under them, but `cn-select-scroll-*-button` paints
            them `bg-popover` at full opacity while the content around them is
            `cn-menu-translucent` at 70%. On a long list that reads as two solid
-           slabs bolted onto a sheet of glass. Same treatment as the popover
-           itself instead: blur what is behind them, then the same 70% tint. -->
-      <SelectScrollUpButton class="bg-popover/70 backdrop-blur-2xl backdrop-saturate-150" />
+           slabs bolted onto a sheet of glass.
+
+           No tint of their own: the content already paints 70% underneath, and a
+           second 70% on top composites to about 91%, which still showed as a
+           flat band at the foot of the list. Blur alone is what hides the
+           options passing under them. -->
+      <SelectScrollUpButton class="bg-transparent backdrop-blur-2xl backdrop-saturate-150" />
       <SelectViewport
         :data-position="position"
         :class="
@@ -56,7 +60,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       >
         <slot />
       </SelectViewport>
-      <SelectScrollDownButton class="bg-popover/70 backdrop-blur-2xl backdrop-saturate-150" />
+      <SelectScrollDownButton class="bg-transparent backdrop-blur-2xl backdrop-saturate-150" />
     </SelectContent>
   </SelectPortal>
 </template>

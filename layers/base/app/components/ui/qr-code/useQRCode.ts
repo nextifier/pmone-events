@@ -199,9 +199,15 @@ export function buildQRSvgString(
  * Shared module style (square / rounded), persisted so a deliberate choice
  * survives navigation and follows every QR the app renders. The key is
  * app-agnostic on purpose: this component ships identically to every project.
+ *
+ * Default is `rounded`. The key carries `-v2` because `useLocalStorage` writes
+ * its default on first read: every browser that had ever opened a QR already
+ * held the old `square`, so changing the default alone would have reached
+ * nobody. Bumping the key re-baselines everyone on the new default, and the
+ * toggle still puts anyone who prefers square back in one click.
  */
 export function useQRCodeStyle() {
-  const qrStyle = useLocalStorage<QRStyleVariant>("ui:qr-code-style", "square");
+  const qrStyle = useLocalStorage<QRStyleVariant>("ui:qr-code-style-v2", "rounded");
 
   const toggleQrStyle = () => {
     qrStyle.value = qrStyle.value === "rounded" ? "square" : "rounded";

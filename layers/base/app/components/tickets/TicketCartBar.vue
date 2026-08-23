@@ -4,7 +4,7 @@ import { BlurImage } from "../ui/blur-image";
 import { Button } from "../ui/button";
 import ResponsiveDialog from "../ui/responsive-dialog/ResponsiveDialog.vue";
 import { onClickOutside, useEventListener } from "@vueuse/core";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, ref } from "vue";
 import { toast } from "vue-sonner";
 
 const props = defineProps({
@@ -173,16 +173,16 @@ function onFocusChange() {
   }, 80);
 }
 
-onMounted(() => {
-  if (!props.hideWhileTyping) return;
-  document.addEventListener("focusin", onFocusChange);
-  document.addEventListener("focusout", onFocusChange);
-});
+// Attached unconditionally, and NOT gated on `hideWhileTyping` here. The bar is
+// mounted once in app.vue and lives across /tickets -> /tickets/checkout, so
+// `onMounted` ran while the prop was still false on the listing page and an
+// early return left the listeners off for the rest of the session - the reason
+// the bar sat on top of the keyboard at checkout. `visible` does the gating.
+useEventListener(document, "focusin", onFocusChange);
+useEventListener(document, "focusout", onFocusChange);
 
 onBeforeUnmount(() => {
   if (typingTimer) clearTimeout(typingTimer);
-  document.removeEventListener("focusin", onFocusChange);
-  document.removeEventListener("focusout", onFocusChange);
 });
 
 const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typing.value));
