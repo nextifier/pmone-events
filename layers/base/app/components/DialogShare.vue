@@ -18,7 +18,11 @@
     </template>
 
     <template #default="{ data }">
-      <div class="px-4 pb-6 md:p-8">
+      <!-- `pt-5` to match the ResponsiveDialog body pattern used by the
+           checkout T&C and hotel terms dialogs. `md:p-8` already padded the
+           desktop side; on mobile the heading was sitting against the drag
+           handle. -->
+      <div class="px-4 pt-5 pb-6 md:p-8">
         <div
           class="text-foreground text-center text-lg font-semibold tracking-tight sm:text-xl"
         >

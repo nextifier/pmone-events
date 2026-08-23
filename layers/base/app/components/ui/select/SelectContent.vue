@@ -39,7 +39,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         )
       "
     >
-      <SelectScrollUpButton />
+      <!-- The scroll affordances sit above the list and have to keep occluding
+           the options passing under them, but `cn-select-scroll-*-button` paints
+           them `bg-popover` at full opacity while the content around them is
+           `cn-menu-translucent` at 70%. On a long list that reads as two solid
+           slabs bolted onto a sheet of glass. Same treatment as the popover
+           itself instead: blur what is behind them, then the same 70% tint. -->
+      <SelectScrollUpButton class="bg-popover/70 backdrop-blur-2xl backdrop-saturate-150" />
       <SelectViewport
         :data-position="position"
         :class="
@@ -50,7 +56,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       >
         <slot />
       </SelectViewport>
-      <SelectScrollDownButton />
+      <SelectScrollDownButton class="bg-popover/70 backdrop-blur-2xl backdrop-saturate-150" />
     </SelectContent>
   </SelectPortal>
 </template>

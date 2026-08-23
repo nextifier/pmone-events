@@ -1,8 +1,10 @@
 /**
- * Order status + attendees by opaque ulid (post-checkout result page).
+ * Re-open a gateway checkout for an order whose payment link never arrived,
+ * because the upstream checkout job exhausted its retries. Mirrors
+ * `hotels/reservation/[token]/retry-payment.post.ts`.
  *
  * Adapter route (X-API-Key server-side) proxying PM One's
- * `GET /api/public/ticket-orders/{ulid}`.
+ * `POST /api/public/ticket-orders/{ulid}/retry-payment`.
  */
 export default defineEventHandler(async (event) => {
   const ulid = getRouterParam(event, "ulid");
@@ -19,11 +21,12 @@ export default defineEventHandler(async (event) => {
     "";
 
   return await pmOnePublicFetch(
-    `/ticket-orders/${encodeURIComponent(ulid ?? "")}`,
+    `/ticket-orders/${encodeURIComponent(ulid ?? "")}/retry-payment`,
     {
+      method: "POST",
       headers: clientIp ? { "X-Forwarded-For": clientIp } : undefined,
       errorShape: "statusMessage",
-      errorPrefix: "Order not found",
+      errorPrefix: "Retry",
     },
   );
 });

@@ -17,7 +17,7 @@
     </div>
     <div
       class="text-foreground px-4 pb-16 sm:px-8 sm:pb-12"
-      :class="hasPoster ? 'pt-4 sm:pt-6' : 'pt-2 sm:pt-12'"
+      :class="hasPoster ? 'pt-4 sm:pt-6' : 'pt-5 sm:pt-12'"
     >
       <div class="flex flex-col gap-y-4">
         <div class="flex grow flex-col">

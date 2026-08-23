@@ -14,6 +14,7 @@ import {
 } from "../../components/ui/custom-field";
 import TicketCartSummary from "../../components/tickets/TicketCartSummary.vue";
 import { useTicketCartStore } from "../../stores/ticketCart";
+import { useEventListener } from "@vueuse/core";
 import {
   computed,
   nextTick,
@@ -140,6 +141,14 @@ const acceptTerms = ref(false);
 
 const errors = ref({});
 const submitting = ref(false);
+// True while we hold the buyer here waiting for the gateway link to be minted.
+// Drives the CTA label on both the in-page button and the sticky bar.
+const preparing = ref(false);
+// Latched the moment this page stops being the buyer's page: they navigated
+// away, or we handed them to the gateway. The wait below checks it on every
+// tick so a bfcache restore (Back from Xendit) cannot resume a half-finished
+// poll and bounce them forward again.
+const leavingPage = ref(false);
 // Stable per-checkout-attempt key so a lost-response retry (or a corrected
 // resubmit after a validation error) dedupes against the backend instead of
 // creating a duplicate order. Reset once an order is successfully created.
@@ -319,6 +328,17 @@ async function loadCustomFields({ force = false } = {}) {
 // business-matching section at all (hidden entirely when there are none).
 onMounted(loadCustomFields);
 
+// `pagehide` rather than `beforeunload`: it fires for a bfcache freeze too,
+// which is exactly the case the latch exists for.
+// Target omitted on purpose: VueUse then defaults to its SSR-safe window
+// handle. Passing `window` here would throw during server render.
+useEventListener("pagehide", () => {
+  leavingPage.value = true;
+});
+onBeforeUnmount(() => {
+  leavingPage.value = true;
+});
+
 // Re-fetch so the custom-field labels re-localize when the visitor switches
 // language (the labels come pre-localized from the API per ?locale=).
 watch(locale, () => loadCustomFields({ force: true }));
@@ -343,6 +363,62 @@ function isAllowedPaymentUrl(url) {
   } catch {
     return false;
   }
+}
+
+// The first poll fires a full interval in, not immediately: the job almost
+// always lands inside that first second, so asking at t=0 would just spend a
+// request to be told "not yet".
+const LINK_POLL_INTERVAL_MS = 1000;
+const LINK_POLL_BUDGET_MS = 15000;
+
+/**
+ * Wait for the payment link, then hand back the gateway URL.
+ *
+ * `POST /ticket-orders` has not returned a payment_url since PM One moved the
+ * gateway round-trip into a queued job, so that a checkout spike can never pin
+ * a PHP-FPM worker on it. The link lands about a second later. Polling for it
+ * here keeps the buyer on one page and one click; the alternative, bouncing
+ * them to the result page to press "Pay now", is the behaviour this replaces.
+ *
+ * Returns null when there is nothing to pay, when the link never arrives, or
+ * when the URL is not one we are willing to send a buyer to - every one of
+ * those falls through to the result page, which has its own preparing state
+ * and a manual retry.
+ */
+async function waitForPaymentUrl(order) {
+  const accept = (url) => {
+    if (!url) return null;
+    if (isAllowedPaymentUrl(url)) return url;
+    // Silently falling through here would look exactly like the bug above, so
+    // leave a trace that tells the two apart.
+    console.warn("[checkout] gateway URL rejected by host allowlist:", url);
+    return null;
+  };
+
+  // Free or already-settled: nothing to redirect to.
+  if (order?.is_free || order?.payment_status === "confirmed") return null;
+  // Defensive: a synchronous backend (or a future one) may hand it over here.
+  if (order?.payment_url) return accept(order.payment_url);
+  if (!order?.ulid) return null;
+
+  preparing.value = true;
+  const deadline = Date.now() + LINK_POLL_BUDGET_MS;
+
+  while (Date.now() < deadline && !leavingPage.value) {
+    await new Promise((resolve) => setTimeout(resolve, LINK_POLL_INTERVAL_MS));
+    if (leavingPage.value) return null;
+
+    const res = await $fetch(`/api/tickets/orders/${order.ulid}`).catch(
+      () => null,
+    );
+    const fresh = res?.data ?? null;
+    if (!fresh) continue;
+    if (fresh.payment_url) return accept(fresh.payment_url);
+    // Terminal upstream state (expired / cancelled): stop asking.
+    if (fresh.payment_status === "failed") return null;
+  }
+
+  return null;
 }
 
 const canSubmit = computed(() => {
@@ -488,13 +564,18 @@ async function submit() {
     cart.clear();
     idempotencyKey.value = null;
 
+    const gatewayUrl = await waitForPaymentUrl(data);
+
     // Hard redirects only: a client-side navigateTo races the page teardown
     // here, so use window.location for both the gateway and the result page.
-    if (data?.payment_url && isAllowedPaymentUrl(data.payment_url)) {
-      window.location.href = data.payment_url;
+    if (gatewayUrl) {
+      leavingPage.value = true;
+      window.location.href = gatewayUrl;
       return;
     }
-    window.location.href = `/tickets/result?order=${data.ulid}`;
+    leavingPage.value = true;
+    // localePath, so an Indonesian buyer does not land on the English page.
+    window.location.href = `${localePath("/tickets/result")}?order=${data.ulid}`;
   } catch (err) {
     const body = err?.data || {};
     errors.value = body.errors || body.data?.errors || {};
@@ -511,6 +592,7 @@ async function submit() {
     toast.error(message);
   } finally {
     submitting.value = false;
+    preparing.value = false;
   }
 }
 
@@ -528,9 +610,11 @@ const checkoutBar = useTicketCheckoutBar();
 
 watchEffect(() => {
   publishTicketCheckoutBar({
-    ctaLabel: isFree.value
-      ? t("tickets.claimFreeTickets")
-      : t("tickets.continueToPayment"),
+    ctaLabel: preparing.value
+      ? t("tickets.result.preparingPayment")
+      : isFree.value
+        ? t("tickets.claimFreeTickets")
+        : t("tickets.continueToPayment"),
     ctaIcon: "hugeicons:credit-card",
     ctaDisabled: !canSubmit.value,
     submitting: submitting.value,
@@ -896,18 +980,29 @@ onBeforeUnmount(clearTicketCheckoutBar);
                so a keyboard user tabs straight past it and never learns why it
                will not accept them. The guard lives in submit(), which raises the
                reason as a toast and scrolls to the offending field. -->
+          <!-- `loading` hides the label to keep the button's width stable, which
+               is right for the sub-second order POST but wrong once we are
+               waiting on the gateway link: that wait can run to 15s, and a bare
+               spinner for that long tells the buyer nothing. So the preparing
+               state renders its own inline spinner and keeps its label. -->
           <Button
             type="submit"
             class="w-full aria-disabled:cursor-not-allowed aria-disabled:opacity-60"
             size="lg"
             :aria-disabled="!canSubmit || undefined"
-            :loading="submitting"
+            :loading="submitting && !preparing"
           >
-            {{
-              isFree
-                ? t("tickets.claimFreeTickets")
-                : t("tickets.continueToPayment")
-            }}
+            <template v-if="preparing">
+              <Icon name="svg-spinners:180-ring" class="size-4 shrink-0" />
+              {{ t("tickets.result.preparingPayment") }}
+            </template>
+            <template v-else>
+              {{
+                isFree
+                  ? t("tickets.claimFreeTickets")
+                  : t("tickets.continueToPayment")
+              }}
+            </template>
           </Button>
         </div>
       </div>

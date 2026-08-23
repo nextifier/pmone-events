@@ -1,7 +1,9 @@
 <script setup>
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { BlurImage } from "../ui/blur-image";
-import { onClickOutside } from "@vueuse/core";
+import { Button } from "../ui/button";
+import ResponsiveDialog from "../ui/responsive-dialog/ResponsiveDialog.vue";
+import { onClickOutside, useEventListener } from "@vueuse/core";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { toast } from "vue-sonner";
 
@@ -84,14 +86,44 @@ const amountLabel = (n) => (n > 0 ? fmtIdr(n) : t("tickets.free"));
 const expanded = ref(false);
 
 /**
- * Tapping the page collapses the detail. Bound to the pill, not to the fixed
- * strip: the strip spans the full width and would count most of the page as
- * inside. Only armed while open, so a closed bar never listens.
+ * Two ways out of the expanded detail, both guarded on `expanded` so a closed
+ * bar swallows nothing.
+ *
+ * Click-outside is bound to the pill, not to the fixed strip: the strip spans
+ * the full width and would count most of the page as inside.
+ *
+ * Escape only acts when nothing is layered above the bar. A dialog or a
+ * combobox owns Escape while it is open, and the bar sitting underneath must
+ * not eat the same press.
  */
 const pillRef = ref(null);
-onClickOutside(pillRef, () => {
+
+const collapse = () => {
   if (expanded.value) expanded.value = false;
+};
+
+onClickOutside(pillRef, collapse);
+
+useEventListener(window, "keydown", (event) => {
+  if (event.key !== "Escape" || !expanded.value) return;
+  // A dialog or an open combobox owns Escape while it is up; the bar sits
+  // underneath and must not eat the same press.
+  if (document.querySelector('[role="dialog"], [role="listbox"]')) return;
+  collapse();
 });
+/**
+ * Clearing the cart sits one thumb-width from Checkout, so a miss costs the
+ * buyer every ticket they picked. It is also the only irreversible control on
+ * the bar - removing a single line raises an Undo toast, this one has nothing
+ * to undo - so it asks first.
+ */
+const clearConfirmOpen = ref(false);
+
+function confirmClear() {
+  cart.clear();
+  clearConfirmOpen.value = false;
+}
+
 function toggleDetail() {
   expanded.value = !expanded.value;
 }
@@ -379,7 +411,7 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
             type="button"
             class="bg-destructive/15 text-destructive-foreground hover:bg-destructive/25 focus-visible:ring-destructive-foreground/40 inline-flex size-9 shrink-0 items-center justify-center self-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
             :aria-label="t('tickets.clearCart')"
-            @click="cart.clear()"
+            @click="clearConfirmOpen = true"
           >
             <Icon name="hugeicons:delete-01" class="size-4 sm:size-5" />
           </button>
@@ -434,6 +466,42 @@ const visible = computed(() => !cart.isEmpty && !(props.hideWhileTyping && typin
       </div>
     </div>
   </Transition>
+
+  <!-- Outside the Transition on purpose: the bar hides itself while a field has
+       focus, and a dialog that unmounted with it would take the confirmation
+       away mid-decision. -->
+  <ResponsiveDialog
+    v-model:open="clearConfirmOpen"
+    :title="t('tickets.clearCartTitle')"
+    :description="t('tickets.clearCartBody')"
+    dialog-max-width="26rem"
+  >
+    <template #default>
+      <div class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
+        <!-- `aria-hidden`, because ResponsiveDialog already renders these two
+             strings as the sr-only DialogTitle and DialogDescription. Without
+             it a screen reader reads the whole prompt twice. -->
+        <div class="space-y-1.5" aria-hidden="true">
+          <h3 class="text-foreground text-lg font-semibold tracking-tighter">
+            {{ t("tickets.clearCartTitle") }}
+          </h3>
+          <p class="text-muted-foreground text-sm tracking-tight">
+            {{ t("tickets.clearCartBody") }}
+          </p>
+        </div>
+        <!-- Cancel first and Cancel wider: the whole point is that the buyer
+             arrived here by missing a target. -->
+        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <Button variant="outline" @click="clearConfirmOpen = false">
+            {{ t("tickets.clearCartCancel") }}
+          </Button>
+          <Button variant="destructive" @click="confirmClear">
+            {{ t("tickets.clearCartConfirm") }}
+          </Button>
+        </div>
+      </div>
+    </template>
+  </ResponsiveDialog>
 </template>
 
 <style scoped>

@@ -6,7 +6,9 @@
     :drawerCloseButton="false"
   >
     <template #default>
-      <div class="container max-w-lg pb-16">
+      <!-- `pt-5`: `container` only pads horizontally, so the form started
+           flush against the top edge. Same value as every other dialog body. -->
+      <div class="container max-w-lg pt-5 pb-16">
         <div class="grid grid-cols-1 gap-10">
           <ContactForm
             compact

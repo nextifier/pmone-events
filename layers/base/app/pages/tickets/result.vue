@@ -92,8 +92,13 @@
             <p class="text-sm tracking-tight">
               {{ t("tickets.result.preparingPaymentSlow") }}
             </p>
-            <Button type="button" variant="outline" :disabled="pending" @click="refresh()">
-              <Spinner v-if="pending" class="size-4" />
+            <Button
+              type="button"
+              variant="outline"
+              :disabled="retrying || pending"
+              @click="retryPayment"
+            >
+              <Spinner v-if="retrying || pending" class="size-4" />
               {{ t("tickets.result.checkAgain") }}
             </Button>
           </template>
@@ -352,7 +357,15 @@ const isPolling = ref(false);
 // preparing state can offer a "taking longer than usual" hint + manual retry
 // instead of leaving the buyer on a silent spinner (slow or failed checkout job).
 const checkoutTimedOut = ref(false);
-onMounted(() => {
+
+function stopPolling() {
+  if (pollTimer.value) clearInterval(pollTimer.value);
+  pollTimer.value = null;
+  isPolling.value = false;
+}
+
+function startPolling() {
+  stopPolling();
   if (isConfirmed.value) return;
   let attempts = 0;
   isPolling.value = true;
@@ -368,16 +381,38 @@ onMounted(() => {
       checkoutTimedOut.value = true;
     }
     if (isConfirmed.value || attempts >= 10) {
-      clearInterval(pollTimer.value);
-      pollTimer.value = null;
-      isPolling.value = false;
+      stopPolling();
     }
   }, 3000);
-});
-onBeforeUnmount(() => {
-  if (pollTimer.value) clearInterval(pollTimer.value);
-  isPolling.value = false;
-});
+}
+
+onMounted(startPolling);
+onBeforeUnmount(stopPolling);
+
+/**
+ * "Check again" asks PM One to re-open the checkout, not just to re-read the
+ * order. If the queued job died against a gateway outage, refetching forever
+ * would never produce a link - the job has to be dispatched again. Idempotent
+ * upstream: an order that already has a link is answered with that link.
+ */
+const retrying = ref(false);
+
+async function retryPayment() {
+  if (retrying.value || !orderUlid.value) return;
+  retrying.value = true;
+  try {
+    await $fetch(`/api/tickets/orders/${orderUlid.value}/retry-payment`, {
+      method: "POST",
+    });
+    checkoutTimedOut.value = false;
+    await refresh();
+    startPolling();
+  } catch (err) {
+    toast.error(err?.statusMessage || t("tickets.result.preparingPaymentSlow"));
+  } finally {
+    retrying.value = false;
+  }
+}
 
 const eventDateLabel = computed(() => [event?.date, event?.time].filter(Boolean).join(" · "));
 
