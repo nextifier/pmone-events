@@ -347,21 +347,21 @@ function saleOpen(ticket) {
   return Boolean(ticket.on_sale) || forceCheckout.value;
 }
 
-/** Whether this ticket is only reachable because of the preview flag. */
-function isAdminPreviewOnly(ticket) {
-  return forceCheckout.value && (ticket.is_active === false || !ticket.on_sale);
-}
-
 /**
- * Names the reason, so staff can tell a switched-off ticket from an early one.
+ * A ticket the preview flag is showing that the organizer has switched OFF.
  *
- * Deliberately not translated: this only ever renders for a staff member who
- * typed ?force-checkout-ticket, and five locale entries of untranslated English
- * would be worse than one honest literal. Every string a visitor can reach on
- * this page goes through t().
+ * It used to cover "not on sale" too, but that badge said nothing the card was
+ * not already saying one line below it - "Pre-registration starts in 1 Day
+ * 10:08" is the same fact with a date attached. A switched-off ticket has no
+ * such line, so that is the only case worth a badge.
+ *
+ * The label is deliberately untranslated: it only ever renders for a staff
+ * member who typed ?force-checkout-ticket, and five locale entries of
+ * untranslated English would be worse than one honest literal. Every string a
+ * visitor can reach on this page goes through t().
  */
-function adminPreviewLabel(ticket) {
-  return ticket.is_active === false ? "Inactive" : "Not on sale";
+function isSwitchedOffInPreview(ticket) {
+  return forceCheckout.value && ticket.is_active === false;
 }
 
 /** The Add button / quantity stepper branch, shared by both layouts. */
@@ -814,11 +814,11 @@ const ticketsById = computed(() => {
                   <!-- Staff preview only: this ticket is buyable here because
                        of ?force-checkout-ticket, not because it is on sale. -->
                   <Badge
-                    v-if="isAdminPreviewOnly(ticket)"
+                    v-if="isSwitchedOffInPreview(ticket)"
                     variant="warning"
                     icon="hugeicons:view-off"
                   >
-                    {{ adminPreviewLabel(ticket) }}
+                    Inactive
                   </Badge>
                   <!-- Sale countdown stays under the title. tabular-nums on the
                        HH:MM:SS digits (Countdown.vue) keeps the per-second width
@@ -980,12 +980,11 @@ const ticketsById = computed(() => {
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
                 <div class="flex flex-wrap items-baseline gap-x-2">
-                  <span
-                    class="text-base font-semibold tracking-tighter"
-                    :class="
-                      ticket.on_sale ? 'text-foreground' : 'text-muted-foreground'
-                    "
-                  >
+                  <!-- Always foreground. Muting the price while a phase is
+                       merely upcoming made the one number the card exists to
+                       show the faintest thing on it, and "Coming soon" plus the
+                       countdown already say the sale has not opened. -->
+                  <span class="text-foreground text-base font-semibold tracking-tighter">
                     {{ priceLabel(ticket) }}
                   </span>
                   <!-- The full price this ticket eventually sells at, struck
@@ -995,7 +994,7 @@ const ticketsById = computed(() => {
                        there has ever been. -->
                   <span
                     v-if="ticket.original_price"
-                    class="text-destructive-foreground text-xs tracking-tight line-through tabular-nums"
+                    class="text-destructive-foreground text-sm tracking-tight line-through tabular-nums"
                   >
                     {{ fmtIdr(ticket.original_price) }}
                   </span>
@@ -1154,11 +1153,11 @@ const ticketsById = computed(() => {
                   <!-- Staff preview only: this ticket is buyable here because
                        of ?force-checkout-ticket, not because it is on sale. -->
                   <Badge
-                    v-if="isAdminPreviewOnly(ticket)"
+                    v-if="isSwitchedOffInPreview(ticket)"
                     variant="warning"
                     icon="hugeicons:view-off"
                   >
-                    {{ adminPreviewLabel(ticket) }}
+                    Inactive
                   </Badge>
                   <!-- Sale countdown stays under the title. tabular-nums on the
                        HH:MM:SS digits (Countdown.vue) keeps the per-second width
@@ -1258,12 +1257,11 @@ const ticketsById = computed(() => {
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
                 <div class="flex flex-wrap items-baseline gap-x-2">
-                  <span
-                    class="text-base font-semibold tracking-tighter"
-                    :class="
-                      ticket.on_sale ? 'text-foreground' : 'text-muted-foreground'
-                    "
-                  >
+                  <!-- Always foreground. Muting the price while a phase is
+                       merely upcoming made the one number the card exists to
+                       show the faintest thing on it, and "Coming soon" plus the
+                       countdown already say the sale has not opened. -->
+                  <span class="text-foreground text-base font-semibold tracking-tighter">
                     {{ priceLabel(ticket) }}
                   </span>
                   <!-- The full price this ticket eventually sells at, struck
@@ -1273,7 +1271,7 @@ const ticketsById = computed(() => {
                        there has ever been. -->
                   <span
                     v-if="ticket.original_price"
-                    class="text-destructive-foreground text-xs tracking-tight line-through tabular-nums"
+                    class="text-destructive-foreground text-sm tracking-tight line-through tabular-nums"
                   >
                     {{ fmtIdr(ticket.original_price) }}
                   </span>

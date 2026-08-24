@@ -43,16 +43,38 @@ const { t } = useI18n();
     {{ addLabel || t("tickets.add") }}
   </Button>
 
-  <Button
-    v-else-if="single"
-    size="sm"
-    variant="outline"
-    class="text-destructive-foreground"
-    @click="$emit('decrease')"
-  >
-    <Icon name="hugeicons:tick-02" class="size-4 shrink-0" />
-    {{ t("tickets.added") }}
-  </Button>
+  <!-- State and action, split. One button reading "Added" behind a tick, in the
+       destructive colour, whose click REMOVED the ticket was three signals
+       disagreeing: the word and the tick both say the job is done, the colour
+       says danger, and the only thing you could do with it was undo the thing
+       it was confirming. Nobody taps that on purpose. The chip now states, the
+       trash acts, and the trash is the same glyph the cart bar already uses to
+       take a line out. -->
+  <div v-else-if="single" class="flex items-center gap-1.5">
+    <!-- Deliberately unstyled as a control: it is a status, and a filled pill
+         next to a real button reads as a second button. Flat text plus the tick
+         says "this one is in your cart" without inviting a tap that does
+         nothing. The trash beside it is the only thing here that acts. -->
+    <span
+      class="text-foreground inline-flex items-center gap-1.5 text-sm font-medium tracking-tight"
+    >
+      <Icon name="hugeicons:tick-02" class="size-4 shrink-0" />
+      {{ t("tickets.added") }}
+    </span>
+    <Button
+      type="button"
+      size="icon"
+      variant="ghost"
+      class="text-muted-foreground hover:text-destructive-foreground hover:bg-destructive/10"
+      :aria-label="t('tickets.remove')"
+      v-tippy="t('tickets.remove')"
+      @click="$emit('decrease')"
+    >
+      <!-- Same glyph and same sizing as the cart bar's own trash, so removing a
+           line looks like one action wherever the buyer meets it. -->
+      <Icon name="hugeicons:delete-01" class="size-4 shrink-0 sm:size-5" />
+    </Button>
+  </div>
 
   <div v-else class="flex items-center gap-1.5">
     <button

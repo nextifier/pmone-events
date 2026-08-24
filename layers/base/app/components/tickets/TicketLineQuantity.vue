@@ -121,11 +121,16 @@ function onUpdate(next) {
     &times;{{ line.qty }}
   </div>
 
+  <!-- `-me-2.5` cancels the button's own px-2.5 so its LABEL, not its padded
+       box, lines up with the price stacked above it. Without it the column is
+       right-aligned and the word still sits 10px short of the price, which
+       reads as a mistake rather than as a button. -->
   <Button
     v-else-if="isSingle"
     type="button"
     variant="ghost"
     size="sm"
+    class="-me-2.5"
     :class="
       inverted
         ? 'text-background/70 hover:text-background hover:bg-background/15'
