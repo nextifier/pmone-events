@@ -54,12 +54,28 @@ export function posterLightboxItems(ticket) {
   ];
 }
 
-/** Highest quantity this ticket accepts in one order: `min(max_quantity, available)`, 50 when uncapped. */
+/**
+ * Highest quantity this ticket accepts in one order: `min(max_quantity,
+ * available)`, 50 when neither is set.
+ *
+ * The two zeroes mean opposite things and used to be filtered out together by a
+ * single `> 0` guard. `max_quantity: 0` is a nonsense limit and is ignored, but
+ * `available: 0` is the ticket being SOLD OUT - dropping it made `maxFor` report
+ * the per-order limit for a ticket with no stock left, so `reconcile` kept its
+ * cart lines and the stepper would happily raise them. `soldOut()` below has
+ * always read the same field correctly; this brings the cap into line with it.
+ */
 export function maxFor(ticket) {
-  const caps = [ticket?.max_quantity];
-  if (ticket?.available != null) caps.push(ticket.available);
-  const valid = caps.filter((n) => n != null && Number(n) > 0);
-  return valid.length ? Math.min(...valid) : 50;
+  const caps = [];
+
+  const perOrder = Number(ticket?.max_quantity);
+  if (ticket?.max_quantity != null && perOrder > 0) caps.push(perOrder);
+
+  if (ticket?.available != null) {
+    caps.push(Math.max(0, Number(ticket.available) || 0));
+  }
+
+  return caps.length ? Math.min(...caps) : 50;
 }
 
 /**

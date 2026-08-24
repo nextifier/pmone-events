@@ -74,6 +74,20 @@ const lineMax = (line) =>
     line.selected_event_day_id,
   );
 const atMax = (line) => line.qty >= lineMax(line);
+
+/**
+ * Which rule stopped the stepper, so the hint states the real one.
+ *
+ * `lineMax` is the LINE's headroom - the ticket's own limit minus what its other
+ * days hold - so feeding it to "Maximum {count} per order" produced sentences
+ * that were simply untrue: a ticket capped at 10 with 5 in stock and 3 booked on
+ * Friday said "Maximum 2 per order" on the Saturday row.
+ */
+const cappedByOrderLimit = (line) => {
+  const max = line.ticket?.max_quantity;
+  return max != null && line.qty >= Number(max);
+};
+
 const lowStock = (line) => {
   const available = line.ticket?.available;
   return available != null && available > 0 && available <= 10;
@@ -258,13 +272,13 @@ defineExpose({ appliedPromo });
           </div>
 
           <p
-            v-if="editable && atMax(line)"
+            v-if="editable && atMax(line) && cappedByOrderLimit(line)"
             class="text-muted-foreground mt-1.5 text-sm tracking-tight"
           >
-            {{ t("tickets.maxPerOrder", { count: lineMax(line) }) }}
+            {{ t("tickets.maxPerOrder", { count: line.ticket.max_quantity }) }}
           </p>
           <p
-            v-else-if="editable && lowStock(line)"
+            v-else-if="editable && (atMax(line) || lowStock(line))"
             class="text-muted-foreground mt-1.5 text-sm tracking-tight"
           >
             {{ t("tickets.spotsLeft", { count: line.ticket.available }) }}

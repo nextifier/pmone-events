@@ -316,6 +316,13 @@ function headroom(ticket) {
   return lineCapFor(ticket, cart.items, resolveSessionId(ticket), dayId);
 }
 
+/** Everything this ticket already holds in the cart, across every day. */
+function qtyHeldFor(ticket) {
+  return cart.items
+    .filter((i) => i.ticket_id === ticket.id)
+    .reduce((sum, i) => sum + (Number(i.qty) || 0), 0);
+}
+
 function atMax(ticket) {
   return qtyOf(ticket) >= headroom(ticket);
 }
@@ -408,7 +415,15 @@ function addToCart(ticket) {
   }
   if (dayless(ticket)) return;
   if (headroom(ticket) < minFor(ticket)) {
-    toast.error(t("tickets.maxPerOrder", { count: maxFor(ticket) }));
+    // Name the rule that actually bound. `maxFor` is min(max_quantity, stock),
+    // so using it here announced a per-order maximum that was really the
+    // remaining stock - a different rule with a different number.
+    const cap = ticket.max_quantity;
+    toast.error(
+      cap != null && qtyHeldFor(ticket) >= Number(cap)
+        ? t("tickets.maxPerOrder", { count: cap })
+        : t("tickets.spotsLeft", { count: ticket.available ?? 0 }),
+    );
     return;
   }
   cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
