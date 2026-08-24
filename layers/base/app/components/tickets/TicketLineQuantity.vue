@@ -128,7 +128,13 @@ function onUpdate(next) {
        looks like one action wherever the buyer meets it.
 
        `-me-2` cancels the icon button's own padding so the GLYPH, not its box,
-       sits on the same right edge as the price above it. -->
+       sits on the same right edge as the price above it.
+
+       Destructive in BOTH tones, not just on the light surface. The cart bar
+       paints `bg-foreground` and remaps `--destructive-foreground` to a red that
+       reads on it, so the token is already correct there - the old
+       `text-background/70` opted out of that and came back grey, sitting next to
+       the bar's own red clear button as if the two did different things. -->
   <Button
     v-else-if="isSingle"
     type="button"
@@ -137,8 +143,8 @@ function onUpdate(next) {
     class="-me-2"
     :class="
       inverted
-        ? 'text-background/70 hover:text-background hover:bg-background/15'
-        : 'text-muted-foreground hover:text-destructive-foreground hover:bg-destructive/10'
+        ? 'text-destructive-foreground hover:bg-destructive/20'
+        : 'text-destructive-foreground hover:bg-destructive/10'
     "
     :aria-label="t('tickets.remove')"
     v-tippy="t('tickets.remove')"
