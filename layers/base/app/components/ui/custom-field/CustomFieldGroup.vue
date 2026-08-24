@@ -4,7 +4,7 @@
          not Indonesia renders nothing), and without this the wrapper would stay
          in the flow and `space-y-6` would leave a 24px hole where it used to be. -->
     <div
-      v-for="(field, index) in fields"
+      v-for="(field, index) in visibleFields"
       :key="fieldKey(field)"
       :data-field-error="errorFor(field) ? '' : null"
       class="empty:hidden"
@@ -61,6 +61,17 @@ const emit = defineEmits(["update:modelValue", "uploading"]);
 const fieldKey = (field) => String(field[props.valueKey] ?? field.ulid ?? field.id ?? "");
 
 /**
+ * A field switched off in the admin is off for whoever fills the form in, so
+ * the group drops it rather than trusting each caller to remember. Callers kept
+ * disagreeing - some filtered, some did not - and this is the one place every
+ * surface goes through.
+ *
+ * `!== false` rather than falsy: a locally built draft field may carry no
+ * `is_active` at all, and that means "not stated", not "hidden".
+ */
+const visibleFields = computed(() => props.fields.filter((field) => field.is_active !== false));
+
+/**
  * Answers re-keyed by `system_key`, for fields that depend on a sibling.
  *
  * The renderer is handed one field and one value, so a dependent select (city
@@ -98,7 +109,7 @@ const errorFor = (field) => {
 // Seed missing values with per-type defaults so controls render correctly.
 onMounted(() => {
   const patch = {};
-  for (const field of props.fields) {
+  for (const field of visibleFields.value) {
     const key = fieldKey(field);
     if (props.modelValue[key] === undefined) {
       patch[key] = defaultValueFor(normalizeField(field, props.locale));
