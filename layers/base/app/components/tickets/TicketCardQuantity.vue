@@ -25,6 +25,13 @@ defineProps({
    * free ticket reads like a purchase; it passes "Register" for those.
    */
   addLabel: { type: String, default: "" },
+  /**
+   * Icon for the empty-cart button. "+" states a cart operation, which is honest
+   * for "Add" and nonsense next to "Register" - it reads as "add a register".
+   * The parent passes an empty string for the free case and the button carries
+   * its verb alone.
+   */
+  addIcon: { type: String, default: "hugeicons:plus-sign" },
 });
 
 defineEmits(["add", "increase", "decrease"]);
@@ -39,7 +46,7 @@ const { t } = useI18n();
     :class="{ 'opacity-60': dimmed }"
     @click="$emit('add')"
   >
-    <Icon name="hugeicons:plus-sign" class="size-4 shrink-0" />
+    <Icon v-if="addIcon" :name="addIcon" class="size-4 shrink-0" />
     {{ addLabel || t("tickets.add") }}
   </Button>
 

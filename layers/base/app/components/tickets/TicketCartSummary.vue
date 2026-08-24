@@ -88,6 +88,24 @@ const cappedByOrderLimit = (line) => {
   return max != null && line.qty >= Number(max);
 };
 
+/**
+ * The per-EMAIL cap, when that is the rule the buyer has actually run into.
+ * It outranks the per-order line below: "maximum 1 per order" invites a second
+ * order from the same address, which the server then rejects at submit. The
+ * tighter, truer rule gets to speak.
+ */
+const cappedByEmailLimit = (line) => {
+  const max = line.ticket?.max_per_buyer;
+  return max != null && line.qty >= Number(max);
+};
+
+/** Same reading as the ticket card's: the price this phase is charging now. */
+const lineIsFree = (line) => {
+  const ticket = line.ticket ?? {};
+  const price = ticket.on_sale ? ticket.price : ticket.display_price;
+  return price != null && Number(price) === 0;
+};
+
 const lowStock = (line) => {
   const available = line.ticket?.available;
   return available != null && available > 0 && available <= 10;
@@ -272,7 +290,21 @@ defineExpose({ appliedPromo });
           </div>
 
           <p
-            v-if="editable && atMax(line) && cappedByOrderLimit(line)"
+            v-if="editable && atMax(line) && cappedByEmailLimit(line)"
+            class="text-muted-foreground mt-1.5 text-sm tracking-tight"
+          >
+            {{
+              t(
+                lineIsFree(line)
+                  ? "tickets.maxPerEmailFree"
+                  : "tickets.maxPerEmail",
+                { count: line.ticket.max_per_buyer },
+                Number(line.ticket.max_per_buyer),
+              )
+            }}
+          </p>
+          <p
+            v-else-if="editable && atMax(line) && cappedByOrderLimit(line)"
             class="text-muted-foreground mt-1.5 text-sm tracking-tight"
           >
             {{ t("tickets.maxPerOrder", { count: line.ticket.max_quantity }) }}

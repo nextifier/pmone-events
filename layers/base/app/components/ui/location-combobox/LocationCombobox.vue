@@ -51,6 +51,12 @@ const {
   showFlag = false,
 } = defineProps<LocationComboboxProps>();
 
+/**
+ * Whether the field will accept an on-screen keyboard yet. See the template for
+ * why it starts closed and what opens it.
+ */
+const keyboardMode = ref<"none" | "text">("none");
+
 const searchTerm = ref("");
 const { contains } = useFilter({ sensitivity: "base" });
 
@@ -131,28 +137,34 @@ watch(modelValue, () => {
     "
     @update:open="
       (open: boolean) => {
-        if (open) searchTerm = '';
+        if (open) {
+          searchTerm = '';
+          keyboardMode = 'none';
+        }
       }
     "
   >
     <ComboboxAnchor class="w-full">
       <!-- The shared Combobox field, so the border, focus ring, invalid and disabled
            states are the same here as in every other combobox. -->
-      <!-- `inputmode="none"` keeps the on-screen keyboard down when the list
-           opens, so the dropdown gets the whole viewport instead of half of it.
-           It has to be an attribute: reka-ui 2.10.1 exposes no way to opt out.
-           `ComboboxRoot.onOpenChange` calls `inputElement.focus()` unconditionally,
-           `ComboboxRoot`/`Content`/`List` carry zero focus props, the FocusScope
-           inside `ComboboxContentImpl` already prevents both auto-focus events,
-           and `ComboboxTrigger` is `tabindex="-1"` and routes through the same
-           handler. Don't go looking for a prop - there isn't one.
-           This only suppresses *virtual* keyboards, so desktop type-to-filter
-           still works; on a phone the list is picked by scrolling. The attribute
-           reaches the native input through `ComboboxInput.vue`'s `$attrs`. -->
+      <!-- The on-screen keyboard is held back for the AUTO-focus only, not for
+           good. `ComboboxRoot.onOpenChange` calls `inputElement.focus()`
+           unconditionally - reka 2.10.1 exposes no prop to opt out, so don't go
+           looking for one - and a keyboard rising on its own would take half the
+           viewport away from the list nobody has scrolled yet.
+           `inputmode="none"` suppresses it, but leaving it there permanently
+           also refused the keyboard to anyone who deliberately tapped the field
+           to search. So it lifts on the first pointerdown, which fires before
+           focus: by the time the tap completes the input already accepts one.
+           Reset on every open, so the next visit starts quiet again.
+           This only ever affected VIRTUAL keyboards; desktop type-to-filter was
+           never touched. The attribute reaches the native input through
+           `ComboboxInput.vue`'s `$attrs`. -->
       <ComboboxInput
         :id="id"
         v-model="searchTerm"
-        inputmode="none"
+        :inputmode="keyboardMode"
+        @pointerdown="keyboardMode = 'text'"
         :display-value="() => modelValue || ''"
         :placeholder="placeholder || 'Select'"
         :disabled="disabled"

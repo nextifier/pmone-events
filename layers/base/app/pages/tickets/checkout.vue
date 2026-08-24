@@ -47,7 +47,11 @@ onMounted(() => {
   cart.hydrate();
   cartReady.value = true;
   if (cart.isEmpty) {
-    navigateTo(localePath("/tickets"));
+    // Arriving with nothing in the cart means a stale bookmark or a link that
+    // outlived its session - a page they never chose to be on. `replace`, so the
+    // back button still goes where they came from instead of bouncing off this
+    // redirect and landing here again.
+    navigateTo(localePath("/tickets"), { replace: true });
     return;
   }
   cart.setEventContext({ eventId: event.id, eventSlug: event.slug });
@@ -70,32 +74,18 @@ onMounted(() => {
 });
 
 /**
- * Nothing to buy means nothing to check out, so an empty cart goes back to the
- * ticket list - but not instantly. Removing the last line raises an Undo toast,
- * and navigating out from under it would leave the buyer on another page with a
- * button that no longer means anything. Wait out the toast, and cancel the trip
- * the moment the cart refills.
+ * Emptying the cart WHILE here is a decision, not an accident, so the page says
+ * so and stays put.
+ *
+ * This used to start a 7-second timer and then navigate away. Two things were
+ * wrong with that. The buyer sat in front of a full checkout form - buyer
+ * details, registration questions, a Claim button - wrapped around an order
+ * summary with nothing in it, for seven seconds. And then the page changed under
+ * them, which is the one thing a form should never do while they are reading it.
+ * The timer existed to outlast the Undo toast; an empty state outlasts it by
+ * simply not moving, and Undo still refills the cart and brings the form back.
  */
-const EMPTY_CART_GRACE_MS = 7000;
-let emptyCartTimer = null;
-
-watch(
-  () => cart.isEmpty,
-  (empty) => {
-    if (emptyCartTimer) {
-      clearTimeout(emptyCartTimer);
-      emptyCartTimer = null;
-    }
-    if (!cartReady.value || !empty || submitting.value) return;
-    emptyCartTimer = setTimeout(() => {
-      if (cart.isEmpty && !submitting.value) navigateTo(localePath("/tickets"));
-    }, EMPTY_CART_GRACE_MS);
-  },
-);
-
-onBeforeUnmount(() => {
-  if (emptyCartTimer) clearTimeout(emptyCartTimer);
-});
+const cartEmptied = computed(() => cartReady.value && cart.isEmpty && !submitting.value);
 
 // --- Tickets (data + meta.terms) ---
 // Await the event payload before deriving the URL below: `useEvent()` does not
@@ -704,7 +694,34 @@ onBeforeUnmount(clearTicketCheckoutBar);
       lg the summary still needs to sit in the right column beside BOTH stacks
       (hence row-span-2, without which the sticky aside has no travel).
     -->
-    <form novalidate @submit.prevent="submit">
+    <!-- Emptied while standing here. The form is replaced rather than left
+         wrapped around an order with nothing in it, and nothing navigates on a
+         timer - the Undo toast is still up, and taking it will bring all of this
+         straight back. -->
+    <div
+      v-if="cartEmptied"
+      class="flex flex-col items-center gap-4 rounded-2xl border border-dashed px-6 py-16 text-center"
+    >
+      <Icon
+        name="hugeicons:shopping-cart-remove-02"
+        class="text-muted-foreground size-8 shrink-0"
+      />
+      <div class="space-y-1">
+        <h2 class="text-foreground text-lg font-semibold tracking-tight">
+          {{ t("tickets.emptyCartTitle") }}
+        </h2>
+        <p class="text-muted-foreground text-sm tracking-tight text-balance">
+          {{ t("tickets.emptyCartDescription") }}
+        </p>
+      </div>
+      <Button as-child>
+        <NuxtLink :to="localePath('/tickets')">
+          {{ t("tickets.emptyCartAction") }}
+        </NuxtLink>
+      </Button>
+    </div>
+
+    <form v-else novalidate @submit.prevent="submit">
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
         <!-- 1. Buyer details, registration, exhibitor consent -->
         <div class="space-y-6 lg:col-span-7 lg:col-start-1 lg:row-start-1">
@@ -1059,7 +1076,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
           <div
             v-if="terms"
             v-html="terms"
-            class="typeset typeset-cms typeset-sm max-w-none tracking-tight"
+            class="typeset typeset-cms max-w-none tracking-tight"
           ></div>
           <p v-else class="text-muted-foreground text-sm tracking-tight">
             {{ t("tickets.defaultTerms") }}

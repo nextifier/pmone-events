@@ -170,9 +170,7 @@ function reconcileCart() {
     Object.fromEntries(mergedTickets.value.map((tk) => [tk.id, tk])),
   );
   if (removed.length) {
-    const titles = removed
-      .map((r) => r || t("tickets.ticket"))
-      .join(", ");
+    const titles = removed.map((r) => r || t("tickets.ticket")).join(", ");
     toast.error(t("tickets.cartUpdated", { titles }));
   }
 }
@@ -194,7 +192,6 @@ onMounted(() => {
     applyAccessCode(String(initial));
   }
 });
-
 
 // Per-add-on chosen session (add-ons with >1 session require a pick first).
 const selectedSession = reactive({});
@@ -296,8 +293,6 @@ function onDayDatePick(ticket, date) {
   selectedDay[ticket.id] = day ? day.id : null;
 }
 
-
-
 function qtyOf(ticket) {
   const dayId = resolveDayId(ticket);
   if (dayId === undefined) return 0;
@@ -335,7 +330,6 @@ function atMax(ticket) {
 function isSingle(ticket) {
   return singleQuantity(ticket);
 }
-
 
 // Staff preview: `?force-checkout-ticket` lets a switched-off or not-yet-open
 // ticket be added and bought, so checkout can be smoke-tested on production
@@ -424,7 +418,13 @@ function addToCart(ticket) {
     const perEmail = ticket.max_per_buyer;
     const perOrder = ticket.max_quantity;
     if (perEmail != null && held >= Number(perEmail)) {
-      toast.error(t("tickets.maxPerEmail", { count: perEmail }));
+      toast.error(
+        t(
+          isFreeNow(ticket) ? "tickets.maxPerEmailFree" : "tickets.maxPerEmail",
+          { count: perEmail },
+          Number(perEmail),
+        ),
+      );
     } else if (perOrder != null && held >= Number(perOrder)) {
       toast.error(t("tickets.maxPerOrder", { count: perOrder }));
     } else {
@@ -609,9 +609,6 @@ const ticketsById = computed(() => {
   }
   return byId;
 });
-
-
-
 </script>
 
 <template>
@@ -963,7 +960,9 @@ const ticketsById = computed(() => {
                     :key="line.id"
                     type="button"
                     class="bg-muted text-foreground hover:bg-muted/70 focus-visible:ring-ring rounded-full px-2.5 py-1 text-sm font-medium tracking-tight transition-colors focus-visible:ring-2 focus-visible:outline-none"
-                    :class="{ 'ring-primary ring-1': selectedDay[ticket.id] === line.id }"
+                    :class="{
+                      'ring-primary ring-1': selectedDay[ticket.id] === line.id,
+                    }"
                     @click="focusDay(ticket, line.id)"
                   >
                     {{ line.label }}
@@ -984,7 +983,9 @@ const ticketsById = computed(() => {
                        merely upcoming made the one number the card exists to
                        show the faintest thing on it, and "Coming soon" plus the
                        countdown already say the sale has not opened. -->
-                  <span class="text-foreground text-base font-semibold tracking-tighter">
+                  <span
+                    class="text-foreground text-base font-semibold tracking-tighter"
+                  >
                     {{ priceLabel(ticket) }}
                   </span>
                   <!-- The full price this ticket eventually sells at, struck
@@ -994,7 +995,7 @@ const ticketsById = computed(() => {
                        there has ever been. -->
                   <span
                     v-if="ticket.original_price"
-                    class="text-destructive-foreground text-sm tracking-tight line-through tabular-nums"
+                    class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
                   >
                     {{ fmtIdr(ticket.original_price) }}
                   </span>
@@ -1034,10 +1035,6 @@ const ticketsById = computed(() => {
                       rel="noopener noreferrer"
                     >
                       {{ externalCtaLabel(ticket) }}
-                      <Icon
-                        name="hugeicons:link-square-02"
-                        class="size-3.5 shrink-0 opacity-70"
-                      />
                     </a>
                   </Button>
 
@@ -1049,6 +1046,7 @@ const ticketsById = computed(() => {
                     :single="isSingle(ticket)"
                     :dimmed="!canAdd(ticket)"
                     :add-label="addCtaLabel(ticket)"
+                    :add-icon="isFreeNow(ticket) ? '' : 'hugeicons:plus-sign'"
                     @add="addToCart(ticket)"
                     @increase="inc(ticket)"
                     @decrease="dec(ticket)"
@@ -1261,7 +1259,9 @@ const ticketsById = computed(() => {
                        merely upcoming made the one number the card exists to
                        show the faintest thing on it, and "Coming soon" plus the
                        countdown already say the sale has not opened. -->
-                  <span class="text-foreground text-base font-semibold tracking-tighter">
+                  <span
+                    class="text-foreground text-base font-semibold tracking-tighter"
+                  >
                     {{ priceLabel(ticket) }}
                   </span>
                   <!-- The full price this ticket eventually sells at, struck
@@ -1271,7 +1271,7 @@ const ticketsById = computed(() => {
                        there has ever been. -->
                   <span
                     v-if="ticket.original_price"
-                    class="text-destructive-foreground text-sm tracking-tight line-through tabular-nums"
+                    class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
                   >
                     {{ fmtIdr(ticket.original_price) }}
                   </span>
@@ -1318,6 +1318,7 @@ const ticketsById = computed(() => {
                     :single="isSingle(ticket)"
                     :dimmed="!canAdd(ticket)"
                     :add-label="addCtaLabel(ticket)"
+                    :add-icon="isFreeNow(ticket) ? '' : 'hugeicons:plus-sign'"
                     @add="addToCart(ticket)"
                     @increase="inc(ticket)"
                     @decrease="dec(ticket)"
@@ -1350,6 +1351,5 @@ const ticketsById = computed(() => {
         </div>
       </section>
     </div>
-
   </div>
 </template>
