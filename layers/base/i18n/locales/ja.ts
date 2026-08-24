@@ -295,6 +295,7 @@ export default {
       eTicketSentBody: "電子チケットを {email} に送信しました。メールを開いてQRコードをご確認・ダウンロードください。",
       eTicketSentHint: "見つからない場合は、迷惑メールフォルダをご確認ください。",
       resendEmail: "メールを再送する",
+      resendIn: "{time} 後に再送信できます",
       resendSent: "メールを送信しました。受信箱をご確認ください。",
       resendError: "メールを送信できませんでした。しばらくしてからもう一度お試しください。",
       confirmedByEmailDescription: "お申し込みが確定しました。電子チケットはメールに届いています。",

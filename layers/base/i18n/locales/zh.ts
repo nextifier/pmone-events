@@ -290,6 +290,7 @@ export default {
       eTicketSentBody: "我们已将电子票发送至 {email}。请打开邮件查看并下载二维码。",
       eTicketSentHint: "找不到？请查看垃圾邮件或推广邮件文件夹。",
       resendEmail: "重新发送邮件",
+      resendIn: "{time} 后可重新发送",
       resendSent: "邮件已发送，请查收。",
       resendError: "邮件发送失败，请稍后再试。",
       confirmedByEmailDescription: "报名已确认。电子票已发送到您的邮箱。",

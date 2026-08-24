@@ -192,12 +192,22 @@
         <Button
           type="button"
           variant="outline"
-          :disabled="resending"
+          :disabled="resendDisabled"
           @click="resendEmail"
         >
           <Spinner v-if="resending" class="size-4" />
-          <Icon v-else name="hugeicons:mail-01" class="size-4 shrink-0" />
-          {{ t("tickets.result.resendEmail") }}
+          <Icon
+            v-else
+            :name="
+              resendIn > 0 ? 'hugeicons:time-quarter-pass' : 'hugeicons:mail-01'
+            "
+            class="size-4 shrink-0"
+          />
+          <!-- Tabular figures: without them the countdown jiggles the button's
+               width every second as the digits change. -->
+          <span :class="resendIn > 0 ? 'tabular-nums' : ''">
+            {{ resendLabel }}
+          </span>
         </Button>
       </div>
 
@@ -368,23 +378,96 @@ const maskedEmail = computed(() => order.value?.buyer_email_masked || "");
 
 const resending = ref(false);
 
+/**
+ * Seconds until the button opens. The server owns this number: it arrives on the
+ * order payload, comes back on every send, and comes back on every rejection, so
+ * the page never has its own opinion about when the next email is allowed.
+ *
+ * It has to be a DURATION rather than a deadline. The countdown would otherwise
+ * be measured against the visitor's own clock, and a phone an hour out of sync
+ * would either lock the button for an hour or unlock it on the spot.
+ *
+ * The first tick is already running when the page loads: checkout sent the
+ * e-ticket seconds ago. Offering a live Resend button there is what produced
+ * three identical emails - the buyer pressed it before the first one landed.
+ */
+const resendIn = ref(0);
+let resendTimer = null;
+
+const stopResendTimer = () => {
+  if (resendTimer) {
+    clearInterval(resendTimer);
+    resendTimer = null;
+  }
+};
+
+function startResendCooldown(seconds) {
+  stopResendTimer();
+  resendIn.value = Math.max(0, Math.ceil(Number(seconds) || 0));
+  // The VALUE is set on the server too, so the button arrives already disabled
+  // in the first paint rather than flickering from live to locked on hydration.
+  // Only the ticking is client-side - a timer has nothing to do during SSR.
+  if (!resendIn.value || !import.meta.client) return;
+
+  resendTimer = setInterval(() => {
+    resendIn.value -= 1;
+    if (resendIn.value <= 0) stopResendTimer();
+  }, 1000);
+}
+
+// `immediate`, because the order is usually already in hand by the time this
+// runs; re-armed on every refresh so a poll that lands mid-cooldown corrects a
+// drifting timer rather than fighting it.
+watch(
+  () => order.value?.resend_available_in,
+  (seconds) => {
+    if (seconds === undefined || seconds === null) return;
+    if (resending.value) return;
+    startResendCooldown(seconds);
+  },
+  { immediate: true },
+);
+
+onBeforeUnmount(stopResendTimer);
+
+/** m:ss while waiting, so "1:47" reads as a wait and not as an error code. */
+const resendCountdown = computed(() => {
+  const total = resendIn.value;
+  const minutes = Math.floor(total / 60);
+  const seconds = String(total % 60).padStart(2, "0");
+
+  return `${minutes}:${seconds}`;
+});
+
+const resendDisabled = computed(() => resending.value || resendIn.value > 0);
+
+const resendLabel = computed(() =>
+  resendIn.value > 0
+    ? t("tickets.result.resendIn", { time: resendCountdown.value })
+    : t("tickets.result.resendEmail"),
+);
+
 async function resendEmail() {
-  if (resending.value || !orderUlid.value) return;
+  if (resendDisabled.value || !orderUlid.value) return;
   resending.value = true;
   try {
-    await $fetch(
+    const res = await $fetch(
       `/api/tickets/orders/${orderUlid.value}/resend-confirmation`,
       { method: "POST" },
     );
     toast.success(t("tickets.result.resendSent"));
+    startResendCooldown(res?.retry_after);
   } catch (err) {
     // The 429 body carries its own "check your inbox" wording; show it verbatim
-    // rather than replacing a specific message with a generic one.
+    // rather than replacing a specific message with a generic one. It also
+    // carries the wait, which resynchronises a countdown that ran out early -
+    // a backgrounded tab throttles setInterval, so this is the correction.
     toast.error(
       err?.data?.message ||
         err?.statusMessage ||
         t("tickets.result.resendError"),
     );
+    startResendCooldown(err?.data?.retry_after);
   } finally {
     resending.value = false;
   }

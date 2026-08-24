@@ -294,6 +294,7 @@ export default {
       eTicketSentBody: "Kami sudah mengirim e-tiket kamu ke {email}. Buka emailnya untuk melihat dan mengunduh QR code kamu.",
       eTicketSentHint: "Tidak ketemu? Cek folder spam atau promosi.",
       resendEmail: "Kirim ulang email",
+      resendIn: "Kirim ulang dalam {time}",
       resendSent: "Email terkirim. Cek inbox kamu.",
       resendError: "Email gagal dikirim. Coba lagi sebentar lagi.",
       confirmedByEmailDescription: "Pendaftaran kamu sudah dikonfirmasi. E-tiket kamu ada di inbox.",

@@ -285,6 +285,7 @@ export default {
       "eTicketSentBody": "We've sent your e-ticket to {email}. Open the email to view and download your QR code.",
       "eTicketSentHint": "Can't find it? Check your spam or promotions folder.",
       "resendEmail": "Resend email",
+      "resendIn": "Resend in {time}",
       "resendSent": "Email sent. Check your inbox.",
       "resendError": "Could not send the email. Please try again shortly.",
       "confirmedByEmailDescription": "Your registration is confirmed. Your e-ticket is in your inbox.",

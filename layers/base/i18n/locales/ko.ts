@@ -292,6 +292,7 @@ export default {
       eTicketSentBody: "{email} 주소로 전자 티켓을 보냈습니다. 메일을 열어 QR 코드를 확인하고 저장하세요.",
       eTicketSentHint: "찾을 수 없나요? 스팸함이나 프로모션함을 확인해 보세요.",
       resendEmail: "메일 다시 보내기",
+      resendIn: "{time} 후 재전송",
       resendSent: "메일을 보냈습니다. 받은편지함을 확인하세요.",
       resendError: "메일을 보내지 못했습니다. 잠시 후 다시 시도해 주세요.",
       confirmedByEmailDescription: "등록이 확정되었습니다. 전자 티켓은 메일함에 있습니다.",
