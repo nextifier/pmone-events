@@ -46,7 +46,7 @@ const ticketFor = (id) =>
 
 const lines = computed(() =>
   cart.mergedLines.map((l) => {
-    const ticket = ticketFor(l.ticket_id);
+    const ticket = ticketForLine(ticketFor(l.ticket_id), l);
     // The listing never runs a pricing preview, so its unit price has to come
     // from the ticket record; checkout's comes back priced from the server.
     const unit =

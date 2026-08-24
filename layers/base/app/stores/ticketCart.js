@@ -119,6 +119,10 @@ export const useTicketCartStore = defineStore("ticketCart", {
         pending,
         title: "",
         phaseLabel: "",
+        // No preview covered this line, so there is nothing more authoritative
+        // than the ticket record - null means "defer to the ticket".
+        max_quantity: null,
+        max_per_buyer: null,
       });
 
       if (state.previewLines?.length) {
@@ -147,6 +151,13 @@ export const useTicketCartStore = defineStore("ticketCart", {
               pending: qty !== l.quantity,
               title: l.title || "",
               phaseLabel: l.phase_label || "",
+              // The caps in force for the phase this line actually priced under.
+              // previewCart resolves that phase from the real cart, so these are
+              // right even when the listing payload was fetched in a different
+              // mode or before the phase flipped - and the listing payload is
+              // where the caps went missing when a ticket had not opened yet.
+              max_quantity: l.max_quantity ?? null,
+              max_per_buyer: l.max_per_buyer ?? null,
             };
           })
           .filter(Boolean);

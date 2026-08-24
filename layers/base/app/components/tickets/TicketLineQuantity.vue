@@ -121,24 +121,30 @@ function onUpdate(next) {
     &times;{{ line.qty }}
   </div>
 
-  <!-- `-me-2.5` cancels the button's own px-2.5 so its LABEL, not its padded
-       box, lines up with the price stacked above it. Without it the column is
-       right-aligned and the word still sits 10px short of the price, which
-       reads as a mistake rather than as a button. -->
+  <!-- An icon, not the word "Remove". Stacked under a struck-through price in
+       the same destructive red, the word read as a second piece of pricing text
+       rather than as the one control on the row. The trash is the same glyph the
+       cart bar and the ticket card already use to take a line out, so removing
+       looks like one action wherever the buyer meets it.
+
+       `-me-2` cancels the icon button's own padding so the GLYPH, not its box,
+       sits on the same right edge as the price above it. -->
   <Button
     v-else-if="isSingle"
     type="button"
     variant="ghost"
-    size="sm"
-    class="-me-2.5"
+    size="icon"
+    class="-me-2"
     :class="
       inverted
         ? 'text-background/70 hover:text-background hover:bg-background/15'
-        : 'text-destructive-foreground hover:bg-destructive/10'
+        : 'text-muted-foreground hover:text-destructive-foreground hover:bg-destructive/10'
     "
+    :aria-label="t('tickets.remove')"
+    v-tippy="t('tickets.remove')"
     @click="removeLine"
   >
-    {{ t("tickets.remove") }}
+    <Icon name="hugeicons:delete-01" class="size-4 shrink-0 sm:size-5" />
   </Button>
 
   <NumberField
@@ -169,9 +175,14 @@ function onUpdate(next) {
       <!-- Height stated here, not left to the tone: `.cn-input` sizes the
            checkout aside's field on its own (36px) while the bar's was 32, so
            the same control was two different heights on one page. -->
+      <!-- `text-base` on touch, not `text-sm`: iOS zooms the whole page in when
+           a focused input is under 16px, and this one IS focusable - a
+           deliberate tap on the number is how a buyer types a quantity.
+           `pointer-fine:` rather than `sm:`, because the input method decides
+           this, not the viewport. Matches `.cn-input`'s own scale. -->
       <NumberFieldInput
         :aria-label="t('tickets.quantity')"
-        class="h-8 text-sm"
+        class="h-8 text-base pointer-fine:text-sm"
         :class="
           inverted
             ? 'bg-background/10 dark:bg-background/6 focus-visible:border-background/50 focus-visible:ring-background/30'

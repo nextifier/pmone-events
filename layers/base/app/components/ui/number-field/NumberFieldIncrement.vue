@@ -23,7 +23,11 @@ const isDisabled = computed(
 )
 
 const { isPressed, onPointerdown, onPointermove, onPointerup, onPointercancel, onClick }
-  = usePressHold(() => rootContext.handleIncrease(), () => !!isDisabled.value)
+  = usePressHold(
+    () => rootContext.handleIncrease(),
+    () => !!isDisabled.value,
+    () => rootContext.inputEl?.value,
+  )
 </script>
 
 <template>

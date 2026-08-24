@@ -88,6 +88,33 @@ export function maxFor(ticket) {
 }
 
 /**
+ * The ticket record a cart line should be measured against.
+ *
+ * The listing payload is not always the last word on the caps. It reports the
+ * phase that is LIVE, and a ticket whose sale has not opened yet has none - so
+ * the caps fell back to the ticket row, which is null whenever the limit is a
+ * per-phase rule, and the client read that as "no limit". A ticket capped at one
+ * per email address went into a cart four times.
+ *
+ * `previewCart` does not have that blind spot: it resolves the phase from the
+ * real cart on every pricing call, so its per-line caps are right in every mode
+ * and stay right when a phase flips while the buyer is sitting on checkout.
+ * Where it has spoken, it wins; where it has not, nothing changes.
+ */
+export function ticketForLine(ticket, line) {
+  const perOrder = line?.max_quantity ?? null;
+  const perBuyer = line?.max_per_buyer ?? null;
+
+  if (perOrder === null && perBuyer === null) return ticket;
+
+  return {
+    ...ticket,
+    max_quantity: perOrder ?? ticket?.max_quantity ?? null,
+    max_per_buyer: perBuyer ?? ticket?.max_per_buyer ?? null,
+  };
+}
+
+/**
  * The cap that actually applies to ONE line, once the rest of the cart is taken
  * into account.
  *
@@ -184,6 +211,7 @@ export function useTicketLine() {
     posterLightboxItems,
     POSTER_FULL_KEY,
     maxFor,
+    ticketForLine,
     lineCapFor,
     singleQuantity,
     minFor,

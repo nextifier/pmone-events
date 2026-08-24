@@ -7,7 +7,8 @@ export const fieldVariants = cva("cn-field group/field flex w-full", {
       vertical:
         "cn-field-orientation-vertical flex-col *:w-full [&>.sr-only]:w-auto",
       horizontal:
-        "cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+        "cn-field-orientation-horizontal flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px "
+        + "not-has-[>[data-slot=field-content]]:has-[>[role=checkbox]]:items-baseline not-has-[>[data-slot=field-content]]:has-[>[role=radio]]:items-baseline not-has-[>[data-slot=field-content]]:has-[>[role=switch]]:items-baseline not-has-[>[data-slot=field-content]]:[&>[role=checkbox]]:translate-y-[16%] not-has-[>[data-slot=field-content]]:[&>[role=radio]]:translate-y-[16%] not-has-[>[data-slot=field-content]]:[&>[role=switch]]:translate-y-[16%]",
       responsive:
         "cn-field-orientation-responsive flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
     },

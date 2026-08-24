@@ -22,14 +22,48 @@ const HOLD_INTERVAL = 60
 /** Roughly a fingertip's wobble. Below this a touch is still a tap. */
 const MOVE_TOLERANCE = 10
 
-export function usePressHold(action: () => void, isDisabled: () => boolean) {
+export function usePressHold(
+  action: () => void,
+  isDisabled: () => boolean,
+  /**
+   * Where focus goes once the step has been applied. reka normally does this
+   * itself, but its `focusOnChange` is switched off in NumberField.vue: focusing
+   * a numeric input from inside a touch activation is what raises the on-screen
+   * keypad, and a stepper tap is not a request to type.
+   *
+   * So focus is restored for a MOUSE only - click + and you can still hold the
+   * arrow keys or type over the value, exactly as before. A tap on a phone
+   * leaves the keyboard down; tapping the number itself still opens it, because
+   * that is a real focus on a real input.
+   */
+  focusTarget?: () => HTMLElement | null | undefined,
+) {
   const isPressed = ref(false)
 
   let origin: { x: number, y: number } | null = null
   let pointerId: number | null = null
   let travelled = false
   let repeated = false
+  let pointerType = ""
   let timer: ReturnType<typeof setTimeout> | undefined
+
+  /**
+   * Apply the step, then put focus back where a mouse user expects it. Anything
+   * that is not a mouse - touch, pen, or a click with no pointer behind it - is
+   * left alone, because those are the ones with a keyboard to raise.
+   */
+  const commit = () => {
+    action()
+
+    if (pointerType !== "mouse") return
+
+    try {
+      focusTarget?.()?.focus({ preventScroll: true })
+    }
+    catch {
+      // A detached or hidden input is not worth an exception here.
+    }
+  }
 
   const stop = () => {
     if (timer) {
@@ -46,7 +80,7 @@ export function usePressHold(action: () => void, isDisabled: () => boolean) {
         return
       }
       repeated = true
-      action()
+      commit()
       scheduleRepeat(HOLD_INTERVAL)
     }, delay)
   }
@@ -66,6 +100,7 @@ export function usePressHold(action: () => void, isDisabled: () => boolean) {
       // Capture is a nicety; a browser that refuses still gets the click guard.
     }
     pointerId = event.pointerId
+    pointerType = event.pointerType
     origin = { x: event.clientX, y: event.clientY }
     travelled = false
     repeated = false
@@ -109,7 +144,7 @@ export function usePressHold(action: () => void, isDisabled: () => boolean) {
     // one more on top. `travelled` is reset by the next pointerdown, so a
     // cancelled gesture never poisons the tap after it.
     if (travelled || repeated || isDisabled()) return
-    action()
+    commit()
   }
 
   onBeforeUnmount(stop)

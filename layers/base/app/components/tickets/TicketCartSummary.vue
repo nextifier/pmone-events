@@ -42,7 +42,7 @@ const ticketFor = (id) => props.ticketsById[id] ?? null;
  */
 const liveLines = computed(() =>
   cart.mergedLines.map((l) => {
-    const ticket = ticketFor(l.ticket_id);
+    const ticket = ticketForLine(ticketFor(l.ticket_id), l);
     const unit = l.unit || Number(ticket?.price) || 0;
     return {
       ...l,
@@ -333,7 +333,7 @@ defineExpose({ appliedPromo });
                asking to be compared. The bar has never shown a unit price and
                nobody has missed it. -->
           <div class="flex items-center gap-3">
-            <div class="min-w-0 flex-1 space-y-0.5">
+            <div class="min-w-0 flex-1 space-y-1">
               <p class="text-foreground font-medium">{{ line.title }}</p>
               <p
                 v-if="line.subLabel"
@@ -345,6 +345,36 @@ defineExpose({ appliedPromo });
                 "
               >
                 {{ line.subLabel }}
+              </p>
+              <!-- The cap sits with the ticket it describes, not under the whole
+                   row. As a sibling of the row it was pushed below the taller
+                   price+control column, which left a band of dead space between
+                   the date and a sentence that belongs to it. -->
+              <p
+                v-if="linesEditable && atMax(line) && cappedByEmailLimit(line)"
+                class="text-muted-foreground text-sm tracking-tight"
+              >
+                {{
+                  t(
+                    lineIsFree(line)
+                      ? "tickets.maxPerEmailFree"
+                      : "tickets.maxPerEmail",
+                    { count: line.ticket.max_per_buyer },
+                    Number(line.ticket.max_per_buyer),
+                  )
+                }}
+              </p>
+              <p
+                v-else-if="linesEditable && atMax(line) && cappedByOrderLimit(line)"
+                class="text-muted-foreground text-sm tracking-tight"
+              >
+                {{ t("tickets.maxPerOrder", { count: line.ticket.max_quantity }) }}
+              </p>
+              <p
+                v-else-if="linesEditable && (atMax(line) || lowStock(line))"
+                class="text-muted-foreground text-sm tracking-tight"
+              >
+                {{ t("tickets.spotsLeft", { count: line.ticket.available }) }}
               </p>
             </div>
 
@@ -376,32 +406,6 @@ defineExpose({ appliedPromo });
             </div>
           </div>
 
-          <p
-            v-if="linesEditable && atMax(line) && cappedByEmailLimit(line)"
-            class="text-muted-foreground mt-1.5 text-sm tracking-tight"
-          >
-            {{
-              t(
-                lineIsFree(line)
-                  ? "tickets.maxPerEmailFree"
-                  : "tickets.maxPerEmail",
-                { count: line.ticket.max_per_buyer },
-                Number(line.ticket.max_per_buyer),
-              )
-            }}
-          </p>
-          <p
-            v-else-if="linesEditable && atMax(line) && cappedByOrderLimit(line)"
-            class="text-muted-foreground mt-1.5 text-sm tracking-tight"
-          >
-            {{ t("tickets.maxPerOrder", { count: line.ticket.max_quantity }) }}
-          </p>
-          <p
-            v-else-if="linesEditable && (atMax(line) || lowStock(line))"
-            class="text-muted-foreground mt-1.5 text-sm tracking-tight"
-          >
-            {{ t("tickets.spotsLeft", { count: line.ticket.available }) }}
-          </p>
         </div>
       </li>
     </ul>
