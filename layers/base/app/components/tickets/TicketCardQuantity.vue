@@ -20,6 +20,11 @@ defineProps({
   single: { type: Boolean, default: false },
   /** Add is left clickable but dimmed, so a tap can explain what is missing. */
   dimmed: { type: Boolean, default: false },
+  /**
+   * What the empty-cart button says. The parent knows the price, and "Add" on a
+   * free ticket reads like a purchase; it passes "Register" for those.
+   */
+  addLabel: { type: String, default: "" },
 });
 
 defineEmits(["add", "increase", "decrease"]);
@@ -35,7 +40,7 @@ const { t } = useI18n();
     @click="$emit('add')"
   >
     <Icon name="hugeicons:plus-sign" class="size-4 shrink-0" />
-    {{ t("tickets.add") }}
+    {{ addLabel || t("tickets.add") }}
   </Button>
 
   <Button

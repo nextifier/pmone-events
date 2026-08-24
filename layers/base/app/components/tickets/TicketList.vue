@@ -415,15 +415,21 @@ function addToCart(ticket) {
   }
   if (dayless(ticket)) return;
   if (headroom(ticket) < minFor(ticket)) {
-    // Name the rule that actually bound. `maxFor` is min(max_quantity, stock),
-    // so using it here announced a per-order maximum that was really the
-    // remaining stock - a different rule with a different number.
-    const cap = ticket.max_quantity;
-    toast.error(
-      cap != null && qtyHeldFor(ticket) >= Number(cap)
-        ? t("tickets.maxPerOrder", { count: cap })
-        : t("tickets.spotsLeft", { count: ticket.available ?? 0 }),
-    );
+    // Name the rule that actually bound. `maxFor` is the minimum of three
+    // different limits, so announcing any one of them blindly told the buyer a
+    // number that belonged to a different rule. Most specific first: a per-email
+    // cap is the one nobody guesses, and during a free pre-registration it is
+    // usually 1.
+    const held = qtyHeldFor(ticket);
+    const perEmail = ticket.max_per_buyer;
+    const perOrder = ticket.max_quantity;
+    if (perEmail != null && held >= Number(perEmail)) {
+      toast.error(t("tickets.maxPerEmail", { count: perEmail }));
+    } else if (perOrder != null && held >= Number(perOrder)) {
+      toast.error(t("tickets.maxPerOrder", { count: perOrder }));
+    } else {
+      toast.error(t("tickets.spotsLeft", { count: ticket.available ?? 0 }));
+    }
     return;
   }
   cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
@@ -464,6 +470,65 @@ function priceLabel(ticket) {
   if (price == null) return "";
   return price > 0 ? fmtIdr(price) : t("tickets.free");
 }
+
+/** The price the card is currently showing, as a number. Null when unpriced. */
+function effectivePrice(ticket) {
+  const price = ticket.on_sale ? ticket.price : ticket.display_price;
+  return price == null ? null : Number(price);
+}
+
+function isFreeNow(ticket) {
+  return effectivePrice(ticket) === 0;
+}
+
+/**
+ * External tickets leave the site entirely, so the CTA has to say what happens
+ * next. "Get Ticket" next to a Rp0 price read like a purchase the visitor was
+ * about to be charged for; "Buy ticket" next to a real price is honest about it.
+ */
+function externalCtaLabel(ticket) {
+  return isFreeNow(ticket) ? t("tickets.register") : t("tickets.buyTicket");
+}
+
+/** First-party: a free phase is a registration, a priced one is a cart add. */
+function addCtaLabel(ticket) {
+  return isFreeNow(ticket) ? t("tickets.register") : t("tickets.add");
+}
+
+// A countdown that hits zero used to just vanish, leaving the card advertising
+// the phase that had already ended - old price, old button - until someone
+// reloaded. The listing is response-cached for 300s upstream, so one refresh at
+// the boundary can still come back pre-boundary; retry until the phase the
+// payload reports actually moves, then stop.
+const boundaryRetries = ref(0);
+let boundaryTimer = null;
+
+function phaseSignature() {
+  return tickets.value
+    .map((tk) => `${tk.id}:${tk.sales_status}:${tk.sales_phase_label ?? ""}`)
+    .join("|");
+}
+
+async function onPhaseBoundary() {
+  if (boundaryTimer) return;
+  const before = phaseSignature();
+  boundaryRetries.value = 0;
+
+  const attempt = async () => {
+    boundaryTimer = null;
+    await refresh();
+    if (phaseSignature() !== before) return;
+    if (boundaryRetries.value >= 6) return;
+    boundaryRetries.value += 1;
+    boundaryTimer = setTimeout(attempt, 30000);
+  };
+
+  await attempt();
+}
+
+onBeforeUnmount(() => {
+  if (boundaryTimer) clearTimeout(boundaryTimer);
+});
 
 // Single source of truth for the unavailable state, shared by the label, icon,
 // and toast so they never contradict. "Sales ended" is only valid once the
@@ -762,9 +827,10 @@ const ticketsById = computed(() => {
                   <Countdown
                     v-if="ticket.sales_starts_at"
                     variant="no-style"
-                    class="text-muted-foreground text-xs tracking-tight sm:text-sm"
+                    class="text-muted-foreground text-sm tracking-tight"
                     :text-before-countdown="phasePrefix(ticket, 'start')"
                     :countdown-date="new Date(ticket.sales_starts_at)"
+                    @complete="onPhaseBoundary"
                     v-tippy="
                       $dayjs(ticket.sales_starts_at).format(
                         'MMMM D, YYYY [at] h:mm A',
@@ -774,9 +840,10 @@ const ticketsById = computed(() => {
                   <Countdown
                     v-else-if="ticket.sales_ends_at"
                     variant="no-style"
-                    class="text-muted-foreground text-xs tracking-tight sm:text-sm"
+                    class="text-muted-foreground text-sm tracking-tight"
                     :text-before-countdown="phasePrefix(ticket, 'end')"
                     :countdown-date="new Date(ticket.sales_ends_at)"
+                    @complete="onPhaseBoundary"
                     v-tippy="
                       $dayjs(ticket.sales_ends_at).format(
                         'MMMM D, YYYY [at] h:mm A',
@@ -912,7 +979,7 @@ const ticketsById = computed(() => {
               <div
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
-                <div class="flex flex-col">
+                <div class="flex flex-wrap items-baseline gap-x-2">
                   <span
                     class="text-base font-semibold tracking-tighter"
                     :class="
@@ -920,6 +987,17 @@ const ticketsById = computed(() => {
                     "
                   >
                     {{ priceLabel(ticket) }}
+                  </span>
+                  <!-- The full price this ticket eventually sells at, struck
+                       through beside the live one. The API sends it only while
+                       the current phase is actually cheaper, so a pre-sale price
+                       reads as the discount it is instead of as the only price
+                       there has ever been. -->
+                  <span
+                    v-if="ticket.original_price"
+                    class="text-destructive-foreground text-xs tracking-tight line-through tabular-nums"
+                  >
+                    {{ fmtIdr(ticket.original_price) }}
                   </span>
                 </div>
 
@@ -936,17 +1014,32 @@ const ticketsById = computed(() => {
                     {{ t("tickets.locked") }}
                   </span>
 
-                  <!-- External purchase -->
+                  <!-- External purchase. Gated on the sale window like every
+                       other buy control: this branch sits ABOVE the unavailable
+                       one, so without saleOpen() a ticket whose phase had not
+                       opened yet still linked out. rel="noopener" is not
+                       optional - target="_blank" alone hands a third-party
+                       platform this page's window.opener. -->
                   <Button
                     v-else-if="
-                      ticket.purchase_type === 'external' && ticket.external_url
+                      ticket.purchase_type === 'external' &&
+                      ticket.external_url &&
+                      saleOpen(ticket)
                     "
                     as-child
                     size="sm"
                   >
-                    <a :href="ticket.external_url">{{
-                      t("tickets.getTicket")
-                    }}</a>
+                    <a
+                      :href="ticket.external_url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {{ externalCtaLabel(ticket) }}
+                      <Icon
+                        name="hugeicons:link-square-02"
+                        class="size-3.5 shrink-0 opacity-70"
+                      />
+                    </a>
                   </Button>
 
                   <!-- First-party, on sale, in stock -->
@@ -956,6 +1049,7 @@ const ticketsById = computed(() => {
                     :at-max="atMax(ticket)"
                     :single="isSingle(ticket)"
                     :dimmed="!canAdd(ticket)"
+                    :add-label="addCtaLabel(ticket)"
                     @add="addToCart(ticket)"
                     @increase="inc(ticket)"
                     @decrease="dec(ticket)"
@@ -1073,9 +1167,10 @@ const ticketsById = computed(() => {
                   <Countdown
                     v-if="ticket.sales_starts_at"
                     variant="no-style"
-                    class="text-muted-foreground text-xs tracking-tight sm:text-sm"
+                    class="text-muted-foreground text-sm tracking-tight"
                     :text-before-countdown="phasePrefix(ticket, 'start')"
                     :countdown-date="new Date(ticket.sales_starts_at)"
+                    @complete="onPhaseBoundary"
                     v-tippy="
                       $dayjs(ticket.sales_starts_at).format(
                         'MMMM D, YYYY [at] h:mm A',
@@ -1085,9 +1180,10 @@ const ticketsById = computed(() => {
                   <Countdown
                     v-else-if="ticket.sales_ends_at"
                     variant="no-style"
-                    class="text-muted-foreground text-xs tracking-tight sm:text-sm"
+                    class="text-muted-foreground text-sm tracking-tight"
                     :text-before-countdown="phasePrefix(ticket, 'end')"
                     :countdown-date="new Date(ticket.sales_ends_at)"
+                    @complete="onPhaseBoundary"
                     v-tippy="
                       $dayjs(ticket.sales_ends_at).format(
                         'MMMM D, YYYY [at] h:mm A',
@@ -1161,7 +1257,7 @@ const ticketsById = computed(() => {
               <div
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
-                <div class="flex flex-col">
+                <div class="flex flex-wrap items-baseline gap-x-2">
                   <span
                     class="text-base font-semibold tracking-tighter"
                     :class="
@@ -1169,6 +1265,17 @@ const ticketsById = computed(() => {
                     "
                   >
                     {{ priceLabel(ticket) }}
+                  </span>
+                  <!-- The full price this ticket eventually sells at, struck
+                       through beside the live one. The API sends it only while
+                       the current phase is actually cheaper, so a pre-sale price
+                       reads as the discount it is instead of as the only price
+                       there has ever been. -->
+                  <span
+                    v-if="ticket.original_price"
+                    class="text-destructive-foreground text-xs tracking-tight line-through tabular-nums"
+                  >
+                    {{ fmtIdr(ticket.original_price) }}
                   </span>
                 </div>
 
@@ -1186,14 +1293,24 @@ const ticketsById = computed(() => {
 
                   <Button
                     v-else-if="
-                      ticket.purchase_type === 'external' && ticket.external_url
+                      ticket.purchase_type === 'external' &&
+                      ticket.external_url &&
+                      saleOpen(ticket)
                     "
                     as-child
                     size="sm"
                   >
-                    <a :href="ticket.external_url">{{
-                      t("tickets.getTicket")
-                    }}</a>
+                    <a
+                      :href="ticket.external_url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {{ externalCtaLabel(ticket) }}
+                      <Icon
+                        name="hugeicons:link-square-02"
+                        class="size-3.5 shrink-0 opacity-70"
+                      />
+                    </a>
                   </Button>
 
                   <TicketCardQuantity
@@ -1202,6 +1319,7 @@ const ticketsById = computed(() => {
                     :at-max="atMax(ticket)"
                     :single="isSingle(ticket)"
                     :dimmed="!canAdd(ticket)"
+                    :add-label="addCtaLabel(ticket)"
                     @add="addToCart(ticket)"
                     @increase="inc(ticket)"
                     @decrease="dec(ticket)"

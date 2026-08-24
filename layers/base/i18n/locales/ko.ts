@@ -169,6 +169,9 @@ export default {
     itemRemoved: "{title}을(를) 삭제했습니다",
     undo: "실행 취소",
     maxPerOrder: "주문당 최대 {count}장",
+    maxPerEmail: "이메일 주소당 최대 {count}장",
+    register: "등록하기",
+    buyTicket: "티켓 구매",
     submitDisabledReason: "정보를 입력하고 이용약관에 동의해 주세요.",
     promo: {
       errors: {
@@ -281,6 +284,13 @@ export default {
       paymentSuccessful: "결제가 완료되었습니다",
       orderReceived: "주문이 접수되었습니다",
       confirmedDescription: "티켓이 준비되었습니다. 확인서와 e-티켓을 이메일로 보내드렸습니다.",
+      eTicketSentTitle: "전자 티켓을 보냈습니다",
+      eTicketSentBody: "{email} 주소로 전자 티켓을 보냈습니다. 메일을 열어 QR 코드를 확인하고 저장하세요.",
+      eTicketSentHint: "찾을 수 없나요? 스팸함이나 프로모션함을 확인해 보세요.",
+      resendEmail: "메일 다시 보내기",
+      resendSent: "메일을 보냈습니다. 받은편지함을 확인하세요.",
+      resendError: "메일을 보내지 못했습니다. 잠시 후 다시 시도해 주세요.",
+      confirmedByEmailDescription: "등록이 확정되었습니다. 전자 티켓은 메일함에 있습니다.",
       pendingDescription: "결제를 확인하는 중입니다. 보통 잠시면 완료됩니다.",
       receivedDescription: "감사합니다. 주문을 접수했습니다.",
       paymentPending: "결제 대기 중",

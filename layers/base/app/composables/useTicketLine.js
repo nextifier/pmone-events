@@ -56,7 +56,7 @@ export function posterLightboxItems(ticket) {
 
 /**
  * Highest quantity this ticket accepts in one order: `min(max_quantity,
- * available)`, 50 when neither is set.
+ * max_per_buyer, available)`, 50 when none is set.
  *
  * The two zeroes mean opposite things and used to be filtered out together by a
  * single `> 0` guard. `max_quantity: 0` is a nonsense limit and is ignored, but
@@ -70,6 +70,15 @@ export function maxFor(ticket) {
 
   const perOrder = Number(ticket?.max_quantity);
   if (ticket?.max_quantity != null && perOrder > 0) caps.push(perOrder);
+
+  // Per-EMAIL cap (the ticket's own, or - during a capped price phase - that
+  // phase's; the API resolves which and sends one number). This is the exact
+  // bound for a first-time buyer and a deliberate over-estimate for a returning
+  // one: the client cannot know what an address already holds, and asking the
+  // server would turn a public endpoint into an "has this person registered?"
+  // oracle. A repeat buyer is caught at submit, inline on the email field.
+  const perBuyer = Number(ticket?.max_per_buyer);
+  if (ticket?.max_per_buyer != null && perBuyer > 0) caps.push(perBuyer);
 
   if (ticket?.available != null) {
     caps.push(Math.max(0, Number(ticket.available) || 0));

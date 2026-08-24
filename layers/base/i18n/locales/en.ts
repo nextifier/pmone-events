@@ -162,6 +162,9 @@ export default {
     "itemRemoved": "{title} removed",
     "undo": "Undo",
     "maxPerOrder": "Maximum {count} per order",
+    "maxPerEmail": "Maximum {count} per email address",
+    "register": "Register",
+    "buyTicket": "Buy ticket",
     "submitDisabledReason": "Fill in your details and accept the terms to continue.",
     "promo": {
       "errors": {
@@ -274,6 +277,13 @@ export default {
       "paymentSuccessful": "Payment successful",
       "orderReceived": "Order received",
       "confirmedDescription": "Your tickets are ready. We've emailed your confirmation and e-tickets.",
+      "eTicketSentTitle": "Your e-ticket is on its way",
+      "eTicketSentBody": "We've sent your e-ticket to {email}. Open the email to view and download your QR code.",
+      "eTicketSentHint": "Can't find it? Check your spam or promotions folder.",
+      "resendEmail": "Resend email",
+      "resendSent": "Email sent. Check your inbox.",
+      "resendError": "Could not send the email. Please try again shortly.",
+      "confirmedByEmailDescription": "Your registration is confirmed. Your e-ticket is in your inbox.",
       "pendingDescription": "We're still confirming your payment. This usually only takes a moment.",
       "receivedDescription": "Thank you. We've received your order.",
       "paymentPending": "Payment pending",

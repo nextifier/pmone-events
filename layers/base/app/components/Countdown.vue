@@ -115,11 +115,36 @@ const props = defineProps({
   textBeforeCountdown: String,
 });
 
+/**
+ * Fires once, the moment the countdown crosses zero. Without it the whole
+ * element simply disappears (`v-if="distance > 0"`) and whatever it was counting
+ * towards - a price phase opening, sales closing - keeps rendering its old state
+ * until the visitor reloads the page.
+ */
+const emit = defineEmits(["complete"]);
+
 const { now } = useCurrentTime();
 
 const distance = computed(
   () => props.countdownDate.getTime() - now.value.getTime(),
 );
+
+// Seeded from the initial distance and watched WITHOUT `immediate`, so a date
+// that was already past on mount stays quiet: the payload that rendered it was
+// built with the current time, and there is nothing to re-fetch.
+const completed = ref(distance.value <= 0);
+
+watch(distance, (value) => {
+  // Guarded rather than `once`: the parent may swap countdownDate to the NEXT
+  // boundary, and that fresh future date has to be able to fire again.
+  if (value > 0) {
+    completed.value = false;
+    return;
+  }
+  if (completed.value) return;
+  completed.value = true;
+  emit("complete");
+});
 
 const timeParts = computed(() => {
   const d = Math.max(0, distance.value);

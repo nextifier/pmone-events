@@ -171,6 +171,9 @@ export default {
     itemRemoved: "{title} dihapus",
     undo: "Batalkan",
     maxPerOrder: "Maksimal {count} per pesanan",
+    maxPerEmail: "Maksimal {count} per alamat email",
+    register: "Daftar",
+    buyTicket: "Beli tiket",
     submitDisabledReason: "Lengkapi data Anda dan setujui syarat & ketentuan untuk melanjutkan.",
     promo: {
       errors: {
@@ -283,6 +286,13 @@ export default {
       paymentSuccessful: "Pembayaran berhasil",
       orderReceived: "Pesanan diterima",
       confirmedDescription: "Tiket Anda siap. Konfirmasi dan e-tiket sudah kami kirim ke email Anda.",
+      eTicketSentTitle: "E-tiket kamu sedang dikirim",
+      eTicketSentBody: "Kami sudah mengirim e-tiket kamu ke {email}. Buka emailnya untuk melihat dan mengunduh QR code kamu.",
+      eTicketSentHint: "Tidak ketemu? Cek folder spam atau promosi.",
+      resendEmail: "Kirim ulang email",
+      resendSent: "Email terkirim. Cek inbox kamu.",
+      resendError: "Email gagal dikirim. Coba lagi sebentar lagi.",
+      confirmedByEmailDescription: "Pendaftaran kamu sudah dikonfirmasi. E-tiket kamu ada di inbox.",
       pendingDescription: "Kami masih mengonfirmasi pembayaran Anda. Biasanya hanya butuh sebentar.",
       receivedDescription: "Terima kasih. Pesanan Anda sudah kami terima.",
       paymentPending: "Pembayaran tertunda",

@@ -167,7 +167,44 @@
 
       <!-- E-Tickets: only ready once the order is confirmed (paid/free). A
            pending order shows a note instead - the QR is not valid yet. -->
-      <div v-if="isConfirmed && (order.attendees || []).length" class="space-y-3">
+      <!-- Delivered by email: the QR is deliberately not on this page. -->
+      <div
+        v-if="isConfirmed && eticketByEmail"
+        class="bg-card space-y-3 rounded-xl border p-5"
+      >
+        <div class="flex items-start gap-3">
+          <Icon
+            name="hugeicons:mail-validation-01"
+            class="text-muted-foreground mt-0.5 size-5 shrink-0"
+          />
+          <div class="min-w-0 space-y-1.5">
+            <h2 class="text-foreground text-lg font-semibold tracking-tight">
+              {{ t("tickets.result.eTicketSentTitle") }}
+            </h2>
+            <p class="text-sm tracking-tight">
+              {{ t("tickets.result.eTicketSentBody", { email: maskedEmail }) }}
+            </p>
+            <p class="text-muted-foreground text-sm tracking-tight">
+              {{ t("tickets.result.eTicketSentHint") }}
+            </p>
+          </div>
+        </div>
+        <Button
+          type="button"
+          variant="outline"
+          :disabled="resending"
+          @click="resendEmail"
+        >
+          <Spinner v-if="resending" class="size-4" />
+          <Icon v-else name="hugeicons:mail-01" class="size-4 shrink-0" />
+          {{ t("tickets.result.resendEmail") }}
+        </Button>
+      </div>
+
+      <div
+        v-else-if="isConfirmed && (order.attendees || []).length"
+        class="space-y-3"
+      >
         <h2 class="text-foreground text-lg font-semibold tracking-tight">{{ t("tickets.result.yourETickets") }}</h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <ETicket
@@ -191,7 +228,7 @@
       <!-- Actions -->
       <div class="flex flex-wrap items-center justify-center gap-2 print:hidden">
         <Button
-          v-if="isConfirmed && (order.attendees || []).length"
+          v-if="isConfirmed && !eticketByEmail && (order.attendees || []).length"
           type="button"
           variant="outline"
           :disabled="downloadingAll"
@@ -321,6 +358,38 @@ function itemSubLabel(item) {
 const isConfirmed = computed(() => order.value?.status === "confirmed");
 const isPending = computed(() => order.value?.status === "pending_payment");
 
+// The API withheld the QR (and the attendee ulids) for this order: its price
+// phase delivers the e-ticket by email only, so a free ticket capped at one per
+// address actually requires opening that inbox. The emailed link is the way in.
+const eticketByEmail = computed(
+  () => order.value?.eticket_delivery === "email",
+);
+const maskedEmail = computed(() => order.value?.buyer_email_masked || "");
+
+const resending = ref(false);
+
+async function resendEmail() {
+  if (resending.value || !orderUlid.value) return;
+  resending.value = true;
+  try {
+    await $fetch(
+      `/api/tickets/orders/${orderUlid.value}/resend-confirmation`,
+      { method: "POST" },
+    );
+    toast.success(t("tickets.result.resendSent"));
+  } catch (err) {
+    // The 429 body carries its own "check your inbox" wording; show it verbatim
+    // rather than replacing a specific message with a generic one.
+    toast.error(
+      err?.data?.message ||
+        err?.statusMessage ||
+        t("tickets.result.resendError"),
+    );
+  } finally {
+    resending.value = false;
+  }
+}
+
 const localePath = useLocalePath();
 
 // Receipt + invoice + manage are reachable only with the magic token (paid
@@ -369,7 +438,11 @@ const heroTitle = computed(() => {
 });
 
 const heroDescription = computed(() => {
-  if (isConfirmed.value) return t("tickets.result.confirmedDescription");
+  if (isConfirmed.value) {
+    return eticketByEmail.value
+      ? t("tickets.result.confirmedByEmailDescription")
+      : t("tickets.result.confirmedDescription");
+  }
   if (isPending.value) {
     // Arrived via magic link => the buyer came back from the gateway (or the
     // emailed link), so their payment is genuinely being confirmed.

@@ -172,6 +172,9 @@ export default {
     itemRemoved: "{title} を削除しました",
     undo: "元に戻す",
     maxPerOrder: "1回のご注文につき最大 {count} 枚",
+    maxPerEmail: "メールアドレスごとに最大 {count} 枚",
+    register: "登録する",
+    buyTicket: "チケットを購入",
     submitDisabledReason: "お客様情報を入力し、利用規約に同意してください。",
     promo: {
       errors: {
@@ -284,6 +287,13 @@ export default {
       paymentSuccessful: "お支払いが完了しました",
       orderReceived: "ご注文を受け付けました",
       confirmedDescription: "チケットのご用意ができました。確認とe-チケットをメールでお送りしました。",
+      eTicketSentTitle: "電子チケットを送信しました",
+      eTicketSentBody: "電子チケットを {email} に送信しました。メールを開いてQRコードをご確認・ダウンロードください。",
+      eTicketSentHint: "見つからない場合は、迷惑メールフォルダをご確認ください。",
+      resendEmail: "メールを再送する",
+      resendSent: "メールを送信しました。受信箱をご確認ください。",
+      resendError: "メールを送信できませんでした。しばらくしてからもう一度お試しください。",
+      confirmedByEmailDescription: "お申し込みが確定しました。電子チケットはメールに届いています。",
       pendingDescription: "お支払いを確認中です。通常はすぐに完了します。",
       receivedDescription: "ありがとうございます。ご注文を受け付けました。",
       paymentPending: "お支払い保留中",

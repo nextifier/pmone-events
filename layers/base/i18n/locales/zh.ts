@@ -167,6 +167,9 @@ export default {
     itemRemoved: "已移除 {title}",
     undo: "撤销",
     maxPerOrder: "每单最多 {count} 张",
+    maxPerEmail: "每个邮箱地址最多 {count} 张",
+    register: "立即注册",
+    buyTicket: "购买门票",
     submitDisabledReason: "请填写您的信息并同意条款后继续。",
     promo: {
       errors: {
@@ -279,6 +282,13 @@ export default {
       paymentSuccessful: "付款成功",
       orderReceived: "订单已接收",
       confirmedDescription: "您的门票已准备就绪。我们已将确认信息和电子门票发送到您的邮箱。",
+      eTicketSentTitle: "电子票正在发送",
+      eTicketSentBody: "我们已将电子票发送至 {email}。请打开邮件查看并下载二维码。",
+      eTicketSentHint: "找不到？请查看垃圾邮件或推广邮件文件夹。",
+      resendEmail: "重新发送邮件",
+      resendSent: "邮件已发送，请查收。",
+      resendError: "邮件发送失败，请稍后再试。",
+      confirmedByEmailDescription: "报名已确认。电子票已发送到您的邮箱。",
       pendingDescription: "我们仍在确认您的付款，通常很快即可完成。",
       receivedDescription: "感谢您。我们已收到您的订单。",
       paymentPending: "付款待处理",
