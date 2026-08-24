@@ -92,6 +92,25 @@ const headlineLabel = computed(() =>
 );
 const amountLabel = (n) => (n > 0 ? fmtIdr(n) : t("tickets.free"));
 
+/**
+ * What the cart would cost at full price, struck through beside the headline.
+ * `original_price` arrives only while the live phase is actually cheaper, so a
+ * cart at the normal price has nothing to compare against and this stays 0.
+ * Lines already at full price contribute their own total, so a mixed cart adds
+ * up rather than reporting only the discounted half.
+ */
+const originalHeadline = computed(() => {
+  const full = lines.value.reduce((sum, line) => {
+    const original = Number(line.ticket?.original_price);
+    const lineFull =
+      Number.isFinite(original) && original > 0 ? original * line.qty : 0;
+
+    return sum + (lineFull > line.lineTotal ? lineFull : line.lineTotal);
+  }, 0);
+
+  return full > headlineAmount.value ? full : 0;
+});
+
 const expanded = ref(false);
 
 /**
@@ -407,13 +426,25 @@ const visible = computed(
                   </template>
                 </i18n-t>
               </span>
-              <span
-                class="-mt-0.5 text-base font-semibold tabular-nums transition-opacity sm:text-lg"
-                :class="{ 'opacity-60': isPay && cart.pricingPending }"
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                {{ amountLabel(headlineAmount) }}
+              <span class="-mt-0.5 flex items-baseline gap-x-2">
+                <span
+                  class="text-base font-semibold tabular-nums transition-opacity sm:text-lg"
+                  :class="{ 'opacity-60': isPay && cart.pricingPending }"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  {{ amountLabel(headlineAmount) }}
+                </span>
+                <!-- The same struck full price the card and the checkout summary
+                     show. `--destructive-foreground` is a light-surface token and
+                     this bar paints `bg-foreground`, so the strike borrows the
+                     bar's own secondary weight instead. -->
+                <span
+                  v-if="originalHeadline"
+                  class="text-background/60 text-sm tracking-tight tabular-nums line-through"
+                >
+                  {{ fmtIdr(originalHeadline) }}
+                </span>
               </span>
             </span>
             <span

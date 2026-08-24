@@ -18,6 +18,13 @@ const props = defineProps({
   ticketsById: { type: Object, default: () => ({}) },
   // Allow editing quantities directly from the summary (checkout uses this).
   editable: { type: Boolean, default: false },
+  /**
+   * Hold the last cart on screen instead of following the store into empty.
+   * Checkout turns this on the moment it starts handing off to the receipt or
+   * the payment gateway: the order is placed, the store is cleared, and the
+   * browser keeps painting this page until the next document loads.
+   */
+  frozen: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(["promo-applied", "promo-cleared"]);
@@ -33,7 +40,7 @@ const ticketFor = (id) => props.ticketsById[id] ?? null;
  * day/session sub-label. When the preview has not landed yet the store cannot
  * know a price, so fall back to the ticket's own.
  */
-const lines = computed(() =>
+const liveLines = computed(() =>
   cart.mergedLines.map((l) => {
     const ticket = ticketFor(l.ticket_id);
     const unit = l.unit || Number(ticket?.price) || 0;
@@ -52,13 +59,83 @@ const lines = computed(() =>
 );
 
 const anyPending = computed(() => cart.pricingPending);
-const subtotal = computed(() =>
+const liveSubtotal = computed(() =>
   cart.previewLines?.length
     ? cart.displaySubtotal
-    : lines.value.reduce((sum, l) => sum + l.subtotal, 0),
+    : liveLines.value.reduce((sum, l) => sum + l.subtotal, 0),
 );
-const discount = computed(() => cart.displayDiscount);
-const total = computed(() => Math.max(0, subtotal.value - discount.value));
+const liveDiscount = computed(() => cart.displayDiscount);
+const liveTotal = computed(() =>
+  Math.max(0, liveSubtotal.value - liveDiscount.value),
+);
+
+/**
+ * The last cart worth showing. Kept up to date while there is one, so the
+ * freeze has something to fall back on the instant the store empties.
+ */
+const snapshot = ref(null);
+watch(
+  liveLines,
+  (next) => {
+    if (!next.length) return;
+    snapshot.value = {
+      lines: next,
+      subtotal: liveSubtotal.value,
+      discount: liveDiscount.value,
+      total: liveTotal.value,
+    };
+  },
+  { immediate: true },
+);
+
+const showingSnapshot = computed(
+  () => props.frozen && !liveLines.value.length && !!snapshot.value,
+);
+
+// Everything below - and the whole template - reads these, so the freeze is one
+// decision made in one place rather than a condition sprinkled through the markup.
+const lines = computed(() =>
+  showingSnapshot.value ? snapshot.value.lines : liveLines.value,
+);
+const subtotal = computed(() =>
+  showingSnapshot.value ? snapshot.value.subtotal : liveSubtotal.value,
+);
+const discount = computed(() =>
+  showingSnapshot.value ? snapshot.value.discount : liveDiscount.value,
+);
+const total = computed(() =>
+  showingSnapshot.value ? snapshot.value.total : liveTotal.value,
+);
+
+/** A snapshot is a picture of a placed order; nothing in it is still editable. */
+const linesEditable = computed(() => props.editable && !showingSnapshot.value);
+
+/**
+ * What this line would have cost at the ticket's full price. `original_price` is
+ * sent only while the live phase is actually cheaper, so a line at the normal
+ * price has nothing to strike through and returns 0.
+ */
+const originalSubtotal = (line) => {
+  const original = Number(line.ticket?.original_price);
+  if (!Number.isFinite(original) || original <= 0) return 0;
+
+  const full = original * line.qty;
+  return full > line.subtotal ? full : 0;
+};
+
+/**
+ * The same saving stated once for the whole cart. Lines already at full price
+ * contribute their own subtotal, so a mixed cart still adds up to a real number
+ * rather than to the discounted lines alone.
+ */
+const originalTotal = computed(() => {
+  const full = lines.value.reduce(
+    (sum, line) => sum + (originalSubtotal(line) || line.subtotal),
+    0,
+  );
+
+  return full > total.value ? full : 0;
+});
 
 /**
  * The cap the hint reads is the same one `TicketLineQuantity` enforces:
@@ -272,25 +349,35 @@ defineExpose({ appliedPromo });
             </div>
 
             <div class="flex shrink-0 flex-col items-end gap-1">
-              <span
-                class="font-medium tabular-nums tracking-tight transition-opacity"
-                :class="{ 'opacity-60': line.pending }"
-                :aria-busy="line.pending || undefined"
-              >
-                {{ fmtIdr(line.subtotal) }}
-              </span>
+              <div class="flex flex-wrap items-baseline justify-end gap-x-2">
+                <span
+                  class="font-medium tabular-nums tracking-tight transition-opacity"
+                  :class="{ 'opacity-60': line.pending }"
+                  :aria-busy="line.pending || undefined"
+                >
+                  {{ fmtIdr(line.subtotal) }}
+                </span>
+                <!-- Same struck full price the ticket card shows, so the saving
+                     does not disappear the moment the buyer reaches checkout. -->
+                <span
+                  v-if="originalSubtotal(line)"
+                  class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+                >
+                  {{ fmtIdr(originalSubtotal(line)) }}
+                </span>
+              </div>
               <!-- Same control the sticky bar uses, so a line cannot behave one
                    way in the aside and another in the bar. Rendered even when
                    read-only: it falls back to a plain "x2", and dropping it
                    entirely left a read-only summary with no quantity at all -
                    the number used to come from the "2 x Rp350.000" line that is
                    now gone. -->
-              <TicketLineQuantity :line="line" :editable="editable" />
+              <TicketLineQuantity :line="line" :editable="linesEditable" />
             </div>
           </div>
 
           <p
-            v-if="editable && atMax(line) && cappedByEmailLimit(line)"
+            v-if="linesEditable && atMax(line) && cappedByEmailLimit(line)"
             class="text-muted-foreground mt-1.5 text-sm tracking-tight"
           >
             {{
@@ -304,13 +391,13 @@ defineExpose({ appliedPromo });
             }}
           </p>
           <p
-            v-else-if="editable && atMax(line) && cappedByOrderLimit(line)"
+            v-else-if="linesEditable && atMax(line) && cappedByOrderLimit(line)"
             class="text-muted-foreground mt-1.5 text-sm tracking-tight"
           >
             {{ t("tickets.maxPerOrder", { count: line.ticket.max_quantity }) }}
           </p>
           <p
-            v-else-if="editable && (atMax(line) || lowStock(line))"
+            v-else-if="linesEditable && (atMax(line) || lowStock(line))"
             class="text-muted-foreground mt-1.5 text-sm tracking-tight"
           >
             {{ t("tickets.spotsLeft", { count: line.ticket.available }) }}
@@ -365,13 +452,23 @@ defineExpose({ appliedPromo });
         <span class="text-sm font-medium tracking-tight">
           {{ t("tickets.total") }}
         </span>
-        <span
-          class="text-base font-semibold tabular-nums tracking-tight"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {{ fmtIdr(total) }}
-        </span>
+        <div class="flex flex-wrap items-baseline justify-end gap-x-2">
+          <span
+            class="text-base font-semibold tabular-nums tracking-tight"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {{ fmtIdr(total) }}
+          </span>
+          <!-- The whole cart's full price. Stated here as well as per line
+               because the total is the number the buyer actually reads. -->
+          <span
+            v-if="originalTotal"
+            class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+          >
+            {{ fmtIdr(originalTotal) }}
+          </span>
+        </div>
       </div>
 
       <Collapsible v-model:open="promoOpen">

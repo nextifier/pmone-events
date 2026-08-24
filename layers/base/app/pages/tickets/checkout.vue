@@ -84,8 +84,20 @@ onMounted(() => {
  * them, which is the one thing a form should never do while they are reading it.
  * The timer existed to outlast the Undo toast; an empty state outlasts it by
  * simply not moving, and Undo still refills the cart and brings the form back.
+ *
+ * `handingOff` is part of the guard, not decoration: a successful submit clears
+ * the cart and then hands off with `window.location.href`, and the browser keeps
+ * rendering this page while it loads the next one. `submitting` is already back
+ * to false by then, so without this the buyer watched "Your cart is empty" flash
+ * up in the half-second between pressing Claim and landing on the receipt.
  */
-const cartEmptied = computed(() => cartReady.value && cart.isEmpty && !submitting.value);
+const cartEmptied = computed(
+  () =>
+    cartReady.value &&
+    cart.isEmpty &&
+    !submitting.value &&
+    !handingOff.value,
+);
 
 // --- Tickets (data + meta.terms) ---
 // Await the event payload before deriving the URL below: `useEvent()` does not
@@ -165,6 +177,16 @@ const preparing = ref(false);
 // tick so a bfcache restore (Back from Xendit) cannot resume a half-finished
 // poll and bounce them forward again.
 const leavingPage = ref(false);
+
+/**
+ * Set the instant a placed order starts handing off, BEFORE the cart is cleared.
+ * `leavingPage` cannot do this job: `waitForPaymentUrl` treats it as "stop
+ * polling, the page is gone", so setting it early would abandon the gateway
+ * redirect on a paid order. This one only ever says "the cart on screen is now a
+ * receipt, not a basket" - the page keeps its lines and its empty state stays
+ * away until the next document takes over.
+ */
+const handingOff = ref(false);
 // Stable per-checkout-attempt key so a lost-response retry (or a corrected
 // resubmit after a validation error) dedupes against the backend instead of
 // creating a duplicate order. Reset once an order is successfully created.
@@ -588,6 +610,7 @@ async function submit() {
     });
     const data = res?.data ?? res;
 
+    handingOff.value = true;
     cart.clear();
     idempotencyKey.value = null;
 
@@ -929,6 +952,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
                   ref="summaryRef"
                   :tickets-by-id="ticketsById"
                   editable
+                  :frozen="handingOff"
                 />
               </div>
             </div>
