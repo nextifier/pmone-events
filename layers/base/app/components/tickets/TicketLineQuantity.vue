@@ -127,8 +127,15 @@ function onUpdate(next) {
        cart bar and the ticket card already use to take a line out, so removing
        looks like one action wherever the buyer meets it.
 
-       `-me-2` cancels the icon button's own padding so the GLYPH, not its box,
-       sits on the same right edge as the price above it.
+       `-me-1.5` cancels the button's own padding so the GLYPH, not its box, sits
+       on the same right edge as the price above it.
+
+       The painted box is `size-7` while the tap target stays full size through
+       `after:-inset-1.5`, which is invisible but hit-tests. Those are two
+       different jobs: at the button's own 36px the hover background reached up
+       over the price on the line above, and the box also set the height of the
+       whole row, pushing the day and date a third of a line off the ticket name.
+       Shrinking what is DRAWN fixes both without taking anything off the target.
 
        Destructive in BOTH tones, not just on the light surface. The cart bar
        paints `bg-foreground` and remaps `--destructive-foreground` to a red that
@@ -140,7 +147,7 @@ function onUpdate(next) {
     type="button"
     variant="ghost"
     size="icon"
-    class="-me-2"
+    class="relative size-7 -me-1.5 after:absolute after:-inset-1.5"
     :class="
       inverted
         ? 'text-destructive-foreground hover:bg-destructive/20'

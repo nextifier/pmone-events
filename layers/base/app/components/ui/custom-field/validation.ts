@@ -306,7 +306,12 @@ export function validateFieldValue(
     case "color":
       return isHexColor(value) ? null : "Enter a valid hex color.";
 
+    // All three carry a place NAME, and the server gives them the same
+    // string|max:100. The parent-child check (a city must sit in its province)
+    // needs the sibling answers, so it stays server-side.
     case "country":
+    case "province":
+    case "city":
       return textLength(value) > 100 ? "Must not be longer than 100 characters." : null;
 
     default:

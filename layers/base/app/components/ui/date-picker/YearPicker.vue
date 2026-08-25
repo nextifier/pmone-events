@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { buttonVariants } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { getLocalTimeZone, type DateValue } from "@internationalized/date";
+import { CalendarDate, getLocalTimeZone, type DateValue } from "@internationalized/date";
 import {
   YearPickerCell,
   YearPickerCellTrigger,
@@ -21,9 +28,17 @@ import { toDate } from "reka-ui/date";
 import { computed, type HTMLAttributes } from "vue";
 
 /**
- * Year picker — popover trigger (like DatePicker) around reka-ui's YearPickerRoot
- * grid (yearsPerPage years, decade-aligned). v-model is a reka-native `DateValue`
- * (Jan 1 of the picked year). Part of the DatePicker family.
+ * Year picker. v-model is a reka-native `DateValue` (Jan 1 of the picked year)
+ * in both variants, so callers never learn which one is on screen.
+ *
+ * - `grid` (default): popover trigger around reka-ui's YearPickerRoot, a
+ *   decade-aligned grid you page through. Good when the range is open-ended.
+ * - `select`: a plain dropdown of every year in range, newest first. Better
+ *   when the field is bounded tightly enough to list — a birth year capped at
+ *   an age limit is 60-odd rows, and picking one is a scroll and a tap instead
+ *   of arithmetic about which decade to page to.
+ *
+ * Part of the DatePicker family.
  */
 const props = withDefaults(
   defineProps<{
@@ -35,6 +50,7 @@ const props = withDefaults(
      */
     id?: string;
     class?: HTMLAttributes["class"];
+    variant?: "grid" | "select";
     modelValue?: DateValue | null;
     placeholder?: DateValue;
     defaultPlaceholder?: DateValue;
@@ -52,6 +68,7 @@ const props = withDefaults(
   }>(),
   {
     modelValue: null,
+    variant: "grid",
     disabled: false,
     locale: "en-US",
     size: "default",
@@ -78,6 +95,47 @@ function yearLabel(cell: DateValue): string {
   return formatter.custom(toDate(cell), { year: "numeric" });
 }
 
+/**
+ * Years offered by the `select` variant, newest first.
+ *
+ * Bounds come from the same min/max the grid disables cells with, so the two
+ * variants never disagree about what is choosable. The fallbacks match the
+ * server's own year rules (1900-2100) rather than inventing a range here - but
+ * an unbounded field is 200 rows, which is the argument for setting bounds,
+ * not for this variant.
+ */
+const YEAR_FLOOR = 1900;
+const YEAR_CEILING = 2100;
+
+const selectableYears = computed<number[]>(() => {
+  const min = props.minValue?.year ?? YEAR_FLOOR;
+  const max = props.maxValue?.year ?? YEAR_CEILING;
+
+  if (max < min) return [];
+
+  const years: number[] = [];
+  for (let year = max; year >= min; year--) {
+    years.push(year);
+  }
+
+  return years;
+});
+
+/** Select works in strings; the model stays a DateValue either way. */
+const selectedYear = computed<string | undefined>(() =>
+  props.modelValue ? String(props.modelValue.year) : undefined,
+);
+
+function onSelectYear(value: unknown): void {
+  const year = Number(value);
+  emit("update:modelValue", Number.isInteger(year) ? new CalendarDate(year, 1, 1) : undefined);
+}
+
+/** SelectTrigger has no `lg`; fold it into the default rather than dropping it. */
+const selectTriggerSize = computed<"sm" | "default">(() =>
+  props.size === "sm" ? "sm" : "default",
+);
+
 function onSelect(value: DateValue | DateValue[] | undefined): void {
   const next = Array.isArray(value) ? value[0] : value;
   emit("update:modelValue", next);
@@ -95,7 +153,23 @@ const cellClass = cn(
 </script>
 
 <template>
-  <Popover v-model:open="isOpen" :modal="false">
+  <Select
+    v-if="variant === 'select'"
+    :model-value="selectedYear"
+    :disabled="disabled"
+    @update:model-value="onSelectYear"
+  >
+    <SelectTrigger :id="id" :size="selectTriggerSize" :class="cn('w-full', props.class)">
+      <SelectValue :placeholder="placeholderText" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem v-for="year in selectableYears" :key="year" :value="String(year)">
+        {{ year }}
+      </SelectItem>
+    </SelectContent>
+  </Select>
+
+  <Popover v-else v-model:open="isOpen" :modal="false">
     <PopoverTrigger as-child>
       <button
         :id="id"

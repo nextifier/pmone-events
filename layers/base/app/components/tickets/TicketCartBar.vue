@@ -426,22 +426,36 @@ const visible = computed(
                   </template>
                 </i18n-t>
               </span>
-              <span class="-mt-0.5 flex items-baseline gap-x-2">
+              <span class="-mt-0.5 flex flex-nowrap items-baseline gap-x-2">
+                <!-- The same struck full price the card and the checkout summary
+                     show, and in the same order: the reduction reads left to
+                     right and the payable amount ends the row.
+                     `--destructive-foreground` is a light-surface token and this
+                     bar paints `bg-foreground`, so the strike borrows the bar's
+                     own secondary weight instead. -->
+                <!-- Payable first: this bar is left-aligned, so the leading edge
+                     is the one everything lines up on and it belongs to the
+                     amount being charged. (The checkout summary reverses the pair
+                     because that column is right-aligned - same rule, other edge.)
+
+                     The row is clipped, not wrapped: the collapsed bar gets
+                     whatever the Checkout button leaves over, sometimes under
+                     80px. So the order of sacrifice is stated outright - the
+                     struck price truncates, the payable one never shrinks. -->
                 <span
-                  class="text-base font-semibold tabular-nums transition-opacity sm:text-lg"
+                  class="shrink-0 text-base font-semibold tabular-nums transition-opacity sm:text-lg"
                   :class="{ 'opacity-60': isPay && cart.pricingPending }"
                   aria-live="polite"
                   aria-atomic="true"
                 >
                   {{ amountLabel(headlineAmount) }}
                 </span>
-                <!-- The same struck full price the card and the checkout summary
-                     show. `--destructive-foreground` is a light-surface token and
-                     this bar paints `bg-foreground`, so the strike borrows the
-                     bar's own secondary weight instead. -->
+                <!-- `--destructive-foreground` is a light-surface token and this
+                     bar paints `bg-foreground`, so the strike borrows the bar's
+                     own secondary weight instead. -->
                 <span
                   v-if="originalHeadline"
-                  class="text-background/60 text-sm tracking-tight tabular-nums line-through"
+                  class="text-background/60 min-w-0 truncate text-sm tracking-tight tabular-nums line-through"
                 >
                   {{ fmtIdr(originalHeadline) }}
                 </span>

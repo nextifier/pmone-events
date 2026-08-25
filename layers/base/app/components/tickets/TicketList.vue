@@ -1000,24 +1000,29 @@ const ticketsById = computed(() => {
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
                 <div class="min-w-0">
-                  <div class="flex flex-wrap items-baseline gap-x-2">
+                  <!-- The payable price owns the LEADING edge here, because this
+                       block is left-aligned - the struck one follows it. In the
+                       checkout summary the same pair is reversed, for the same
+                       reason: that column is right-aligned, so the edge the eye
+                       and the numbers line up on is the trailing one, and it has
+                       to belong to the amount being charged either way. -->
+                  <div class="flex flex-nowrap items-baseline gap-x-2">
                     <!-- Always foreground. Muting the price while a phase is
                        merely upcoming made the one number the card exists to
                        show the faintest thing on it, and "Coming soon" plus the
                        countdown already say the sale has not opened. -->
                     <span
-                      class="text-foreground text-base font-semibold tracking-tighter"
+                      class="text-foreground shrink-0 text-base font-semibold tracking-tighter"
                     >
                       {{ priceLabel(ticket) }}
                     </span>
-                    <!-- The full price this ticket eventually sells at, struck
-                       through beside the live one. The API sends it only while
-                       the current phase is actually cheaper, so a pre-sale price
-                       reads as the discount it is instead of as the only price
-                       there has ever been. -->
+                    <!-- The full price this ticket eventually sells at. The API
+                       sends it only while the current phase is actually cheaper,
+                       so a pre-sale price reads as the discount it is instead of
+                       as the only price there has ever been. -->
                     <span
                       v-if="ticket.original_price"
-                      class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+                      class="text-destructive-foreground min-w-0 truncate text-sm tracking-tight tabular-nums line-through"
                     >
                       {{ fmtIdr(ticket.original_price) }}
                     </span>
@@ -1284,24 +1289,29 @@ const ticketsById = computed(() => {
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
                 <div class="min-w-0">
-                  <div class="flex flex-wrap items-baseline gap-x-2">
+                  <!-- The payable price owns the LEADING edge here, because this
+                       block is left-aligned - the struck one follows it. In the
+                       checkout summary the same pair is reversed, for the same
+                       reason: that column is right-aligned, so the edge the eye
+                       and the numbers line up on is the trailing one, and it has
+                       to belong to the amount being charged either way. -->
+                  <div class="flex flex-nowrap items-baseline gap-x-2">
                     <!-- Always foreground. Muting the price while a phase is
                        merely upcoming made the one number the card exists to
                        show the faintest thing on it, and "Coming soon" plus the
                        countdown already say the sale has not opened. -->
                     <span
-                      class="text-foreground text-base font-semibold tracking-tighter"
+                      class="text-foreground shrink-0 text-base font-semibold tracking-tighter"
                     >
                       {{ priceLabel(ticket) }}
                     </span>
-                    <!-- The full price this ticket eventually sells at, struck
-                       through beside the live one. The API sends it only while
-                       the current phase is actually cheaper, so a pre-sale price
-                       reads as the discount it is instead of as the only price
-                       there has ever been. -->
+                    <!-- The full price this ticket eventually sells at. The API
+                       sends it only while the current phase is actually cheaper,
+                       so a pre-sale price reads as the discount it is instead of
+                       as the only price there has ever been. -->
                     <span
                       v-if="ticket.original_price"
-                      class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+                      class="text-destructive-foreground min-w-0 truncate text-sm tracking-tight tabular-nums line-through"
                     >
                       {{ fmtIdr(ticket.original_price) }}
                     </span>

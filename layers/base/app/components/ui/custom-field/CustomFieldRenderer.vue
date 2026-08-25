@@ -207,9 +207,11 @@
       <YearPicker
         :id="fieldId"
         v-else-if="normalized.type === 'year'"
+        :variant="normalized.settings?.variant === 'select' ? 'select' : 'grid'"
         :model-value="yearToDateValue(modelValue)"
         :min-value="yearToDateValue(normalized.validation?.min)"
         :max-value="yearToDateValue(normalized.validation?.max)"
+        :default-placeholder="yearPickerPlaceholder"
         :disabled="disabled"
         :placeholder-text="normalized.placeholder || 'Pick a year'"
         @update:model-value="$emit('update:modelValue', $event ? $event.year : null)"
@@ -971,6 +973,28 @@ const yearToDateValue = (value) => {
   const year = Number(value);
   return Number.isInteger(year) && year > 0 ? new CalendarDate(year, 1, 1) : undefined;
 };
+
+/**
+ * Which decade the grid opens on when nothing is picked yet.
+ *
+ * Reka defaults the placeholder to today, so a bounded field like a birth year
+ * capped at 2009 opens on 2020-2031 with every cell greyed out - a picker that
+ * looks broken until you find the back arrow. Clamp today into the field's own
+ * bounds so the first page always has something selectable.
+ */
+const yearPickerPlaceholder = computed(() => {
+  const current = yearToDateValue(props.modelValue);
+  if (current) return current;
+
+  const min = Number(normalized.value.validation?.min);
+  const max = Number(normalized.value.validation?.max);
+  let year = new Date().getFullYear();
+
+  if (Number.isFinite(max) && year > max) year = max;
+  if (Number.isFinite(min) && year < min) year = min;
+
+  return yearToDateValue(year);
+});
 
 const yearRangeValue = computed(() => {
   const value = props.modelValue;

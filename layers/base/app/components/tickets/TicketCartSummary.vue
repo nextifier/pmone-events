@@ -2,6 +2,12 @@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Field, FieldLabel } from "../ui/field";
+import {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "../ui/empty";
 import { BlurImage } from "../ui/blur-image";
 import TicketLineQuantity from "./TicketLineQuantity.vue";
 import {
@@ -247,18 +253,24 @@ defineExpose({ appliedPromo });
 
 <template>
   <div class="space-y-4">
-    <div
-      v-if="!lines.length"
-      class="text-muted-foreground text-sm tracking-tight"
-    >
-      {{ t("tickets.emptyCart") }}
-    </div>
+    <!-- The same Empty the ticket list uses for its own nothing-to-show states,
+         so an empty panel looks like a considered state rather than a sentence
+         that failed to load. Header only: there is nothing to explain and no
+         action to offer here - the page around it already owns the way back. -->
+    <Empty v-if="!lines.length" class="py-4">
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <Icon name="hugeicons:shopping-cart-01" />
+        </EmptyMedia>
+        <EmptyTitle>{{ t("tickets.emptyCartTitle") }}</EmptyTitle>
+      </EmptyHeader>
+    </Empty>
 
     <ul v-else class="space-y-4">
       <li
         v-for="line in lines"
         :key="line.key"
-        class="flex items-center gap-3 text-sm tracking-tight"
+        class="flex items-center gap-2 text-sm tracking-tight sm:gap-3"
       >
         <div
           v-if="posterSrc(line.ticket)"
@@ -273,15 +285,20 @@ defineExpose({ appliedPromo });
         </div>
 
         <div class="min-w-0 flex-1">
-          <!-- Price over quantity on the trailing edge, the same shape the
-               sticky bar uses for the same cart on the same page.
-               The "2 x Rp350.000" line this replaces carried one fact the row
-               did not already state - the unit price - and one it stated twice:
-               the quantity, 40px from the stepper that owns it. At quantity 1 it
-               read "1 x Rp350.000" beside "Rp350.000", two identical numbers
-               asking to be compared. The bar has never shown a unit price and
-               nobody has missed it. -->
-          <div class="flex items-center gap-3">
+          <!-- Two columns, each keeping its own rhythm, centred against each
+               other and against the poster. A grid was tried here so that the
+               name/price and date/control pairs would share rows exactly - but
+               forcing shared rows means the taller cell sets the height for
+               both, which pushed the day and date away from the ticket name and
+               left the price almost touching the control.
+
+               The "2 x Rp350.000" line this replaces carried one fact the row did
+               not already state - the unit price - and one it stated twice: the
+               quantity, 40px from the stepper that owns it. At quantity 1 it read
+               "1 x Rp350.000" beside "Rp350.000", two identical numbers asking to
+               be compared. The bar has never shown a unit price and nobody has
+               missed it. -->
+          <div class="flex items-center gap-2 sm:gap-3">
             <div class="min-w-0 flex-1 space-y-0.5">
               <p class="text-foreground font-medium">{{ line.title }}</p>
               <p
@@ -297,28 +314,33 @@ defineExpose({ appliedPromo });
               </p>
               <!-- No cap or stock note here. This is a review surface: the row
                    already shows the quantity with no control beside it, so the
-                   limit is visible in the absence of one. The sentence belongs
-                   where the buyer can still act on it - beside the Add button on
-                   the ticket card - and on a phone it cost four wrapped lines
-                   that outweighed the ticket's own title. -->
+                   limit is legible in the absence of one. That sentence belongs
+                   where the buyer can still act on it, beside the Add button on
+                   the ticket card. -->
             </div>
 
-            <div class="flex shrink-0 flex-col items-end gap-1">
-              <div class="flex flex-wrap items-baseline justify-end gap-x-2">
+            <div class="flex shrink-0 flex-col items-end gap-1.5">
+              <!-- Struck price FIRST, payable price on the trailing edge. That
+                   edge is the whole point of a right-aligned price column: put
+                   the strike there instead and the number people actually owe
+                   shifts left by the width of the strike, so a discounted line
+                   stops lining up with an undiscounted one and with the total.
+                   `flex-nowrap`, because if this pair ever wrapped the struck
+                   price would take the first line and the real one would drop
+                   beneath it. -->
+              <div class="flex flex-nowrap items-baseline justify-end gap-x-2">
                 <span
-                  class="font-medium tabular-nums tracking-tight transition-opacity"
+                  v-if="originalSubtotal(line)"
+                  class="text-destructive-foreground min-w-0 truncate text-sm tracking-tight tabular-nums line-through"
+                >
+                  {{ fmtIdr(originalSubtotal(line)) }}
+                </span>
+                <span
+                  class="shrink-0 font-medium tabular-nums tracking-tight transition-opacity"
                   :class="{ 'opacity-60': line.pending }"
                   :aria-busy="line.pending || undefined"
                 >
                   {{ fmtIdr(line.subtotal) }}
-                </span>
-                <!-- Same struck full price the ticket card shows, so the saving
-                     does not disappear the moment the buyer reaches checkout. -->
-                <span
-                  v-if="originalSubtotal(line)"
-                  class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
-                >
-                  {{ fmtIdr(originalSubtotal(line)) }}
                 </span>
               </div>
               <!-- Same control the sticky bar uses, so a line cannot behave one
@@ -330,7 +352,6 @@ defineExpose({ appliedPromo });
               <TicketLineQuantity :line="line" :editable="linesEditable" />
             </div>
           </div>
-
         </div>
       </li>
     </ul>
@@ -381,21 +402,22 @@ defineExpose({ appliedPromo });
         <span class="text-sm font-medium tracking-tight">
           {{ t("tickets.total") }}
         </span>
-        <div class="flex flex-wrap items-baseline justify-end gap-x-2">
+        <div class="flex flex-nowrap items-baseline justify-end gap-x-2">
+          <!-- The whole cart's full price, ahead of the payable one for the same
+               reason as the lines above: the trailing edge belongs to the number
+               being charged, so every amount in this column lines up. -->
+          <span
+            v-if="originalTotal"
+            class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+          >
+            {{ fmtIdr(originalTotal) }}
+          </span>
           <span
             class="text-base font-semibold tabular-nums tracking-tight"
             aria-live="polite"
             aria-atomic="true"
           >
             {{ fmtIdr(total) }}
-          </span>
-          <!-- The whole cart's full price. Stated here as well as per line
-               because the total is the number the buyer actually reads. -->
-          <span
-            v-if="originalTotal"
-            class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
-          >
-            {{ fmtIdr(originalTotal) }}
           </span>
         </div>
       </div>
