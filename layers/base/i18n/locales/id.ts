@@ -340,6 +340,9 @@ export default {
       download: "Unduh tiket",
       downloadError: "Tidak dapat mengunduh tiket.",
       locked: "Tersedia setelah pembayaran",
+      cancelled: "Tiket ini sudah dibatalkan",
+      cancelledHelp: "Hubungi penyelenggara kalau menurutmu ini keliru.",
+      sessionHost: "Dipandu {host}"
     },
     manage: {
       title: "Kelola peserta",

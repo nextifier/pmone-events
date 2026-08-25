@@ -336,6 +336,9 @@ export default {
       download: "下载门票",
       downloadError: "无法下载门票。",
       locked: "付款后可用",
+      cancelled: "此门票已取消",
+      cancelledHelp: "如果您认为这是错误，请联系主办方。",
+      sessionHost: "主持人：{host}"
     },
     manage: {
       title: "管理参与者",

@@ -330,7 +330,10 @@ export default {
       "whatsappText": "Here's your e-ticket for {title}: {url}",
       "download": "Download ticket",
       "downloadError": "Could not download the ticket.",
-      "locked": "Available after payment"
+      "locked": "Available after payment",
+      "cancelled": "This ticket has been cancelled",
+      "cancelledHelp": "Contact the organiser if you think this is a mistake.",
+      "sessionHost": "Hosted by {host}"
     },
     "manage": {
       "title": "Manage attendees",

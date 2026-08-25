@@ -338,6 +338,9 @@ export default {
       download: "티켓 다운로드",
       downloadError: "티켓을 다운로드할 수 없습니다.",
       locked: "결제 후 이용 가능",
+      cancelled: "이 티켓은 취소되었습니다",
+      cancelledHelp: "착오라고 생각되면 주최자에게 문의해 주세요.",
+      sessionHost: "진행: {host}"
     },
     manage: {
       title: "참석자 관리",

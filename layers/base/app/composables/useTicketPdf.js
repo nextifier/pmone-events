@@ -59,6 +59,8 @@ export function useTicketPdf() {
       tier = "",
       day = "",
       session = "",
+      sessionDetail = "",
+      phase = "",
       checkedIn = false,
       orderNumber = "",
     } = data;
@@ -122,7 +124,7 @@ export function useTicketPdf() {
     y += nameLines.length * 11 + 1;
 
     // Ticket · tier.
-    const ticketLine = [ticketTitle, tier].filter(Boolean).join("  ·  ");
+    const ticketLine = [ticketTitle, tier, phase].filter(Boolean).join("  ·  ");
     if (ticketLine) {
       doc.setFont("helvetica", "normal");
       doc.setFontSize(13);
@@ -139,6 +141,15 @@ export function useTicketPdf() {
       doc.setTextColor(...rgb(ink));
       doc.text(dayLine, cx, y, { align: "center" });
       y += 9;
+    }
+
+    // Room and host, so a printed ticket says where to actually go.
+    if (sessionDetail) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11);
+      doc.setTextColor(...rgb(muted));
+      doc.text(sessionDetail, cx, y, { align: "center" });
+      y += 8;
     }
 
     // QR (vector, square) - the page hero.

@@ -620,6 +620,14 @@ function toTicketData(att) {
     tier: att.ticket?.tier || "",
     day: appendDayDate(resolveLabel(att.day?.label), att.day?.date),
     session: att.session?.label || "",
+    sessionDetail: [
+      att.session?.location,
+      att.session?.host ? t("tickets.eticket.sessionHost", { host: att.session.host }) : null,
+    ]
+      .filter(Boolean)
+      .join(" · "),
+    // Already filtered by the API, so presence is the whole test.
+    phase: att.phase_label || "",
     checkedIn: !!att.is_checked_in,
   };
 }
@@ -629,7 +637,9 @@ async function downloadAllTickets() {
   if (downloadingAll.value) return;
   downloadingAll.value = true;
   try {
-    await downloadAll((order.value?.attendees || []).map(toTicketData), {
+    const printable = (order.value?.attendees || []).filter((a) => !a.is_cancelled && a.qr_token);
+
+    await downloadAll(printable.map(toTicketData), {
       eventTitle: event?.title || "",
       eventDate: eventDateLabel.value,
       eventVenue: event?.location || "",

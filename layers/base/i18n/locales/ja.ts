@@ -341,6 +341,9 @@ export default {
       download: "チケットをダウンロード",
       downloadError: "チケットをダウンロードできませんでした。",
       locked: "お支払い後に利用可能",
+      cancelled: "このチケットはキャンセルされました",
+      cancelledHelp: "心当たりがない場合は主催者にご連絡ください。",
+      sessionHost: "担当：{host}"
     },
     manage: {
       title: "参加者を管理",

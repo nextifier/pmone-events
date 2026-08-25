@@ -43,7 +43,41 @@ function resolveLabel(label) {
 const dayLabel = computed(() =>
   appendDayDate(resolveLabel(props.attendee?.day?.label), props.attendee?.day?.date)
 );
-const sessionLabel = computed(() => props.attendee?.session?.label || "");
+const sessionLabel = computed(() => {
+  const session = props.attendee?.session;
+  if (!session?.label) return "";
+
+  const time = formatSessionTime(session.starts_at, session.ends_at);
+  return time ? `${resolveLabel(session.label)} · ${time}` : resolveLabel(session.label);
+});
+
+// Room and host go on their own line rather than into the chip above: the
+// session chip is already the longest one on the card, and three badges wrap to
+// three lines on a phone.
+const sessionDetail = computed(() => {
+  const session = props.attendee?.session;
+  if (!session) return "";
+
+  return [session.location, session.host ? t("tickets.eticket.sessionHost", { host: session.host }) : null]
+    .filter(Boolean)
+    .join(" · ");
+});
+
+function formatSessionTime(start, end) {
+  if (!start) return "";
+  const fmt = (value) =>
+    new Date(value).toLocaleTimeString(locale.value, { hour: "2-digit", minute: "2-digit" });
+  return end ? `${fmt(start)}–${fmt(end)}` : fmt(start);
+}
+
+// The phase this seat was bought under ("Pre-registration"). The API already
+// suppresses labels that say nothing, so presence is the whole test.
+const phaseLabel = computed(() => props.attendee?.phase_label || "");
+
+// A refunded seat keeps its row and its page but is rejected at the gate. It
+// takes priority over `locked` and over the loading spinner: without a branch of
+// its own the nulled qr_token falls through to a spinner that never resolves.
+const cancelled = computed(() => props.attendee?.is_cancelled === true);
 
 // Perforation done the CardNotch way: an SVG path draws the card fill AND the
 // border stroke, so the border follows the two side notches. The content is
@@ -121,6 +155,8 @@ async function downloadTicket() {
       tier: tierLabel.value,
       day: dayLabel.value,
       session: sessionLabel.value,
+      sessionDetail: sessionDetail.value,
+      phase: phaseLabel.value,
       checkedIn: !!props.attendee?.is_checked_in,
       orderNumber: props.orderNumber,
       fileName: `ticket-${props.attendee?.name || props.attendee?.ulid || "e-ticket"}.pdf`,
@@ -172,6 +208,7 @@ async function downloadTicket() {
           <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
             <span class="text-foreground text-sm tracking-tight">{{ ticketTitle }}</span>
             <Badge v-if="tierLabel" variant="muted" plain>{{ tierLabel }}</Badge>
+            <Badge v-if="phaseLabel" variant="muted" plain>{{ phaseLabel }}</Badge>
           </div>
         </div>
 
@@ -182,7 +219,20 @@ async function downloadTicket() {
           role="img"
           :aria-label="t('tickets.eticket.qrAlt', { name: attendee.name || ticketTitle })"
         >
-          <QRCode v-if="attendee.qr_token" :url="attendee.qr_token" :size="240" />
+          <div
+            v-if="cancelled"
+            class="bg-destructive/10 text-destructive-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
+            role="status"
+          >
+            <Icon name="hugeicons:ticket-star" class="size-7 shrink-0" />
+            <span class="text-sm tracking-tight text-balance">
+              {{ t("tickets.eticket.cancelled") }}
+            </span>
+            <span class="text-muted-foreground text-sm tracking-tight text-balance">
+              {{ t("tickets.eticket.cancelledHelp") }}
+            </span>
+          </div>
+          <QRCode v-else-if="attendee.qr_token" :url="attendee.qr_token" :size="240" />
           <div
             v-else-if="locked"
             class="bg-muted/50 text-muted-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
@@ -215,11 +265,18 @@ async function downloadTicket() {
             {{ t("tickets.eticket.checkedIn") }}
           </Badge>
         </div>
+
+        <p
+          v-if="sessionDetail"
+          class="text-muted-foreground -mt-3 text-center text-sm tracking-tight text-balance"
+        >
+          {{ sessionDetail }}
+        </p>
       </div>
 
       <!-- Perforation + stub (side notches are carved by the SVG/clip path above) -->
       <div
-        v-if="showActions && !locked"
+        v-if="showActions && !locked && !cancelled"
         ref="stubEl"
         class="border-border flex flex-col gap-3 border-t border-dashed px-6 pt-4 pb-5 print:hidden"
       >
