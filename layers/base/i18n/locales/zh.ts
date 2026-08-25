@@ -316,6 +316,8 @@ export default {
       downloadInvoice: "下载发票",
       loginToManage: "登录以管理",
       orderNotFound: "未找到订单。",
+      paymentExpiresIn: "请在以下时间内完成付款",
+      paymentExpired: "此付款链接已过期。请重新下单以获取门票。"
     },
     status: {
       confirmed: "已确认",

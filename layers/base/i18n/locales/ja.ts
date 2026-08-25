@@ -321,6 +321,8 @@ export default {
       downloadInvoice: "請求書をダウンロード",
       loginToManage: "ログインして管理",
       orderNotFound: "ご注文が見つかりません。",
+      paymentExpiresIn: "お支払い期限まで",
+      paymentExpired: "この決済リンクは期限切れです。チケットは再度ご注文ください。"
     },
     status: {
       confirmed: "確定済み",

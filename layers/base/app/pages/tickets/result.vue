@@ -65,9 +65,30 @@
               <Icon name="hugeicons:arrow-right-02" class="size-4 shrink-0" />
             </a>
           </Button>
+          <!-- The deadline has been in this payload since June and was never
+               rendered. Half of all paid orders that carry one expire unpaid. -->
+          <p
+            v-if="paymentDeadline && !paymentExpired"
+            class="text-muted-foreground text-sm tracking-tight"
+            v-tippy="paymentDeadlineAbsolute"
+          >
+            <Countdown
+              variant="no-style"
+              :countdown-date="paymentDeadline"
+              :text-before-countdown="t('tickets.result.paymentExpiresIn')"
+            />
+          </p>
+          <!-- Countdown renders nothing once it hits zero, so the expired case
+               needs a line of its own or the buyer just sees blank space. -->
+          <p
+            v-else-if="paymentDeadline && paymentExpired"
+            class="text-destructive-foreground text-sm tracking-tight"
+          >
+            {{ t("tickets.result.paymentExpired") }}
+          </p>
           <p
             v-if="isPolling"
-            class="text-muted-foreground flex items-center gap-1.5 text-xs tracking-tight sm:text-sm"
+            class="text-muted-foreground flex items-center gap-1.5 text-sm tracking-tight"
           >
             <Icon name="svg-spinners:180-ring" class="size-3.5 shrink-0" />
             {{ t("tickets.result.autoUpdating") }}
@@ -297,6 +318,10 @@ definePageMeta({
 });
 
 const { t, locale } = useI18n();
+
+// The same shared clock <Countdown> ticks on, so the live timer and the expired
+// branch below can never disagree about which side of zero we are on.
+const { now } = useCurrentTime();
 const route = useRoute();
 const magicToken = computed(() => route.query.token);
 const orderUlid = computed(() => route.query.order);
@@ -631,6 +656,22 @@ function toTicketData(att) {
     checkedIn: !!att.is_checked_in,
   };
 }
+
+// The invoice dies at this moment. Kept as a Date so <Countdown> can drive it,
+// with the absolute time on a tooltip for anyone who wants the exact wall clock.
+const paymentDeadline = computed(() =>
+  order.value?.payment_expires_at ? new Date(order.value.payment_expires_at) : null
+);
+
+const paymentExpired = computed(
+  () => !!paymentDeadline.value && paymentDeadline.value.getTime() <= now.value.getTime()
+);
+
+const paymentDeadlineAbsolute = computed(() =>
+  paymentDeadline.value
+    ? paymentDeadline.value.toLocaleString(locale.value, { dateStyle: "medium", timeStyle: "short" })
+    : ""
+);
 
 const downloadingAll = ref(false);
 async function downloadAllTickets() {

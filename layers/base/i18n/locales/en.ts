@@ -310,7 +310,9 @@ export default {
       "downloadReceipt": "Download receipt",
       "downloadInvoice": "Download invoice",
       "loginToManage": "Log in to manage",
-      "orderNotFound": "Order not found."
+      "orderNotFound": "Order not found.",
+      "paymentExpiresIn": "Complete payment within",
+      "paymentExpired": "This payment link has expired. Start a new order to get your ticket."
     },
     "status": {
       "confirmed": "Confirmed",

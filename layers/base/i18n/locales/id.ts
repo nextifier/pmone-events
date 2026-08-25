@@ -320,6 +320,8 @@ export default {
       downloadInvoice: "Unduh invoice",
       loginToManage: "Login untuk mengelola",
       orderNotFound: "Pesanan tidak ditemukan.",
+      paymentExpiresIn: "Selesaikan pembayaran dalam",
+      paymentExpired: "Link pembayaran ini sudah kedaluwarsa. Buat pesanan baru untuk mendapatkan tiketmu."
     },
     status: {
       confirmed: "Terkonfirmasi",

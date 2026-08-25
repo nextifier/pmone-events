@@ -318,6 +318,8 @@ export default {
       downloadInvoice: "인보이스 다운로드",
       loginToManage: "로그인하여 관리",
       orderNotFound: "주문을 찾을 수 없습니다.",
+      paymentExpiresIn: "결제 마감까지",
+      paymentExpired: "이 결제 링크는 만료되었습니다. 티켓을 받으려면 다시 주문해 주세요."
     },
     status: {
       confirmed: "확정됨",
