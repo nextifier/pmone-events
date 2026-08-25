@@ -137,57 +137,6 @@ const originalTotal = computed(() => {
   return full > total.value ? full : 0;
 });
 
-/**
- * The cap the hint reads is the same one `TicketLineQuantity` enforces:
- * `lineCapFor` subtracts what this ticket already holds on its other days, so
- * "max per order" appears when the buyer has actually reached the limit across
- * the whole cart rather than on this row alone.
- */
-const lineMax = (line) =>
-  lineCapFor(
-    line.ticket ?? {},
-    cart.items,
-    line.ticket_session_id,
-    line.selected_event_day_id,
-  );
-const atMax = (line) => line.qty >= lineMax(line);
-
-/**
- * Which rule stopped the stepper, so the hint states the real one.
- *
- * `lineMax` is the LINE's headroom - the ticket's own limit minus what its other
- * days hold - so feeding it to "Maximum {count} per order" produced sentences
- * that were simply untrue: a ticket capped at 10 with 5 in stock and 3 booked on
- * Friday said "Maximum 2 per order" on the Saturday row.
- */
-const cappedByOrderLimit = (line) => {
-  const max = line.ticket?.max_quantity;
-  return max != null && line.qty >= Number(max);
-};
-
-/**
- * The per-EMAIL cap, when that is the rule the buyer has actually run into.
- * It outranks the per-order line below: "maximum 1 per order" invites a second
- * order from the same address, which the server then rejects at submit. The
- * tighter, truer rule gets to speak.
- */
-const cappedByEmailLimit = (line) => {
-  const max = line.ticket?.max_per_buyer;
-  return max != null && line.qty >= Number(max);
-};
-
-/** Same reading as the ticket card's: the price this phase is charging now. */
-const lineIsFree = (line) => {
-  const ticket = line.ticket ?? {};
-  const price = ticket.on_sale ? ticket.price : ticket.display_price;
-  return price != null && Number(price) === 0;
-};
-
-const lowStock = (line) => {
-  const available = line.ticket?.available;
-  return available != null && available > 0 && available <= 10;
-};
-
 // --- Promo code ---
 // Collapsed by default: a visible empty coupon field on a checkout page sends
 // buyers off to hunt for a code, and many do not come back.
@@ -333,11 +282,11 @@ defineExpose({ appliedPromo });
                asking to be compared. The bar has never shown a unit price and
                nobody has missed it. -->
           <div class="flex items-center gap-3">
-            <div class="min-w-0 flex-1 space-y-1">
+            <div class="min-w-0 flex-1 space-y-0.5">
               <p class="text-foreground font-medium">{{ line.title }}</p>
               <p
                 v-if="line.subLabel"
-                class="text-sm tracking-tight"
+                class="text-sm leading-snug tracking-tight"
                 :class="
                   line.missingDay
                     ? 'text-destructive-foreground'
@@ -346,36 +295,12 @@ defineExpose({ appliedPromo });
               >
                 {{ line.subLabel }}
               </p>
-              <!-- The cap sits with the ticket it describes, not under the whole
-                   row. As a sibling of the row it was pushed below the taller
-                   price+control column, which left a band of dead space between
-                   the date and a sentence that belongs to it. -->
-              <p
-                v-if="linesEditable && atMax(line) && cappedByEmailLimit(line)"
-                class="text-muted-foreground text-sm tracking-tight"
-              >
-                {{
-                  t(
-                    lineIsFree(line)
-                      ? "tickets.maxPerEmailFree"
-                      : "tickets.maxPerEmail",
-                    { count: line.ticket.max_per_buyer },
-                    Number(line.ticket.max_per_buyer),
-                  )
-                }}
-              </p>
-              <p
-                v-else-if="linesEditable && atMax(line) && cappedByOrderLimit(line)"
-                class="text-muted-foreground text-sm tracking-tight"
-              >
-                {{ t("tickets.maxPerOrder", { count: line.ticket.max_quantity }) }}
-              </p>
-              <p
-                v-else-if="linesEditable && (atMax(line) || lowStock(line))"
-                class="text-muted-foreground text-sm tracking-tight"
-              >
-                {{ t("tickets.spotsLeft", { count: line.ticket.available }) }}
-              </p>
+              <!-- No cap or stock note here. This is a review surface: the row
+                   already shows the quantity with no control beside it, so the
+                   limit is visible in the absence of one. The sentence belongs
+                   where the buyer can still act on it - beside the Add button on
+                   the ticket card - and on a phone it cost four wrapped lines
+                   that outweighed the ticket's own title. -->
             </div>
 
             <div class="flex shrink-0 flex-col items-end gap-1">

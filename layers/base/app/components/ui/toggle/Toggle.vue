@@ -52,7 +52,7 @@ const variantClass = computed(() => {
     <span
       v-if="indicator"
       aria-hidden="true"
-      class="border-border text-primary-foreground flex size-4 shrink-0 items-center justify-center rounded-full border shadow-xs transition-colors group-data-[state=on]/toggle:border-primary group-data-[state=on]/toggle:bg-primary"
+      class="border-muted-foreground/30 text-primary-foreground flex size-4 shrink-0 items-center justify-center rounded-full border shadow-xs transition-colors group-data-[state=on]/toggle:border-primary group-data-[state=on]/toggle:bg-primary"
     >
       <svg
         width="6"

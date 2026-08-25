@@ -490,6 +490,27 @@ function externalCtaLabel(ticket) {
   return isFreeNow(ticket) ? t("tickets.register") : t("tickets.buyTicket");
 }
 
+/**
+ * The per-email limit, stated where the buyer can still act on it.
+ *
+ * It used to exist in exactly two places, and neither of them worked. The toast
+ * fires only AFTER someone tries to add a second one, so the rule could be
+ * discovered only by breaking it. The checkout summary repeated it on a surface
+ * that no longer has a quantity control to apply it to, where it cost three or
+ * four wrapped lines on a phone and answered a question nobody was asking.
+ * Here it sits beside the price, next to the button it constrains.
+ */
+function perEmailNote(ticket) {
+  const perEmail = Number(ticket?.max_per_buyer);
+  if (ticket?.max_per_buyer == null || !(perEmail > 0)) return "";
+
+  return t(
+    isFreeNow(ticket) ? "tickets.maxPerEmailFree" : "tickets.maxPerEmail",
+    { count: perEmail },
+    perEmail,
+  );
+}
+
 /** First-party: a free phase is a registration, a priced one is a cart add. */
 function addCtaLabel(ticket) {
   return isFreeNow(ticket) ? t("tickets.register") : t("tickets.add");
@@ -978,27 +999,35 @@ const ticketsById = computed(() => {
               <div
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
-                <div class="flex flex-wrap items-baseline gap-x-2">
-                  <!-- Always foreground. Muting the price while a phase is
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-baseline gap-x-2">
+                    <!-- Always foreground. Muting the price while a phase is
                        merely upcoming made the one number the card exists to
                        show the faintest thing on it, and "Coming soon" plus the
                        countdown already say the sale has not opened. -->
-                  <span
-                    class="text-foreground text-base font-semibold tracking-tighter"
-                  >
-                    {{ priceLabel(ticket) }}
-                  </span>
-                  <!-- The full price this ticket eventually sells at, struck
+                    <span
+                      class="text-foreground text-base font-semibold tracking-tighter"
+                    >
+                      {{ priceLabel(ticket) }}
+                    </span>
+                    <!-- The full price this ticket eventually sells at, struck
                        through beside the live one. The API sends it only while
                        the current phase is actually cheaper, so a pre-sale price
                        reads as the discount it is instead of as the only price
                        there has ever been. -->
-                  <span
-                    v-if="ticket.original_price"
-                    class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+                    <span
+                      v-if="ticket.original_price"
+                      class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+                    >
+                      {{ fmtIdr(ticket.original_price) }}
+                    </span>
+                  </div>
+                  <p
+                    v-if="perEmailNote(ticket)"
+                    class="text-muted-foreground mt-0.5 text-sm leading-snug tracking-tight"
                   >
-                    {{ fmtIdr(ticket.original_price) }}
-                  </span>
+                    {{ perEmailNote(ticket) }}
+                  </p>
                 </div>
 
                 <div class="shrink-0">
@@ -1254,27 +1283,35 @@ const ticketsById = computed(() => {
               <div
                 class="relative flex grow-0 items-center justify-between gap-x-3 px-5 py-3 sm:px-8 sm:py-4"
               >
-                <div class="flex flex-wrap items-baseline gap-x-2">
-                  <!-- Always foreground. Muting the price while a phase is
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-baseline gap-x-2">
+                    <!-- Always foreground. Muting the price while a phase is
                        merely upcoming made the one number the card exists to
                        show the faintest thing on it, and "Coming soon" plus the
                        countdown already say the sale has not opened. -->
-                  <span
-                    class="text-foreground text-base font-semibold tracking-tighter"
-                  >
-                    {{ priceLabel(ticket) }}
-                  </span>
-                  <!-- The full price this ticket eventually sells at, struck
+                    <span
+                      class="text-foreground text-base font-semibold tracking-tighter"
+                    >
+                      {{ priceLabel(ticket) }}
+                    </span>
+                    <!-- The full price this ticket eventually sells at, struck
                        through beside the live one. The API sends it only while
                        the current phase is actually cheaper, so a pre-sale price
                        reads as the discount it is instead of as the only price
                        there has ever been. -->
-                  <span
-                    v-if="ticket.original_price"
-                    class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+                    <span
+                      v-if="ticket.original_price"
+                      class="text-destructive-foreground text-sm tracking-tight tabular-nums line-through"
+                    >
+                      {{ fmtIdr(ticket.original_price) }}
+                    </span>
+                  </div>
+                  <p
+                    v-if="perEmailNote(ticket)"
+                    class="text-muted-foreground mt-0.5 text-sm leading-snug tracking-tight"
                   >
-                    {{ fmtIdr(ticket.original_price) }}
-                  </span>
+                    {{ perEmailNote(ticket) }}
+                  </p>
                 </div>
 
                 <div class="shrink-0">
