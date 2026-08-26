@@ -784,6 +784,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
                     id="buyer_name"
                     v-model="form.buyer_name"
                     autocomplete="name"
+                    autocapitalize="words"
                     required
                     :aria-invalid="!!errors?.buyer_name"
                   />

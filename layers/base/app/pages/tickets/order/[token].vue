@@ -142,6 +142,7 @@
                 <Input
                   :id="`name_${att.ulid}`"
                   v-model="nameDrafts[att.ulid]"
+                  autocapitalize="words"
                   :disabled="att.is_checked_in || savingId === att.ulid"
                   :placeholder="t('tickets.manage.fullNamePlaceholder')"
                 />

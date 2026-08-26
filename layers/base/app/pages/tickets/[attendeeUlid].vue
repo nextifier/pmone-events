@@ -104,7 +104,7 @@
 
           <Field :data-invalid="!!errors?.name">
             <FieldLabel for="att_name">{{ t("tickets.attendee.fullName") }}</FieldLabel>
-            <Input id="att_name" v-model="form.name" required :aria-invalid="!!errors?.name" />
+            <Input id="att_name" autocapitalize="words" v-model="form.name" required :aria-invalid="!!errors?.name" />
             <FieldError :errors="errors.name" />
           </Field>
 
