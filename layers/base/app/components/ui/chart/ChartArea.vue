@@ -2,6 +2,7 @@
   <ChartContainer
     :config="config"
     :class="containerClass"
+    :style="containerStyle"
   >
     <VisXYContainer
       :data="plotData"
@@ -72,6 +73,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   componentToString,
+  liftSeriesColor,
 } from ".";
 
 const props = defineProps({
@@ -237,8 +239,11 @@ const areaY = computed(() => {
   return accessors.length === 1 ? accessors[0] : accessors;
 });
 
+// Lines and dots take the full lift; the area under them takes a lighter one so
+// the stroke still reads against its own fill. An explicit `areaFill` from the
+// call site is left exactly as given - that is a deliberate choice, not a default.
 const colorList = computed(() =>
-  drawKeys.value.map((key) => props.config[key]?.color || "var(--chart-1)")
+  drawKeys.value.map((key) => liftSeriesColor(props.config[key]?.color || "var(--chart-1)"))
 );
 
 function fillFor(key) {
@@ -253,7 +258,7 @@ function fillFor(key) {
   if (props.gradient) {
     return `url(#fill-${key})`;
   }
-  return props.config[key]?.color || "var(--chart-1)";
+  return liftSeriesColor(props.config[key]?.color || "var(--chart-1)", 70);
 }
 
 const areaColor = computed(() => {
@@ -315,7 +320,7 @@ const categoryTickFormat = computed(() => {
 const autoGradientDefs = computed(() =>
   keys.value
     .map((key) => {
-      const color = props.config[key]?.color || "var(--chart-1)";
+      const color = liftSeriesColor(props.config[key]?.color || "var(--chart-1)", 70);
       return `<linearGradient id="fill-${key}" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stop-color="${color}" stop-opacity="0.8" /><stop offset="95%" stop-color="${color}" stop-opacity="0.1" /></linearGradient>`;
     })
     .join("")
@@ -333,13 +338,28 @@ const containerClass = computed(() => {
   if (props.grid) {
     classes.push("[&_.grid_line]:[stroke-dasharray:3_3] [&_.grid_line]:stroke-border/60!");
   }
+  // The filter classes are LITERAL and read a custom property set below. Built by
+  // interpolation they never compile: Tailwind scans this file as text and sees
+  // `${props.lineFilter}`, which is not a utility - so every glow silently did
+  // nothing while the markup looked correct.
   if (props.lineFilter) {
-    classes.push(`[&_.line]:[filter:${props.lineFilter}] [&_.area]:[filter:${props.lineFilter}]`);
+    classes.push("[&_.line]:[filter:var(--chart-line-filter)] [&_.area]:[filter:var(--chart-line-filter)]");
   }
   if (props.dotFilter) {
-    classes.push(`[&_.vis-scatter]:[filter:${props.dotFilter}]`);
+    classes.push("[&_.vis-scatter]:[filter:var(--chart-dot-filter)]");
   }
   return classes.join(" ");
+});
+
+const containerStyle = computed(() => {
+  const style = {};
+  if (props.lineFilter) {
+    style["--chart-line-filter"] = props.lineFilter;
+  }
+  if (props.dotFilter) {
+    style["--chart-dot-filter"] = props.dotFilter;
+  }
+  return Object.keys(style).length ? style : undefined;
 });
 
 const defaultXFormat = (d) => {

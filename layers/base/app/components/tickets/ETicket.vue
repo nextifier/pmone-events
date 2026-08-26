@@ -10,6 +10,9 @@ const props = defineProps({
   eventTitle: { type: String, default: "" },
   eventDate: { type: String, default: "" },
   eventVenue: { type: String, default: "" },
+  // Absolute CDN URL. Only the downloaded image uses it - the card on screen
+  // shows the poster in the page header above, not inside the ticket.
+  posterUrl: { type: String, default: "" },
   orderNumber: { type: String, default: "" },
   // When false, hide the share/copy/download actions (e.g. on a summary list).
   showActions: { type: Boolean, default: true },
@@ -139,11 +142,44 @@ onBeforeUnmount(() => {
   ro = null;
 });
 
+/**
+ * The WhatsApp message, built line by line rather than from one template string.
+ *
+ * Every part of a ticket is conditional - not every event has a venue, most have
+ * no sessions, an unclaimed ticket has no holder - so a single translated
+ * template with slots would send blank lines and stray separators wherever the
+ * data ran out. Assembling the lines and dropping the empty ones is the only way
+ * the message reads properly in all of those cases.
+ *
+ * `*asterisks*` are WhatsApp's own bold. The event goes first because that is
+ * what a recipient needs to recognise before anything else; the link goes last
+ * because WhatsApp renders its preview card against the final URL.
+ */
 const whatsappUrl = computed(() => {
-  const text = t("tickets.eticket.whatsappText", {
-    title: ticketTitle.value,
-    url: shareUrl.value,
-  });
+  const holder = props.attendee?.name || "";
+
+  const blocks = [
+    [
+      props.eventTitle ? `*${props.eventTitle}*` : "",
+      props.eventDate,
+      props.eventVenue,
+    ],
+    [
+      holder,
+      [ticketTitle.value, tierLabel.value, phaseLabel.value].filter(Boolean).join(" · "),
+      dayLabel.value,
+      sessionLabel.value,
+      sessionDetail.value,
+      props.orderNumber,
+    ],
+    [t("tickets.manage.scanAtEntrance"), shareUrl.value],
+  ];
+
+  const text = blocks
+    .map((lines) => lines.filter((line) => line && String(line).trim()).join("\n"))
+    .filter(Boolean)
+    .join("\n\n");
+
   return `https://wa.me/?text=${encodeURIComponent(text)}`;
 });
 
@@ -155,6 +191,7 @@ async function downloadTicket() {
     await saveTicket(
       {
         qrToken: props.attendee?.qr_token,
+        posterUrl: props.posterUrl,
         eventTitle: props.eventTitle,
         eventDate: props.eventDate,
         eventVenue: props.eventVenue,
@@ -168,7 +205,7 @@ async function downloadTicket() {
         orderNumber: props.orderNumber,
         scanHint: t("tickets.manage.scanAtEntrance"),
       },
-      { fileName: `${slugifyFileName(holder)}-ticket.png` }
+      { fileName: ticketFileName(holder) }
     );
 
     toast.success(t("tickets.eticket.downloaded"));
@@ -179,13 +216,31 @@ async function downloadTicket() {
   }
 }
 
-async function copyTicketLink() {
-  try {
-    await navigator.clipboard.writeText(shareUrl.value);
-    toast.success(t("tickets.eticket.linkCopied"));
-  } catch {
-    toast.error(t("tickets.eticket.linkCopyError"));
-  }
+/**
+ * "indonesia-outing-incentive-travel-expo-2026-ayu-day-1.png".
+ *
+ * Event first, because a phone gallery sorts alphabetically and that groups a
+ * family's four tickets together instead of scattering them between screenshots.
+ * Holder second, because that is what distinguishes them once grouped. The day
+ * only when the ticket carries one: a day pass is the case where the SAME person
+ * downloads several files from the same event, and without it the browser
+ * silently appends "(1)", "(2)" and nobody can tell which is which.
+ *
+ * The old name was just "ayu-ticket.png" - no event, no day, and a guaranteed
+ * collision the moment a second event sold a ticket to the same person.
+ */
+function ticketFileName(holder) {
+  const dayNumber = props.attendee?.day?.day_number;
+
+  return (
+    [
+      slugifyFileName(props.eventTitle),
+      slugifyFileName(holder),
+      dayNumber ? `day-${dayNumber}` : "",
+    ]
+      .filter(Boolean)
+      .join("-") + ".png"
+  );
 }
 
 function slugifyFileName(value) {
@@ -333,10 +388,11 @@ function slugifyFileName(value) {
           </Button>
 
           <div class="grid grid-cols-2 gap-2">
-            <Button type="button" variant="outline" @click="copyTicketLink">
-              <Icon name="hugeicons:link-01" class="size-4 shrink-0" />
-              {{ t("tickets.eticket.copyLink") }}
-            </Button>
+            <ButtonCopy
+              :text="shareUrl"
+              :label="t('tickets.eticket.copyLink')"
+              :copied-label="t('tickets.eticket.linkCopied')"
+            />
             <Button as-child variant="outline">
               <a :href="whatsappUrl" target="_blank" rel="noopener">
                 <Icon name="hugeicons:whatsapp" class="size-4 shrink-0" />

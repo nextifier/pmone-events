@@ -31,6 +31,23 @@
         :bar-padding="barPadding"
         :bar-max-width="barMaxWidth || undefined"
       />
+      <!--
+        Value labels. Unovis' bar components have no label API, so the numbers
+        ride on a zero-size Scatter pinned to each bar's tip - the equivalent of
+        shadcn's <LabelList>. Without it a bar chart only says "bigger", and the
+        real counts live in a tooltip that does not exist on touch.
+      -->
+      <VisScatter
+        v-if="showLabels"
+        :x="labelX"
+        :y="labelY"
+        :size="0"
+        color="transparent"
+        :label="labelAccessor"
+        :label-position="labelPositionValue"
+        label-color="var(--foreground)"
+        :label-hide-overlapping="true"
+      />
       <VisAxis
         v-if="horizontal"
         type="y"
@@ -71,8 +88,8 @@
 </template>
 
 <script setup>
-import { VisAxis, VisGroupedBar, VisStackedBar, VisXYContainer } from "@unovis/vue";
-import { Orientation } from "@unovis/ts";
+import { VisAxis, VisGroupedBar, VisScatter, VisStackedBar, VisXYContainer } from "@unovis/vue";
+import { Orientation, Position } from "@unovis/ts";
 import {
   ChartContainer,
   ChartCrosshair,
@@ -117,7 +134,29 @@ const props = defineProps({
   },
   roundedCorners: {
     type: Number,
-    default: 4,
+    default: 6,
+  },
+  // Print each bar's value on the chart. Single-series only: on a grouped or
+  // stacked chart the labels would collide, so `labelKey` picks the one series
+  // worth naming.
+  labels: {
+    type: Boolean,
+    default: false,
+  },
+  labelKey: {
+    type: String,
+    default: null,
+  },
+  // Falls back to valueFormatter, then toLocaleString.
+  labelFormatter: {
+    type: Function,
+    default: null,
+  },
+  // Dim every bar except this one, the way shadcn's "Bar Chart - Active" reads.
+  // Single-series only.
+  activeIndex: {
+    type: Number,
+    default: null,
   },
   // Caps bar thickness so sparse data (few categories) doesn't blow up into
   // giant bars. null leaves Unovis' default (bars fill their band).
@@ -141,10 +180,12 @@ const props = defineProps({
     type: String,
     default: null,
   },
-  // Override the bar fill. String applies to every series; an object maps each
-  // series key to its own fill (e.g. url(#pattern) for one, a color for another).
+  // Override the bar fill. A string applies to every series; an object maps each
+  // series key to its own fill (e.g. url(#pattern) for one, a color for another);
+  // a function receives (datum, index) so a single-series chart can colour each
+  // category from the ramp, the way shadcn's "Bar Chart - Mixed" does.
   barFill: {
-    type: [String, Object],
+    type: [String, Object, Function],
     default: null,
   },
   // Outline drawn around every bar (e.g. to frame a pattern fill).
@@ -195,6 +236,24 @@ const barY = computed(() => {
 });
 
 const barColor = computed(() => {
+  // A per-datum fill or an active bar both need an accessor rather than a
+  // constant, and both only make sense on a single series.
+  if (!isMulti.value && (typeof props.barFill === "function" || props.activeIndex !== null)) {
+    const base = keys.value[0];
+    const fallback =
+      typeof props.barFill === "string"
+        ? props.barFill
+        : props.config[base]?.color || "var(--chart-1)";
+
+    return (d, i) => {
+      const fill = typeof props.barFill === "function" ? props.barFill(d, i) : fallback;
+      if (props.activeIndex === null || props.activeIndex === i) {
+        return fill;
+      }
+      return `color-mix(in oklab, ${fill} 35%, var(--background))`;
+    };
+  }
+
   const colors = keys.value.map((key) => {
     if (props.barFill) {
       if (typeof props.barFill === "string") {
@@ -264,6 +323,31 @@ const defaultXFormat = (d) => {
 
 const defaultYFormat = (d) =>
   new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(d);
+
+// Value labels ───────────────────────────────────────────────────────────────
+const labelSeries = computed(() => props.labelKey || keys.value[0]);
+
+const showLabels = computed(() => props.labels && props.data.length > 0);
+
+const labelValue = (d) => d?.[labelSeries.value];
+
+// The Scatter shares the container's real screen axes, so it does not follow the
+// bars' `orientation` flip: a horizontal chart puts the value on x.
+const labelX = computed(() => (props.horizontal ? labelValue : xAccessor.value));
+const labelY = computed(() => (props.horizontal ? xAccessor.value : labelValue));
+
+const labelPositionValue = computed(() =>
+  props.horizontal ? Position.Right : Position.Top
+);
+
+const labelAccessor = computed(() => (d) => {
+  const value = labelValue(d);
+  if (value === null || value === undefined) {
+    return "";
+  }
+  const format = props.labelFormatter || props.valueFormatter;
+  return format ? String(format(value)) : Number(value).toLocaleString();
+});
 
 const currentConfig = computed(() => props.config);
 

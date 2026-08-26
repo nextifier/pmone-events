@@ -125,7 +125,7 @@
      `aria-haspopup` triggers — a menu button stays pressed while its menu is open,
      and a permanently sunken trigger looks broken. Same rule in the other 8 styles. */
   .cn-button {
-    @apply focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-offset-background aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:content-[''] focus-visible:ring-2 focus-visible:ring-offset-1 active:not-aria-[haspopup]:translate-y-px disabled:opacity-64 aria-invalid:ring-2 [&_svg:not([class*=opacity-])]:opacity-80 [&_svg:not([class*=size-])]:size-4.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-offset-background aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:content-[''] focus-visible:ring-2 focus-visible:ring-offset-1 active:not-aria-[haspopup]:translate-y-px disabled:opacity-64 aria-invalid:ring-2 [&_svg:not([class*=size-])]:size-4.5 sm:[&_svg:not([class*=size-])]:size-4;
   }
 
   .cn-button-variant-default {

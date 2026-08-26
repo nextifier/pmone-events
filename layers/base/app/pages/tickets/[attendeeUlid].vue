@@ -74,6 +74,7 @@
         :event-title="event?.title || eventTitle"
         :event-date="[event?.date, event?.time].filter(Boolean).join(' · ')"
         :event-venue="event?.location || ''"
+        :poster-url="event?.posterImage?.sm || event?.posterImage?.md || event?.posterImage?.url || ''"
         :order-number="orderInfo ? t('tickets.attendee.order', { number: orderInfo.order_number }) : ''"
         :locked="isLocked"
       />

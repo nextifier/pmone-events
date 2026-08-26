@@ -32,7 +32,7 @@ function iconFor(opt) {
 <template>
   <div class="space-y-6">
     <div>
-      <h2 class="text-base font-medium tracking-tight">Add-ons (Optional)</h2>
+      <h2 class="text-base font-medium tracking-tight">Add-ons</h2>
       <p class="text-muted-foreground mt-1 text-sm tracking-tight">
         Pick additional services like airport transfers. You can skip this step.
       </p>
@@ -85,7 +85,7 @@ function iconFor(opt) {
 
         <div v-if="selected[opt.id]" class="space-y-1.5 border-t pt-3">
           <Label class="text-muted-foreground text-xs tracking-tight sm:text-sm">
-            Notes for this transfer (optional)
+            Notes for this transfer
           </Label>
           <Textarea
             :model-value="notes[opt.id] ?? ''"

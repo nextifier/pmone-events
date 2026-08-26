@@ -245,6 +245,7 @@
             :event-title="event?.title"
             :event-date="eventDateLabel"
             :event-venue="event?.location || ''"
+            :poster-url="eventPosterUrl"
             :order-number="t('tickets.attendee.order', { number: order.order_number })"
           />
         </div>
@@ -629,6 +630,12 @@ async function retryPayment() {
 
 const eventDateLabel = computed(() => [event?.date, event?.time].filter(Boolean).join(" · "));
 
+// Only the downloaded image uses this; the cards on screen show ticket posters,
+// not the event's.
+const eventPosterUrl = computed(
+  () => event?.posterImage?.sm || event?.posterImage?.md || event?.posterImage?.url || ""
+);
+
 function resolveLabel(label) {
   if (label && typeof label === "object") {
     return label[locale.value] || label.en || Object.values(label)[0] || "";
@@ -688,6 +695,7 @@ async function downloadAllTickets() {
     const printable = (order.value?.attendees || []).filter((a) => !a.is_cancelled && a.qr_token);
 
     const shared = {
+      posterUrl: eventPosterUrl.value,
       eventTitle: event?.title || "",
       eventDate: eventDateLabel.value,
       eventVenue: event?.location || "",

@@ -1,30 +1,93 @@
 <template>
-  <!-- aspect-square reserves the space before the QR generates (no layout shift) -->
-  <div :class="cn('aspect-square w-full', props.class)">
-    <template v-if="svgContent">
-      <Tippy v-if="canToggle" tag="div" theme="primary" placement="bottom">
-        <button
-          type="button"
-          @click="toggleQrStyle"
-          class="block w-full cursor-pointer rounded-lg transition active:scale-98"
-        >
-          <div v-html="svgContent" class="[&>svg]:block [&>svg]:h-auto [&>svg]:w-full" />
-        </button>
-        <template #content>
-          <span class="flex items-center gap-x-1.5 leading-none tracking-tight">
-            <Icon name="hugeicons:mouse-left-click-01" class="size-4 shrink-0" />
-            <span>Click to change QR Code style</span>
-          </span>
-        </template>
-      </Tippy>
-      <div
-        v-else
-        v-html="svgContent"
-        class="[&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
-      />
-    </template>
+  <!-- aspect-square reserves the space before the QR generates (no layout shift).
+       The code is drawn client-side after a dynamic import of `qrcode`, so the
+       reserved box used to sit empty and then fill in one frame with nothing in
+       between. Two stacked layers cross-fade instead. -->
+  <div
+    :class="cn('t-skel aspect-square w-full', svgContent && 'is-revealed', props.class)"
+    :data-state="svgContent ? 'ready' : 'loading'"
+  >
+    <div class="t-skel-skeleton">
+      <Skeleton class="size-full rounded-xl" />
+    </div>
+
+    <div class="t-skel-content">
+      <template v-if="svgContent">
+        <Tippy v-if="canToggle" tag="div" theme="primary" placement="bottom">
+          <button
+            type="button"
+            @click="toggleQrStyle"
+            class="block w-full cursor-pointer rounded-lg transition active:scale-98"
+          >
+            <div v-html="svgContent" class="[&>svg]:block [&>svg]:h-auto [&>svg]:w-full" />
+          </button>
+          <template #content>
+            <span class="flex items-center gap-x-1.5 leading-none tracking-tight">
+              <Icon name="hugeicons:mouse-left-click-01" class="size-4 shrink-0" />
+              <span>Click to change QR Code style</span>
+            </span>
+          </template>
+        </Tippy>
+        <div
+          v-else
+          v-html="svgContent"
+          class="[&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
+        />
+      </template>
+    </div>
   </div>
 </template>
+
+<style scoped>
+/* transitions-dev: skeleton loader and reveal, reveal half only.
+   The snippet's `.is-pulsing` opacity pulse is deliberately left out - this
+   repo's <Skeleton> already carries its own `animate-skeleton` shimmer, and
+   stacking an opacity pulse on a moving gradient reads as a flicker. What is
+   kept is the cross-fade + cross-blur, which is the part that makes the swap a
+   motion instead of a cut. Tokens scoped to .t-skel so they stay out of :root. */
+.t-skel {
+  --reveal-dur: 400ms;
+  --reveal-blur: 2px;
+  --reveal-ease: ease-in-out;
+  position: relative;
+}
+.t-skel-skeleton,
+.t-skel-content {
+  position: absolute;
+  inset: 0;
+}
+.t-skel-skeleton {
+  z-index: 1;
+  opacity: 1;
+  filter: blur(0);
+  transition:
+    opacity var(--reveal-dur) var(--reveal-ease),
+    filter var(--reveal-dur) var(--reveal-ease);
+}
+.t-skel-content {
+  z-index: 2;
+  opacity: 0;
+  filter: blur(var(--reveal-blur));
+  transition:
+    opacity var(--reveal-dur) var(--reveal-ease),
+    filter var(--reveal-dur) var(--reveal-ease);
+}
+.t-skel.is-revealed .t-skel-skeleton {
+  opacity: 0;
+  filter: blur(var(--reveal-blur));
+}
+.t-skel.is-revealed .t-skel-content {
+  opacity: 1;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-skel-skeleton,
+  .t-skel-content {
+    transition: none !important;
+  }
+}
+</style>
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, shallowRef, watch } from "vue";

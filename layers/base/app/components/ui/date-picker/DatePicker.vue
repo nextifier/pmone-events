@@ -5,15 +5,7 @@
         :id="id"
         type="button"
         :disabled="disabled"
-        :class="
-          cn(
-            'cn-input flex w-full min-w-0 items-center gap-2 text-left font-normal disabled:cursor-not-allowed disabled:opacity-50',
-            size === 'sm' && 'h-8',
-            size === 'lg' && 'h-10',
-            !hasValue && 'text-muted-foreground',
-            props.class
-          )
-        "
+        :class="cn(triggerClass, props.class)"
       >
         <Icon name="hugeicons:calendar-04" class="size-4 shrink-0" />
         <span class="truncate">{{ displayText }}</span>
@@ -146,7 +138,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Calendar, type LayoutTypes } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
@@ -207,6 +199,13 @@ const props = withDefaults(
     placeholderDate?: Date | null;
     numberOfMonths?: number;
     size?: "default" | "sm" | "lg";
+    /**
+     * "field" is a form control and wears `cn-input`. "button" is a toolbar
+     * control: it wears the outline button's own size and border so it lines up
+     * with the Export / back buttons it sits beside, instead of pairing a field
+     * border and a fixed h-8 against the button ladder's `h-9 sm:h-8`.
+     */
+    variant?: "field" | "button";
     layout?: LayoutTypes;
     presets?: DatePickerPreset[];
     /** Popover alignment against the trigger. Forced to "start" below md. */
@@ -228,6 +227,7 @@ const props = withDefaults(
     placeholderDate: null,
     numberOfMonths: undefined,
     size: "default",
+    variant: "field",
     layout: "month-and-year",
     presets: () => [],
     align: "start",
@@ -283,6 +283,22 @@ const rangeValue = computed(() =>
 const hasValue = computed(() =>
   props.mode === "range" ? !!(rangeValue.value?.start || rangeValue.value?.end) : !!singleValue.value
 );
+
+const triggerClass = computed(() => {
+  if (props.variant === "button") {
+    // The toolbar form borrows the outline button wholesale - same height ladder,
+    // same border token, same label colour - so a picker sitting between an Export
+    // dropdown and a back link reads as one row of controls. The placeholder is
+    // NOT muted here: "All time" is the active filter state, not an empty field.
+    return cn(buttonVariants({ variant: "outline", size: props.size }), "font-normal");
+  }
+  return cn(
+    "cn-input flex w-full min-w-0 items-center gap-2 text-left font-normal disabled:cursor-not-allowed disabled:opacity-50",
+    props.size === "sm" && "h-8",
+    props.size === "lg" && "h-10",
+    !hasValue.value && "text-muted-foreground"
+  );
+});
 
 const showPresets = computed(() => !!props.presets?.length || !!slots.presets);
 

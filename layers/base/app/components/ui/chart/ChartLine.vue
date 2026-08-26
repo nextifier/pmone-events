@@ -15,7 +15,7 @@
         v-if="gradient && hasComparisonData"
         :x="(d) => d.date"
         :y="(d) => d[comparisonKey]"
-        color="url(#fillChartComparison)"
+        :color="`url(#${gradientIds.comparison})`"
         :opacity="0.3"
         :curve-type="CurveType.CatmullRom"
       />
@@ -24,7 +24,7 @@
         v-if="gradient"
         :x="(d) => d.date"
         :y="(d) => d[solidKey]"
-        color="url(#fillChart1)"
+        :color="`url(#${gradientIds.main})`"
         :opacity="0.4"
         :curve-type="CurveType.CatmullRom"
       />
@@ -105,12 +105,14 @@
 <script setup>
 import { VisArea, VisAxis, VisLine, VisXYContainer } from "@unovis/vue";
 import { CurveType } from "@unovis/ts";
+import { useId } from "reka-ui";
 import {
   ChartContainer,
   ChartCrosshair,
   ChartTooltip,
   ChartTooltipContent,
   componentToString,
+  liftSeriesColor,
 } from ".";
 
 const props = defineProps({
@@ -174,9 +176,11 @@ const hasComparisonData = computed(() => props.comparisonData && props.compariso
 // the comparison back, which holds in both themes and for any palette.
 const seriesColor = computed(() => props.config[props.dataKey]?.color || "var(--chart-1)");
 
-const activeColor = computed(
-  () => `color-mix(in oklab, ${seriesColor.value} 45%, var(--foreground))`
-);
+const activeColor = computed(() => liftSeriesColor(seriesColor.value));
+
+// The gradient sits UNDER the line, so it takes a lighter lift than the stroke -
+// enough to be visible on a white card, not so much that it swallows its own line.
+const fillColor = computed(() => liftSeriesColor(seriesColor.value, 70));
 
 // Half-strength version of whatever the active line ended up as, so the gap
 // between the two stays the same on either background.
@@ -299,33 +303,42 @@ const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
   },
 });
 
+// Instance-scoped ids. Global ones collided as soon as two ChartLines shared a
+// page: the second instance's defs won and both charts drew the same fill.
+const gradientUid = useId();
+const gradientIds = computed(() => ({
+  main: `fillChart1-${gradientUid}`,
+  secondary: `fillChart2-${gradientUid}`,
+  comparison: `fillChartComparison-${gradientUid}`,
+}));
+
 const svgDefs = computed(
   () => `
-  <linearGradient id="fillChart1" x1="0" y1="0" x2="0" y2="1">
+  <linearGradient id="${gradientIds.value.main}" x1="0" y1="0" x2="0" y2="1">
     <stop
       offset="5%"
-      stop-color="${seriesColor.value}"
+      stop-color="${fillColor.value}"
       stop-opacity="0.8"
     />
     <stop
       offset="95%"
-      stop-color="${seriesColor.value}"
+      stop-color="${fillColor.value}"
       stop-opacity="0"
     />
   </linearGradient>
-  <linearGradient id="fillChart2" x1="0" y1="0" x2="0" y2="1">
+  <linearGradient id="${gradientIds.value.secondary}" x1="0" y1="0" x2="0" y2="1">
     <stop
       offset="5%"
-      stop-color="var(--chart-2)"
+      stop-color="${liftSeriesColor('var(--chart-2)', 70)}"
       stop-opacity="0.8"
     />
     <stop
       offset="95%"
-      stop-color="var(--chart-2)"
+      stop-color="${liftSeriesColor('var(--chart-2)', 70)}"
       stop-opacity="0"
     />
   </linearGradient>
-  <linearGradient id="fillChartComparison" x1="0" y1="0" x2="0" y2="1">
+  <linearGradient id="${gradientIds.value.comparison}" x1="0" y1="0" x2="0" y2="1">
     <stop
       offset="5%"
       stop-color="${comparisonColor.value}"

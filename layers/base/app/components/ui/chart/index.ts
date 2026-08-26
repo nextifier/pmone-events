@@ -42,7 +42,7 @@ export { default as ChartRadialBar } from "./ChartRadialBar.vue"
 export { default as ChartBar3D } from "./ChartBar3D.vue"
 export { default as ChartBarAnimated } from "./ChartBarAnimated.vue"
 
-export { componentToString } from "./utils"
+export { componentToString, liftSeriesColor } from "./utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 export const THEMES = { light: "", dark: ".dark" } as const

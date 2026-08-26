@@ -29,12 +29,16 @@ const sizeClass = computed(
 );
 </script>
 
+<!-- The focus ring is INSET on purpose: TabsList scrolls horizontally, so it
+     clips its own overflow and an offset ring loses its top and bottom arcs
+     against the list edge. Drawn inside the box it follows the trigger radius
+     and stays whole in every variant. -->
 <template>
   <TabsTrigger
     v-bind="forwardedProps"
     :class="
       cn(
-        'ring-offset-background focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap transition-colors outline-hidden select-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50',
+        'focus-visible:ring-ring/60 inline-flex cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap transition-colors outline-hidden select-none focus-visible:ring-2 focus-visible:ring-inset disabled:opacity-50',
         sizeClass,
         variantClass,
         props.class,

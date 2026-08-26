@@ -8,7 +8,6 @@ const props = withDefaults(
     hideLabel?: boolean;
     hideIndicator?: boolean;
     indicator?: "line" | "dot" | "dashed";
-    nameKey?: string;
     labelKey?: string;
     labelFormatter?: (d: number | Date) => string;
     valueFormatter?: (v: any) => string;
@@ -25,12 +24,20 @@ const props = withDefaults(
       index: number,
       payload: Record<string, any>
     ) => string;
+    /**
+     * Categorical charts (pie/donut/radial) hand the tooltip a whole datum -
+     * `{status, count, label, fill}` - rather than a `{seriesKey: value}` map.
+     * Looking each datum key up in `config` then resolves the DATA key ("count")
+     * instead of the slice, so every slice rendered the same label. Naming the
+     * two keys explicitly is what lets a slice describe itself.
+     */
+    nameKey?: string;
+    valueKey?: string;
     /** Parity with shadcn: render nothing when the tooltip is inactive. */
     active?: boolean;
     payload?: Record<string, any>;
     config?: ChartConfig;
     class?: HTMLAttributes["class"];
-    color?: string;
     x?: number | Date;
   }>(),
   {
@@ -45,9 +52,29 @@ const props = withDefaults(
 // const chartContext = useChart(null)
 
 const payload = computed(() => {
+  // One row, named by the datum itself. The `?? { label: name }` fallback is
+  // load-bearing rather than cosmetic: without it the filter below drops the row
+  // whenever the config carries no per-slice entry, and an empty tooltip is
+  // worse than a mislabelled one.
+  if (props.nameKey) {
+    const name = props.payload[props.nameKey];
+    if (name === undefined || name === null) return [];
+
+    const itemConfig = props.config[name] ?? { label: name };
+
+    return [
+      {
+        key: String(name),
+        value: props.payload[props.valueKey ?? "value"],
+        itemConfig,
+        indicatorColor: props.config[name]?.color ?? props.payload.fill,
+      },
+    ];
+  }
+
   return Object.entries(props.payload)
     .map(([key, value]) => {
-      // const key = `${props.nameKey || item.name || item.dataKey || "value"}`
+      // const key = `${item.name || item.dataKey || "value"}`
       const itemConfig = props.config[key];
       const indicatorColor = props.config[key]?.color ?? props.payload.fill;
 

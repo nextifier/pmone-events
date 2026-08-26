@@ -237,7 +237,7 @@ defineExpose({ validateAll });
       >
         <span class="inline-flex items-center gap-2">
           <Icon name="hugeicons:settings-02" class="size-4" />
-          Additional info (optional)
+          Additional info
         </span>
         <Icon
           name="hugeicons:arrow-down-01"

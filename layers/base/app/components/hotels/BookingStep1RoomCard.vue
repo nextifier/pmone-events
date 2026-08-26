@@ -284,7 +284,7 @@ const showTooltipIfContent = (instance) => Boolean(instance.props.content);
 
     <div v-if="qty > 0" class="border-border space-y-1.5 border-t bg-muted/30 p-3 sm:p-4">
       <Label class="text-muted-foreground text-xs tracking-tight sm:text-sm">
-        Notes for this room (optional)
+        Notes for this room
       </Label>
       <Textarea
         :model-value="notes"

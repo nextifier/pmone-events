@@ -61,6 +61,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   componentToString,
+  liftSeriesColor,
 } from ".";
 
 const props = defineProps({
@@ -138,8 +139,13 @@ const resolvedCurve = computed(
   () => CURVE_MAP[String(props.curveType).toLowerCase()] || CurveType.Natural
 );
 
-const lineColor = computed(
-  () => props.lineColorOverride || props.config[props.lineKey]?.color || "var(--chart-1)"
+// An explicit override is taken verbatim - the call site picked that colour on
+// purpose. Only the config/token fallback is lifted toward the foreground, so a
+// line keyed to the shared ramp stays legible on a white card as well as a dark one.
+const lineColor = computed(() =>
+  props.lineColorOverride
+    ? props.lineColorOverride
+    : liftSeriesColor(props.config[props.lineKey]?.color || "var(--chart-1)")
 );
 
 const categoryValues = computed(() => props.data.map((d) => d[props.xKey]));

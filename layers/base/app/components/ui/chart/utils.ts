@@ -3,8 +3,23 @@ import type { Ref } from "vue"
 import { isClient } from "@vueuse/core"
 import { h, render, unref } from "vue"
 
-// Simple cache using a Map to store serialized object keys
+// Bounded cache of rendered tooltip HTML.
+//
+// It is keyed by data + config, so a live dashboard that polls forever mints a
+// fresh key on every refresh. Unbounded, that is a leak on the longest-lived
+// screens in the product, which is exactly where charts live.
+const CACHE_LIMIT = 200
 const cache = new Map<string, string>()
+
+function cacheSet(key: string, value: string) {
+  // Map preserves insertion order, so the first key is the oldest one.
+  if (cache.size >= CACHE_LIMIT) {
+    const oldest = cache.keys().next().value
+    if (oldest !== undefined)
+      cache.delete(oldest)
+  }
+  cache.set(key, value)
+}
 
 // Convert object to a consistent string key
 function serializeKey(key: Record<string, any>): string {
@@ -40,7 +55,24 @@ export function componentToString<P>(config: ChartConfig | Ref<ChartConfig>, com
     const vnode = h<unknown>(component, { ...props, payload: data, config: currentConfig, x })
     const div = document.createElement("div")
     render(vnode, div)
-    cache.set(serializedKey, div.innerHTML)
+    cacheSet(serializedKey, div.innerHTML)
     return div.innerHTML
   }
+}
+
+/**
+ * Lift a series colour toward the current foreground.
+ *
+ * `--chart-1..5` are declared with the SAME values in light and dark (a gray-300
+ * to gray-800 ramp), so a step that reads on one theme washes out on the other:
+ * gray-300 is a barely-there line on a white card, gray-800 is invisible on a
+ * dark one. Mixing the token with `--foreground` gives every mark a component of
+ * the colour that always contrasts with the surface, so a line stays legible in
+ * both themes without changing the palette or the tokens.
+ *
+ * Thin marks (lines, dots) need the full lift; fills sit under them and take a
+ * lighter one so the line still reads against its own area.
+ */
+export function liftSeriesColor(color: string, amount = 45): string {
+  return `color-mix(in oklab, ${color} ${amount}%, var(--foreground))`
 }

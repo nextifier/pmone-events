@@ -44,11 +44,15 @@
         />
         <ChartTooltip :triggers="tooltipTriggers" />
       </VisSingleContainer>
+      <!-- Only the active segment is painted here; the others are transparent.
+           Unovis strokes every segment regardless of fill, so without this the
+           overlay drew an outlined ghost ring on top of the base donut. -->
       <VisSingleContainer
         v-if="activeArcWidth"
         :data="data"
         :margin="{ top: 12, bottom: 12 }"
         class="pointer-events-none"
+        :style="{ '--vis-donut-segment-stroke-width': '0px' }"
       >
         <VisDonut
           :value="(d) => d[valueKey]"
@@ -60,7 +64,7 @@
         />
       </VisSingleContainer>
     </div>
-    <ChartLegendContent v-if="legend" :name-key="nameKey" />
+    <ChartLegendContent v-if="legend" />
   </ChartContainer>
 </template>
 
@@ -145,10 +149,14 @@ const props = defineProps({
     type: Function,
     default: null,
   },
-  // Stroke drawn between segments (the gap ring). ReUI uses var(--background).
+  // Stroke drawn between segments (the gap ring). It has to match the surface
+  // BEHIND the donut, not the page: ReUI uses var(--background) because their
+  // card and page share one colour, while this system deliberately lifts the
+  // dark card above the dark background, so var(--background) painted visible
+  // black outlines around every segment. Default to the card surface.
   segmentStrokeColor: {
     type: String,
-    default: null,
+    default: "var(--card)",
   },
   segmentStrokeWidth: {
     type: Number,
@@ -247,8 +255,10 @@ const containerClass = computed(() => {
     // spacing is consistent and the legend never overflows the square.
     classes.push("mx-auto flex w-full flex-col items-center h-auto!");
   }
+  // Literal class + custom property: an interpolated arbitrary value never
+  // reaches the Tailwind scanner, so the filter compiled to nothing.
   if (props.donutFilter) {
-    classes.push(`[&_.vis-donut]:[filter:${props.donutFilter}]`);
+    classes.push("[&_.vis-donut]:[filter:var(--chart-donut-filter)]");
   }
   return classes.join(" ");
 });
@@ -258,6 +268,9 @@ const mergedStyle = computed(() => {
   // segments; padAngle gaps would expose it. ReUI has no such ring, so make it
   // transparent and let the gaps fall through to the card background.
   const style = { "--vis-donut-background-color": "transparent" };
+  if (props.donutFilter) {
+    style["--chart-donut-filter"] = props.donutFilter;
+  }
   if (resolvedCenterLabel.value) {
     style["--vis-donut-central-label-font-size"] = "1.5rem";
     style["--vis-donut-central-label-font-weight"] = "600";
@@ -277,7 +290,10 @@ const currentConfig = computed(() => props.config);
 
 const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
   hideLabel: true,
+  // Without these the tooltip resolves the data key rather than the slice, so
+  // every segment reported the same label.
   nameKey: props.nameKey,
+  valueKey: props.valueKey,
 });
 
 const tooltipTriggers = {

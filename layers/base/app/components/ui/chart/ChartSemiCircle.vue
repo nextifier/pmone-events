@@ -47,7 +47,7 @@
             staticDisplayValue
           }}</span>
           <span
-            v-if="showMax"
+            v-if="showMax && hasScale"
             class="text-muted-foreground text-[6cqw] tracking-tighter tabular-nums"
             >/{{ formattedMax }}</span
           >
@@ -207,7 +207,12 @@ function resolveGradient(el, count) {
 const barStaggerMs = 20;
 const barTransitionMs = 500;
 
-const fillRatio = computed(() => Math.min(props.value / props.max, 1));
+// A zero or absent max has no scale to fill: dividing gave Infinity, which the
+// clamp then read as a full ring under a "/0" label.
+const hasScale = computed(() => Number(props.max) > 0);
+const fillRatio = computed(() =>
+  hasScale.value ? Math.min(props.value / props.max, 1) : 0
+);
 
 const bars = computed(() => {
   const total = props.totalBars;
