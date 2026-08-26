@@ -40,3 +40,22 @@ export function adminPreviewFlag(
 export function hasAdminPreviewFlag(event: H3Event, param: string): boolean {
   return adminPreviewFlag(event, param)[param] !== undefined;
 }
+
+/**
+ * The staff checkout-preview token, forwarded verbatim.
+ *
+ * Separate from adminPreviewFlag() because this one carries a VALUE rather than
+ * a truthiness: it is a short-lived key minted by an authenticated staff
+ * request, and PM One will not unlock checkout without it. The flag helpers
+ * above stay for the display-only bypasses, which are deliberately guessable.
+ *
+ * Absent when there is no token, for the same cache-fragmentation reason.
+ */
+export function previewTokenQuery(event: H3Event): Record<string, string> {
+  const raw = getQuery(event)["preview_token"];
+  const value = Array.isArray(raw) ? raw[0] : raw;
+
+  if (typeof value !== "string" || value.trim() === "") return {};
+
+  return { preview_token: value.trim() };
+}

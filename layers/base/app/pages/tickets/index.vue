@@ -278,6 +278,14 @@ watch(forceCheckout, (value) => {
   if (cart.hydrated) cart.setForceCheckout(value);
 });
 
+// Same lifecycle as the flag above, and for the same reason: /tickets/checkout
+// is a separate route that cannot read this page's query string, so the token
+// has to ride in the persisted cart to survive the hop.
+const previewToken = usePreviewToken();
+watch(previewToken, (value) => {
+  if (cart.hydrated) cart.setPreviewToken(value);
+});
+
 // This page is prerendered, so the SSR payload is a build-time snapshot — and
 // `on_sale` / `sales_status` / `available` are computed server-side against
 // `now()`, not derived in the browser from raw timestamps. Left alone, a sale
@@ -332,6 +340,7 @@ const instagramUrl = useInstagramUrl();
 onMounted(() => {
   cart.hydrate();
   cart.setForceCheckout(forceCheckout.value);
+  cart.setPreviewToken(previewToken.value);
 });
 
 // Ticket poster: display a smaller conversion (lg) for fast load; the Lightbox

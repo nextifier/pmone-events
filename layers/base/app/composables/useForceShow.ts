@@ -40,3 +40,24 @@ export function useForceShow(param: string) {
     return normalized === "true" || normalized === "1";
   });
 }
+
+/**
+ * The staff checkout-preview token from `?preview-token=`.
+ *
+ * Sibling of useForceShow(), but a value rather than a flag: PM One will not
+ * unlock checkout - or price a phase that is not live - without it. The display
+ * bypasses above stay guessable on purpose; this one cannot be, because a
+ * preview creates real orders and decides what they cost.
+ *
+ * Dash-cased in the browser, snake_cased on the wire, matching the flags.
+ */
+export function usePreviewToken() {
+  const route = useRoute();
+
+  return computed(() => {
+    const raw = route.query["preview-token"];
+    const value = Array.isArray(raw) ? raw[0] : raw;
+
+    return typeof value === "string" && value.trim() !== "" ? value.trim() : null;
+  });
+}

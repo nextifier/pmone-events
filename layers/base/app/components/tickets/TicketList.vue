@@ -335,7 +335,12 @@ function isSingle(ticket) {
 // ticket be added and bought, so checkout can be smoke-tested on production
 // before sales open. Stock is NOT bypassed - the server still refuses a
 // genuinely sold-out ticket, so soldOut() below stays as it is.
-const forceCheckout = useForceShow("force-checkout-ticket");
+// A token is itself a preview: `?force-checkout-ticket` on its own no longer
+// unlocks anything server-side, so the card must follow the token rather than
+// the flag or it would offer a Buy button the API then refuses.
+const previewToken = usePreviewToken();
+const forcedByFlag = useForceShow("force-checkout-ticket");
+const forceCheckout = computed(() => forcedByFlag.value || previewToken.value !== null);
 
 function saleOpen(ticket) {
   return Boolean(ticket.on_sale) || forceCheckout.value;

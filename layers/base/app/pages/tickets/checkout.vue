@@ -605,8 +605,18 @@ async function submit() {
       method: "POST",
       body: payload,
       // Staff preview, carried over from the tickets page through the cart.
-      // Query string, not body - PM One reads the bypass from the query only.
-      query: cart.forceCheckout ? { force_checkout_ticket: 1 } : undefined,
+      // Query string, not body - PM One reads the bypass from the query only,
+      // because this route forwards the body verbatim and it is therefore
+      // attacker-controllable. The token is what actually unlocks anything; the
+      // old flag alone no longer does.
+      query: {
+        // The site's locale, not the browser's: this request is proxied
+        // server-side, so an Accept-Language header would carry the visitor's
+        // browser preference rather than the language they are reading in.
+        locale: locale.value,
+        ...(cart.forceCheckout ? { force_checkout_ticket: 1 } : {}),
+        ...(cart.previewToken ? { preview_token: cart.previewToken } : {}),
+      },
     });
     const data = res?.data ?? res;
 

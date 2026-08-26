@@ -22,6 +22,7 @@ export default defineEventHandler(async (event) => {
         // checkout can be smoke-tested on production before sales open.
         // Hidden (access-code) tickets are still never listed.
         ...adminPreviewFlag(event, "force_checkout_ticket"),
+        ...previewTokenQuery(event),
       },
       errorShape: "statusMessage",
       errorPrefix: "Tickets fetch",

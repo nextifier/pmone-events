@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
     },
     // Query string, not body: PM One reads the bypass from the query only,
     // because the body above is forwarded verbatim from the browser.
-    query: adminPreviewFlag(event, "force_checkout_ticket"),
+    query: { ...adminPreviewFlag(event, "force_checkout_ticket"), ...previewTokenQuery(event) },
     errorShape: "statusMessage",
     errorPrefix: "Order",
   });

@@ -15,6 +15,9 @@ const defaultState = () => ({
   // Persisted because /tickets/checkout is a separate route that the buyer
   // reaches by navigation, so the flag has to survive the hop (and a reload).
   forceCheckout: false,
+  // The staff token from `?preview-token=`. Carried beside forceCheckout
+  // because PM One needs it on every priced call, not just the listing.
+  previewToken: null,
 });
 
 function loadFromStorage() {
@@ -257,6 +260,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
           items: Array.isArray(loaded.items) ? [...loaded.items] : [],
           accessCode: loaded.accessCode ?? null,
           forceCheckout: Boolean(loaded.forceCheckout),
+          previewToken: loaded.previewToken ?? null,
         });
       }
       this.hydrated = true;
@@ -274,6 +278,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
             items: state.items.map((i) => ({ ...i })),
             accessCode: state.accessCode,
             forceCheckout: state.forceCheckout,
+            previewToken: state.previewToken,
           };
           persistDebounced(snapshot);
         },
@@ -292,6 +297,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
         this._resetPricing();
         this.accessCode = null;
         this.forceCheckout = false;
+        this.previewToken = null;
       }
       this.eventId = eventId ?? null;
       this.eventSlug = eventSlug ?? null;
@@ -304,6 +310,15 @@ export const useTicketCartStore = defineStore("ticketCart", {
      */
     setForceCheckout(enabled) {
       this.forceCheckout = Boolean(enabled);
+    },
+
+    /**
+     * The staff preview token, set on every visit to the tickets page for the
+     * same reason as setForceCheckout: an ordinary visit has to clear one left
+     * over from an earlier, possibly expired, preview.
+     */
+    setPreviewToken(token) {
+      this.previewToken = token ? String(token) : null;
     },
 
     setAccessCode(code) {
@@ -503,6 +518,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
       this._resetPricing();
       this.accessCode = null;
       this.forceCheckout = false;
+      this.previewToken = null;
     },
 
     reset() {
@@ -551,7 +567,10 @@ export const useTicketCartStore = defineStore("ticketCart", {
           method: "POST",
           body,
           // Query string, not body - PM One reads the bypass from the query.
-          query: this.forceCheckout ? { force_checkout_ticket: 1 } : undefined,
+          query: {
+            ...(this.forceCheckout ? { force_checkout_ticket: 1 } : {}),
+            ...(this.previewToken ? { preview_token: this.previewToken } : {}),
+          },
         });
 
         // A newer request has already been issued; this response is stale money.
