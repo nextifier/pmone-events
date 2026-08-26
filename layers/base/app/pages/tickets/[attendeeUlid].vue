@@ -9,12 +9,21 @@
       <Skeleton class="h-64 w-full rounded-xl" />
     </div>
 
-    <div
-      v-else-if="!attendee"
-      class="text-muted-foreground rounded-md border border-dashed py-12 text-center text-sm tracking-tight"
-    >
-      {{ t("tickets.attendee.ticketNotFound") }}
-    </div>
+    <Empty v-else-if="!attendee" class="py-12">
+      <EmptyHeader>
+        <EmptyMedia variant="stacked">
+          <Icon name="hugeicons:ticket-01" class="text-muted-foreground size-6 shrink-0" />
+        </EmptyMedia>
+        <EmptyTitle>{{ t("tickets.attendee.ticketNotFound") }}</EmptyTitle>
+        <EmptyDescription>{{ t("tickets.attendee.ticketNotFoundHelp") }}</EmptyDescription>
+      </EmptyHeader>
+      <Button as-child variant="outline">
+        <NuxtLink :to="localePath('/tickets')">
+          <Icon name="hugeicons:arrow-left-01" class="size-4 shrink-0" />
+          {{ t("tickets.backToTickets") }}
+        </NuxtLink>
+      </Button>
+    </Empty>
 
     <template v-else>
       <!-- Event header: small original-ratio poster (tap to enlarge) + details -->
@@ -92,91 +101,169 @@
         <span>{{ t("tickets.attendee.goToDashboard") }}…</span>
       </div>
 
-      <!-- Personalize (only while still editable; once checked in there is nothing to do) -->
-      <div v-if="!attendee.is_checked_in" class="frame">
-        <div class="frame-header">
-          <div class="frame-title">{{ t("tickets.attendee.personalizeTitle") }}</div>
+      <!-- The ticket owns the page, so what follows it is one block of
+           secondary detail rather than peers spaced like the ticket itself.
+           `space-y-3` inside, the page's `space-y-6` outside: the gap is what
+           says which card belongs with which. -->
+      <div class="space-y-3">
+        <!-- Identity. A ticket that already carries a name does not need a
+             three-field form standing open on top of the QR it came here to
+             show; it needs one line saying whose ticket this is, and a way in.
+             The API has always sent `is_personalized` - this page simply never
+             read it. -->
+        <div v-if="!showIdentityForm" class="frame">
+          <!-- The row lives INSIDE the panel rather than on it. `.frame-panel` is
+               declared as `.frame .frame-panel` in main.css, so its `flex-col`
+               outranks a single-class `flex-row` utility at the call site - which
+               is why the Edit button used to sit under the contact line instead of
+               beside it. One extra element takes the panel's own layout out of the
+               argument entirely. -->
+          <div class="frame-panel">
+            <div class="flex items-start justify-between gap-x-2">
+              <div class="min-w-0 space-y-0.5">
+                <p class="truncate text-sm font-medium tracking-tight">
+                  {{ attendee.name || t("tickets.eticket.unassigned") }}
+                </p>
+                <p
+                  v-if="identityContact"
+                  class="text-muted-foreground truncate text-sm tracking-tight"
+                >
+                  {{ identityContact }}
+                </p>
+                <p
+                  v-if="attendee.is_checked_in"
+                  class="text-muted-foreground text-sm tracking-tight text-balance"
+                >
+                  {{ t("tickets.attendee.checkedInNote") }}
+                </p>
+              </div>
+              <Button
+                v-if="!attendee.is_checked_in"
+                type="button"
+                variant="outline"
+                size="sm"
+                class="shrink-0"
+                @click="editingIdentity = true"
+              >
+                {{ t("tickets.attendee.edit") }}
+              </Button>
+            </div>
+          </div>
         </div>
-        <div class="frame-panel space-y-4">
-          <p class="text-muted-foreground text-sm tracking-tight">
-            {{ t("tickets.attendee.personalizeIntro") }}
-          </p>
 
-          <Field :data-invalid="!!errors?.name">
-            <FieldLabel for="att_name">{{ t("tickets.attendee.fullName") }}</FieldLabel>
-            <Input id="att_name" autocapitalize="words" v-model="form.name" required :aria-invalid="!!errors?.name" />
-            <FieldError :errors="errors.name" />
-          </Field>
+        <div v-else class="frame">
+          <div class="frame-header">
+            <div class="frame-title">{{ t("tickets.attendee.personalizeTitle") }}</div>
+          </div>
+          <!-- Field-for-field the checkout form. Same inner `space-y-6` wrapper
+               (the panel's own `gap-1` is unlayered and beats a call-site gap, so
+               a single child is what puts one rhythm in charge), same
+               `text-base leading-snug` labels, same `required` on the label rather
+               than only on the control. Someone who filled this in at checkout an
+               hour ago should not meet a different-looking form here. -->
+          <div class="frame-panel">
+            <div class="space-y-6">
+              <p class="text-muted-foreground text-sm tracking-tight">
+                {{ t("tickets.attendee.personalizeIntro") }}
+              </p>
 
-          <Field :data-invalid="!!errors?.email">
-            <FieldLabel for="att_email">{{ t("tickets.attendee.emailOptional") }}</FieldLabel>
-            <Input id="att_email" v-model="form.email" type="email" :aria-invalid="!!errors?.email" />
-            <FieldError :errors="errors.email" />
-          </Field>
+              <Field :data-invalid="!!errors?.name">
+                <FieldLabel for="att_name" required class="text-base leading-snug">
+                  {{ t("tickets.attendee.fullName") }}
+                </FieldLabel>
+                <Input
+                  id="att_name"
+                  v-model="form.name"
+                  autocomplete="name"
+                  autocapitalize="words"
+                  required
+                  :aria-invalid="!!errors?.name"
+                />
+                <FieldError :errors="errors.name" />
+              </Field>
 
-          <Field :data-invalid="!!errors?.phone">
-            <FieldLabel for="att_phone">{{ t("tickets.attendee.phoneOptional") }}</FieldLabel>
-            <InputPhone
-              :aria-invalid="!!errors?.phone"
-              id="att_phone"
-              :model-value="form.phone"
-              @update:model-value="(v) => (form.phone = v)"
-            />
-            <FieldError :errors="errors.phone" />
-          </Field>
+              <Field :data-invalid="!!errors?.email">
+                <FieldLabel for="att_email" class="text-base leading-snug">
+                  {{ t("tickets.attendee.emailOptional") }}
+                </FieldLabel>
+                <Input
+                  id="att_email"
+                  v-model="form.email"
+                  type="email"
+                  autocomplete="email"
+                  :aria-invalid="!!errors?.email"
+                />
+                <FieldError :errors="errors.email" />
+              </Field>
 
-          <Button
-            type="button"
-            class="w-full"
-            :disabled="saving || !form.name?.trim()"
-            @click="personalize"
-          >
-            <Icon v-if="saving" name="svg-spinners:180-ring" class="size-4" />
-            <span>{{ saving ? t("tickets.attendee.saving") : t("tickets.attendee.save") }}</span>
-          </Button>
+              <Field :data-invalid="!!errors?.phone">
+                <FieldLabel for="att_phone" class="text-base leading-snug">
+                  {{ t("tickets.attendee.phoneOptional") }}
+                </FieldLabel>
+                <InputPhone
+                  :aria-invalid="!!errors?.phone"
+                  id="att_phone"
+                  :model-value="form.phone"
+                  @update:model-value="(v) => (form.phone = v)"
+                />
+                <FieldError :errors="errors.phone" />
+              </Field>
+
+              <Button
+                type="button"
+                class="w-full"
+                :disabled="saving || !form.name?.trim()"
+                @click="personalize"
+              >
+                <Icon v-if="saving" name="svg-spinners:180-ring" class="size-4" />
+                <span>{{ saving ? t("tickets.attendee.saving") : t("tickets.attendee.save") }}</span>
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Registration details (event's active ticket_registration fields) -->
-      <div v-if="registrationFields.length" class="frame">
-        <Collapsible v-model:open="regOpen" class="frame-panel">
-          <CollapsibleTrigger
-            class="flex w-full items-center justify-between gap-2 text-left"
-          >
-            <span class="text-foreground text-sm font-medium tracking-tight">
-              {{ t("tickets.registration.attendeeHeading") }}
-            </span>
-            <span class="flex items-center gap-2">
-              <span class="text-muted-foreground text-xs tracking-tight tabular-nums">
-                {{ t("tickets.registration.progress", regProgress) }}
-              </span>
-              <Icon
-                name="hugeicons:arrow-down-01"
-                class="text-muted-foreground size-4 shrink-0 transition-transform"
-                :class="regOpen ? 'rotate-180' : ''"
-              />
-            </span>
-          </CollapsibleTrigger>
-          <CollapsibleContent class="space-y-4 pt-4">
-            <CustomFieldGroup
-              v-model="regDraft"
-              :fields="registrationFields"
-              :errors="regErrors"
-              error-prefix="registration."
-              :locale="locale"
-              :disabled="attendee.is_checked_in"
-            />
-            <Button
-              type="button"
-              class="w-full"
-              :disabled="attendee.is_checked_in || regSaving"
-              @click="saveRegistration"
+        <!-- Registration details (event's active ticket_registration fields) -->
+        <div v-if="registrationFields.length" class="frame">
+          <Collapsible v-model:open="regOpen" class="frame-panel">
+            <CollapsibleTrigger
+              class="flex w-full items-center justify-between gap-2 text-left"
             >
-              <Icon v-if="regSaving" name="svg-spinners:180-ring" class="size-4 shrink-0" />
-              <span>{{ regSaving ? t("tickets.attendee.saving") : t("tickets.attendee.save") }}</span>
-            </Button>
-          </CollapsibleContent>
-        </Collapsible>
+              <span class="text-foreground text-sm font-medium tracking-tight">
+                {{ t("tickets.registration.attendeeHeading") }}
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="text-muted-foreground text-sm tracking-tight tabular-nums">
+                  {{ t("tickets.registration.progress", regProgress) }}
+                </span>
+                <Icon
+                  name="hugeicons:arrow-down-01"
+                  class="text-muted-foreground size-4 shrink-0 transition-transform"
+                  :class="regOpen ? 'rotate-180' : ''"
+                />
+              </span>
+            </CollapsibleTrigger>
+            <CollapsibleContent class="space-y-4 pt-4">
+              <CustomFieldGroup
+                v-model="regDraft"
+                :fields="registrationFields"
+                :errors="regErrors"
+                error-prefix="registration."
+                :locale="locale"
+                label-size="lg"
+                :disabled="attendee.is_checked_in"
+              />
+              <Button
+                type="button"
+                class="w-full"
+                :disabled="attendee.is_checked_in || regSaving"
+                @click="saveRegistration"
+              >
+                <Icon v-if="regSaving" name="svg-spinners:180-ring" class="size-4 shrink-0" />
+                <span>{{ regSaving ? t("tickets.attendee.saving") : t("tickets.attendee.save") }}</span>
+              </Button>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
       </div>
     </template>
   </div>
@@ -204,6 +291,7 @@ definePageMeta({
 });
 
 const { t, locale } = useI18n();
+const localePath = useLocalePath();
 const route = useRoute();
 const ulid = computed(() => route.params.attendeeUlid);
 
@@ -254,6 +342,21 @@ usePageMeta(null, {
 const form = reactive({ name: "", email: "", phone: "" });
 const errors = ref({});
 const saving = ref(false);
+
+// Opened by the Edit button, closed again on a successful save.
+const editingIdentity = ref(false);
+
+// The form stands open only when there is something to fill in, or when the
+// holder asked for it. A checked-in ticket can no longer be edited at all.
+const showIdentityForm = computed(() => {
+  const a = attendee.value;
+  if (!a || a.is_checked_in) return false;
+  return editingIdentity.value || !a.is_personalized || !a.name?.trim();
+});
+
+const identityContact = computed(() =>
+  [attendee.value?.email, attendee.value?.phone].filter(Boolean).join(" · ")
+);
 
 // Registration answers (keyed by field ulid), its own draft + save state.
 const regDraft = ref({});
@@ -358,6 +461,7 @@ async function personalize() {
     if (form.phone?.trim()) body.phone = String(form.phone).trim();
     await $fetch(`/api/tickets/attendees/${ulid.value}`, { method: "PATCH", body });
     toast.success(t("tickets.attendee.personalized"));
+    editingIdentity.value = false;
     await refresh();
   } catch (err) {
     const respBody = err?.data || {};

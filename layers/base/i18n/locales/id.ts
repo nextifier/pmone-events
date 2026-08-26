@@ -314,7 +314,7 @@ export default {
       totalPaid: "Total dibayar",
       total: "Total",
       downloadETicket: "Unduh e-tiket",
-      downloadAllETickets: "Unduh semua e-tiket",
+      downloadAllETickets: "Simpan semua e-tiket",
       eTicketsLockedNote: "E-tiket Anda akan tersedia setelah pembayaran dikonfirmasi.",
       downloadReceipt: "Unduh kuitansi",
       downloadInvoice: "Unduh invoice",
@@ -334,17 +334,19 @@ export default {
       unassigned: "Belum ditetapkan",
       checkedIn: "Sudah check-in",
       qrAlt: "Kode QR untuk {name}",
+      dayNumber: "Hari {n}",
       copyLink: "Salin tautan",
       linkCopied: "Tautan disalin",
       linkCopyError: "Tautan gagal disalin",
-      whatsapp: "WhatsApp",
+      whatsapp: "Kirim lewat WhatsApp",
       whatsappText: "Ini e-tiket Anda untuk {title}: {url}",
-      download: "Unduh tiket",
+      download: "Simpan tiket",
       downloadError: "Tidak dapat mengunduh tiket.",
       locked: "Tersedia setelah pembayaran",
       cancelled: "Tiket ini sudah dibatalkan",
       cancelledHelp: "Hubungi penyelenggara kalau menurutmu ini keliru.",
-      sessionHost: "Dipandu {host}"
+      sessionHost: "Dipandu {host}",
+      downloaded: "Tiket tersimpan di perangkatmu"
     },
     manage: {
       title: "Kelola peserta",
@@ -387,6 +389,8 @@ export default {
       dashboardError: "Tidak dapat membuka dashboard. Silakan coba lagi.",
       pendingTitle: "Menunggu pembayaran",
       pendingNote: "Tiket ini akan tersedia setelah pembayaran Anda dikonfirmasi.",
+      edit: "Ubah",
+      ticketNotFoundHelp: "Tautannya mungkin sudah kedaluwarsa, atau tiketnya dibatalkan."
     },
     registration: {
       heading: "Detail registrasi",

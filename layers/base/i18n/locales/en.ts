@@ -305,7 +305,7 @@ export default {
       "totalPaid": "Total paid",
       "total": "Total",
       "downloadETicket": "Download e-ticket",
-      "downloadAllETickets": "Download all e-tickets",
+      "downloadAllETickets": "Save all e-tickets",
       "eTicketsLockedNote": "Your e-tickets will be available once your payment is confirmed.",
       "downloadReceipt": "Download receipt",
       "downloadInvoice": "Download invoice",
@@ -325,17 +325,19 @@ export default {
       "unassigned": "Unassigned",
       "checkedIn": "Checked in",
       "qrAlt": "QR code for {name}",
+      "dayNumber": "Day {n}",
       "copyLink": "Copy link",
       "linkCopied": "Link copied",
       "linkCopyError": "Could not copy link",
-      "whatsapp": "WhatsApp",
+      "whatsapp": "Send on WhatsApp",
       "whatsappText": "Here's your e-ticket for {title}: {url}",
-      "download": "Download ticket",
+      "download": "Save ticket",
       "downloadError": "Could not download the ticket.",
       "locked": "Available after payment",
       "cancelled": "This ticket has been cancelled",
       "cancelledHelp": "Contact the organiser if you think this is a mistake.",
-      "sessionHost": "Hosted by {host}"
+      "sessionHost": "Hosted by {host}",
+      "downloaded": "Ticket saved to your device"
     },
     "manage": {
       "title": "Manage attendees",
@@ -377,7 +379,9 @@ export default {
       "goToDashboard": "Go to dashboard",
       "dashboardError": "Could not open the dashboard. Please try again.",
       "pendingTitle": "Awaiting payment",
-      "pendingNote": "This ticket will be available once your payment is confirmed."
+      "pendingNote": "This ticket will be available once your payment is confirmed.",
+      "edit": "Edit",
+      "ticketNotFoundHelp": "The link may have expired, or the ticket was cancelled."
     },
     "registration": {
       "heading": "Registration details",

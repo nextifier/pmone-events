@@ -55,23 +55,57 @@ onMounted(() => {
     return;
   }
   cart.setEventContext({ eventId: event.id, eventSlug: event.slug });
-  const { removed } = cart.reconcile(ticketsById.value);
-  if (removed.length) {
-    const titles = removed
-      .map((r) => r || t("tickets.ticket"))
-      .join(", ");
-    toast.error(t("tickets.cartUpdated", { titles }));
-  }
-  cart.fetchPreview({ eventId: event.id });
-  // The SSR fetch used the active event's slug; the cart may carry a different
-  // one (restored from a previous session), which only becomes readable after
-  // hydrate() above. Re-fetch so the tickets and the staff-managed terms
-  // (meta.terms) for the T&C dialog match the cart.
-  refreshTickets();
 
   // Pre-fill the buyer's saved contact details (client-only, after mount).
   restoreBuyer();
 });
+
+/**
+ * Bring the listing in line with the cart, THEN reconcile against it.
+ *
+ * Deliberately `onNuxtReady` and not merged into the hook above; both halves of
+ * that are load-bearing.
+ *
+ * Nuxt's asyncData `execute` still consults `getCachedData` while
+ * `nuxtApp.isHydrating` is true - manual refreshes included - and isHydrating is
+ * still true inside a page's mounted hook. A refresh fired there hands the SSR
+ * payload straight back and no request ever leaves the browser. (The same trap
+ * is documented at length on /tickets.)
+ *
+ * And that payload is the PUBLIC listing. The cart's slug and its staff-preview
+ * token only become readable after `hydrate()`, so the server rendered this page
+ * against the price phase that is LIVE rather than the one being rehearsed.
+ * `reconcile()` is destructive - it measures every line against the caps it is
+ * handed and deletes the ones that do not fit, with nothing to bring them back -
+ * so it must not run until the listing matches the phase the cart was filled
+ * under. Three day passes added under an uncapped phase used to arrive here as
+ * one, with "Some tickets are no longer available".
+ *
+ * A refresh that fails leaves the cart alone rather than culling it against a
+ * listing we know to be the wrong one; the order endpoint is the authority at
+ * submit either way.
+ */
+onNuxtReady(async () => {
+  if (cart.isEmpty) return;
+
+  try {
+    await refreshTickets();
+  } catch {
+    cart.fetchPreview({ eventId: event.id });
+    return;
+  }
+
+  reconcileCart();
+  cart.fetchPreview({ eventId: event.id });
+});
+
+function reconcileCart() {
+  const { removed } = cart.reconcile(ticketsById.value);
+  if (!removed.length) return;
+
+  const titles = removed.map((r) => r || t("tickets.ticket")).join(", ");
+  toast.error(t("tickets.cartUpdated", { titles }));
+}
 
 /**
  * Emptying the cart WHILE here is a decision, not an accident, so the page says
@@ -133,13 +167,7 @@ watch(ticketsById, (map) => {
   if (!import.meta.client || !cartReady.value || !Object.keys(map).length) {
     return;
   }
-  const { removed } = cart.reconcile(map);
-  if (removed.length) {
-    const titles = removed
-      .map((r) => r || t("tickets.ticket"))
-      .join(", ");
-    toast.error(t("tickets.cartUpdated", { titles }));
-  }
+  reconcileCart();
 });
 
 // Staff-configured payment methods, already in the listing payload. Showing the

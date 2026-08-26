@@ -310,7 +310,7 @@ export default {
       totalPaid: "已付总额",
       total: "总计",
       downloadETicket: "下载电子门票",
-      downloadAllETickets: "下载全部电子门票",
+      downloadAllETickets: "保存全部电子门票",
       eTicketsLockedNote: "付款确认后即可获取您的电子门票。",
       downloadReceipt: "下载收据",
       downloadInvoice: "下载发票",
@@ -330,17 +330,19 @@ export default {
       unassigned: "未分配",
       checkedIn: "已签到",
       qrAlt: "{name} 的二维码",
+      dayNumber: "第 {n} 天",
       copyLink: "复制链接",
       linkCopied: "链接已复制",
       linkCopyError: "无法复制链接",
-      whatsapp: "WhatsApp",
+      whatsapp: "通过 WhatsApp 发送",
       whatsappText: "这是您 {title} 的电子门票：{url}",
-      download: "下载门票",
+      download: "保存门票",
       downloadError: "无法下载门票。",
       locked: "付款后可用",
       cancelled: "此门票已取消",
       cancelledHelp: "如果您认为这是错误，请联系主办方。",
-      sessionHost: "主持人：{host}"
+      sessionHost: "主持人：{host}",
+      downloaded: "门票已保存到您的设备"
     },
     manage: {
       title: "管理参与者",
@@ -383,6 +385,8 @@ export default {
       dashboardError: "无法打开仪表板，请重试。",
       pendingTitle: "等待付款",
       pendingNote: "付款确认后即可获取此门票。",
+      edit: "编辑",
+      ticketNotFoundHelp: "链接可能已过期，或门票已被取消。"
     },
     registration: {
       heading: "报名信息",

@@ -1,11 +1,9 @@
 <script setup>
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Spinner } from "../ui/spinner";
-import { ButtonCopy } from "../ui/button-copy";
 import { computed, onBeforeUnmount, onMounted, ref, useId } from "vue";
 import { toast } from "vue-sonner";
-import { useTicketPdf } from "../../composables/useTicketPdf";
+import { useTicketImage } from "../../composables/useTicketImage";
 
 const props = defineProps({
   attendee: { type: Object, required: true },
@@ -22,7 +20,7 @@ const props = defineProps({
 
 const { t, locale } = useI18n();
 const config = useRuntimeConfig();
-const { download } = useTicketPdf();
+const { saveTicket } = useTicketImage();
 
 const downloading = ref(false);
 
@@ -40,9 +38,17 @@ function resolveLabel(label) {
   }
   return label || "";
 }
-const dayLabel = computed(() =>
-  appendDayDate(resolveLabel(props.attendee?.day?.label), props.attendee?.day?.date)
-);
+// "Day 1 · Thu, 8 Oct". The weekday earns its place on a multi-day expo: the
+// holder is deciding which morning to leave the house, and "8 Oct" alone makes
+// them go and look it up.
+const dayLabel = computed(() => {
+  const day = props.attendee?.day;
+  if (!day) return "";
+
+  const ordinal = day.day_number ? t("tickets.eticket.dayNumber", { n: day.day_number }) : "";
+
+  return formatTicketDay(resolveLabel(day.label), ordinal, day.date, locale.value);
+});
 const sessionLabel = computed(() => {
   const session = props.attendee?.session;
   if (!session?.label) return "";
@@ -145,27 +151,53 @@ async function downloadTicket() {
   if (downloading.value) return;
   downloading.value = true;
   try {
-    await download({
-      qrToken: props.attendee?.qr_token,
-      eventTitle: props.eventTitle,
-      eventDate: props.eventDate,
-      eventVenue: props.eventVenue,
-      attendeeName: props.attendee?.name || t("tickets.eticket.unassigned"),
-      ticketTitle: ticketTitle.value,
-      tier: tierLabel.value,
-      day: dayLabel.value,
-      session: sessionLabel.value,
-      sessionDetail: sessionDetail.value,
-      phase: phaseLabel.value,
-      checkedIn: !!props.attendee?.is_checked_in,
-      orderNumber: props.orderNumber,
-      fileName: `ticket-${props.attendee?.name || props.attendee?.ulid || "e-ticket"}.pdf`,
-    });
+    const holder = props.attendee?.name || t("tickets.eticket.unassigned");
+    await saveTicket(
+      {
+        qrToken: props.attendee?.qr_token,
+        eventTitle: props.eventTitle,
+        eventDate: props.eventDate,
+        eventVenue: props.eventVenue,
+        attendeeName: holder,
+        ticketTitle: ticketTitle.value,
+        tier: tierLabel.value,
+        day: dayLabel.value,
+        session: sessionLabel.value,
+        sessionDetail: sessionDetail.value,
+        phase: phaseLabel.value,
+        orderNumber: props.orderNumber,
+        scanHint: t("tickets.manage.scanAtEntrance"),
+      },
+      { fileName: `${slugifyFileName(holder)}-ticket.png` }
+    );
+
+    toast.success(t("tickets.eticket.downloaded"));
   } catch {
     toast.error(t("tickets.eticket.downloadError"));
   } finally {
     downloading.value = false;
   }
+}
+
+async function copyTicketLink() {
+  try {
+    await navigator.clipboard.writeText(shareUrl.value);
+    toast.success(t("tickets.eticket.linkCopied"));
+  } catch {
+    toast.error(t("tickets.eticket.linkCopyError"));
+  }
+}
+
+function slugifyFileName(value) {
+  return (
+    String(value)
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 48) || "e"
+  );
 }
 </script>
 
@@ -280,27 +312,38 @@ async function downloadTicket() {
         ref="stubEl"
         class="border-border flex flex-col gap-3 border-t border-dashed px-6 pt-4 pb-5 print:hidden"
       >
-        <p v-if="orderNumber" class="text-muted-foreground text-center text-xs tracking-tight">
+        <p v-if="orderNumber" class="text-muted-foreground text-center text-sm tracking-tight">
           {{ orderNumber }}
         </p>
 
-        <div class="flex items-center justify-center gap-2">
-          <Button type="button" variant="outline" size="sm" :disabled="downloading || !attendee.qr_token" @click="downloadTicket">
-            <Spinner v-if="downloading" class="size-4" />
-            <Icon v-else name="hugeicons:download-01" class="size-4 shrink-0" />
+        <!-- One primary action, two secondary. Every control carries its own
+             label: two unlabelled glyphs beside a labelled button read as
+             decoration, and at 28px they were also below the touch target the
+             Button primitive gives its own controls for free. -->
+        <div class="space-y-2">
+          <Button
+            type="button"
+            class="w-full"
+            :loading="downloading"
+            :disabled="!attendee.qr_token"
+            @click="downloadTicket"
+          >
+            <Icon name="hugeicons:download-01" class="size-4 shrink-0" />
             {{ t("tickets.eticket.download") }}
           </Button>
-          <ButtonCopy :text="shareUrl" />
-          <a
-            :href="whatsappUrl"
-            target="_blank"
-            rel="noopener"
-            :aria-label="t('tickets.eticket.whatsapp')"
-            v-tippy="t('tickets.eticket.whatsapp')"
-            class="text-muted-foreground hover:text-foreground flex size-7 items-center justify-center rounded-lg"
-          >
-            <Icon name="hugeicons:whatsapp" class="size-4 shrink-0" />
-          </a>
+
+          <div class="grid grid-cols-2 gap-2">
+            <Button type="button" variant="outline" @click="copyTicketLink">
+              <Icon name="hugeicons:link-01" class="size-4 shrink-0" />
+              {{ t("tickets.eticket.copyLink") }}
+            </Button>
+            <Button as-child variant="outline">
+              <a :href="whatsappUrl" target="_blank" rel="noopener">
+                <Icon name="hugeicons:whatsapp" class="size-4 shrink-0" />
+                {{ t("tickets.eticket.whatsapp") }}
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

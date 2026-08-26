@@ -315,7 +315,7 @@ export default {
       totalPaid: "お支払い合計",
       total: "合計",
       downloadETicket: "e-チケットをダウンロード",
-      downloadAllETickets: "すべてのe-チケットをダウンロード",
+      downloadAllETickets: "すべてのe-チケットを保存",
       eTicketsLockedNote: "お支払いが確認され次第、e-チケットをご利用いただけます。",
       downloadReceipt: "領収書をダウンロード",
       downloadInvoice: "請求書をダウンロード",
@@ -335,17 +335,19 @@ export default {
       unassigned: "未割り当て",
       checkedIn: "チェックイン済み",
       qrAlt: "{name}のQRコード",
+      dayNumber: "{n}日目",
       copyLink: "リンクをコピー",
       linkCopied: "リンクをコピーしました",
       linkCopyError: "リンクをコピーできませんでした",
-      whatsapp: "WhatsApp",
+      whatsapp: "WhatsAppで送る",
       whatsappText: "{title}のe-チケットです: {url}",
-      download: "チケットをダウンロード",
+      download: "チケットを保存",
       downloadError: "チケットをダウンロードできませんでした。",
       locked: "お支払い後に利用可能",
       cancelled: "このチケットはキャンセルされました",
       cancelledHelp: "心当たりがない場合は主催者にご連絡ください。",
-      sessionHost: "担当：{host}"
+      sessionHost: "担当：{host}",
+      downloaded: "チケットを端末に保存しました"
     },
     manage: {
       title: "参加者を管理",
@@ -388,6 +390,8 @@ export default {
       dashboardError: "ダッシュボードを開けませんでした。もう一度お試しください。",
       pendingTitle: "お支払い待ち",
       pendingNote: "お支払いが確認され次第、このチケットをご利用いただけます。",
+      edit: "編集",
+      ticketNotFoundHelp: "リンクの有効期限が切れたか、チケットがキャンセルされた可能性があります。"
     },
     registration: {
       heading: "登録情報",

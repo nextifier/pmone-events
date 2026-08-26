@@ -308,7 +308,7 @@ import { Skeleton } from "../../components/ui/skeleton";
 import { Spinner } from "../../components/ui/spinner";
 import ETicket from "../../components/tickets/ETicket.vue";
 import { BlurImage } from "../../components/ui/blur-image";
-import { useTicketPdf } from "../../composables/useTicketPdf";
+import { useTicketImage } from "../../composables/useTicketImage";
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { toast } from "vue-sonner";
 
@@ -329,7 +329,7 @@ const orderUlid = computed(() => route.query.order);
 // Event hero data (title/date/venue) for the e-ticket PDFs - the result page is
 // always viewed on its own event site, so the active event matches the order.
 const event = useEvent();
-const { downloadAll } = useTicketPdf();
+const { saveTickets } = useTicketImage();
 
 const { data, pending, refresh } = await useLazyAsyncData(
   () => `ticket-result-${magicToken.value || orderUlid.value || "none"}`,
@@ -643,7 +643,14 @@ function toTicketData(att) {
     attendeeName: att.name || t("tickets.eticket.unassigned"),
     ticketTitle: att.ticket?.title || t("ui.getTicket"),
     tier: att.ticket?.tier || "",
-    day: appendDayDate(resolveLabel(att.day?.label), att.day?.date),
+    day: att.day
+      ? formatTicketDay(
+          resolveLabel(att.day.label),
+          att.day.day_number ? t("tickets.eticket.dayNumber", { n: att.day.day_number }) : "",
+          att.day.date,
+          locale.value
+        )
+      : "",
     session: att.session?.label || "",
     sessionDetail: [
       att.session?.location,
@@ -680,12 +687,29 @@ async function downloadAllTickets() {
   try {
     const printable = (order.value?.attendees || []).filter((a) => !a.is_cancelled && a.qr_token);
 
-    await downloadAll(printable.map(toTicketData), {
+    const shared = {
       eventTitle: event?.title || "",
       eventDate: eventDateLabel.value,
       eventVenue: event?.location || "",
       orderNumber: t("tickets.attendee.order", { number: order.value?.order_number }),
-    });
+      scanHint: t("tickets.manage.scanAtEntrance"),
+    };
+
+    await saveTickets(
+      printable.map((att) => ({ ...shared, ...toTicketData(att) })),
+      {
+        fileNameFor: (data, index) =>
+          `${(data.attendeeName || `ticket-${index + 1}`)
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "")
+            .slice(0, 48) || `ticket-${index + 1}`}-ticket.png`,
+      }
+    );
+
+    toast.success(t("tickets.eticket.downloaded"));
   } catch {
     toast.error(t("tickets.eticket.downloadError"));
   } finally {

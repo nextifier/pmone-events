@@ -312,7 +312,7 @@ export default {
       totalPaid: "결제 합계",
       total: "합계",
       downloadETicket: "e-티켓 다운로드",
-      downloadAllETickets: "모든 e-티켓 다운로드",
+      downloadAllETickets: "모든 e-티켓 저장",
       eTicketsLockedNote: "결제가 확인되면 e-티켓을 이용할 수 있습니다.",
       downloadReceipt: "영수증 다운로드",
       downloadInvoice: "인보이스 다운로드",
@@ -332,17 +332,19 @@ export default {
       unassigned: "미지정",
       checkedIn: "체크인 완료",
       qrAlt: "{name}님의 QR 코드",
+      dayNumber: "{n}일차",
       copyLink: "링크 복사",
       linkCopied: "링크가 복사되었습니다",
       linkCopyError: "링크를 복사할 수 없습니다",
-      whatsapp: "WhatsApp",
+      whatsapp: "WhatsApp으로 보내기",
       whatsappText: "{title}의 e-티켓입니다: {url}",
-      download: "티켓 다운로드",
+      download: "티켓 저장",
       downloadError: "티켓을 다운로드할 수 없습니다.",
       locked: "결제 후 이용 가능",
       cancelled: "이 티켓은 취소되었습니다",
       cancelledHelp: "착오라고 생각되면 주최자에게 문의해 주세요.",
-      sessionHost: "진행: {host}"
+      sessionHost: "진행: {host}",
+      downloaded: "티켓이 기기에 저장되었습니다"
     },
     manage: {
       title: "참석자 관리",
@@ -385,6 +387,8 @@ export default {
       dashboardError: "대시보드를 열 수 없습니다. 다시 시도해 주세요.",
       pendingTitle: "결제 대기 중",
       pendingNote: "결제가 확인되면 이 티켓을 이용할 수 있습니다.",
+      edit: "수정",
+      ticketNotFoundHelp: "링크가 만료되었거나 티켓이 취소되었을 수 있습니다."
     },
     registration: {
       heading: "등록 정보",
