@@ -11,7 +11,7 @@
   >
     <NuxtLink
       v-for="(tab, index) in tabs"
-      :key="tab.to"
+      :key="tab.value ?? tab.to"
       :ref="(el) => (tabRefs[index] = el?.$el || el)"
       :to="tab.to"
       :class="[
@@ -47,6 +47,16 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  /**
+   * Match tabs on a query parameter instead of the path. Use it for tab strips
+   * that filter one page rather than switching between child routes - every
+   * tab then shares a path, so `startsWith` would light all of them up. Each
+   * tab needs a `value`; the first tab is the default when the param is absent.
+   */
+  param: {
+    type: String,
+    default: null,
+  },
 });
 
 const route = useRoute();
@@ -54,6 +64,12 @@ const tabRefs = ref([]);
 const indicatorStyle = ref(null);
 
 const isActive = (tab) => {
+  if (props.param) {
+    const current = route.query[props.param] ?? props.tabs[0]?.value;
+
+    return tab.value === current;
+  }
+
   if (tab.exact) {
     return route.path === tab.to || route.path === `${tab.to}/`;
   }
@@ -85,7 +101,7 @@ onMounted(() => {
 });
 
 watch(
-  () => route.path,
+  () => route.fullPath,
   () => {
     nextTick(updateIndicator);
   }
