@@ -11,6 +11,7 @@ import {
   CustomFieldRenderer,
   CustomFieldGroup,
   isEmptyValue,
+  validateFieldValue,
 } from "../../components/ui/custom-field";
 import TicketCartSummary from "../../components/tickets/TicketCartSummary.vue";
 import { useTicketCartStore } from "../../stores/ticketCart";
@@ -227,6 +228,8 @@ const customFieldsLoading = ref(false);
 const customFieldsLoaded = ref(false);
 const bmResponses = ref({});
 const bmErrors = ref({});
+// custom_field_id per position in the last submitted responses array.
+const bmPayloadOrder = ref([]);
 
 // --- Registration details (event's active ticket_registration fields) ---
 const registrationFields = ref([]);
@@ -498,26 +501,30 @@ const canSubmit = computed(() => {
   );
 });
 
-// A business-matching answer counts as empty when it's null/blank, an empty
-// multi-value array, an unticked boolean, or a cleared date range.
-function isBmAnswerEmpty(field, value) {
-  if (value === null || value === undefined || value === "") return true;
-  if (Array.isArray(value)) return value.length === 0;
-  if (field.type === "checkbox" || field.type === "switch") return !value;
-  if (field.type === "date_range") return !value.start || !value.end;
-  return false;
-}
 
-// Block submit when a required BM field is unanswered (mirrors the server-side
-// enforcement). Returns true when everything required is filled.
+
+/**
+ * Gate submit on the business-matching answers, using the SAME validator the
+ * renderer and the public form use.
+ *
+ * This used to be a local emptiness check: null, empty string, empty array,
+ * unticked box. That let through every answer that is present but wrong - two
+ * selections where the field demands three, a value that is not one of the
+ * options, text under a minimum length - and the buyer only learned about it
+ * from a toast after the server refused the whole order.
+ *
+ * `validateFieldValue` reads the field's own declared rules, so the client now
+ * refuses exactly what the server would.
+ */
 function validateBusinessMatching() {
   bmErrors.value = {};
   if (!hasCustomFields.value || !businessMatching.value) return true;
+
   let ok = true;
   for (const field of customFields.value) {
-    if (!field.required) continue;
-    if (isBmAnswerEmpty(field, bmResponses.value[field.id])) {
-      bmErrors.value[field.id] = t("tickets.fieldRequired");
+    const message = validateFieldValue(field, bmResponses.value[field.id], locale.value);
+    if (message) {
+      bmErrors.value[field.id] = message;
       ok = false;
     }
   }
@@ -540,6 +547,13 @@ function buildBusinessMatchingPayload() {
         r.value !== "" &&
         !(Array.isArray(r.value) && r.value.length === 0),
     );
+
+  // The server validates this array POSITIONALLY - its 422 keys read
+  // `business_matching.responses.3.value`, an index into what we just sent, not
+  // a field id. Nothing else on the page knows that order, so record it here
+  // while we still have it.
+  bmPayloadOrder.value = responses.map((r) => r.custom_field_id);
+
   return { opt_in: true, responses };
 }
 
@@ -674,6 +688,21 @@ async function submit() {
         key.startsWith("registration.responses."),
       ),
     );
+
+    // Business matching gets the same treatment, via the index the payload was
+    // built with. Without this the server's reason arrived only as a toast, and
+    // a buyer on a long form was told something was wrong but not which answer -
+    // the exact thing revealFirstError() exists to prevent.
+    bmErrors.value = {};
+    for (const [key, messages] of Object.entries(errors.value)) {
+      const match = key.match(/^business_matching\.responses\.(\d+)\./);
+      if (!match) continue;
+
+      const fieldId = bmPayloadOrder.value[Number(match[1])];
+      if (fieldId === undefined) continue;
+
+      bmErrors.value[fieldId] = Array.isArray(messages) ? messages[0] : messages;
+    }
     await revealFirstError();
     const message =
       body.message || body.data?.message || t("tickets.submitError");
