@@ -123,13 +123,20 @@ useSwipe(swipeContainerRef, {
     next.click();
   },
 });
+/**
+ * This is a local fork (pill/segmented/underline + sliding indicator), not the
+ * upstream two-variant Tabs, so it deliberately stays off the shared tabs rules
+ * in the style sheets: those are written for the upstream markup and force a
+ * fixed list height and font size that clip this design.
+ *
+ * The template stays a bare single element on purpose. A comment sitting next to
+ * the root makes the render a fragment in dev builds, and `$el` then hands the
+ * caller the fragment's anchor text node instead of the tab container - which is
+ * exactly what pages reach for when they scroll a tab strip back into view.
+ */
 </script>
 
 <template>
-    <!-- Tabs is a local fork (pill/segmented/underline + sliding indicator), not the
-         upstream two-variant Tabs, so it deliberately stays off the shared tabs rules
-         in the style sheets: those are written for the upstream markup and force a
-         fixed list height and font size that clip this design. -->
   <TabsRoot
     ref="tabsRootInstance"
     v-bind="forwarded"
