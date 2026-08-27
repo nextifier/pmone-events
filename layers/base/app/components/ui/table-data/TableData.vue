@@ -236,7 +236,7 @@
       <!-- Table -->
       <div class="frame">
         <div class="frame-panel bg-background -m-px overflow-hidden p-0!">
-          <Table class="table-fixed [&_td]:overflow-hidden">
+          <Table ref="tableRef" class="table-fixed [&_td]:overflow-hidden">
             <TableHeader>
               <TableRow
                 v-for="headerGroup in table.getHeaderGroups()"
@@ -247,7 +247,13 @@
                   v-for="(header, index) in headerGroup.headers"
                   :key="header.id"
                   :style="{ width: `${header.getSize()}px` }"
-                  :class="['h-11', index === 0 && header.column.id !== 'select' ? 'pl-4' : '']"
+                  :class="[
+                    'h-11',
+                    index === 0 && header.column.id !== 'select' ? 'pl-4' : '',
+                    isPinnedCell(header.column.id, index, headerGroup.headers.length)
+                      ? pinnedHeadClass
+                      : '',
+                  ]"
                 >
                   <template v-if="!header.isPlaceholder">
                     <div
@@ -301,13 +307,19 @@
                 <slot name="loading">
                   <TableRow v-for="i in 25" :key="`skeleton-${i}`" class="tracking-tight">
                     <TableCell
-                      v-for="(header, j) in table.getHeaderGroups()[0]?.headers || []"
+                      v-for="(header, j) in skeletonHeaders"
                       :key="`skeleton-cell-${i}-${j}`"
                       :style="{ width: `${header.getSize()}px` }"
                       :class="[
                         'py-2.5',
-                        header.column.id !== 'select' ? 'scroll-fade-x' : '',
+                        header.column.id !== 'select' &&
+                        !isPinnedCell(header.column.id, j, skeletonHeaders.length)
+                          ? 'scroll-fade-x'
+                          : '',
                         j === 0 && header.column.id !== 'select' ? 'pl-4' : '',
+                        isPinnedCell(header.column.id, j, skeletonHeaders.length)
+                          ? pinnedCellClass
+                          : '',
                       ]"
                     >
                       <Skeleton
@@ -333,8 +345,14 @@
                       :style="{ width: `${cell.column.getSize()}px` }"
                       :class="[
                         'py-2.5',
-                        cell.column.id !== 'select' ? 'scroll-fade-x' : '',
+                        cell.column.id !== 'select' &&
+                        !isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
+                          ? 'scroll-fade-x'
+                          : '',
                         index === 0 && cell.column.id !== 'select' ? 'pl-4' : '',
+                        isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
+                          ? pinnedCellClass
+                          : '',
                       ]"
                     >
                       <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
@@ -524,6 +542,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { valueUpdater } from "@/components/ui/table/utils";
+import { useResizeObserver } from "@vueuse/core";
 import {
   columnFilteringFeature,
   columnSizingFeature,
@@ -645,6 +664,13 @@ const props = defineProps({
   // Renders the #actions slot inside the floating bottom pill. On by default so
   // every table page gets the pill; set false to keep actions inline.
   floatingActions: {
+    type: Boolean,
+    default: true,
+  },
+  // Keeps the trailing `actions` column flush against the right edge while the
+  // rest of the table scrolls under it. On by default: it is a no-op when the
+  // table fits, and opting in on 50-odd tables would be busywork.
+  pinActions: {
     type: Boolean,
     default: true,
   },
@@ -999,6 +1025,107 @@ watch(pillEl, (el, prevEl) => {
 });
 
 onBeforeUnmount(teardownPillObserver);
+
+// ── Pinned actions column ───────────────────────────────────────────────────
+// A wide table buries its own row menu: the actions column is last, so reaching
+// it means scrolling past everything else, and on a phone that is roughly a
+// thousand pixels of sideways drag. Sticking it to the right edge costs nothing
+// when the table already fits.
+//
+// Plain sticky rather than TanStack's columnPinningFeature: there is exactly one
+// pinned column and it is always last, so the offset is a constant `right: 0`
+// and none of that feature's offset arithmetic or extra state slices buy
+// anything. `Table`'s root element IS the `overflow-x: auto` container, which is
+// what `position: sticky` resolves against.
+const tableRef = ref(null);
+const scrollHost = computed(() => tableRef.value?.$el ?? null);
+
+// The divider only earns its place while there is still something to scroll to.
+// At rest, or once the reader is already at the right edge, the pinned cell sits
+// where it would sit anyway and a rule beside it reads as a stray line.
+//
+// One subtraction against the live geometry rather than a library's arrived-state
+// flag: the condition is the whole feature, and it is worth being able to read it
+// here. The 1px of slack absorbs fractional layout widths that would otherwise
+// make the divider flicker at the end of a scroll.
+const pinDividerHidden = ref(true);
+
+const syncPinDivider = () => {
+  const el = scrollHost.value;
+  pinDividerHidden.value = !el || el.scrollWidth - el.clientWidth - el.scrollLeft <= 1;
+};
+
+// The listener follows the element rather than being bound once: `scrollHost` is
+// null until the table mounts, and it changes again if the table is re-created.
+// `flush: "post"` so the element exists by the time the watcher runs.
+//
+// Worth knowing when testing this: assigning `scrollLeft` from a script does NOT
+// fire a scroll event in Chrome, so a console check will show the divider frozen
+// while a real wheel or trackpad scroll updates it correctly. Verify by scrolling.
+let detachPinScroll = null;
+
+watch(
+  scrollHost,
+  (el) => {
+    detachPinScroll?.();
+    detachPinScroll = null;
+    if (!el) {
+      return;
+    }
+    el.addEventListener("scroll", syncPinDivider, { passive: true });
+    detachPinScroll = () => el.removeEventListener("scroll", syncPinDivider);
+    syncPinDivider();
+  },
+  { immediate: true, flush: "post" }
+);
+
+onBeforeUnmount(() => detachPinScroll?.());
+
+// Also on resize: a window that grows until the table fits stops scrolling, and
+// nothing else would tell us the overflow is gone.
+useResizeObserver(scrollHost, syncPinDivider);
+
+// Both conditions on purpose. A table that ever puts `actions` somewhere other
+// than last falls back to today's behaviour instead of pinning the wrong cell.
+const isPinnedCell = (columnId, index, total) =>
+  props.pinActions && columnId === "actions" && index === total - 1;
+
+const PIN_BASE = "sticky right-0 z-1 bg-background";
+const PIN_DIVIDER =
+  "after:bg-border after:pointer-events-none after:absolute after:inset-y-0 after:left-0 after:w-px after:content-['']";
+
+const pinnedHeadClass = computed(() => [PIN_BASE, pinDividerHidden.value ? "" : PIN_DIVIDER]);
+
+const pinnedCellClass = computed(() => [
+  PIN_BASE,
+  // Centred, not right-aligned. Row actions render as `flex justify-end`, which
+  // was right while the column was the last thing at the end of a long scroll -
+  // it hugged the table's edge. Pinned, the column is its own strip and the
+  // button reads as off-centre against it, so the pin re-centres what it froze.
+  "[&>div]:justify-center",
+  // Padding follows the scroll state, because the two states are different
+  // problems. While the column floats over content it is a strip of its own and
+  // the trigger has to sit dead centre in it - anything off-centre reads as a
+  // mistake. Once the reader hits the end, the cell's right edge IS the table
+  // border, and that inset should match every other last cell in the product
+  // rather than shrink because this column happens to be pinned.
+  //
+  // The 4px nudge lands on the same frame the divider disappears on, so it reads
+  // as one arrival rather than as jitter.
+  pinDividerHidden.value ? "pl-1 pr-3" : "px-2",
+  // The row's tint rides on a negative-z pseudo-element rather than on the cell.
+  // The cell needs an opaque base or the columns sliding underneath show through
+  // it, and `bg-muted/50` applied to the cell itself would do exactly that. A
+  // sticky cell with a positive z-index makes its own stacking context, so a
+  // `-z-10` child lands between that opaque base and the content.
+  "before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:content-['']",
+  "group-hover:before:bg-muted/50 group-data-[state=selected]:before:bg-muted",
+  pinDividerHidden.value ? "" : PIN_DIVIDER,
+]);
+
+// The skeleton pins too, otherwise the column visibly jumps into place the moment
+// the real rows arrive.
+const skeletonHeaders = computed(() => table.getHeaderGroups()[0]?.headers ?? []);
 
 // Method to reset row selection
 const resetRowSelection = () => {
