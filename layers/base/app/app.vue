@@ -13,13 +13,11 @@
           }"
         />
       </NuxtLayout>
-      <ScrollToTop v-if="!['index', 'tickets', 'winner'].some((n) => route.name?.toString().startsWith(n))" />
+      <ScrollToTop v-if="!hidesScrollToTop" />
       <!-- One cart bar for the whole ticket flow. Outside <NuxtLayout> so it
            survives /tickets -> /tickets/checkout instead of unmounting and
-           remounting; `startsWith('tickets')` covers both routes. -->
-      <TicketsTicketCartBarHost
-        v-if="route.name?.toString().startsWith('tickets')"
-      />
+           remounting. -->
+      <TicketsTicketCartBarHost v-if="showsCartBar" />
       <Toaster class="pointer-events-auto" />
     </Body>
   </Html>
@@ -39,6 +37,38 @@ useProjectAppearance();
 
 const route = useRoute();
 const { locales } = useI18n();
+
+// `@nuxtjs/i18n` suffixes route names with `___<locale>` (`tickets___en`), so
+// every comparison below is against the base name - the technique Header.vue,
+// Rundown.vue and contentContract.ts already use.
+const routeBaseName = computed(
+  () => (route.name?.toString() ?? "").split("___")[0],
+);
+
+/**
+ * The cart bar belongs to the two buying routes and nowhere else.
+ *
+ * It used to test `startsWith("tickets")`, which also matched every page a
+ * visitor reaches AFTER buying: the saved e-ticket (`tickets-attendeeUlid`),
+ * the order receipt (`tickets-order-token`) and the payment result
+ * (`tickets-result`). Checkout clears the cart, but a visitor who browsed
+ * tickets and then opened their e-ticket link still has one in storage - so a
+ * "1 ticket selected / Checkout" bar sat on top of their own QR code. Match
+ * the route exactly; new pages under /tickets now stay clean by default.
+ */
+const CART_BAR_ROUTES = ["tickets", "tickets-checkout"];
+
+const showsCartBar = computed(() =>
+  CART_BAR_ROUTES.includes(routeBaseName.value),
+);
+
+// Home and winner anchor their own UI to the bottom of the viewport, and on the
+// buying routes the cart bar already occupies that corner. The post-purchase
+// ticket pages get the button back - they are ordinary content pages, and it
+// only appears past 1000px of scroll anyway.
+const hidesScrollToTop = computed(
+  () => ["index", "winner"].includes(routeBaseName.value) || showsCartBar.value,
+);
 
 const localeCodes = computed(() => locales.value.map((l) => l.code));
 

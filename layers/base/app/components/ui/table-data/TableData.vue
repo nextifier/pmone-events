@@ -130,9 +130,13 @@
             $slots['add-button'] ||
             $slots['toolbar-actions']
           "
-          class="flex h-(--cn-input-h) w-full items-center justify-between gap-1 sm:gap-x-2"
+          class="flex min-h-(--cn-input-h) w-full flex-wrap items-center justify-between gap-1 sm:gap-x-2"
         >
-          <div class="ml-auto flex h-full gap-x-1 sm:gap-x-2">
+          <!-- Wraps rather than overflows: a page can hand this row several
+               actions through #toolbar-actions, and on a narrow screen they have
+               to fall to a second line instead of pushing the create button off
+               the edge. min-h keeps the single-row case the height it was. -->
+          <div class="ml-auto flex flex-wrap items-center justify-end gap-1 sm:gap-2">
             <!-- Clear Filters Button -->
             <Button
               v-if="hasActiveFilters"
