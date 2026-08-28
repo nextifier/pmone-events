@@ -668,11 +668,12 @@ const props = defineProps({
     default: true,
   },
   // Keeps the trailing `actions` column flush against the right edge while the
-  // rest of the table scrolls under it. On by default: it is a no-op when the
-  // table fits, and opting in on 50-odd tables would be busywork.
+  // rest of the table scrolls under it. Opt-in: a pinned column is a permanent
+  // claim on the row's width, so each table decides for itself whether reaching
+  // its row menu without scrolling is worth that.
   pinActions: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 });
 
