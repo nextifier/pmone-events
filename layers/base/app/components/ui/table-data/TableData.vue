@@ -236,7 +236,7 @@
       <!-- Table -->
       <div class="frame">
         <div class="frame-panel bg-background -m-px overflow-hidden p-0!">
-          <Table ref="tableRef" class="table-fixed [&_td]:overflow-hidden">
+          <Table ref="tableRef" class="table-fixed">
             <TableHeader>
               <TableRow
                 v-for="headerGroup in table.getHeaderGroups()"
@@ -246,7 +246,7 @@
                 <TableHead
                   v-for="(header, index) in headerGroup.headers"
                   :key="header.id"
-                  :style="{ width: `${header.getSize()}px` }"
+                  :style="cellWidth(header.column)"
                   :class="[
                     'h-11',
                     index === 0 && header.column.id !== 'select' ? 'pl-4' : '',
@@ -309,13 +309,13 @@
                     <TableCell
                       v-for="(header, j) in skeletonHeaders"
                       :key="`skeleton-cell-${i}-${j}`"
-                      :style="{ width: `${header.getSize()}px` }"
+                      :style="cellWidth(header.column)"
                       :class="[
                         'py-2.5',
                         header.column.id !== 'select' &&
                         !isPinnedCell(header.column.id, j, skeletonHeaders.length)
-                          ? 'scroll-fade-x'
-                          : '',
+                          ? 'no-scrollbar scroll-fade-x overflow-x-auto'
+                          : 'overflow-hidden',
                         j === 0 && header.column.id !== 'select' ? 'pl-4' : '',
                         isPinnedCell(header.column.id, j, skeletonHeaders.length)
                           ? pinnedCellClass
@@ -342,13 +342,13 @@
                     <TableCell
                       v-for="(cell, index) in row.getVisibleCells()"
                       :key="cell.id"
-                      :style="{ width: `${cell.column.getSize()}px` }"
+                      :style="cellWidth(cell.column)"
                       :class="[
                         'py-2.5',
                         cell.column.id !== 'select' &&
                         !isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
-                          ? 'scroll-fade-x'
-                          : '',
+                          ? 'no-scrollbar scroll-fade-x overflow-x-auto'
+                          : 'overflow-hidden',
                         index === 0 && cell.column.id !== 'select' ? 'pl-4' : '',
                         isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
                           ? pinnedCellClass
@@ -674,6 +674,15 @@ const props = defineProps({
   pinActions: {
     type: Boolean,
     default: false,
+  },
+  // Column id that absorbs leftover width. `table-fixed` + `w-full` spreads any
+  // slack proportionally across EVERY column, so on a wide window a checkbox
+  // column grows too and a badge ends up centred in empty space. Naming one
+  // column here hands it the whole remainder instead, and every other column
+  // stays at the width it declared. Opt-in; unset keeps the old behaviour.
+  flexColumn: {
+    type: String,
+    default: null,
   },
 });
 
@@ -1049,11 +1058,18 @@ const scrollHost = computed(() => tableRef.value?.$el ?? null);
 // flag: the condition is the whole feature, and it is worth being able to read it
 // here. The 1px of slack absorbs fractional layout widths that would otherwise
 // make the divider flicker at the end of a scroll.
+const hostWidth = ref(0);
 const pinDividerHidden = ref(true);
 
 const syncPinDivider = () => {
   const el = scrollHost.value;
   pinDividerHidden.value = !el || el.scrollWidth - el.clientWidth - el.scrollLeft <= 1;
+};
+
+// Same signals feed the flex column: it has to be recomputed whenever the space
+// available to the table changes.
+const syncHostWidth = () => {
+  hostWidth.value = scrollHost.value?.clientWidth ?? 0;
 };
 
 // The listener follows the element rather than being bound once: `scrollHost` is
@@ -1076,6 +1092,7 @@ watch(
     el.addEventListener("scroll", syncPinDivider, { passive: true });
     detachPinScroll = () => el.removeEventListener("scroll", syncPinDivider);
     syncPinDivider();
+    syncHostWidth();
   },
   { immediate: true, flush: "post" }
 );
@@ -1084,12 +1101,49 @@ onBeforeUnmount(() => detachPinScroll?.());
 
 // Also on resize: a window that grows until the table fits stops scrolling, and
 // nothing else would tell us the overflow is gone.
-useResizeObserver(scrollHost, syncPinDivider);
+useResizeObserver(scrollHost, () => {
+  syncHostWidth();
+  syncPinDivider();
+});
 
 // Both conditions on purpose. A table that ever puts `actions` somewhere other
 // than last falls back to today's behaviour instead of pinning the wrong cell.
 const isPinnedCell = (columnId, index, total) =>
   props.pinActions && columnId === "actions" && index === total - 1;
+
+// Width computed here rather than handed to the layout algorithm. `width: auto`
+// plus a `min-width` looks like the obvious way to do this and does not work:
+// fixed-layout ignores the min-width and gives the auto column whatever is left,
+// which measured 171px at a 1137px container and 0px at 800px - the flex column
+// is the first thing squeezed, which is the opposite of what it is for.
+//
+// So: the flex column gets the leftover, or its own declared size when there is
+// no leftover. The sum then equals the container exactly, which is what stops the
+// browser distributing slack across every other column.
+const flexColumnWidth = computed(() => {
+  const columns = table.getVisibleFlatColumns?.() ?? [];
+  const flex = columns.find((column) => column.id === props.flexColumn);
+  if (!flex) {
+    return null;
+  }
+  const others = columns.reduce(
+    (sum, column) => (column.id === props.flexColumn ? sum : sum + column.getSize()),
+    0
+  );
+  return Math.max(flex.getSize(), hostWidth.value - others);
+});
+
+// A cell scrolls its own overflow rather than clipping it. `scroll-fade-x` was
+// already on every cell but inert: the mask's scroll-timeline needs the cell to BE
+// a scroll container, and the table's old `[&_td]:overflow-hidden` meant it never
+// was - so the fade never ran and a value wider than its column was simply cut.
+// The three classes travel together, the same trio the bulk-action pill uses.
+// `select` keeps `overflow-hidden`: its checkbox sits 7px past a 28px cell and
+// there is nothing there worth scrolling to.
+const cellWidth = (column) =>
+  column.id === props.flexColumn && flexColumnWidth.value !== null
+    ? { width: `${flexColumnWidth.value}px` }
+    : { width: `${column.getSize()}px` };
 
 const PIN_BASE = "sticky right-0 z-1 bg-background";
 const PIN_DIVIDER =
