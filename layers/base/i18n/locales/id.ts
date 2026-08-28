@@ -315,7 +315,7 @@ export default {
       totalPaid: "Total dibayar",
       total: "Total",
       downloadETicket: "Unduh e-tiket",
-      downloadAllETickets: "Simpan semua e-tiket",
+      downloadAllETickets: "Simpan e-tiket | Simpan semua e-tiket",
       eTicketsLockedNote: "E-tiket Anda akan tersedia setelah pembayaran dikonfirmasi.",
       downloadReceipt: "Unduh kuitansi",
       downloadInvoice: "Unduh invoice",

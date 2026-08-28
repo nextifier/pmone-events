@@ -57,7 +57,7 @@
         </div>
         <div class="frame-panel space-y-3">
           <p class="text-sm tracking-tight">
-            {{ t("tickets.result.paymentPendingNote") }}
+            {{ t("tickets.result.paymentPendingNote", ticketCount) }}
           </p>
           <Button as-child>
             <a :href="order.payment_url">
@@ -200,10 +200,10 @@
           />
           <div class="min-w-0 space-y-1.5">
             <h2 class="text-foreground text-lg font-semibold tracking-tight">
-              {{ t("tickets.result.eTicketSentTitle") }}
+              {{ t("tickets.result.eTicketSentTitle", ticketCount) }}
             </h2>
             <p class="text-sm tracking-tight">
-              {{ t("tickets.result.eTicketSentBody", { email: maskedEmail }) }}
+              {{ t("tickets.result.eTicketSentBody", { email: maskedEmail }, ticketCount) }}
             </p>
             <p class="text-muted-foreground text-sm tracking-tight">
               {{ t("tickets.result.eTicketSentHint") }}
@@ -236,7 +236,7 @@
         v-else-if="isConfirmed && (order.attendees || []).length"
         class="space-y-3"
       >
-        <h2 class="text-foreground text-lg font-semibold tracking-tight">{{ t("tickets.result.yourETickets") }}</h2>
+        <h2 class="text-foreground text-lg font-semibold tracking-tight">{{ t("tickets.result.yourETickets", ticketCount) }}</h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <ETicket
             v-for="att in order.attendees"
@@ -254,7 +254,7 @@
         v-else-if="isPending"
         class="text-muted-foreground rounded-md border border-dashed py-8 text-center text-sm tracking-tight"
       >
-        {{ t("tickets.result.eTicketsLockedNote") }}
+        {{ t("tickets.result.eTicketsLockedNote", ticketCount) }}
       </div>
 
       <!-- Actions -->
@@ -268,7 +268,7 @@
         >
           <Spinner v-if="downloadingAll" class="size-4" />
           <Icon v-else name="hugeicons:download-01" class="size-4 shrink-0" />
-          {{ t("tickets.result.downloadAllETickets") }}
+          {{ t("tickets.result.downloadAllETickets", ticketCount) }}
         </Button>
         <Button v-if="receiptUrl" as-child variant="outline">
           <a :href="receiptUrl" target="_blank" rel="noopener">
@@ -401,6 +401,20 @@ const eticketByEmail = computed(
   () => order.value?.eticket_delivery === "email",
 );
 const maskedEmail = computed(() => order.value?.buyer_email_masked || "");
+
+// Every count-sensitive string on this page runs through here, so a
+// single-ticket order stops reading as "Your tickets are ready". The
+// attendee rows are the e-tickets and exist while the order is still
+// pending; the item quantities are the fallback for a payload fetched
+// without that relation.
+const ticketCount = computed(() => {
+  const attendees = order.value?.attendees;
+  if (Array.isArray(attendees) && attendees.length) return attendees.length;
+  return (order.value?.items || []).reduce(
+    (sum, item) => sum + Number(item.quantity || 0),
+    0,
+  );
+});
 
 const resending = ref(false);
 
@@ -540,7 +554,7 @@ const statusVariant = computed(() => {
 const heroTitle = computed(() => {
   if (isConfirmed.value) {
     return order.value?.is_free
-      ? t("tickets.result.ticketsClaimed")
+      ? t("tickets.result.ticketsClaimed", ticketCount.value)
       : t("tickets.result.paymentSuccessful");
   }
   return t("tickets.result.orderReceived");
@@ -549,15 +563,16 @@ const heroTitle = computed(() => {
 const heroDescription = computed(() => {
   if (isConfirmed.value) {
     return eticketByEmail.value
-      ? t("tickets.result.confirmedByEmailDescription")
-      : t("tickets.result.confirmedDescription");
+      ? t("tickets.result.confirmedByEmailDescription", ticketCount.value)
+      : t("tickets.result.confirmedDescription", ticketCount.value);
   }
   if (isPending.value) {
     // Arrived via magic link => the buyer came back from the gateway (or the
     // emailed link), so their payment is genuinely being confirmed.
     if (magicToken.value) return t("tickets.result.pendingDescription");
     // Fresh from checkout: the link is either ready (pay now) or still generating.
-    if (order.value?.payment_url) return t("tickets.result.awaitingPaymentDescription");
+    if (order.value?.payment_url)
+      return t("tickets.result.awaitingPaymentDescription", ticketCount.value);
     return t("tickets.result.preparingPaymentDescription");
   }
   return t("tickets.result.receivedDescription");

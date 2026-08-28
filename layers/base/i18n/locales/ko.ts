@@ -313,7 +313,7 @@ export default {
       totalPaid: "결제 합계",
       total: "합계",
       downloadETicket: "e-티켓 다운로드",
-      downloadAllETickets: "모든 e-티켓 저장",
+      downloadAllETickets: "e-티켓 저장 | 모든 e-티켓 저장",
       eTicketsLockedNote: "결제가 확인되면 e-티켓을 이용할 수 있습니다.",
       downloadReceipt: "영수증 다운로드",
       downloadInvoice: "인보이스 다운로드",

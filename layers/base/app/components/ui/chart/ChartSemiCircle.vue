@@ -55,9 +55,10 @@
             suffix
           }}</span>
         </div>
-        <span class="text-muted-foreground text-xs tracking-tight sm:text-sm">{{
-          centerLabel
-        }}</span>
+        <!-- text-sm at every width: the centre label carries the denominator
+             ("78% of sold"), and "text-xs sm:text-sm" is still 12px on a phone,
+             which is where the door team reads this. -->
+        <span class="text-muted-foreground text-sm tracking-tight">{{ centerLabel }}</span>
       </div>
     </div>
   </div>

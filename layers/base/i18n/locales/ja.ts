@@ -316,7 +316,7 @@ export default {
       totalPaid: "お支払い合計",
       total: "合計",
       downloadETicket: "e-チケットをダウンロード",
-      downloadAllETickets: "すべてのe-チケットを保存",
+      downloadAllETickets: "e-チケットを保存 | すべてのe-チケットを保存",
       eTicketsLockedNote: "お支払いが確認され次第、e-チケットをご利用いただけます。",
       downloadReceipt: "領収書をダウンロード",
       downloadInvoice: "請求書をダウンロード",

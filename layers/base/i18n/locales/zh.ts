@@ -311,7 +311,7 @@ export default {
       totalPaid: "已付总额",
       total: "总计",
       downloadETicket: "下载电子门票",
-      downloadAllETickets: "保存全部电子门票",
+      downloadAllETickets: "保存电子门票 | 保存全部电子门票",
       eTicketsLockedNote: "付款确认后即可获取您的电子门票。",
       downloadReceipt: "下载收据",
       downloadInvoice: "下载发票",
