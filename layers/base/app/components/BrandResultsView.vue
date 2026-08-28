@@ -129,6 +129,7 @@
               :debounced-search-input="debouncedSearchInput"
               :brand-base-path="brandBasePath"
               :get-conjunction-img="getConjunctionImg"
+              :get-conjunction-brands-url="getConjunctionBrandsUrl"
             />
 
             <template #fallback>
@@ -155,6 +156,7 @@ const props = defineProps({
   debouncedSearchInput: { type: String, default: "" },
   brandBasePath: { type: String, default: "/brands" },
   getConjunctionImg: { type: Function, required: true },
+  getConjunctionBrandsUrl: { type: Function, default: null },
   showProjectColumn: { type: Boolean, default: false },
 });
 

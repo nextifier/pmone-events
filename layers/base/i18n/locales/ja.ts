@@ -1,13 +1,13 @@
 export default {
   fallbackNotice: {
     label: "前回開催",
-    labelWithEdition: "前回開催 · {edition}",
+    labelWithEdition: "前回開催 · 第{n}回",
   },
   header: {
     lightDarkMode: "ライト / ダークモード",
   },
   ui: {
-    edition: "回",
+    editionBadge: "第{n}回",
     viewPoster: "イベントポスターを見る",
     watchTeaser: "イベントの予告編を見る",
     viewAll: "すべて見る",
@@ -57,6 +57,7 @@ export default {
   brands: {
     conjunctionExplore:
       "同じチケットで{eventName}のブランドもお楽しみいただけます。",
+    conjunctionVisit: "{eventName}のブランドページを開く",
     emptyTitle: "ブランドリストは近日公開",
     emptyDescription: "出展者が続々と決定中。誰が参加するかお楽しみに。",
   },

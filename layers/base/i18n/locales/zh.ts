@@ -1,13 +1,13 @@
 export default {
   fallbackNotice: {
     label: "往届",
-    labelWithEdition: "往届 · {edition}",
+    labelWithEdition: "往届 · 第{n}届",
   },
   header: {
     lightDarkMode: "浅色 / 深色模式",
   },
   ui: {
-    edition: "届",
+    editionBadge: "第{n}届",
     viewPoster: "查看活动海报",
     watchTeaser: "观看活动预告片",
     viewAll: "查看全部",
@@ -56,6 +56,7 @@ export default {
   },
   brands: {
     conjunctionExplore: "凭同一张门票，畅游 {eventName} 的精彩 Brand。",
+    conjunctionVisit: "打开 {eventName} 的 Brand 页面",
     emptyTitle: "品牌名单即将公布",
     emptyDescription: "参展商正在陆续加入，敬请期待。",
   },

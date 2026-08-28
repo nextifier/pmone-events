@@ -1,13 +1,13 @@
 export default {
   fallbackNotice: {
-    label: "Edisi sebelumnya",
-    labelWithEdition: "Edisi sebelumnya · {edition}",
+    label: "Dari edisi sebelumnya",
+    labelWithEdition: "Dari edisi ke-{n}",
   },
   header: {
     lightDarkMode: "Light / Dark Mode",
   },
   ui: {
-    edition: "edisi",
+    editionBadge: "Edisi ke-{n}",
     viewPoster: "Lihat poster acara",
     watchTeaser: "Tonton cuplikan acara",
     viewAll: "Lihat semua",
@@ -57,6 +57,7 @@ export default {
   brands: {
     conjunctionExplore:
       "Jelajahi brand dari {eventName} dengan tiket yang sama.",
+    conjunctionVisit: "Buka halaman brand {eventName}",
     emptyTitle: "Daftar brand segera hadir",
     emptyDescription:
       "Exhibitor sedang berdatangan. Cek lagi untuk lihat siapa saja yang ikut.",

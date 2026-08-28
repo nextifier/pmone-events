@@ -12,11 +12,15 @@ import { cn } from "@/lib/utils";
  * active event has none of its own yet). `source` is the API's
  * `meta.fallback.source_event` payload; pass null to render nothing.
  *
- * The label names the edition by its ordinal ("Previous edition · 26th") rather
+ * The label names the edition by its number ("Previous edition · 26th") rather
  * than its full title. The title is almost always the site's own name with an
  * edition marker appended, so it cost a wrapped second line on a 390px phone
- * and returned nothing the ordinal does not already say. Keeping it short is
+ * and returned nothing the number does not already say. Keeping it short is
  * what lets this sit in `Badge`, whose contract is `whitespace-nowrap`.
+ *
+ * The number and the English "th"/"nd" suffix go in as separate params: only
+ * English appends a suffix, so "26th" is "ke-26" in Indonesian and "第26回" in
+ * Japanese. Those locales simply never reference {ordinal}.
  *
  * Not used on FAQ: `FaqTemplate` resolves `{{event_title}}`, `{{event_date}}`
  * and friends against the ACTIVE event, so a borrowed FAQ already reads as the
@@ -29,11 +33,23 @@ const props = defineProps({
 
 const { t } = useI18n();
 
-const edition = computed(() => props.source?.edition_label || "");
+const editionNumber = computed(() => props.source?.edition_number ?? null);
+
+/** "26th" minus "26" - the API only ships the English ordinal, pre-joined. */
+const editionOrdinal = computed(() => {
+  const label = props.source?.edition_label || "";
+  const number = editionNumber.value;
+  return number != null && label
+    ? String(label).replace(String(number), "")
+    : "";
+});
 
 const label = computed(() =>
-  edition.value
-    ? t("fallbackNotice.labelWithEdition", { edition: edition.value })
+  editionNumber.value != null
+    ? t("fallbackNotice.labelWithEdition", {
+        n: editionNumber.value,
+        ordinal: editionOrdinal.value,
+      })
     : t("fallbackNotice.label"),
 );
 </script>

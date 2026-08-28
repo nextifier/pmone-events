@@ -131,11 +131,24 @@ function onUpdate(next) {
        on the same right edge as the price above it.
 
        The painted box is `size-7` while the tap target stays full size through
-       `after:-inset-1.5`, which is invisible but hit-tests. Those are two
-       different jobs: at the button's own 36px the hover background reached up
-       over the price on the line above, and the box also set the height of the
-       whole row, pushing the day and date a third of a line off the ticket name.
-       Shrinking what is DRAWN fixes both without taking anything off the target.
+       `::after`, which is invisible but hit-tests. Those are two different jobs:
+       at the button's own 36px the hover background reached up over the price on
+       the line above, and the box also set the height of the whole row, pushing
+       the day and date a third of a line off the ticket name. Shrinking what is
+       DRAWN fixes both without taking anything off the target.
+
+       The target is anchored by its RIGHT edge (`after:end-0`), not centred on
+       the button, and that is what keeps the order summary from growing a
+       horizontal scrollbar on touch. `.cn-button` already gives every button a
+       coarse-pointer `::after` of `min-w/min-h: --cn-touch-target` (44px); the
+       old `after:-inset-1.5` set `left` AND `right` on that same box, which is
+       over-constrained once a min-width of 44px applies - LTR keeps `left`, so
+       the 44px box grew rightwards from `left: -6px` and its right edge landed
+       16px past the summary's content edge. `.frame-panel` only has 12px of
+       padding and is `overflow-x-auto`, so those 4px turned into a scrollbar
+       across a panel that had nothing to scroll. With only `end` set, the box
+       grows leftwards over the price text instead - not a hit target of its own -
+       and `size-10` gives the mouse the same 40px it had before.
 
        Destructive in BOTH tones, not just on the light surface. The cart bar
        paints `bg-foreground` and remaps `--destructive-foreground` to a red that
@@ -147,7 +160,7 @@ function onUpdate(next) {
     type="button"
     variant="ghost"
     size="icon"
-    class="relative size-7 -me-1.5 after:absolute after:-inset-1.5"
+    class="relative size-7 -me-1.5 after:absolute after:end-0 after:size-10"
     :class="
       inverted
         ? 'text-destructive-foreground hover:bg-destructive/20'

@@ -1,13 +1,13 @@
 export default {
   "fallbackNotice": {
     "label": "Previous edition",
-    "labelWithEdition": "Previous edition · {edition}",
+    "labelWithEdition": "Previous edition · {n}{ordinal}",
   },
   "header": {
     "lightDarkMode": "Light / Dark Mode",
   },
   "ui": {
-    "edition": "edition",
+    "editionBadge": "{n}{ordinal} edition",
     "viewPoster": "View event poster",
     "watchTeaser": "Watch event teaser",
     "viewAll": "View all",
@@ -56,6 +56,7 @@ export default {
   },
   "brands": {
     "conjunctionExplore": "Explore brands from {eventName} with your same ticket.",
+    "conjunctionVisit": "Open the {eventName} brands page",
     "emptyTitle": "Brand list coming soon",
     "emptyDescription": "Exhibitors are signing up now. Check back to see who's in."
   },

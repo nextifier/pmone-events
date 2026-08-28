@@ -56,6 +56,7 @@
         :debounced-search-input="debouncedSearchInput"
         :brand-base-path="brandBasePath"
         :get-conjunction-img="getConjunctionImg"
+        :get-conjunction-brands-url="getConjunctionBrandsUrl"
         :show-project-column="showProjectColumn"
       />
     </div>
@@ -96,6 +97,7 @@ const {
   filteredBrands,
   groupedFilteredSorted,
   getConjunctionImg,
+  getConjunctionBrandsUrl,
   showProjectColumn,
 } = useBrandsListing({ edition: toRef(props, "edition") });
 

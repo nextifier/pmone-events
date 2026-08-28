@@ -131,14 +131,24 @@
 
           <div class="mt-2.5 flex flex-col gap-y-2.5 sm:mt-1.5 sm:gap-y-3">
             <div v-if="event.edition?.value" class="flex">
-              <span
+              <!-- The number and its English ordinal are slots, not baked into
+                   the sentence: "2nd edition" is "Edisi ke-2" in Indonesian and
+                   "第2回" in Japanese, so each locale places the digit itself
+                   and simply leaves {ordinal} out when its grammar has no
+                   English-style suffix. -->
+              <i18n-t
+                keypath="ui.editionBadge"
+                tag="span"
+                scope="global"
                 class="text-foreground bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
-                >{{ event.edition.value
-                }}<span class="align-super text-[10px]">{{
-                  event.edition.ordinal
-                }}</span>
-                {{ t("ui.edition") }}</span
               >
+                <template #n>{{ event.edition.value }}</template>
+                <template #ordinal
+                  ><span class="align-super text-[10px]">{{
+                    event.edition.ordinal
+                  }}</span></template
+                >
+              </i18n-t>
             </div>
 
             <InConjunction />

@@ -50,6 +50,31 @@ export type BadgeVariants = VariantProps<typeof badgeDotVariants>;
 
 export type BadgeVariant = NonNullable<BadgeVariants["variant"]>;
 
+export const badgeVariantNames = [
+  "default",
+  "info",
+  "success",
+  "warning",
+  "destructive",
+  "muted",
+  "outline",
+] as const satisfies readonly BadgeVariant[];
+
+/**
+ * cva returns only the base classes for a value it does not recognise, and the
+ * dot's base is `size-2 rounded-full` with no background - so a variant name
+ * this badge does not have renders an indicator that occupies space and paints
+ * nothing. That is worse than a wrong colour: the badge looks like it simply
+ * has extra padding, and the status it was meant to signal is invisible.
+ *
+ * Callers pass variants from plain `.vue` files where TypeScript never checks
+ * them, so the guard has to be here. An unknown name behaves as if none was
+ * given, which stays visible and is easy to spot in review.
+ */
+export function resolveBadgeVariant(variant?: BadgeVariant | string | null): BadgeVariant {
+  return badgeVariantNames.includes(variant as BadgeVariant) ? (variant as BadgeVariant) : "default";
+}
+
 export const badgeDefaultIcons: Record<BadgeVariant, string> = {
   default: "lucide:circle-dot-dashed",
   info: "lucide:info",

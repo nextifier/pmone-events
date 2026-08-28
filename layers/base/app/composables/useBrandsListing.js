@@ -20,8 +20,12 @@ export const useBrandsListing = (opts = {}) => {
   const event = useEvent();
 
   // Conjunction/profile avatars come from PM One as a conversion object
-  // ({ sm, md, ... }); the brand UI expects a plain URL string.
-  const imgUrl = (image) => image?.sm || image?.url || image || null;
+  // ({ sm, md, ... }); the brand UI expects a plain URL string. `size` picks
+  // the conversion: `sm` is 200x200 and only holds up in the 20-24px filter
+  // rows, so anything rendered larger must ask for `md` (400x400) or it is
+  // upscaled and reads blurry on a hi-DPI screen.
+  const imgUrl = (image, size = "sm") =>
+    image?.[size] || image?.sm || image?.url || image || null;
 
   const editionValue = computed(() => unref(edition));
 
@@ -111,11 +115,30 @@ export const useBrandsListing = (opts = {}) => {
     () => hasConjunctions.value && !editionValue.value,
   );
 
-  const getConjunctionImg = (projectUsername) => {
-    const item = event.inConjunction?.list?.find(
+  const getConjunction = (projectUsername) =>
+    event.inConjunction?.list?.find(
       (c) => c.projectUsername === projectUsername,
-    );
-    return imgUrl(item?.img);
+    ) ?? null;
+
+  const getConjunctionImg = (projectUsername, size = "sm") =>
+    imgUrl(getConjunction(projectUsername)?.img, size);
+
+  /**
+   * Brands page of a conjunction event's own site. `url` is the project's
+   * "Website" link, so it can arrive with or without a trailing slash and is
+   * always cross-origin. No locale prefix: the sibling sites don't all ship the
+   * same locale set, and a missing one would 404 - `/brands` always exists.
+   */
+  const getConjunctionBrandsUrl = (projectUsername) => {
+    const website = getConjunction(projectUsername)?.url;
+    if (!website) return null;
+    try {
+      const url = new URL(website);
+      url.pathname = `${url.pathname.replace(/\/+$/, "")}/brands`;
+      return url.toString();
+    } catch {
+      return null;
+    }
   };
 
   // ----- Brands fetch -----
@@ -375,7 +398,9 @@ export const useBrandsListing = (opts = {}) => {
     groupedFilteredSorted,
     hasConjunctionGroups,
     useConjunctionEndpoint,
+    getConjunction,
     getConjunctionImg,
+    getConjunctionBrandsUrl,
     showProjectColumn,
   };
 };

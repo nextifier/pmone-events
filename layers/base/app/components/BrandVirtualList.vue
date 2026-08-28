@@ -21,6 +21,7 @@
           <BrandConjunctionSeparator
             :group="item.row.group"
             :get-img="getConjunctionImg"
+            :get-url="getConjunctionBrandsUrl"
           />
         </div>
 
@@ -121,6 +122,7 @@ const props = defineProps({
   debouncedSearchInput: { type: String, default: "" },
   brandBasePath: { type: String, default: "/brands" },
   getConjunctionImg: { type: Function, required: true },
+  getConjunctionBrandsUrl: { type: Function, default: null },
 });
 
 const isCard = computed(() => props.variant === "card");

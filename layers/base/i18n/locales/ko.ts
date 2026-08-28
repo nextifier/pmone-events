@@ -1,13 +1,13 @@
 export default {
   fallbackNotice: {
     label: "이전 에디션",
-    labelWithEdition: "이전 에디션 · {edition}",
+    labelWithEdition: "이전 에디션 · 제{n}회",
   },
   header: {
     lightDarkMode: "라이트 / 다크 모드",
   },
   ui: {
-    edition: "회",
+    editionBadge: "제{n}회",
     viewPoster: "행사 포스터 보기",
     watchTeaser: "행사 예고편 보기",
     viewAll: "전체 보기",
@@ -56,6 +56,7 @@ export default {
   },
   brands: {
     conjunctionExplore: "같은 티켓으로 {eventName}의 브랜드까지 둘러보세요.",
+    conjunctionVisit: "{eventName} 브랜드 페이지 열기",
     emptyTitle: "브랜드 리스트 곧 공개",
     emptyDescription: "참가 브랜드가 속속 확정되고 있어요. 곧 다시 확인해 보세요.",
   },

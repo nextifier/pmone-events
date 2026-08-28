@@ -111,14 +111,21 @@
               class="relative isolate z-10 flex flex-col items-center gap-y-4 text-center md:items-end md:text-right"
             >
               <div v-if="event.edition?.value" class="flex">
-                <span
+                <!-- See tickets/index.vue: the digit and the English ordinal are
+                     slots so each locale owns the word order. -->
+                <i18n-t
+                  keypath="ui.editionBadge"
+                  tag="span"
+                  scope="global"
                   class="text-foreground bg-muted rounded-full px-3 py-2 text-sm tracking-tight dark:bg-white/10"
-                  >{{ event.edition.value
-                  }}<span class="align-super text-[10px]">{{
-                    event.edition.ordinal
-                  }}</span>
-                  edition</span
                 >
+                  <template #n>{{ event.edition.value }}</template>
+                  <template #ordinal
+                    ><span class="align-super text-[10px]">{{
+                      event.edition.ordinal
+                    }}</span></template
+                  >
+                </i18n-t>
               </div>
 
               <div

@@ -6,7 +6,13 @@ import { Primitive } from "reka-ui";
 import { computed } from "vue";
 import type { HTMLAttributes } from "vue";
 import type { BadgeVariants } from ".";
-import { badgeDefaultIcons, badgeDotVariants, badgeIconVariants, badgeVariants } from ".";
+import {
+  badgeDefaultIcons,
+  badgeDotVariants,
+  badgeIconVariants,
+  badgeVariants,
+  resolveBadgeVariant,
+} from ".";
 
 const props = defineProps<
   PrimitiveProps & {
@@ -20,8 +26,10 @@ const props = defineProps<
 
 const delegatedProps = reactiveOmit(props, "class", "variant", "icon", "withIcon", "plain");
 
+const resolvedVariant = computed(() => resolveBadgeVariant(props.variant));
+
 const resolvedIcon = computed(
-  () => props.icon ?? (props.withIcon ? badgeDefaultIcons[props.variant ?? "default"] : undefined)
+  () => props.icon ?? (props.withIcon ? badgeDefaultIcons[resolvedVariant.value] : undefined)
 );
 </script>
 
@@ -34,11 +42,11 @@ const resolvedIcon = computed(
     <Icon
       v-if="resolvedIcon"
       :name="resolvedIcon"
-      :class="badgeIconVariants({ variant })"
+      :class="badgeIconVariants({ variant: resolvedVariant })"
     />
     <span
-      v-else-if="variant !== 'outline'"
-      :class="badgeDotVariants({ variant })"
+      v-else-if="resolvedVariant !== 'outline'"
+      :class="badgeDotVariants({ variant: resolvedVariant })"
       aria-hidden="true"
     />
     <span>
