@@ -435,18 +435,21 @@
 
       <!-- Province / City: narrowed by the parent named in settings.depends_on.
            Only reached when the country is Indonesia - otherwise the field is
-           withdrawn above. City is present but disabled until a province is
-           picked, so the buyer can see what is coming. -->
+           withdrawn above. City is answerable on its own: with no province
+           chosen it lists every regency with its province beside it, and the
+           pick backfills province. -->
       <LocationCombobox
         :id="fieldId"
         v-else-if="isLocationDependent"
         :model-value="modelValue"
         :options="locationOptions"
-        :pinned="normalized.type === 'province' ? ['DKI Jakarta'] : []"
-        :disabled="disabled || (normalized.type === 'city' && !parentValue)"
+        :pinned="pinnedLocations"
+        :group="cityListSpansProvinces"
+        :group-order="[DKI_JAKARTA]"
+        :disabled="disabled"
         :placeholder="
           normalized.placeholder ||
-          (normalized.type === 'province' ? 'Select province' : 'Select city')
+          (normalized.type === 'province' ? 'Select province' : 'Search any city or regency')
         "
         @update:model-value="$emit('update:modelValue', $event)"
       />
@@ -677,7 +680,12 @@ import {
 import { Textarea } from "../textarea";
 import { TimePicker, TimeRangePicker } from "../date-picker";
 import { countries as defaultCountries } from "./countries";
-import { normalizeField, parseLocalDateString, toLocalDateString } from "./core";
+import {
+  normalizeField,
+  parseLocalDateString,
+  shortProvinceLabel,
+  toLocalDateString,
+} from "./core";
 
 // Lazily loaded so the rich-text editor (and its heavy TipTap graph) only
 // enters the bundle when a rich_text field actually renders. This also keeps
@@ -702,6 +710,14 @@ const props = defineProps({
   // `settings.depends_on`, which this component would otherwise never see: it
   // renders one field and is handed only that field's value.
   contextValues: { type: Object, default: () => ({}) },
+  /**
+   * `system_key`s of sibling fields the form answers on the respondent's behalf,
+   * so they are not rendered. A dependent field must not narrow itself to a
+   * parent nobody chose: the province is set only because the city set it, and
+   * narrowing on it would lock the list to that one province the moment anything
+   * is picked. Supplied by `CustomFieldGroup`; empty everywhere else.
+   */
+  derivedSystemKeys: { type: Array, default: () => [] },
   pinnedCountries: { type: Array, default: () => ["Indonesia"] },
   uploadHandler: { type: Function, default: null },
   revertHandler: { type: Function, default: null },
@@ -742,24 +758,76 @@ const parentValue = computed(() => {
 // province depends on country; city depends on province, which itself only has
 // options inside Indonesia. Walking up one more level keeps the city field from
 // offering a dropdown when the country is not Indonesia.
+/** Whether the parent this field depends on is one the form fills in itself. */
+const isParentDerived = computed(() => {
+  const key = normalized.value.settings?.depends_on;
+  return !!key && props.derivedSystemKeys.includes(key);
+});
+
 const countryValue = computed(() => {
   if (normalized.value.type === "province") return parentValue.value;
   return props.contextValues?.country ?? null;
 });
 
+/**
+ * City is no longer gated on province. Answering province first still narrows the
+ * list exactly as before, but leaving it blank now offers every regency with its
+ * province beside it, so someone who knows their city but not which province it
+ * sits in can still answer. That pick backfills province in `CustomFieldGroup`,
+ * so the stored answer is the same either way.
+ *
+ * The province rides along as `description` rather than being folded into the
+ * label, because the label is what gets stored.
+ */
+/**
+ * One predicate, used both to build the options and to switch grouping on, so the
+ * two can no longer disagree. A city list spans every province unless a province
+ * the respondent actually chose has narrowed it - a province the city pick filled
+ * in does not count, or the list would collapse to one province the moment
+ * anything is picked, and the grouping would switch itself off with it.
+ */
+const cityListSpansProvinces = computed(
+  () =>
+    normalized.value.type === "city" && (!parentValue.value || isParentDerived.value)
+);
+
 const locationOptions = computed(() => {
   if (!regions.value || !isLocationDependent.value) return [];
   if (!regions.value.isIndonesia(countryValue.value)) return [];
-  return normalized.value.type === "province"
-    ? regions.value.INDONESIA_PROVINCES
-    : regions.value.citiesForProvinceLabel(parentValue.value);
+  if (normalized.value.type === "province") return regions.value.INDONESIA_PROVINCES;
+  if (!cityListSpansProvinces.value) {
+    return regions.value.citiesForProvinceLabel(parentValue.value);
+  }
+
+  const provinceLabels = new Map(
+    regions.value.INDONESIA_PROVINCES.map((province) => [
+      province.value,
+      shortProvinceLabel(province.label),
+    ])
+  );
+  return regions.value.INDONESIA_CITIES.map((city) => ({
+    ...city,
+    description: provinceLabels.get(city.province) ?? "",
+  }));
 });
+
+const DKI_JAKARTA = "DKI Jakarta";
+
+/**
+ * Jakarta sits at the top of both lists, the way Indonesia does on Country: it
+ * is where most respondents are, and scrolling past Aceh to reach it is the
+ * first thing they would otherwise do. On the city list this only applies while
+ * the list spans every province - once a province is chosen the order is its
+ * own, and pinning inside DKI Jakarta would pin the whole list.
+ */
+const pinnedLocations = computed(() =>
+  normalized.value.type === "province" ? [DKI_JAKARTA] : []
+);
 
 /**
  * The field only exists once the country it hangs off is Indonesia - before
  * that there is nothing to choose from, and a dropdown offering nothing is
- * worse than no dropdown. City stays visible but disabled until a province is
- * picked, which is how `AddressFields.vue` behaves.
+ * worse than no dropdown.
  *
  * A withdrawn field must not be required either; see
  * `CustomFieldValidation::errorsFor()`, which skips the same cases server-side.
@@ -770,13 +838,27 @@ const isDependentHidden = computed(
     (!regions.value || !regions.value.isIndonesia(countryValue.value)),
 );
 
-// A stale child is worse than an empty one: changing province must not leave the
-// previous province's city sitting in the answer.
+/**
+ * A stale child is worse than an empty one: changing province must not leave the
+ * previous province's city sitting in the answer.
+ *
+ * "Stale" means the answer no longer belongs to the new parent, not merely that
+ * the parent moved. That distinction is load-bearing now that picking a city
+ * backfills its province: the province changes, this watch fires, and clearing
+ * unconditionally would wipe the city just chosen.
+ */
 watch(parentValue, (next, prev) => {
   if (prev === undefined || next === prev) return;
-  if (isLocationDependent.value && props.modelValue) {
-    emit("update:modelValue", null);
+  if (!isLocationDependent.value || !props.modelValue) return;
+
+  if (normalized.value.type === "city" && regions.value?.isIndonesia(countryValue.value)) {
+    const stillBelongs = regions.value
+      .citiesForProvinceLabel(next)
+      .some((city) => city.label === props.modelValue);
+    if (stillBelongs) return;
   }
+
+  emit("update:modelValue", null);
 });
 
 

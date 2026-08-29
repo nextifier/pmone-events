@@ -44,21 +44,28 @@
             </h1>
 
             <p
-              class="text-foreground mt-4 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
+              class="text-foreground mt-2 max-w-xl text-base tracking-tight text-pretty sm:text-lg"
             >
               {{ content.description }}
             </p>
 
-            <div class="mt-6 flex w-full gap-2 md:flex-wrap md:gap-3">
-              <Button :to="localePath('/tickets')" size="xl" v-ripple>
+            <div class="mt-4 flex w-full gap-2 md:flex-wrap md:gap-3">
+              <Button
+                v-ripple
+                variant="default"
+                size="lg"
+                :to="localePath('/tickets')"
+                class="sm:text-base"
+              >
                 {{ $t("hero.ctaTicket") }}
               </Button>
 
               <Button
-                :to="localePath('/book-space')"
-                variant="secondary"
-                size="xl"
                 v-ripple
+                variant="secondary"
+                size="lg"
+                :to="localePath('/book-space')"
+                class="sm:text-base"
               >
                 {{ $t("hero.ctaExhibit") }}
               </Button>

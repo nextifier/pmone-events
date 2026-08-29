@@ -21,7 +21,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     data-slot="combobox-chip-input"
     :class="
       cn(
-        'cn-combobox-chip-input placeholder:text-muted-foreground min-w-16 flex-1 bg-transparent px-0 py-0 outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        'cn-combobox-chip-input placeholder:text-placeholder min-w-16 flex-1 bg-transparent px-0 py-0 outline-none disabled:cursor-not-allowed disabled:opacity-50',
         props.class
       )
     "

@@ -379,7 +379,7 @@ watch(focusedIndex, (idx) => {
         :class="
           cn(
             'cn-input hover:bg-muted/50 data-[state=open]:bg-muted/50 flex w-full cursor-pointer items-center gap-x-2 tracking-tight disabled:cursor-not-allowed disabled:opacity-50',
-            !modelValue && 'text-muted-foreground'
+            !modelValue && 'text-placeholder'
           )
         "
       >
@@ -475,17 +475,15 @@ watch(focusedIndex, (idx) => {
         </div>
 
         <!-- No results -->
-        <div
-          v-else-if="query && !loading && !results.length"
-          class="text-muted-foreground p-6 text-center text-sm tracking-tight"
-        >
-          <Icon
-            name="hugeicons:search-remove"
-            class="text-muted-foreground/50 mx-auto mb-2 size-8"
-          />
-          <p>No icons found</p>
-          <p class="text-muted-foreground/70 mt-1 text-sm">Try a different keyword</p>
-        </div>
+        <Empty v-else-if="query && !loading && !results.length" class="p-6">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <Icon name="hugeicons:search-remove" />
+            </EmptyMedia>
+            <EmptyTitle>No icons found</EmptyTitle>
+            <EmptyDescription>Try a different keyword.</EmptyDescription>
+          </EmptyHeader>
+        </Empty>
 
         <!-- Recent -->
         <div v-else-if="showRecent">

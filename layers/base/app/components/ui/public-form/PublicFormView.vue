@@ -120,8 +120,9 @@
           v-model:respondent-email="respondentEmail"
           v-model:honeypot="honeypotWebsite"
           :form="form"
-          :fields="sortedFields"
+          :fields="renderedFields"
           :responses="responses"
+          :context-values="contextValues"
           :form-errors="formErrors"
           :locale="locale"
           :upload-handlers="uploadHandlers"
@@ -139,7 +140,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref, useId, watch } from "vue";
+import { computed, nextTick, onMounted, ref, shallowRef, useId, watch } from "vue";
 import { useDebounceFn, useResizeObserver } from "@vueuse/core";
 import { ChevronDown } from "@lucide/vue";
 import {
@@ -157,7 +158,10 @@ import PublicFormSteps from "./PublicFormSteps.vue";
 import { BlurImage } from "../blur-image";
 import {
   prefillValueFor as coercePrefill,
+  contextValuesFor,
   defaultValueFor,
+  derivedFieldKeys,
+  derivedLocationValues,
   supportsPrefill,
 } from "../custom-field";
 import { Result } from "../result";
@@ -213,14 +217,55 @@ const honeypotWebsite = ref("");
 const honeypotToken = ref("");
 
 const sortedFields = computed(() => sortFormFields(props.form?.fields));
+
+/**
+ * What the body actually renders. A field the form answers on the respondent's
+ * behalf is dropped rather than shown as a control nobody has to touch; it stays
+ * in `sortedFields`, so it is still answered, still stored, still exported. In
+ * the questionnaire body this also removes its step, so nobody is walked through
+ * a question that fills itself in. See `derivedFieldKeys`.
+ */
+const renderedFields = computed(() => {
+  const derived = derivedFieldKeys(sortedFields.value);
+  return derived.size
+    ? sortedFields.value.filter((field) => !derived.has(String(field.ulid)))
+    : sortedFields.value;
+});
 const coverSrcset = computed(() => buildCoverSrcset(props.form?.cover_image));
 
 // Absent on forms created before the setting existed, which is exactly the
 // single-page behaviour they already had.
 const isMultiStep = computed(() => props.form?.settings?.layout === "multi_step");
 
+/**
+ * The dependent location fields need to see their siblings' answers. Without
+ * this, a province or city on a public form decides its country is missing and
+ * withdraws itself, so neither has ever rendered on `/f/{slug}`, even for
+ * Indonesia.
+ */
+const contextValues = computed(() => contextValuesFor(sortedFields.value, responses.value));
+
+const cityField = computed(() => sortedFields.value.find((field) => field?.type === "city") ?? null);
+const regions = shallowRef(null);
+
+watch(
+  cityField,
+  async (field) => {
+    if (!field || regions.value) return;
+    regions.value = await import("../custom-field/indonesiaRegions");
+  },
+  { immediate: true }
+);
+
 const setResponse = (ulid, value) => {
   responses.value[ulid] = value;
+
+  // Answering a city answers its province too; see `derivedLocationValues`.
+  const field = sortedFields.value.find((row) => String(row.ulid) === String(ulid));
+  Object.assign(
+    responses.value,
+    derivedLocationValues(field, value, sortedFields.value, regions.value)
+  );
 };
 
 /* ----- Description clamp ----- */

@@ -20,6 +20,7 @@
         :preview="preview"
         :existing-files="existingFiles[fieldKey(field)] || []"
         :context-values="contextValues"
+        :derived-system-keys="derivedSystemKeys"
         :upload-handler="uploadHandler"
         :revert-handler="revertHandler"
         @update:model-value="update(field, $event)"
@@ -30,9 +31,19 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, shallowRef, watch } from "vue";
 import CustomFieldRenderer from "./CustomFieldRenderer.vue";
-import { defaultValueFor, normalizeField } from "./core";
+import { countries } from "./countries";
+import {
+  contextValuesFor,
+  defaultValueFor,
+  derivedFieldKeys,
+  derivedLocationValues,
+  normalizeField,
+} from "./core";
+
+// Auto-imported composable; all three repos sharing this folder ship it.
+const { getCountryCode } = usePhoneCountry();
 
 const props = defineProps({
   fields: { type: Array, default: () => [] },
@@ -54,6 +65,14 @@ const props = defineProps({
   existingFiles: { type: Object, default: () => ({}) },
   // The value-map key: "ulid" (default) or "key" (brand profile).
   valueKey: { type: String, default: "ulid" },
+  /**
+   * The respondent's phone number, when the surrounding form already asks for
+   * one. A blank country field is seeded from its dial code, because a checkout
+   * that already knows the buyer is on +62 should not make them say so again.
+   * Only ever fills a blank: a country they picked, or one that arrived with the
+   * record, is never overwritten.
+   */
+  phone: { type: String, default: "" },
 });
 
 const emit = defineEmits(["update:modelValue", "uploading"]);
@@ -69,7 +88,30 @@ const fieldKey = (field) => String(field[props.valueKey] ?? field.ulid ?? field.
  * `!== false` rather than falsy: a locally built draft field may carry no
  * `is_active` at all, and that means "not stated", not "hidden".
  */
-const visibleFields = computed(() => props.fields.filter((field) => field.is_active !== false));
+const activeFields = computed(() => props.fields.filter((field) => field.is_active !== false));
+
+/**
+ * What actually gets rendered. A field the form fills in on the respondent's
+ * behalf is dropped here rather than shown as a control nobody has to touch; it
+ * stays in `activeFields`, so it is still answered, still stored, still
+ * exported. See `derivedFieldKeys`.
+ */
+const derivedKeys = computed(() => derivedFieldKeys(props.fields, props.valueKey));
+const visibleFields = computed(() =>
+  activeFields.value.filter((field) => !derivedKeys.value.has(fieldKey(field)))
+);
+
+/**
+ * The same set named by `system_key`, which is how a dependent field refers to
+ * its parent. A city whose province field is hidden must not narrow itself to
+ * that province: the province is only set because the city set it, so narrowing
+ * would lock the list to one province the moment anything is chosen.
+ */
+const derivedSystemKeys = computed(() =>
+  activeFields.value
+    .filter((field) => derivedKeys.value.has(fieldKey(field)) && field?.system_key)
+    .map((field) => field.system_key)
+);
 
 /**
  * Answers re-keyed by `system_key`, for fields that depend on a sibling.
@@ -80,19 +122,82 @@ const visibleFields = computed(() => props.fields.filter((field) => field.is_act
  * `system_key` rather than ulid because `settings.depends_on` names a stable
  * library key, not a per-event id.
  */
-const contextValues = computed(() => {
-  const out = {};
-  for (const field of props.fields) {
-    if (field?.system_key) {
-      out[field.system_key] = props.modelValue[fieldKey(field)] ?? null;
-    }
-  }
-  return out;
-});
+const contextValues = computed(() =>
+  contextValuesFor(props.fields, props.modelValue, props.valueKey)
+);
 
+/**
+ * Loaded only when a city field is on screen, mirroring how the renderer imports
+ * it. ~39 KB, and most forms never ask for a city.
+ */
+const regions = shallowRef(null);
+const fieldOfType = (type) => activeFields.value.find((field) => field?.type === type) ?? null;
+const cityField = computed(() => fieldOfType("city"));
+const countryField = computed(() => fieldOfType("country"));
+
+watch(
+  cityField,
+  async (field) => {
+    if (!field || regions.value) return;
+    regions.value = await import("./indonesiaRegions");
+  },
+  { immediate: true }
+);
+
+/**
+ * Both keys have to land in one emit, or the second would spread a stale
+ * `modelValue` and drop the first.
+ */
 const update = (field, value) => {
-  emit("update:modelValue", { ...props.modelValue, [fieldKey(field)]: value });
+  emit("update:modelValue", {
+    ...props.modelValue,
+    [fieldKey(field)]: value,
+    ...derivedLocationValues(field, value, activeFields.value, regions.value, props.valueKey),
+  });
 };
+
+/**
+ * A stored record can arrive carrying a city and a province that no longer agree,
+ * because region data gets corrected over time. While the province is hidden
+ * that mismatch would fail validation against a control nobody can see, so it is
+ * re-derived from the city. Only ever while hidden: a province still on screen is
+ * the respondent's to answer.
+ */
+const cityValue = computed(() =>
+  cityField.value ? props.modelValue[fieldKey(cityField.value)] : null
+);
+
+watch(
+  [regions, cityValue, derivedKeys],
+  ([loaded, city, derived]) => {
+    if (!loaded || !city || !derived.size || !cityField.value) return;
+    const patch = derivedLocationValues(
+      cityField.value,
+      city,
+      activeFields.value,
+      loaded,
+      props.valueKey
+    );
+    const [key] = Object.keys(patch);
+    if (key && patch[key] !== props.modelValue[key]) {
+      emit("update:modelValue", { ...props.modelValue, ...patch });
+    }
+  },
+  { immediate: true }
+);
+
+// Seed a blank country from the phone's dial code. Never overwrites an answer.
+watch(
+  [() => props.phone, countryField],
+  ([phone, field]) => {
+    if (!phone || !field || props.modelValue[fieldKey(field)]) return;
+    const iso = getCountryCode(phone);
+    const label = iso ? (countries.find((row) => row.value === iso)?.label ?? "") : "";
+    if (!label) return;
+    emit("update:modelValue", { ...props.modelValue, [fieldKey(field)]: label });
+  },
+  { immediate: true }
+);
 
 // First error for a field, including nested keys (date_range .start/.end,
 // array item .*) — the firstFieldError logic every consumer used to inline.
@@ -109,7 +214,7 @@ const errorFor = (field) => {
 // Seed missing values with per-type defaults so controls render correctly.
 onMounted(() => {
   const patch = {};
-  for (const field of visibleFields.value) {
+  for (const field of activeFields.value) {
     const key = fieldKey(field);
     if (props.modelValue[key] === undefined) {
       patch[key] = defaultValueFor(normalizeField(field, props.locale));

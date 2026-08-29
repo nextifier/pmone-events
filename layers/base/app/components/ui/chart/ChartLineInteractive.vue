@@ -25,7 +25,7 @@
         </button>
       </div>
     </div>
-    <div class="px-2 pt-4 pb-2 sm:px-6">
+    <div ref="plot" class="px-2 pt-4 pb-2 sm:px-6">
       <ChartContainer :config="config" class="aspect-auto h-[250px] w-full" cursor>
         <VisXYContainer :data="data" :margin="{ left: 4, right: 4 }" :y-domain="[0, undefined]">
           <VisLine :x="(d) => d[xKey]" :y="(d) => d[activeChart]" :color="activeColor" />
@@ -35,7 +35,7 @@
             :tick-line="false"
             :domain-line="false"
             :grid-line="false"
-            :num-ticks="xTickCount"
+            :tick-values="xTickValues"
             :tick-format="xFormat"
           />
           <VisAxis
@@ -91,24 +91,65 @@ const props = defineProps({
 });
 
 /**
- * One tick per distinct day, capped.
+ * Where the labels go.
  *
- * The hardcoded 6 asked Unovis for six ticks regardless of how many days the
- * series actually held, so a three-day range came back "Jun 21 · Jun 21 · Jun 21
- * · Jun 22 …" - the date scale interpolating between real points and the
- * formatter rounding them all back to the same label. Reads as a rendering fault
- * rather than as a short range. Same fix ChartLine already carries.
+ * `numTicks` is a HINT: Unovis hands it to d3, which answers with round
+ * intervals in TIME rather than with positions in the data. Over three days it
+ * drew four ticks twelve hours apart - "Aug 26 · Aug 26 · Aug 27 · Aug 28" -
+ * two of them naming the same day, which reads as a rendering fault rather than
+ * as a short range. Naming the values outright takes the guess away: every
+ * label sits on a real day, and a day either gets its own label or none.
+ *
+ * The count follows the WIDTH at ~78px a label, the same density the reference
+ * works out to, rather than the old fixed six that gave a 1470px chart and a
+ * 340px one the same handful.
  */
-const xTickCount = computed(() => {
-  const days = new Set(
-    (props.data ?? []).map((d) => {
-      const value = d?.[props.xKey];
-      const date = value instanceof Date ? value : new Date(value);
-      return Number.isNaN(date.getTime()) ? String(value) : date.toDateString();
-    })
-  );
+const plot = ref(null);
+const plotWidth = ref(0);
+let plotObserver = null;
 
-  return Math.max(2, Math.min(6, days.size));
+onMounted(() => {
+  if (!plot.value || typeof ResizeObserver === "undefined") return;
+  plotObserver = new ResizeObserver(([entry]) => {
+    plotWidth.value = entry.contentRect.width;
+  });
+  plotObserver.observe(plot.value);
+});
+
+onBeforeUnmount(() => plotObserver?.disconnect());
+
+// Unovis scales everything through `+value`, so the axis wants the same
+// milliseconds the series is plotted at rather than the Date objects.
+const xValues = computed(() =>
+  (props.data ?? [])
+    .map((d) => {
+      const value = d?.[props.xKey];
+      return value instanceof Date ? value.getTime() : new Date(value).getTime();
+    })
+    .filter((value) => !Number.isNaN(value))
+);
+
+/**
+ * Walked BACKWARDS from the last point: the most recent one is what the reader
+ * looks for, and anchoring on the first left it unlabelled whenever the step
+ * did not divide the range evenly.
+ */
+const xTickValues = computed(() => {
+  const values = xValues.value;
+
+  if (values.length < 2) return values;
+
+  const fits = Math.max(2, Math.floor((plotWidth.value || 480) / 78));
+  const step = Math.ceil(values.length / fits);
+
+  if (step <= 1) return values;
+
+  const out = [];
+  for (let i = values.length - 1; i >= 0; i -= step) {
+    out.unshift(values[i]);
+  }
+
+  return out;
 });
 
 const keys = computed(() =>
@@ -125,7 +166,19 @@ const totals = computed(() =>
   )
 );
 
-const activeColor = computed(() => props.config[activeChart.value]?.color || "var(--chart-1)");
+/**
+ * One colour, whichever metric is selected.
+ *
+ * The buttons switch WHAT is plotted, not which of several co-plotted series to
+ * look at - only ever one is on screen. A colour that changes with the selection
+ * therefore encodes nothing, while looking like it encodes something; and since
+ * the ramp gets paler further along it, picking Revenue used to wash the whole
+ * chart out next to Tickets for no reason a reader could name. The first key's
+ * colour is the card's colour, and it stays put.
+ */
+const activeColor = computed(
+  () => props.config[keys.value[0]]?.color || "var(--chart-1)"
+);
 
 const xFormat = (d) =>
   new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric" });

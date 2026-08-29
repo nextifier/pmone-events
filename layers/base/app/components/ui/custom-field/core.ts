@@ -431,3 +431,98 @@ export const parseLocalDateString = (value: string | null | undefined): Date | n
   const [, y, m, d] = match;
   return new Date(Number(y), Number(m) - 1, Number(d));
 };
+
+/**
+ * Answers re-keyed by `system_key`, which is what `settings.depends_on` names.
+ *
+ * A renderer is handed one field and one value, so a dependent select (city
+ * narrowing on province) cannot see its parent on its own. Only whoever holds
+ * every answer can build this, so every surface that renders fields one at a
+ * time has to pass the result down: without it a province or city field decides
+ * its country is missing and withdraws itself, even inside Indonesia.
+ */
+export const contextValuesFor = (
+  fields: Array<Record<string, any>>,
+  values: Record<string, any>,
+  keyBy = "ulid"
+): Record<string, any> => {
+  const out: Record<string, any> = {};
+  for (const field of fields) {
+    if (!field?.system_key) continue;
+    const key = String(field[keyBy] ?? field.ulid ?? field.id ?? "");
+    out[field.system_key] = values[key] ?? null;
+  }
+  return out;
+};
+
+/**
+ * The extra answers a city pick implies, keyed the same way as the value map.
+ *
+ * Answering a city answers its province too, so nobody has to know that
+ * Tangerang Selatan sits in Banten before they can name their own city. The
+ * province is still stored as its own field with its own label, so
+ * `custom_field_values`, exports and analytics are unchanged.
+ *
+ * `regions` is the lazily imported `indonesiaRegions` module; pass null before
+ * it has loaded and this is a no-op.
+ */
+export const derivedLocationValues = (
+  field: Record<string, any> | null | undefined,
+  value: unknown,
+  fields: Array<Record<string, any>>,
+  regions: Record<string, any> | null,
+  keyBy = "ulid"
+): Record<string, string> => {
+  if (!regions || field?.type !== "city" || typeof value !== "string" || !value) return {};
+
+  const province = fields.find((f) => f?.type === "province");
+  if (!province) return {};
+
+  const city = regions.INDONESIA_CITIES.find((row: any) => row.label === value);
+  const match = city
+    ? regions.INDONESIA_PROVINCES.find((row: any) => row.value === city.province)
+    : null;
+  if (!match) return {};
+
+  const key = String(province[keyBy] ?? province.ulid ?? province.id ?? "");
+  return key ? { [key]: match.label } : {};
+};
+
+/**
+ * Fields the form answers on someone's behalf, so it should not also ask.
+ *
+ * Province is the only one today: picking a city answers it, so showing it too
+ * is a control nobody has to touch. It is still a field, still stored, still in
+ * exports and analytics - it just is not put to the respondent.
+ *
+ * The exception is a province the organiser marked required. Hiding a required
+ * field means a form that can be blocked by something the respondent was never
+ * shown, so that one stays on screen and simply fills itself in when a city is
+ * chosen.
+ */
+export const derivedFieldKeys = (
+  fields: Array<Record<string, any>>,
+  keyBy = "ulid"
+): Set<string> => {
+  const active = fields.filter((field) => field?.is_active !== false);
+  const city = active.find((field) => field?.type === "city");
+  const province = active.find((field) => field?.type === "province");
+  if (!city || !province) return new Set();
+
+  const required = province.validation?.required ?? province.required ?? false;
+  if (required) return new Set();
+
+  const key = String(province[keyBy] ?? province.ulid ?? province.id ?? "");
+  return key ? new Set([key]) : new Set();
+};
+
+/**
+ * Province name shortened for display beside a city, never for storage.
+ *
+ * On a phone the row has about 300px for a city, its province and a check.
+ * "Kabupaten Bangka Selatan" next to "Kepulauan Bangka Belitung" does not fit,
+ * and the city is the part being chosen, so the province is what gives way. Only
+ * the two long prefixes are touched; everything else is already short enough.
+ */
+export const shortProvinceLabel = (label: string): string =>
+  label.replace(/^Kepulauan /, "Kep. ").replace(/^Daerah Istimewa /, "DI ");

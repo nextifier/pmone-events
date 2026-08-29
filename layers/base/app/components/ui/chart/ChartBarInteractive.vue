@@ -27,7 +27,12 @@
     </div>
     <div ref="plot" class="px-2 pt-4 pb-2 sm:px-6">
       <ChartContainer :config="config" class="aspect-auto h-[250px] w-full" cursor>
-        <VisXYContainer :data="data" :margin="{ left: 4, right: 4 }" :y-domain="yDomain">
+        <VisXYContainer
+          :data="data"
+          :margin="{ left: 4, right: 4 }"
+          :x-domain="xDomain"
+          :y-domain="yDomain"
+        >
           <!-- 0.11, measured against the reference rather than guessed.
                Recharts leaves `barCategoryGap` at its "10%" default there, and
                the rendered result is a 15.36px band carrying a 12px bar - a
@@ -35,11 +40,18 @@
                of the band, so the same ratio needs half the number: (1-0.781)/2.
                Setting 0.22 by reading the Recharts value straight across gave
                0.603 and visibly thinner bars. -->
+          <!-- Capped, because a band is not a bar. Three days of data hand the
+               group a third of the plot, and 0.8 of that came out a 280px slab
+               per day - a block chart, not a bar chart. 64px is the widest band
+               shadcn's own bar cards ever draw (six months in a 350px card),
+               and it only ever binds under about three weeks of data: past
+               that the band is already narrower and the cap does nothing. -->
           <VisGroupedBar
             :x="(d) => d[xKey]"
             :y="(d) => d[activeChart]"
             :color="activeColor"
             :bar-padding="0.11"
+            :group-max-width="96"
           />
           <VisAxis
             type="x"
@@ -47,7 +59,7 @@
             :tick-line="false"
             :domain-line="false"
             :grid-line="false"
-            :num-ticks="xTickCount"
+            :tick-values="xTickValues"
             :tick-format="xFormat"
           />
           <!-- No y axis by default, matching the reference: the totals in the
@@ -112,17 +124,14 @@ const props = defineProps({
 });
 
 /**
- * Tick count follows the WIDTH, not a fixed number.
+ * Where the labels go, and how much room each bar gets.
  *
- * The hardcoded 6 gave a 1470px chart the same six labels as a 340px one - the
- * reference fits about nineteen at that width and five on a phone. Capping it at
- * six was my own overcorrection for a different bug: a three-day range used to
- * come back "Jun 21 · Jun 21 · Jun 21" because the date scale interpolated
- * between the only real points it had. Filling the missing days at the call site
- * removed that cause, so the count is free to follow the space again.
- *
- * ~78px per label is what the reference works out to. Never more ticks than
- * there are distinct days, or the interpolation problem comes straight back.
+ * `numTicks` was only ever a HINT: Unovis hands it to d3, which answers with
+ * round intervals in TIME rather than with positions in the data. Over three
+ * days it drew four ticks twelve hours apart - "Aug 26 · Aug 26 · Aug 27 ·
+ * Aug 28" - two of them naming the same day, none of them under a bar. Naming
+ * the values outright takes the guess away: every label sits on a real day, and
+ * a day either gets its own label or none.
  */
 const plot = ref(null);
 const plotWidth = ref(0);
@@ -138,23 +147,62 @@ onMounted(() => {
 
 onBeforeUnmount(() => plotObserver?.disconnect());
 
-const xTickCount = computed(() => {
-  const days = new Set(
-    (props.data ?? []).map((d) => {
+// Unovis scales everything through `+value`, so the axis wants the same
+// milliseconds the bars are placed at rather than the Date objects.
+const xValues = computed(() =>
+  (props.data ?? [])
+    .map((d) => {
       const value = d?.[props.xKey];
-      const date = value instanceof Date ? value : new Date(value);
-      return Number.isNaN(date.getTime()) ? String(value) : date.toDateString();
+      return value instanceof Date ? value.getTime() : new Date(value).getTime();
     })
-  );
+    .filter((value) => !Number.isNaN(value))
+);
 
-  // The reference draws one label per ~75px. Unovis treats num-ticks as a HINT
-  // and snaps to a whole-day interval, so the drawn count jumps rather than
-  // slides: at 1518px, asking for 19 draws 24 (every 6 days) and asking for 15
-  // draws 12 (every 12 days). Nothing in between exists. 78 picks the 24 - 63px
-  // a label, denser than the reference but far closer than 127px would be.
-  const fits = plotWidth.value > 0 ? Math.round(plotWidth.value / 78) : 6;
+/**
+ * Half a step of air at each end, which is what turns a continuous time axis
+ * into the reference's row of bands.
+ *
+ * Unovis pads the domain by itself, but only enough to keep a bar from being
+ * CLIPPED - the first one still sits centred on the very first pixel of the
+ * plot, and over a handful of days that reads as two half-bars pinned to the
+ * card's edges. Stating the domain puts every bar in the middle of its own
+ * share of the width, exactly where its label now goes.
+ */
+const xDomain = computed(() => {
+  const values = xValues.value;
 
-  return Math.max(2, Math.min(fits, days.size, 24));
+  if (values.length < 2) return undefined;
+
+  const first = values[0];
+  const last = values[values.length - 1];
+  const half = (last - first) / (values.length - 1) / 2;
+
+  return [first - half, last + half];
+});
+
+/**
+ * One label per ~78px of plot, thinned by whole data points.
+ *
+ * Walked BACKWARDS from the last day: the most recent one is what the reader
+ * looks for, and anchoring on the first left it unlabelled whenever the step
+ * did not divide the range evenly.
+ */
+const xTickValues = computed(() => {
+  const values = xValues.value;
+
+  if (values.length < 2) return values;
+
+  const fits = Math.max(2, Math.floor((plotWidth.value || 480) / 78));
+  const step = Math.ceil(values.length / fits);
+
+  if (step <= 1) return values;
+
+  const out = [];
+  for (let i = values.length - 1; i >= 0; i -= step) {
+    out.unshift(values[i]);
+  }
+
+  return out;
 });
 
 const keys = computed(() =>
@@ -194,7 +242,19 @@ const totals = computed(() =>
   )
 );
 
-const activeColor = computed(() => props.config[activeChart.value]?.color || "var(--chart-1)");
+/**
+ * One colour, whichever metric is selected.
+ *
+ * The buttons switch WHAT is plotted, not which of several co-plotted series to
+ * look at - only ever one is on screen. A colour that changes with the selection
+ * therefore encodes nothing, while looking like it encodes something; and since
+ * the ramp gets paler further along it, picking Revenue used to wash the whole
+ * chart out next to Tickets for no reason a reader could name. The first key's
+ * colour is the card's colour, and it stays put.
+ */
+const activeColor = computed(
+  () => props.config[keys.value[0]]?.color || "var(--chart-1)"
+);
 
 const xFormat = (d) =>
   new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric" });

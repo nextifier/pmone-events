@@ -133,7 +133,7 @@
                 v-model="linkUrl"
                 type="url"
                 placeholder="https://example.com"
-                class="cn-input w-full min-w-0 outline-none placeholder:text-muted-foreground"
+                class="cn-input w-full min-w-0 outline-none placeholder:text-placeholder"
                 @keydown.escape="linkPopoverOpen = false"
               />
               <div class="flex items-center justify-between">
@@ -148,7 +148,7 @@
                   Remove
                 </Button>
                 <div v-else />
-                <div class="flex items-center gap-x-2">
+                <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
                   <Button
                     type="button"
                     variant="ghost"

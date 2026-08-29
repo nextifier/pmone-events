@@ -21,6 +21,10 @@ defineProps({
   /** Already sorted and translation-resolved by the parent. */
   fields: { type: Array, required: true },
   responses: { type: Object, required: true },
+  /** Sibling answers keyed by `system_key`, so a dependent province or city
+   *  field can see the country it hangs off. Built by PublicFormView, which is
+   *  the only place holding every answer. */
+  contextValues: { type: Object, default: () => ({}) },
   formErrors: { type: Object, required: true },
   respondentEmail: { type: String, default: "" },
   honeypot: { type: String, default: "" },
@@ -96,6 +100,7 @@ const { t } = useI18n();
       :locale="locale"
       label-size="lg"
       :model-value="responses[field.ulid]"
+      :context-values="contextValues"
       :error="firstFieldError(formErrors, field.ulid)"
       :upload-handler="uploadHandlers.uploadHandler"
       :revert-handler="uploadHandlers.revertHandler"

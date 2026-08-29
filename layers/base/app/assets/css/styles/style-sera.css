@@ -693,7 +693,7 @@
 
   /* MARK: Native Select */
   .cn-native-select {
-    @apply h-11 data-[size=sm]:h-10 border-transparent border-b-field bg-transparent placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-b-ring aria-invalid:border-b-destructive-foreground dark:aria-invalid:border-b-destructive-foreground/50 sm:h-10 w-full min-w-0 appearance-none rounded-none border py-2 pr-8 pl-0 text-base pointer-fine:text-sm transition-[color,border-color] select-none sm:data-[size=sm]:h-9;
+    @apply h-11 data-[size=sm]:h-10 border-transparent border-b-field bg-transparent placeholder:text-placeholder selection:bg-primary selection:text-primary-foreground focus-visible:border-b-ring aria-invalid:border-b-destructive-foreground dark:aria-invalid:border-b-destructive-foreground/50 sm:h-10 w-full min-w-0 appearance-none rounded-none border py-2 pr-8 pl-0 text-base pointer-fine:text-sm transition-[color,border-color] select-none sm:data-[size=sm]:h-9;
   }
 
   .cn-native-select-icon {
@@ -781,7 +781,7 @@
 
   /* MARK: Select */
   .cn-select-trigger {
-    @apply [&_svg:not([class*=size-])]:size-4 data-[size=default]:h-11 data-[size=sm]:h-10 border-transparent border-b-field bg-transparent data-placeholder:text-muted-foreground focus-visible:border-b-ring aria-invalid:border-b-destructive-foreground dark:aria-invalid:border-b-destructive-foreground/50 gap-1.5 rounded-none border py-2 px-0 text-base pointer-fine:text-sm transition-[color,border-color] sm:data-[size=default]:h-10 sm:data-[size=sm]:h-9 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 sm:[&_svg:not([class*=size-])]:size-3.5;
+    @apply [&_svg:not([class*=size-])]:size-4 data-[size=default]:h-11 data-[size=sm]:h-10 border-transparent border-b-field bg-transparent data-placeholder:text-placeholder focus-visible:border-b-ring aria-invalid:border-b-destructive-foreground dark:aria-invalid:border-b-destructive-foreground/50 gap-1.5 rounded-none border py-2 px-0 text-base pointer-fine:text-sm transition-[color,border-color] sm:data-[size=default]:h-10 sm:data-[size=sm]:h-9 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 sm:[&_svg:not([class*=size-])]:size-3.5;
   }
 
   .cn-select-trigger-icon {

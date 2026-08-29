@@ -244,12 +244,15 @@
               </span>
             </CollapsibleTrigger>
             <CollapsibleContent class="space-y-4 pt-4">
+              <!-- The phone this form already collects seeds a blank Country,
+                   rather than asking for the same fact twice. -->
               <CustomFieldGroup
                 v-model="regDraft"
                 :fields="registrationFields"
                 :errors="regErrors"
                 error-prefix="registration."
                 :locale="locale"
+                :phone="form.phone"
                 label-size="lg"
                 :disabled="attendee.is_checked_in"
               />

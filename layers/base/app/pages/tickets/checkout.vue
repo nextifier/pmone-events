@@ -128,10 +128,7 @@ function reconcileCart() {
  */
 const cartEmptied = computed(
   () =>
-    cartReady.value &&
-    cart.isEmpty &&
-    !submitting.value &&
-    !handingOff.value,
+    cartReady.value && cart.isEmpty && !submitting.value && !handingOff.value,
 );
 
 // --- Tickets (data + meta.terms) ---
@@ -501,8 +498,6 @@ const canSubmit = computed(() => {
   );
 });
 
-
-
 /**
  * Gate submit on the business-matching answers, using the SAME validator the
  * renderer and the public form use.
@@ -522,7 +517,11 @@ function validateBusinessMatching() {
 
   let ok = true;
   for (const field of customFields.value) {
-    const message = validateFieldValue(field, bmResponses.value[field.id], locale.value);
+    const message = validateFieldValue(
+      field,
+      bmResponses.value[field.id],
+      locale.value,
+    );
     if (message) {
       bmErrors.value[field.id] = message;
       ok = false;
@@ -701,7 +700,9 @@ async function submit() {
       const fieldId = bmPayloadOrder.value[Number(match[1])];
       if (fieldId === undefined) continue;
 
-      bmErrors.value[fieldId] = Array.isArray(messages) ? messages[0] : messages;
+      bmErrors.value[fieldId] = Array.isArray(messages)
+        ? messages[0]
+        : messages;
     }
     await revealFirstError();
     const message =
@@ -751,7 +752,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
 <template>
   <div
     ref="pageRef"
-    class="container pt-4 pb-[calc(--spacing(28)+env(safe-area-inset-bottom,0px))] sm:pt-6"
+    class="container max-w-6xl pt-4 pb-[calc(--spacing(28)+env(safe-area-inset-bottom,0px))] sm:pt-6"
   >
     <!-- Header + back link -->
     <div class="mb-6 flex flex-col gap-3">
@@ -911,12 +912,16 @@ onBeforeUnmount(clearTicketCheckoutBar);
               and the organizer got empty answers back.
             -->
                 <template v-if="hasRegistrationFields">
+                  <!-- The buyer already gave a phone number a few fields up, so a
+                       blank Country is seeded from its dial code rather than
+                       asked for twice. Never overwrites a country they picked. -->
                   <CustomFieldGroup
                     v-model="regResponses"
                     :fields="registrationFields"
                     :errors="regErrors"
                     error-prefix="registration.responses."
                     :locale="locale"
+                    :phone="form.buyer_phone"
                     label-size="lg"
                   />
                 </template>
@@ -1143,11 +1148,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
               {{ t("tickets.result.preparingPayment") }}
             </template>
             <template v-else>
-              {{
-                isFree
-                  ? t("tickets.claim")
-                  : t("tickets.pay")
-              }}
+              {{ isFree ? t("tickets.claim") : t("tickets.pay") }}
             </template>
           </Button>
         </div>

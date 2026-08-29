@@ -65,7 +65,7 @@
           whatever width the calendar settled on.
         -->
         <div v-if="showPresets" class="border-border w-0 min-w-full border-t p-3">
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
             <slot name="presets" :apply="applyPreset">
               <Button
                 v-for="preset in presets"
@@ -115,12 +115,12 @@
       <!-- Actions (single + time) -->
       <div
         v-if="withTimeEnabled"
-        class="border-border flex shrink-0 items-center border-t px-3 py-2"
+        class="border-border flex flex-wrap items-center border-t px-3 py-2 gap-x-1.5 gap-y-2.5"
       >
         <Button v-if="modelValue" type="button" variant="ghost" size="sm" @click="clear">
           Clear
         </Button>
-        <div class="ml-auto flex gap-2">
+        <div class="ml-auto flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
           <Button type="button" variant="ghost" size="sm" @click="isOpen = false"> Cancel </Button>
           <Button type="button" size="sm" @click="apply"> Apply </Button>
         </div>
@@ -129,7 +129,7 @@
       <!-- Clear row (range) -->
       <div
         v-else-if="mode === 'range' && hasValue"
-        class="border-border flex shrink-0 justify-end border-t px-3 py-2"
+        class="border-border flex flex-wrap items-center justify-end border-t px-3 py-2 gap-x-1.5 gap-y-2.5"
       >
         <Button type="button" variant="ghost" size="sm" @click="clear">Clear</Button>
       </div>
@@ -296,7 +296,7 @@ const triggerClass = computed(() => {
     "cn-input flex w-full min-w-0 items-center gap-2 text-left font-normal disabled:cursor-not-allowed disabled:opacity-50",
     props.size === "sm" && "h-8",
     props.size === "lg" && "h-10",
-    !hasValue.value && "text-muted-foreground"
+    !hasValue.value && "text-placeholder"
   );
 });
 

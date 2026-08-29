@@ -141,7 +141,7 @@
 
   /* MARK: Select */
   .cn-select-trigger {
-    @apply [&_svg:not([class*=size-])]:size-4.5 data-[size=default]:h-10 data-[size=sm]:h-9 bg-input/50 data-placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 gap-1.5 rounded-3xl border border-transparent px-3 py-2 text-base pointer-fine:text-sm transition-[color,box-shadow,background-color] focus-visible:ring-2 aria-invalid:ring-2 sm:data-[size=default]:h-9 sm:data-[size=sm]:h-8 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4.5 data-[size=default]:h-10 data-[size=sm]:h-9 bg-input/50 data-placeholder:text-placeholder focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 gap-1.5 rounded-3xl border border-transparent px-3 py-2 text-base pointer-fine:text-sm transition-[color,box-shadow,background-color] focus-visible:ring-2 aria-invalid:ring-2 sm:data-[size=default]:h-9 sm:data-[size=sm]:h-8 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 sm:[&_svg:not([class*=size-])]:size-4;
   }
 
   .cn-select-trigger-icon {
@@ -186,7 +186,7 @@
 
   /* MARK: Native Select */
   .cn-native-select {
-    @apply h-10 data-[size=sm]:h-9 bg-input/50 placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 sm:h-9 w-full min-w-0 appearance-none rounded-3xl border border-transparent py-1 pr-8 pl-3 text-base pointer-fine:text-sm transition-[color,box-shadow,background-color] select-none focus-visible:ring-2 aria-invalid:ring-2 sm:data-[size=sm]:h-8;
+    @apply h-10 data-[size=sm]:h-9 bg-input/50 placeholder:text-placeholder selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 sm:h-9 w-full min-w-0 appearance-none rounded-3xl border border-transparent py-1 pr-8 pl-3 text-base pointer-fine:text-sm transition-[color,box-shadow,background-color] select-none focus-visible:ring-2 aria-invalid:ring-2 sm:data-[size=sm]:h-8;
   }
 
   .cn-native-select-icon {

@@ -34,6 +34,10 @@ const props = defineProps({
   /** Already sorted and translation-resolved by the parent. */
   fields: { type: Array, required: true },
   responses: { type: Object, required: true },
+  /** Sibling answers keyed by `system_key`, so a dependent province or city
+   *  field can see the country it hangs off. Built by PublicFormView, which is
+   *  the only place holding every answer. */
+  contextValues: { type: Object, default: () => ({}) },
   formErrors: { type: Object, required: true },
   respondentEmail: { type: String, default: "" },
   honeypot: { type: String, default: "" },
@@ -310,6 +314,7 @@ watch(
           :locale="locale"
           label-size="lg"
           :model-value="responses[step.name]"
+          :context-values="contextValues"
           :error="errorFor(step)"
           :upload-handler="uploadHandlers.uploadHandler"
           :revert-handler="uploadHandlers.revertHandler"

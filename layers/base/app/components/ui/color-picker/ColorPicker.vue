@@ -130,7 +130,7 @@ const fieldClass =
       >
         <ColorSwatch :color="currentHex" class="swatch border-border/60 size-5 shrink-0 rounded-sm border" />
         <span v-if="selectedHex" class="font-mono">{{ selectedHex }}</span>
-        <span v-else class="text-muted-foreground">{{ placeholder }}</span>
+        <span v-else class="text-placeholder">{{ placeholder }}</span>
       </button>
     </PopoverTrigger>
 

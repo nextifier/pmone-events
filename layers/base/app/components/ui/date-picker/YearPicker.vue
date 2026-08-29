@@ -180,7 +180,7 @@ const cellClass = cn(
             'cn-input flex w-full min-w-0 items-center gap-2 text-left font-normal disabled:cursor-not-allowed disabled:opacity-50',
             size === 'sm' && 'h-8',
             size === 'lg' && 'h-10',
-            !modelValue && 'text-muted-foreground',
+            !modelValue && 'text-placeholder',
             props.class,
           )
         "

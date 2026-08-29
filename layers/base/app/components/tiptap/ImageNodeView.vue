@@ -65,7 +65,7 @@ const updateCaption = (event) => {
 
 .caption-input {
   @apply text-muted-foreground w-full border-none bg-transparent text-center text-sm outline-none;
-  @apply placeholder:text-muted-foreground/50;
+  @apply placeholder:text-placeholder/50;
   @apply focus:text-foreground;
 }
 </style>

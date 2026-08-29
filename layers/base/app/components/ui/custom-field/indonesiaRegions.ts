@@ -2390,7 +2390,7 @@ export const INDONESIA_CITIES: City[] = [
   },
   {
     "value": "7504",
-    "label": "Kabupaten Pahuwato",
+    "label": "Kabupaten Pohuwato",
     "province": "75"
   },
   {
@@ -2425,7 +2425,7 @@ export const INDONESIA_CITIES: City[] = [
   },
   {
     "value": "7605",
-    "label": "Kabupaten Mamuju Utara",
+    "label": "Kabupaten Pasangkayu",
     "province": "76"
   },
   {
@@ -2435,7 +2435,7 @@ export const INDONESIA_CITIES: City[] = [
   },
   {
     "value": "8101",
-    "label": "Kabupaten Maluku Tenggara Barat",
+    "label": "Kabupaten Kepulauan Tanimbar",
     "province": "81"
   },
   {
@@ -2539,23 +2539,8 @@ export const INDONESIA_CITIES: City[] = [
     "province": "82"
   },
   {
-    "value": "9101",
-    "label": "Kabupaten Merauke",
-    "province": "91"
-  },
-  {
-    "value": "9102",
-    "label": "Kabupaten Jayawijaya",
-    "province": "91"
-  },
-  {
     "value": "9103",
     "label": "Kabupaten Jayapura",
-    "province": "91"
-  },
-  {
-    "value": "9104",
-    "label": "Kabupaten Nabire",
     "province": "91"
   },
   {
@@ -2569,21 +2554,6 @@ export const INDONESIA_CITIES: City[] = [
     "province": "91"
   },
   {
-    "value": "9107",
-    "label": "Kabupaten Paniai",
-    "province": "91"
-  },
-  {
-    "value": "9108",
-    "label": "Kabupaten Puncak Jaya",
-    "province": "91"
-  },
-  {
-    "value": "9109",
-    "label": "Kabupaten Mimika",
-    "province": "91"
-  },
-  {
     "value": "9110",
     "label": "Kabupaten Sarmi",
     "province": "91"
@@ -2594,17 +2564,17 @@ export const INDONESIA_CITIES: City[] = [
     "province": "91"
   },
   {
-    "value": "9112",
+    "value": "9115",
     "label": "Kabupaten Waropen",
     "province": "91"
   },
   {
-    "value": "9113",
+    "value": "9119",
     "label": "Kabupaten Supiori",
     "province": "91"
   },
   {
-    "value": "9114",
+    "value": "9120",
     "label": "Kabupaten Mamberamo Raya",
     "province": "91"
   },
@@ -2614,11 +2584,6 @@ export const INDONESIA_CITIES: City[] = [
     "province": "91"
   },
   {
-    "value": "9201",
-    "label": "Kabupaten Sorong",
-    "province": "92"
-  },
-  {
     "value": "9202",
     "label": "Kabupaten Manokwari",
     "province": "92"
@@ -2626,16 +2591,6 @@ export const INDONESIA_CITIES: City[] = [
   {
     "value": "9203",
     "label": "Kabupaten Fak-Fak",
-    "province": "92"
-  },
-  {
-    "value": "9204",
-    "label": "Kabupaten Sorong Selatan",
-    "province": "92"
-  },
-  {
-    "value": "9205",
-    "label": "Kabupaten Raja Ampat",
     "province": "92"
   },
   {
@@ -2654,16 +2609,6 @@ export const INDONESIA_CITIES: City[] = [
     "province": "92"
   },
   {
-    "value": "9209",
-    "label": "Kabupaten Tambrauw",
-    "province": "92"
-  },
-  {
-    "value": "9210",
-    "label": "Kabupaten Maybrat",
-    "province": "92"
-  },
-  {
     "value": "9211",
     "label": "Kabupaten Manokwari Selatan",
     "province": "92"
@@ -2674,63 +2619,68 @@ export const INDONESIA_CITIES: City[] = [
     "province": "92"
   },
   {
-    "value": "9271",
-    "label": "Kota Sorong",
-    "province": "92"
-  },
-  {
     "value": "9301",
-    "label": "Kabupaten Boven Digoel",
+    "label": "Kabupaten Merauke",
     "province": "93"
   },
   {
     "value": "9302",
-    "label": "Kabupaten Mappi",
+    "label": "Kabupaten Boven Digoel",
     "province": "93"
   },
   {
     "value": "9303",
+    "label": "Kabupaten Mappi",
+    "province": "93"
+  },
+  {
+    "value": "9304",
     "label": "Kabupaten Asmat",
     "province": "93"
   },
   {
     "value": "9401",
-    "label": "Kabupaten Yalimo",
+    "label": "Kabupaten Nabire",
     "province": "94"
   },
   {
     "value": "9402",
-    "label": "Kabupaten Lanny Jaya",
+    "label": "Kabupaten Puncak Jaya",
     "province": "94"
   },
   {
     "value": "9403",
-    "label": "Kabupaten Nduga",
+    "label": "Kabupaten Paniai",
     "province": "94"
   },
   {
     "value": "9404",
-    "label": "Kabupaten Puncak",
+    "label": "Kabupaten Mimika",
     "province": "94"
   },
   {
     "value": "9405",
-    "label": "Kabupaten Dogiyai",
+    "label": "Kabupaten Puncak",
     "province": "94"
   },
   {
     "value": "9406",
-    "label": "Kabupaten Intan Jaya",
+    "label": "Kabupaten Dogiyai",
     "province": "94"
   },
   {
     "value": "9407",
+    "label": "Kabupaten Intan Jaya",
+    "province": "94"
+  },
+  {
+    "value": "9408",
     "label": "Kabupaten Deiyai",
     "province": "94"
   },
   {
     "value": "9501",
-    "label": "Kabupaten Tolikara",
+    "label": "Kabupaten Jayawijaya",
     "province": "95"
   },
   {
@@ -2745,22 +2695,57 @@ export const INDONESIA_CITIES: City[] = [
   },
   {
     "value": "9504",
-    "label": "Kabupaten Mamberamo Tengah",
+    "label": "Kabupaten Tolikara",
     "province": "95"
   },
   {
     "value": "9505",
-    "label": "Kabupaten Central Mamberamo",
+    "label": "Kabupaten Mamberamo Tengah",
+    "province": "95"
+  },
+  {
+    "value": "9506",
+    "label": "Kabupaten Yalimo",
+    "province": "95"
+  },
+  {
+    "value": "9507",
+    "label": "Kabupaten Lanny Jaya",
+    "province": "95"
+  },
+  {
+    "value": "9508",
+    "label": "Kabupaten Nduga",
     "province": "95"
   },
   {
     "value": "9601",
-    "label": "Kabupaten South Sorong",
+    "label": "Kabupaten Sorong",
     "province": "96"
   },
   {
     "value": "9602",
+    "label": "Kabupaten Sorong Selatan",
+    "province": "96"
+  },
+  {
+    "value": "9603",
+    "label": "Kabupaten Raja Ampat",
+    "province": "96"
+  },
+  {
+    "value": "9604",
+    "label": "Kabupaten Tambrauw",
+    "province": "96"
+  },
+  {
+    "value": "9605",
     "label": "Kabupaten Maybrat",
+    "province": "96"
+  },
+  {
+    "value": "9671",
+    "label": "Kota Sorong",
     "province": "96"
   }
 ];
@@ -2777,8 +2762,10 @@ export const citiesForProvinceLabel = (label?: string | null): City[] => {
 
 /**
  * The datasets only cover Indonesia, so a dependent province/city select is only
- * meaningful when the country field says Indonesia. Anywhere else the renderer
- * falls back to a plain text input rather than showing an empty dropdown.
+ * meaningful when the country field says Indonesia. Anywhere else the two fields
+ * are withdrawn and the country is the whole answer: a free-text fallback would
+ * only fill the column with "jakarta", "JKT" and "Jkt Sel", and carrying a closed
+ * list for the other 195 countries is not worth the weight.
  */
 export const INDONESIA_LABEL = "Indonesia";
 export const isIndonesia = (country?: string | null): boolean =>

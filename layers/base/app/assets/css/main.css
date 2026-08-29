@@ -216,6 +216,14 @@ html.appearance-switching *::after {
        legible on any surface and follows whichever palette the user picks.
        --border is the surface token -- dividers, tables, cards, separators. */
     --field: --alpha(var(--foreground) / 20%);
+    /* Form-control placeholders only. Like --field, no THEMES entry declares it,
+       so the appearance customizer cannot flatten it back. --muted-foreground
+       sits one ramp stop darker than shadcn's (gray-600 vs gray-500) for the sake
+       of secondary-text legibility, which left placeholders too close to the value
+       typed into the field. This puts them back where shadcn has them without
+       lightening every other muted label. Points at the gray ramp, so swapping
+       Zinc for Slate in @theme carries the placeholder along. */
+    --placeholder: var(--color-gray-500);
     --input: var(--color-gray-200);
     --ring: var(--color-black);
 
@@ -279,6 +287,7 @@ html.appearance-switching *::after {
     --body: var(--color-gray-300);
     --border: var(--color-gray-800);
     --field: --alpha(var(--foreground) / 16%);
+    --placeholder: var(--color-gray-400);
     --input: var(--color-gray-800);
     --ring: var(--color-white);
 
@@ -338,6 +347,7 @@ html.appearance-switching *::after {
   --color-body: var(--body);
   --color-border: var(--border);
   --color-field: var(--field);
+  --color-placeholder: var(--placeholder);
   --color-input: var(--input);
   --color-ring: var(--ring);
 
@@ -459,7 +469,7 @@ html.appearance-switching *::after {
 }
 
 @utility keyboard-symbol {
-  @apply bg-muted text-foreground ring-border hidden rounded-md p-1 px-2 py-0.5 text-xs ring-1 ring-inset pointer-fine:inline;
+  @apply bg-muted text-foreground ring-border hidden rounded-md p-1 px-2 py-0.5 text-xs tracking-tight ring-1 ring-inset pointer-fine:inline;
 }
 
 @utility skeleton {

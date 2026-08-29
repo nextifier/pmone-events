@@ -105,34 +105,18 @@
           <Icon name="svg-spinners:270-ring-with-bg" class="text-muted-foreground size-5" />
         </div>
 
-        <div
-          v-else-if="notifications.length === 0"
-          class="flex flex-col items-center justify-center gap-y-3 py-12"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="text-muted-foreground size-8"
-            viewBox="0 0 24 24"
-          >
-            <g
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              color="currentColor"
-            >
-              <path
-                d="M18 18.167c-4.27 1.272-9.607 1.087-13.568-.554c-1.164-.482-2.115-1.45-1.902-2.843c.13-.857.777-1.57 1.256-2.267c.627-.924.689-1.931.69-3.003c0-1.379.373-2.89 1.024-4m2-2.012A7.5 7.5 0 0 1 11.996 2c4.153 0 7.519 3.358 7.519 7.5c0 1.072.062 2.08.689 3.003c.478.697 1.124 1.41 1.254 2.267c.12.79-.016 1.225-.47 1.73M22 22L2 2"
-              />
-              <path d="M8 19c.458 1.725 2.076 3 4 3c1.925 0 3.541-1.275 4-3" />
-            </g>
-          </svg>
-
-          <p class="text-muted-foreground text-sm tracking-tight">
-            {{ activeTab === "unread" ? "No unread notifications" : "No notifications yet" }}
-          </p>
-        </div>
+        <Empty v-else-if="notifications.length === 0" class="py-12">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <Icon name="hugeicons:notification-off-01" />
+            </EmptyMedia>
+            <EmptyDescription>
+              {{
+                activeTab === "unread" ? "No unread notifications." : "No notifications yet."
+              }}
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
 
         <div v-else class="flex flex-col gap-y-2.5 py-2.5">
           <div
@@ -318,16 +302,12 @@ const iconColorMap = {
     "border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-400",
   "hugeicons:shopping-bag-01":
     "border-green-200 bg-green-50 text-green-600 dark:border-green-800 dark:bg-green-950 dark:text-green-400",
-  "hugeicons:mail-open-love":
-    "border-amber-200 bg-amber-50 text-amber-600 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-400",
   "hugeicons:user-add-01":
     "border-emerald-200 bg-emerald-50 text-emerald-600 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-400",
   "hugeicons:user-remove-01":
     "border-red-200 bg-red-50 text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400",
   "hugeicons:calendar-03":
     "border-purple-200 bg-purple-50 text-purple-600 dark:border-purple-800 dark:bg-purple-950 dark:text-purple-400",
-  "hugeicons:image-02":
-    "border-pink-200 bg-pink-50 text-pink-600 dark:border-pink-800 dark:bg-pink-950 dark:text-pink-400",
   "hugeicons:shield-user":
     "border-indigo-200 bg-indigo-50 text-indigo-600 dark:border-indigo-800 dark:bg-indigo-950 dark:text-indigo-400",
   "hugeicons:chart-breakout-square":

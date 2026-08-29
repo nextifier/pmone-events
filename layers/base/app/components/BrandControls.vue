@@ -15,7 +15,7 @@
           type="text"
           placeholder="Search any brand or category"
           aria-label="Search any brand or category"
-          class="placeholder:text-muted-foreground/70 h-full text-sm tracking-tight"
+          class="placeholder:text-placeholder/70 h-full text-sm tracking-tight"
         />
         <InputGroupAddon align="inline-end">
           <kbd v-if="!searchInput" class="keyboard-symbol">

@@ -35,6 +35,10 @@ export const countries = [
     "label": "Armenia"
   },
   {
+    "value": "AW",
+    "label": "Aruba"
+  },
+  {
     "value": "AU",
     "label": "Australia"
   },
@@ -299,6 +303,10 @@ export const countries = [
     "label": "Honduras"
   },
   {
+    "value": "HK",
+    "label": "Hong Kong"
+  },
+  {
     "value": "HU",
     "label": "Hungary"
   },
@@ -409,6 +417,10 @@ export const countries = [
   {
     "value": "LU",
     "label": "Luxembourg"
+  },
+  {
+    "value": "MO",
+    "label": "Macao"
   },
   {
     "value": "MG",

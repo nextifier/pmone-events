@@ -4,7 +4,6 @@ import {
   ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
-  ComboboxItemIndicator,
   ComboboxList,
   ComboboxViewport,
 } from "@/components/ui/combobox";
@@ -17,6 +16,12 @@ import { computed, ref, watch } from "vue";
 interface Option {
   value: string;
   label: string;
+  /**
+   * Muted text on the right of the row, and searchable. Set it only when the
+   * label alone is ambiguous: an all-province city list carries the province
+   * here, because Indonesia has regencies that share a name.
+   */
+  description?: string;
   [key: string]: string | boolean | undefined;
 }
 
@@ -31,6 +36,18 @@ interface LocationComboboxProps {
   placeholder?: string;
   disabled?: boolean;
   pinned?: string[];
+  /**
+   * Bucket the rows under a heading taken from `option.description`, instead of
+   * repeating that text on every row. Turn it on for a list long enough that the
+   * same description recurs dozens of times: 514 regencies repeating their
+   * province is what squeezed the city name off the row on a phone.
+   *
+   * Only while browsing. A search result is a ranked list, not a hierarchy, so
+   * typing falls back to flat rows with the description inline.
+   */
+  group?: boolean;
+  /** Headings to lift to the top, in order. The rest keep the options' order. */
+  groupOrder?: string[];
   /**
    * Show a country flag beside each option and beside the selected value.
    * Only turn this on for lists whose `option.value` is an ISO 3166-1 alpha-2
@@ -48,6 +65,8 @@ const {
   placeholder,
   disabled,
   pinned = [],
+  group = false,
+  groupOrder = [],
   showFlag = false,
 } = defineProps<LocationComboboxProps>();
 
@@ -66,7 +85,11 @@ const selectedOption = computed(
 
 const filteredOptions = computed(() =>
   options.filter(
-    (option) => contains(option.label, searchTerm.value) || contains(option.value, searchTerm.value)
+    (option) =>
+      contains(option.label, searchTerm.value) ||
+      contains(option.value, searchTerm.value) ||
+      // So a city list spanning every province can be searched by province too.
+      (typeof option.description === "string" && contains(option.description, searchTerm.value))
   )
 );
 
@@ -86,11 +109,46 @@ const isSearching = computed(
   () => searchTerm.value !== "" && searchTerm.value !== modelValue.value
 );
 
-const flatOptions = computed<Option[]>(() => [
-  ...(!isSearching.value ? [noneOption] : []),
-  ...pinnedOptions.value,
-  ...remainingOptions.value,
-]);
+type Row = Option | { heading: string };
+
+const isHeading = (row: Row): row is { heading: string } => "heading" in row;
+
+const grouped = computed(() => group && !isSearching.value);
+
+/**
+ * One flat array either way, because the virtualizer needs an index it can size
+ * and scroll. Headings ride along as rows rather than wrapping their items in a
+ * `ComboboxGroup`, which cannot span a virtual window.
+ */
+const flatOptions = computed<Row[]>(() => {
+  const head: Row[] = isSearching.value ? [] : [noneOption];
+
+  if (!grouped.value) {
+    return [...head, ...pinnedOptions.value, ...remainingOptions.value];
+  }
+
+  const buckets = new Map<string, Option[]>();
+  for (const option of filteredOptions.value) {
+    const key = typeof option.description === "string" ? option.description : "";
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key)!.push(option);
+  }
+
+  const ordered = [
+    ...groupOrder.filter((name) => buckets.has(name)),
+    ...[...buckets.keys()].filter((name) => !groupOrder.includes(name)),
+  ];
+
+  const rows: Row[] = [...head];
+  for (const name of ordered) {
+    if (name) rows.push({ heading: name });
+    rows.push(...buckets.get(name)!);
+  }
+  return rows;
+});
+
+/** Headings are shorter than rows, and the virtualizer has to be told. */
+const rowHeight = (index: number) => (isHeading(flatOptions.value[index]!) ? 26 : 32);
 
 const lastPinnedValue = computed(() => pinnedOptions.value.at(-1)?.value);
 
@@ -186,43 +244,75 @@ watch(modelValue, () => {
         <ComboboxVirtualizer
           v-slot="{ option }"
           :options="flatOptions"
-          :estimate-size="32"
-          :text-content="(opt: Option) => opt.label"
+          :estimate-size="rowHeight"
+          :text-content="(opt: Row) => ('heading' in opt ? '' : opt.label)"
         >
+          <!-- Not a ComboboxItem: a heading is not selectable and must not enter
+               the collection, or arrow keys would stop on it. -->
+          <div v-if="'heading' in option" class="cn-combobox-label" role="presentation">
+            {{ option.heading }}
+          </div>
+
           <ComboboxItem
+            v-else
             :value="option"
             class="h-8 w-full"
             :class="[
               option.value === '__none__' && 'text-muted-foreground italic',
-              option.value === lastPinnedValue &&
+              !grouped &&
+                option.value === lastPinnedValue &&
                 remainingOptions.length > 0 &&
                 'border-border rounded-b-none border-b',
             ]"
           >
-            <!-- Fixed box the width of a Flag (24×16) so the flagless "None"
-                 row still lines its label up with the country rows. An empty
-                 <Flag> would not do: it always paints its placeholder tint.
-                 "None" gets a dashed circle rather than blank space: an empty
-                 slot beside a column of flags reads as a failed image. `size-4`
-                 is the Flag's own height, and centring it in the same 24px box
-                 puts it on the flags' axis. No colour class - it inherits the
-                 row's `text-muted-foreground`. -->
-            <span v-if="showFlag" class="flex h-4 w-6 shrink-0 items-center justify-center">
-              <Flag
-                v-if="isIso2(option.value)"
-                :country="option.value"
-                :country-name="option.label"
-              />
-              <LucideCircleDashed
-                v-else-if="option.value === '__none__'"
-                class="size-4"
-                aria-hidden="true"
-              />
+            <!-- ONE row layout for every list this component renders.
+                 `.cn-combobox-item` reserves `pr-8` for an absolutely-positioned
+                 check; the check is drawn inline here instead, so that reserve is
+                 cancelled once, on the row, rather than per branch. `flex-1` and
+                 not `w-full`: an explicit width pins the right edge at the padding
+                 edge, and the negative margin then does nothing. Every column
+                 then lines up the same way whether the row carries a description,
+                 whether it is selected, and whether the list is grouped. Two
+                 branches used to share this space and they kept drifting apart. -->
+            <span class="-me-6 flex min-w-0 flex-1 items-center gap-1.5">
+              <!-- Fixed box the width of a Flag (24x16) so the flagless "None"
+                   row still lines its label up with the country rows. An empty
+                   <Flag> would not do: it always paints its placeholder tint.
+                   "None" gets a dashed circle rather than blank space: an empty
+                   slot beside a column of flags reads as a failed image. -->
+              <span v-if="showFlag" class="flex h-4 w-6 shrink-0 items-center justify-center">
+                <Flag
+                  v-if="isIso2(option.value)"
+                  :country="option.value"
+                  :country-name="option.label"
+                />
+                <LucideCircleDashed
+                  v-else-if="option.value === '__none__'"
+                  class="size-4"
+                  aria-hidden="true"
+                />
+              </span>
+
+              <!-- The answer being chosen, so it is the part that keeps its width. -->
+              <span class="min-w-0 grow basis-auto truncate">{{ option.label }}</span>
+
+              <!-- Context, not the answer: capped and first to shrink, so a long
+                   province gives room back to the city rather than cutting
+                   "Kabupaten Bangka Barat" down to "Kabupaten Ba...". Dropped
+                   while grouped, where the heading already says it. -->
+              <span
+                v-if="option.description && !grouped"
+                class="text-muted-foreground max-w-[45%] min-w-0 shrink-[3] truncate text-sm"
+              >
+                {{ option.description }}
+              </span>
+
+              <!-- Always present, so the columns to its left do not shift between
+                   the selected row and its neighbours. -->
+              <span class="flex size-4 shrink-0 items-center justify-center" aria-hidden="true">
+                <LucideCheck v-if="option.label === modelValue" class="size-4" />
+              </span>
             </span>
-            <span class="truncate">{{ option.label }}</span>
-            <ComboboxItemIndicator>
-              <LucideCheck class="ml-auto size-4" />
-            </ComboboxItemIndicator>
           </ComboboxItem>
         </ComboboxVirtualizer>
       </ComboboxViewport>

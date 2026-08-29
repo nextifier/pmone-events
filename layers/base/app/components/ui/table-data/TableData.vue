@@ -6,36 +6,28 @@
          whole table vanish for the length of one interval - into an empty box,
          because the message inside it was commented out. Rows already on screen
          stay on screen; the next successful poll clears the error by itself. -->
-    <div
-      v-if="error && !hasRows"
-      class="mx-auto flex w-full max-w-md flex-col items-center gap-4 py-10 text-center"
-    >
-      <div
-        class="*:bg-background/80 *:squircle text-destructive-foreground flex items-center -space-x-2 *:rounded-lg *:border *:p-3 *:backdrop-blur-sm [&_svg]:size-5"
-      >
-        <div class="translate-y-1.5 -rotate-6">
+    <Empty v-if="error && !hasRows" class="py-10">
+      <EmptyHeader>
+        <EmptyMedia variant="stacked" class="text-destructive-foreground">
           <Icon name="hugeicons:cloud-off" />
-        </div>
-        <div>
-          <Icon name="hugeicons:alert-circle" />
-        </div>
-        <div class="translate-y-1.5 rotate-6">
-          <Icon name="hugeicons:wifi-disconnected-01" />
-        </div>
-      </div>
-      <div class="flex flex-col gap-y-1.5">
-        <h6 class="text-lg font-semibold tracking-tight">
-          {{ errorTitle || "Could not load data" }}
-        </h6>
-        <p class="text-muted-foreground text-sm tracking-tight">
+        </EmptyMedia>
+        <EmptyTitle>{{ errorTitle || "Could not load data" }}</EmptyTitle>
+        <EmptyDescription>
           {{ error?.message || error || "An error occurred while fetching data." }}
-        </p>
-      </div>
-      <Button v-if="showRefreshButton && !displayOnly" variant="outline" @click="requestRefresh">
-        <Icon name="hugeicons:reload" class="size-4 shrink-0" :class="busy ? 'animate-spin' : ''" />
-        <span>Try again</span>
-      </Button>
-    </div>
+        </EmptyDescription>
+      </EmptyHeader>
+
+      <EmptyContent v-if="showRefreshButton && !displayOnly">
+        <Button variant="outline" @click="requestRefresh">
+          <Icon
+            name="hugeicons:reload"
+            class="size-4 shrink-0"
+            :class="busy ? 'animate-spin' : ''"
+          />
+          <span>Try again</span>
+        </Button>
+      </EmptyContent>
+    </Empty>
 
     <!-- Main Content -->
     <div v-else class="space-y-4">
@@ -68,7 +60,7 @@
               type="text"
               data-slot="input"
               :placeholder="searchPlaceholder || 'Search..'"
-              class="cn-input peer placeholder:text-muted-foreground h-full w-full px-9 tracking-tight outline-none"
+              class="cn-input peer placeholder:text-placeholder h-full w-full px-9 tracking-tight outline-none"
               :value="searchValue"
               @input="handleSearchInput"
             />
@@ -413,31 +405,33 @@
             </tfoot>
           </Table>
 
-          <!-- Empty State -->
-          <div
-            v-if="!isInitialLoading && !hasRows"
-            class="mx-auto flex w-full max-w-md flex-col items-center gap-4 py-10 text-center"
-          >
-            <div
-              class="*:bg-background/80 *:squircle text-muted-foreground flex items-center -space-x-2 *:rounded-lg *:border *:p-3 *:backdrop-blur-sm [&_svg]:size-5"
+          <!-- An empty table and a table emptied BY a filter are different
+               findings, and answering both with "no data in this page" is how a
+               reader concludes their records are gone. The filtered branch names
+               the filter as the cause and offers the way out. -->
+          <Empty v-if="!isInitialLoading && !hasRows" class="py-10">
+            <EmptyHeader>
+              <EmptyMedia variant="stacked">
+                <Icon :name="hasActiveFilters ? 'hugeicons:search-remove' : 'hugeicons:file-empty-01'" />
+              </EmptyMedia>
+              <EmptyTitle>{{ hasActiveFilters ? "No matching rows" : "No data found" }}</EmptyTitle>
+              <EmptyDescription>
+                {{
+                  hasActiveFilters
+                    ? "Nothing here matches the filters you have applied."
+                    : "There is nothing on this page yet."
+                }}
+              </EmptyDescription>
+            </EmptyHeader>
+
+            <EmptyContent
+              v-if="hasActiveFilters || (props.showAddButton && !props.displayOnly)"
+              class="flex-row flex-wrap items-center justify-center gap-x-1.5 gap-y-2.5"
             >
-              <div class="translate-y-1.5 -rotate-6">
-                <Icon name="hugeicons:file-empty-01" />
-              </div>
-              <div>
-                <Icon name="hugeicons:search-remove" />
-              </div>
-              <div class="translate-y-1.5 rotate-6">
-                <Icon name="hugeicons:user" />
-              </div>
-            </div>
-            <div class="flex flex-col gap-y-1.5">
-              <h6 class="text-lg font-semibold tracking-tight">No data found</h6>
-              <p class="text-muted-foreground text-sm">
-                It looks like there's no data in this page.
-              </p>
-            </div>
-            <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
+              <Button v-if="hasActiveFilters" variant="outline" @click="table.resetColumnFilters()">
+                <Icon name="lucide:x" class="size-4 shrink-0" />
+                <span>Clear filters</span>
+              </Button>
               <Button
                 v-if="props.showAddButton && !props.displayOnly"
                 :to="`/${props.model}/create`"
@@ -445,12 +439,8 @@
                 <Icon name="lucide:plus" class="size-4 shrink-0" />
                 <span>Create new</span>
               </Button>
-              <Button v-if="hasActiveFilters" variant="outline" @click="table.resetColumnFilters()">
-                <Icon name="lucide:x" class="size-4 shrink-0" />
-                <span>Clear filters</span>
-              </Button>
-            </div>
-          </div>
+            </EmptyContent>
+          </Empty>
         </div>
       </div>
 
@@ -552,6 +542,14 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import TableBulkAction from "@/components/ui/table-data/TableBulkAction.vue";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { Label } from "@/components/ui/label";
 import {
