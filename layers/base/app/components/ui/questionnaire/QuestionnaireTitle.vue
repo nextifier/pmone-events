@@ -53,7 +53,7 @@ onBeforeUnmount(() => unregisterTitle?.());
     :as-child="props.asChild"
     :class="
       cn(
-        'text-base font-semibold text-pretty [&:not(:has(~[data-slot=questionnaire-description]))]:mb-5',
+        'text-base font-semibold tracking-tight text-pretty [&:not(:has(~[data-slot=questionnaire-description]))]:mb-5',
         props.class
       )
     "

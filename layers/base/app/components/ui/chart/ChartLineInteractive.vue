@@ -27,7 +27,7 @@
     </div>
     <div class="px-2 pt-4 pb-2 sm:px-6">
       <ChartContainer :config="config" class="aspect-auto h-[250px] w-full" cursor>
-        <VisXYContainer :data="data" :margin="{ left: -4 }" :y-domain="[0, undefined]">
+        <VisXYContainer :data="data" :margin="{ left: 4, right: 4 }" :y-domain="[0, undefined]">
           <VisLine :x="(d) => d[xKey]" :y="(d) => d[activeChart]" :color="activeColor" />
           <VisAxis
             type="x"
@@ -35,7 +35,7 @@
             :tick-line="false"
             :domain-line="false"
             :grid-line="false"
-            :num-ticks="6"
+            :num-ticks="xTickCount"
             :tick-format="xFormat"
           />
           <VisAxis
@@ -88,6 +88,27 @@ const props = defineProps({
     type: String,
     default: "",
   },
+});
+
+/**
+ * One tick per distinct day, capped.
+ *
+ * The hardcoded 6 asked Unovis for six ticks regardless of how many days the
+ * series actually held, so a three-day range came back "Jun 21 · Jun 21 · Jun 21
+ * · Jun 22 …" - the date scale interpolating between real points and the
+ * formatter rounding them all back to the same label. Reads as a rendering fault
+ * rather than as a short range. Same fix ChartLine already carries.
+ */
+const xTickCount = computed(() => {
+  const days = new Set(
+    (props.data ?? []).map((d) => {
+      const value = d?.[props.xKey];
+      const date = value instanceof Date ? value : new Date(value);
+      return Number.isNaN(date.getTime()) ? String(value) : date.toDateString();
+    })
+  );
+
+  return Math.max(2, Math.min(6, days.size));
 });
 
 const keys = computed(() =>

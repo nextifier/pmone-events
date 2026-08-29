@@ -16,6 +16,8 @@ Section 1-23 di file ini identik di ketiga repo, sama seperti `components/ui`. Y
 - Untuk teks yang lebih besar (`text-xl` ke atas) atau yang pakai `font-semibold`, pakai `tracking-tighter`. Logikanya: makin besar atau makin tebal, makin rapat.
 - Jangan pakai `tracking-wider` atau `tracking-widest`.
 - Jangan pakai `uppercase`. Kalau butuh label kecil, tetap pakai case normal dengan `text-muted-foreground`.
+- Tracking tidak diwarisi dari komponen, tapi dari CSS. Kalau satu elemen menulis ukuran fontnya sendiri, dia juga harus menulis tracking-nya sendiri - `<p class="text-2xl font-semibold">` tanpa tracking akan tetap renggang walaupun kartu induknya `.cn-card` (yang memang membawa `tracking-tight`).
+- Yang sudah membawa tracking sendiri dan tidak perlu ditambah: `.page-title`, `.page-description`, `.frame-title`, `<Label>`, `<CardTitle>`, `<CardDescription>`, dan semua `.cn-*`.
 
 ### Ukuran teks
 
@@ -27,6 +29,7 @@ Ada tiga kelompok, dan memilih yang salah akan langsung kelihatan.
 - Lantai teks statis adalah `text-sm`, di semua lebar. `text-xs` (12px) tidak cukup untuk teks yang dibaca orang, termasuk helper text dan deskripsi section.
 - `text-xs sm:text-sm` bukan jalan keluar. Tangga itu memperbaiki desktop dan meninggalkan telepon tetap di 12px, padahal telepon justru tempat halaman ini paling banyak dibaca. Tangga baru sah kalau titik awalnya sudah `text-sm`, mis. `text-sm sm:text-base`.
 - `text-xs` hanya untuk kontrol dan indikator yang ukurannya memang dikunci: `.cn-button-size-xs` dan `<Badge>`. Bukan untuk teks.
+- Tangga responsif **wajib punya ukuran dasar**. `class="text-muted-foreground tracking-tight sm:text-sm"` tanpa `text-sm`/`text-xs` di depannya bukan tangga, itu bug: di telepon dia mewarisi 16px dari induknya lalu MENGECIL jadi 14px di desktop, kebalikan dari yang dimaksud. Ini yang bikin deskripsi antar kartu di satu halaman kelihatan beda ukuran. `text-body` bukan ukuran, itu warna - jangan dihitung sebagai ukuran dasar.
 - Kalau teks jadi terpotong setelah dibesarkan, pendekkan teksnya, jangan kecilkan fontnya. Contoh: label bar bayar diganti dari "N tickets selected" jadi "Total", bukan diturunkan ke `text-xs` supaya muat.
 - Di bawah `text-xs` (`text-[11px]`, `text-[10px]`, `text-[9px]`) tidak boleh sama sekali untuk teks. Yang tersisa cuma indikator glyph di dalam badge (step number, key indicator) dan compact data tile - keduanya terdaftar di pengecualian §22, jangan menambah kasus baru di luar itu.
 
@@ -96,6 +99,9 @@ Sisanya:
 - Teks sekunder, helper, caption, label di samping value: `text-muted-foreground`.
 - Link / emphasis: `text-primary`.
 - Error / delete: `text-destructive-foreground`. Untuk pesan error di bawah input jangan menulis warnanya sendiri - `<FieldError>` sudah membawa `text-destructive-foreground` lewat rule `cn-field-error` milik style.
+- Status dan arah tren pakai empat token ini, jangan hue literal Tailwind: `text-success-foreground`, `text-destructive-foreground`, `text-warning-foreground`, `text-info-foreground`. Untuk background pasangannya pakai `bg-success/10`, `bg-destructive/10`, dan seterusnya.
+- `text-green-600 dark:text-green-400` dan sejenisnya DILARANG. Tiap token sudah membawa pasangan light/dark-nya sendiri, jadi tulis satu class saja tanpa `dark:` - dan hue literal mengunci warna yang tidak bisa di-tune palette mana pun.
+- Kalau satu daftar status punya lebih banyak nilai daripada empat token (mis. `confirmed` dan `completed`), gabungkan ke token yang sama. Dua hijau yang beda tipis di badge kecil tidak terbaca sebagai perbedaan.
 
 ---
 
@@ -351,6 +357,29 @@ Untuk tombol filter di `<TableData>`, pakai `<TableFilterButton>` - komponennya 
 
 `TableFilterButton` untuk sekarang baru ada di pmone. Repo lain memakai `PopoverTrigger` biasa sampai komponennya ikut disinkronkan.
 
+### Kumpulan tombol (button group) — WAJIB
+
+Setiap baris yang berisi dua tombol atau lebih (toolbar header halaman, footer dialog,
+action bar di atas tabel) **wajib** memakai:
+
+```
+flex flex-wrap items-center gap-x-1.5 gap-y-2.5
+```
+
+- **`flex-wrap` wajib.** Tanpa itu, empat tombol di header halaman akan overflow keluar
+  layar di lebar telepon. Ini bukan kasus langka: judul halaman yang panjang plus tombol
+  Export dengan caret sudah cukup untuk memicunya.
+- **`gap-x-1.5 gap-y-2.5`, bukan `gap-2`.** Saat tombolnya turun baris, jarak vertikal 8px
+  bikin dua baris tombol menempel dan terbaca seperti satu blok. 10px memisahkannya tanpa
+  terlihat renggang, sementara jarak horizontalnya tetap rapat di 6px.
+- **JANGAN pasang `shrink-0` di baris yang `flex-wrap`.** Keduanya bertentangan: baris yang
+  menolak menyusut mempertahankan lebar max-content-nya, jadi wrap tidak pernah punya alasan
+  untuk terjadi dan tombolnya tetap terpotong keluar layar. Ini berlaku kalau parent-nya
+  baris; di parent kolom `shrink-0` mengunci sumbu vertikal dan tidak mengganggu wrap.
+- Aturan ini untuk baris yang **isinya tombol**. Baris layout `justify-between` yang
+  kebetulan memuat tombol di dalam anaknya tidak termasuk — yang diatur adalah kelompok
+  tombolnya, bukan pembungkusnya.
+
 ---
 
 ## 9. Card / Panel
@@ -359,6 +388,23 @@ Untuk tombol filter di `<TableData>`, pakai `<TableFilterButton>` - komponennya 
 - Untuk section di dalam form: pakai `.frame` (lihat bagian Form Section).
 - Kalau cuma butuh kotak ringan, bisa pakai `bg-card border rounded-xl shadow-sm p-4 sm:p-5`.
 - Padding card default: `p-6`. Compact: `p-4 sm:p-5`.
+
+### Stat card (kartu angka) — WAJIB
+
+Kartu ikon + label + deskripsi + angka besar (KPI strip, kartu ringkasan dashboard, nav card bergaya sama). Empat baris teksnya punya skala tetap, dan sekali satu kartu keluar dari skala ini, seluruh grid kelihatan tidak rapi:
+
+| Baris | Class |
+| --- | --- |
+| Label | `text-sm font-medium tracking-tight` |
+| Deskripsi | `text-xs tracking-tight sm:text-sm` |
+| Angka | `text-lg font-medium tracking-tighter sm:text-xl` |
+| Delta / tren | `text-xs font-medium tracking-tight sm:text-sm` |
+| Footnote | `text-xs tracking-tight sm:text-sm` |
+
+- Deskripsi stat card adalah **pengecualian yang disengaja** terhadap lantai `text-sm` di §1. Aturan lantai itu tentang teks yang dibaca orang; deskripsi stat card panjangnya dua sampai empat kata dan tugasnya cuma memberi konteks pada angka di bawahnya, yang sendirinya sudah 18px. Pengecualian ini berlaku HANYA untuk baris deskripsi dan footnote di kartu stat, tidak untuk helper text, deskripsi section, pesan error, atau nilai apa pun.
+- Delta/tren ikut skala **deskripsi**, bukan skala angka. Di `text-sm` sebelah angka `text-lg` dia terbaca seperti angka kedua yang bobotnya hampir sama.
+- Warna delta lewat token: naik `text-success-foreground`, turun `text-destructive-foreground`, datar `text-muted-foreground`.
+- Ikon kartu boleh membawa hue literal (`text-emerald-500`, `text-amber-500`) - ikon memang alat pembeda antar kartu. Teks tidak boleh.
 
 ---
 
@@ -625,6 +671,138 @@ Aturannya:
 
 ---
 
+## 21a. Chart Card
+
+Semua chart di halaman analytics dibungkus `<AnalyticsChartCard>`, yang menyalin komposisi
+shadcn (`ui.shadcn.com/charts/bar`) persis:
+
+```
+CardHeader  -> CardTitle + CardDescription (+ CardAction opsional)
+CardContent -> chart-nya
+CardFooter  -> "flex-col items-start gap-2 text-sm"
+               baris 1: "flex gap-2 leading-none font-medium"  TEKS DULU, IKON BELAKANGAN
+               baris 2: "leading-none text-muted-foreground"
+```
+
+- Bedanya dari shadcn cuma satu: semua teks pakai `tracking-tight`, termasuk `<CardTitle>`
+  (theme memberi `tracking-tighter`, jadi di sini di-override).
+- Footer di style `mono`/`nova` punya `bg-muted/50 border-t`, `lyra` punya `border-t`.
+  Chart card membatalkannya dengan `bg-transparent! border-t-0! pt-0!`. Override ini
+  **dikunci di `ChartCard.vue`**, jangan diubah di file `style-*.css` - card lain di app
+  memang masih pakai pita abu-abu itu.
+- Baris tren cuma dirender kalau perbandingan periodenya benar-benar ada. JANGAN mengarang
+  persentase supaya footernya jadi dua baris.
+
+### Grid dan ukuran
+
+- Chart card masuk `grid gap-4 md:grid-cols-2 lg:grid-cols-3`, sama seperti referensinya
+  (464px per card di 1920px). Card selebar 1250px meregangkan chart enam bar jadi lanskap
+  yang tidak terbaca.
+- Yang tetap full width: card berisi `<TableData>`, dan tiga chart `*Interactive`
+  (`ChartBarInteractive`, `ChartLineInteractive`, `ChartAreaInteractive`) yang **merender
+  card-nya sendiri**. Ketiganya harus jadi SIBLING `<AnalyticsChartCard>`, jangan di dalamnya,
+  atau jadi card di dalam card.
+- Tinggi chart di dalam card: `class="h-56! w-full"`. Tanda `!` wajib, karena
+  `ChartContainer` menetapkan `h-[40vh]` sendiri.
+
+### Warna: WAJIB eksplisit dari `chartSurface()`
+
+`--chart-1..5` itu grayscale DAN nilainya identik di light dan dark. `ChartBar`, `ChartPie`,
+`ChartRadar`, `ChartRadialBar`, dan ketiga `*Interactive` meneruskan `config[key].color`
+mentah ke Unovis tanpa `liftSeriesColor`, jadi kalau dibiarkan default warnanya hilang di
+salah satu tema.
+
+Tiap seri harus dikasih warna dari `chartSurface(i, total)` / `surfaceRamp()`
+(`app/utils/chartTextures.js`). Index 0 paling kuat, dan `total` wajib diisi kalau serinya
+lebih dari lima anggota - kalau tidak, slice 1 dan 6 keluar dengan abu-abu yang sama.
+
+### Teks di dalam SVG ber-viewBox itu SKALA, bukan pixel
+
+`ChartRadar`, `ChartRadialBar`, `ChartBar3D`, `ChartBarAnimated` menggambar teks ke dalam
+`viewBox` tetap di atas `<svg class="w-full">`. Angka px yang kamu tulis di situ adalah
+**user unit**, dan hasil di layar = px x (lebar render / lebar viewBox).
+
+Contoh nyata: viewBox 1000 di card selebar 848px membuat label "13px" tampil **11px**. Tidak
+ada apa pun di source yang memberi tahu itu. `ChartBar3D` dengan viewBox 520 di card 400px
+menampilkan "12px" jadi **9px**.
+
+`ChartBar3D` dan `ChartBarAnimated` sekarang mengukur lebar container lewat `ResizeObserver`
+dan membagi balik, jadi label tampil sebesar yang dituliskan. Kalau menambah komponen SVG
+bespoke baru, pakai pola yang sama, atau tulis ukurannya dalam `cqw` seperti
+`ChartSemiCircle`.
+
+### Warna teks di dalam chart
+
+- JANGAN `fill: var(--background)` di atas bentuk berwarna seri. `--chart-1..5` identik di
+  light dan dark, jadi putih di atas gray-300 itu rasio 1.4:1 alias tidak terbaca. Pakai
+  `fill: var(--foreground)` dengan halo: `stroke: var(--card)`, `stroke-width: 3px`,
+  `paint-order: stroke`. Itu terbaca di atas isian apa pun, di dua tema.
+- JANGAN memakai warna seri sebagai warna teks. `ChartBarAnimated` dulu begitu dan angkanya
+  hilang di light mode kecuali call site kebetulan mengirim `colorOverride`.
+- Tick sumbu Unovis dikunci 12px lewat `--vis-axis-tick-label-font-size` dan diwarnai
+  `--muted-foreground`. Itu **pengecualian yang diterima** dari lantai 14px: menaikkannya
+  membuat Unovis membuang label sampai tinggal separuh.
+
+### Satu card, satu basis persentase
+
+Kalau chart dan tabel di satu card memakai denominator berbeda, salah satu harus dimatikan.
+Card "From ticket to badge" sempat menampilkan ring 27.7% (dari langkah pertama) di atas
+baris 35.8% (dari langkah sebelumnya) untuk langkah yang sama. Dua-duanya benar, dan justru
+itu masalahnya. Ring dibiarkan tanpa label; baris yang memuat angka, lengkap dengan basisnya.
+
+### Memberi warna ke chart tertentu
+
+Default-nya monokrom, dan itu datang dari **fallback**, bukan dari kunci. Tiap komponen
+membaca warna dari `config` dan baru jatuh ke `var(--chart-1)` kalau `config`-nya kosong.
+Jadi mewarnai satu chart tidak perlu menyentuh `main.css` sama sekali:
+
+```vue
+<ChartBar
+  :data="rows"
+  :config="{ visitors: { label: 'Visitors', color: 'var(--color-blue-500)' } }"
+  data-key="visitors"
+/>
+```
+
+Di mana warnanya dibaca, per komponen:
+
+| Komponen | Sumber warna |
+| --- | --- |
+| Area, Bar, Line, Composed, Radar, LineDefault/Linear/Step | `config[key].color` |
+| AreaInteractive, BarInteractive, LineInteractive | `config[key].color` untuk tiap key di `dataKeys` |
+| Pie | `fill` per baris, atau `config[nameKey].color`, atau fungsi `segmentFill(d)` |
+| RadialBar | `colorValue` per baris (dibaca duluan), lalu `config[name].color` |
+| Bar3D, BarAnimated | prop `colorOverride`, lalu `config[valueKey].color` |
+| SemiCircle | array `colors` (stop OKLCH) atau prop `gradient` berisi class gradient Tailwind |
+
+**Jebakan yang sudah diperbaiki:** `ChartLine`, `ChartArea`, dan `ChartComposed` dulu
+melewatkan warna config ke `liftSeriesColor()`, yang mencampur 45% warnamu dengan 55%
+`--foreground`. Biru yang dikirim keluar jadi nyaris hitam. Sekarang lift itu **cuma berlaku
+untuk token `var(--chart-N)`** — yaitu justru kasus yang jadi alasan lift itu ada, karena
+ramp grayscale nilainya sama di light dan dark. Warna yang kamu kirim sampai utuh.
+
+Untuk chart yang tetap monokrom, jangan pakai `var(--chart-N)` mentah di call site. Pakai
+`chartSurface(i, total)` / `surfaceRamp()`, yang mencampur foreground ke background jadi
+otomatis kontras di dua tema.
+
+### Jebakan yang sudah pernah kena
+
+- `ChartBar` dengan `horizontal` **tidak menggambar sumbu nilai sama sekali**; `grid` dan
+  `yTickFormatter` mati diam-diam. Pakai `<AnalyticsDistribution>` untuk bentuk horizontal.
+- `barFill` bentuk **function** dan `activeIndex` diabaikan begitu `dataKeys` lebih dari satu.
+  Untuk multi-seri pakai bentuk **object**.
+- `ChartArea` dengan `gradient` DAN `svgDefs` sekaligus = fill tidak kelihatan sama sekali.
+  Pilih salah satu.
+- Unovis menggambar `null` sebagai **0**, bukan sebagai putus. Pakai `undefined` kalau mau
+  ada jeda.
+- `ChartLine` dan `ChartLineDefault` mengunci sumbu x ke `d.date` dan wajib objek `Date`.
+  `ChartLineLinear`/`ChartLineStep` punya `xKey`, tapi nilainya tetap harus Date atau angka.
+- Tanggal `Y-m-d H:i` (pakai SPASI) bukan ISO 8601. Ganti spasinya jadi `T` sebelum
+  `new Date()`, atau engine yang ketat mengembalikan Invalid Date.
+- `ChartRadar.maxDomain` dan `ChartRadialBar.max` tidak punya auto-scale dan tidak dijaga:
+  nilai 0 menghasilkan NaN atau semua ring penuh. Kasih floor sendiri.
+
+---
 ## 22. Hal yang Wajib Dihindari
 
 - `text-xs` **pada teks statis**, di lebar mana pun. Lantainya `text-sm` (§1), dan `text-xs sm:text-sm` tidak dihitung sebagai perbaikan karena hasilnya tetap 12px di telepon. Aturan ini tidak berlaku untuk kontrol interaktif: ukurannya dikunci sama di semua lebar (§1), jadi `text-xs` di `.cn-button-size-xs` dan di `<Badge>` memang benar. Kode lama yang masih 12px bukan temuan audit; naikkan saat file itu memang sedang disentuh.

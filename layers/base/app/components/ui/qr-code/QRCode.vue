@@ -2,10 +2,12 @@
   <!-- aspect-square reserves the space before the QR generates (no layout shift).
        The code is drawn client-side after a dynamic import of `qrcode`, so the
        reserved box used to sit empty and then fill in one frame with nothing in
-       between. Two stacked layers cross-fade instead. -->
+       between. Two stacked layers cross-fade instead, unless `animate` is off -
+       then the skeleton still holds the space but the swap is a cut. -->
   <div
     :class="cn('t-skel aspect-square w-full', svgContent && 'is-revealed', props.class)"
     :data-state="svgContent ? 'ready' : 'loading'"
+    :data-qr-animate="animate ? '' : undefined"
   >
     <div class="t-skel-skeleton">
       <Skeleton class="size-full rounded-xl" />
@@ -60,14 +62,17 @@
   z-index: 1;
   opacity: 1;
   filter: blur(0);
-  transition:
-    opacity var(--reveal-dur) var(--reveal-ease),
-    filter var(--reveal-dur) var(--reveal-ease);
 }
 .t-skel-content {
   z-index: 2;
   opacity: 0;
   filter: blur(var(--reveal-blur));
+}
+/* The cross-fade itself is opt-out: without `animate` the two layers still
+   stack and still swap, they just swap in one frame. Declaring the transition
+   here rather than on the layers keeps the off state free of any timing. */
+.t-skel[data-qr-animate] .t-skel-skeleton,
+.t-skel[data-qr-animate] .t-skel-content {
   transition:
     opacity var(--reveal-dur) var(--reveal-ease),
     filter var(--reveal-dur) var(--reveal-ease);
@@ -116,6 +121,9 @@ const props = withDefaults(
     variant?: QRStyleVariant;
     /** Allow clicking the code to switch between square and rounded modules. */
     toggleable?: boolean;
+    /** Cross-fade from the skeleton once the code is drawn. Off inside a dialog,
+     * where the panel's own entrance already covers the same frames. */
+    animate?: boolean;
     class?: HTMLAttributes["class"];
   }>(),
   {
@@ -126,6 +134,7 @@ const props = withDefaults(
     errorCorrectionLevel: "M",
     variant: undefined,
     toggleable: true,
+    animate: true,
     class: undefined,
   },
 );

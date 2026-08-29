@@ -148,16 +148,24 @@ const props = defineProps({
     default: null,
   },
   // Draw horizontal dashed grid lines (mirrors a CartesianGrid).
+  /**
+   * Horizontal grid lines, on by default.
+   *
+   * shadcn draws `<CartesianGrid vertical={false} />` in every bar, area and
+   * line demo, so this matched the reference only by accident before: ChartLine
+   * inherited Unovis' `gridLine: true`, while ChartBar and ChartArea defaulted
+   * to false. Two charts side by side on one dashboard came out different.
+   */
   grid: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   // Series keys whose line is rendered dashed.
   dashedKeys: {
     type: Array,
     default: () => [],
   },
-  // Map of series key → line width. Falls back to 1.5.
+  // Map of series key → line width. Falls back to 2, matching shadcn.
   strokeWidthByKey: {
     type: Object,
     default: null,
@@ -272,7 +280,7 @@ const lineWidthAccessor = computed(() => {
   if (!props.strokeWidthByKey) {
     return 1.5;
   }
-  const widths = drawKeys.value.map((key) => props.strokeWidthByKey[key] ?? 1.5);
+  const widths = drawKeys.value.map((key) => props.strokeWidthByKey[key] ?? 2);
   return (_d, i) => widths[i % widths.length];
 });
 
@@ -334,9 +342,13 @@ const resolvedSvgDefs = computed(() => {
 });
 
 const containerClass = computed(() => {
-  const classes = ["[&_.domain]:stroke-gray-200 dark:[&_.domain]:stroke-gray-800!"];
+  // The `[&_.domain]` and `[&_.grid_line]` selectors that used to live here were
+  // dead: Unovis hides the domain line with opacity rather than a `.domain`
+  // class, and its grid class is an emotion hash (`css-<hash>-grid`), never a
+  // bare `.grid`. They also hardcoded gray-200/gray-800 instead of a token. The
+  // rendered result was already solid `border/50`, which is what shadcn draws.
+  const classes = [];
   if (props.grid) {
-    classes.push("[&_.grid_line]:[stroke-dasharray:3_3] [&_.grid_line]:stroke-border/60!");
   }
   // The filter classes are LITERAL and read a custom property set below. Built by
   // interpolation they never compile: Tailwind scans this file as text and sees

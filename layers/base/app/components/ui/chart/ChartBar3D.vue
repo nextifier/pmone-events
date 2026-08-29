@@ -1,5 +1,5 @@
 <template>
-  <div class="@container w-full">
+  <div ref="root" @pointerleave="active = null" class="relative @container w-full">
     <svg :viewBox="`0 0 ${W} ${H}`" class="w-full" :style="{ height: 'auto' }">
       <defs v-if="mode === 'gradient'">
         <linearGradient :id="`${uid}-front`" x1="0" y1="0" x2="0" y2="1">
@@ -20,7 +20,23 @@
         </linearGradient>
       </defs>
 
-      <g v-for="bar in bars" :key="bar.label">
+      <g
+        v-for="bar in bars"
+        :key="bar.label"
+        class="cursor-pointer"
+        @pointerenter="track($event, bar.index)"
+        @pointerdown="track($event, bar.index)"
+        @pointermove="track($event, bar.index)"
+      >
+        <!-- Hit area over the whole band. The isometric faces leave gaps a
+             pointer falls through, and a bar at zero has no face at all. -->
+        <rect
+          :x="bar.x - (band - barWidth) / 2"
+          :y="margin.top"
+          :width="band"
+          :height="innerH"
+          fill="transparent"
+        />
         <!-- Back face -->
         <rect
           :x="bar.x + bar.depth"
@@ -44,22 +60,55 @@
           :fill="faceFill('front')"
           rx="3"
         />
+        <!-- Value above the top face. This chart draws no axis, no grid and no
+             tooltip, so without it there is no number anywhere on the plot.
+             margin.top already reserves 40px, so nothing reflows. -->
+        <text
+          v-if="showValues"
+          :x="bar.x + barWidth / 2"
+          :y="bar.y - 12"
+          text-anchor="middle"
+          class="fill-foreground tracking-tight tabular-nums"
+          :style="{ fontSize: `${labelPx}px`, fontWeight: 500 }"
+        >
+          {{ valueFormatter ? valueFormatter(bar.value) : bar.value.toLocaleString() }}
+        </text>
         <!-- Category label -->
         <text
           :x="bar.x + barWidth / 2"
           :y="H - 8"
           text-anchor="middle"
-          class="fill-muted-foreground"
-          style="font-size: 12px"
+          class="fill-muted-foreground tracking-tight"
+          :style="{ fontSize: `${labelPx}px` }"
         >
           {{ bar.label }}
         </text>
       </g>
     </svg>
+
+    <div ref="box" class="pointer-events-none absolute inset-0">
+      <ChartHoverTooltip
+        :open="active !== null"
+        :x="pointer.x"
+        :y="pointer.y"
+        :box-width="boxSize.w"
+        :box-height="boxSize.h"
+      >
+        <ChartTooltipContent
+          v-if="active !== null"
+          :label-key="xKey"
+          :payload="{ [xKey]: bars[active]?.rawLabel, [valueKey]: bars[active]?.value }"
+          :config="config"
+          :value-formatter="valueFormatter"
+        />
+      </ChartHoverTooltip>
+    </div>
   </div>
 </template>
 
 <script setup>
+import ChartHoverTooltip from "./ChartHoverTooltip.vue";
+import ChartTooltipContent from "./ChartTooltipContent.vue";
 let bar3dUid = 0;
 
 const props = defineProps({
@@ -88,6 +137,20 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  // Prints each bar's value above its top face. Off by default so existing
+  // call sites are unchanged.
+  showValues: {
+    type: Boolean,
+    default: false,
+  },
+  valueFormatter: {
+    type: Function,
+    default: null,
+  },
+  maxLabelChars: {
+    type: Number,
+    default: 14,
+  },
   barCategoryGap: {
     type: Number,
     default: 0.2,
@@ -106,7 +169,52 @@ const color = computed(
   () => props.colorOverride || props.config[props.valueKey]?.color || "var(--chart-1)"
 );
 
-const band = computed(() => innerW / props.data.length);
+/**
+ * Text inside a scaled viewBox is measured in USER UNITS, not screen pixels.
+ *
+ * The svg is `w-full` against a fixed 520-unit viewBox, so a "12px" label
+ * renders at 12 x (containerWidth / 520). In a 400px card that is 9px. Measuring
+ * the container and dividing back out keeps the label at the size it claims.
+ */
+const box = ref(null);
+const active = ref(null);
+const pointer = ref({ x: 0, y: 0 });
+const boxSize = ref({ w: 0, h: 0 });
+
+function track(event, i) {
+  active.value = i;
+  const rect = box.value?.getBoundingClientRect();
+  if (!rect) return;
+  boxSize.value = { w: rect.width, h: rect.height };
+  pointer.value = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+}
+
+const root = ref(null);
+const unitsPerPixel = ref(1);
+let sizeObserver = null;
+
+onMounted(() => {
+  if (!root.value || typeof ResizeObserver === "undefined") return;
+  sizeObserver = new ResizeObserver(([entry]) => {
+    const rendered = entry.contentRect.width;
+    unitsPerPixel.value = rendered > 0 ? W / rendered : 1;
+  });
+  sizeObserver.observe(root.value);
+});
+
+onBeforeUnmount(() => sizeObserver?.disconnect());
+
+const labelPx = computed(() => 12 * unitsPerPixel.value);
+
+// Floored at 1: an empty array divides to Infinity and every face comes out NaN.
+const band = computed(() => innerW / Math.max(props.data.length, 1));
+
+// The viewBox is fixed at 520 wide, so a long category name runs into its
+// neighbour with no reflow to save it. Truncating degrades instead of colliding.
+const truncate = (label) => {
+  const text = String(label ?? "");
+  return text.length > props.maxLabelChars ? `${text.slice(0, props.maxLabelChars - 1)}…` : text;
+};
 const barWidth = computed(() => band.value * (1 - props.barCategoryGap));
 
 const maxY = computed(() => Math.max(...props.data.map((d) => Number(d[props.valueKey]) || 0), 1));
@@ -131,7 +239,7 @@ const bars = computed(() =>
       `${x + bw + depth - 3},${y - depth + 3}`,
       `${x + depth + 3},${y - depth + 3}`,
     ].join(" ");
-    return { label: d[props.xKey], x, y, height, depth, sidePoints, topPoints };
+    return { index: i, label: truncate(d[props.xKey]), rawLabel: d[props.xKey], value, x, y, height, depth, sidePoints, topPoints };
   })
 );
 

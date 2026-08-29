@@ -1,7 +1,6 @@
 <template>
   <ChartContainer
     :config="mergedConfig"
-    class="[&_.domain]:stroke-gray-200 dark:[&_.domain]:stroke-gray-800!"
   >
     <VisXYContainer
       :data="drawData"
@@ -19,11 +18,19 @@
         :opacity="0.3"
         :curve-type="CurveType.CatmullRom"
       />
-      <!-- Main Area -->
+      <!-- Main Area.
+           Follows the FULL series, not the solid half. VisLine skips an
+           undefined y; VisArea has to close its shape, so it reads undefined as
+           zero - and on a chart with an unfinished tail the wash slid down to
+           the axis, which reads as a collapse in sales that never happened.
+           Feeding the area its own truncated rows does not help either: the
+           Unovis component takes the container's data over its own `data` prop.
+           The dashed line already says the last day is still counting; the wash
+           underneath it is decoration and does not need to repeat it. -->
       <VisArea
         v-if="gradient"
         :x="(d) => d.date"
-        :y="(d) => d[solidKey]"
+        :y="(d) => d[dataKey]"
         :color="`url(#${gradientIds.main})`"
         :opacity="0.4"
         :curve-type="CurveType.CatmullRom"
@@ -34,7 +41,7 @@
         :x="(d) => d.date"
         :y="(d) => d[comparisonKey]"
         :color="comparisonColor"
-        :line-width="1.5"
+        :line-width="2"
         :curve-type="CurveType.CatmullRom"
         :line-dash-array="[4, 4]"
       />
@@ -43,7 +50,7 @@
         :x="(d) => d.date"
         :y="(d) => d[solidKey]"
         :color="activeColor"
-        :line-width="1.5"
+        :line-width="2"
         :curve-type="CurveType.CatmullRom"
       />
       <!-- Unfinished tail: same colour, dashed, so it reads as the same line
@@ -53,13 +60,13 @@
         :x="(d) => d.date"
         :y="(d) => d[DASHED_KEY]"
         :color="activeColor"
-        :line-width="1.5"
+        :line-width="2"
         :curve-type="CurveType.CatmullRom"
         :line-dash-array="[4, 4]"
       />
       <VisAxis
         type="x"
-        :num-ticks="10"
+        :num-ticks="xTickCount"
         :tickTextHideOverlapping="true"
         :x="(d) => d.date"
         :tick-line="false"
@@ -83,6 +90,7 @@
         :tickTextHideOverlapping="true"
         :tick-line="false"
         :domain-line="false"
+        :grid-line="grid"
         :tick-format="
           (d) =>
             yTickFormatter
@@ -116,6 +124,18 @@ import {
 } from ".";
 
 const props = defineProps({
+  /**
+   * Horizontal grid lines, on by default.
+   *
+   * shadcn draws `<CartesianGrid vertical={false} />` in every bar, area and
+   * line demo, so this matched the reference only by accident before: ChartLine
+   * inherited Unovis' `gridLine: true`, while ChartBar and ChartArea defaulted
+   * to false. Two charts side by side on one dashboard came out different.
+   */
+  grid: {
+    type: Boolean,
+    default: true,
+  },
   data: {
     type: Array,
     required: true,
@@ -176,6 +196,25 @@ const hasComparisonData = computed(() => props.comparisonData && props.compariso
 // the comparison back, which holds in both themes and for any palette.
 const seriesColor = computed(() => props.config[props.dataKey]?.color || "var(--chart-1)");
 
+/**
+ * Never more ticks than there are days to name.
+ *
+ * A fixed ten ticks over a three-day series makes Unovis pick ten evenly spaced
+ * x values and format each one as a date, so the axis reads
+ * "Aug 26 · Aug 26 · Aug 26 · Aug 27 …" - the same day printed three times,
+ * which looks like a rendering fault rather than a short range.
+ */
+const xTickCount = computed(() => {
+  const days = new Set(
+    props.data.map((d) => {
+      const date = d?.date instanceof Date ? d.date : new Date(d?.date);
+      return Number.isNaN(date.getTime()) ? String(d?.date) : date.toDateString();
+    })
+  );
+
+  return Math.max(2, Math.min(10, days.size));
+});
+
 const activeColor = computed(() => liftSeriesColor(seriesColor.value));
 
 // The gradient sits UNDER the line, so it takes a lighter lift than the stroke -
@@ -219,27 +258,37 @@ const hasPartialTail = computed(() => Boolean(props.partialFrom));
 
 // Two draw-only fields. They are deliberately absent from the config, so the
 // tooltip never grows a second row for what is really one line.
+// Index of the last point that belongs to a finished day, or -1 when there is
+// no complete half to draw.
+const lastCompleteIndex = computed(() => {
+  if (!hasPartialTail.value) {
+    return -1;
+  }
+
+  let index = -1;
+  mergedData.value.forEach((row, i) => {
+    if (toDateKey(row.date) < props.partialFrom) {
+      index = i;
+    }
+  });
+
+  return index;
+});
+
 const drawData = computed(() => {
   if (!hasPartialTail.value) {
     return mergedData.value;
   }
 
   const rows = mergedData.value;
-  const cutoff = props.partialFrom;
-
   // The dashed run starts at the last complete point so the two halves join up
   // instead of leaving a gap.
-  let lastCompleteIndex = -1;
-  rows.forEach((row, index) => {
-    if (toDateKey(row.date) < cutoff) {
-      lastCompleteIndex = index;
-    }
-  });
+  const lastComplete = lastCompleteIndex.value;
 
   // A range that holds nothing but the unfinished day has no solid half to join
   // onto, and a dashed run of one point draws nothing at all. Fall back to the
   // plain line so a one-day view still shows something.
-  if (lastCompleteIndex < 0) {
+  if (lastComplete < 0) {
     return rows;
   }
 
@@ -248,8 +297,8 @@ const drawData = computed(() => {
   // makes it skip the point.
   return rows.map((row, index) => ({
     ...row,
-    [SOLID_KEY]: index <= lastCompleteIndex ? row[props.dataKey] : undefined,
-    [DASHED_KEY]: index >= lastCompleteIndex ? row[props.dataKey] : undefined,
+    [SOLID_KEY]: index <= lastComplete ? row[props.dataKey] : undefined,
+    [DASHED_KEY]: index >= lastComplete ? row[props.dataKey] : undefined,
   }));
 });
 
@@ -323,7 +372,7 @@ const svgDefs = computed(
     <stop
       offset="95%"
       stop-color="${fillColor.value}"
-      stop-opacity="0"
+      stop-opacity="0.1"
     />
   </linearGradient>
   <linearGradient id="${gradientIds.value.secondary}" x1="0" y1="0" x2="0" y2="1">
@@ -335,7 +384,7 @@ const svgDefs = computed(
     <stop
       offset="95%"
       stop-color="${liftSeriesColor('var(--chart-2)', 70)}"
-      stop-opacity="0"
+      stop-opacity="0.1"
     />
   </linearGradient>
   <linearGradient id="${gradientIds.value.comparison}" x1="0" y1="0" x2="0" y2="1">
@@ -347,7 +396,7 @@ const svgDefs = computed(
     <stop
       offset="95%"
       stop-color="${comparisonColor.value}"
-      stop-opacity="0"
+      stop-opacity="0.1"
     />
   </linearGradient>
 `

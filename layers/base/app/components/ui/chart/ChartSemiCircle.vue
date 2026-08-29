@@ -36,10 +36,15 @@
       <div
         class="absolute inset-0 flex translate-y-0.5 flex-col items-center justify-end text-center"
       >
-        <div class="flex items-baseline">
+        <!-- The nudge belongs to the whole row, not to the number.
+             On the number alone it dropped the value 4px off the shared
+             baseline while "/306" stayed on it, so the two read as separate
+             pieces of text - and the animated and static branches sat at
+             different heights from each other. -->
+        <div class="flex translate-y-1 items-baseline">
           <NumberFlow
             v-if="animateValue"
-            class="text-foreground translate-y-1 text-[12cqw] font-medium tracking-tighter tabular-nums"
+            class="text-foreground text-[12cqw] font-medium tracking-tighter tabular-nums"
             :value="Number(displayValue) || 0"
             :format="{ notation: 'compact' }"
           />
@@ -48,10 +53,10 @@
           }}</span>
           <span
             v-if="showMax && hasScale"
-            class="text-muted-foreground text-[6cqw] tracking-tighter tabular-nums"
+            class="text-muted-foreground text-[max(0.875rem,6cqw)] tracking-tighter tabular-nums"
             >/{{ formattedMax }}</span
           >
-          <span v-if="suffix" class="text-muted-foreground text-[5cqw] tracking-tighter">{{
+          <span v-if="suffix" class="text-muted-foreground text-[max(0.875rem,5cqw)] tracking-tighter">{{
             suffix
           }}</span>
         </div>

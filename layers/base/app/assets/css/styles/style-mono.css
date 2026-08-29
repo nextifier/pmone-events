@@ -232,7 +232,7 @@
   }
 
   .cn-card-description {
-    @apply text-muted-foreground text-sm;
+    @apply text-muted-foreground text-sm tracking-tight;
   }
 
   .cn-card-content {
@@ -1227,8 +1227,11 @@
 .style-mono .cn-breadcrumb-separator {
   @apply [&>svg]:size-3.5;
 }
+/* Placement lives on CardAction, which switches it by card width. Pinning the
+   action to column two here overrode that at a higher specificity and squeezed
+   the title to a quarter of the row on a narrow card. */
 .style-mono .cn-card-action {
-  @apply col-start-2 row-span-2 row-start-1 self-start justify-self-end;
+  @apply self-start;
 }
 .style-mono .cn-table-container {
   @apply relative w-full overflow-auto;

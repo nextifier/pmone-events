@@ -74,5 +74,23 @@ export function componentToString<P>(config: ChartConfig | Ref<ChartConfig>, com
  * lighter one so the line still reads against its own area.
  */
 export function liftSeriesColor(color: string, amount = 45): string {
+  // A colour the caller chose is left exactly as they chose it.
+  //
+  // The lift exists to rescue the DEFAULT palette: `--chart-1..5` is a grayscale
+  // ramp with identical values in light and dark, so a bare `--chart-1` line is
+  // invisible on the light card. Mixing it toward `--foreground` fixes that.
+  //
+  // Applied to a deliberate colour it does the opposite: a real blue comes back
+  // 45% blue and 55% foreground, which is a muddy near-black. So charts stay
+  // monochrome by default and a passed-in colour arrives intact.
+  if (!isDefaultChartToken(color)) {
+    return color
+  }
+
   return `color-mix(in oklab, ${color} ${amount}%, var(--foreground))`
+}
+
+/** True only for the grayscale `--chart-N` ramp the lift was written for. */
+export function isDefaultChartToken(color: string): boolean {
+  return /var\(\s*--chart-[1-5]\s*\)/.test(color)
 }

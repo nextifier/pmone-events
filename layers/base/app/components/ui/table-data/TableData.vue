@@ -1,14 +1,40 @@
 <template>
   <div class="space-y-4">
-    <!-- Error State -->
-    <div v-if="error" class="flex flex-col items-start gap-y-3 rounded-lg">
-      <!-- <div class="text-destructive-foreground flex items-center gap-x-2">
-        <Icon name="hugeicons:alert-circle" class="size-5" />
-        <span class="font-medium tracking-tight">{{ errorTitle || "Error loading data" }}</span>
+    <!-- Error State
+         Only when there is nothing to fall back to. A page that polls hands the
+         table an error for every network blip, and `v-if="error"` alone made the
+         whole table vanish for the length of one interval - into an empty box,
+         because the message inside it was commented out. Rows already on screen
+         stay on screen; the next successful poll clears the error by itself. -->
+    <div
+      v-if="error && !hasRows"
+      class="mx-auto flex w-full max-w-md flex-col items-center gap-4 py-10 text-center"
+    >
+      <div
+        class="*:bg-background/80 *:squircle text-destructive-foreground flex items-center -space-x-2 *:rounded-lg *:border *:p-3 *:backdrop-blur-sm [&_svg]:size-5"
+      >
+        <div class="translate-y-1.5 -rotate-6">
+          <Icon name="hugeicons:cloud-off" />
+        </div>
+        <div>
+          <Icon name="hugeicons:alert-circle" />
+        </div>
+        <div class="translate-y-1.5 rotate-6">
+          <Icon name="hugeicons:wifi-disconnected-01" />
+        </div>
       </div>
-      <p class="text-sm tracking-tight">
-        {{ error?.message || "An error occurred while fetching data." }}
-      </p> -->
+      <div class="flex flex-col gap-y-1.5">
+        <h6 class="text-lg font-semibold tracking-tight">
+          {{ errorTitle || "Could not load data" }}
+        </h6>
+        <p class="text-muted-foreground text-sm tracking-tight">
+          {{ error?.message || error || "An error occurred while fetching data." }}
+        </p>
+      </div>
+      <Button v-if="showRefreshButton && !displayOnly" variant="outline" @click="requestRefresh">
+        <Icon name="hugeicons:reload" class="size-4 shrink-0" :class="busy ? 'animate-spin' : ''" />
+        <span>Try again</span>
+      </Button>
     </div>
 
     <!-- Main Content -->
@@ -156,12 +182,15 @@
               v-if="showRefreshButton && !displayOnly"
               variant="outline"
               size="sm"
-              @click="$emit('refresh')"
+              @click="requestRefresh"
             >
+              <!-- `busy`, not `pending`: a polling page flips `pending` on every
+                   background tick, and this icon spun on its own every ten to
+                   twenty seconds. Nobody asked for anything, so nothing moves. -->
               <Icon
                 name="hugeicons:reload"
                 class="size-4 shrink-0"
-                :class="pending ? 'animate-spin' : ''"
+                :class="busy ? 'animate-spin' : ''"
               />
               <span class="hidden sm:flex">Refresh</span>
               <KbdGroup class="hidden sm:flex">
@@ -408,7 +437,7 @@
                 It looks like there's no data in this page.
               </p>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
               <Button
                 v-if="props.showAddButton && !props.displayOnly"
                 :to="`/${props.model}/create`"
@@ -444,7 +473,7 @@
             </template>
           </div>
 
-          <Spinner v-if="pending" />
+          <Spinner v-if="busy" />
         </div>
 
         <div class="flex items-center justify-between gap-x-4">
@@ -706,12 +735,38 @@ const pagination = ref(props.initialPagination);
 const sorting = ref(props.initialSorting);
 const expanded = ref({});
 
-// Watch for state changes and emit to parent
+// Watch for state changes and emit to parent.
+//
+// The three that make a server-mode parent refetch also arm the busy state: a
+// page turn, a sort or a filter IS a fetch somebody asked for, and it has to
+// look like one. Column visibility is left out because it changes nothing on the
+// server, and so is client-side mode, where none of this fetches at all.
 watch(rowSelection, (value) => emit("update:rowSelection", value), { deep: true });
-watch(columnFilters, (value) => emit("update:columnFilters", value), { deep: true });
+watch(
+  columnFilters,
+  (value) => {
+    armBusy();
+    emit("update:columnFilters", value);
+  },
+  { deep: true }
+);
 watch(columnVisibility, (value) => emit("update:columnVisibility", value), { deep: true });
-watch(pagination, (value) => emit("update:pagination", value), { deep: true });
-watch(sorting, (value) => emit("update:sorting", value), { deep: true });
+watch(
+  pagination,
+  (value) => {
+    armBusy();
+    emit("update:pagination", value);
+  },
+  { deep: true }
+);
+watch(
+  sorting,
+  (value) => {
+    armBusy();
+    emit("update:sorting", value);
+  },
+  { deep: true }
+);
 
 // Feature + row-model registry. TanStack v9 resolves these statically, so every
 // row model is always registered and the client/server split is expressed purely
@@ -875,9 +930,7 @@ defineShortcuts({
   },
   r: {
     handler: () => {
-      if (props.showRefreshButton && !props.displayOnly) {
-        emit("refresh");
-      }
+      requestRefresh();
     },
   },
 });
@@ -886,6 +939,70 @@ defineShortcuts({
 const isClientSidePagination = computed(() => isClientSideMode.value);
 const hasRows = computed(() => table.getRowModel().rows?.length > 0);
 const isInitialLoading = computed(() => props.pending && props.data.length === 0);
+
+/**
+ * Who asked for this fetch.
+ *
+ * `pending` cannot answer that: a page that polls flips it on every background
+ * tick, so the refresh icon span and the footer spinner ran on their own every
+ * ten to twenty seconds on a table nobody had touched. A background refresh has
+ * nothing to announce - it is the same rows, and the reader did not ask.
+ *
+ * So the busy state is armed by the press and disarmed by the load it caused.
+ * The timeout is the escape hatch for a handler that never flips `pending` at
+ * all (an early return, a sync no-op), which would otherwise leave the icon
+ * spinning for the rest of the session.
+ */
+const userRefreshing = ref(false);
+let refreshGuard = null;
+
+const clearRefreshGuard = () => {
+  if (refreshGuard !== null) {
+    clearTimeout(refreshGuard);
+    refreshGuard = null;
+  }
+};
+
+const arm = () => {
+  userRefreshing.value = true;
+  clearRefreshGuard();
+  refreshGuard = setTimeout(() => {
+    userRefreshing.value = false;
+    refreshGuard = null;
+  }, 10000);
+};
+
+function armBusy() {
+  // A client-side table sorts and pages in memory: there is no fetch to report.
+  if (isClientSideMode.value) {
+    return;
+  }
+  arm();
+}
+
+const requestRefresh = () => {
+  if (!props.showRefreshButton || props.displayOnly) {
+    return;
+  }
+  // Armed directly rather than through armBusy(): the button is the one control
+  // that means "go and fetch" even on a client-side table.
+  arm();
+  emit("refresh");
+};
+
+watch(
+  () => props.pending,
+  (isPending) => {
+    if (!isPending) {
+      clearRefreshGuard();
+      userRefreshing.value = false;
+    }
+  }
+);
+
+onBeforeUnmount(clearRefreshGuard);
+
+const busy = computed(() => userRefreshing.value || isInitialLoading.value);
 const hasActiveFilters = computed(() => table.atoms.columnFilters.get().length > 0);
 const selectedRowsCount = computed(() => table.getSelectedRowModel().rows.length);
 const hasSelectedRows = computed(() => selectedRowsCount.value > 0);

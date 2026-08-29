@@ -102,13 +102,13 @@ const tooltipLabel = computed(() => {
     v-if="active"
     :class="
       cn(
-        'cn-chart-tooltip grid min-w-9 items-start',
+        'cn-chart-tooltip grid min-w-[8rem] items-start',
         props.class
       )
     "
   >
     <slot>
-      <div v-if="!nestLabel && tooltipLabel" class="text-foreground font-medium">
+      <div v-if="!nestLabel && tooltipLabel" class="text-foreground font-mono font-medium tabular-nums">
         {{ tooltipLabel }}
       </div>
       <div class="grid gap-1.5">
@@ -153,7 +153,7 @@ const tooltipLabel = computed(() => {
             </span>
             <template v-else>
               <div class="grid gap-1.5">
-                <div v-if="nestLabel" class="text-5xl font-medium">
+                <div v-if="nestLabel" class="text-5xl font-medium tracking-tighter">
                   {{ tooltipLabel }}
                 </div>
                 <span class="text-muted-foreground">

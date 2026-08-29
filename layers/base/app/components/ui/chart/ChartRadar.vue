@@ -1,6 +1,10 @@
 <template>
   <div class="@container flex w-full flex-col items-center">
-    <div class="relative mx-auto aspect-square w-full max-w-[280px]">
+    <div
+      ref="box"
+      class="relative mx-auto aspect-square w-full max-w-[280px]"
+      @pointerleave="active = null"
+    >
       <svg :viewBox="`0 0 ${VB} ${VB}`" class="w-full overflow-visible">
         <defs>
           <linearGradient
@@ -70,6 +74,24 @@
           />
         </template>
 
+        <!-- Hit areas, one per spoke, drawn last so they sit above the fill.
+             The visible dot is 4 units across; nobody can hit that reliably, so
+             the target is a 16-unit circle at the same vertex. Radius stays
+             fixed rather than following the value: a spoke sitting near the
+             centre would otherwise be the hardest one to reach. -->
+        <circle
+          v-for="(v, i) in vertices"
+          :key="`hit-${i}`"
+          :cx="v.x"
+          :cy="v.y"
+          r="16"
+          fill="transparent"
+          class="cursor-pointer"
+          @pointerenter="track($event, i)"
+          @pointerdown="track($event, i)"
+          @pointermove="track($event, i)"
+        />
+
         <!-- Category labels -->
         <text
           v-for="(label, i) in axisLabels"
@@ -78,17 +100,44 @@
           :y="label.y"
           :text-anchor="label.anchor"
           :dominant-baseline="label.baseline"
-          class="fill-muted-foreground"
+          class="fill-muted-foreground tracking-tight"
           :style="{ fontSize: `${labelFontSize}px` }"
         >
           {{ label.text }}
         </text>
       </svg>
+
+      <!-- Same panel every other chart uses. shadcn's radar demo passes
+           `cursor={false}` and a bare `<ChartTooltipContent />` - label row on,
+           one series row under it - so that is what is mirrored here. -->
+      <ChartHoverTooltip
+        :open="active !== null"
+        :x="pointer.x"
+        :y="pointer.y"
+        :box-width="boxSize.w"
+        :box-height="boxSize.h"
+      >
+        <!-- The category rides in the payload and is named by `labelKey`, which
+             is how ChartTooltipContent builds its header row. It never becomes a
+             series row: the row list is filtered to keys present in `config`,
+             and `config` only carries the series. -->
+        <ChartTooltipContent
+          v-if="active !== null"
+          :label-key="categoryKey"
+          :payload="{
+            [categoryKey]: data[active]?.[categoryKey],
+            [dataKey]: data[active]?.[dataKey],
+          }"
+          :config="config"
+        />
+      </ChartHoverTooltip>
     </div>
   </div>
 </template>
 
 <script setup>
+import ChartHoverTooltip from "./ChartHoverTooltip.vue";
+import ChartTooltipContent from "./ChartTooltipContent.vue";
 let radarUid = 0;
 
 const props = defineProps({
@@ -173,6 +222,19 @@ const glowId = `${uid}-glow`;
 const seriesColor = computed(() => props.config[props.dataKey]?.color || "var(--chart-1)");
 
 const n = computed(() => props.data.length);
+
+const box = ref(null);
+const active = ref(null);
+const pointer = ref({ x: 0, y: 0 });
+const boxSize = ref({ w: 0, h: 0 });
+
+function track(event, i) {
+  active.value = i;
+  const rect = box.value?.getBoundingClientRect();
+  if (!rect) return;
+  boxSize.value = { w: rect.width, h: rect.height };
+  pointer.value = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+}
 
 function angleAt(i) {
   return -Math.PI / 2 + (i * 2 * Math.PI) / n.value;

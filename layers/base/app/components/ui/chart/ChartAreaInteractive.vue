@@ -28,7 +28,7 @@
         <VisXYContainer
           :data="filtered"
           :svg-defs="svgDefs"
-          :margin="{ left: -4 }"
+          :margin="{ left: 4, right: 4 }"
           :y-domain="[0, undefined]"
         >
           <VisArea
@@ -51,7 +51,7 @@
             :tick-line="false"
             :domain-line="false"
             :grid-line="false"
-            :num-ticks="6"
+            :num-ticks="xTickCount"
             :tick-format="xFormat"
           />
           <VisAxis
@@ -116,13 +116,44 @@ const props = defineProps({
   },
 });
 
+/**
+ * One tick per distinct day, capped.
+ *
+ * The hardcoded 6 asked Unovis for six ticks regardless of how many days the
+ * series actually held, so a three-day range came back "Jun 21 · Jun 21 · Jun 21
+ * · Jun 22 …" - the date scale interpolating between real points and the
+ * formatter rounding them all back to the same label. Reads as a rendering fault
+ * rather than as a short range. Same fix ChartLine already carries.
+ */
+const xTickCount = computed(() => {
+  const days = new Set(
+    (props.data ?? []).map((d) => {
+      const value = d?.[props.xKey];
+      const date = value instanceof Date ? value : new Date(value);
+      return Number.isNaN(date.getTime()) ? String(value) : date.toDateString();
+    })
+  );
+
+  return Math.max(2, Math.min(6, days.size));
+});
+
+/**
+ * "All" leads, and it is the default.
+ *
+ * The list used to start at "Last 3 months" with 90d selected, so a series
+ * longer than ninety days silently lost its head while the card's own heading
+ * still described the full period. A control that narrows the window is useful;
+ * one that narrows it before anybody asks is a card that misreports its own
+ * subject. `days: null` means no filtering at all.
+ */
 const rangeOptions = [
+  { value: "all", label: "All", days: null },
   { value: "90d", label: "Last 3 months", days: 90 },
   { value: "30d", label: "Last 30 days", days: 30 },
   { value: "7d", label: "Last 7 days", days: 7 },
 ];
 
-const timeRange = ref("90d");
+const timeRange = ref("all");
 
 const keys = computed(() =>
   props.dataKeys && props.dataKeys.length
@@ -138,7 +169,12 @@ const latestDate = computed(() => {
 });
 
 const filtered = computed(() => {
-  const days = rangeOptions.find((o) => o.value === timeRange.value)?.days ?? 90;
+  const days = rangeOptions.find((o) => o.value === timeRange.value)?.days ?? null;
+
+  if (days === null) {
+    return props.data;
+  }
+
   const start = new Date(latestDate.value);
   start.setDate(start.getDate() - days);
   return props.data.filter((d) => new Date(d[props.xKey]) >= start);

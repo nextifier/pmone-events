@@ -38,7 +38,7 @@ onMounted(() => {
   <div
     v-if="containerSelector"
     :class="cn(
-      'flex flex-wrap items-center justify-center gap-x-3 gap-y-1',
+      'flex flex-wrap items-center justify-center gap-x-4 gap-y-1',
       verticalAlign === 'top' ? 'pb-3' : 'pt-3',
       props.class,
     )"

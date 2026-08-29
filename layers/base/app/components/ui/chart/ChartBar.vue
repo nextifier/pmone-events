@@ -2,7 +2,6 @@
   <ChartContainer
     :config="config"
     :style="barStyle"
-    class="[&_.domain]:stroke-gray-200 dark:[&_.domain]:stroke-gray-800!"
   >
     <VisXYContainer
       :data="data"
@@ -165,14 +164,31 @@ const props = defineProps({
     default: null,
   },
   // Fraction of each band left empty between bars (0-1). Higher = thinner bars.
+  /**
+   * 0.2, not 0.1.
+   *
+   * Recharts' `barCategoryGap="10%"` and Unovis' `barPadding: 0.1` describe the
+   * same fraction, but the reference draws about 15 bars across 1400px while a
+   * daily series here draws 62 across 1200px. Ten percent of a 19px band is a
+   * 1.9px gap, and at that width consecutive equal values fuse into one slab.
+   * The gap has to be a readable share of the band, not a matching number.
+   */
   barPadding: {
     type: Number,
     default: 0.2,
   },
   // Draw horizontal grid lines behind the bars.
+  /**
+   * Horizontal grid lines, on by default.
+   *
+   * shadcn draws `<CartesianGrid vertical={false} />` in every bar, area and
+   * line demo, so this matched the reference only by accident before: ChartLine
+   * inherited Unovis' `gridLine: true`, while ChartBar and ChartArea defaulted
+   * to false. Two charts side by side on one dashboard came out different.
+   */
   grid: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   // Raw SVG <defs> string (patterns/gradients/filters) injected into the chart
   // SVG. Reference them from barFill via url(#id).

@@ -1,6 +1,10 @@
 <template>
   <div class="@container flex w-full flex-col items-center">
-    <div class="relative mx-auto aspect-square w-full max-w-[300px]">
+    <div
+      ref="box"
+      class="relative mx-auto aspect-square w-full max-w-[300px]"
+      @pointerleave="active = null"
+    >
       <svg :viewBox="`0 0 ${VB} ${VB}`" class="w-full">
         <defs>
           <linearGradient
@@ -49,25 +53,89 @@
             :stroke-dasharray="`${ring.dash} ${ring.circumference}`"
             :filter="glow ? `url(#${glowId})` : undefined"
           />
+
+          <!-- Hit rings. A full circle at each radius rather than just the drawn
+               arc, so a ring at 5% is as reachable as one at 95% - a target that
+               shrinks with the value is a target you cannot use on the rows that
+               most need explaining. Transparent stroke still takes pointer
+               events; `fill="none"` means the middle stays clickable-through. -->
+          <circle
+            v-for="(ring, i) in rings"
+            :key="`hit-${ring.name}`"
+            :cx="cx"
+            :cy="cy"
+            :r="ring.radius"
+            fill="none"
+            stroke="transparent"
+            :stroke-width="Math.max(barSize, 14)"
+            class="cursor-pointer"
+            @pointerenter="track($event, i)"
+            @pointerdown="track($event, i)"
+            @pointermove="track($event, i)"
+          />
         </g>
 
-        <!-- Value labels centred on each bar's start (12 o'clock). Fill uses
-             --background so it stays legible in both modes: bars are light in
-             dark mode (dark text) and dark in light mode (light text). -->
-        <template v-if="showLabels">
+        <!--
+             Haloed, not inverse-filled.
+
+             This used to be `fill: var(--background)` on the claim that a bar is
+             always dark in light mode and light in dark mode. That holds only at
+             the two ends of the ramp: `chartSurface()` gives the middle rings a
+             MID grey, and white text on mid grey is unreadable in either theme.
+             A zero-value ring made it worse - there is no arc at twelve o'clock
+             to sit on, so the label landed on the empty track and vanished.
+
+             Foreground text with a card-coloured outline reads on any fill, in
+             both themes, at any value. 12px matches the axis ticks the rest of
+             the library draws; this is an in-chart annotation, not body copy.
+
+             Skipped at zero: a "0" pinned to the top of an empty track points at
+             nothing.
+        -->
+        <template v-if="labelsFit">
           <text
-            v-for="ring in rings"
+            v-for="ring in rings.filter((r) => r.value > 0)"
             :key="`label-${ring.name}`"
             :x="cx"
             :y="cy - ring.radius"
             text-anchor="middle"
             dominant-baseline="central"
-            :style="{ fill: 'var(--background)', fontSize: '12px', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }"
+            :style="{
+              fill: 'var(--foreground)',
+              stroke: 'var(--card)',
+              strokeWidth: '3px',
+              paintOrder: 'stroke',
+              fontSize: '12px',
+              fontWeight: 600,
+              letterSpacing: '-0.01em',
+              fontVariantNumeric: 'tabular-nums',
+            }"
           >
             {{ ring.value }}
           </text>
         </template>
       </svg>
+
+      <!-- shadcn's radial demo passes `<ChartTooltipContent hideLabel
+           nameKey="browser" />`: no header row, the row named by the datum's own
+           key. Mirrored exactly. -->
+      <ChartHoverTooltip
+        :open="active !== null"
+        :x="pointer.x"
+        :y="pointer.y"
+        :box-width="boxSize.w"
+        :box-height="boxSize.h"
+      >
+        <ChartTooltipContent
+          v-if="active !== null"
+          hide-label
+          :name-key="nameKey"
+          :value-key="valueKey"
+          :payload="{ ...data[active], fill: rings[active]?.color }"
+          :config="config"
+          :value-formatter="valueFormatter"
+        />
+      </ChartHoverTooltip>
     </div>
 
     <div v-if="legend" class="flex flex-wrap items-center justify-center gap-4 pt-1">
@@ -80,6 +148,8 @@
 </template>
 
 <script setup>
+import ChartHoverTooltip from "./ChartHoverTooltip.vue";
+import ChartTooltipContent from "./ChartTooltipContent.vue";
 let radialUid = 0;
 
 const props = defineProps({
@@ -127,6 +197,12 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  // Forwarded to the tooltip. Without one a percentage series renders as a bare
+  // "77.5", which reads as a count.
+  valueFormatter: {
+    type: Function,
+    default: null,
+  },
   showLabels: {
     type: Boolean,
     default: true,
@@ -143,6 +219,38 @@ const cy = VB / 2;
 
 const uid = `radial-${(radialUid += 1)}`;
 const glowId = `${uid}-glow`;
+
+/**
+ * Labels are dropped when the rings sit too close to carry them.
+ *
+ * Every label shares `x = cx` and differs only by radius, so the vertical
+ * distance between two of them is exactly one ring pitch. At 12px text a pitch
+ * under 16 units means the glyphs touch, and under about 12 they overlap
+ * outright - which is what "100 / 77.5 / 35.8" stacked on top of each other at
+ * twelve o'clock looked like. Better to show none than to show a smear.
+ */
+const ringPitch = computed(() => {
+  const count = props.data.length;
+  if (count < 2) return Infinity;
+  const band = props.outerRadius - props.innerRadius;
+  const gap = Math.max((band - count * props.barSize) / (count - 1), 2);
+  return props.barSize + gap;
+});
+
+const labelsFit = computed(() => props.showLabels && ringPitch.value >= 16);
+
+const box = ref(null);
+const active = ref(null);
+const pointer = ref({ x: 0, y: 0 });
+const boxSize = ref({ w: 0, h: 0 });
+
+function track(event, i) {
+  active.value = i;
+  const rect = box.value?.getBoundingClientRect();
+  if (!rect) return;
+  boxSize.value = { w: rect.width, h: rect.height };
+  pointer.value = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+}
 
 const rings = computed(() => {
   const count = props.data.length;

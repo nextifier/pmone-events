@@ -230,7 +230,7 @@
   }
 
   .cn-card-description {
-    @apply text-muted-foreground text-sm/relaxed;
+    @apply text-muted-foreground text-sm/relaxed tracking-tight;
   }
 
   .cn-card-content {
