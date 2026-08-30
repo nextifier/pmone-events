@@ -200,7 +200,7 @@
   }
 
   .cn-combobox-label {
-    @apply text-muted-foreground px-2 py-1.5 text-sm pointer-fine:text-xs;
+    @apply text-muted-foreground/80 px-2 py-1.5 text-sm font-medium tracking-tight pointer-fine:text-xs;
   }
 
   .cn-combobox-item {

@@ -681,6 +681,7 @@ import { Textarea } from "../textarea";
 import { TimePicker, TimeRangePicker } from "../date-picker";
 import { countries as defaultCountries } from "./countries";
 import {
+  JABODETABEK_CITIES,
   normalizeField,
   parseLocalDateString,
   shortProvinceLabel,
@@ -816,13 +817,16 @@ const DKI_JAKARTA = "DKI Jakarta";
 /**
  * Jakarta sits at the top of both lists, the way Indonesia does on Country: it
  * is where most respondents are, and scrolling past Aceh to reach it is the
- * first thing they would otherwise do. On the city list this only applies while
- * the list spans every province - once a province is chosen the order is its
- * own, and pinning inside DKI Jakarta would pin the whole list.
+ * first thing they would otherwise do. The city list pins the whole of
+ * Jabodetabek, since a Bekasi or Depok answer is as common as a Jakarta one and
+ * each sits in a different province. Only while the list spans every province -
+ * once a province is chosen the order is its own, and pinning inside DKI Jakarta
+ * would pin the whole list.
  */
-const pinnedLocations = computed(() =>
-  normalized.value.type === "province" ? [DKI_JAKARTA] : []
-);
+const pinnedLocations = computed(() => {
+  if (normalized.value.type === "province") return [DKI_JAKARTA];
+  return cityListSpansProvinces.value ? JABODETABEK_CITIES : [];
+});
 
 /**
  * The field only exists once the country it hangs off is Indonesia - before

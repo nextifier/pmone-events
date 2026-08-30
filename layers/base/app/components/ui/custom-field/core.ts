@@ -526,3 +526,26 @@ export const derivedFieldKeys = (
  */
 export const shortProvinceLabel = (label: string): string =>
   label.replace(/^Kepulauan /, "Kep. ").replace(/^Daerah Istimewa /, "DI ");
+
+/**
+ * Jabodetabek, lifted to the top of a city list that spans every province.
+ * Greater Jakarta is where most respondents are, and reaching Bekasi otherwise
+ * means scrolling past Aceh. Read in the order they are named locally - Jakarta,
+ * Tangerang, Bekasi, Depok, Bogor - with the kota before its kabupaten, which is
+ * why this is a list and not a set: `LocationCombobox` pins in this order.
+ */
+export const JABODETABEK_CITIES: string[] = [
+  "Kota Jakarta Pusat",
+  "Kota Jakarta Selatan",
+  "Kota Jakarta Barat",
+  "Kota Jakarta Timur",
+  "Kota Jakarta Utara",
+  "Kota Tangerang",
+  "Kota Tangerang Selatan",
+  "Kabupaten Tangerang",
+  "Kota Bekasi",
+  "Kabupaten Bekasi",
+  "Kota Depok",
+  "Kota Bogor",
+  "Kabupaten Bogor",
+];

@@ -261,7 +261,7 @@
   }
 
   .cn-combobox-label {
-    @apply px-3 py-2 text-sm pointer-fine:text-xs uppercase tracking-wider font-semibold text-muted-foreground;
+    @apply px-3 py-2 text-sm pointer-fine:text-xs uppercase tracking-wider font-semibold text-muted-foreground/80;
   }
 
   .cn-combobox-item {
