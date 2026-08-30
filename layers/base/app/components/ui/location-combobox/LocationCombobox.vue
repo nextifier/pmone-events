@@ -10,6 +10,7 @@ import {
 import { Flag } from "@/components/ui/flag";
 import { InputGroupAddon } from "@/components/ui/input-group";
 import { LucideCheck, LucideCircleDashed } from "@lucide/vue";
+import { useMediaQuery } from "@vueuse/core";
 import { ComboboxRoot, ComboboxVirtualizer, useFilter } from "reka-ui";
 import { computed, ref, watch } from "vue";
 
@@ -147,8 +148,21 @@ const flatOptions = computed<Row[]>(() => {
   return rows;
 });
 
-/** Headings are shorter than rows, and the virtualizer has to be told. */
-const rowHeight = (index: number) => (isHeading(flatOptions.value[index]!) ? 26 : 32);
+/**
+ * Headings are shorter than rows, and the virtualizer has to be told: it lays
+ * every row out from this number, so a heading that renders taller than its
+ * slot is overlapped by the row under it.
+ *
+ * The heading carries its own `h-8 pointer-fine:h-7` rather than being left to
+ * whatever `.cn-combobox-label` pads it to. Nine palettes style that class and
+ * they do not agree on the padding, so a height read off any one of them is
+ * wrong in the other eight - which is how the old 26 came to sit under a 28px
+ * heading. Pinned here, these two numbers are the only ones to keep in step.
+ */
+const finePointer = useMediaQuery("(pointer: fine)");
+
+const rowHeight = (index: number) =>
+  isHeading(flatOptions.value[index]!) ? (finePointer.value ? 28 : 32) : 32;
 
 const lastPinnedValue = computed(() => pinnedOptions.value.at(-1)?.value);
 
@@ -239,7 +253,7 @@ watch(modelValue, () => {
 
     <ComboboxList class="w-(--reka-combobox-trigger-width)">
       <ComboboxViewport class="p-1">
-        <ComboboxEmpty class="px-2 py-4 text-sm">No results found.</ComboboxEmpty>
+        <ComboboxEmpty class="px-2 py-4">No results found.</ComboboxEmpty>
 
         <ComboboxVirtualizer
           v-slot="{ option }"
@@ -249,7 +263,11 @@ watch(modelValue, () => {
         >
           <!-- Not a ComboboxItem: a heading is not selectable and must not enter
                the collection, or arrow keys would stop on it. -->
-          <div v-if="'heading' in option" class="cn-combobox-label" role="presentation">
+          <div
+            v-if="'heading' in option"
+            class="cn-combobox-label flex h-8 items-center py-0 pointer-fine:h-7"
+            role="presentation"
+          >
             {{ option.heading }}
           </div>
 

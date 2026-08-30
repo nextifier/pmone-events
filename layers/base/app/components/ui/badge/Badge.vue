@@ -49,7 +49,12 @@ const resolvedIcon = computed(
       :class="badgeDotVariants({ variant: resolvedVariant })"
       aria-hidden="true"
     />
-    <span>
+    <!-- `min-w-0` so the content can ellipsize when a caller caps the badge's
+         width (`max-w-full` inside a table cell, say). A flex item defaults to
+         `min-width:auto`, which holds it at its content width - the badge then
+         runs past its cell and what the reader sees is a rounded border sliced
+         mid-word. Inert while the badge is unconstrained, which is the norm. -->
+    <span class="min-w-0">
       <slot />
     </span>
   </Primitive>

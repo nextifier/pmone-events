@@ -145,8 +145,8 @@ export default defineNuxtConfig({
         "clsx",
         "tailwind-merge",
         "@lucide/vue",
-        "@vue/devtools-core",
-        "@vue/devtools-kit",
+        // No @vue/devtools-* entries: devtools is disabled above, so
+        // pre-bundling them is work for code that never loads.
       ],
     },
   },

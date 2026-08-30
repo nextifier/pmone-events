@@ -54,6 +54,21 @@ Kenapa `pointer-fine:` dan bukan `sm:`: iOS Safari melakukan zoom-on-focus setia
 
 `.cn-select-trigger` ikut aturan yang sama persis, walaupun ia bukan field ketik. Bukan karena zoom (ia tombol, tidak pernah memicu zoom), tapi karena ia berdiri sebaris dengan `.cn-input` di form yang sama: kalau nilai Select 14px sementara nilai di sebelahnya 16px, barisnya kelihatan timpang di telepon. Varian `data-[size=sm]` sengaja tidak meng-override font.
 
+Isi popup-nya ikut juga, dengan alasan yang sama satu tingkat ke dalam: trigger 16px yang membuka daftar 14px membuat pilihannya terbaca lebih kecil daripada nilai yang sudah dipilih. `.cn-select-item`, `.cn-combobox-item`, `.cn-command-item`, `.cn-combobox-empty`, dan `.cn-command-empty` memakai `text-base pointer-fine:text-sm`; heading grup (`.cn-select-label`, `.cn-combobox-label`, `.cn-command-group-heading`) memakai `text-sm pointer-fine:text-xs`, satu step di bawah barisnya. Desktop tidak berubah sama sekali - yang naik cuma sisi sentuh.
+
+Heading grup harus punya padding kiri yang sama persis dengan option di bawahnya. Keduanya diatur di file style yang berbeda barisnya, jadi gampang hanyut: mono dan nova pernah berjalan dengan label `px-2` di atas option `pl-1.5`, dan maia `px-3.5` di atas `pl-3`.
+
+Menu yang mengambang ikut aturan yang sama, karena di telepon ia dibuka dengan jempol seperti daftar pilihan: `.cn-dropdown-menu-item`, `.cn-context-menu-item`, `.cn-menubar-item` beserta varian `checkbox-item`, `radio-item`, dan `sub-trigger` memakai `text-base pointer-fine:text-sm`, dan `-label` memakai `text-sm pointer-fine:text-xs`.
+
+Yang sengaja TIDAK ikut, dan alasannya:
+
+- `*-shortcut` di keempat menu. Itu petunjuk tombol keyboard; di perangkat sentuh ia tidak berlaku, jadi membesarkannya cuma menaikkan volume sesuatu yang tidak bisa dipakai.
+- `.cn-menubar-trigger`. Ia tombol di dalam bar, bukan isi popup, dan ukurannya sejajar `.cn-button`.
+- `.cn-tooltip-content` dan `.cn-hover-card-content`. Keduanya cuma muncul saat hover, yang tidak ada di layar sentuh.
+- `.cn-popover-content`. Popover itu wadah kosong yang isinya ditentukan pemanggil, jadi ukuran di sini merembes ke apa pun yang ditaruh di dalamnya.
+
+`.cn-combobox-chip` naik satu step juga (`text-sm pointer-fine:text-xs`, dan `text-base pointer-fine:text-sm` di mono yang memang satu step lebih besar). Chip itu jawaban yang sudah dipilih, dan delapan dari sembilan tema menaruhnya di 12px di dalam field yang tulisannya 16px.
+
 #### Tangga tinggi dan ikon
 
 Tiap kontrol punya dua tinggi: mobile satu step (4px) di atas desktop. Nilai desktop milik style dan tidak berubah, jadi layout desktop tidak pernah bergeser.
