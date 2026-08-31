@@ -151,9 +151,11 @@
                 {{ banner.title }}
               </span>
 
-              <p v-if="banner.description" class="text-sm tracking-tight">
-                {{ banner.description }}
-              </p>
+              <div
+                v-if="banner.description"
+                v-html="banner.description"
+                class="text-sm tracking-tight"
+              />
 
               <nuxt-link
                 v-if="banner.cta"
