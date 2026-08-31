@@ -20,10 +20,7 @@
           {{ profileErrorMessage }}
         </p>
       </div>
-      <Button
-        to="/"
-        class="bg-muted/70 text-foreground hover:bg-border/70 mt-2 flex items-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-medium tracking-tight active:scale-98"
-      >
+      <Button to="/" variant="secondary" size="lg">
         <Icon name="hugeicons:home-01" class="size-4 shrink-0" />
         <span>Back to home</span>
       </Button>
@@ -116,7 +113,9 @@
         <div class="flex flex-col gap-y-6">
           <div class="flex flex-col items-center gap-y-2 text-center">
             <div class="space-y-0.5">
-              <h1 class="line-clamp-2 text-xl font-semibold tracking-tighter">
+              <h1
+                class="text-foreground line-clamp-2 text-xl font-semibold tracking-tighter"
+              >
                 {{ profile.name }}
               </h1>
             </div>
@@ -126,23 +125,25 @@
               class="mt-1.5 flex flex-wrap justify-center gap-x-2 gap-y-3"
             >
               <Button
+                variant="default"
+                size="default"
                 v-for="phone in phoneNumbers"
                 :key="phone.number"
                 :to="`https://wa.me/${phone.number.replace(/\D/g, '')}`"
                 @click="trackClick(phone.label || 'WhatsApp')"
                 @contextmenu.prevent
-                class="bg-primary text-primary-foreground hover:bg-primary/80 flex items-center justify-center gap-x-1.5 rounded-lg px-3 py-2 text-sm font-semibold tracking-tight active:scale-98"
               >
                 <Icon name="hugeicons:whatsapp" class="size-4.5 shrink-0" />
                 <span>{{ phone.label || "WhatsApp" }}</span>
               </Button>
 
               <Button
+                variant="secondary"
+                size="default"
                 v-if="profile.email"
                 :to="`mailto:${profile.email}`"
                 @click="trackClick('Email')"
                 @contextmenu.prevent
-                class="bg-muted border-border text-foreground hover:bg-border/70 flex items-center justify-center gap-x-1.5 rounded-lg border px-3 py-2 text-sm font-semibold tracking-tight active:scale-98"
               >
                 <Icon name="hugeicons:mail-02" class="size-4.5 shrink-0" />
                 <span>Email</span>
@@ -155,6 +156,9 @@
             class="flex flex-wrap justify-center gap-2"
           >
             <Button
+              variant="secondary"
+              size="iconLg"
+              class="size-11 rounded-full"
               v-for="link in linkGroups.social"
               :key="link.url || link.id"
               :to="link.url || '#'"
@@ -162,7 +166,6 @@
               @click="trackClick(link.label)"
               @contextmenu.prevent
               v-tippy="link.label"
-              class="bg-muted text-foreground hover:bg-border/70 flex size-12 shrink-0 items-center justify-center rounded-full active:scale-98"
             >
               <Icon :name="getSocialIcon(link.label)" class="size-5" />
             </Button>
@@ -171,7 +174,8 @@
 
         <div class="mx-auto flex w-full max-w-[400px] flex-col gap-y-3">
           <Button
-            class="bg-muted/70 border-border text-foreground hover:bg-border/70 flex items-center justify-center gap-x-1.5 rounded-md border px-3 py-3 text-base font-semibold tracking-tight active:scale-98"
+            variant="secondary"
+            size="xl"
             v-for="link in stackedLinks"
             :key="link.key"
             :to="link.url || '#'"
