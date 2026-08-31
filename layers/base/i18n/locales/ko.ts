@@ -18,7 +18,7 @@ export default {
     comingSoon: "곧 공개돼요",
     backToHome: "홈으로 돌아가기",
     followInstagram: "인스타그램에서 팔로우하기",
-    bookSpace: "부스 예약",
+    bookSpace: "참가업체 신청",
     getTicket: "티켓 받기",
     copyright: "저작권",
     readingTime: "{n}분 읽기",

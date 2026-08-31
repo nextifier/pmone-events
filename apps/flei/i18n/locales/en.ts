@@ -9,7 +9,7 @@ export default {
     back: "Back",
     comingSoon: "Coming soon",
     backToHome: "Back to home",
-    bookSpace: "Book Space",
+    bookSpace: "Join as Exhibitor",
     getTicket: "Get Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
@@ -161,7 +161,7 @@ export default {
     description:
       "Meet top-tier brands from F&B, retail, education, and more. This is your prime destination to connect, learn, and build a profitable business.",
     ctaTicket: "Get ticket",
-    ctaExhibit: "I want to exhibit",
+    ctaExhibit: "Join as Exhibitor",
     playRecap: "Play Recap",
     edition: "{n}{ordinal} edition",
   },

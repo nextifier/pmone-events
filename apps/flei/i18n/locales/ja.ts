@@ -45,7 +45,7 @@ export default {
     description:
       "F&B、小売、教育など、各業界のフランチャイズブランドが一堂に集結。直接話して、比較して、自分に合うビジネスを見つけてください。",
     ctaTicket: "チケットを取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ダイジェストを見る",
     edition: "第{n}回",
   },

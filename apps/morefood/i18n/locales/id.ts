@@ -72,7 +72,7 @@ export default {
     description:
       "Ketemu supplier baru, coba produk terbaru, dan dapatkan insight langsung dari pelaku industri. Semua ada di Food & Beverage Expo terbesar di Indonesia.",
     ctaTicket: "Dapatkan Tiket",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Recap",
     instagramTip:
       'Tip: Semua bocoran dan info penting ada di Instagram. Pastikan kamu follow <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>!',

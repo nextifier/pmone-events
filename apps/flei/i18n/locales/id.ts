@@ -33,7 +33,7 @@ export default {
     description:
       "Ratusan brand franchise dari F&B, ritel, edukasi, dan sektor lainnya siap kamu jelajahi di Franchise Expo. Bertemu langsung, tanya-tanya, dan mulai bisnis kamu.",
     ctaTicket: "Dapatkan Tiket",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Recap",
     edition: "Edisi ke-{n}",
   },

@@ -1,7 +1,7 @@
 export default {
   ui: {
     viewAllBrands: "ブランド一覧を見る",
-    bookSpace: "ブース予約",
+    bookSpace: "出展申し込み",
     getTicket: "チケット取得",
     toggleSidebar: "サイドバー切替",
     toggleFullscreen: "フルスクリーン切替",
@@ -67,7 +67,7 @@ export default {
     description:
       "産地の土、作り手の手仕事、そこから生まれる味わい。ここでしか出会えないチョコレートの世界を体験してください。",
     ctaTicket: "チケット取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
   },

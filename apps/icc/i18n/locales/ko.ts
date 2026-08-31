@@ -62,7 +62,7 @@ export default {
     description:
       "만화, 장난감, 영화, 게임, 코스프레. ICC는 10년간 팝 컬처의 홈이었어요. 이번 10월, 10주년을 함께 축하해요.",
     ctaTicket: "티켓 구매",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },

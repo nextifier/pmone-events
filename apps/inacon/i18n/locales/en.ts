@@ -9,7 +9,7 @@ export default {
     "back": "Back",
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
-    "bookSpace": "Book Space",
+    "bookSpace": "Join as Exhibitor",
     "getTicket": "Get Ticket",
     "toggleSidebar": "Toggle Sidebar",
     "openMenu": "Open Menu",
@@ -166,7 +166,7 @@ export default {
     "description": "International guests, exclusive drops, cosplay everywhere, and thousands of fans who love what you love. This is your party!",
     "datesTba": "Dates and venue to be announced.",
     "ctaTicket": "Get Ticket",
-    "ctaExhibit": "Book Space",
+    "ctaExhibit": "Join as Exhibitor",
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition"
   },

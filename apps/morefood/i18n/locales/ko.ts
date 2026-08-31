@@ -79,7 +79,7 @@ export default {
     description:
       "새로운 공급업체, 최신 제품, 업계 전문가를 직접 만나보세요. 비즈니스를 키울 기회가 여기 있어요.",
     ctaTicket: "티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 영상 보기",
     instagramTip:
       'Tip: 최신 소식은 모두 Instagram에서 확인하세요. <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a> 팔로우하세요!',

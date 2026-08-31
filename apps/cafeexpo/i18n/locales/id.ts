@@ -32,7 +32,7 @@ export default {
     description:
       "Coba dulu ratusan brand kopi, teh, cokelat, dan minuman sebelum satu pun masuk rak toko kamu.",
     ctaTicket: "Dapatkan Tiket",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Recap",
     edition: "Edisi ke-{n}",
   },

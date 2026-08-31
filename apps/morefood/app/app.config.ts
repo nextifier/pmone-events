@@ -144,7 +144,7 @@ export default defineAppConfig({
           routes.links,
         ],
       },
-      routes.partners,
+      // routes.partners,
       routes.contact,
       routes.news,
     ],

@@ -42,7 +42,7 @@ export default {
     description:
       "ASEAN 최대 세라믹 산업 전시회에서 최신 기술, 소재, 디자인 트렌드를 만나세요.",
     ctaTicket: "무료 티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },

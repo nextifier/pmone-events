@@ -73,7 +73,7 @@ export default {
     title: "社員旅行とインセンティブ旅行の取引先が一堂に",
     description: "社員旅行や表彰旅行、社内イベントを企画する人事・総務の方へ。",
     ctaTicket: "チケット取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
   },

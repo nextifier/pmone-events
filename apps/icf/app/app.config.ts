@@ -141,7 +141,7 @@ export default defineAppConfig({
         label: "Resources",
         links: [routes.gallery, routes.faq, routes.links],
       },
-      routes.partners,
+      // routes.partners,
       routes.contact,
       routes.news,
     ],

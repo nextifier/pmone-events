@@ -139,7 +139,7 @@
   }
 
   .cn-button-variant-secondary {
-    @apply border-border bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground;
+    @apply bg-secondary text-foreground aria-expanded:bg-secondary aria-expanded:text-foreground border-border border transition hover:brightness-95 dark:hover:brightness-120;
   }
 
   .cn-button-variant-destructive {

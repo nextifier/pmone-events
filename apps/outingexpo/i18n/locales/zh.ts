@@ -74,7 +74,7 @@ export default {
     title: "团建和奖励旅游供应商，一次逛完",
     description: "给正在筹备团建、年会和奖励旅游的 HR 和企业。",
     ctaTicket: "领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
   },

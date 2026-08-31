@@ -45,7 +45,7 @@ export default {
     description:
       "Sepuluh tahun jadi rumah buat komik, toys, film, game, dan cosplay. Oktober ini, ICC rayain satu dekade. Dan kamu harus ada.",
     ctaTicket: "Beli Tiket",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
   },

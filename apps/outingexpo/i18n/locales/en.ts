@@ -9,7 +9,7 @@ export default {
     "back": "Back",
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
-    "bookSpace": "Book Space",
+    "bookSpace": "Join as Exhibitor",
     "getTicket": "Get Ticket",
     "toggleSidebar": "Toggle Sidebar",
     "openMenu": "Open Menu",
@@ -179,7 +179,7 @@ export default {
     "title": "Every Outing and Incentive Travel Vendor in One Room",
     "description": "For HR and companies planning an outing, a gathering, or an incentive program.",
     "ctaTicket": "Get ticket",
-    "ctaExhibit": "I want to exhibit",
+    "ctaExhibit": "Join as Exhibitor",
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition"
   },

@@ -42,7 +42,7 @@ export default {
     description:
       "咖啡、茶、巧克力、饮品，数百个品牌，上架前先尝个够。",
     ctaTicket: "领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看回顾视频",
     edition: "第{n}届",
   },

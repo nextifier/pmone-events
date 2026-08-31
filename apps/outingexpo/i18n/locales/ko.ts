@@ -70,7 +70,7 @@ export default {
     description:
       "워크숍, 단합 행사, 포상여행을 준비하는 인사·총무 담당자를 위한 자리입니다.",
     ctaTicket: "티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },

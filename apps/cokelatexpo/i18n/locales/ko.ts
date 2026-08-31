@@ -49,7 +49,7 @@ export default {
     description:
       "산지의 흙, 만든 사람의 손길, 거기서 나오는 맛. 여기서만 만날 수 있는 초콜릿을 직접 경험해 보세요.",
     ctaTicket: "티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },

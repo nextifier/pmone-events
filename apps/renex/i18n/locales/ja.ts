@@ -47,7 +47,7 @@ export default {
     description:
       "最新の建材を手に取って確かめて、デザイナーに直接相談。リノベーション計画に必要なすべてが一堂に。",
     ctaTicket: "チケット取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
   },

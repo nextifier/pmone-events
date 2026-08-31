@@ -1,7 +1,7 @@
 export default {
   ui: {
     viewAllBrands: "ブランド一覧",
-    bookSpace: "ブース予約",
+    bookSpace: "出展申し込み",
     getTicket: "チケット購入",
     openMenu: "メニュー",
     readingTime: "約{n}分",
@@ -82,7 +82,7 @@ export default {
     description:
       "コミック、トイ、映画、ゲーム、コスプレ。ICC はずっとポップカルチャーのホームでした。この10月、10周年をみんなで盛り上げよう。",
     ctaTicket: "チケット購入",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ハイライト映像",
     edition: "第{n}回",
   },

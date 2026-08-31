@@ -155,7 +155,7 @@ export default {
       countries: "Negara peserta",
     },
     ctaTicket: "Pra-registrasi",
-    ctaExhibit: "Pesan booth",
+    ctaExhibit: "Gabung jadi Exhibitor",
   },
   mainPrograms: {
     title:

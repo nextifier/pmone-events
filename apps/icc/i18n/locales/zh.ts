@@ -64,7 +64,7 @@ export default {
     description:
       "漫画、潮玩、电影、游戏、Cosplay。ICC 十年来一直是流行文化的家。今年十月，十周年，你一定要来。",
     ctaTicket: "买票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
   },

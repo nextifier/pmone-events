@@ -143,7 +143,12 @@ export default defineAppConfig({
       routes.programs,
       {
         label: "Resources",
-        links: [routes.gallery, routes.faq, routes.partners, routes.links],
+        links: [
+          routes.gallery,
+          routes.faq,
+          // routes.partners,
+          routes.links,
+        ],
       },
       routes.contact,
       routes.news,

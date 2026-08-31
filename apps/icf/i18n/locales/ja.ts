@@ -2,7 +2,7 @@ export default {
   ui: {
     viewAllBrands: "ブランド一覧を見る",
     backToHome: "ホームへ戻る",
-    bookSpace: "ブース予約",
+    bookSpace: "出展申し込み",
     toggleFullscreen: "フルスクリーン切替",
     switchLanguage: "言語を切替",
     ticketsComingSoon: "チケットは近日発売です",
@@ -72,7 +72,7 @@ export default {
     description:
       "国内トップクラスのロースターが一堂に集結。気になるコーヒーを片っ端からテイスティングして、とっておきの一杯を見つけてください。",
     ctaTicket: "チケット取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
   },

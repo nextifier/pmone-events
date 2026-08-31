@@ -31,7 +31,7 @@ export default {
     title: "加速建筑环境转型",
     description: "印尼规模最大的建材、室内设计、建筑与施工展览会暨行业峰会。",
     ctaTicket: "免费领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
   },
@@ -279,7 +279,7 @@ export default {
       description:
         "印尼房地产精品展，汇聚头部开发商、投资人、建筑师和行业专业人士，一个平台搞定所有对接。",
       ctaTicket: "免费领取门票",
-      ctaExhibit: "参展报名",
+      ctaExhibit: "成为参展商",
       tagline: "印尼最大的建筑与房地产一体化生态平台。",
     },
     about: {
@@ -475,7 +475,7 @@ export default {
       title: "准备好展示你的项目了吗？",
       description:
         "在 MegaProperty Expo 2026 预订展位，跟数千位潜在买家、投资人和行业伙伴直接对接。",
-      button: "预订展位",
+      button: "成为参展商",
     },
   },
   architectAlley: {
@@ -491,6 +491,6 @@ export default {
       "拓展专业人脉与客户资源",
     ],
     closingLine: "让你的品牌站在印尼建筑与设计行业的核心位置。",
-    ctaButton: "预订展位",
+    ctaButton: "成为参展商",
   },
 };

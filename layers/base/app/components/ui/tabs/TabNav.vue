@@ -1,33 +1,44 @@
 <template>
   <nav
     :class="[
-      'no-scrollbar bg-background scroll-fade-x relative z-10 -mx-4 flex h-(--tabnav-height) shrink-0 gap-x-5 overflow-x-auto px-4 sm:mx-0 sm:px-0',
-      // Nothing in the falsy branch on purpose. `relative` above is what the
-      // indicator measures itself against, and a `static` here would land in
-      // the same Tailwind position group and win the cascade - the indicator
-      // then anchors to some ancestor further up and disappears off the nav.
+      'bg-background relative z-10 -mx-4 flex h-(--tabnav-height) shrink-0 sm:mx-0',
+      // Nothing in the falsy branch on purpose. `relative` above keeps `z-10`
+      // working when the nav is not sticky, and a `static` here would land in
+      // the same Tailwind position group and win the cascade.
       props.sticky && 'sticky top-(--navbar-height-mobile) lg:top-(--navbar-height-desktop)',
     ]"
   >
-    <NuxtLink
-      v-for="(tab, index) in tabs"
-      :key="tab.value ?? tab.to"
-      :ref="(el) => (tabRefs[index] = el?.$el || el)"
-      :to="tab.to"
-      :class="[
-        'relative flex shrink-0 items-center justify-center gap-x-1.5 py-3 text-sm font-medium tracking-tight transition-colors select-none',
-        isActive(tab) ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
-      ]"
+    <!--
+      The scrollport is a child, not the nav itself, because `scroll-fade-x`
+      masks the element it sits on - background included. Masking the nav made
+      its own `bg-background` fade out at the edges and whatever sits underneath
+      (a hero banner, page content scrolling past a sticky nav) bled through.
+      Keeping the background one level up leaves the mask to the tabs alone.
+      This div is also what the indicator measures its `offsetLeft` against.
+    -->
+    <div
+      class="no-scrollbar scroll-fade-x relative flex h-full w-full min-w-0 gap-x-5 overflow-x-auto px-4 sm:px-0"
     >
-      <Icon v-if="tab.icon" :name="tab.icon" class="size-4 shrink-0" />
-      {{ tab.label }}
-    </NuxtLink>
+      <NuxtLink
+        v-for="(tab, index) in tabs"
+        :key="tab.value ?? tab.to"
+        :ref="(el) => (tabRefs[index] = el?.$el || el)"
+        :to="tab.to"
+        :class="[
+          'relative flex shrink-0 items-center justify-center gap-x-1.5 py-3 text-sm font-medium tracking-tight transition-colors select-none',
+          isActive(tab) ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
+        ]"
+      >
+        <Icon v-if="tab.icon" :name="tab.icon" class="size-4 shrink-0" />
+        {{ tab.label }}
+      </NuxtLink>
 
-    <span
-      v-if="indicatorStyle"
-      class="bg-foreground absolute bottom-0 h-0.5 rounded-full transition-[left,width] duration-(--tabs-dur) ease-(--tabs-ease)"
-      :style="indicatorStyle"
-    />
+      <span
+        v-if="indicatorStyle"
+        class="bg-foreground absolute bottom-0 h-0.5 rounded-full transition-[left,width] duration-(--tabs-dur) ease-(--tabs-ease)"
+        :style="indicatorStyle"
+      />
+    </div>
   </nav>
 </template>
 

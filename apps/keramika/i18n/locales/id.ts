@@ -35,8 +35,8 @@ export default {
       'Pameran Industri <span class="gradient-accent bg-clip-text font-semibold text-transparent">Keramik</span> Terbesar di ASEAN',
     description:
       "Temukan teknologi, solusi, material, dan tren desain terbaru dari pameran industri keramik terbesar di ASEAN.",
-    ctaTicket: "Dapatkan tiket gratis",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaTicket: "Dapatkan Tiket Gratis",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
   },

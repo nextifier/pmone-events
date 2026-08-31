@@ -9,7 +9,7 @@ export default {
     "back": "Back",
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
-    "bookSpace": "Book Space",
+    "bookSpace": "Join as Exhibitor",
     "getTicket": "Get Ticket",
     "toggleSidebar": "Toggle Sidebar",
     "openMenu": "Open Menu",
@@ -164,7 +164,7 @@ export default {
     "title": "A DECADE OF POP CULTURE FIESTA",
     "description": "Indonesia Comic Con has been the home for comics, toys, movies, games, and cosplay. This October, we're celebrating a decade of pop culture, and you're invited.",
     "ctaTicket": "Get Ticket",
-    "ctaExhibit": "Book Space",
+    "ctaExhibit": "Join as Exhibitor",
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition"
   },

@@ -9,7 +9,7 @@ export default {
     back: "Back",
     comingSoon: "Coming soon",
     backToHome: "Back to home",
-    bookSpace: "Book Space",
+    bookSpace: "Join as Exhibitor",
     getTicket: "Get Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
@@ -198,7 +198,7 @@ export default {
     description:
       "We're serving up more than just food. Discover fresh ideas, new partners, and a whole menu of ways to grow your business.",
     ctaTicket: "Get Ticket",
-    ctaExhibit: "I want to exhibit",
+    ctaExhibit: "Join as Exhibitor",
     playRecap: "Play Recap",
     instagramTip:
       'Tip: All the spoilers and important info are on Instagram. Make sure you\'re following <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>!',

@@ -2,7 +2,7 @@ export default {
   ui: {
     viewAllBrands: "ブランド一覧を見る",
     backToHome: "ホームへ",
-    bookSpace: "ブース予約",
+    bookSpace: "出展申し込み",
     getTicket: "チケット購入",
     toggleSidebar: "サイドバー切替",
     openMenu: "メニュー",
@@ -91,7 +91,7 @@ export default {
       "海外ゲスト、限定グッズ、コスプレ、ゲーム大会、そして同じ作品を愛する仲間たち。好きなものに囲まれる最高の週末がやってくる。",
     datesTba: "開催日・会場は近日発表。",
     ctaTicket: "チケット購入",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "前回のハイライト",
     edition: "第{n}回",
   },

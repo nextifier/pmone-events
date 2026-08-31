@@ -18,7 +18,7 @@ export default {
     comingSoon: "即将推出",
     backToHome: "回到首页",
     followInstagram: "在 Instagram 关注我们",
-    bookSpace: "预订展位",
+    bookSpace: "成为参展商",
     getTicket: "领取门票",
     copyright: "Copyright",
     readingTime: "{n} 分钟阅读",

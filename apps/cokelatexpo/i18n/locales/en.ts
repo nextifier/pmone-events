@@ -9,7 +9,7 @@ export default {
     back: "Back",
     comingSoon: "Coming soon",
     backToHome: "Back to home",
-    bookSpace: "Book Space",
+    bookSpace: "Join as Exhibitor",
     getTicket: "Get Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
@@ -209,7 +209,7 @@ export default {
     description:
       "Every chocolate here has a unique story about where it's from and who made it. Come and taste what makes each one special.",
     ctaTicket: "Get ticket",
-    ctaExhibit: "I want to exhibit",
+    ctaExhibit: "Join as Exhibitor",
     playRecap: "Play Recap",
     edition: "{n}{ordinal} edition",
   },

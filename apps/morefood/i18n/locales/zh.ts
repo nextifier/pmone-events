@@ -81,7 +81,7 @@ export default {
     description:
       "新供应商、新产品、行业大咖面对面。帮你的 F&B 生意找到下一步方向。",
     ctaTicket: "领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看回顾视频",
     instagramTip:
       'Tip: 所有最新消息都在 Instagram 上。快关注 <a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>！',

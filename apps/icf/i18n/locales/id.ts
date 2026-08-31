@@ -34,8 +34,8 @@ export default {
     title: "Temukan Kopi Favorit Baru Kamu.",
     description:
       "Ratusan roaster terbaik ada di sini. Kopi andalan baru kamu tinggal selangkah. Datang, coba satu per satu, dan temukan sendiri favoritmu.",
-    ctaTicket: "Dapatkan tiket",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaTicket: "Dapatkan Tiket",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
   },

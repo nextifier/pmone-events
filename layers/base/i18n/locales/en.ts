@@ -18,7 +18,7 @@ export default {
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
     "followInstagram": "Follow us on Instagram",
-    "bookSpace": "Book Space",
+    "bookSpace": "Join as Exhibitor",
     "getTicket": "Get Ticket",
     "copyright": "Copyright",
     "readingTime": "{n} min read | {n} mins read",

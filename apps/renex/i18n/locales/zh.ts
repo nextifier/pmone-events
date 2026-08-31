@@ -48,7 +48,7 @@ export default {
     description:
       "亲手触摸最新材料、面对面咨询设计师。装修需要的一切，一站搞定。",
     ctaTicket: "领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
   },

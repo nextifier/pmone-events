@@ -37,7 +37,7 @@ export default {
       '东盟领先的<span class="gradient-accent bg-clip-text font-semibold text-transparent">陶瓷</span>行业展览会',
     description: "在 ASEAN 领先的陶瓷产业展上，探索最新技术、材料和设计趋势。",
     ctaTicket: "免费领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "观看精彩回顾",
     edition: "第{n}届",
   },

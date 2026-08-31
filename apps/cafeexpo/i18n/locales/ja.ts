@@ -53,7 +53,7 @@ export default {
     description:
       "コーヒー、紅茶、チョコレート、ドリンク。数百ブランドをぜんぶ試してから、仕入れを決められます。",
     ctaTicket: "チケットを取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ダイジェストを見る",
     edition: "第{n}回",
   },

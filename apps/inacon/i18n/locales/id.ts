@@ -48,7 +48,7 @@ export default {
       "Guest internasional, cosplay kece, exclusive merch, artist alley, dan ribuan fans yang satu frekuensi sama kamu. Ini bukan cuma event, ini rumah kamu.",
     datesTba: "Tanggal dan venue akan segera diumumkan.",
     ctaTicket: "Beli Tiket",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
   },

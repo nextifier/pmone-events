@@ -81,7 +81,7 @@ export default {
     description:
       "新しい仕入先、最新の食品トレンド、業界のプロとの出会い。あなたのビジネスを次のステージに進める材料が揃っています。",
     ctaTicket: "チケットを取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ダイジェストを見る",
     instagramTip:
       'Tip: 最新情報はすべてInstagramで発信しています。<a href="https://www.instagram.com/{instagram}" target="_blank" class="hover:text-primary transition">{\'@\'}{instagram}</a>をフォローしてくださいね。',

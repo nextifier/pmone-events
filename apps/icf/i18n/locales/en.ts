@@ -9,7 +9,7 @@ export default {
     back: "Back",
     comingSoon: "Coming soon",
     backToHome: "Back to home",
-    bookSpace: "Book Space",
+    bookSpace: "Join as Exhibitor",
     getTicket: "Get Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
@@ -209,7 +209,7 @@ export default {
     description:
       "With so many great roasters here, your new go-to coffee is waiting to be found. Come explore, taste around, and discover it for yourself.",
     ctaTicket: "Get ticket",
-    ctaExhibit: "I want to exhibit",
+    ctaExhibit: "Join as Exhibitor",
     playRecap: "Play Recap",
     edition: "{n}{ordinal} edition",
   },

@@ -9,7 +9,7 @@ export default {
     "back": "Back",
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
-    "bookSpace": "Book Space",
+    "bookSpace": "Join as Exhibitor",
     "getTicket": "Get Free Ticket",
     "toggleSidebar": "Toggle Sidebar",
     "openMenu": "Open Menu",
@@ -153,7 +153,7 @@ export default {
     "title": "ASEAN's Leading <span class=\"gradient-accent bg-clip-text font-semibold text-transparent\">Ceramics</span> Industry Exhibition",
     "description": "Be inspired by the latest technology, solutions, materials and design trends from ASEAN's leading ceramics industry exhibition.",
     "ctaTicket": "Get free ticket",
-    "ctaExhibit": "I want to exhibit",
+    "ctaExhibit": "Join as Exhibitor",
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition"
   },

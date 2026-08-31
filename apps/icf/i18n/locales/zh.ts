@@ -51,7 +51,7 @@ export default {
     description:
       "印尼顶尖的咖啡烘焙师都在这。来逛逛，一杯一杯试，找到属于你的那一杯。",
     ctaTicket: "领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
   },

@@ -50,7 +50,7 @@ export default {
     description:
       "커피, 차, 초콜릿, 음료까지. 매장에 들여놓기 전에 수백 개 브랜드를 직접 맛볼 수 있어요.",
     ctaTicket: "티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 영상 보기",
     edition: "제{n}회",
   },

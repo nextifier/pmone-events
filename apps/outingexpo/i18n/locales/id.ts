@@ -57,8 +57,8 @@ export default {
     title: "Semua Vendor Outing dan Incentive Travel di Satu Tempat",
     description:
       "Buat HR dan perusahaan yang lagi menyiapkan outing kantor, gathering, atau program incentive.",
-    ctaTicket: "Ambil tiket",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaTicket: "Dapatkan Tiket",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
   },

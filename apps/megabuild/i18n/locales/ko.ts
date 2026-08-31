@@ -33,7 +33,7 @@ export default {
     description:
       "인도네시아 최대 건자재·인테리어 디자인·건축·건설 전시회 & 컨퍼런스.",
     ctaTicket: "무료 티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },
@@ -297,7 +297,7 @@ export default {
       description:
         "디벨로퍼, 투자자, 건축가, 업계 전문가가 한자리에 모이는 인도네시아 부동산 전시회입니다.",
       ctaTicket: "무료 티켓 받기",
-      ctaExhibit: "전시 참가 등록",
+      ctaExhibit: "참가업체 신청",
       tagline: "인도네시아 최대 건축·부동산 통합 플랫폼.",
     },
     about: {
@@ -501,7 +501,7 @@ export default {
       title: "부동산 프로젝트를 소개할 준비 되셨나요?",
       description:
         "MegaProperty Expo 2026에서 부스를 확보하고, 수천 명의 바이어, 투자자, 업계 전문가를 만나세요.",
-      button: "부스 예약하기",
+      button: "참가업체 신청",
     },
   },
   architectAlley: {
@@ -518,6 +518,6 @@ export default {
     ],
     closingLine:
       "인도네시아 건설·디자인 산업의 중심에 브랜드를 포지셔닝하세요.",
-    ctaButton: "전시 공간 예약",
+    ctaButton: "참가업체 신청",
   },
 };

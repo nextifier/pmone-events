@@ -141,7 +141,7 @@
   }
 
   .cn-button-variant-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 active:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground border-transparent;
+    @apply bg-secondary text-foreground aria-expanded:bg-secondary aria-expanded:text-foreground border-border border transition hover:brightness-95 dark:hover:brightness-120;
   }
 
   .cn-button-variant-destructive {

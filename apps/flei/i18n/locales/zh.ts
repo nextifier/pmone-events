@@ -48,7 +48,7 @@ export default {
     description:
       "餐饮、零售、教育等各行业的加盟品牌齐聚一堂。现场直接聊，直接比，找到适合你的生意。",
     ctaTicket: "领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看回顾视频",
     edition: "第{n}届",
   },

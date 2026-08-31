@@ -9,7 +9,7 @@ export default {
     back: "Back",
     comingSoon: "Coming soon",
     backToHome: "Back to home",
-    bookSpace: "Book Space",
+    bookSpace: "Join as Exhibitor",
     getTicket: "Get Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
@@ -214,7 +214,7 @@ export default {
       countries: "Countries on the floor",
     },
     ctaTicket: "Pre-register",
-    ctaExhibit: "Reserve booth",
+    ctaExhibit: "Join as Exhibitor",
   },
   mainPrograms: {
     title:

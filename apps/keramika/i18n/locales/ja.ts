@@ -39,7 +39,7 @@ export default {
     description:
       "ASEANを代表するセラミックス産業展で、最新技術・素材・デザインを体感してください。",
     ctaTicket: "無料チケット取得",
-    ctaExhibit: "出展登録",
+    ctaExhibit: "出展申し込み",
     playRecap: "ハイライトを見る",
     edition: "第{n}回",
   },

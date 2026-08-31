@@ -50,7 +50,7 @@ export default {
     description:
       "F&B, 리테일, 교육 등 각 분야의 프랜차이즈 브랜드가 한자리에 모여요. 직접 만나보고, 비교하고, 나에게 맞는 사업을 찾아보세요.",
     ctaTicket: "티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },

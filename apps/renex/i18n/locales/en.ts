@@ -9,7 +9,7 @@ export default {
     "back": "Back",
     "comingSoon": "Coming soon",
     "backToHome": "Back to home",
-    "bookSpace": "Book Space",
+    "bookSpace": "Join as Exhibitor",
     "getTicket": "Get Ticket",
     "toggleSidebar": "Toggle Sidebar",
     "openMenu": "Open Menu",
@@ -153,7 +153,7 @@ export default {
     "title": "The <span class=\"relative inline-block\"><span class=\"bg-pattern-diagonal border-primary/30 absolute -inset-x-2 -inset-y-1 z-[-1] border [--pattern-fg:var(--color-primary)]/10 dark:[--pattern-fg:var(--color-primary)]/15\"></span><span class=\"text-outline\">Blueprint</span></span> for Your <span class=\"gradient-gold box-decoration-clone bg-clip-text pr-1 text-transparent\">Home Renovation.</span>",
     "description": "Take control of your renovation. Touch and feel the latest materials, get direct advice from designers, and build your project with total confidence.",
     "ctaTicket": "Get ticket",
-    "ctaExhibit": "I want to exhibit",
+    "ctaExhibit": "Join as Exhibitor",
     "playRecap": "Play Recap",
     "edition": "{n}{ordinal} edition"
   },

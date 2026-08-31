@@ -47,7 +47,7 @@ export default {
     description:
       "产地的风土，匠人的手艺，最终成就独一无二的味道。来这里，亲口尝尝有什么不同。",
     ctaTicket: "领取门票",
-    ctaExhibit: "参展报名",
+    ctaExhibit: "成为参展商",
     playRecap: "看精彩回顾",
     edition: "第{n}届",
   },

@@ -9,7 +9,7 @@
         <NavigationMenuLink v-if="!item.links" as-child>
           <NuxtLink
             :to="lp(item.path)"
-            class="text-muted-foreground hover:bg-muted relative flex h-full items-center justify-center gap-x-1 rounded-2xl px-3 py-2 tracking-tight transition select-none active:scale-98"
+            class="text-muted-foreground hover:bg-muted relative flex h-full items-center justify-center gap-x-1 rounded-2xl px-2 py-2 tracking-tight transition select-none active:scale-98 2xl:px-3"
             active-class="text-primary"
             @click="$scrollToTopIfCurrentPageIs(lp(item.path))"
             @contextmenu="

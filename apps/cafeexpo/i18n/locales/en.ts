@@ -9,7 +9,7 @@ export default {
     back: "Back",
     comingSoon: "Coming soon",
     backToHome: "Back to home",
-    bookSpace: "Book Space",
+    bookSpace: "Join as Exhibitor",
     getTicket: "Get Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
@@ -162,7 +162,7 @@ export default {
     description:
       "Sip through hundreds of coffee, tea, chocolate, and beverage brands before you stock a single shelf.",
     ctaTicket: "Get ticket",
-    ctaExhibit: "I want to exhibit",
+    ctaExhibit: "Join as Exhibitor",
     playRecap: "Play Recap",
     edition: "{n}{ordinal} edition",
   },

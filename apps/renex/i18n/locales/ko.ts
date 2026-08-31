@@ -41,7 +41,7 @@ export default {
     description:
       "최신 자재를 직접 보고 만져보고, 디자이너에게 바로 상담받고. 리노베이션에 필요한 모든 게 한자리에 있어요.",
     ctaTicket: "티켓 받기",
-    ctaExhibit: "전시 참가 등록",
+    ctaExhibit: "참가업체 신청",
     playRecap: "하이라이트 보기",
     edition: "제{n}회",
   },

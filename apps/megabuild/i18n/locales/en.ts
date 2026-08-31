@@ -9,7 +9,7 @@ export default {
     back: "Back",
     comingSoon: "Coming soon",
     backToHome: "Back to home",
-    bookSpace: "Book Space",
+    bookSpace: "Join as Exhibitor",
     getTicket: "Get Free Ticket",
     toggleSidebar: "Toggle Sidebar",
     openMenu: "Open Menu",
@@ -162,7 +162,7 @@ export default {
     description:
       "The enhanced edition of building materials, interior design, architecture, and construction exhibition & conference in Indonesia.",
     ctaTicket: "Get free ticket",
-    ctaExhibit: "I want to exhibit",
+    ctaExhibit: "Join as Exhibitor",
     playRecap: "Play Recap",
     edition: "{n}{ordinal} edition",
   },
@@ -442,7 +442,7 @@ export default {
       description:
         "Premier real estate exhibition that brings together leading property developers, investors, architects, and industry professionals in one dynamic platform.",
       ctaTicket: "Get free ticket",
-      ctaExhibit: "I want to exhibit",
+      ctaExhibit: "Join as Exhibitor",
       tagline: "Indonesia's largest integrated building & property ecosystem.",
     },
     about: {
@@ -646,7 +646,7 @@ export default {
       title: "Ready to Showcase Your Property?",
       description:
         "Secure your booth at MegaProperty Expo 2026 and connect with thousands of potential buyers, investors, and industry professionals.",
-      button: "Book Your Space",
+      button: "Join as Exhibitor",
     },
   },
   architectAlley: {
@@ -663,6 +663,6 @@ export default {
     ],
     closingLine:
       "Position your brand at the center of Indonesia's construction and design industry.",
-    ctaButton: "Book Your Space",
+    ctaButton: "Join as Exhibitor",
   },
 };

@@ -33,8 +33,8 @@ export default {
     title: "Pameran Bangunan dan Interior Terbesar di Indonesia.",
     description:
       "Ratusan brand bahan bangunan, arsitektur, dan interior design ada di satu tempat. Datang, bandingkan, langsung deal.",
-    ctaTicket: "Dapatkan tiket gratis",
-    ctaExhibit: "Daftar Exhibitor",
+    ctaTicket: "Dapatkan Tiket Gratis",
+    ctaExhibit: "Gabung jadi Exhibitor",
     playRecap: "Tonton Highlight",
     edition: "Edisi ke-{n}",
   },
@@ -307,7 +307,7 @@ export default {
       description:
         "Pameran properti yang mempertemukan developer, investor, arsitek, dan profesional industri dalam satu platform.",
       ctaTicket: "Dapatkan Tiket Gratis",
-      ctaExhibit: "Saya Mau Exhibit",
+      ctaExhibit: "Gabung jadi Exhibitor",
       tagline: "Ekosistem bangunan & properti terbesar di Indonesia.",
     },
     about: {
@@ -511,7 +511,7 @@ export default {
       title: "Siap Tampilkan Properti Kamu?",
       description:
         "Amankan booth di MegaProperty Expo 2026 dan terhubung dengan ribuan calon pembeli, investor, dan profesional industri.",
-      button: "Pesan Booth",
+      button: "Gabung jadi Exhibitor",
     },
   },
   architectAlley: {
@@ -528,6 +528,6 @@ export default {
     ],
     closingLine:
       "Tempatkan brand kamu di pusat industri konstruksi dan desain Indonesia.",
-    ctaButton: "Pesan Space",
+    ctaButton: "Gabung jadi Exhibitor",
   },
 };
