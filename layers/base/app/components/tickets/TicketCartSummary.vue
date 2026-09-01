@@ -447,7 +447,7 @@ defineExpose({ appliedPromo });
             {{ t("tickets.promoApplied", { code: appliedPromo }) }}
           </AlertTitle>
           <AlertAction>
-            <Button variant="ghost" size="xs" @click="removePromo">
+            <Button variant="ghost" size="sm" @click="removePromo">
               {{ t("tickets.remove") }}
             </Button>
           </AlertAction>

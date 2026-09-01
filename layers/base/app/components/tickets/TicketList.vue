@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
 import { toast } from "vue-sonner";
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { Alert, AlertAction, AlertDescription, AlertTitle } from "../ui/alert";
@@ -14,6 +14,7 @@ import {
   EmptyTitle,
 } from "../ui/empty";
 import { Field, FieldLabel } from "../ui/field";
+import ResponsiveDialog from "../ui/responsive-dialog/ResponsiveDialog.vue";
 import { Input } from "../ui/input";
 import { Lightbox } from "../ui/lightbox";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
@@ -29,6 +30,7 @@ const props = defineProps({
 const { t, locale } = useI18n();
 const { $dayjs } = useNuxtApp();
 const route = useRoute();
+const router = useRouter();
 const cart = useTicketCartStore();
 const event = useEvent();
 const accessCodeErrors = useAccessCodeErrors();
@@ -105,6 +107,8 @@ function isLocked(ticket) {
 }
 
 // --- Access code (unlock gated tickets + optional price effect) ---
+const accessBox = ref(null);
+const removeConfirmOpen = ref(false);
 const accessCodeInput = ref("");
 const accessApplying = ref(false);
 const accessError = ref("");
@@ -165,7 +169,8 @@ async function applyAccessCode(rawCode) {
   }
 }
 
-function removeAccessCode() {
+async function removeAccessCode() {
+  removeConfirmOpen.value = false;
   accessCodeInput.value = "";
   appliedAccessCode.value = "";
   accessError.value = "";
@@ -174,6 +179,20 @@ function removeAccessCode() {
   unlockedIds.value = [];
   exclusiveDisplay.value = false;
   cart.clearAccessCode();
+
+  // The code also lives in the address bar, and onMounted reads it back. Without
+  // dropping it here, Remove survives exactly until the next reload and then the
+  // code silently reapplies - which is not an undo, just a hidden state.
+  if (route.query.code || route.query.invite) {
+    await router.replace({
+      query: { ...route.query, code: undefined, invite: undefined },
+    });
+  }
+
+  // The button removed itself, so focus was left on <body>. Hand it to the input
+  // that just took the button's place: same box, same spot on screen.
+  await nextTick();
+  accessBox.value?.querySelector("input")?.focus();
 }
 
 /**
@@ -707,7 +726,7 @@ const ticketsById = computed(() => {
       old 448-against-512 near-miss read as a bug rather than as a narrower
       notice. Same token, so the two edges line up exactly.
     -->
-    <div v-if="showAccessBox" class="mx-auto mb-8 max-w-lg lg:mb-10">
+    <div v-if="showAccessBox" ref="accessBox" class="mx-auto mb-8 max-w-lg lg:mb-10">
       <!--
         Applied state is one status surface, the same shape the promo code uses
         in TicketCartSummary: check glyph, the sentence, Remove as a link inside
@@ -723,7 +742,7 @@ const ticketsById = computed(() => {
         <AlertTitle>
           <i18n-t keypath="tickets.accessApplied" tag="span" scope="global">
             <template #code>
-              <span class="font-medium">{{ appliedAccessCode }}</span>
+              <span class="font-medium [overflow-wrap:anywhere]" dir="ltr">{{ appliedAccessCode }}</span>
             </template>
           </i18n-t>
         </AlertTitle>
@@ -734,7 +753,12 @@ const ticketsById = computed(() => {
           {{ t("tickets.accessPriceNote") }}
         </AlertDescription>
         <AlertAction>
-          <Button type="button" variant="ghost" size="xs" @click="removeAccessCode">
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            @click="removeConfirmOpen = true"
+          >
             {{ t("tickets.remove") }}
           </Button>
         </AlertAction>
@@ -794,6 +818,42 @@ const ticketsById = computed(() => {
         </div>
       </div>
     </div>
+
+    <!-- Outside the showAccessBox branch: the dialog must survive the box
+         disappearing the instant the code is removed. -->
+    <ResponsiveDialog
+      v-model:open="removeConfirmOpen"
+      :title="t('tickets.removeAccessTitle')"
+      :description="t('tickets.removeAccessBody')"
+      dialog-max-width="26rem"
+    >
+      <template #default>
+        <!-- Same shape as the clear-cart confirmation in TicketCartBar, which
+             is this repo's one confirmation pattern. `aria-hidden` on the
+             prompt because ResponsiveDialog already renders both strings as
+             the sr-only title and description. -->
+        <div class="px-4 pt-5 pb-8 md:px-6 md:py-5">
+          <div aria-hidden="true">
+            <div
+              class="text-foreground text-lg font-semibold tracking-tighter text-balance"
+            >
+              {{ t("tickets.removeAccessTitle") }}
+            </div>
+            <p class="text-body mt-1.5 text-sm tracking-tight">
+              {{ t("tickets.removeAccessBody") }}
+            </p>
+          </div>
+          <div class="mt-4 flex justify-end gap-2">
+            <Button variant="outline" @click="removeConfirmOpen = false">
+              {{ t("tickets.clearCartCancel") }}
+            </Button>
+            <Button variant="destructive" @click="removeAccessCode">
+              {{ t("tickets.removeAccessConfirm") }}
+            </Button>
+          </div>
+        </div>
+      </template>
+    </ResponsiveDialog>
 
     <!-- Empty: the listing loaded fine but there are no tickets yet -->
     <EmptyState

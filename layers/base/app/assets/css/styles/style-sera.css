@@ -25,7 +25,7 @@
 
   /* MARK: Alert */
   .cn-alert {
-    @apply grid gap-1 bg-background border px-4 py-3 text-start text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pe-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*=size-])]:size-4 relative after:-inset-y-px after:-left-px after:w-0.5 after:absolute;
+    @apply grid gap-1 bg-background border px-4 py-3 text-start text-sm has-data-[slot=alert-action]:relative sm:has-data-[slot=alert-action]:pe-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*=size-])]:size-4 relative after:-inset-y-px after:-left-px after:w-0.5 after:absolute;
   }
 
   .cn-alert-variant-default {
@@ -33,11 +33,11 @@
   }
 
   .cn-alert-variant-destructive {
-    @apply text-destructive-foreground bg-card *:data-[slot=alert-description]:text-destructive-foreground/90 *:[svg]:text-current after:bg-destructive;
+    @apply text-destructive-foreground bg-card *:data-[slot=alert-description]:text-destructive-foreground *:[svg]:text-current after:bg-destructive;
   }
 
   .cn-alert-variant-success {
-    @apply text-success-foreground bg-card *:data-[slot=alert-description]:text-success-foreground/90 *:[svg]:text-current after:bg-success;
+    @apply text-success-foreground bg-card *:data-[slot=alert-description]:text-success-foreground *:[svg]:text-current after:bg-success;
   }
 
   .cn-alert-title {
@@ -49,7 +49,7 @@
   }
 
   .cn-alert-action {
-    @apply absolute top-1/2 -translate-y-1/2 end-3;
+    @apply mt-1.5 justify-self-start group-has-[>svg]/alert:col-start-2 sm:mt-0 sm:absolute sm:top-1/2 sm:-translate-y-1/2 sm:end-3;
   }
 
   /* MARK: Alert Dialog */
