@@ -1,4 +1,5 @@
 <script setup>
+import { Alert, AlertAction, AlertTitle } from "../ui/alert";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Field, FieldLabel } from "../ui/field";
@@ -436,24 +437,21 @@ defineExpose({ appliedPromo });
           </Button>
         </CollapsibleTrigger>
 
-        <p
-          v-else
-          class="bg-success/10 text-success-foreground flex items-start gap-1.5 rounded-md px-3 py-2 text-sm tracking-tight"
-          role="status"
-        >
-          <Icon name="lucide:check" class="mt-0.5 size-4 shrink-0" />
-          <span class="flex-1">
+        <!-- The twin of the applied access code on the tickets page. Both were
+             hand-built success strips until Alert grew a success variant; they
+             go through the primitive now so the two states cannot drift apart
+             again. -->
+        <Alert v-else variant="success" role="status">
+          <Icon name="lucide:circle-check" />
+          <AlertTitle>
             {{ t("tickets.promoApplied", { code: appliedPromo }) }}
-          </span>
-          <Button
-            variant="link"
-            size="xs"
-            class="text-success-foreground -my-1 h-auto shrink-0 px-0"
-            @click="removePromo"
-          >
-            {{ t("tickets.remove") }}
-          </Button>
-        </p>
+          </AlertTitle>
+          <AlertAction>
+            <Button variant="ghost" size="xs" @click="removePromo">
+              {{ t("tickets.remove") }}
+            </Button>
+          </AlertAction>
+        </Alert>
 
         <CollapsibleContent v-if="!appliedPromo" class="mt-3 space-y-2">
           <div class="flex items-end gap-2">

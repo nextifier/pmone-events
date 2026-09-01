@@ -2,6 +2,7 @@
 import { computed, onMounted, reactive, ref, watch } from "vue";
 import { toast } from "vue-sonner";
 import { useTicketCartStore } from "../../stores/ticketCart";
+import { Alert, AlertAction, AlertDescription, AlertTitle } from "../ui/alert";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { DatePicker } from "../ui/date-picker";
@@ -12,6 +13,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "../ui/empty";
+import { Field, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Lightbox } from "../ui/lightbox";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
@@ -700,65 +702,88 @@ const ticketsById = computed(() => {
          think"). Hidden tickets are reached via an invite link (?code=), which
          auto-applies on mount. The box only appears when a code_required ticket
          is visibly locked in the listing, or once a code has been applied. -->
-    <div v-if="showAccessBox" class="mx-auto mb-8 max-w-md lg:mb-10">
-      <div class="border-border bg-background rounded-2xl border p-4">
-        <div v-if="appliedAccessCode" class="space-y-2">
-          <div class="flex items-center justify-between gap-2">
-            <span
-              class="bg-success/10 text-success-foreground flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm tracking-tight"
-            >
-              <Icon name="hugeicons:ticket-star" class="size-4 shrink-0" />
-              {{ t("tickets.accessApplied", { code: appliedAccessCode }) }}
-            </span>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              @click="removeAccessCode"
-            >
-              {{ t("tickets.remove") }}
-            </Button>
-          </div>
-          <p
-            v-if="accessPriceEffect"
-            class="text-muted-foreground text-xs tracking-tight"
-          >
-            {{ t("tickets.accessPriceNote") }}
-          </p>
-        </div>
-        <div v-else class="space-y-2">
-          <p class="text-foreground text-sm font-medium tracking-tight">
-            {{ t("tickets.accessLabel") }}
-          </p>
-          <div class="flex gap-2">
-            <Input
-              v-model="accessCodeInput"
-              :placeholder="t('tickets.accessPlaceholder')"
-              class="flex-1 uppercase"
-              maxlength="60"
-              :disabled="accessApplying"
-              @keydown.enter.prevent="
-                accessCodeInput?.trim() && !accessApplying && applyAccessCode()
-              "
-            />
+    <!--
+      max-w-lg, not max-w-md: the single-ticket grid below is max-w-lg, and the
+      old 448-against-512 near-miss read as a bug rather than as a narrower
+      notice. Same token, so the two edges line up exactly.
+    -->
+    <div v-if="showAccessBox" class="mx-auto mb-8 max-w-lg lg:mb-10">
+      <!--
+        Applied state is one status surface, the same shape the promo code uses
+        in TicketCartSummary: check glyph, the sentence, Remove as a link inside
+        the surface. It used to be a bordered card wrapping a filled pill with
+        the button outside it, which is two boxes and two weights for one line,
+        and the two halves of the same idea did not look alike.
+      -->
+      <!-- role="status" over Alert's own role="alert": this is a confirmation,
+           and assertive live regions interrupt whatever a screen reader is
+           already saying. Errors keep the interrupting one. -->
+      <Alert v-if="appliedAccessCode" variant="success" role="status">
+        <Icon name="lucide:circle-check" />
+        <AlertTitle>
+          <i18n-t keypath="tickets.accessApplied" tag="span" scope="global">
+            <template #code>
+              <span class="font-medium">{{ appliedAccessCode }}</span>
+            </template>
+          </i18n-t>
+        </AlertTitle>
+        <!-- The success variant retints the description from its own hue, the
+             way destructive does, so this stays readable instead of dropping to
+             muted gray on a coloured surface. -->
+        <AlertDescription v-if="accessPriceEffect">
+          {{ t("tickets.accessPriceNote") }}
+        </AlertDescription>
+        <AlertAction>
+          <Button type="button" variant="ghost" size="xs" @click="removeAccessCode">
+            {{ t("tickets.remove") }}
+          </Button>
+        </AlertAction>
+      </Alert>
+
+      <div
+        v-else
+        class="border-border bg-background rounded-2xl border p-4"
+      >
+        <div class="space-y-2">
+          <!-- Field + FieldLabel + a loading Button, the same three parts the
+               promo form in TicketCartSummary uses. The label used to be a loose
+               paragraph, which left the input named only by its placeholder, and
+               the spinner was hand-rolled beside a button that owns a loading
+               state. The placeholder is gone with it: the label already says it. -->
+          <div class="flex items-end gap-2">
+            <Field class="flex-1">
+              <FieldLabel for="access_code">
+                {{ t("tickets.accessLabel") }}
+              </FieldLabel>
+              <Input
+                id="access_code"
+                v-model="accessCodeInput"
+                class="uppercase"
+                maxlength="60"
+                autocapitalize="characters"
+                autocomplete="off"
+                spellcheck="false"
+                :disabled="accessApplying"
+                @keydown.enter.prevent="
+                  accessCodeInput?.trim() && !accessApplying && applyAccessCode()
+                "
+              />
+            </Field>
             <Button
               type="button"
               variant="outline"
+              class="h-(--cn-input-h) shrink-0"
+              :loading="accessApplying"
               :disabled="!accessCodeInput?.trim() || accessApplying"
               @click="applyAccessCode()"
             >
-              <Icon
-                v-if="accessApplying"
-                name="svg-spinners:180-ring"
-                class="size-4"
-              />
               {{ t("tickets.apply") }}
             </Button>
           </div>
           <p
             v-if="accessError"
             role="alert"
-            class="bg-destructive/10 text-destructive-foreground flex items-start gap-1.5 rounded-md px-3 py-2 text-xs tracking-tight"
+            class="bg-destructive/10 text-destructive-foreground flex items-start gap-1.5 rounded-md px-3 py-2 text-sm tracking-tight"
           >
             <Icon
               name="hugeicons:alert-circle"

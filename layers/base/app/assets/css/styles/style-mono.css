@@ -53,8 +53,12 @@
     @apply text-destructive-foreground bg-card *:data-[slot=alert-description]:text-destructive-foreground/90 *:[svg]:text-current;
   }
 
+  .cn-alert-variant-success {
+    @apply text-success-foreground bg-card *:data-[slot=alert-description]:text-success-foreground/90 *:[svg]:text-current;
+  }
+
   .cn-alert-title {
-    @apply font-medium group-has-[>svg]/alert:col-start-2;
+    @apply font-medium group-has-[>svg]/alert:col-start-2 tracking-tight;
   }
 
   .cn-alert-description {
@@ -62,7 +66,7 @@
   }
 
   .cn-alert-action {
-    @apply absolute end-2 top-2;
+    @apply absolute end-2 top-1/2 -translate-y-1/2;
   }
 
   /* MARK: Alert Dialog */
