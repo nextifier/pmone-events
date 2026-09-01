@@ -211,6 +211,7 @@ export default {
     locked: "Terkunci",
     yourDetails: "Data Anda",
     detailsNote: "Tiket akan kami kirim ke alamat email ini.",
+    invitationIssuedTo: "Undangan ini diterbitkan untuk {email}. Pakai alamat itu supaya kodenya berlaku.",
     email: "Email",
     fullName: "Nama lengkap",
     phone: "Telepon",

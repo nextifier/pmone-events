@@ -879,7 +879,20 @@ onBeforeUnmount(clearTicketCheckoutBar);
                     required
                   />
                   <FieldError :errors="errors.buyer_email" />
-                  <p class="text-muted-foreground text-sm tracking-tight">
+                  <!-- An invitation code is tied to one mailbox. Saying so here
+                       beats rejecting the order after the buyer has filled in
+                       the whole form. -->
+                  <p
+                    v-if="cart.accessBindEmailHint"
+                    class="text-muted-foreground text-sm tracking-tight"
+                  >
+                    {{
+                      t("tickets.invitationIssuedTo", {
+                        email: cart.accessBindEmailHint,
+                      })
+                    }}
+                  </p>
+                  <p v-else class="text-muted-foreground text-sm tracking-tight">
                     {{ t("tickets.detailsNote") }}
                   </p>
                 </Field>

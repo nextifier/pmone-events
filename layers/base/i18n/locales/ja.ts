@@ -212,6 +212,7 @@ export default {
     locked: "ロック中",
     yourDetails: "お客様情報",
     detailsNote: "チケットはこのメールアドレスに送信します。",
+    invitationIssuedTo: "この招待は {email} 宛に発行されています。コードを有効にするにはそのアドレスをご利用ください。",
     email: "メールアドレス",
     fullName: "氏名",
     phone: "電話番号",

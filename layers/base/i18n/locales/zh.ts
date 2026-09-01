@@ -207,6 +207,7 @@ export default {
     locked: "已锁定",
     yourDetails: "您的信息",
     detailsNote: "我们会将门票发送到此邮箱。",
+    invitationIssuedTo: "此邀请函发放给 {email}。请使用该邮箱，邀请码才会生效。",
     email: "邮箱",
     fullName: "姓名",
     phone: "电话",

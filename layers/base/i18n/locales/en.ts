@@ -202,6 +202,7 @@ export default {
     "locked": "Locked",
     "yourDetails": "Your details",
     "detailsNote": "We will send your ticket to this email address.",
+    "invitationIssuedTo": "This invitation was issued to {email}. Use that address so the code applies.",
     "email": "Email",
     "fullName": "Full name",
     "phone": "Phone",

@@ -63,12 +63,27 @@ const ticketsDisabled = computed(() => {
 // the public listing). Merged over the listing, deduped by id.
 const revealedTickets = ref([]);
 const unlockedIds = ref([]);
+// Set by the applied code: an "exclusive" code turns this page into the
+// invitation it came from, hiding every ticket it does not unlock.
+const exclusiveDisplay = ref(false);
 
 const mergedTickets = computed(() => {
   const byId = new Map();
   for (const tk of tickets.value) byId.set(tk.id, tk);
   for (const tk of revealedTickets.value) byId.set(tk.id, tk);
-  return Array.from(byId.values());
+  const all = Array.from(byId.values());
+
+  if (!appliedAccessCode.value || !exclusiveDisplay.value) return all;
+
+  // Entry tickets and add-ons alike: an organizer who wants an add-on to stay
+  // visible ticks it under "Unlocks tickets". Anything already in the cart and
+  // now hidden is dropped by reconcileCart(), which watches this computed.
+  const only = all.filter((tk) => unlockedIds.value.includes(tk.id));
+
+  // If the unlocked ticket has since been switched off there is nothing left to
+  // show, and an exclusive code would turn the page into a bare "no tickets yet".
+  // Fall back to the full listing rather than strand the guest on a dead end.
+  return only.length ? only : all;
 });
 
 const entryTickets = computed(() =>
@@ -129,13 +144,14 @@ async function applyAccessCode(rawCode) {
     }
     revealedTickets.value = dataRes.tickets ?? [];
     unlockedIds.value = (dataRes.unlocks ?? []).map((u) => u.ticket_id);
+    exclusiveDisplay.value = !!dataRes.exclusive_display;
     appliedAccessCode.value = code.toUpperCase();
     accessPriceEffect.value =
       dataRes.price_effect && dataRes.price_effect !== "none"
         ? dataRes.price_effect
         : null;
     cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
-    cart.setAccessCode(code);
+    cart.setAccessCode(code, dataRes.bind_email_hint ?? null);
   } catch (err) {
     const payload = err?.data?.data ?? err?.data ?? {};
     accessError.value =
@@ -154,6 +170,7 @@ function removeAccessCode() {
   accessPriceEffect.value = null;
   revealedTickets.value = [];
   unlockedIds.value = [];
+  exclusiveDisplay.value = false;
   cart.clearAccessCode();
 }
 

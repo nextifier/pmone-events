@@ -11,6 +11,10 @@ const defaultState = () => ({
   items: [],
   // An applied access code (unlocks gated tickets + optional price effect).
   accessCode: null,
+  // Masked address an invitation code is bound to, e.g. "b•••@example.com".
+  // Persisted because checkout is a separate route: without it the buyer only
+  // learns the code is tied to another mailbox after the order is rejected.
+  accessBindEmailHint: null,
   // Staff preview mode, set from `?force-checkout-ticket` on the tickets page.
   // Persisted because /tickets/checkout is a separate route that the buyer
   // reaches by navigation, so the flag has to survive the hop (and a reload).
@@ -259,6 +263,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
           eventSlug: loaded.eventSlug ?? null,
           items: Array.isArray(loaded.items) ? [...loaded.items] : [],
           accessCode: loaded.accessCode ?? null,
+          accessBindEmailHint: loaded.accessBindEmailHint ?? null,
           forceCheckout: Boolean(loaded.forceCheckout),
           previewToken: loaded.previewToken ?? null,
         });
@@ -277,6 +282,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
             eventSlug: state.eventSlug,
             items: state.items.map((i) => ({ ...i })),
             accessCode: state.accessCode,
+            accessBindEmailHint: state.accessBindEmailHint,
             forceCheckout: state.forceCheckout,
             previewToken: state.previewToken,
           };
@@ -296,6 +302,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
         this.items = [];
         this._resetPricing();
         this.accessCode = null;
+        this.accessBindEmailHint = null;
         this.forceCheckout = false;
         this.previewToken = null;
       }
@@ -321,12 +328,14 @@ export const useTicketCartStore = defineStore("ticketCart", {
       this.previewToken = token ? String(token) : null;
     },
 
-    setAccessCode(code) {
+    setAccessCode(code, bindEmailHint = null) {
       this.accessCode = code ? String(code).toUpperCase().trim() : null;
+      this.accessBindEmailHint = bindEmailHint || null;
     },
 
     clearAccessCode() {
       this.accessCode = null;
+      this.accessBindEmailHint = null;
       this.accessInfo = null;
     },
 
@@ -517,6 +526,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
       this.items = [];
       this._resetPricing();
       this.accessCode = null;
+      this.accessBindEmailHint = null;
       this.forceCheckout = false;
       this.previewToken = null;
     },

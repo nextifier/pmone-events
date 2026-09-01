@@ -209,6 +209,7 @@ export default {
     locked: "잠김",
     yourDetails: "고객 정보",
     detailsNote: "이 이메일 주소로 티켓을 보내드립니다.",
+    invitationIssuedTo: "이 초대장은 {email} 주소로 발급되었습니다. 코드가 적용되도록 해당 주소를 사용해 주세요.",
     email: "이메일",
     fullName: "이름",
     phone: "전화번호",

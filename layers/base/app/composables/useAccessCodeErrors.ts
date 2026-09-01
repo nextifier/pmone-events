@@ -8,6 +8,8 @@ export const useAccessCodeErrors = () => ({
   NOT_YET_VALID: "This access code is not yet valid.",
   EXPIRED: "This access code has expired.",
   USAGE_LIMIT_REACHED: "This access code has reached its usage limit.",
+  PER_EMAIL_LIMIT_REACHED:
+    "You've already used this access code the maximum number of times.",
   BIND_EMAIL_MISMATCH: "This access code is tied to a different email address.",
   BIND_PHONE_MISMATCH: "This access code is tied to a different phone number.",
   TICKET_NOT_UNLOCKED: "This access code does not unlock the selected ticket.",

@@ -25,6 +25,13 @@ const isRange = computed(() => mode.value === "range");
     :class="
       cn(
         'group/day relative aspect-square h-full w-full flex-1 rounded-(--cell-radius) p-0 text-center select-none',
+        // A multi-month view paints the same date twice: once as an outside day
+        // padding a neighbouring grid, once for real in its own. Hide the padding
+        // copy so a selected date shows one indicator, not two. Days whose month is
+        // not on screen at all (July in an Aug+Sep view) keep showing as context,
+        // and in a one-month view nothing matches here — every outside day is
+        // outside the visible view too.
+        '[&:has([data-outside-view]:not([data-outside-visible-view]))]:invisible',
         // The trailing ! lets these row-edge rules beat the trigger's own
         // `rounded-none` (its selected:not(start):not(end) selector is more
         // specific than this cell rule) so every selected row keeps rounded ends.
