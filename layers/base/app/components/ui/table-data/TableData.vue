@@ -86,16 +86,16 @@
           <!-- Column Toggle -->
           <ClientOnly v-if="columnToggle">
             <Popover>
-              <PopoverTrigger asChild>
-                <button
-                  :class="[
-                    buttonVariants({ variant: 'outline', size: 'sm' }),
-                    'h-(--cn-input-h) shrink-0 active:scale-98 max-sm:aspect-square max-sm:px-0',
-                  ]"
+              <PopoverTrigger as-child>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  aria-label="Toggle columns"
+                  class="h-(--cn-input-h) shrink-0 active:scale-98 max-sm:aspect-square max-sm:px-0"
                 >
                   <Icon name="hugeicons:layout-3-column" class="size-4 shrink-0" />
                   <span class="hidden sm:flex">Columns</span>
-                </button>
+                </Button>
               </PopoverTrigger>
               <PopoverContent class="w-auto min-w-36 p-3" align="end">
                 <div class="space-y-3">
@@ -125,16 +125,16 @@
               </PopoverContent>
             </Popover>
             <template #fallback>
-              <button
-                :class="[
-                  buttonVariants({ variant: 'outline', size: 'sm' }),
-                  'h-(--cn-input-h) shrink-0 active:scale-98 max-sm:aspect-square max-sm:px-0',
-                ]"
+              <Button
+                variant="outline"
+                size="sm"
+                aria-label="Toggle columns"
+                class="h-(--cn-input-h) shrink-0 active:scale-98 max-sm:aspect-square max-sm:px-0"
                 disabled
               >
                 <Icon name="hugeicons:layout-3-column" class="size-4 shrink-0" />
                 <span class="hidden sm:flex">Columns</span>
-              </button>
+              </Button>
             </template>
           </ClientOnly>
         </div>
@@ -493,41 +493,45 @@
               :total="totalItems"
             >
               <PaginationContent>
-                <PaginationFirst asChild>
-                  <button
-                    :class="buttonVariants({ variant: 'outline', size: 'icon' })"
+                <PaginationFirst as-child>
+                  <Button
+                    variant="outline"
+                    size="icon"
                     @click="goToFirstPage"
                     :disabled="!canGoPrevious"
                   >
                     <Icon name="lucide:chevron-first" class="size-4 shrink-0" />
-                  </button>
+                  </Button>
                 </PaginationFirst>
-                <PaginationPrevious asChild>
-                  <button
-                    :class="buttonVariants({ variant: 'outline', size: 'icon' })"
+                <PaginationPrevious as-child>
+                  <Button
+                    variant="outline"
+                    size="icon"
                     @click="goToPreviousPage"
                     :disabled="!canGoPrevious"
                   >
                     <Icon name="lucide:chevron-left" class="size-4 shrink-0" />
-                  </button>
+                  </Button>
                 </PaginationPrevious>
-                <PaginationNext asChild>
-                  <button
-                    :class="buttonVariants({ variant: 'outline', size: 'icon' })"
+                <PaginationNext as-child>
+                  <Button
+                    variant="outline"
+                    size="icon"
                     @click="goToNextPage"
                     :disabled="!canGoNext"
                   >
                     <Icon name="lucide:chevron-right" class="size-4 shrink-0" />
-                  </button>
+                  </Button>
                 </PaginationNext>
-                <PaginationLast asChild>
-                  <button
-                    :class="buttonVariants({ variant: 'outline', size: 'icon' })"
+                <PaginationLast as-child>
+                  <Button
+                    variant="outline"
+                    size="icon"
                     @click="goToLastPage"
                     :disabled="!canGoNext"
                   >
                     <Icon name="lucide:chevron-last" class="size-4 shrink-0" />
-                  </button>
+                  </Button>
                 </PaginationLast>
               </PaginationContent>
             </Pagination>
@@ -539,7 +543,7 @@
 </template>
 
 <script setup>
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import TableBulkAction from "@/components/ui/table-data/TableBulkAction.vue";
 import { Checkbox } from "@/components/ui/checkbox";
 import {

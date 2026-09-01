@@ -63,18 +63,20 @@ export const buttonVariants = cva(
         "black-ghost": ghost("text-black", "bg-gray-100", "bg-gray-200"),
       },
       size: {
-        // Same ladder as `.cn-button`. `default` used to say `sm:h-10`, which made it
-        // taller than `lg` (`sm:h-9`) on desktop — the sizes were out of order.
-        xs: "h-7 gap-1 px-2.5 text-xs sm:h-6",
-        sm: "h-8 gap-1.5 px-3 text-sm sm:h-7",
-        default: "h-9 gap-1.5 px-4 text-sm sm:h-8",
-        lg: "h-10 gap-2 px-5 text-sm sm:h-9",
-        xl: "h-11 gap-2.5 px-6 text-base sm:h-10",
-        icon: "size-9 sm:size-8",
-        "icon-xs": "size-7 sm:size-6",
-        "icon-sm": "size-8 sm:size-7",
-        "icon-lg": "size-10 sm:size-9",
-        "icon-xl": "size-11 sm:size-10",
+        // Same scale as `.cn-button` in the mono style: one height at every
+        // width, one 4px step above what the old ladder gave phones. This
+        // component owns its sizes instead of reading a `cn-*` rule, so it does
+        // not follow the style packs and has to be kept in step by hand.
+        xs: "h-7 gap-1 px-2.5 text-xs",
+        sm: "h-8 gap-1.5 px-3 text-sm",
+        default: "h-9 gap-1.5 px-4 text-sm",
+        lg: "h-10 gap-2 px-5 text-base",
+        xl: "h-11 gap-2.5 px-6 text-base",
+        icon: "size-9",
+        "icon-xs": "size-7",
+        "icon-sm": "size-8",
+        "icon-lg": "size-10",
+        "icon-xl": "size-11",
         inherit: "text-[1em] px-[1em] py-[0.5em]",
       },
       rounded: {

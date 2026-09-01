@@ -333,7 +333,7 @@ export default {
     home: {
       title: "Cafe & Brasserie Expo Indonesia (CBE)",
       description:
-        "Pameran cafe dan brasserie Indonesia balik lagi buat edisi ke-9, 9-11 Oktober 2026 di NICE PIK 2. Cicip brand kopi, teh, cokelat, dan brasserie, terus sourcing yang pas buat bisnismu. Tiket sudah bisa dibeli.",
+        "Pameran cafe dan brasserie Indonesia balik lagi buat edisi ke-{n}, {dayRange} {month} {year} di {venue}. Cicip brand kopi, teh, cokelat, dan brasserie, terus sourcing yang pas buat bisnismu. Tiket sudah bisa dibeli.",
     },
     brands: {
       title: "Brand",

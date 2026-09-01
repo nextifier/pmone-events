@@ -2,9 +2,7 @@
   <Popover @update:open="onOpenChange">
     <Tippy>
       <PopoverTrigger as-child>
-        <button
-          class="hover:bg-muted relative mr-2 flex size-8 items-center justify-center rounded-lg transition-[color,box-shadow,transform] active:scale-98"
-        >
+        <Button variant="ghost" size="iconSm" class="relative mr-2">
           <svg
             class="text-foreground size-4.5 shrink-0"
             xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +29,7 @@
           >
             {{ unreadCount > 9 ? "9+" : unreadCount }}
           </span>
-        </button>
+        </Button>
       </PopoverTrigger>
       <template #content>
         <span class="inline-flex items-center gap-x-1.5 tracking-tight">
@@ -160,6 +158,7 @@
 </template>
 
 <script setup>
+import { Button } from "@/components/ui/button";
 import { PopoverClose } from "reka-ui";
 import { useSwipe, useEventListener } from "@vueuse/core";
 

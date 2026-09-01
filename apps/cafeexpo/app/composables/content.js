@@ -4,10 +4,15 @@ export const useContentStore = defineStore("content", () => {
   const { t } = useI18n();
   const appName = useAppConfig().app.name;
 
+  // The home description names the edition, dates and venue, so it is built
+  // from the live event rather than typed into the locale files - those went
+  // stale one edition at a time, in five languages at once.
+  const eventMeta = useEventMetaTokens();
+
   const pages = computed(() => ({
     home: {
       title: t("pages.home.title"),
-      description: t("pages.home.description"),
+      description: t("pages.home.description", eventMeta.value),
       withoutTitleTemplate: true,
     },
     brands: {

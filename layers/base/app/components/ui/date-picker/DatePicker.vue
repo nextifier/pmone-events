@@ -203,7 +203,7 @@ const props = withDefaults(
      * "field" is a form control and wears `cn-input`. "button" is a toolbar
      * control: it wears the outline button's own size and border so it lines up
      * with the Export / back buttons it sits beside, instead of pairing a field
-     * border and a fixed h-8 against the button ladder's `h-9 sm:h-8`.
+     * border and a fixed height against the button's own scale.
      */
     variant?: "field" | "button";
     layout?: LayoutTypes;

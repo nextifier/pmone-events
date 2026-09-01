@@ -574,7 +574,7 @@
             :aria-checked="Number(modelValue) === n"
             :aria-label="String(n)"
             :disabled="disabled"
-            class="cn-input flex h-11 w-full min-w-0 cursor-pointer items-center justify-center px-0 font-medium tracking-tight transition-colors active:scale-95 sm:h-10"
+            class="cn-input flex h-11 w-full min-w-0 cursor-pointer items-center justify-center px-0 font-medium tracking-tight transition-colors active:scale-95"
             :class="
               Number(modelValue) === n
                 ? 'border-primary bg-primary text-primary-foreground'

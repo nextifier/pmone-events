@@ -311,7 +311,7 @@ export default {
     home: {
       title: "Cafe & Brasserie Expo Indonesia (CBE)",
       description:
-        "印尼咖啡与餐酒行业展第九届回归，2026 年 10 月 9 至 11 日在 NICE PIK 2 举办。现场品咖啡、茶、巧克力和各类餐酒品牌，再挑出适合你生意的供应商。现在购票。",
+        "印尼咖啡与餐酒行业展第{n}届回归，{year} 年 {monthNum} 月 {day1} 至 {day2} 日在 {venue} 举办。现场品咖啡、茶、巧克力和各类餐酒品牌，再挑出适合你生意的供应商。现在购票。",
     },
     brands: {
       title: "品牌",

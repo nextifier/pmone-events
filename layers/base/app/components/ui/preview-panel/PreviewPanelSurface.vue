@@ -136,7 +136,7 @@ const hasChrome = computed(
         </p>
         <div v-else class="min-w-0 flex-1" />
 
-        <div class="flex flex-none items-center gap-0.5">
+        <div class="flex flex-wrap flex-none items-center gap-x-1.5 gap-y-2.5">
           <slot name="toolbar" />
           <Button
             v-if="props.reloadable"

@@ -1,11 +1,11 @@
 .style-maia {
-  /* Mobile gets one step more than the desktop value, matching the
-     `h-{N+1} sm:h-{N}` ladder every control now uses. Call sites keep
-     writing `h-(--cn-input-h)` and follow automatically. */
+  /* One field height at every width. Controls used to be one 4px step SHORTER
+     on desktop than on touch, which read as a mistake on the screen these
+     dashboards are worked in all day. The ladder is gone; the value kept is the
+     one touch already had, so nothing grew - desktop simply stopped shrinking.
+     Call sites keep writing `h-(--cn-input-h)`; there is nothing responsive left
+     for them to follow. */
   --cn-input-h: --spacing(10);
-  @media (width >= 40rem) {
-    --cn-input-h: --spacing(9);
-  }
   /* MARK: Accordion */
   .cn-accordion {
     @apply overflow-hidden rounded-2xl border;
@@ -85,7 +85,7 @@
 
   /* MARK: Badge */
   .cn-badge {
-    @apply [&>svg]:size-3.5! h-6 sm:h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 sm:[&>svg]:size-3!;
+    @apply [&>svg]:size-3! h-6 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5;
   }
 
   .cn-badge-variant-default {
@@ -127,7 +127,7 @@
 
   /* MARK: Button */
   .cn-button {
-    @apply [&_svg:not([class*='size-'])]:size-4.5 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-2 aria-invalid:ring-2 active:not-aria-[haspopup]:translate-y-px sm:[&_svg:not([class*='size-'])]:size-4 disabled:opacity-50;
+    @apply [&_svg:not([class*='size-'])]:size-4 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 rounded-4xl border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-2 aria-invalid:ring-2 active:not-aria-[haspopup]:translate-y-px disabled:opacity-50;
   }
 
   .cn-button-variant-default {
@@ -151,39 +151,39 @@
   }
 
   .cn-button-size-xs {
-    @apply [&_svg:not([class*=size-])]:size-3.5 h-7 sm:h-6 gap-1 px-2.5 text-xs has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 sm:[&_svg:not([class*=size-])]:size-3;
+    @apply [&_svg:not([class*=size-])]:size-3 h-7 gap-1 px-2.5 text-xs has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
   }
 
   .cn-button-size-sm {
-    @apply h-9 sm:h-8 gap-1 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+    @apply h-9 gap-1 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
   }
 
   .cn-button-size-default {
-    @apply h-10 sm:h-9 gap-1.5 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5;
+    @apply h-10 gap-1.5 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5;
   }
 
   .cn-button-size-lg {
-    @apply h-11 sm:h-10 gap-1.5 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
+    @apply h-11 text-base gap-1.5 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3 [&_svg:not([class*=size-])]:size-5;
   }
 
   .cn-button-size-xl {
-    @apply [&_svg:not([class*=size-])]:size-5.5 h-13 sm:h-12 gap-2 px-5 text-base has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4 sm:[&_svg:not([class*=size-])]:size-5;
+    @apply [&_svg:not([class*=size-])]:size-5 h-13 gap-2 px-5 text-base has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4;
   }
 
   .cn-button-size-icon-xs {
-    @apply [&_svg:not([class*=size-])]:size-3.5 size-7 sm:size-6 sm:[&_svg:not([class*=size-])]:size-3;
+    @apply [&_svg:not([class*=size-])]:size-3 size-7;
   }
 
   .cn-button-size-icon-sm {
-    @apply size-9 sm:size-8;
+    @apply size-9;
   }
 
   .cn-button-size-icon {
-    @apply size-10 sm:size-9;
+    @apply size-10;
   }
 
   .cn-button-size-icon-lg {
-    @apply size-11 sm:size-10;
+    @apply size-11;
   }
 
   /* MARK: Button Group */
@@ -200,7 +200,7 @@
   }
 
   .cn-button-group-text {
-    @apply [&_svg:not([class*=size-])]:size-4.5 bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 bg-muted gap-2 rounded-4xl border px-2.5 text-sm font-medium;
   }
 
   /* MARK: Calendar */
@@ -257,7 +257,7 @@
 
   /* MARK: Checkbox */
   .cn-checkbox {
-    @apply size-4.5 border-muted-foreground/30 dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 flex sm:size-4 items-center justify-center rounded-[6px] border transition-shadow group-has-disabled/field:opacity-50 focus-visible:ring-2 aria-invalid:ring-2;
+    @apply size-4 border-muted-foreground/30 dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 flex items-center justify-center rounded-[6px] border transition-shadow group-has-disabled/field:opacity-50 focus-visible:ring-2 aria-invalid:ring-2;
   }
 
   .cn-checkbox-indicator {
@@ -274,11 +274,11 @@
   }
 
   .cn-combobox-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 data-highlighted:bg-muted data-highlighted:text-foreground not-data-[variant=destructive]:data-highlighted:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 data-highlighted:bg-muted data-highlighted:text-foreground not-data-[variant=destructive]:data-highlighted:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm;
   }
 
   .cn-combobox-item-indicator {
-    @apply size-4.5 pointer-events-none absolute right-2 flex sm:size-4 items-center justify-center;
+    @apply size-4 pointer-events-none absolute right-2 flex items-center justify-center;
   }
 
   .cn-combobox-empty {
@@ -294,19 +294,19 @@
   }
 
   .cn-combobox-trigger {
-    @apply [&_svg:not([class*=size-])]:size-4.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4;
   }
 
   .cn-combobox-trigger-icon {
-    @apply size-4.5 text-muted-foreground sm:size-4;
+    @apply size-4 text-muted-foreground;
   }
 
   .cn-combobox-chips {
-    @apply min-h-10 bg-input/30 border-field focus-within:border-ring focus-within:ring-ring/50 has-aria-invalid:ring-destructive-foreground/20 dark:has-aria-invalid:ring-destructive-foreground/40 has-aria-invalid:border-destructive-foreground dark:has-aria-invalid:border-destructive-foreground/50 flex sm:min-h-9 flex-wrap items-center gap-1.5 rounded-4xl border bg-clip-padding px-2.5 py-1.5 text-base pointer-fine:text-sm transition-colors focus-within:ring-2 has-aria-invalid:ring-2 has-data-[slot=combobox-chip]:px-1.5;
+    @apply min-h-10 bg-input/30 border-field focus-within:border-ring focus-within:ring-ring/50 has-aria-invalid:ring-destructive-foreground/20 dark:has-aria-invalid:ring-destructive-foreground/40 has-aria-invalid:border-destructive-foreground dark:has-aria-invalid:border-destructive-foreground/50 flex flex-wrap items-center gap-1.5 rounded-4xl border bg-clip-padding px-2.5 py-1.5 text-base pointer-fine:text-sm transition-colors focus-within:ring-2 has-aria-invalid:ring-2 has-data-[slot=combobox-chip]:px-1.5;
   }
 
   .cn-combobox-chip {
-    @apply h-[calc(--spacing(6.5))] bg-muted-foreground/10 text-foreground flex sm:h-[calc(--spacing(5.5))] w-fit items-center justify-center gap-1 rounded-4xl px-2 text-sm pointer-fine:text-xs font-medium whitespace-nowrap has-data-[slot=combobox-chip-remove]:pr-0;
+    @apply h-[calc(--spacing(6.5))] bg-muted-foreground/10 text-foreground flex w-fit items-center justify-center gap-1 rounded-4xl px-2 text-sm pointer-fine:text-xs font-medium whitespace-nowrap has-data-[slot=combobox-chip-remove]:pr-0;
   }
 
   .cn-combobox-chip-remove {
@@ -327,11 +327,11 @@
   }
 
   .cn-command-input-group {
-    @apply h-10 bg-input/30 sm:h-9;
+    @apply h-(--cn-input-h)! bg-input/30;
   }
 
   .cn-command-input-icon {
-    @apply size-4.5 sm:size-4 shrink-0 opacity-50;
+    @apply size-4 shrink-0 opacity-50;
   }
 
   .cn-command-input {
@@ -355,7 +355,7 @@
   }
 
   .cn-command-item {
-    @apply [&_svg:not([class*='size-'])]:size-4.5 data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-base pointer-fine:text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl sm:[&_svg:not([class*='size-'])]:size-4;
+    @apply [&_svg:not([class*='size-'])]:size-4 data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-base pointer-fine:text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-2xl;
   }
 
   .cn-command-shortcut {
@@ -368,15 +368,15 @@
   }
 
   .cn-context-menu-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground focus:*:[svg]:text-foreground gap-2.5 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground focus:*:[svg]:text-foreground gap-2.5 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-context-menu-checkbox-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground gap-2 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground gap-2 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-context-menu-radio-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground gap-2 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground gap-2 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-context-menu-item-indicator {
@@ -396,7 +396,7 @@
   }
 
   .cn-context-menu-sub-trigger {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground data-open:bg-muted data-open:text-foreground rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground data-open:bg-muted data-open:text-foreground rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-context-menu-sub-content {
@@ -449,15 +449,15 @@
   }
 
   .cn-dropdown-menu-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground not-data-[variant=destructive]:focus:**:text-foreground gap-2.5 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground not-data-[variant=destructive]:focus:**:text-foreground gap-2.5 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-dropdown-menu-checkbox-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-dropdown-menu-radio-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-dropdown-menu-label {
@@ -473,7 +473,7 @@
   }
 
   .cn-dropdown-menu-sub-trigger {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground data-open:bg-muted data-open:text-foreground not-data-[variant=destructive]:focus:**:text-foreground gap-2 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground data-open:bg-muted data-open:text-foreground not-data-[variant=destructive]:focus:**:text-foreground gap-2 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-dropdown-menu-sub-content {
@@ -557,7 +557,7 @@
 
   /* MARK: Input */
   .cn-input {
-    @apply h-10 file:h-8 bg-input/30 border-field focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 sm:h-9 rounded-4xl border px-3 py-1 text-base pointer-fine:text-sm transition-colors sm:file:h-7 file:text-sm file:font-medium focus-visible:ring-2 aria-invalid:ring-2;
+    @apply h-10 file:h-8 bg-input/30 border-field focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 rounded-4xl border px-3 py-1 text-base pointer-fine:text-sm transition-colors file:text-sm file:font-medium focus-visible:ring-2 aria-invalid:ring-2;
   }
 
   /* MARK: Input OTP */
@@ -567,11 +567,11 @@
   }
 
   .cn-input-otp-slot {
-    @apply size-10 bg-input/30 border-field data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive-foreground/20 dark:data-[active=true]:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground data-[active=true]:aria-invalid:border-destructive-foreground sm:size-9 border-y border-r text-base pointer-fine:text-sm transition-all outline-none first:rounded-l-4xl first:border-l last:rounded-r-4xl data-[active=true]:ring-2;
+    @apply size-10 bg-input/30 border-field data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive-foreground/20 dark:data-[active=true]:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground data-[active=true]:aria-invalid:border-destructive-foreground border-y border-r text-base pointer-fine:text-sm transition-all outline-none first:rounded-l-4xl first:border-l last:rounded-r-4xl data-[active=true]:ring-2;
   }
 
   .cn-input-otp-separator {
-    @apply [&_svg:not([class*=size-])]:size-4.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4;
   }
 
   /* MARK: Item */
@@ -623,7 +623,7 @@
 
   /* MARK: Menubar */
   .cn-menubar {
-    @apply h-10 sm:h-9 rounded-4xl border p-1;
+    @apply h-10 rounded-4xl border p-1;
   }
 
   .cn-menubar-trigger {
@@ -635,7 +635,7 @@
   }
 
   .cn-menubar-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground! not-data-[variant=destructive]:focus:**:text-foreground gap-2.5 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-disabled:opacity-50 data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground! not-data-[variant=destructive]:focus:**:text-foreground gap-2.5 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-disabled:opacity-50 data-inset:pl-9.5;
   }
 
   .cn-menubar-checkbox-item {
@@ -643,15 +643,15 @@
   }
 
   .cn-menubar-checkbox-item-indicator {
-    @apply size-4.5 left-3 sm:size-4 [&_svg:not([class*=size-])]:size-4;
+    @apply size-4 left-3 [&_svg:not([class*=size-])]:size-4;
   }
 
   .cn-menubar-radio-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-3 pl-9.5 text-base pointer-fine:text-sm data-disabled:opacity-50 data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-3 pl-9.5 text-base pointer-fine:text-sm data-disabled:opacity-50 data-inset:pl-9.5;
   }
 
   .cn-menubar-radio-item-indicator {
-    @apply size-4.5 left-3 sm:size-4 [&_svg:not([class*=size-])]:size-4;
+    @apply size-4 left-3 [&_svg:not([class*=size-])]:size-4;
   }
 
   .cn-menubar-label {
@@ -667,7 +667,7 @@
   }
 
   .cn-menubar-sub-trigger {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground data-open:bg-muted data-open:text-foreground gap-2 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground data-open:bg-muted data-open:text-foreground gap-2 rounded-xl px-3 py-2 text-base pointer-fine:text-sm data-inset:pl-9.5;
   }
 
   .cn-menubar-sub-content {
@@ -681,7 +681,7 @@
   }
 
   .cn-navigation-menu-link {
-    @apply [&_svg:not([class*='size-'])]:size-4.5 data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/50 hover:bg-muted focus:bg-muted flex items-center gap-1.5 rounded-2xl p-3 text-sm transition-all outline-none focus-visible:ring-2 focus-visible:outline-1 sm:[&_svg:not([class*='size-'])]:size-4 in-data-[slot=navigation-menu-content]:rounded-xl;
+    @apply [&_svg:not([class*='size-'])]:size-4 data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-muted data-[active=true]:bg-muted/50 focus-visible:ring-ring/50 hover:bg-muted focus:bg-muted flex items-center gap-1.5 rounded-2xl p-3 text-sm transition-all outline-none focus-visible:ring-2 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-xl;
   }
 
   .cn-navigation-menu-content {
@@ -702,11 +702,11 @@
 
   /* MARK: Native Select */
   .cn-native-select {
-    @apply h-10 data-[size=sm]:h-9 border-field bg-input/30 placeholder:text-placeholder selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 sm:h-9 w-full min-w-0 appearance-none rounded-4xl border py-1 pr-8 pl-3 text-base pointer-fine:text-sm transition-colors select-none focus-visible:ring-2 aria-invalid:ring-2 sm:data-[size=sm]:h-8;
+    @apply h-10 data-[size=sm]:h-9 border-field bg-input/30 placeholder:text-placeholder selection:bg-primary selection:text-primary-foreground dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 w-full min-w-0 appearance-none rounded-4xl border py-1 pr-8 pl-3 text-base pointer-fine:text-sm transition-colors select-none focus-visible:ring-2 aria-invalid:ring-2;
   }
 
   .cn-native-select-icon {
-    @apply size-4.5 text-muted-foreground top-1/2 right-3.5 sm:size-4 -translate-y-1/2;
+    @apply size-4 text-muted-foreground top-1/2 right-3.5 -translate-y-1/2;
   }
 
   /* MARK: Pagination */
@@ -715,7 +715,7 @@
   }
 
   .cn-pagination-ellipsis {
-    @apply [&_svg:not([class*=size-])]:size-4.5 size-10 sm:size-9 items-center justify-center sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 size-10 items-center justify-center;
   }
 
   .cn-pagination-previous {
@@ -766,15 +766,15 @@
   }
 
   .cn-radio-group-item {
-    @apply size-4.5 border-muted-foreground/30 dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 dark:aria-invalid:border-destructive-foreground/50 flex sm:size-4 rounded-full focus-visible:ring-2 aria-invalid:ring-2;
+    @apply size-4 border-muted-foreground/30 dark:bg-input/30 data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 dark:aria-invalid:border-destructive-foreground/50 flex rounded-full focus-visible:ring-2 aria-invalid:ring-2;
   }
 
   .cn-radio-group-indicator {
-    @apply size-4.5 flex sm:size-4 items-center justify-center;
+    @apply size-4 flex items-center justify-center;
   }
 
   .cn-radio-group-indicator-icon {
-    @apply size-2.5 bg-primary-foreground absolute top-1/2 left-1/2 sm:size-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
+    @apply size-2 bg-primary-foreground absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full;
   }
 
   /* MARK: Resizable */
@@ -790,11 +790,11 @@
 
   /* MARK: Select */
   .cn-select-trigger {
-    @apply [&_svg:not([class*='size-'])]:size-4.5 data-[size=default]:h-10 data-[size=sm]:h-9 border-field data-placeholder:text-placeholder bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 gap-1.5 rounded-4xl border px-3 py-2 text-base pointer-fine:text-sm transition-colors focus-visible:ring-2 aria-invalid:ring-2 sm:data-[size=default]:h-9 sm:data-[size=sm]:h-8 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 sm:[&_svg:not([class*='size-'])]:size-4;
+    @apply [&_svg:not([class*='size-'])]:size-4 data-[size=default]:h-10 data-[size=sm]:h-9 border-field data-placeholder:text-placeholder bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-foreground/50 gap-1.5 rounded-4xl border px-3 py-2 text-base pointer-fine:text-sm transition-colors focus-visible:ring-2 aria-invalid:ring-2 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5;
   }
 
   .cn-select-trigger-icon {
-    @apply size-4.5 text-muted-foreground sm:size-4;
+    @apply size-4 text-muted-foreground;
   }
 
   .cn-select-content {
@@ -806,11 +806,11 @@
   }
 
   .cn-select-item {
-    @apply [&_svg:not([class*=size-])]:size-4.5 focus:bg-muted focus:text-foreground not-data-[variant=destructive]:focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm sm:[&_svg:not([class*=size-])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2;
+    @apply [&_svg:not([class*=size-])]:size-4 focus:bg-muted focus:text-foreground not-data-[variant=destructive]:focus:**:text-foreground gap-2.5 rounded-xl py-2 pr-8 pl-3 text-base pointer-fine:text-sm *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2;
   }
 
   .cn-select-item-indicator {
-    @apply size-4.5 pointer-events-none absolute right-2 flex sm:size-4 items-center justify-center;
+    @apply size-4 pointer-events-none absolute right-2 flex items-center justify-center;
   }
 
   .cn-select-viewport {
@@ -826,11 +826,11 @@
   }
 
   .cn-select-scroll-up-button {
-    @apply [&_svg:not([class*=size-])]:size-4.5 bg-popover z-10 flex cursor-default items-center justify-center py-1 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 bg-popover z-10 flex cursor-default items-center justify-center py-1;
   }
 
   .cn-select-scroll-down-button {
-    @apply [&_svg:not([class*=size-])]:size-4.5 bg-popover z-10 flex cursor-default items-center justify-center py-1 sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 bg-popover z-10 flex cursor-default items-center justify-center py-1;
   }
 
   /* MARK: Separator */
@@ -954,7 +954,7 @@
   }
 
   .cn-slider-thumb {
-    @apply size-4.5 border-primary ring-ring/50 sm:size-4 rounded-4xl border bg-white shadow-sm transition-colors hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden;
+    @apply size-4 border-primary ring-ring/50 rounded-4xl border bg-white shadow-sm transition-colors hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden;
   }
 
   /* MARK: Sonner */
@@ -984,11 +984,11 @@
   /* MARK: Tabs */
 
   .cn-tabs-list {
-    @apply group-data-horizontal/tabs:h-10 rounded-4xl p-0.75 sm:group-data-horizontal/tabs:h-9 group-data-vertical/tabs:rounded-2xl data-[variant=line]:rounded-none;
+    @apply group-data-horizontal/tabs:h-10 rounded-4xl p-0.75 group-data-vertical/tabs:rounded-2xl data-[variant=line]:rounded-none;
   }
 
   .cn-tabs-trigger {
-    @apply [&_svg:not([class*=size-])]:size-4.5 gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium group-data-vertical/tabs:px-2.5 group-data-vertical/tabs:py-1.5 sm:[&_svg:not([class*=size-])]:size-4 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5;
+    @apply [&_svg:not([class*=size-])]:size-4 gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium group-data-vertical/tabs:px-2.5 group-data-vertical/tabs:py-1.5 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5;
   }
 
   .cn-tabs-content {
@@ -1002,7 +1002,7 @@
 
   /* MARK: Toggle */
   .cn-toggle {
-    @apply [&_svg:not([class*=size-])]:size-4.5 hover:text-foreground aria-pressed:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground gap-1 rounded-4xl text-sm font-medium transition-colors sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 hover:text-foreground aria-pressed:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive-foreground/20 dark:aria-invalid:ring-destructive-foreground/40 aria-invalid:border-destructive-foreground gap-1 rounded-4xl text-sm font-medium transition-colors;
   }
 
   .cn-toggle-variant-outline {
@@ -1010,15 +1010,15 @@
   }
 
   .cn-toggle-size-default {
-    @apply h-10 min-w-10 sm:h-9 sm:min-w-9 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5;
+    @apply h-10 min-w-10 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5;
   }
 
   .cn-toggle-size-sm {
-    @apply h-9 min-w-9 sm:h-8 sm:min-w-8 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+    @apply h-9 min-w-9 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
   }
 
   .cn-toggle-size-lg {
-    @apply h-11 min-w-11 sm:h-10 sm:min-w-10 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
+    @apply h-11 min-w-11 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
   }
 
   /* MARK: Toggle Group */
@@ -1045,11 +1045,11 @@
 
   /* MARK: Input Group */
   .cn-input-group {
-    @apply h-10 border-field bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive-foreground/20 has-[[data-slot][aria-invalid=true]]:border-destructive-foreground dark:has-[[data-slot][aria-invalid=true]]:ring-destructive-foreground/40 sm:h-9 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot][aria-invalid=true]]:ring-2 has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5;
+    @apply h-10 border-field bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive-foreground/20 has-[[data-slot][aria-invalid=true]]:border-destructive-foreground dark:has-[[data-slot][aria-invalid=true]]:ring-destructive-foreground/40 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot][aria-invalid=true]]:ring-2 has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5;
   }
 
   .cn-input-group-addon {
-    @apply [&>svg:not([class*=size-])]:size-4.5 text-muted-foreground **:data-[slot=kbd]:bg-muted-foreground/10 h-auto gap-2 py-2 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 **:data-[slot=kbd]:rounded-4xl **:data-[slot=kbd]:px-1.5 sm:[&>svg:not([class*=size-])]:size-4;
+    @apply [&>svg:not([class*=size-])]:size-4 text-muted-foreground **:data-[slot=kbd]:bg-muted-foreground/10 h-auto gap-2 py-2 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 **:data-[slot=kbd]:rounded-4xl **:data-[slot=kbd]:px-1.5;
   }
 
   .cn-input-group-addon-align-inline-start {
@@ -1073,19 +1073,19 @@
   }
 
   .cn-input-group-button-size-xs {
-    @apply [&>svg:not([class*=size-])]:size-4 h-7 sm:h-6 gap-1 px-1.5 sm:[&>svg:not([class*=size-])]:size-3.5;
+    @apply [&>svg:not([class*=size-])]:size-3.5 h-7 gap-1 px-1.5;
   }
 
   .cn-input-group-button-size-icon-xs {
-    @apply size-7 sm:size-6 p-0 has-[>svg]:p-0;
+    @apply size-7 p-0 has-[>svg]:p-0;
   }
 
   .cn-input-group-button-size-icon-sm {
-    @apply size-9 sm:size-8 p-0 has-[>svg]:p-0;
+    @apply size-9 p-0 has-[>svg]:p-0;
   }
 
   .cn-input-group-text {
-    @apply [&_svg:not([class*=size-])]:size-4.5 text-muted-foreground gap-2 text-sm sm:[&_svg:not([class*=size-])]:size-4;
+    @apply [&_svg:not([class*=size-])]:size-4 text-muted-foreground gap-2 text-sm;
   }
 
   .cn-input-group-input {

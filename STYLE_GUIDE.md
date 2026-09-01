@@ -69,20 +69,24 @@ Yang sengaja TIDAK ikut, dan alasannya:
 
 `.cn-combobox-chip` naik satu step juga (`text-sm pointer-fine:text-xs`, dan `text-base pointer-fine:text-sm` di mono yang memang satu step lebih besar). Chip itu jawaban yang sudah dipilih, dan delapan dari sembilan tema menaruhnya di 12px di dalam field yang tulisannya 16px.
 
-#### Tangga tinggi dan ikon
+#### Tinggi kontrol: satu nilai, semua lebar
 
-Tiap kontrol punya dua tinggi: mobile satu step (4px) di atas desktop. Nilai desktop milik style dan tidak berubah, jadi layout desktop tidak pernah bergeser.
+Tiap kontrol punya SATU tinggi, sama di setiap breakpoint. Tidak ada `sm:h-*`, tidak ada `@media` di `--cn-input-h`, tidak ada tangga.
 
-| style | default (mobile / desktop) |
+| style | tinggi kontrol |
 | --- | --- |
-| `mono`, `nova`, `lyra`, `rhea` | 36px / 32px |
-| `vega`, `maia`, `luma` | 40px / 36px |
-| `mira` | 32px / 28px |
-| `sera` | 44px / 40px |
+| `mira` | 32px |
+| `mono`, `nova`, `lyra`, `rhea` | 36px |
+| `vega`, `maia`, `luma` | 40px |
+| `sera` | 44px |
 
-`--cn-input-h` mengikuti tangga yang sama lewat `@media (width >= 40rem)` di dalam blok `.style-X`, jadi `h-(--cn-input-h)` di call site ikut otomatis tanpa perubahan apa pun.
+Sampai Sep 2026 setiap kontrol satu step (4px) LEBIH PENDEK di desktop daripada di mobile. Itu terbaca sebagai kesalahan di layar tempat dashboard ini benar-benar dipakai berjam-jam, dan setiap komponen yang tidak ikut tangga otomatis jadi tidak sejajar di satu breakpoint. Yang dipertahankan adalah nilai sentuh, jadi tidak ada yang membesar - desktop cuma berhenti mengecil. Sekarang tinggi tidak bisa berbeda antar lebar layar, jadi kelas bug itu hilang.
 
-Ikon di dalam kontrol naik setengah step (2px) di mobile: `[&_svg:not([class*=size-])]:size-4.5 sm:[…]:size-4`. Checkbox, radio, dan slider thumb juga setengah step. Badge naik satu step penuh (`h-6 sm:h-5`), tapi fontnya tidak ikut, `text-xs` rata seperti kontrol lain.
+Di tiap style, sepuluh hal ini bernilai persis sama dengan `--cn-input-h`: `.cn-button-size-default`, `.cn-input`, `.cn-select-trigger[data-size=default]`, `.cn-native-select`, `.cn-input-group`, `.cn-combobox-chips`, `.cn-command-input-group`, `.cn-input-otp-slot`, `.cn-button-size-icon`, `.cn-toggle-size-default`, dan `.cn-tabs-list`. Kalau kamu mengubah salah satunya, ubah semuanya.
+
+Target sentuh 44px tetap dijamin, tapi lewat hit area, bukan lewat tinggi kotak: `buttonVariants` membawa `pointer-coarse:after:min-h-[var(--cn-touch-target,2.75rem)]`. Jangan menambahkan `min-h-11` di call site untuk "memperbesar di mobile" - itu justru mengembalikan tangga yang baru saja dibuang.
+
+Ikon di dalam kontrol juga satu ukuran: `[&_svg:not([class*=size-])]:size-4` (`size-5` di `lg` dan `xl`). Checkbox, radio, dan slider thumb ikut nilai yang sama.
 
 ### Hierarchy
 
@@ -320,7 +324,7 @@ Class `frame`, `frame-header`, `frame-title`, `frame-description`, `frame-panel`
 
 ### Size
 
-Tinggi setiap size dimiliki style aktif, jadi jangan menghafal angkanya. Di style default (`mono`) urutan desktopnya `xs` 24px, `sm` 28px, `default` 32px, `lg` 36px, `xl` 44px, dan tiap size 4px lebih tinggi di mobile. Di `sera` semuanya lebih besar, di `mira` lebih kecil. Pilih berdasarkan peran, bukan piksel.
+Tinggi setiap size dimiliki style aktif, jadi jangan menghafal angkanya. Di style default (`mono`): `xs` 28px, `sm` 32px, `default` 36px, `lg` 40px, `xl` 48px - sama di semua lebar layar. Di `sera` semuanya lebih besar, di `mira` lebih kecil. Pilih berdasarkan peran, bukan piksel. `lg` dan `xl` juga membawa `text-base`; size lain tetap `text-sm`.
 
 - `xs`: badge-like action di dalam baris padat.
 - `sm`: default untuk toolbar, header halaman, dan aksi di dalam row table. Ini yang paling sering dipakai.
@@ -328,7 +332,7 @@ Tinggi setiap size dimiliki style aktif, jadi jangan menghafal angkanya. Di styl
 - `lg` / `xl`: CTA besar di hero atau form panjang.
 - `icon` / `iconSm` / `iconXs` / `iconLg`: tombol icon-only. Wajib `<Tippy>` atau `aria-label`.
 
-Kalau tombol harus sejajar dengan field di baris yang sama (misal di samping search input), pakai `size="sm"` plus `class="h-(--cn-input-h)"`. Variabel itu dideklarasikan tiap style dan bernilai sama dengan tinggi `.cn-input`, jadi barisnya rata di semua style tanpa hardcode `h-8`. Ia sendiri sudah responsif (mobile satu step di atas desktop), jadi jangan menambahkan `sm:h-*` di sebelahnya.
+Kalau tombol harus sejajar dengan field di baris yang sama (misal di samping search input), pakai `size="sm"` plus `class="h-(--cn-input-h)"`. Variabel itu dideklarasikan tiap style dan bernilai sama dengan tinggi `.cn-input`, jadi barisnya rata di semua style tanpa hardcode `h-8`. Jangan menambahkan `sm:h-*` di sebelahnya - tidak ada lagi yang perlu diikuti.
 
 ### Icon + text
 

@@ -461,7 +461,7 @@ export default {
     home: {
       title: "Cafe & Brasserie Expo Indonesia (CBE)",
       description:
-        "Indonesia's cafe and brasserie trade show is back for a 9th run, 9-11 October 2026 at NICE PIK 2. Taste coffee, tea, chocolate, and brasserie brands, then source the ones that fit your business. Get your tickets.",
+        "Indonesia's cafe and brasserie trade show is back for a {n}{ordinal} run, {dayRange} {month} {year} at {venue}. Taste coffee, tea, chocolate, and brasserie brands, then source the ones that fit your business. Get your tickets.",
     },
     brands: {
       title: "Brands",

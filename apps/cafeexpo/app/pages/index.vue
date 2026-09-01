@@ -24,6 +24,13 @@
 </template>
 
 <script setup>
+// The home description is built from the live event (edition, dates, venue), and
+// usePageMeta reads it while this setup runs. Without the await the tokens
+// resolve against the empty defaults and the tag ships with "{n}{ordinal} run"
+// in it. Shares the single `active-event` asyncData entry, so this costs no
+// extra request.
+await useEventData();
+
 usePageMeta("home");
 useEventSchema();
 </script>

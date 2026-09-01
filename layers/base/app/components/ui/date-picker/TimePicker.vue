@@ -44,7 +44,7 @@ function clear() {
     data-slot="time-picker"
     :class="
       cn(
-        'flex h-9 w-full min-w-0 items-center gap-0.5 text-sm tracking-tight',
+        'flex h-(--cn-input-h) w-full min-w-0 items-center gap-0.5 text-sm tracking-tight',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
         props.class,
       )
