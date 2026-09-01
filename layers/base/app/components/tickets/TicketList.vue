@@ -115,6 +115,13 @@ const accessError = ref("");
 const appliedAccessCode = ref("");
 const accessPriceEffect = ref(null);
 
+// `set_price` and `percentage` resolve to a unit price, so the card already
+// shows what the holder pays with the old price struck through. Repeating
+// "a special price at checkout" underneath that is both redundant and wrong
+// about WHERE the discount lands. `amount` is the one effect that genuinely
+// only appears in the cart total, so it keeps the note to itself.
+const showAccessPriceNote = computed(() => accessPriceEffect.value === "amount");
+
 // The access-code box stays hidden for the public ("Don't make the user think").
 // It only surfaces when a code_required ticket is visibly locked in the listing,
 // or once a code has been applied (so the buyer can review/remove it). Hidden
@@ -160,10 +167,17 @@ async function applyAccessCode(rawCode) {
     cart.setAccessCode(code, dataRes.bind_email_hint ?? null);
   } catch (err) {
     const payload = err?.data?.data ?? err?.data ?? {};
+    // A 429 from the coarse ceiling in front of the endpoint carries no
+    // error_code, only Laravel's own "Too Many Attempts." That string is
+    // truthy, so it has to be intercepted BEFORE payload.message or raw
+    // framework English lands in a localised UI.
+    const status =
+      err?.statusCode ?? err?.response?.status ?? err?.data?.statusCode;
     accessError.value =
       accessCodeErrors[payload?.error_code] ||
-      payload?.message ||
-      t("tickets.accessInvalid");
+      (status === 429
+        ? accessCodeErrors.TOO_MANY_ATTEMPTS
+        : payload?.message || t("tickets.accessInvalid"));
   } finally {
     accessApplying.value = false;
   }
@@ -749,7 +763,7 @@ const ticketsById = computed(() => {
         <!-- The success variant retints the description from its own hue, the
              way destructive does, so this stays readable instead of dropping to
              muted gray on a coloured surface. -->
-        <AlertDescription v-if="accessPriceEffect">
+        <AlertDescription v-if="showAccessPriceNote">
           {{ t("tickets.accessPriceNote") }}
         </AlertDescription>
         <AlertAction>

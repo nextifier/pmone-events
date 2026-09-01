@@ -16,4 +16,6 @@ export const useAccessCodeErrors = () => ({
   QTY_EXCEEDS_REDEMPTION_LIMIT: "You've requested more tickets than this code allows.",
   STACKING_NOT_ALLOWED: "This access code cannot be combined with a promo code.",
   WRONG_EVENT: "This access code is for a different event.",
+  TOO_MANY_ATTEMPTS:
+    "Too many incorrect codes were tried from your connection. Wait a few minutes and try again.",
 } as Record<string, string>);
