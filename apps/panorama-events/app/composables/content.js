@@ -125,7 +125,7 @@ export const useContentStore = defineStore("content", {
           // {
           //   label: "Download Visitor E-Guide",
           //   url: "https://drive.google.com/file/d/1O7blEpzAx0HEEAkV3TzF3O-gC_Wab4Fy/view",
-          //   iconName: "hugeicons:download-04",
+          //   iconName: "hugeicons:download-01",
           // },
         ],
       },

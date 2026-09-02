@@ -24,7 +24,7 @@ const state = useLightbox();
   >
     <slot>
       <Icon
-        name="lucide:download"
+        name="hugeicons:download-01"
         class="size-5 opacity-80 transition-opacity group-hover:opacity-100"
       />
     </slot>

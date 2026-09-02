@@ -711,7 +711,7 @@ const iconSet = [
   "hugeicons:layers-01",
   "hugeicons:link-04",
   "hugeicons:share-08",
-  "hugeicons:download-04",
+  "hugeicons:download-01",
   "hugeicons:upload-04",
   "hugeicons:mail-01",
   "hugeicons:notification-02",

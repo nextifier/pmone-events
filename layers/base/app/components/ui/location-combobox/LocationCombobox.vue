@@ -11,7 +11,7 @@ import { Flag } from "@/components/ui/flag";
 import { InputGroupAddon } from "@/components/ui/input-group";
 import { LucideCheck, LucideCircleDashed } from "@lucide/vue";
 import { ComboboxRoot, ComboboxVirtualizer, useFilter } from "reka-ui";
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 interface Option {
   value: string;
@@ -82,18 +82,8 @@ const {
  */
 const keyboardMode = ref<"none" | "text">("none");
 
-/**
- * Controlled, because the list must open on a pointer landing in the field and
- * on nothing else. `open-on-focus` also fired for focus arriving through the
- * label, and `<FieldLabel>` spans its whole row: clicking the blank space beside
- * "Country" dropped a dropdown on someone who had only clicked the gap. Focus
- * still lands on the input either way, and typing or ArrowDown still opens it,
- * so keyboard use is unchanged.
- */
-const open = ref(false);
-
-/** Only for `highlightSelected`, which the controlled open above has to run itself. */
-const rootRef = ref<{ highlightSelected?: () => void } | null>(null);
+/** Mirrors reka's open state, so the keyboard nudge below knows the list is up. */
+const isOpen = ref(false);
 
 const searchTerm = ref("");
 const { contains } = useFilter({ sensitivity: "base" });
@@ -235,7 +225,7 @@ function handleSelect(option: Option) {
 }
 
 function handleOpenChange(value: boolean) {
-  open.value = value;
+  isOpen.value = value;
   if (value) {
     searchTerm.value = "";
     keyboardMode.value = "none";
@@ -243,17 +233,13 @@ function handleOpenChange(value: boolean) {
 }
 
 function handleFieldPointerDown() {
-  // Already open, so this tap is a deliberate one on the field: let the keyboard
-  // up. Opening resets it, which is what holds the keyboard back on the way in.
-  if (open.value) {
+  // Already open, so this touch is a deliberate one on the field: let the
+  // keyboard up. Opening resets it, which is what holds the keyboard back on the
+  // way in. On pointerdown so the browser still ties the keyboard to this
+  // gesture.
+  if (isOpen.value) {
     keyboardMode.value = "text";
-    return;
   }
-  handleOpenChange(true);
-  // Reka runs this from its own `onOpenChange`, which setting `open` from the
-  // outside does not reach. Without it a list reopened on a chosen city starts
-  // back at Aceh instead of at that city.
-  nextTick(() => rootRef.value?.highlightSelected?.());
 }
 
 // Keep searchTerm in sync - when modelValue changes externally, clear search
@@ -263,11 +249,18 @@ watch(modelValue, () => {
 </script>
 
 <template>
+  <!-- `open-on-click`, not `open-on-focus`: focus also arrives from the label and
+       from a programmatic focus, while a click is a deliberate one on the field.
+       A touch that turns into a scroll never produces a click either, so a swipe
+       that starts on Country scrolls the page instead of dropping a dropdown
+       over it - the browser draws that line per platform, which beats guessing a
+       travel threshold here. A click relayed by `<FieldLabel>` is welcome: it is
+       a click on the label's own word, now that `fieldVariants` no longer
+       stretches labels across the full width of their field. -->
   <ComboboxRoot
-    ref="rootRef"
     :model-value="selectedOption"
     :ignore-filter="true"
-    :open="open"
+    :open-on-click="true"
     :disabled="disabled"
     @update:model-value="
       (val: any) => {
