@@ -19,6 +19,7 @@
        every other surface. -->
   <Field v-else-if="!isDependentHidden" :data-invalid="!!error">
     <FieldLabel
+      v-if="!hidesStackedLabel"
       :id="isOptionGroup ? labelId : undefined"
       :for="isOptionGroup ? undefined : fieldId"
       :required="isRequired"
@@ -334,8 +335,12 @@
           :disabled="disabled"
           @update:model-value="$emit('update:modelValue', !!$event)"
         />
-        <FieldLabel :for="fieldId" :class="['font-normal', labelClass]">
-          {{ normalized.placeholder || normalized.label }}
+        <FieldLabel
+          :for="fieldId"
+          :required="hidesStackedLabel && isRequired"
+          :class="['font-normal', labelClass]"
+        >
+          {{ inlineCaption }}
         </FieldLabel>
       </Field>
 
@@ -347,8 +352,12 @@
           :disabled="disabled"
           @update:model-value="$emit('update:modelValue', !!$event)"
         />
-        <FieldLabel :for="fieldId" :class="['font-normal', labelClass]">
-          {{ normalized.placeholder || normalized.label }}
+        <FieldLabel
+          :for="fieldId"
+          :required="hidesStackedLabel && isRequired"
+          :class="['font-normal', labelClass]"
+        >
+          {{ inlineCaption }}
         </FieldLabel>
       </Field>
 
@@ -881,6 +890,29 @@ const isOptionGroup = computed(() =>
 );
 
 const labelId = computed(() => `${fieldId.value}-label`);
+
+/**
+ * A single checkbox or switch carries its own caption beside the control, which
+ * is the label a screen reader announces and the target a click activates. When
+ * the field defines no separate caption that inline label falls back to the
+ * field label, so the stacked label above it renders the very same sentence a
+ * second time - which is what an exhibitor saw as "I have read and understood
+ * the Badge & VIP entitlement." printed twice in a row.
+ *
+ * The inline caption wins because it is the one tied to the control, so the
+ * stacked label steps aside and hands over its required marker.
+ */
+const hasInlineCaption = computed(() =>
+  ["checkbox", "switch"].includes(normalized.value.type),
+);
+
+const inlineCaption = computed(
+  () => normalized.value.placeholder || normalized.value.label,
+);
+
+const hidesStackedLabel = computed(
+  () => hasInlineCaption.value && inlineCaption.value === normalized.value.label,
+);
 
 // Two options share a row; three or more stack. `flex-wrap` packs by content
 // width, so more than two wrap into columns that never line up.

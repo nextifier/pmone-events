@@ -1,5 +1,5 @@
 import { h } from "vue";
-import { findInstagram, normalizeBoothNumber } from "./useBrandHelpers";
+import { boothSortValue, findInstagram } from "./useBrandHelpers";
 
 export const useBrandTableColumns = (options = {}) => {
   const { $dayjs } = useNuxtApp();
@@ -33,8 +33,8 @@ export const useBrandTableColumns = (options = {}) => {
         size: 110,
         enableSorting: true,
         sortFn: (a, b) => {
-          const x = normalizeBoothNumber(a.original.booth_number);
-          const y = normalizeBoothNumber(b.original.booth_number);
+          const x = boothSortValue(a.original);
+          const y = boothSortValue(b.original);
           if (x === null && y !== null) return 1;
           if (y === null && x !== null) return -1;
           if (x === null && y === null) return 0;

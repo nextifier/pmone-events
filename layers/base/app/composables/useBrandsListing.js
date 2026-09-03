@@ -2,7 +2,7 @@ import { markRaw, ref, computed, unref } from "vue";
 import { refDebounced } from "@vueuse/core";
 import {
   VALID_VIEW_MODES,
-  normalizeBoothNumber,
+  boothSortValue,
 } from "./useBrandHelpers";
 
 const SORT_OPTIONS = [
@@ -312,8 +312,8 @@ export const useBrandsListing = (opts = {}) => {
       );
     } else if (val === "booth_number") {
       sorted.sort((a, b) => {
-        const x = normalizeBoothNumber(a.booth_number);
-        const y = normalizeBoothNumber(b.booth_number);
+        const x = boothSortValue(a);
+        const y = boothSortValue(b);
         if (x === null && y !== null) return 1;
         if (y === null && x !== null) return -1;
         if (x === null && y === null) return 0;

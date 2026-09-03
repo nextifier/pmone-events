@@ -46,7 +46,7 @@
             v-if="animateValue"
             class="text-foreground text-[12cqw] font-medium tracking-tighter tabular-nums"
             :value="Number(displayValue) || 0"
-            :format="{ notation: 'compact' }"
+            :format="{ notation: compact ? 'compact' : 'standard' }"
           />
           <span v-else class="text-foreground text-[12cqw] font-medium tracking-tighter">{{
             staticDisplayValue

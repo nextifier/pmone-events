@@ -169,7 +169,7 @@
   }
 
   .cn-button-size-lg {
-    @apply h-10 text-base gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*=size-])]:size-5;
+    @apply h-10 gap-1.5 px-2.5 text-base has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*=size-])]:size-5;
   }
 
   .cn-button-size-xl {

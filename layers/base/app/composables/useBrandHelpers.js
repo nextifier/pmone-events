@@ -19,3 +19,15 @@ export const normalizeBoothNumber = (value) => {
     .replace(/\s/g, "")
     .toUpperCase();
 };
+
+/**
+ * Sort key for a booth, preferring the one the API builds.
+ *
+ * `booth_sort_key` is zero-padded server-side, so A-01, A-02, A-10 come out in
+ * that order rather than A-1, A-10, A-2 - and it is keyed off the first pitch,
+ * which is the only sane anchor for an exhibitor renting several ("B-20, SS-05").
+ * The local normalization stays as the fallback for a cached response that
+ * predates the key.
+ */
+export const boothSortValue = (brand) =>
+  brand?.booth_sort_key || normalizeBoothNumber(brand?.booth_number);

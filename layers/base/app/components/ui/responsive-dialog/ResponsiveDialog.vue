@@ -217,6 +217,11 @@ const close = () => {
 };
 
 provide("dialogControls", {
+  // Exposed so anything rendered below can scope itself to this dialog
+  // without the host threading `open` down. Mount lifetime is not a
+  // substitute: the mobile branch keeps its panel in the DOM through the
+  // exit animation, so a closed drawer would still read as open.
+  isOpen,
   open,
   close,
 });
