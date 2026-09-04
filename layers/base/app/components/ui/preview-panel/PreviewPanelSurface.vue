@@ -130,7 +130,7 @@ const hasChrome = computed(
       >
         <p
           v-if="props.title"
-          class="text-muted-foreground min-w-0 flex-1 truncate text-xs tracking-tight"
+          class="text-muted-foreground min-w-0 flex-1 truncate text-xs tracking-tight sm:text-sm"
         >
           {{ props.title }}
         </p>

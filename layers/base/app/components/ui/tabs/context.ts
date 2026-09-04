@@ -62,6 +62,32 @@ export const tabsTriggerClasses: Record<TabsVariant, string> = {
     "relative z-10 data-[state=active]:text-foreground hover:text-muted-foreground",
 };
 
+/**
+ * The row a page-level tab strip sits in: full-bleed, painted, with the pill
+ * held off the app header.
+ *
+ * It lives here rather than in each page because six places build this row -
+ * five pages by hand around a `TabsList`, and `TabNav` for its segmented
+ * variant - and they had already drifted once.
+ *
+ * Two things it must keep. It paints, because a bar that does not lets page
+ * content scroll through the gaps beside a `w-fit` pill. And the gap above the
+ * pill is padding, not a larger sticky `top`: an offset `top` leaves those
+ * pixels unpainted, so content slides through the slot it opens.
+ */
+export const tabsBarClasses =
+  "bg-background -mx-4 flex items-center px-4 pt-1 sm:mx-0 sm:px-0";
+
+/**
+ * Pinned under the app header. `z-20` clears a page's own sticky chrome, such
+ * as a table's pinned header row. `TabNav` sets its own instead, because on a
+ * page with a pinned preview pane the bar has to sit UNDER that pane.
+ */
+export const tabsBarStickyClasses =
+  "sticky top-(--navbar-height-mobile) z-20 lg:top-(--navbar-height-desktop)";
+
+export const tabsStickyBarClasses = `${tabsBarClasses} ${tabsBarStickyClasses}`;
+
 // Same scale as `.cn-button`: one height at every width. These classes land in
 // the utilities layer and would otherwise win over `.cn-tabs-trigger`, so they
 // have to carry the size themselves.

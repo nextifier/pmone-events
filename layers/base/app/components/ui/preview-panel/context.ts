@@ -16,6 +16,13 @@ import type { ComputedRef, InjectionKey, Ref } from "vue";
  * `contain: layout`/`paint` would capture them. So the floating switcher is
  * plain `fixed`, matching every other pane switcher in the app.
  *
+ * The pinned pane carries a `z-index` because it has to outrank a page's own
+ * sticky chrome, not just the content under it. A tab strip pinned above the
+ * panel paints an opaque row across the full page width; without the z-index it
+ * paints over the top of the pinned preview, and the offset has to be padded out
+ * to clear the strip instead of the header. With it, the preview can start right
+ * under the header and let the strip pass behind it.
+ *
  * HOST INVARIANT (`mode="sticky"`): whatever follows the panel in the document
  * must be no taller than `insetBottom`. A sticky element stops sticking once
  * its containing block runs out, so with `pb-16` on the page and a 1rem
@@ -107,7 +114,7 @@ export const PREVIEW_PANEL_SPLIT = {
     overscroll: "@4xl/preview:overscroll-contain",
     alignStart: "@4xl/preview:items-start",
     previewStick:
-      "@4xl/preview:sticky @4xl/preview:top-(--pv-offset) @4xl/preview:h-[calc(100svh-var(--pv-offset)-var(--pv-inset-b))]",
+      "@4xl/preview:sticky @4xl/preview:top-(--pv-offset) @4xl/preview:z-10 @4xl/preview:h-[calc(100svh-var(--pv-offset)-var(--pv-inset-b))]",
   },
   "5xl": {
     px: 1024,
@@ -120,7 +127,7 @@ export const PREVIEW_PANEL_SPLIT = {
     overscroll: "@5xl/preview:overscroll-contain",
     alignStart: "@5xl/preview:items-start",
     previewStick:
-      "@5xl/preview:sticky @5xl/preview:top-(--pv-offset) @5xl/preview:h-[calc(100svh-var(--pv-offset)-var(--pv-inset-b))]",
+      "@5xl/preview:sticky @5xl/preview:top-(--pv-offset) @5xl/preview:z-10 @5xl/preview:h-[calc(100svh-var(--pv-offset)-var(--pv-inset-b))]",
   },
   "6xl": {
     px: 1152,
@@ -133,7 +140,7 @@ export const PREVIEW_PANEL_SPLIT = {
     overscroll: "@6xl/preview:overscroll-contain",
     alignStart: "@6xl/preview:items-start",
     previewStick:
-      "@6xl/preview:sticky @6xl/preview:top-(--pv-offset) @6xl/preview:h-[calc(100svh-var(--pv-offset)-var(--pv-inset-b))]",
+      "@6xl/preview:sticky @6xl/preview:top-(--pv-offset) @6xl/preview:z-10 @6xl/preview:h-[calc(100svh-var(--pv-offset)-var(--pv-inset-b))]",
   },
 } as const satisfies Record<PreviewPanelThreshold, PreviewPanelSplitClasses>;
 

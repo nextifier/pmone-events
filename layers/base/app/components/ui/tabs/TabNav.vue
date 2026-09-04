@@ -1,13 +1,26 @@
 <template>
+  <!--
+    `segmented` takes `tabsBarClasses`, the same row the five hand-built strips
+    sit in, so a pill in a route nav and a pill switching content inside a page
+    cannot end up two different heights again. `underline` is not that row - it
+    is a band that runs edge to edge - so it keeps `--tabnav-height` instead.
+
+    The sticky `z-10` here is deliberately not the row's own `z-20`: on a page
+    with a pinned preview pane, this bar has to sit under the pane.
+  -->
   <nav
     :class="[
-      'bg-background relative z-10 -mx-4 flex h-(--tabnav-height) shrink-0 sm:mx-0',
+      'relative z-10 shrink-0',
+      isSegmented ? tabsBarClasses : 'bg-background -mx-4 flex h-(--tabnav-height) sm:mx-0',
       // Nothing in the falsy branch on purpose. `relative` above keeps `z-10`
       // working when the nav is not sticky, and a `static` here would land in
       // the same Tailwind position group and win the cascade.
       props.sticky && 'sticky top-(--navbar-height-mobile) lg:top-(--navbar-height-desktop)',
     ]"
   >
+    <!-- `contents` for underline: the pill box disappears from layout entirely,
+         so that variant keeps the exact structure it had. -->
+    <div :class="isSegmented ? tabsListClasses.segmented : 'contents'">
     <!--
       The scrollport is a child, not the nav itself, because `scroll-fade-x`
       masks the element it sits on - background included. Masking the nav made
@@ -17,7 +30,11 @@
       This div is also what the indicator measures its `offsetLeft` against.
     -->
     <div
-      class="no-scrollbar scroll-fade-x relative flex h-full w-full min-w-0 gap-x-5 overflow-x-auto px-4 sm:px-0"
+      :class="
+        isSegmented
+          ? tabsListScrollClasses.segmented
+          : 'no-scrollbar scroll-fade-x relative flex h-full w-full min-w-0 gap-x-5 overflow-x-auto px-4 sm:px-0'
+      "
     >
       <NuxtLink
         v-for="(tab, index) in tabs"
@@ -25,7 +42,8 @@
         :ref="(el) => (tabRefs[index] = el?.$el || el)"
         :to="tab.to"
         :class="[
-          'relative flex shrink-0 items-center justify-center gap-x-1.5 py-3 text-sm font-medium tracking-tight transition-colors select-none',
+          'relative flex shrink-0 items-center justify-center gap-x-1.5 font-medium tracking-tight transition-colors select-none',
+          isSegmented ? [tabsTriggerClasses.segmented, tabsTriggerSizeClasses.md] : 'py-3 text-sm',
           isActive(tab) ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
         ]"
       >
@@ -35,18 +53,46 @@
 
       <span
         v-if="indicatorStyle"
-        class="bg-foreground absolute bottom-0 h-0.5 rounded-full transition-[left,width] duration-(--tabs-dur) ease-(--tabs-ease)"
+        :class="
+          isSegmented
+            ? tabsIndicatorClasses.segmented
+            : 'bg-foreground absolute bottom-0 h-0.5 rounded-full transition-[left,width] duration-(--tabs-dur) ease-(--tabs-ease)'
+        "
         :style="indicatorStyle"
       />
+      </div>
     </div>
   </nav>
 </template>
 
 <script setup>
+import {
+  tabsBarClasses,
+  tabsIndicatorClasses,
+  tabsListClasses,
+  tabsListScrollClasses,
+  tabsTriggerClasses,
+  tabsTriggerSizeClasses,
+} from "./context";
+
 const props = defineProps({
   tabs: {
     type: Array,
     required: true,
+  },
+  /**
+   * `underline` is the page-level default: a full-bleed strip with a rule under
+   * the active tab, which is what a route switcher looks like across the app.
+   *
+   * `segmented` borrows the pill group `Tabs` uses for switching content inside
+   * one page. It suits a short, fixed set of sibling routes that read as views
+   * of one record rather than separate pages, and it takes the classes from the
+   * same table `Tabs` reads, so the two never drift apart.
+   */
+  variant: {
+    type: String,
+    default: "underline",
+    validator: (value) => ["underline", "segmented"].includes(value),
   },
   /**
    * Turn off inside a page shell that is pinned to the viewport and therefore
@@ -73,6 +119,8 @@ const props = defineProps({
 const route = useRoute();
 const tabRefs = ref([]);
 const indicatorStyle = ref(null);
+
+const isSegmented = computed(() => props.variant === "segmented");
 
 const isActive = (tab) => {
   if (props.param) {
@@ -101,10 +149,18 @@ const updateIndicator = () => {
     return;
   }
 
-  indicatorStyle.value = {
-    left: `${activeEl.offsetLeft}px`,
-    width: `${activeEl.offsetWidth}px`,
-  };
+  // The two variants animate different properties, because their class tables
+  // do: the underline rule slides on `left`, the segmented pill on `transform`.
+  // Driving the wrong one leaves the indicator jumping instead of moving.
+  indicatorStyle.value = isSegmented.value
+    ? {
+        transform: `translateX(${activeEl.offsetLeft}px)`,
+        width: `${activeEl.offsetWidth}px`,
+      }
+    : {
+        left: `${activeEl.offsetLeft}px`,
+        width: `${activeEl.offsetWidth}px`,
+      };
 };
 
 onMounted(() => {
