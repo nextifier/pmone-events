@@ -340,7 +340,17 @@ const posterItems = computed(() => {
 });
 
 usePageMeta(null, {
-  title: computed(() => `${t("tickets.attendee.title")} · ${attendee.value?.name || orderInfo.value?.order_number || ""}`),
+  // Built before the fetch resolves, and stays that way on a dead token, so
+  // the empty case is the common one. usePageMeta appends " · %siteName",
+  // and an empty trailing segment renders as "Title ·  · Site".
+  title: computed(() =>
+    [
+      t("tickets.attendee.title"),
+      attendee.value?.name || orderInfo.value?.order_number,
+    ]
+      .filter(Boolean)
+      .join(" · ")
+  ),
 });
 
 const form = reactive({ name: "", email: "", phone: "" });

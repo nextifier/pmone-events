@@ -57,13 +57,13 @@ import { joinURL } from "ufo";
  * discovery path for brand URLs. Prerendering it produces the same bytes as a
  * static asset at zero Worker cost. Removed from DENY on 9 Aug 2026.
  *
- * The transactional ones must never become a shared static asset. Matching here
- * is exact, so naming "/hotels" does NOT cover "/hotels/success" — each one has
- * to be spelled out. They were being prerendered until 8 Aug 2026, and got away
- * with it only because both pages happen to key their asyncData on the query
- * token, so the browser refetched under a different key. That is incidental: a
- * later edit to a fixed key would bake one visitor's order state into a file
- * served to everyone, and nothing would report it.
+ * The transactional pages are NOT listed here any more. They are read straight
+ * off `robots.disallow` in nuxt.config.ts instead — see disallowPrefixes() below — so
+ * the two lists cannot drift apart. They used to be spelled out twice, and the
+ * copy that mattered was silently one entry short: /winner sat in
+ * `robots.disallow` but not here, so it was prerendered, served by Cloudflare
+ * Static Assets without invoking the Worker, and shipped with no
+ * `X-Robots-Tag` header at all for a month. Nothing reported it.
  */
 const DENY = [
   "/guests",
@@ -72,9 +72,6 @@ const DENY = [
   "/news",
   "/partners",
   "/hotels",
-  "/tickets/checkout",
-  "/tickets/result",
-  "/hotels/success",
 ];
 
 export interface ModuleOptions {
@@ -166,11 +163,6 @@ export default defineNuxtModule<ModuleOptions>({
       .map((l: unknown) => (typeof l === "string" ? l : (l as { code?: string })?.code))
       .filter((code: unknown): code is string => Boolean(code) && code !== defaultLocale);
 
-    const denied = new Set([
-      ...DENY.filter((path) => !options.allow!.includes(path)),
-      ...options.deny!,
-    ]);
-
     const stripLocale = (path: string) => {
       const match = /^\/([^/]+)(\/.*)?$/.exec(path);
       return match && prefixes.includes(match[1]!) ? match[2] || "/" : path;
@@ -184,6 +176,29 @@ export default defineNuxtModule<ModuleOptions>({
     let seeded: string[] = [];
 
     nuxt.hook("pages:resolved", (pages) => {
+      // Read inside the hook, not in setup(): module setup order between a
+      // layer's own modules/ and the ones listed in `modules` is not defined, so
+      // @nuxtjs/robots may not have merged its config yet at setup time. By
+      // pages:resolved every module has run.
+      //
+      // A path in `robots.disallow` must never be prerendered. Prerendered HTML
+      // is served by Cloudflare Static Assets with `run_worker_first: false`,
+      // which means the Worker — and with it nuxt-robots' `X-Robots-Tag`
+      // middleware — never runs, so the page goes out with no noindex header on
+      // it. robots.txt still asks crawlers not to fetch it, but a disallowed URL
+      // with an inbound link can still be indexed URL-only, and the header is
+      // the part that actually prevents that.
+      //
+      // Matching mirrors robots.txt itself: prefix-based, with anything from the
+      // first wildcard onwards dropped. So "/tickets/" denies /tickets/checkout
+      // and /tickets/<ulid> while leaving the public /tickets listing alone.
+      const isDisallowed = disallowPrefixes(nuxt);
+
+      const denied = new Set([
+        ...DENY.filter((path) => !options.allow!.includes(path)),
+        ...options.deny!,
+      ]);
+
       const canonical = new Set<string>();
 
       const walk = (list: any[], parent = "/") => {
@@ -210,7 +225,7 @@ export default defineNuxtModule<ModuleOptions>({
       }
 
       seeded = [...canonical]
-        .filter((path) => !denied.has(path))
+        .filter((path) => !denied.has(path) && !isDisallowed(path))
         .flatMap(expand)
         .sort();
 
@@ -223,8 +238,13 @@ export default defineNuxtModule<ModuleOptions>({
       }
 
       const kept = seeded.length / (prefixes.length + 1);
+      const heldBack = [...canonical].filter(isDisallowed).sort();
       logger.info(
-        `Prerendering ${seeded.length} routes (${kept} paths × ${prefixes.length + 1} locales)`,
+        `Prerendering ${seeded.length} routes (${kept} paths × ${prefixes.length + 1} locales)` +
+          (heldBack.length
+            ? `, holding ${heldBack.join(", ")} on the Worker so robots.disallow ` +
+              "can emit X-Robots-Tag for them"
+            : ""),
       );
     });
 
@@ -288,6 +308,44 @@ export default defineNuxtModule<ModuleOptions>({
  * and adding a second source of truth for the username would be worse than a
  * regex over the file that already owns it.
  */
+/**
+ * `robots.disallow` -> a prefix test, using robots.txt's own matching rules.
+ *
+ * Google's spec (and @nuxtjs/robots' `matches`, dist/util.mjs) matches a rule as
+ * a plain prefix of the path, with `*` standing for any run of characters and a
+ * trailing `$` anchoring the end. Cutting the pattern at its first wildcard and
+ * comparing prefixes is the same test for every rule this repo writes, and it
+ * errs the safe way for any it does not: a pattern like `/a*b` degrades to `/a`,
+ * which denies more, never less.
+ *
+ * The trailing slash carries meaning here exactly as it does in robots.txt.
+ * `/tickets/` denies /tickets/checkout and /tickets/<ulid> but not /tickets,
+ * because /tickets is shorter than the prefix.
+ */
+function disallowPrefixes(nuxt: Nuxt): (path: string) => boolean {
+  const rules: string[] = (nuxt.options as Record<string, any>).robots?.disallow ?? [];
+
+  // Loud on purpose. If @nuxtjs/robots ever moves this key, or a layer drops it,
+  // the read above quietly yields [] and every noindex path silently goes back
+  // to being prerendered without an X-Robots-Tag — which is the exact bug this
+  // function exists to prevent, and it would look like a green build.
+  if (!rules.length) {
+    throw new Error(
+      "[static-pages] `robots.disallow` is empty or unreadable at pages:resolved. " +
+        "It is the source of truth for which pages must not be prerendered " +
+        "(a prerendered page is served by Static Assets and never gets an " +
+        "X-Robots-Tag). Restore it in layers/base/nuxt.config.ts.",
+    );
+  }
+
+  const prefixes = rules
+    .map((rule) => String(rule).split(/[*$]/)[0])
+    .filter((prefix): prefix is string => Boolean(prefix) && prefix !== "/");
+
+  return (path: string) =>
+    prefixes.some((prefix) => path === prefix || path.startsWith(prefix));
+}
+
 /**
  * The API origin the prerenderer will actually call.
  *

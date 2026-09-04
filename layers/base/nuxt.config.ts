@@ -341,31 +341,63 @@ export default defineNuxtConfig({
     // /winner is a utility tool (random winner generator), intentionally kept
     // out of search. Terms & Privacy are crawlable so they can score SEO 100.
     //
-    // The three transactional routes are per-visitor and were being advertised
-    // to Google as `index, follow` AND submitted in every locale sitemap of
-    // every site — 3 paths x 5 locales x 16 sites. /tickets/checkout is a cart,
-    // /tickets/result is a payment outcome and /hotels/success is a booking
-    // confirmation; none of them has meaningful content for a searcher, and a
-    // stale one in the index sends people to a dead order.
+    // Everything under `/tickets/`, plus the two `/hotels/` paths, is
+    // per-visitor. `/tickets/checkout` is a cart, `/tickets/result` a payment
+    // outcome, `/tickets/<ulid>` one attendee's e-ticket, and
+    // `/tickets/order/<token>` and `/hotels/reservation/<token>` are magic links
+    // mailed to a single buyer. `/hotels/success` is a booking confirmation.
+    // None of them holds anything a searcher wants; a stale one sends people to
+    // a dead order, and an indexed magic link hands a stranger someone else's
+    // booking. The first three were fixed on 6 Aug 2026 (3 paths x 5 locales x
+    // 16 sites of `index, follow`); the token routes were missed then and were
+    // still serving `X-Robots-Tag: index, follow` on 4 Sep 2026.
     //
-    // Listing them here does both jobs at once: nuxt-robots locale-expands each
-    // path into robots.txt, emits `X-Robots-Tag: noindex` for it, AND feeds the
-    // exclusion into @nuxtjs/sitemap (verified: /winner appears in zero
-    // sitemaps). Do not also hand-write sitemap excludes — this is the one list.
+    // THE TRAILING SLASH ON "/tickets/" IS LOAD-BEARING. robots.txt matching is
+    // prefix-based (@nuxtjs/robots dist/util.mjs `matches`), so `/tickets/`
+    // covers every child — including the two token routes, which have no static
+    // prefix to name — while the public listing at `/tickets` stays indexable,
+    // because a path shorter than the pattern cannot match. Writing `/tickets`
+    // instead would de-index the listing. Nothing public lives below it:
+    // verified that no app adds a page of its own under `/tickets/`.
+    //
+    // Listing a path here does FOUR jobs, so do not restate it anywhere else:
+    // nuxt-robots locale-expands it into robots.txt, emits `X-Robots-Tag:
+    // noindex` for it, feeds the exclusion into @nuxtjs/sitemap (verified:
+    // /winner appears in zero sitemaps), and modules/static-pages.ts reads this
+    // same array to keep the path off the prerender queue. That last one is not
+    // cosmetic: a prerendered page is served straight from Cloudflare Static
+    // Assets with `run_worker_first: false`, so the Worker never runs and the
+    // page ships with NO `X-Robots-Tag` at all. /winner was in exactly that
+    // state until 4 Sep 2026.
     disallow: [
       "/winner",
-      "/tickets/checkout",
-      "/tickets/result",
+      "/tickets/",
+      "/hotels/reservation",
       "/hotels/success",
     ],
-    // Google-Extended is Google's AI-training crawler. It has NO user agent of
-    // its own — it fetches as Googlebot, from Googlebot IPs — so the only way to
-    // opt out of AI training without also blocking Google Search is this
-    // robots.txt group. Cloudflare's "Block AI training crawlers" rule cannot
-    // tell them apart: on 6 Aug 2026 it was blocking 1,200-1,800 real Googlebot
-    // requests a day with 403 across all 28 zones, and had de-indexed 612 pages
-    // on franchise-expo.co.id alone.
-    groups: [{ userAgent: ["Google-Extended"], disallow: ["/"] }],
+    // NO AI-crawler group, ON PURPOSE.
+    //
+    // `groups: [{ userAgent: ["Google-Extended"], disallow: ["/"] }]` lived here
+    // from 6 Aug to 4 Sep 2026 as the in-code replacement for Cloudflare's
+    // "Block AI training crawlers" rule. That rule had to go because it cannot
+    // tell Google-Extended from Googlebot — same user agent, same IPs — and was
+    // answering 1,200-1,800 real Googlebot requests a day with 403 across all 28
+    // zones, de-indexing 612 pages on franchise-expo.co.id alone.
+    //
+    // The opt-out itself was never a decision, though: it was a Cloudflare
+    // default that got faithfully reimplemented. Per Google's own documentation
+    // the token governs only training and grounding for Gemini Apps and Vertex
+    // AI ("Google-Extended does not impact a site's inclusion in Google Search
+    // nor is it used as a ranking signal"), so blocking it cost nothing in
+    // Search but did keep these sites out of Gemini's answers. These are event
+    // marketing sites whose entire job is to be found, there is no content worth
+    // withholding, and every other AI crawler — GPTBot, ClaudeBot,
+    // PerplexityBot, Bytespider, Meta-ExternalAgent — was allowed through
+    // regardless. The group shut out the one vendor that sends traffic back.
+    //
+    // IF AI CRAWLERS SHOULD BE BLOCKED AGAIN, ADD A `groups` ENTRY HERE. Do NOT
+    // re-enable the Cloudflare dashboard's AI-training setting: that is the
+    // control that caused the August outage, and its state does not live in git.
   },
 
   sitemap: {

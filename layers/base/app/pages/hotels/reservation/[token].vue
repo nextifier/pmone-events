@@ -293,7 +293,12 @@ const onRetryPayment = async () => {
 };
 
 usePageMeta(null, {
-  title: computed(() => `Booking ${reservation.value?.reservation_number ?? ""}`),
+  // Built before the fetch resolves, and stays that way on a dead token, so
+  // the empty case is the common one. usePageMeta appends " · %siteName",
+  // and an empty trailing segment renders as "Title ·  · Site".
+  title: computed(() =>
+    ["Booking", reservation.value?.reservation_number].filter(Boolean).join(" ")
+  ),
 });
 
 const statusVariant = computed(() => {
