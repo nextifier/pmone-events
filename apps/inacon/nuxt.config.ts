@@ -6,6 +6,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://indonesiaanimecon.com",
+      // The instance this site belongs to. NUXT_PUBLIC_API_URL in the build
+      // environment overrides it; leaving both unset fails the build.
+      apiUrl: "https://api.pmone.id",
       turnstileSiteKey: "0x4AAAAAADpOqQtuQn6UfF_P",
       blogUsernames: "inacon.blog",
     },

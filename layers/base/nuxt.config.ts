@@ -9,21 +9,19 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
  * production must be told, because guessing here is how a site quietly serves
  * another instance's data.
  */
-function apiUrlFromEnvironment(): string {
-  if (process.env.NODE_ENV !== "production") {
-    return process.env.NUXT_PUBLIC_API_URL || "http://localhost:8000";
+function apiUrlDefault(): string {
+  // Production has no default here on purpose. This layer serves sites for
+  // more than one instance, and a baked-in host would send a new client's site
+  // to the wrong backend without any error: the build would succeed and every
+  // request would 401. Each app names its instance's API in its own
+  // nuxt.config.ts (runtimeConfig.public.apiUrl), the build environment may
+  // still override it with NUXT_PUBLIC_API_URL, and modules/static-pages.ts
+  // refuses to build when neither is set.
+  if (process.env.NODE_ENV === "production") {
+    return "";
   }
 
-  const configured = process.env.NUXT_PUBLIC_API_URL;
-
-  if (!configured) {
-    throw new Error(
-      "NUXT_PUBLIC_API_URL is not set. A production build must name the API it talks to " +
-        "(https://api.<instance-domain>); there is no default to fall back to.",
-    );
-  }
-
-  return configured.replace(/\/+$/, "");
+  return process.env.NUXT_PUBLIC_API_URL || "http://localhost:8000";
 }
 
 export default defineNuxtConfig({
@@ -48,11 +46,8 @@ export default defineNuxtConfig({
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
-      // No production default. This layer serves sites for more than one
-      // instance now, and a baked-in host would send a new client's site to the
-      // wrong backend without any error - the build would succeed and every
-      // request would 401. Each site's build environment names its API.
-      apiUrl: apiUrlFromEnvironment(),
+      // See apiUrlDefault(): the app's own nuxt.config.ts names the API.
+      apiUrl: apiUrlDefault(),
       blogUsernames: "",
       // Cloudflare Turnstile site key (public). When empty, the widget is not
       // rendered and the form behaves exactly as before.

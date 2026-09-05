@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: "https://megabuild.co.id",
+      // The instance this site belongs to. NUXT_PUBLIC_API_URL in the build
+      // environment overrides it; leaving both unset fails the build.
+      apiUrl: "https://api.pmone.id",
       turnstileSiteKey: "0x4AAAAAADpOkX83QOOwxmmc",
       blogUsernames: "megabuild.blog",
     },
