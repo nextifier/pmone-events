@@ -99,7 +99,7 @@ export default defineNuxtModule<ModuleOptions>({
     // page would bake an empty/error state and the build would still report
     // success, so fail loudly instead.
     const apiKey =
-      (nuxt.options.runtimeConfig as Record<string, any>)?.pmOneApiKey ||
+      (nuxt.options.runtimeConfig as Record<string, any>)?.apiKey ||
       process.env.NUXT_PM_ONE_API_KEY;
 
     if (!apiKey) {

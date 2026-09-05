@@ -20,7 +20,13 @@ export default defineCachedEventHandler(
       errorPrefix: "OG pages fetch",
     });
 
-    return { data: response?.data?.settings?.og_pages ?? {} };
+    return {
+      data: response?.data?.settings?.og_pages ?? {},
+      // The vendor credit the footer prints, riding the same fetch. Null on a
+      // whitelabel instance and for a tenant on the top plan; the backend
+      // decides, this only carries it.
+      powered_by: response?.data?.settings?.powered_by ?? null,
+    };
   },
   {
     name: "api-og-pages",

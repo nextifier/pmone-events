@@ -236,7 +236,7 @@ async function pmOneRequestOnce<T = any>(
     return (await $fetch(`${config.public.apiUrl}${path}`, {
       method: opts.method ?? "GET",
       headers: {
-        "X-API-Key": config.pmOneApiKey,
+        "X-API-Key": config.apiKey,
         Accept: "application/json",
         ...opts.headers,
       },

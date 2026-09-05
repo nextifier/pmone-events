@@ -4,6 +4,28 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/**
+ * The backend this site talks to. Development always means the local API;
+ * production must be told, because guessing here is how a site quietly serves
+ * another instance's data.
+ */
+function apiUrlFromEnvironment(): string {
+  if (process.env.NODE_ENV !== "production") {
+    return process.env.NUXT_PUBLIC_API_URL || "http://localhost:8000";
+  }
+
+  const configured = process.env.NUXT_PUBLIC_API_URL;
+
+  if (!configured) {
+    throw new Error(
+      "NUXT_PUBLIC_API_URL is not set. A production build must name the API it talks to " +
+        "(https://api.<instance-domain>); there is no default to fall back to.",
+    );
+  }
+
+  return configured.replace(/\/+$/, "");
+}
+
 export default defineNuxtConfig({
   devtools: {
     // Off: Nuxt DevTools' vite-plugin-inspect injects a @vueuse useColorMode onto
@@ -15,7 +37,10 @@ export default defineNuxtConfig({
   ignore: ["**/.DS_Store", "**/.DS_Store/**"],
 
   runtimeConfig: {
-    pmOneApiKey: process.env.NUXT_PM_ONE_API_KEY || "",
+    // NUXT_PM_ONE_API_KEY is the historical name and still honoured: every
+    // site's build environment sets it, and renaming a build variable and the
+    // code reading it in one step breaks whichever site rebuilds second.
+    apiKey: process.env.NUXT_API_KEY || process.env.NUXT_PM_ONE_API_KEY || "",
     tiktokAccessTokens: process.env.NUXT_TIKTOK_ACCESS_TOKENS || "",
     // Cloudflare Turnstile secret (server-side siteverify). When empty, the
     // contact form skips captcha verification entirely (safe to deploy first).
@@ -23,10 +48,11 @@ export default defineNuxtConfig({
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
-      apiUrl:
-        process.env.NODE_ENV === "production"
-          ? "https://api.pmone.id"
-          : "http://localhost:8000",
+      // No production default. This layer serves sites for more than one
+      // instance now, and a baked-in host would send a new client's site to the
+      // wrong backend without any error - the build would succeed and every
+      // request would 401. Each site's build environment names its API.
+      apiUrl: apiUrlFromEnvironment(),
       blogUsernames: "",
       // Cloudflare Turnstile site key (public). When empty, the widget is not
       // rendered and the form behaves exactly as before.

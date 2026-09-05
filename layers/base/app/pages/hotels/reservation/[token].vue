@@ -226,14 +226,13 @@
           <div class="frame-title">Need Help?</div>
         </div>
         <div class="frame-panel space-y-2">
-          <p class="text-sm tracking-tight">Contact PM One support:</p>
-          <p class="text-sm tracking-tight">
+          <p class="text-sm tracking-tight">Contact support:</p>
+          <!-- The hotel's own address, or nothing. This site serves more than
+               one instance now, so there is no vendor address to fall back to. -->
+          <p v-if="reservation.hotel?.contact_email" class="text-sm tracking-tight">
             <span class="text-muted-foreground">Email:</span>
-            <a
-              :href="`mailto:${reservation.hotel?.contact_email || 'support@pmone.id'}`"
-              class="text-primary ml-1 underline"
-            >
-              {{ reservation.hotel?.contact_email || "support@pmone.id" }}
+            <a :href="`mailto:${reservation.hotel.contact_email}`" class="text-primary ml-1 underline">
+              {{ reservation.hotel.contact_email }}
             </a>
           </p>
           <p v-if="reservation.hotel?.contact_phone" class="text-sm tracking-tight">

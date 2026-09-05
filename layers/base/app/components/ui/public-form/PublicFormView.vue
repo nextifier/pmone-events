@@ -134,6 +134,25 @@
           @uploading="handleUploading"
           @submit="handleSubmit"
         />
+
+        <!-- Vendor credit. The payload carries it only when the instance names
+             a vendor and the tenant has not bought whitelabel; a builder draft
+             never carries it, so preview stays clean without a special case. -->
+        <p
+          v-if="form.powered_by"
+          class="text-muted-foreground mt-8 text-center text-xs tracking-tight sm:mt-10 sm:text-sm"
+        >
+          Powered by
+          <a
+            v-if="form.powered_by.url"
+            :href="form.powered_by.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-foreground underline underline-offset-2 transition-colors"
+            >{{ form.powered_by.name }}</a
+          >
+          <template v-else>{{ form.powered_by.name }}</template>
+        </p>
       </div>
     </div>
   </div>

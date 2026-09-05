@@ -65,6 +65,26 @@
           All rights reserved.</span
         >
       </div>
+
+      <!-- Vendor credit. Absent on a whitelabel instance and for a tenant that
+           bought whitelabel; the backend decides, this only prints it. -->
+      <div
+        v-if="poweredBy"
+        class="text-muted-foreground -mt-12 flex items-center justify-center pb-16 text-center text-xs"
+      >
+        <span>
+          Powered by
+          <a
+            v-if="poweredBy.url"
+            :href="poweredBy.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline underline-offset-2"
+            >{{ poweredBy.name }}</a
+          >
+          <template v-else>{{ poweredBy.name }}</template>
+        </span>
+      </div>
     </div>
   </footer>
 </template>
@@ -83,4 +103,7 @@ const footerRoutes = computed(() => useAppConfig().routes.footer ?? []);
 
 // Company name from app.config.
 const { companyName } = useCompanyIdentity();
+
+// Vendor credit from the backend, via the og-pages payload.
+const poweredBy = usePoweredBy();
 </script>
