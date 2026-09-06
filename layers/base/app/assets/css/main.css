@@ -1604,12 +1604,19 @@ html.appearance-switching *::after {
    8px nets the 4px that `<Label required>` gets from its own `ms-1`, and
    `top-[0.15em]` is the same optical nudge, so the two mechanisms now render
    identically. `.cn-label { gap-2 }` is the same in all nine style packs, so
-   the arithmetic does not drift with the theme. */
+   the arithmetic does not drift with the theme.
+
+   `[data-slot=input-password]` needs its own branch for the same reason the
+   phone input does: InputPassword wraps its control in a `div.relative` to park
+   the reveal button, so the adjacent-sibling selectors never reach the control
+   itself. Without it every `<InputPassword required>` in the app silently loses
+   its marker while the plain `<Input required>` above it keeps one. */
 label:not(:has([data-slot="label-required"])) {
   &:has(+ input:required)::after,
   &:has(+ select:required)::after,
   &:has(+ textarea:required)::after,
-  &:has(+ .base-phone-input input:required)::after {
+  &:has(+ .base-phone-input input:required)::after,
+  &:has(+ div > [data-slot="input-password"]:required)::after {
     @apply text-destructive-foreground relative top-[0.15em] -ms-1 content-['*'];
   }
 }
