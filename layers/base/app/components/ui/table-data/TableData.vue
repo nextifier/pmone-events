@@ -840,10 +840,18 @@ watch(
   }
 );
 
-// The reorder handle, injected as the first column so no caller has to
-// redraw it. A real button, not a bare icon: it is the only way a keyboard
-// reaches the feature at all (see `moveRowByKeyboard`), and it is what tells a
-// screen reader the row can move.
+// The reorder handle, injected as the first column so no caller has to redraw
+// it. A real button, not a bare icon: it is the only way a keyboard reaches the
+// feature at all (see `moveRowByKeyboard`), and it is what tells a screen reader
+// the row can move.
+//
+// Everything visual follows the project list's handle, which is the same job in
+// another shape: grip at 18px, muted at rest, and on hover the style pack's own
+// ghost background under a primary-coloured grip. The first version borrowed
+// shadcn's `hover:bg-transparent` and a lighter dot glyph, and the pair read as
+// a disabled control - a handle with no answer to the pointer looks broken, not
+// quiet. Nothing sets an opacity here either: `.cn-button` already dims a
+// disabled button, and a second opacity on top of it multiplies.
 const dragColumn = {
   id: "drag",
   header: () => h("span", { class: "sr-only" }, "Reorder"),
@@ -854,8 +862,8 @@ const dragColumn = {
         variant: "ghost",
         size: "iconSm",
         class: [
-          "drag-handle text-muted-foreground hover:bg-transparent",
-          canReorder.value ? "cursor-grab active:cursor-grabbing" : "opacity-40",
+          "drag-handle text-muted-foreground hover:text-primary",
+          canReorder.value ? "cursor-grab active:cursor-grabbing" : "",
         ],
         disabled: !canReorder.value,
         "aria-label": "Reorder row. Drag, or use the up and down arrow keys.",
@@ -863,8 +871,8 @@ const dragColumn = {
       },
       () =>
         h(resolveComponent("Icon"), {
-          name: "hugeicons:drag-drop-vertical",
-          class: "size-4 shrink-0",
+          name: "lucide:grip-vertical",
+          class: "size-4.5 shrink-0",
         })
     ),
   size: 48,
