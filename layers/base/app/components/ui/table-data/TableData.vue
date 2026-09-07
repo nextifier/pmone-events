@@ -322,7 +322,7 @@
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody ref="tableBodyRef">
               <!-- Skeleton Loading Rows -->
               <template v-if="isInitialLoading">
                 <slot name="loading">
@@ -357,6 +357,7 @@
               <template v-else-if="table.getRowModel().rows?.length">
                 <template v-for="row in table.getRowModel().rows" :key="row.id">
                   <TableRow
+                    data-drag-row
                     :data-state="row.getIsSelected() && 'selected'"
                     class="group tracking-tight"
                   >
@@ -715,6 +716,32 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  // Drag-and-drop row reordering. Off by default: a table whose rows can be
+  // dragged is promising that the order on screen is the order that is stored,
+  // and most tables here are sorted by a column instead.
+  //
+  // Turning it on injects the handle column, binds SortableJS to the tbody,
+  // reorders `data` in place and emits `reorder`. The caller writes the new
+  // order to the server and nothing else.
+  draggableRows: {
+    type: Boolean,
+    default: false,
+  },
+  // The caller's own gate on top of the component's own rules - a permission,
+  // usually. Kept separate from `draggableRows` so the handle column still
+  // renders (greyed out) rather than the table changing shape per account.
+  dragDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  // Stable row identity. TanStack keys row selection and row expansion by
+  // whatever `getRowId` returns, and its default is the row's INDEX - so a
+  // refetch, a page turn or a drag hands the checkbox to whichever record
+  // landed in that position. Naming a real key makes both follow the record.
+  rowKey: {
+    type: String,
+    default: "id",
+  },
 });
 
 const emit = defineEmits([
@@ -724,6 +751,11 @@ const emit = defineEmits([
   "update:columnVisibility",
   "update:pagination",
   "update:sorting",
+  // { items, from, to }: `items` is a NEW array in the order the table now
+  // shows, `from`/`to` are indices into it. The parent's own array is left
+  // alone - persist `items`, and the table keeps showing it until the parent
+  // hands back data of its own.
+  "reorder",
 ]);
 
 // Determine if we should use client-side processing
@@ -793,18 +825,74 @@ const features = tableFeatures({
   sortFns,
 });
 
+// TanStack memoises its row model on the IDENTITY of `data`, so reordering the
+// parent's array in place changes nothing on screen - the rows only catch up on
+// the next reload, and in the meantime the table and the server disagree. The
+// reordered copy lives here instead, and steps aside the moment the parent's own
+// data comes back (a refetch, a poll, a filter), which is the newer answer.
+const reorderedData = ref(null);
+const tableData = computed(() => reorderedData.value ?? props.data ?? []);
+
+watch(
+  () => props.data,
+  () => {
+    reorderedData.value = null;
+  }
+);
+
+// The reorder handle, injected as the first column so no caller has to
+// redraw it. A real button, not a bare icon: it is the only way a keyboard
+// reaches the feature at all (see `moveRowByKeyboard`), and it is what tells a
+// screen reader the row can move.
+const dragColumn = {
+  id: "drag",
+  header: () => h("span", { class: "sr-only" }, "Reorder"),
+  cell: ({ row }) =>
+    h(
+      Button,
+      {
+        variant: "ghost",
+        size: "iconSm",
+        class: [
+          "drag-handle text-muted-foreground hover:bg-transparent",
+          canReorder.value ? "cursor-grab active:cursor-grabbing" : "opacity-40",
+        ],
+        disabled: !canReorder.value,
+        "aria-label": "Reorder row. Drag, or use the up and down arrow keys.",
+        onKeydown: (event) => moveRowByKeyboard(event, row),
+      },
+      () =>
+        h(resolveComponent("Icon"), {
+          name: "hugeicons:drag-drop-vertical",
+          class: "size-4 shrink-0",
+        })
+    ),
+  size: 48,
+  enableSorting: false,
+  enableHiding: false,
+  enableResizing: false,
+};
+
+const resolvedColumns = computed(() =>
+  props.draggableRows ? [dragColumn, ...props.columns] : props.columns
+);
+
 // Table instance
 const table = useTable({
   features,
   get data() {
-    return props.data || [];
+    return tableData.value;
   },
   get columns() {
-    return props.columns;
+    return resolvedColumns.value;
   },
   // Row expansion is opt-in: only enabled when the consumer provides an
   // #expanded-row slot, so existing tables are unaffected.
   getRowCanExpand: () => !!slots["expanded-row"],
+  // See the `rowKey` prop: without this, selection and expansion are keyed by
+  // position. Falls back to the index for rows that carry no key, which is the
+  // framework default and no worse than it.
+  getRowId: (row, index) => String(row?.[props.rowKey] ?? index),
   manualPagination: !isClientSideMode.value,
   manualSorting: !isClientSideMode.value,
   manualFiltering: !isClientSideMode.value,
@@ -1305,6 +1393,134 @@ const skeletonHeaders = computed(() => table.getHeaderGroups()[0]?.headers ?? []
 const resetRowSelection = () => {
   table.resetRowSelection();
 };
+
+// ---------------------------------------------------------------------------
+// Row reordering
+//
+// SortableJS moves the DOM node; `data` is the source of truth. So each drop is
+// undone in the DOM and replayed on the array, and Vue re-renders from there.
+// That is VueUse's own moveArrayElement in shape, minus its assumption that the
+// tbody holds nothing but draggable rows - an expanded row is a second <tr> in
+// the same parent, and it throws the raw child indices out by one.
+// ---------------------------------------------------------------------------
+
+// A template ref on a component hands back the instance, not the element.
+const tableBodyRef = ref(null);
+const tableBodyEl = computed(() => tableBodyRef.value?.$el ?? null);
+
+// Dragging is off whenever the rows on screen are not the stored list in its
+// stored order: a drop would then write positions read off a filtered or
+// re-sorted view. Note this means a draggable table has to pass
+// `:initial-sorting="[]"`, or it is born sorted and can never be dragged.
+const canReorder = computed(() => {
+  if (!props.draggableRows || props.dragDisabled || isInitialLoading.value) {
+    return false;
+  }
+
+  return !hasActiveFilters.value && sorting.value.length === 0;
+});
+
+if (import.meta.dev) {
+  watchEffect(() => {
+    if (props.draggableRows && !isClientSideMode.value) {
+      console.warn(
+        "[TableData] draggableRows needs the whole list in `data` - in server mode " +
+          "`data` is one page, so the emitted indices are page-local."
+      );
+    }
+
+    // Two rows answering to one id share a selection checkbox and an expanded
+    // panel. Silent in production, loud here, because the fix is a one-word
+    // prop and the symptom looks like anything but a key collision.
+    const rows = tableData.value;
+
+    if (rows.length && new Set(rows.map((row, index) => String(row?.[props.rowKey] ?? index))).size !== rows.length) {
+      console.warn(
+        `[TableData] rows are not unique by "${props.rowKey}" - name the right field with rowKey.`
+      );
+    }
+  });
+}
+
+// Resolve a rendered row back to its seat in `data` by identity rather than by
+// counting rows on screen, which is what makes this survive pagination: the
+// second page renders rows 10..19 but Sortable numbers them 0..9.
+function dataIndexOf(row) {
+  return tableData.value.indexOf(row?.original);
+}
+
+function applyMove(from, to) {
+  const list = [...tableData.value];
+
+  if (from < 0 || to < 0 || from === to || from >= list.length || to >= list.length) {
+    return null;
+  }
+
+  const [moved] = list.splice(from, 1);
+  list.splice(to, 0, moved);
+  reorderedData.value = list;
+  emit("reorder", { items: list, from, to });
+
+  return moved;
+}
+
+function onDragUpdate(event) {
+  const { item, from: parent, oldIndex, oldDraggableIndex, newDraggableIndex } = event;
+
+  // Put the node back where Vue rendered it before touching the array, or both
+  // apply the same move and the row lands two places from where it was dropped.
+  item.remove();
+  parent.insertBefore(item, parent.children[oldIndex] ?? null);
+
+  const rows = table.getRowModel().rows;
+  applyMove(dataIndexOf(rows[oldDraggableIndex]), dataIndexOf(rows[newDraggableIndex]));
+}
+
+useSortableList(
+  tableBodyEl,
+  tableData,
+  {
+    enabled: canReorder,
+    sortableOptions: {
+      // Without this an expanded row counts as a sibling, and every index after
+      // it is wrong. It also keeps the skeleton rows out of the reckoning.
+      draggable: "[data-drag-row]",
+      onUpdate: onDragUpdate,
+    },
+  }
+);
+
+// The keyboard half. SortableJS has no keyboard mode, so a handle that only
+// answers to a pointer puts the whole feature out of reach of anyone not using
+// one - dnd-kit, which shadcn's own draggable table uses, ships a KeyboardSensor
+// for exactly this. Arrow up and down move the focused row one step.
+async function moveRowByKeyboard(event, row) {
+  if (!canReorder.value || (event.key !== "ArrowUp" && event.key !== "ArrowDown")) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const from = dataIndexOf(row);
+  const to = from + (event.key === "ArrowUp" ? -1 : 1);
+
+  if (to < 0 || to >= tableData.value.length) {
+    return;
+  }
+
+  const moved = applyMove(from, to);
+
+  if (!moved) {
+    return;
+  }
+
+  // The button being held is destroyed with the row it sat in, so focus has to
+  // be handed to the one that replaced it or it falls back to the document.
+  await nextTick();
+
+  const seat = table.getRowModel().rows.findIndex((candidate) => candidate.original === moved);
+  tableBodyEl.value?.querySelectorAll(".drag-handle")?.[seat]?.focus();
+}
 
 // Expose table instance and methods for parent
 defineExpose({

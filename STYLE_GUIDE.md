@@ -476,6 +476,19 @@ Jangan pula membungkus isi dialog dalam `<form>` yang men-submit halaman di bela
 - Untuk table statis sederhana: `<Table>` + `<TableHeader>` + `<TableRow>` + `<TableCell>`.
 - Row action: pakai `<DropdownMenu>` dengan trigger `<Button variant="ghost" size="iconSm">`.
 - Delete action di dropdown wajib buka `<ResponsiveDialog>` konfirmasi, tidak langsung delete.
+- Urutan manual: `draggable-rows`. `TableData` yang menyuntik kolom handle,
+  mengikat SortableJS ke `tbody`, dan meng-emit `reorder` berisi
+  `{ items, from, to }` - `items` array baru dalam urutan yang sekarang tampil.
+  Call site cuma menyimpannya. Jangan merakit handle atau `useSortableList`
+  sendiri di halaman.
+  - Wajib `:initial-sorting="[]"`, kalau tidak tabelnya lahir ter-sort dan drag
+    tidak akan pernah hidup (drag mati selama ada sort, filter, atau search).
+  - Gate permission lewat `:drag-disabled`, bukan `v-if`.
+  - Butuh seluruh list ada di `data` (mode `client-only`).
+  - Handle-nya `<Button>`: panah atas/bawah memindahkan baris satu langkah,
+    karena SortableJS tidak punya mode keyboard.
+- `row-key` (default `"id"`) menentukan identitas baris. Row selection dan row
+  expansion di-key dari sini; tanpa key yang benar keduanya mengikuti POSISI.
 
 ---
 
