@@ -124,6 +124,8 @@ function sittingOnOwnEntry(): boolean {
  */
 const LINK_ACTIVATION_WINDOW_MS = 500
 let linkActivatedAt = 0
+/** Set synchronously by a wrapped `router.push`/`replace`; see below. */
+let navigationRequestedAt = 0
 let clickHooked = false
 let navigating = 0
 let routerHooked = false
@@ -157,10 +159,34 @@ function trackRouterNavigations(router: ReturnType<typeof useRouter> | null) {
   router.beforeEach(() => { navigating += 1 })
   router.afterEach(done)
   router.onError(done)
+
+  // The third signal, and the one the other two miss.
+  //
+  // A BUTTON that calls `router.push()` straight out of its click handler is
+  // neither a link (so `linkActivatedAt` stays unset) nor far enough along for
+  // `beforeEach` to have run: vue-router resolves guards a microtask later,
+  // measured at ~30ms, while the rewind below is only a macrotask behind the
+  // click. So the rewind fired first, landed on the entry the router was about
+  // to build on, and cancelled the navigation - the panel shut and the page
+  // never moved. That is exactly what "Back" in the mobile AI sidebar did.
+  //
+  // Wrapping the two entry points records the intent in the same tick as the
+  // click, which is the only moment early enough to be useful.
+  const mark = <T extends (...args: never[]) => unknown>(fn: T): T =>
+    ((...args: never[]) => {
+      navigationRequestedAt = Date.now()
+
+      return fn(...args)
+    }) as T
+
+  router.push = mark(router.push.bind(router))
+  router.replace = mark(router.replace.bind(router))
 }
 
 function navigationIsStarting(): boolean {
-  return navigating > 0 || Date.now() - linkActivatedAt < LINK_ACTIVATION_WINDOW_MS
+  return navigating > 0
+    || Date.now() - linkActivatedAt < LINK_ACTIVATION_WINDOW_MS
+    || Date.now() - navigationRequestedAt < LINK_ACTIVATION_WINDOW_MS
 }
 
 function rewind() {
