@@ -1,8 +1,7 @@
 <template>
   <header
-    class="flex h-(--navbar-height-mobile) items-center justify-center text-sm lg:h-(--navbar-height-desktop)"
+    class="sticky inset-x-0 top-0 z-50 flex h-(--navbar-height-mobile) items-center justify-center text-sm lg:h-(--navbar-height-desktop)"
     :class="{
-      'sticky inset-x-0 top-0 z-50': ![].includes(route.name),
       'bg-background': isMenuOpen,
       'border-border/30 bg-background/95 supports-backdrop-filter:bg-background/90 border-b backdrop-blur-sm':
         !isMenuOpen,
