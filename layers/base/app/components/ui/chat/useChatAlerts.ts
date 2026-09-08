@@ -13,10 +13,11 @@ import { useVibrate } from "@vueuse/core";
  * Written to be reused by Live Support, which needs exactly this and will need
  * it on a surface where the message arrives without the reader doing anything.
  *
- * Source: "Notification Pop" by Kenney (https://kenney.nl), CC0, taken from
- * soundcn.xyz. Same origin as the scanner's own sounds.
+ * The default file is whatever the app ships at `public/sfx/chat-notification.mp3`;
+ * a host with a different sound passes `soundSrc`.
  */
-const DEFAULT_SOUND_SRC = "/sfx/chat-notification.mp3";
+// Versioned so a replaced file is not served from a browser or edge cache under the old bytes.
+const DEFAULT_SOUND_SRC = "/sfx/chat-notification.mp3?v=2";
 
 /** Per-device, per-browser. Nothing about it belongs on the account. */
 const DEFAULT_MUTE_KEY = "pmone:chat-muted";
