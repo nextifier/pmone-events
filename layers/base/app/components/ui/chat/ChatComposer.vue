@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from "vue";
+import { useEventListener, useMediaQuery, useThrottleFn } from "@vueuse/core";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +14,12 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import ChatAttachments from "./ChatAttachments.vue";
-import { CHAT_ATTACHMENT_MIMES, MAX_CHAT_ATTACHMENTS, MAX_CHAT_ATTACHMENT_BYTES } from "./limits";
+import {
+  CHAT_ATTACHMENT_MIMES,
+  EXTENSION_MIMES,
+  MAX_CHAT_ATTACHMENTS,
+  MAX_CHAT_ATTACHMENT_BYTES,
+} from "./limits";
 import { cn } from "@/lib/utils";
 
 /**
@@ -25,10 +31,11 @@ import { cn } from "@/lib/utils";
  *
  * The behaviours are the point. A screenshot pasted from the clipboard, a file
  * dragged onto the box, the same limits the server will apply, Enter to send and
- * Shift+Enter for a newline, and a send button that becomes a stop button while
- * an answer is arriving. Each of those is small and each has a way of going
- * subtly wrong, which is why they live in one place rather than being written
- * again per surface.
+ * Shift+Enter for a newline (on a keyboard; on a phone Enter is a newline and
+ * the button sends), and a send button that becomes a stop button while an
+ * answer is arriving. Each of those is small and each has a way of going subtly
+ * wrong, which is why they live in one place rather than being written again
+ * per surface.
  */
 const props = withDefaults(
   defineProps<{
@@ -51,6 +58,13 @@ const props = withDefaults(
     accept?: string[];
     maxFiles?: number;
     maxFileBytes?: number;
+    /**
+     * Whether a bare Enter sends. `"auto"` sends on a pointer and inserts a
+     * newline on a touch screen, where the send button is the send key and a
+     * stray Enter used to fire half-written messages. Cmd/Ctrl+Enter always
+     * sends.
+     */
+    enterToSend?: boolean | "auto";
     class?: HTMLAttributes["class"];
   }>(),
   {
@@ -63,6 +77,7 @@ const props = withDefaults(
     attachable: true,
     maxFiles: MAX_CHAT_ATTACHMENTS,
     maxFileBytes: MAX_CHAT_ATTACHMENT_BYTES,
+    enterToSend: "auto",
   }
 );
 
@@ -79,6 +94,12 @@ const emit = defineEmits<{
    * is the host's decision.
    */
   reject: [reason: string];
+  /**
+   * Someone is typing. Throttled to once every two seconds while keys are
+   * pressed, so a host can forward it as a presence whisper without adding
+   * its own timer.
+   */
+  typing: [];
 }>();
 
 const accepted = computed(() => props.accept ?? CHAT_ATTACHMENT_MIMES);
@@ -101,6 +122,16 @@ const canSend = computed(
 /** Locked while a reply is arriving as well as when the surface is read-only. */
 const locked = computed(() => props.disabled || props.busy);
 
+/**
+ * A coarse pointer is a finger. There, Enter is the only way to get a new
+ * line, and the software keyboard has no modifier to make it a send key.
+ */
+const isCoarsePointer = useMediaQuery("(pointer: coarse)");
+
+const sendsOnEnter = computed(() =>
+  props.enterToSend === "auto" ? !isCoarsePointer.value : props.enterToSend
+);
+
 function pickFiles() {
   fileInput.value?.click();
 }
@@ -110,12 +141,31 @@ function megabytes(bytes: number) {
 }
 
 /**
+ * The MIME type to judge a file by.
+ *
+ * A file dragged in from some Windows and Linux file managers arrives with an
+ * empty `type`, so it was refused as "not an accepted file type" even when it
+ * was a plain PDF. The extension settles it; the server still sniffs the bytes.
+ */
+function typeOf(file: File) {
+  if (file.type) return file.type;
+
+  const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
+
+  return EXTENSION_MIMES[extension] ?? "";
+}
+
+function sameFile(a: File, b: File) {
+  return a.name === b.name && a.size === b.size && a.lastModified === b.lastModified;
+}
+
+/**
  * One entry point for every source of files: the picker, a paste, a drop.
  *
  * Rejections are reported rather than silently dropped - a file that vanishes
  * with no explanation reads as a broken control.
  */
-function accept(incoming: File[]) {
+function acceptFiles(incoming: File[]) {
   if (!incoming.length || props.disabled) return;
 
   const next = [...files.value];
@@ -125,7 +175,11 @@ function accept(incoming: File[]) {
       emit("reject", `Up to ${props.maxFiles} files per message.`);
       break;
     }
-    if (!accepted.value.includes(file.type)) {
+    if (next.some((queued) => sameFile(queued, file))) {
+      emit("reject", `${file.name} is already attached.`);
+      continue;
+    }
+    if (!accepted.value.includes(typeOf(file))) {
       emit("reject", `${file.name} is not an accepted file type.`);
       continue;
     }
@@ -149,7 +203,7 @@ function removeAt(index: number) {
 function onFilesPicked(event: Event) {
   const target = event.target as HTMLInputElement;
 
-  accept(Array.from(target.files ?? []));
+  acceptFiles(Array.from(target.files ?? []));
 
   // Cleared so picking the same file twice in a row still fires `change`.
   target.value = "";
@@ -168,7 +222,7 @@ function onPaste(event: ClipboardEvent) {
   if (!dropped.length) return;
 
   event.preventDefault();
-  accept(dropped);
+  acceptFiles(dropped);
 }
 
 /**
@@ -181,6 +235,10 @@ const isDraggingFiles = computed(() => dragDepth.value > 0);
 
 function carriesFiles(event: DragEvent) {
   return Array.from(event.dataTransfer?.types ?? []).includes("Files");
+}
+
+function resetDrag() {
+  dragDepth.value = 0;
 }
 
 function onDragEnter(event: DragEvent) {
@@ -200,12 +258,21 @@ function onDragLeave() {
 }
 
 function onDrop(event: DragEvent) {
-  dragDepth.value = 0;
+  resetDrag();
   if (locked.value || !props.attachable || !carriesFiles(event)) return;
 
   event.preventDefault();
-  accept(Array.from(event.dataTransfer?.files ?? []));
+  acceptFiles(Array.from(event.dataTransfer?.files ?? []));
 }
+
+// A drag that leaves the window, or ends over something else, never sends
+// `dragleave` to the elements it crossed on the way in. The counter then stays
+// above zero and the "Drop to attach" overlay sits there until the next drag.
+useEventListener(window, "dragend", resetDrag);
+useEventListener(document, "drop", resetDrag);
+useEventListener(document, "dragleave", (event: DragEvent) => {
+  if (!event.relatedTarget) resetDrag();
+});
 
 function onSubmit() {
   if (props.busy) {
@@ -218,10 +285,17 @@ function onSubmit() {
   const value = text.value.trim();
   emit("update:modelValue", "");
   emit("submit", value);
+
+  // The button took the focus when it was clicked; the next message starts in
+  // the box, not with a click back into it.
+  focus();
 }
 
 function onKeydown(event: KeyboardEvent) {
-  if (event.key !== "Enter" || event.shiftKey || event.isComposing) return;
+  if (event.key !== "Enter" || event.isComposing) return;
+
+  const withModifier = event.metaKey || event.ctrlKey;
+  if (!withModifier && (event.shiftKey || !sendsOnEnter.value)) return;
 
   event.preventDefault();
 
@@ -231,6 +305,12 @@ function onKeydown(event: KeyboardEvent) {
 
   onSubmit();
 }
+
+const emitTyping = useThrottleFn(() => emit("typing"), 2000);
+
+watch(text, (value, previous) => {
+  if (value && value !== previous && !locked.value) emitTyping();
+});
 
 /** Lets a surface put the cursor here when it opens. */
 function focus() {
@@ -289,6 +369,10 @@ defineExpose({ focus });
             <slot name="menu" />
           </DropdownMenuContent>
         </DropdownMenu>
+
+        <!-- Controls the host owns: a mode toggle, saved replies, anything that
+             belongs beside the message rather than inside it. -->
+        <slot name="actions" :disabled="locked" />
 
         <span
           v-if="isNearLimit"

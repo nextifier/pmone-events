@@ -29,8 +29,21 @@ const emit = defineEmits<{
  */
 const previews = ref<Record<string, string>>({});
 
+/**
+ * Identity, not position. Keyed by index, removing the first file changed
+ * every key after it, so each remaining preview was revoked and rebuilt and
+ * the strip flickered. A collision - the same file queued twice by a host that
+ * allows it - falls back to the position so no two cards share a key.
+ */
 function keyFor(file: File, index: number) {
-  return `${index}:${file.name}:${file.size}:${file.lastModified}`;
+  const key = `${file.name}:${file.size}:${file.lastModified}`;
+  const first = props.files.findIndex((other) => other !== file && sameKey(other, key));
+
+  return first !== -1 && first < index ? `${key}:${index}` : key;
+}
+
+function sameKey(file: File, key: string) {
+  return `${file.name}:${file.size}:${file.lastModified}` === key;
 }
 
 function releasePreviews() {

@@ -26,3 +26,20 @@ export const CHAT_ATTACHMENT_MIMES = [
 
 export const MAX_CHAT_ATTACHMENTS = 5
 export const MAX_CHAT_ATTACHMENT_BYTES = 10 * 1024 * 1024
+
+/**
+ * What to assume when the browser reports no type at all.
+ *
+ * Some file managers on Windows and Linux hand over a dragged file with an
+ * empty `type`, so it was refused as "not an accepted file type" even when it
+ * was a plain PDF. The composer falls back to the extension; the server still
+ * judges the bytes, so nothing here widens what is accepted.
+ */
+export const EXTENSION_MIMES: Record<string, string> = {
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  png: "image/png",
+  gif: "image/gif",
+  webp: "image/webp",
+  pdf: "application/pdf",
+}
