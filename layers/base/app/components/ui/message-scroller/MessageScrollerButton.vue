@@ -17,6 +17,7 @@ const props = withDefaults(
     behavior?: ScrollBehavior;
     variant?: ButtonVariants["variant"];
     size?: ButtonVariants["size"];
+    tabindex?: number;
   }>(),
   {
     direction: "end",
@@ -34,6 +35,12 @@ const active = computed(() =>
 
 function onClick(event: MouseEvent): void {
   if (!active.value) {
+    return;
+  }
+  // A host listener that calls preventDefault() means it is driving the scroll
+  // itself, so check that before touching focus: blurring first would move the
+  // caret for a handler that then cancels us.
+  if (event.defaultPrevented) {
     return;
   }
   (event.currentTarget as HTMLElement).blur();
@@ -54,7 +61,7 @@ function onClick(event: MouseEvent): void {
     :data-size="size"
     :variant="variant"
     :size="size"
-    :tabindex="active ? undefined : -1"
+    :tabindex="active ? props.tabindex : -1"
     :inert="active ? undefined : true"
     :class="
       cn(

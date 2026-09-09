@@ -6,7 +6,7 @@
           {{ content.title }}
         </h2>
 
-        <p class="section-description mt-3">
+        <p class="section-description mt-3" data-section-description>
           {{ content.description }}
         </p>
       </div>

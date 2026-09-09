@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<LightboxProps>(), {
   swipeToClose: false,
   thumbnailKey: "sm",
   fullKey: "lg",
-  gridClass: "grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6",
+  gridClass: "grid grid-cols-3 gap-1 sm:grid-cols-4 lg:grid-cols-6",
   rounded: "rounded",
   firstSpansLarge: false,
   limit: null,

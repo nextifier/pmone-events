@@ -406,7 +406,7 @@ export function createMessageScrollerEngine(
   options: MessageScrollerEngineOptions,
 ) {
   const autoScroll = options.autoScroll ?? false;
-  const defaultScrollPosition = options.defaultScrollPosition ?? "end";
+  let defaultScrollPosition = options.defaultScrollPosition ?? "end";
   const scrollEdgeThreshold =
     options.scrollEdgeThreshold ?? DEFAULT_SCROLL_EDGE_THRESHOLD;
   const scrollPreviousItemPeek =
@@ -428,6 +428,14 @@ export function createMessageScrollerEngine(
   let anchoredScrollTop: number | null = null;
   let streamingTurn: HTMLElement | null = null;
   let defaultScrollPositionApplied = false;
+  /**
+   * True until the opening position has been placed.
+   *
+   * The viewport starts at scrollTop 0, so a thread that opens at the end
+   * paints its oldest message for one frame and then jumps. `data-pending-scroll`
+   * is what the stylesheet hides during that frame; nothing else reads it.
+   */
+  let pendingDefaultScroll = true;
   let itemCount = 0;
   let firstItem: HTMLElement | null = null;
   let spacerGap = 0;
@@ -471,7 +479,17 @@ export function createMessageScrollerEngine(
         el.removeAttribute("data-scrollable");
       }
       el.toggleAttribute("data-autoscrolling", autoscrolling);
+      el.toggleAttribute("data-pending-scroll", pendingDefaultScroll);
     }
+  }
+
+  /** Reveal the viewport. Idempotent: every caller may fire more than once. */
+  function clearPendingDefaultScroll(): void {
+    if (!pendingDefaultScroll) {
+      return;
+    }
+    pendingDefaultScroll = false;
+    applyScrollableAttributes(stateStore.getSnapshot());
   }
 
   function updateModeFromScrollable(
@@ -778,6 +796,7 @@ export function createMessageScrollerEngine(
     const element = messageElements.get(messageId);
     if (element) {
       defaultScrollPositionApplied = true;
+      clearPendingDefaultScroll();
       if (scrollToElement(element, options)) {
         pendingScrollToMessage = null;
         return true;
@@ -788,6 +807,7 @@ export function createMessageScrollerEngine(
     if (itemCount === 0) {
       pendingScrollToMessage = { messageId, options: options ?? {} };
       defaultScrollPositionApplied = true;
+      clearPendingDefaultScroll();
       return true;
     }
     return false;
@@ -804,6 +824,7 @@ export function createMessageScrollerEngine(
     }
     pendingScrollToMessage = null;
     defaultScrollPositionApplied = true;
+    clearPendingDefaultScroll();
     return true;
   }
 
@@ -889,6 +910,7 @@ export function createMessageScrollerEngine(
     }
     if (applied) {
       defaultScrollPositionApplied = true;
+      clearPendingDefaultScroll();
       return true;
     }
     return false;
@@ -1058,6 +1080,7 @@ export function createMessageScrollerEngine(
   /* ------------------------------- intents -------------------------------- */
 
   function userScrollIntent(): void {
+    clearPendingDefaultScroll();
     cancelAutoscroll();
     if (
       mode === "following-bottom" ||
@@ -1109,11 +1132,37 @@ export function createMessageScrollerEngine(
     preserveScrollOnPrepend = value;
   }
 
+  /**
+   * Re-arm the one-shot opening position.
+   *
+   * Without this the prop is read once at creation, so switching it only takes
+   * effect by remounting the whole provider.
+   */
+  function setDefaultScrollPosition(
+    value: MessageScrollerDefaultScrollPosition,
+  ): void {
+    if (value === defaultScrollPosition) {
+      return;
+    }
+    defaultScrollPosition = value;
+    defaultScrollPositionApplied = false;
+    pendingDefaultScroll = true;
+    applyScrollableAttributes(stateStore.getSnapshot());
+    if (!applyDefaultScrollPosition()) {
+      clearPendingDefaultScroll();
+    }
+  }
+
   /* ------------------------------ lifecycle ------------------------------- */
 
   function initialize(): void {
     if (!applyDefaultScrollPosition()) {
       commitScrollState();
+      if (itemCount === 0) {
+        // An empty transcript has no frame to hide, and waiting for a position
+        // that will never be applied would leave the viewport invisible.
+        clearPendingDefaultScroll();
+      }
     }
     if (autoScroll && mode === "following-bottom" && itemCount > 0) {
       scrollToEnd({ behavior: "auto" });
@@ -1148,6 +1197,7 @@ export function createMessageScrollerEngine(
     setContentElement,
     setSpacerElement,
     setPreserveScrollOnPrepend,
+    setDefaultScrollPosition,
     handleContentChange,
     handleResize,
     syncAfterScroll,

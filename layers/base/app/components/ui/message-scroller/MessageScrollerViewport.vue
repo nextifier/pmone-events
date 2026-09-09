@@ -72,7 +72,7 @@ function onKeyDown(event: KeyboardEvent): void {
     :tabindex="0"
     :class="
       cn(
-        'cn-message-scroller-viewport size-full min-h-0 min-w-0 overflow-y-auto overscroll-contain scroll-fade-b [contain:content]',
+        'cn-message-scroller-viewport size-full min-h-0 min-w-0 overflow-y-auto overscroll-contain scroll-fade-b [contain:content] data-[pending-scroll]:invisible',
         props.class
       )
     "

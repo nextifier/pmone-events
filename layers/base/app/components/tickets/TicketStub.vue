@@ -92,9 +92,12 @@ onBeforeUnmount(() => {
       />
     </svg>
 
+    <!-- Pre-mount fallback (SSR, no-JS): the hairline is an inset ring, not a
+         CSS border, so it takes no layout space. A border made the card 2px
+         taller and pushed its content down 1px until the SVG took over. -->
     <div
       class="relative flex h-full flex-col overflow-hidden"
-      :class="pathD ? '' : 'bg-background border-border rounded-3xl border'"
+      :class="pathD ? '' : 'bg-background ring-border rounded-3xl ring-1 ring-inset'"
       :style="clipStyle"
     >
       <div class="flex grow flex-col">

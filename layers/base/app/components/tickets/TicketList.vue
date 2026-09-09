@@ -883,19 +883,19 @@ const ticketsById = computed(() => {
     <div v-else class="grid grid-cols-1 gap-y-10 lg:gap-y-16">
       <!-- Entry tickets -->
       <section v-if="entryTickets.length" id="entry-tickets">
-        <div class="flex flex-col items-center gap-y-3 text-center">
+        <div class="flex flex-col items-center gap-y-1 text-center sm:gap-y-3">
           <h2
             class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
           >
             {{ t("tickets.entryTitle") }}
           </h2>
-          <p class="text-foreground tracking-tight text-balance">
+          <p class="text-foreground tracking-tight text-balance max-sm:text-muted-foreground">
             {{ t("tickets.entrySubtitle", { event: event.title }) }}
           </p>
         </div>
 
         <div
-          class="mx-auto mt-6 grid grid-cols-1 gap-4 lg:mt-8"
+          class="mx-auto mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:mt-8"
           :class="{
             'max-w-lg': entryTickets.length === 1,
             'max-w-5xl lg:grid-cols-2': entryTickets.length === 2,
@@ -1022,13 +1022,14 @@ const ticketsById = computed(() => {
                   :key="i"
                   class="flex gap-x-1.5"
                 >
+                  <!-- Icon box = one text line (h-5 vs 21px line-height at
+                       text-sm/leading-normal), so the check sits on the first
+                       line's optical centre even when the benefit wraps. -->
                   <Icon
                     name="lucide:check"
-                    class="text-success-foreground h-4 shrink-0 sm:h-5"
+                    class="text-success-foreground h-5 shrink-0"
                   />
-                  <span
-                    class="text-xs leading-normal! tracking-tight sm:text-sm"
-                  >
+                  <span class="text-sm leading-normal! tracking-tight">
                     {{ benefit }}
                   </span>
                 </div>
@@ -1236,19 +1237,19 @@ const ticketsById = computed(() => {
 
       <!-- Add-on tickets -->
       <section v-if="addOnTickets.length" id="add-ons">
-        <div class="flex flex-col items-center gap-y-3 text-center">
+        <div class="flex flex-col items-center gap-y-1 text-center sm:gap-y-3">
           <h2
             class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
           >
             {{ t("tickets.addOnTitle") }}
           </h2>
-          <p class="text-foreground tracking-tight text-balance">
+          <p class="text-foreground tracking-tight text-balance max-sm:text-muted-foreground">
             {{ t("tickets.addOnSubtitle") }}
           </p>
         </div>
 
         <div
-          class="mx-auto mt-6 grid grid-cols-1 gap-4 lg:mt-8"
+          class="mx-auto mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:mt-8"
           :class="{
             'max-w-lg': addOnTickets.length === 1,
             'max-w-5xl lg:grid-cols-2': addOnTickets.length === 2,
@@ -1375,13 +1376,14 @@ const ticketsById = computed(() => {
                   :key="i"
                   class="flex gap-x-1.5"
                 >
+                  <!-- Icon box = one text line (h-5 vs 21px line-height at
+                       text-sm/leading-normal), so the check sits on the first
+                       line's optical centre even when the benefit wraps. -->
                   <Icon
                     name="lucide:check"
-                    class="text-success-foreground h-4 shrink-0 sm:h-5"
+                    class="text-success-foreground h-5 shrink-0"
                   />
-                  <span
-                    class="text-xs leading-normal! tracking-tight sm:text-sm"
-                  >
+                  <span class="text-sm leading-normal! tracking-tight">
                     {{ benefit }}
                   </span>
                 </div>

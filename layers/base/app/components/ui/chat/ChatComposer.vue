@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from "vue";
-import { useEventListener, useMediaQuery, useThrottleFn } from "@vueuse/core";
+import { useMediaQuery, useThrottleFn } from "@vueuse/core";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,7 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import ChatAttachments from "./ChatAttachments.vue";
+import { useFileDrop } from "./useFileDrop";
 import {
   CHAT_ATTACHMENT_MIMES,
   EXTENSION_MIMES,
@@ -54,6 +55,15 @@ const props = withDefaults(
     compact?: boolean;
     /** Offer the attachment menu at all. */
     attachable?: boolean;
+    /**
+     * Own the drop zone.
+     *
+     * The composer is a three-line strip at the bottom of a conversation, so a
+     * surface that wants the whole panel to accept a drop turns this off, calls
+     * `useFileDrop` on its own container and forwards what it catches to
+     * `acceptFiles`. Two zones would otherwise both fire on a drop over the box.
+     */
+    dropZone?: boolean;
     /** MIME types the receiver can read. */
     accept?: string[];
     maxFiles?: number;
@@ -75,6 +85,7 @@ const props = withDefaults(
     maxLength: 10000,
     compact: false,
     attachable: true,
+    dropZone: true,
     maxFiles: MAX_CHAT_ATTACHMENTS,
     maxFileBytes: MAX_CHAT_ATTACHMENT_BYTES,
     enterToSend: "auto",
@@ -226,52 +237,15 @@ function onPaste(event: ClipboardEvent) {
 }
 
 /**
- * Drag and drop. `dragenter`/`dragleave` fire for every child the pointer
- * crosses, so a depth counter decides when the overlay goes away - without it
- * the highlight flickers as the cursor moves over the textarea and buttons.
+ * Drag and drop, on the form unless the host took the zone over.
+ *
+ * The counter behind `isDraggingFiles` lives in `useFileDrop`; see there for
+ * why a boolean is not enough.
  */
-const dragDepth = ref(0);
-const isDraggingFiles = computed(() => dragDepth.value > 0);
-
-function carriesFiles(event: DragEvent) {
-  return Array.from(event.dataTransfer?.types ?? []).includes("Files");
-}
-
-function resetDrag() {
-  dragDepth.value = 0;
-}
-
-function onDragEnter(event: DragEvent) {
-  if (locked.value || !props.attachable || !carriesFiles(event)) return;
-  dragDepth.value++;
-}
-
-function onDragOver(event: DragEvent) {
-  if (!isDraggingFiles.value) return;
-  // Without this the browser navigates to the dropped file instead.
-  event.preventDefault();
-  if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
-}
-
-function onDragLeave() {
-  if (dragDepth.value > 0) dragDepth.value--;
-}
-
-function onDrop(event: DragEvent) {
-  resetDrag();
-  if (locked.value || !props.attachable || !carriesFiles(event)) return;
-
-  event.preventDefault();
-  acceptFiles(Array.from(event.dataTransfer?.files ?? []));
-}
-
-// A drag that leaves the window, or ends over something else, never sends
-// `dragleave` to the elements it crossed on the way in. The counter then stays
-// above zero and the "Drop to attach" overlay sits there until the next drag.
-useEventListener(window, "dragend", resetDrag);
-useEventListener(document, "drop", resetDrag);
-useEventListener(document, "dragleave", (event: DragEvent) => {
-  if (!event.relatedTarget) resetDrag();
+const form = useTemplateRef<HTMLFormElement>("form");
+const { isDraggingFiles } = useFileDrop(form, {
+  disabled: () => locked.value || !props.attachable || !props.dropZone,
+  onDrop: acceptFiles,
 });
 
 function onSubmit() {
@@ -321,18 +295,15 @@ function focus() {
   });
 }
 
-defineExpose({ focus });
+defineExpose({ focus, acceptFiles });
 </script>
 
 <template>
   <form
+    ref="form"
     data-slot="chat-composer"
     :class="cn('w-full space-y-2', props.class)"
     @submit.prevent="onSubmit"
-    @dragenter="onDragEnter"
-    @dragover="onDragOver"
-    @dragleave="onDragLeave"
-    @drop="onDrop"
   >
     <ChatAttachments :files="files" :disabled="locked" @remove="removeAt" />
 

@@ -32,26 +32,34 @@
         </span>
       </div>
     </span>
+    <!-- The prefix is the only place this is allowed to wrap: the days and
+         the clock stay one unit, so a narrow column reads
+         "The event starts in / 28 Days 15:43:59" rather than splitting the
+         number from its unit. The `&nbsp;` has to stay (a plain trailing
+         space is a whitespace-only text node Vue drops), so `<wbr>` supplies
+         the break opportunity right after it. -->
     <span v-else-if="variant.toLocaleLowerCase() === 'no-style'" class="inline">
-      <span v-if="textBeforeCountdown">{{ textBeforeCountdown }}&nbsp;</span>
-      <span v-if="timeParts.days">
-        <NumberFlow :value="timeParts.days" />
-        {{ $t("countdown.day", timeParts.days) }} </span
-      >&nbsp;<span class="whitespace-nowrap"
-        ><span class="tabular-nums"
-          ><span v-show="timeParts.hours < 10">0</span
-        ><NumberFlow :value="timeParts.hours" />
-      </span>
-      <span class="text-muted-foreground">:</span>
-      <span class="tabular-nums">
-        <span v-show="timeParts.minutes < 10">0</span
-        ><NumberFlow :value="timeParts.minutes" />
-      </span>
-      <span class="text-muted-foreground">:</span>
-      <span class="tabular-nums">
-        <span v-show="timeParts.seconds < 10">0</span
-        ><NumberFlow :value="timeParts.seconds" />
-      </span></span>
+      <span v-if="textBeforeCountdown">{{ textBeforeCountdown }}&nbsp;</span
+      ><wbr /><span class="whitespace-nowrap"
+        ><span v-if="timeParts.days">
+          <NumberFlow :value="timeParts.days" />
+          {{ $t("countdown.day", timeParts.days) }} </span
+        >&nbsp;<span class="whitespace-nowrap"
+          ><span class="tabular-nums"
+            ><span v-show="timeParts.hours < 10">0</span
+          ><NumberFlow :value="timeParts.hours" />
+        </span>
+        <span class="text-muted-foreground">:</span>
+        <span class="tabular-nums">
+          <span v-show="timeParts.minutes < 10">0</span
+          ><NumberFlow :value="timeParts.minutes" />
+        </span>
+        <span class="text-muted-foreground">:</span>
+        <span class="tabular-nums">
+          <span v-show="timeParts.seconds < 10">0</span
+          ><NumberFlow :value="timeParts.seconds" />
+        </span></span
+      ></span>
     </span>
 
     <div v-else-if="variant.toLocaleLowerCase() === 'text-with-shadow'">

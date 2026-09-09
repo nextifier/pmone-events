@@ -8,9 +8,12 @@ export { default as ChatText } from "./ChatText.vue"
 export { default as ChatTimestamp } from "./ChatTimestamp.vue"
 export { default as ChatUnreadDot } from "./ChatUnreadDot.vue"
 export { useChatAlerts } from "./useChatAlerts"
+export { useFileDrop } from "./useFileDrop"
+export type { UseFileDrop, UseFileDropOptions } from "./useFileDrop"
 export type { ChatAlertOptions } from "./useChatAlerts"
 export {
   CHAT_ATTACHMENT_MIMES,
+  CHAT_DOCUMENT_MIMES,
   EXTENSION_MIMES,
   MAX_CHAT_ATTACHMENTS,
   MAX_CHAT_ATTACHMENT_BYTES,

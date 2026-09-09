@@ -14,7 +14,7 @@
           {{ content?.title }}
         </h2>
 
-        <p class="section-description mt-1.5 max-w-2xl!">
+        <p class="section-description mt-1.5 max-w-2xl!" data-section-description>
           {{ content?.description }}
         </p>
       </div>

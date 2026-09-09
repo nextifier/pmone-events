@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, provide } from "vue";
+import { onBeforeUnmount, onMounted, provide, watch } from "vue";
 import type { MessageScrollerDefaultScrollPosition } from "./engine";
 import { createMessageScrollerEngine } from "./engine";
 import { MessageScrollerContextKey } from "./context";
@@ -27,6 +27,13 @@ const engine = createMessageScrollerEngine({
 });
 
 provide(MessageScrollerContextKey, engine);
+
+// The opening position is a one-shot read at creation, so without this a host
+// that switches it has to remount the provider for anything to happen.
+watch(
+  () => props.defaultScrollPosition,
+  (value) => engine.setDefaultScrollPosition(value)
+);
 
 onMounted(() => {
   engine.initialize();

@@ -1,6 +1,9 @@
 <script setup>
 import { Skeleton } from "../ui/skeleton";
 
+const { t } = useI18n();
+const event = useEvent();
+
 defineProps({
   // How many placeholder cards to render (defaults to a typical 3-up grid).
   count: { type: Number, default: 3 },
@@ -10,13 +13,23 @@ defineProps({
 <template>
   <div class="container">
     <section>
-      <!-- Section heading (matches "Entry Tickets" + subtitle) -->
-      <div class="flex flex-col items-center gap-y-3 text-center">
-        <Skeleton class="h-9 w-52 rounded-lg" />
-        <Skeleton class="h-5 w-72 max-w-full rounded" />
+      <!-- The heading is real text with TicketList's exact classes, not
+           bars: its copy does not depend on the data, so rendering it here
+           means the swap to the loaded list moves nothing above the cards. -->
+      <div class="flex flex-col items-center gap-y-1 text-center sm:gap-y-3">
+        <h2
+          class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl"
+        >
+          {{ t("tickets.entryTitle") }}
+        </h2>
+        <p class="text-foreground tracking-tight text-balance max-sm:text-muted-foreground">
+          {{ t("tickets.entrySubtitle", { event: event.title }) }}
+        </p>
       </div>
 
-      <div class="mx-auto mt-6 grid grid-cols-1 gap-4 lg:mt-8 xl:grid-cols-3">
+      <div
+        class="mx-auto mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:mt-8 xl:grid-cols-3"
+      >
         <div
           v-for="n in count"
           :key="n"

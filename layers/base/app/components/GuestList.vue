@@ -5,6 +5,7 @@
       <p
         v-if="pageDescription"
         class="mt-3 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
+        data-section-description
       >
         {{ pageDescription }}
       </p>

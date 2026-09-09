@@ -1,6 +1,11 @@
 <template>
   <div v-if="items?.length" class="flex items-center gap-2">
-    <AvatarGroup :items="avatarItems" :size="2.5" :show-tooltip="true" />
+    <AvatarGroup
+      :items="avatarItems"
+      :size="2.5"
+      :show-tooltip="true"
+      :class="avatarClass"
+    />
 
     <span class="text-foreground block text-sm tracking-tight text-balance">
       {{ $t("conjunction.label") }}
@@ -9,7 +14,7 @@
         <NuxtLink
           :to="item.url"
           :target="item.url.startsWith('http') ? '_blank' : ''"
-          class="font-semibold hover:underline"
+          class="text-foreground font-semibold hover:underline"
         >
           {{ item.name }}
         </NuxtLink>
@@ -31,6 +36,14 @@
 
 <script setup>
 import { computed } from "vue";
+
+const props = defineProps({
+  /** Classes for the AvatarGroup, e.g. a responsive `--avatar-size` override. */
+  avatarClass: {
+    type: [String, Array, Object],
+    default: undefined,
+  },
+});
 
 const event = useEvent();
 const items = computed(() => event.inConjunction?.list ?? []);
