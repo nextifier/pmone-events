@@ -312,10 +312,16 @@
           v-if="hasEventInvite"
           class="mx-auto mt-16 w-full max-w-6xl lg:mt-24"
         >
+          <!-- Same shape as the ticket page hero. Below `md` the poster sits
+               in a narrow column with the heading and the body beside it, and
+               the invite's own wrapper goes `display: contents` so those two
+               can be placed by hand while when/where and the button span the
+               full width underneath. From `md` up the poster and the copy
+               simply sit side by side, a third of the row and the rest. -->
           <div
-            class="grid grid-cols-1 gap-y-6 lg:grid-cols-2 lg:items-center lg:gap-x-12"
+            class="grid grid-cols-[minmax(0,8fr)_minmax(0,17fr)] items-start gap-x-3 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-center md:gap-x-8 md:gap-y-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-x-10"
           >
-            <div v-if="event.poster">
+            <div v-if="event.poster" class="max-md:row-span-2">
               <img
                 :src="event.posterImage?.lg || event.poster"
                 :alt="eventInfo.title"
@@ -327,14 +333,16 @@
               />
             </div>
 
-            <div class="flex flex-col items-start text-left">
+            <div class="flex flex-col items-start text-left max-md:contents">
               <h2
-                class="text-foreground mt-1 text-3xl leading-[1.25] font-semibold tracking-tighter text-balance sm:mt-2 sm:text-4xl xl:text-5xl"
+                class="text-foreground mt-1 text-xl leading-[1.15] font-semibold tracking-tighter text-balance max-md:col-start-2 max-md:row-start-1 sm:mt-2 sm:text-3xl sm:leading-[1.25] md:text-4xl xl:text-5xl"
               >
                 {{ $t("brandEvent.heading", { brandName: brand.brand_name }) }}
               </h2>
 
-              <p class="mt-2.5 text-base tracking-tight text-pretty sm:text-lg">
+              <p
+                class="mt-2 text-sm tracking-tight text-pretty max-md:col-start-2 max-md:row-start-2 sm:mt-2.5 sm:text-base md:text-lg"
+              >
                 {{
                   brand.booth_number
                     ? $t("brandEvent.bodyWithBooth", {
@@ -346,7 +354,8 @@
               </p>
 
               <WhenAndWhere
-                class="mt-5"
+                class="mt-4 max-md:col-span-2 max-md:row-start-3 md:mt-5"
+                grid-layout
                 :date="event.date"
                 :time="event.time"
                 :location="event.location"
@@ -357,7 +366,7 @@
               <Button
                 :to="localePath('/tickets')"
                 size="lg"
-                class="mt-6 active:scale-98"
+                class="mt-5 active:scale-98 max-md:col-span-2 max-md:row-start-4 md:mt-6"
               >
                 <span>{{ $t("brandEvent.cta") }}</span>
               </Button>
