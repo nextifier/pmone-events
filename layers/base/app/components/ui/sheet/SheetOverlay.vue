@@ -4,10 +4,14 @@ import type { HTMLAttributes } from "vue"
 import { reactiveOmit } from "@vueuse/core"
 import { DialogOverlay } from "reka-ui"
 import { cn } from "@/lib/utils"
+import { useScrollLockGutter } from "../dialog/useScrollLockGutter"
 
 const props = defineProps<DialogOverlayProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = reactiveOmit(props, "class")
+
+// Keeps the page from jumping by a scrollbar gutter while this overlay is open.
+useScrollLockGutter()
 </script>
 
 <template>

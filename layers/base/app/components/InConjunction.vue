@@ -56,6 +56,7 @@ const avatarItems = computed(() => {
   const list = items.value.map((item) => ({
     name: item.name,
     profile_image: item.img,
+    url: item.url,
   }));
   return [own, ...list];
 });

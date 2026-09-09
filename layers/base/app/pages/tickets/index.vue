@@ -58,16 +58,12 @@
          spacers that split the poster's spare height, so the column sits
          vertically centred against it. Without a poster none of that applies
          and the column simply flows. -->
-  <div
-    v-else
-    id="ticket-page"
-    class="overflow-x-clip pt-4 pb-16 lg:pt-6 lg:pb-20"
-  >
+  <div v-else id="ticket-page" class="overflow-x-clip pt-4 pb-16 lg:pb-20">
     <div
-      class="grid grid-cols-1 gap-4 px-4 sm:container sm:max-w-5xl lg:grid-cols-12 lg:gap-10"
+      class="grid grid-cols-1 gap-4 px-4 sm:container md:items-center lg:max-w-5xl lg:grid-cols-12 lg:gap-8"
       :class="split.grid"
     >
-      <div v-if="hasPoster" class="lg:col-span-5" :class="split.poster">
+      <div v-if="hasPoster" class="lg:col-span-4" :class="split.poster">
         <Lightbox
           :items="posterItems"
           :show-thumbnails="false"
@@ -119,34 +115,25 @@
       </div>
 
       <div
-        class="lg:pt-6"
         :class="
           hasPoster
-            ? [split.contents, 'lg:col-span-7']
+            ? [split.contents, 'lg:col-span-8']
             : 'mx-auto w-full lg:col-span-12 lg:max-w-2xl'
         "
       >
         <div class="flex flex-col" :class="split.contents">
-          <div
-            class="flex items-center justify-between gap-x-2"
-            :class="split.contents"
-          >
-            <EventStatus
-              :class="[
-                event.startTime ? 'min-h-6 md:min-h-10 lg:h-10' : '',
-                split.status,
-              ]"
-              :startTime="startTime"
-              :endTime="endTime"
-            />
-
-            <!-- Desktop share pill. On phones the button lives inside the
-                 co-located block further down, next to the avatars. -->
-            <DialogShare :pageTitle="title" :class="split.share" />
-          </div>
+          <!-- `w-fit` because EventStatus centres its own row: as a
+               full-width block the countdown would sit in the middle of the
+               column instead of at its start. -->
+          <EventStatus
+            class="w-fit"
+            :class="[event.startTime ? 'min-h-6' : '', split.status]"
+            :startTime="startTime"
+            :endTime="endTime"
+          />
 
           <h1
-            class="text-foreground mt-1 text-xl leading-[1.25] font-semibold tracking-tighter sm:mt-2 sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+            class="text-foreground mt-1 text-xl leading-[1.25] font-semibold tracking-tighter sm:mt-2 sm:text-2xl md:text-3xl lg:mt-1 lg:text-4xl lg:leading-[1.1] xl:text-5xl"
             :class="[split.title, split.titleFit]"
             :style="hasPoster ? titleFitVars : undefined"
           >
@@ -157,34 +144,21 @@
             class="mt-2.5 flex flex-col gap-y-2.5 sm:mt-1.5 sm:gap-y-3"
             :class="split.contents"
           >
-            <div v-if="event.edition?.value" class="flex" :class="split.edition">
+            <!-- Edition and share hold one row at every width: badge on the
+                 left, share pushed to the end, and the row still renders (so
+                 the share keeps its place) when the event has no edition. -->
+            <div class="flex items-center gap-x-2" :class="split.edition">
               <!-- The number and its English ordinal are slots, not baked into
                    the sentence: "2nd edition" is "Edisi ke-2" in Indonesian and
                    "第2回" in Japanese, so each locale places the digit itself
                    and simply leaves {ordinal} out when its grammar has no
                    English-style suffix. -->
-              <i18n-t
-                keypath="ui.editionBadge"
-                tag="span"
-                scope="global"
-                class="text-foreground bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
-                :class="split.editionPill"
-              >
-                <template #n>{{ event.edition.value }}</template>
-                <template #ordinal
-                  ><span class="align-super text-[10px]">{{
-                    event.edition.ordinal
-                  }}</span></template
-                >
-              </i18n-t>
-
-              <!-- Phone twin of the pill above. Both it and the share button
-                   are `self-center` in the row, so the 28px badge sits on the
-                   32px button's centre line. -->
+              <!-- `outline` keeps the badge free of a status dot; the surface
+                   is set here: muted fill, no visible border. -->
               <Badge
-                v-if="hasPoster"
+                v-if="event.edition?.value"
                 variant="outline"
-                class="h-7 px-2 md:hidden"
+                class="bg-muted h-7 border-transparent px-2"
               >
                 <i18n-t keypath="ui.editionBadge" tag="span" scope="global">
                   <template #n>{{ event.edition.value }}</template>
@@ -195,41 +169,33 @@
                   >
                 </i18n-t>
               </Badge>
+
+              <DialogShare :pageTitle="title" class="ml-auto">
+                <template #trigger="{ open }">
+                  <Button
+                    variant="outline"
+                    size="iconXs"
+                    class="size-8 rounded-full"
+                    aria-label="Share"
+                    @click="open"
+                  >
+                    <Icon name="lucide:share" class="size-4 shrink-0" />
+                  </Button>
+                </template>
+              </DialogShare>
             </div>
 
             <InConjunction
               :class="split.conjunction"
-              :avatar-class="split.avatars"
+              avatar-class="[--avatar-size:1.75rem]!"
             />
-
-            <!-- Phone share button: right end of the edition row, sharing the
-                 cell without reserving space, so it stays put when there is
-                 no edition. Hidden from `md` up, where the header pill above
-                 takes over. -->
-            <DialogShare
-              v-if="hasPoster"
-              :pageTitle="title"
-              :class="['md:hidden', split.mobileShare]"
-            >
-              <template #trigger="{ open }">
-                <Button
-                  variant="secondary"
-                  size="iconXs"
-                  class="size-8 rounded-full"
-                  aria-label="Share"
-                  @click="open"
-                >
-                  <Icon name="lucide:share" class="size-4 shrink-0" />
-                </Button>
-              </template>
-            </DialogShare>
           </div>
 
           <WhenAndWhere
             v-if="event.date || event.location || event.hall"
-            class="mt-3 md:mt-5"
+            class="mt-3 md:mt-4"
             :class="split.whenWhere"
-            mobile-grid
+            grid-layout
             :date="event.date"
             :time="event.time"
             :location="event.location"
@@ -245,7 +211,7 @@
       variant="underline"
       v-model="activeTab"
       default-value="tickets"
-      class="scroll-mt-navbar mt-3 flex w-full flex-col sm:mt-8"
+      class="scroll-mt-navbar mt-3 flex w-full flex-col sm:mt-6"
     >
       <div
         class="bg-background/95 supports-backdrop-filter:bg-background/90 sticky inset-x-0 top-(--navbar-height-mobile) isolate z-40 lg:top-(--navbar-height-desktop)"
@@ -277,7 +243,7 @@
         tabindex="-1"
         class="max-sm:[&_[data-section-description]]:text-muted-foreground! min-h-[calc(100dvh-var(--navbar-height-mobile)*2)] outline-hidden data-[state=inactive]:hidden max-sm:[&_[data-section-description]]:mt-1"
         :class="{
-          'pt-2 sm:pt-8': tab.withPadding,
+          'pt-2 sm:pt-5': tab.withPadding,
         }"
       >
         <component
@@ -464,9 +430,7 @@ const SPLIT = {
   grid: "max-lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] max-md:@container max-md:grid-cols-[minmax(0,8fr)_minmax(0,17fr)] max-md:grid-rows-[1fr_auto_auto_auto_1fr_auto_auto] max-md:items-start max-md:gap-x-3 max-md:gap-y-0",
   poster: "max-md:row-span-5",
   contents: "max-md:contents",
-  status:
-    "max-md:text-body max-md:col-start-2 max-md:row-start-2 max-md:justify-start",
-  share: "max-md:hidden",
+  status: "max-md:text-body max-md:col-start-2 max-md:row-start-2",
   title: "max-md:col-start-2 max-md:row-start-3 max-md:leading-[1.1]",
   // The column runs out of content before the poster runs out of height
   // (the wider the phone, the taller the poster), so the title is sized to
@@ -482,18 +446,10 @@ const SPLIT = {
   // because `sm:text-2xl` would otherwise win between 640 and 767px.
   titleFit:
     "max-md:text-balance max-md:text-[clamp(1.25rem,min(calc(100cqi*0.68/(var(--title-line-chars)*0.55)),calc((40cqi-69px)/(1.1*var(--title-lines)))),3.5rem)]!",
-  edition:
-    "max-md:col-start-2 max-md:row-start-4 max-md:mt-1 max-md:self-center",
-  // The desktop pill yields to the Badge in the template below `md`.
-  editionPill: "max-md:hidden",
-  // Edition row, right-aligned and centred against the badge (both margin
-  // boxes are centred in the row, so the centres meet).
-  mobileShare:
-    "max-md:col-start-2 max-md:row-start-4 max-md:mt-1 max-md:self-center max-md:justify-self-end",
+  edition: "max-md:col-start-2 max-md:row-start-4 max-md:mt-1",
   // Below the poster, full width, inline like on desktop.
   conjunction:
     "max-md:[&>span]:text-body max-md:col-span-2 max-md:row-start-6 max-md:mt-3",
-  avatars: "max-md:[--avatar-size:1.75rem]!",
   whenWhere: "max-md:col-span-2 max-md:row-start-7",
 };
 const split = computed(() => (hasPoster.value ? SPLIT : {}));

@@ -9,6 +9,7 @@ import {
   VisuallyHidden,
 } from "reka-ui";
 import { computed, nextTick, type HTMLAttributes } from "vue";
+import { useScrollLockGutter } from "../dialog/useScrollLockGutter";
 import { pickAlt, useLightbox } from "./useLightbox";
 
 const props = defineProps<{
@@ -17,6 +18,9 @@ const props = defineProps<{
 }>();
 
 const state = useLightbox();
+
+// Keeps the page from jumping by a scrollbar gutter while the viewer is open.
+useScrollLockGutter();
 
 const dialogTitle = computed(() => {
   const item = state.current.value;

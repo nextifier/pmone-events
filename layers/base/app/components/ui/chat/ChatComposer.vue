@@ -329,7 +329,7 @@ defineExpose({ focus, acceptFiles });
               variant="outline"
               :disabled="locked"
             >
-              <Icon name="hugeicons:add-01" />
+              <Icon name="hugeicons:add-01" class="size-5" />
             </InputGroupButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" side="top" :side-offset="10" class="w-56">
@@ -360,7 +360,7 @@ defineExpose({ focus, acceptFiles });
           class="ml-auto"
           :disabled="!busy && !canSend"
         >
-          <Icon :name="busy ? 'hugeicons:stop' : 'hugeicons:arrow-up-02'" />
+          <Icon :name="busy ? 'hugeicons:stop' : 'hugeicons:arrow-up-02'" class="size-5" />
           <span class="sr-only">{{ busy ? "Stop" : "Send" }}</span>
         </InputGroupButton>
       </InputGroupAddon>

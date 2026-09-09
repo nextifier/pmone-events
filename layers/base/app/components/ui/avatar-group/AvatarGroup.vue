@@ -6,12 +6,26 @@
     role="group"
     :aria-label="ariaLabel"
   >
-    <Avatar
-      v-for="(item, i) in displayed"
-      :key="item.id ?? item.name ?? i"
-      :model="item"
-      :style="firstOnTop ? { zIndex: displayed.length - i } : undefined"
-    />
+    <!-- An item that carries a `url` renders as a link: the anchor takes the
+         avatar's box (see the style block) so overlap, mask and stacking keep
+         working, and the avatar fills it. -->
+    <template v-for="(item, i) in displayed" :key="item.id ?? item.name ?? i">
+      <NuxtLink
+        v-if="item.url"
+        :to="item.url"
+        :target="isExternal(item.url) ? '_blank' : undefined"
+        :rel="isExternal(item.url) ? 'noopener noreferrer' : undefined"
+        :aria-label="item.name"
+        :style="firstOnTop ? { zIndex: displayed.length - i } : undefined"
+      >
+        <Avatar :model="item" />
+      </NuxtLink>
+      <Avatar
+        v-else
+        :model="item"
+        :style="firstOnTop ? { zIndex: displayed.length - i } : undefined"
+      />
+    </template>
 
     <template v-if="hiddenItems.length > 0">
       <slot name="overflow" :count="hiddenItems.length" :hiddenItems="hiddenItems">
@@ -57,6 +71,8 @@ interface AvatarModel {
   id?: string | number;
   name?: string;
   profile_image?: Record<string, string> | null;
+  /** Makes this avatar a link. Absolute URLs open in a new tab. */
+  url?: string;
 }
 
 interface AvatarGroupProps {
@@ -96,6 +112,10 @@ provide("avatarGroupContext", {
   },
 });
 
+function isExternal(url: string) {
+  return /^https?:\/\//i.test(url);
+}
+
 const displayed = computed(() => props.items.slice(0, props.max));
 
 const hiddenItems = computed(() => (props.max == null ? [] : props.items.slice(props.max)));
@@ -118,6 +138,16 @@ const styleVars = computed(() => ({
   width: var(--avatar-size);
   height: var(--avatar-size);
   border-radius: 9999px;
+}
+
+/* A linked item: the anchor is the sized box, the avatar inside fills it. */
+.avatar-group > :deep(a) {
+  display: block;
+}
+
+.avatar-group > :deep(a > *) {
+  width: 100%;
+  height: 100%;
 }
 
 .avatar-group > :deep(*:not(:first-child)) {

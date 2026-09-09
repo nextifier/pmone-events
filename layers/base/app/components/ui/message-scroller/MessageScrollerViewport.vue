@@ -64,6 +64,15 @@ function onKeyDown(event: KeyboardEvent): void {
 </script>
 
 <template>
+  <!--
+    `tabindex="0"` stays: upstream makes the transcript a real scroll region so
+    a keyboard can reach and scroll it, and a screen reader announces it through
+    `role="region"` and its label. The ring does not stay. Focus lands here
+    without anyone asking for it - dismissing a context menu or a lightbox hands
+    focus to the nearest focusable ancestor, which is this container - and a
+    box drawn around the whole conversation reads as a fault rather than a
+    position. Every real control inside it keeps its own ring.
+  -->
   <div
     ref="viewport"
     data-slot="message-scroller-viewport"
@@ -72,7 +81,7 @@ function onKeyDown(event: KeyboardEvent): void {
     :tabindex="0"
     :class="
       cn(
-        'cn-message-scroller-viewport size-full min-h-0 min-w-0 overflow-y-auto overscroll-contain scroll-fade-b [contain:content] data-[pending-scroll]:invisible',
+        'cn-message-scroller-viewport size-full min-h-0 min-w-0 overflow-y-auto overscroll-contain scroll-fade-b [contain:content] focus-visible:outline-hidden data-[pending-scroll]:invisible',
         props.class
       )
     "

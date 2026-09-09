@@ -1,16 +1,23 @@
 <template>
   <div class="flex flex-col gap-y-4 text-left">
-    <!-- Opt-in phone layout: date and venue side by side, each cell stacking
-         its badge over its text so the two read as one row of facts instead
-         of two tall list items. The list below stays the `md+` rendering;
-         without `mobileGrid` nothing here changes. -->
-    <!-- Padding instead of gap so the divider sits centred between the two
+    <!-- Opt-in layout: date and venue side by side at every width, each cell
+         stacking its badge over its text so the two read as one row of facts
+         instead of two tall list items. Without `gridLayout` the component
+         renders the stacked list further down, unchanged.
+
+         Padding instead of gap so the divider sits centred between the two
          cells (a gap would put it flush against the second one). -->
+    <!-- From `md` up the date column sizes to its own text and the venue
+         takes the rest of a capped width, so the divider sits just past the
+         date instead of stranding a column of empty space beside it. On a
+         phone they stay equal halves. Both cells align to the top at every
+         width: centring them would drop the shorter one and put the two
+         badges on different lines. -->
     <div
-      v-if="mobileGrid"
-      class="divide-border grid grid-cols-2 divide-x md:hidden"
+      v-if="gridLayout"
+      class="divide-border grid grid-cols-2 divide-x md:max-w-xl md:grid-cols-[minmax(0,max-content)_minmax(0,1fr)]"
     >
-      <div v-if="formattedDate" class="flex flex-col gap-y-2.5 pr-3">
+      <div v-if="formattedDate" class="flex flex-col gap-y-2.5 pr-3 md:pr-6">
         <!-- Flat twin of the venue icon box: month over the day range,
              centered, no accent band, so the two cells read as a matched
              pair. `min-w-10 px-2` instead of a fixed width so a wide range
@@ -57,7 +64,7 @@
 
       <div
         v-if="props.location || props.hall"
-        class="flex flex-col gap-y-2.5 pl-3"
+        class="flex flex-col gap-y-2.5 pl-3 md:pl-6"
       >
         <div
           class="bg-muted flex size-10 shrink-0 flex-col items-center justify-center rounded-xl text-center"
@@ -85,11 +92,7 @@
       </div>
     </div>
 
-    <div
-      v-if="formattedDate"
-      class="flex items-center gap-x-3"
-      :class="{ 'max-md:hidden': mobileGrid }"
-    >
+    <div v-if="!gridLayout && formattedDate" class="flex items-center gap-x-3">
       <div
         class="outline-inside flex size-10 shrink-0 flex-col overflow-hidden rounded-xl text-center sm:size-12"
       >
@@ -123,9 +126,8 @@
     </div>
 
     <div
-      v-if="props.location || props.hall"
+      v-if="!gridLayout && (props.location || props.hall)"
       class="flex items-center gap-x-3"
-      :class="{ 'max-md:hidden': mobileGrid }"
     >
       <div
         class="outline-inside flex size-10 shrink-0 flex-col items-center justify-center rounded-xl text-center sm:size-12"
@@ -160,8 +162,8 @@ const props = defineProps({
   location: String,
   locationLink: String,
   hall: String,
-  /** Below `md`, render date and venue as two columns side by side. */
-  mobileGrid: {
+  /** Render date and venue as two columns side by side instead of a list. */
+  gridLayout: {
     type: Boolean,
     default: false,
   },

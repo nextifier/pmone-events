@@ -880,7 +880,7 @@ const ticketsById = computed(() => {
       </template>
     </EmptyState>
 
-    <div v-else class="grid grid-cols-1 gap-y-10 lg:gap-y-16">
+    <div v-else class="grid grid-cols-1 gap-y-10 lg:gap-y-12">
       <!-- Entry tickets -->
       <section v-if="entryTickets.length" id="entry-tickets">
         <div class="flex flex-col items-center gap-y-1 text-center sm:gap-y-3">
@@ -895,7 +895,7 @@ const ticketsById = computed(() => {
         </div>
 
         <div
-          class="mx-auto mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:mt-8"
+          class="mx-auto mt-4 grid grid-cols-1 gap-4 sm:mt-6"
           :class="{
             'max-w-lg': entryTickets.length === 1,
             'max-w-5xl lg:grid-cols-2': entryTickets.length === 2,
@@ -922,7 +922,7 @@ const ticketsById = computed(() => {
                   <template #trigger="{ openAt }">
                     <button
                       type="button"
-                      class="group bg-muted border-border relative block size-16 shrink-0 cursor-zoom-in overflow-hidden rounded-xl lg:size-18"
+                      class="group bg-muted border-border relative block size-12 shrink-0 cursor-zoom-in overflow-hidden rounded-xl lg:size-14"
                       :aria-label="ticket.title"
                       @click="openAt(0)"
                     >
@@ -944,7 +944,7 @@ const ticketsById = computed(() => {
                     </button>
                   </template>
                 </Lightbox>
-                <div class="flex flex-col items-start gap-y-1">
+                <div class="flex flex-col items-start gap-y-0.5">
                   <p
                     class="text-foreground line-clamp-2 text-sm font-semibold tracking-tight"
                   >
@@ -1013,9 +1013,13 @@ const ticketsById = computed(() => {
                 </Badge>
               </div>
 
+              <!-- The four rows of the card sit 16px apart as ink, not as
+                   boxes: a text block carries a couple of pixels of leading
+                   above its first line, so its margin is trimmed by that much
+                   (16 - 2 here, 16 - 4 on the day picker below). -->
               <div
                 v-if="ticket.benefits && ticket.benefits.length"
-                class="mt-4 flex flex-col gap-y-1"
+                class="mt-3.5 flex flex-col gap-y-1"
               >
                 <div
                   v-for="(benefit, i) in ticket.benefits"
@@ -1041,7 +1045,7 @@ const ticketsById = computed(() => {
                    the valid days. -->
               <div
                 v-if="requiresDayPick(ticket) && isBuyable(ticket)"
-                class="mt-4 space-y-2"
+                class="mt-3 space-y-1.5"
               >
                 <p
                   :id="`day-label-${ticket.id}`"
@@ -1062,6 +1066,7 @@ const ticketsById = computed(() => {
                   v-if="daysFor(ticket).length <= 4"
                   type="single"
                   variant="pill"
+                  class="gap-x-1.5 gap-y-2"
                   :aria-labelledby="`day-label-${ticket.id}`"
                   :model-value="selectedDay[ticket.id] ?? ''"
                   @update:model-value="
@@ -1073,6 +1078,7 @@ const ticketsById = computed(() => {
                     :key="d.id"
                     indicator
                     :value="d.id"
+                    class="pl-2 pr-3"
                   >
                     {{ formatWeekdayDate(d.date, locale) }}
                   </ToggleGroupItem>
@@ -1249,7 +1255,7 @@ const ticketsById = computed(() => {
         </div>
 
         <div
-          class="mx-auto mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:mt-8"
+          class="mx-auto mt-4 grid grid-cols-1 gap-4 sm:mt-6"
           :class="{
             'max-w-lg': addOnTickets.length === 1,
             'max-w-5xl lg:grid-cols-2': addOnTickets.length === 2,
@@ -1276,7 +1282,7 @@ const ticketsById = computed(() => {
                   <template #trigger="{ openAt }">
                     <button
                       type="button"
-                      class="group bg-muted border-border relative block size-16 shrink-0 cursor-zoom-in overflow-hidden rounded-xl lg:size-18"
+                      class="group bg-muted border-border relative block size-12 shrink-0 cursor-zoom-in overflow-hidden rounded-xl lg:size-14"
                       :aria-label="ticket.title"
                       @click="openAt(0)"
                     >
@@ -1298,7 +1304,7 @@ const ticketsById = computed(() => {
                     </button>
                   </template>
                 </Lightbox>
-                <div class="flex flex-col items-start gap-y-1">
+                <div class="flex flex-col items-start gap-y-0.5">
                   <p
                     class="text-foreground line-clamp-2 text-sm font-semibold tracking-tight"
                   >
@@ -1369,7 +1375,7 @@ const ticketsById = computed(() => {
 
               <div
                 v-if="ticket.benefits && ticket.benefits.length"
-                class="mt-4 flex flex-col gap-y-1"
+                class="mt-3.5 flex flex-col gap-y-1"
               >
                 <div
                   v-for="(benefit, i) in ticket.benefits"
@@ -1392,7 +1398,7 @@ const ticketsById = computed(() => {
               <!-- Time-slot picker (add-ons with more than one session) -->
               <div
                 v-if="sessionsFor(ticket).length > 1 && isBuyable(ticket)"
-                class="mt-4 space-y-2"
+                class="mt-3 space-y-1.5"
               >
                 <p
                   class="text-muted-foreground text-xs font-medium tracking-tight sm:text-sm"

@@ -10,6 +10,7 @@ import { Primitive } from "reka-ui"
 import { useBodyScrollLock, useForwardExpose } from "reka-ui"
 import { injectDrawerRootContext } from './DrawerRoot.vue'
 import { DRAWER_CSS_VARS } from './utils'
+import { useScrollLockGutter } from '../../dialog/useScrollLockGutter'
 
 defineProps<DrawerOverlayImplProps>()
 const rootContext = injectDrawerRootContext()
@@ -21,6 +22,9 @@ const locked = useBodyScrollLock(rootContext.open.value)
 watch(() => rootContext.open.value, (open) => {
   locked.value = open
 }, { immediate: true })
+
+// Keeps the page from jumping by a scrollbar gutter while the drawer is open.
+useScrollLockGutter()
 
 useForwardExpose()
 

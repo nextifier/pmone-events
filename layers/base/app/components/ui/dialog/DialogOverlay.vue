@@ -2,6 +2,7 @@
 import { cn } from '@/lib/utils'
 import { DialogOverlay, type DialogOverlayProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
+import { useScrollLockGutter } from './useScrollLockGutter'
 
 const props = defineProps<DialogOverlayProps & { class?: HTMLAttributes['class'] }>()
 
@@ -10,6 +11,9 @@ const delegatedProps = computed(() => {
 
   return delegated
 })
+
+// Keeps the page from jumping by a scrollbar gutter while this overlay is open.
+useScrollLockGutter()
 </script>
 
 <template>
