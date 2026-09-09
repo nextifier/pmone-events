@@ -18,6 +18,6 @@ export {
   MAX_CHAT_ATTACHMENTS,
   MAX_CHAT_ATTACHMENT_BYTES,
 } from "./limits"
-export { dayLabelOf, formatMessageTime, midnightOf, relativeTimeOf, startsNewDay } from "./time"
+export { dayLabelOf, formatMessageTime, midnightOf, relativeTimeOf, startsNewDay, useRelativeClock } from "./time"
 export { linkSegments } from "./autolink"
 export type { TextSegment } from "./autolink"

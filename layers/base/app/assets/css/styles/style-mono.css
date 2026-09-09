@@ -1358,7 +1358,7 @@
    Families mono never carried. Every value below is the string the component
    hard-codes TODAY, moved here verbatim so that wiring the component to its
    cn-* classes leaves the mono (PM One) look unchanged. Do NOT "sync" these to
-   nova — that would change levenium/monara, which bundle mono only.
+   nova — that would change levenium, which bundles mono only.
    =========================================================================== */
 
 /* MARK: Bubble */
@@ -1490,7 +1490,7 @@
 }
 
 /* MARK: Button ghost — mono never had this rule and layers/base does not bundle
-   _base.css, so every `variant="ghost"` button in levenium/monara rendered with no
+   _base.css, so every `variant="ghost"` button in levenium rendered with no
    hover or aria-expanded feedback. Values copied from _base.css. */
 .style-mono .cn-button-variant-ghost {
   @apply text-foreground hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground;
@@ -1500,7 +1500,7 @@
    Same root cause as cn-button-variant-ghost above. _base.css is scoped
    `:where(body:not(.style-mono))` and layers/base/app/assets/css/main.css only
    imports style-mono.css, so anything living solely in _base.css never reached
-   mono — in levenium/monara AND in every pmone-events site. A selector audit of
+   mono — in levenium AND in every pmone-events site. A selector audit of
    (nova ∪ _base) vs mono found 28 gaps; they are all restored below.
    Values copied verbatim from style-nova.css / _base.css. */
 

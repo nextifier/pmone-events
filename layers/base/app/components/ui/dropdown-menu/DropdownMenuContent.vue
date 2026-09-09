@@ -8,7 +8,7 @@ import {
   DropdownMenuPortal,
   useForwardPropsEmits,
 } from "reka-ui"
-import { cn } from "@/lib/utils"
+import { cn, hasSlotContent } from "@/lib/utils"
 
 const props = withDefaults(
   defineProps<DropdownMenuContentProps & { class?: HTMLAttributes["class"] }>(),
@@ -24,7 +24,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <DropdownMenuPortal>
+  <!-- Same rule as the context menu: a menu with every item conditioned
+       out does not draw itself. -->
+  <DropdownMenuPortal v-if="hasSlotContent($slots.default)">
     <DropdownMenuContent
       data-slot="dropdown-menu-content"
       v-bind="forwarded"

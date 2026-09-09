@@ -8,7 +8,7 @@ import {
   ContextMenuPortal,
   useForwardPropsEmits,
 } from "reka-ui"
-import { cn } from "@/lib/utils"
+import { cn, hasSlotContent } from "@/lib/utils"
 
 const props = defineProps<ContextMenuContentProps & { class?: HTMLAttributes["class"] }>()
 const emits = defineEmits<ContextMenuContentEmits>()
@@ -19,7 +19,11 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <ContextMenuPortal>
+  <!-- Nothing in it, nothing to open. Every item here is conditional at
+       some call site, and when they all evaluate to false reka still portalled
+       a padded, shadowed, dismissable box with no content - which reads as a
+       glitch and eats the next click. -->
+  <ContextMenuPortal v-if="hasSlotContent($slots.default)">
     <ContextMenuContent
       data-slot="context-menu-content"
       v-bind="forwarded"

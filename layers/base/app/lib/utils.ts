@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from 'clsx'
+import { Comment, Fragment, type Slot, Text, type VNode } from 'vue'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
@@ -40,4 +41,30 @@ export function parseLocalDateString(value: string | null | undefined): Date | n
   if (!match) return null;
   const [, y, m, d] = match;
   return new Date(Number(y), Number(m) - 1, Number(d));
+}
+
+/**
+ * Does this slot actually render anything?
+ *
+ * `slots.default?.()` is never falsy, which is the trap: `v-if="false"` leaves
+ * a Comment vnode behind and a `v-for` over an empty list leaves an empty
+ * Fragment. A menu whose every item was conditioned out therefore still opened
+ * - as a small empty box with a shadow, dismissable layer and all. This looks
+ * past both so a part can decline to render itself when there is nothing in it.
+ */
+export function hasSlotContent(
+  slot?: Slot | null,
+  props: Record<string, unknown> = {},
+): boolean {
+  return slot ? hasRenderableNode(slot(props)) : false;
+}
+
+function hasRenderableNode(nodes: VNode[] | undefined): boolean {
+  return (nodes ?? []).some((node) => {
+    if (node.type === Comment) return false;
+    if (node.type === Text) return String(node.children ?? "").trim() !== "";
+    if (node.type === Fragment) return hasRenderableNode(node.children as VNode[]);
+
+    return true;
+  });
 }

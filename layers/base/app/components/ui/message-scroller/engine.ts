@@ -932,7 +932,14 @@ export function createMessageScrollerEngine(
       if (flushPendingScrollToMessage()) {
         return;
       }
-      if (previousCount === 0) {
+      // Not only the first batch. `scrollToEnd` answers false while the
+      // viewport is still laid out at zero height, and a thread page that
+      // paints a skeleton before swapping in its messages hits exactly that -
+      // the old shape gave the default position one chance and then dropped it
+      // in silence, leaving the reader at the top of the history. The flag
+      // stops this the moment it lands, so it is one retry per batch, never a
+      // loop.
+      if (previousCount === 0 || !defaultScrollPositionApplied) {
         if (
           applyDefaultScrollPosition() ||
           (children.length > 0 &&
@@ -997,6 +1004,12 @@ export function createMessageScrollerEngine(
   }
 
   function handleResize(): void {
+    // Last chance for the opening position: an image or a font that lands
+    // after mount is the moment a viewport that could not scroll becomes one
+    // that can.
+    if (!defaultScrollPositionApplied && applyDefaultScrollPosition()) {
+      return;
+    }
     if (mode === "following-bottom" && autoScroll) {
       scrollToEnd({ behavior: "auto" });
       return;
@@ -1119,6 +1132,15 @@ export function createMessageScrollerEngine(
     viewportEl = el;
     if (el) {
       refreshAttributes();
+      // A host that mounts its transcript after its provider - anything that
+      // paints a skeleton while a thread is fetched - attaches the content
+      // BEFORE the viewport, because a child mounts before its parent. The
+      // opening position needs somewhere to scroll, so the one chance it got
+      // at content time was spent with no viewport to move, and the reader
+      // was left at the top of the history.
+      if (!defaultScrollPositionApplied) {
+        applyDefaultScrollPosition();
+      }
     }
   }
   function setContentElement(el: HTMLElement | null): void {
