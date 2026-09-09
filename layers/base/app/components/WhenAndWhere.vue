@@ -10,11 +10,13 @@
       v-if="mobileGrid"
       class="divide-border grid grid-cols-2 divide-x md:hidden"
     >
-      <div v-if="formattedDate" class="flex flex-col gap-y-2.5 pr-2">
-        <!-- Flat twin of the venue icon box: month over day, centered, no
-             accent band, so the two cells read as a matched pair. -->
+      <div v-if="formattedDate" class="flex flex-col gap-y-2.5 pr-3">
+        <!-- Flat twin of the venue icon box: month over the day range,
+             centered, no accent band, so the two cells read as a matched
+             pair. `min-w-10 px-2` instead of a fixed width so a wide range
+             ("23-28") gets room instead of touching the edges. -->
         <div
-          class="bg-muted flex size-10 shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-xl text-center"
+          class="bg-muted flex h-10 w-fit min-w-10 shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-xl px-2 text-center"
         >
           <span
             v-if="shortMonth"
@@ -23,10 +25,10 @@
             {{ shortMonth }}
           </span>
           <span
-            v-if="startDay"
-            class="text-foreground text-sm leading-none font-semibold tracking-tight"
+            v-if="dayLabel"
+            class="text-foreground text-sm leading-none font-semibold tracking-tight whitespace-nowrap"
           >
-            {{ startDay }}
+            {{ dayLabel }}
           </span>
         </div>
 
@@ -55,7 +57,7 @@
 
       <div
         v-if="props.location || props.hall"
-        class="flex flex-col gap-y-2.5 pl-2"
+        class="flex flex-col gap-y-2.5 pl-3"
       >
         <div
           class="bg-muted flex size-10 shrink-0 flex-col items-center justify-center rounded-xl text-center"
@@ -194,17 +196,22 @@ const parsed = computed(() => {
     : dayFmt.format(endDate);
 
   const dayRange = `${startDayName}-${endDayName}`;
+  const lastDay = Number.isNaN(endDay) ? startDay : endDay;
+  const dayLabel =
+    lastDay === startDay ? `${startDay}` : `${startDay}-${lastDay}`;
   return {
     shortMonth: new Intl.DateTimeFormat("en-US", { month: "short" }).format(
       startDate,
     ),
     startDay,
+    dayLabel,
     dayRange,
     formattedDate: `${dayRange}, ${dateStr}`,
   };
 });
 
 const shortMonth = computed(() => parsed.value?.shortMonth || "");
+const dayLabel = computed(() => parsed.value?.dayLabel || "");
 const startDay = computed(() => parsed.value?.startDay || "");
 const formattedDate = computed(
   () => parsed.value?.formattedDate || props.date || "",
