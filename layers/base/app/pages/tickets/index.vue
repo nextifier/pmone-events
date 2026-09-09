@@ -52,12 +52,12 @@
        - lg+: poster (5 cols) beside the text column (7 cols).
        - md–lg: poster 2/5, text column 3/5.
        - below md: the text column's wrappers go `display: contents` and each
-         item is placed by hand (see `SPLIT`): countdown, title, edition and
-         the co-located events in column 2 beside the poster (rows 2-5), then
-         when/where across both columns. Rows 1 and 6 are `1fr` spacers that
-         split the poster's spare height, so the column sits vertically
-         centred against it. Without a poster none of that applies and the
-         column simply flows. -->
+         item is placed by hand (see `SPLIT`): countdown, title and edition +
+         share in column 2 beside the poster (rows 2-4), then the co-located
+         events and when/where across both columns. Rows 1 and 5 are `1fr`
+         spacers that split the poster's spare height, so the column sits
+         vertically centred against it. Without a poster none of that applies
+         and the column simply flows. -->
   <div
     v-else
     id="ticket-page"
@@ -147,8 +147,8 @@
 
           <h1
             class="text-foreground mt-1 text-xl leading-[1.25] font-semibold tracking-tighter sm:mt-2 sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
-            :class="[split.title, !hasConjunction && split.titleSolo]"
-            :style="!hasConjunction ? titleFitVars : undefined"
+            :class="[split.title, split.titleFit]"
+            :style="hasPoster ? titleFitVars : undefined"
           >
             {{ event.title }}
           </h1>
@@ -168,7 +168,7 @@
                 tag="span"
                 scope="global"
                 class="text-foreground bg-muted rounded-full px-3 py-1.5 text-sm tracking-tight"
-                :class="split.editionBadge"
+                :class="split.editionPill"
               >
                 <template #n>{{ event.edition.value }}</template>
                 <template #ordinal
@@ -177,6 +177,24 @@
                   }}</span></template
                 >
               </i18n-t>
+
+              <!-- Phone twin of the pill above. Both it and the share button
+                   are `self-center` in the row, so the 28px badge sits on the
+                   32px button's centre line. -->
+              <Badge
+                v-if="hasPoster"
+                variant="outline"
+                class="h-7 px-2 md:hidden"
+              >
+                <i18n-t keypath="ui.editionBadge" tag="span" scope="global">
+                  <template #n>{{ event.edition.value }}</template>
+                  <template #ordinal
+                    ><span class="align-super text-[10px]">{{
+                      event.edition.ordinal
+                    }}</span></template
+                  >
+                </i18n-t>
+              </Badge>
             </div>
 
             <InConjunction
@@ -184,17 +202,14 @@
               :avatar-class="split.avatars"
             />
 
-            <!-- Phone share button, right-aligned in an existing row without
-                 reserving space: the co-located block's row (level with its
-                 avatars) when there is one, otherwise the edition row. Hidden
-                 from `md` up, where the header pill above takes over. -->
+            <!-- Phone share button: right end of the edition row, sharing the
+                 cell without reserving space, so it stays put when there is
+                 no edition. Hidden from `md` up, where the header pill above
+                 takes over. -->
             <DialogShare
               v-if="hasPoster"
               :pageTitle="title"
-              :class="[
-                'md:hidden',
-                hasConjunction ? split.mobileShare : split.mobileShareSolo,
-              ]"
+              :class="['md:hidden', split.mobileShare]"
             >
               <template #trigger="{ open }">
                 <Button
@@ -414,9 +429,6 @@ onMounted(() => {
 // Poster sourced from PM One (already optimized), so no NuxtImg/Cloudflare
 // re-optimization.
 const hasPoster = computed(() => Boolean(event.posterImage));
-const hasConjunction = computed(() =>
-  Boolean(event.inConjunction?.list?.length),
-);
 
 // Displayed at `lg` (fast); the Lightbox opens the `xl` conversion.
 const posterSrc = computed(() => {
@@ -449,43 +461,39 @@ const endTime = computed(() => new Date(event.endTime));
 // literal strings in one place so Tailwind sees them and the template stays
 // readable.
 const SPLIT = {
-  grid: "max-lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] max-md:@container max-md:grid-cols-[minmax(0,8fr)_minmax(0,17fr)] max-md:grid-rows-[1fr_auto_auto_auto_auto_1fr_auto] max-md:items-start max-md:gap-x-3 max-md:gap-y-0",
-  poster: "max-md:row-span-6",
+  grid: "max-lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] max-md:@container max-md:grid-cols-[minmax(0,8fr)_minmax(0,17fr)] max-md:grid-rows-[1fr_auto_auto_auto_1fr_auto_auto] max-md:items-start max-md:gap-x-3 max-md:gap-y-0",
+  poster: "max-md:row-span-5",
   contents: "max-md:contents",
   status:
     "max-md:text-body max-md:col-start-2 max-md:row-start-2 max-md:justify-start",
   share: "max-md:hidden",
-  title: "max-md:col-start-2 max-md:row-start-3",
-  // Without a co-located block the column runs out of content before the
-  // poster runs out of height (the wider the phone, the taller the poster),
-  // so the title is sized to fill it, CSS-only, as the smaller of:
+  title: "max-md:col-start-2 max-md:row-start-3 max-md:leading-[1.1]",
+  // The column runs out of content before the poster runs out of height
+  // (the wider the phone, the taller the poster), so the title is sized to
+  // fill it, CSS-only, as the smaller of:
   //  - width bound: column width (17/25 of the grid, in cqi) over the
   //    longest line of the balanced `--title-lines`-line wrap (~0.55em per
   //    character); `text-balance` makes the browser wrap the same way;
   //  - height bound: poster height (8/25 of the grid × 5/4 = 40cqi - 4.8px)
   //    minus the column's fixed rows (countdown 24 + edition/share row 32 +
-  //    margins 8 = 64px), over line-height 1.25 × target lines;
+  //    margins 8 = 64px), over line-height 1.1 × target lines;
   // clamped between text-xl and 3.5rem. `--title-line-chars`/`--title-lines`
   // come from the data (see `titleFitVars`), so SSR and client agree. `!`
   // because `sm:text-2xl` would otherwise win between 640 and 767px.
-  titleSolo:
-    "max-md:text-balance max-md:text-[clamp(1.25rem,min(calc(100cqi*0.68/(var(--title-line-chars)*0.55)),calc((40cqi-69px)/(1.25*var(--title-lines)))),3.5rem)]!",
+  titleFit:
+    "max-md:text-balance max-md:text-[clamp(1.25rem,min(calc(100cqi*0.68/(var(--title-line-chars)*0.55)),calc((40cqi-69px)/(1.1*var(--title-lines)))),3.5rem)]!",
   edition:
     "max-md:col-start-2 max-md:row-start-4 max-md:mt-1 max-md:self-center",
-  editionBadge:
-    "max-md:text-body max-md:bg-transparent max-md:px-0 max-md:py-0",
-  conjunction:
-    "max-md:[&>span]:text-body max-md:col-start-2 max-md:row-start-5 max-md:mt-3 max-md:flex-col max-md:items-start max-md:gap-y-1.5",
-  avatars: "max-md:[--avatar-size:1.75rem]!",
-  // With a co-located block: same cell as that block, level with its avatar
-  // row (`mt-2.5` = the block's `mt-3` minus half the 4px the 32px button is
-  // taller than the 28px avatars).
+  // The desktop pill yields to the Badge in the template below `md`.
+  editionPill: "max-md:hidden",
+  // Edition row, right-aligned and centred against the badge (both margin
+  // boxes are centred in the row, so the centres meet).
   mobileShare:
-    "max-md:col-start-2 max-md:row-start-5 max-md:mt-2.5 max-md:self-start max-md:justify-self-end",
-  // Without one: the edition row, right-aligned and centred against the
-  // badge (both margin boxes are centred in the row, so the centres meet).
-  mobileShareSolo:
     "max-md:col-start-2 max-md:row-start-4 max-md:mt-1 max-md:self-center max-md:justify-self-end",
+  // Below the poster, full width, inline like on desktop.
+  conjunction:
+    "max-md:[&>span]:text-body max-md:col-span-2 max-md:row-start-6 max-md:mt-3",
+  avatars: "max-md:[--avatar-size:1.75rem]!",
   whenWhere: "max-md:col-span-2 max-md:row-start-7",
 };
 const split = computed(() => (hasPoster.value ? SPLIT : {}));
