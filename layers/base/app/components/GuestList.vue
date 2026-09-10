@@ -99,6 +99,29 @@
               :aspect-ratio="aspectRatio"
               @zoom="openAt(zoomIndex(guest))"
             />
+
+            <!-- Last cell: the brand directory's "and many more!" flourish in a
+                 guest-card frame, so the row stays even. Only until the event
+                 opens, while the lineup can still grow. -->
+            <div v-if="lineupGrowing" class="flex flex-col">
+              <div
+                class="bg-muted flex w-full items-center overflow-hidden rounded-xl px-4 sm:rounded-2xl"
+                :style="{ aspectRatio }"
+              >
+                <div class="w-full">
+                  <TextFit
+                    tag="span"
+                    :text="$t('guests.andManyMore', 'and many more!')"
+                    text-classes="leading-[1.1] text-outline text-center font-semibold tracking-tighter"
+                  />
+                </div>
+              </div>
+              <div class="mt-2.5 flex min-h-11 items-center sm:min-h-12">
+                <p class="text-muted-foreground text-sm tracking-tight">
+                  {{ $t("guests.moreComing", "More guests coming soon") }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </template>
@@ -169,17 +192,38 @@ const fallbackSource = computed(() => {
   return fb?.is_fallback ? fb.source_event : null;
 });
 
-// Photo frame. The endpoint names the ratio of the edition the guests came
-// from; the active event's ratio covers the skeleton before they arrive.
+// The lineup can still grow until the event opens. After that, a "more coming"
+// cell would promise names that are not coming.
+const lineupGrowing = computed(() => {
+  const start = event.startTime ? new Date(event.startTime).getTime() : Number.NaN;
+  return Number.isNaN(start) || start > Date.now();
+});
+
+// Photo frame, the way Gallery.vue reads its ratio: PM One sends it with the
+// lineup (the source edition's, when guests are borrowed).
 const aspectRatio = computed(() =>
-  guestAspectRatio(data.value?.meta?.aspect_ratio, event.guestAspectRatio),
+  (data.value?.meta?.aspect_ratio || "4:5").replace(":", " / "),
 );
 
-// Lightbox order follows the page: featured first, then everyone else.
+// Lightbox order follows the page: featured first, then everyone else. Items
+// take the tickets-page poster's shape.
 const photoGuests = computed(() =>
-  [...featured.value, ...nonFeatured.value].filter((guest) => guestLightboxItem(guest).url),
+  [...featured.value, ...nonFeatured.value].filter((guest) => guest.profile_image?.url),
 );
-const lightboxItems = computed(() => photoGuests.value.map(guestLightboxItem));
+const lightboxItems = computed(() =>
+  photoGuests.value.map((guest) => {
+    const p = guest.profile_image!;
+    return {
+      sm: p.md || p.url,
+      md: p.md || p.url,
+      lg: p.lg || p.url,
+      xl: p.xl || p.lg || p.url,
+      url: p.url,
+      lqip: p.lqip,
+      alt: guest.name,
+    };
+  }),
+);
 const zoomIndexById = computed(
   () => new Map(photoGuests.value.map((guest, index) => [guest.id, index])),
 );

@@ -26,9 +26,10 @@
           <div class="mt-2 flex h-6 w-full items-center justify-center sm:h-7 lg:justify-start">
             <Skeleton class="h-4 w-1/2 rounded sm:h-5" />
           </div>
-          <!-- Appearance date line box (text-sm / sm:text-base) -->
-          <div class="mt-2 flex h-5 w-full items-center justify-center sm:h-6 lg:justify-start">
-            <Skeleton class="h-3.5 w-24 rounded sm:h-4" />
+          <!-- Appearance date: badge beside its label -->
+          <div class="mt-4 flex items-center gap-x-3">
+            <Skeleton class="size-10 shrink-0 rounded-xl" />
+            <Skeleton class="h-3.5 w-28 rounded" />
           </div>
           <!-- Bio -->
           <div class="mt-6 flex w-full flex-col gap-y-2">
@@ -82,7 +83,7 @@
 
         <div class="flex flex-col items-center px-4 sm:px-0 lg:items-start lg:pt-10">
           <h1
-            class="text-center text-4xl font-semibold tracking-tighter sm:text-5xl lg:text-left"
+            class="text-foreground text-center text-4xl font-semibold tracking-tighter sm:text-5xl lg:text-left"
           >
             {{ guest.name }}
           </h1>
@@ -101,14 +102,29 @@
             {{ guest.organization }}
           </p>
 
-          <p
-            v-if="appearanceLabel"
-            class="text-muted-foreground mt-2 flex items-center gap-x-1.5 text-sm tracking-tight sm:text-base"
-          >
-            <Icon name="hugeicons:calendar-03" class="size-4 shrink-0" />
-            <span class="sr-only">{{ t("guests.appearanceDate") }}:</span>
-            <span>{{ appearanceLabel }}</span>
-          </p>
+          <!-- Appearance date: WhenAndWhere's date badge (month over the day
+               range) beside its label, as in WhenAndWhere's list layout, so
+               the badge says what the date is for. -->
+          <div v-if="guest.appearance_date?.date" class="mt-4 flex items-center gap-x-3">
+            <div
+              class="bg-muted flex h-10 w-fit min-w-10 shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-xl px-2 text-center"
+            >
+              <span
+                v-if="guest.appearance_date.month"
+                class="text-muted-foreground text-[0.625rem] leading-none font-semibold tracking-tight uppercase"
+              >
+                {{ guest.appearance_date.month }}
+              </span>
+              <span
+                class="text-foreground text-sm leading-none font-semibold tracking-tight whitespace-nowrap"
+              >
+                {{ guest.appearance_date.date }}
+              </span>
+            </div>
+            <span class="text-muted-foreground text-sm tracking-tight">
+              {{ t("guests.appearanceDate") }}
+            </span>
+          </div>
 
           <div v-if="guest.tags?.length" class="mt-3 flex flex-wrap justify-center gap-1.5 lg:justify-start">
             <span
@@ -125,7 +141,7 @@
               v-for="link in guest.links"
               :key="`${link.label}-${link.url}`"
               :to="link.url"
-              :label="link.label"
+              :label="linkLabel(link)"
               :iconName="iconForLabel(link.label)"
             />
           </div>
@@ -144,9 +160,7 @@
 
 <script setup>
 const route = useRoute();
-const router = useRouter();
 const { t } = useI18n();
-const event = useEvent();
 
 const { data, pending, error } = await useGuest(route.params.slug);
 const guest = computed(() => data.value?.data ?? null);
@@ -157,34 +171,49 @@ if (!pending.value && !guest.value && !error.value) {
 
 usePageMeta("", {
   title: () => (guest.value ? `${guest.value.name}` : "Guest"),
-  description: () => guest.value?.organization || "",
+  description: () =>
+    [guest.value?.title, guest.value?.organization].filter(Boolean).join(" · "),
 });
 
 // BreadcrumbList JSON-LD: Home -> Guests -> {guest name}.
 useDetailBreadcrumbs(() => guest.value?.name);
 
-// Photo frame. The endpoint names the ratio of the edition this guest belongs
-// to; the active event's ratio covers the skeleton before the guest arrives.
+// Photo frame, the way Gallery.vue reads its ratio: PM One sends the ratio of
+// the edition this guest belongs to.
 const aspectRatio = computed(() =>
-  guestAspectRatio(data.value?.meta?.aspect_ratio, event.guestAspectRatio),
+  (data.value?.meta?.aspect_ratio || "4:5").replace(":", " / "),
 );
 
 // Displayed at `lg` (fast); the Lightbox opens the `xl` conversion, like the
 // tickets-page poster.
 const photoSrc = computed(() => {
-  const photo = guest.value?.profile_image;
-  return photo?.lg || photo?.md || photo?.original || photo?.url || "";
+  const p = guest.value?.profile_image;
+  return p ? p.lg || p.md || p.url || "" : "";
 });
 
-const photoItems = computed(() =>
-  guest.value && photoSrc.value ? [guestLightboxItem(guest.value)] : [],
-);
-
-// PM One pre-formats the range: "3-4" + "Oct", or "25 Oct - 2 Nov" + "".
-const appearanceLabel = computed(() => {
-  const range = guest.value?.appearance_date;
-  return range ? [range.date, range.month].filter(Boolean).join(" ") : "";
+const photoItems = computed(() => {
+  const p = guest.value?.profile_image;
+  if (!p?.url) return [];
+  return [
+    {
+      sm: p.md || p.url,
+      md: p.md || p.url,
+      lg: p.lg || p.url,
+      xl: p.xl || p.lg || p.url,
+      url: p.url,
+      lqip: p.lqip,
+      alt: guest.value.name,
+    },
+  ];
 });
+
+// A team lists one Instagram per member, so an Instagram link names its
+// handle: the label is also the icon's tooltip and accessible name.
+function linkLabel(link) {
+  if (link.label !== "Instagram") return link.label;
+  const handle = link.url.replace(/\/+$/, "").split("/").pop();
+  return handle ? `Instagram @${handle}` : link.label;
+}
 
 function iconForLabel(label) {
   const map = {

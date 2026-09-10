@@ -2,7 +2,7 @@
   <div class="space-y-16 pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
     <!-- <LazyBrandPreview /> -->
-    <!-- <LazyGuestList /> -->
+    <LazyGuestList />
     <!-- <LazyRundown /> -->
     <!-- <LazyHotels :show-event-header="false" /> -->
     <LazyAboutEvent />

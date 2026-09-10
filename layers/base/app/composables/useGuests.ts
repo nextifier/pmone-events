@@ -27,34 +27,6 @@ export type Guest = {
   appearance_date?: { date: string; month: string } | null;
 };
 
-const RATIO_PATTERN = /^[1-9]\d{0,2}:[1-9]\d{0,2}$/;
-
-/**
- * CSS `aspect-ratio` for guest photo frames. Takes the first valid "W:H"
- * candidate (the guest endpoint's `meta.aspect_ratio`, then the active event's
- * `guest_aspect_ratio`), else 4:5, the ratio every event used before PM One
- * made it a per-event setting.
- */
-export function guestAspectRatio(...candidates: Array<string | null | undefined>): string {
-  const ratio = candidates.find((c): c is string => !!c && RATIO_PATTERN.test(c)) ?? "4:5";
-  return ratio.replace(":", " / ");
-}
-
-/** A guest photo in the Lightbox item shape the tickets-page poster uses. */
-export function guestLightboxItem(guest: Guest) {
-  const photo = guest.profile_image ?? {};
-  const url = photo.url || photo.original || "";
-  return {
-    sm: photo.md || url,
-    md: photo.md || url,
-    lg: photo.lg || url,
-    xl: photo.xl || photo.lg || url,
-    url,
-    lqip: photo.lqip,
-    alt: guest.name,
-  };
-}
-
 // Local (not exported) to avoid an auto-import name clash with the identical
 // `FallbackSource` exported from useMediaCoverages.ts. Same pattern as the
 // local interface in useBrandPreview.ts.
