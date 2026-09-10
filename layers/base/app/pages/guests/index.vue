@@ -1,5 +1,8 @@
 <template>
-  <section id="guests" class="min-h-screen-offset pt-4 pb-16 lg:pt-10 lg:pb-24">
+  <!-- overflow-x-clip: a tilting guest photo projects ~15px past its box, which
+       near the viewport edge lengthens the document into a horizontal scrollbar.
+       `clip` (not `hidden`) drops it without making this a scroll container. -->
+  <section id="guests" class="min-h-screen-offset overflow-x-clip pt-4 pb-16 lg:pt-10 lg:pb-24">
     <GuestList />
   </section>
 </template>

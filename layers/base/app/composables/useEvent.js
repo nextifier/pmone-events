@@ -88,6 +88,10 @@ export function useEvent() {
     get posterImage() {
       return ev()?.poster_image ?? null;
     },
+    /** "W:H" frame for this event's guest photos; "" until the event loads. */
+    get guestAspectRatio() {
+      return ev()?.guest_aspect_ratio ?? "";
+    },
     get profileImage() {
       return ev()?.profile_image ?? null;
     },

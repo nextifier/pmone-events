@@ -9,6 +9,7 @@ export default {
   "ui": {
     "editionBadge": "{n}{ordinal} edition",
     "viewPoster": "View event poster",
+    "viewGuestPhoto": "View photo of {name}",
     "watchTeaser": "Watch event teaser",
     "viewAll": "View all",
     "viewAllBrands": "View all brands",
@@ -72,6 +73,7 @@ export default {
   "guests": {
     "emptyTitle": "Guests coming soon",
     "emptyDescription": "We're still locking in the lineup. Check back soon to see who's joining.",
+    "appearanceDate": "Appearance date",
   },
   "rundown": {
     "comingSoon": "Rundown is coming soon. Check back later!",

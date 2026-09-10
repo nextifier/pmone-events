@@ -12,12 +12,14 @@
       <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
     </div>
 
-    <!-- Loading skeleton -->
+    <!-- Loading skeleton. Every geometry class on it must match the real grid
+         below verbatim, and GuestCardSkeleton must match GuestCard, or the grid
+         jumps the moment the guests land. -->
     <div
       v-if="loading"
-      class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
+      class="mt-8 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4"
     >
-      <Skeleton v-for="i in 8" :key="`sk-${i}`" class="aspect-[4/5] rounded-2xl" />
+      <GuestCardSkeleton v-for="i in 8" :key="`sk-${i}`" :aspect-ratio="aspectRatio" />
     </div>
 
     <!-- Error -->
@@ -52,38 +54,65 @@
       </template>
     </EmptyState>
 
-    <!-- Featured -->
-    <template v-else>
-      <div v-if="featured.length" class="mt-10">
-        <h2 class="text-xl font-semibold tracking-tight">
-          {{ $t("guests.featuredHeading", "Featured") }}
-        </h2>
-        <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-          <GuestCard v-for="guest in featured" :key="guest.id" :guest="guest" featured />
+    <!-- Guests. One Lightbox over the whole lineup, so its arrows walk every
+         photo, the way the tickets-page poster opens. -->
+    <Lightbox
+      v-else
+      :items="lightboxItems"
+      :show-thumbnails="false"
+      full-key="xl"
+      :alt="pageTitle"
+    >
+      <template #trigger="{ openAt }">
+        <div v-if="featured.length" class="mt-10">
+          <h2 class="text-xl font-semibold tracking-tight">
+            {{ $t("guests.featuredHeading", "Featured") }}
+          </h2>
+          <div
+            class="mt-4 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4"
+          >
+            <GuestCard
+              v-for="guest in featured"
+              :key="guest.id"
+              :guest="guest"
+              :aspect-ratio="aspectRatio"
+              featured
+              @zoom="openAt(zoomIndex(guest))"
+            />
+          </div>
         </div>
-      </div>
 
-      <div :class="featured.length ? 'mt-10' : 'mt-8'">
-        <h2 v-if="featured.length" class="text-xl font-semibold tracking-tight">
-          {{ $t("guests.allHeading", "All") }}
-        </h2>
-        <div
-          :class="[
-            'grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4',
-            featured.length ? 'mt-4' : '',
-          ]"
-        >
-          <GuestCard v-for="guest in nonFeatured" :key="guest.id" :guest="guest" />
+        <div :class="featured.length ? 'mt-10' : 'mt-8'">
+          <h2 v-if="featured.length" class="text-xl font-semibold tracking-tight">
+            {{ $t("guests.allHeading", "All") }}
+          </h2>
+          <div
+            :class="[
+              'grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4',
+              featured.length ? 'mt-4' : '',
+            ]"
+          >
+            <GuestCard
+              v-for="guest in nonFeatured"
+              :key="guest.id"
+              :guest="guest"
+              :aspect-ratio="aspectRatio"
+              @zoom="openAt(zoomIndex(guest))"
+            />
+          </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </Lightbox>
   </section>
 </template>
 
 <script setup lang="ts">
+import type { Guest } from "../composables/useGuests";
+
 const { t, te } = useI18n();
 const appConfig = useAppConfig();
 const route = useRoute();
+const event = useEvent();
 
 // On the dedicated /guests and /speakers pages we SSR the data: those pages are
 // on the prerender deny list, so they stay Worker-rendered and crawlable.
@@ -100,13 +129,14 @@ const { data, pending, error } = await useGuests({ ssr: isGuestsPage });
 // false in Nuxt 4). Without this gate the empty-state branch below would win on
 // the server and bake "Guests coming soon" into the prerendered HTML. The first
 // client render (before onMounted) also sees `mounted === false`, so the
-// skeleton matches on both sides and hydration stays clean.
+// skeleton matches on both sides and hydration stays clean. A refetch that
+// already has guests on screen keeps them instead of flashing the skeleton.
 const mounted = ref(false);
 onMounted(() => {
   mounted.value = true;
 });
 const loading = computed(
-  () => pending.value || (!isGuestsPage && !mounted.value),
+  () => (!isGuestsPage && !mounted.value) || (pending.value && !data.value?.data?.length),
 );
 
 const instagramUrl = useInstagramUrl();
@@ -138,4 +168,20 @@ const fallbackSource = computed(() => {
   const fb = data.value?.meta?.fallback;
   return fb?.is_fallback ? fb.source_event : null;
 });
+
+// Photo frame. The endpoint names the ratio of the edition the guests came
+// from; the active event's ratio covers the skeleton before they arrive.
+const aspectRatio = computed(() =>
+  guestAspectRatio(data.value?.meta?.aspect_ratio, event.guestAspectRatio),
+);
+
+// Lightbox order follows the page: featured first, then everyone else.
+const photoGuests = computed(() =>
+  [...featured.value, ...nonFeatured.value].filter((guest) => guestLightboxItem(guest).url),
+);
+const lightboxItems = computed(() => photoGuests.value.map(guestLightboxItem));
+const zoomIndexById = computed(
+  () => new Map(photoGuests.value.map((guest, index) => [guest.id, index])),
+);
+const zoomIndex = (guest: Guest) => zoomIndexById.value.get(guest.id) ?? 0;
 </script>

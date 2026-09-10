@@ -9,6 +9,7 @@ export default {
   ui: {
     editionBadge: "Edisi ke-{n}",
     viewPoster: "Lihat poster acara",
+    viewGuestPhoto: "Lihat foto {name}",
     watchTeaser: "Tonton cuplikan acara",
     viewAll: "Lihat semua",
     viewAllBrands: "Lihat semua brand",
@@ -74,6 +75,7 @@ export default {
   guests: {
     emptyTitle: "Tamu segera diumumkan",
     emptyDescription: "Kami masih menyusun lineup. Nantikan kabar siapa saja yang akan hadir.",
+    appearanceDate: "Tanggal tampil",
   },
   rundown: {
     comingSoon: "Rundown segera hadir. Cek lagi nanti!",

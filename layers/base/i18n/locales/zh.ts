@@ -9,6 +9,7 @@ export default {
   ui: {
     editionBadge: "第{n}届",
     viewPoster: "查看活动海报",
+    viewGuestPhoto: "查看{name}的照片",
     watchTeaser: "观看活动预告片",
     viewAll: "查看全部",
     viewAllBrands: "查看全部 Brand",
@@ -72,6 +73,7 @@ export default {
   guests: {
     emptyTitle: "嘉宾即将公布",
     emptyDescription: "阵容仍在敲定中，敬请期待即将登场的嘉宾。",
+    appearanceDate: "出场日期",
   },
   rundown: {
     comingSoon: "Rundown 即将公布，过段时间再来看看！",

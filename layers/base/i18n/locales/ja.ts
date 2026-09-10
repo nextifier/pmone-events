@@ -9,6 +9,7 @@ export default {
   ui: {
     editionBadge: "第{n}回",
     viewPoster: "イベントポスターを見る",
+    viewGuestPhoto: "{name}の写真を見る",
     watchTeaser: "イベントの予告編を見る",
     viewAll: "すべて見る",
     viewAllBrands: "すべてのブランドを見る",
@@ -73,6 +74,7 @@ export default {
   guests: {
     emptyTitle: "ゲスト近日発表",
     emptyDescription: "ラインナップを準備中です。登場するゲストをお楽しみに。",
+    appearanceDate: "出演日",
   },
   rundown: {
     comingSoon: "Rundownは近日公開です。もう少しお待ちください。",
