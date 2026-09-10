@@ -1,15 +1,18 @@
 import type { ComputedRef, InjectionKey } from "vue";
 
-export type BottomNavVariant = "default" | "floating" | "glass";
-export type BottomNavSize = "sm" | "md" | "lg";
+export type BottomNavVariant = "default" | "solid" | "floating";
+export type BottomNavSize = "sm" | "md";
 export type BottomNavIndicator = "pill" | "bar" | "dot" | "none";
 export type BottomNavLabel = "always" | "active" | "none";
+export type BottomNavLabelPlacement = "below" | "beside";
+export type BottomNavPosition = "fixed" | "absolute" | "static";
 
 export interface BottomNavContext {
   variant: ComputedRef<BottomNavVariant>;
   size: ComputedRef<BottomNavSize>;
   indicator: ComputedRef<BottomNavIndicator>;
   labelDisplay: ComputedRef<BottomNavLabel>;
+  labelPlacement: ComputedRef<BottomNavLabelPlacement>;
   selectedValue: ComputedRef<string | number | undefined>;
   select: (value: string | number | undefined) => void;
 }
@@ -20,82 +23,83 @@ export const BOTTOM_NAV_CONTEXT: InjectionKey<BottomNavContext> =
 export const BOTTOM_NAV_DEFAULTS = {
   variant: "default" as const,
   size: "md" as const,
-  indicator: "pill" as const,
+  indicator: "none" as const,
   labelDisplay: "always" as const,
+  labelPlacement: "below" as const,
 };
 
 /**
- * Shell of the <nav> root. The nav itself is the flex container; these classes
- * cover surface + border per variant. Positioning (fixed/static/floating
- * offsets) is composed in BottomNav.vue so it stays in one place.
+ * Frosted surface shared by default and floating: the background at 90% in
+ * light and 70% in dark over a 24px backdrop blur. Browsers without
+ * backdrop-filter get the opaque background instead of a see-through bar.
+ */
+const frostedSurface =
+  "bg-background supports-[backdrop-filter]:bg-background/90 supports-[backdrop-filter]:backdrop-blur-xl dark:supports-[backdrop-filter]:bg-background/70";
+
+/**
+ * Hairlines are drawn inside the box (a pseudo-element on the top edge, an
+ * inset ring for floating), so a bar is exactly as tall as its items: 56px at
+ * md and never more.
+ */
+const topHairline =
+  "before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-px";
+
+/**
+ * Surface + hairline per variant. Positioning (fixed/absolute/static, floating
+ * offsets, safe area) is composed in BottomNav.vue so it stays in one place.
  */
 export const bottomNavContainerClasses: Record<BottomNavVariant, string> = {
-  default: "border-t bg-background",
-  floating:
-    "rounded-2xl border bg-background shadow-lg",
-  glass:
-    "border-t bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/75",
+  default: `${topHairline} before:bg-foreground/20 ${frostedSurface}`,
+  solid: `${topHairline} before:bg-border bg-background`,
+  floating: `rounded-full inset-ring inset-ring-foreground/20 ${frostedSurface}`,
 };
 
 /**
- * Per-item trigger base. Items sit above the sliding indicator (z-10) so the
- * pill/bar render behind. Each item is an equal-width flex column.
+ * Per-item trigger. Items sit above the sliding indicator (z-10). The color
+ * change uses the tabs-sliding tokens (transitions-dev 16) so it lands with the
+ * pill. An item with an activeIcon keeps one color in every state because the
+ * filled icon already marks it; without one, inactive items are muted.
  */
-export const bottomNavItemClasses: Record<BottomNavVariant, string> = {
-  default:
-    "relative z-10 flex flex-1 select-none flex-col items-center justify-center rounded-xl text-muted-foreground transition-colors hover:text-foreground data-[state=active]:text-foreground",
-  floating:
-    "relative z-10 flex flex-1 select-none flex-col items-center justify-center rounded-xl text-muted-foreground transition-colors hover:text-foreground data-[state=active]:text-foreground",
-  glass:
-    "relative z-10 flex flex-1 select-none flex-col items-center justify-center rounded-xl text-muted-foreground transition-colors hover:text-foreground data-[state=active]:text-foreground",
+export const bottomNavItemClasses =
+  "relative z-10 flex min-w-0 flex-1 select-none items-center justify-center rounded-xl text-muted-foreground outline-none transition-[color] duration-(--tabs-dur) ease-(--tabs-ease) motion-reduce:transition-none pointer-fine:hover:text-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring data-[state=active]:text-foreground data-[has-active-icon=true]:text-foreground";
+
+/** Icon + label wrapper. In beside, BottomNav slides it (FLIP) when widths change. */
+export const bottomNavContentClasses: Record<BottomNavLabelPlacement, string> = {
+  below: "flex min-w-0 max-w-full flex-col items-center",
+  beside: "flex min-w-0 max-w-full flex-row items-center",
 };
 
-/**
- * Sliding indicator surface per variant. Pill sits behind the active item;
- * bar is a thin top-edge line. Geometry (left/top/width/height) is set inline
- * from measurement; these classes only carry the look + transition.
- */
-export const bottomNavIndicatorClasses: Record<BottomNavVariant, string> = {
-  default:
-    "bg-muted rounded-xl shadow-xs dark:bg-border/60 dark:border dark:border-white/10",
-  floating:
-    "bg-muted rounded-xl shadow-xs dark:bg-border/60 dark:border dark:border-white/10",
-  glass:
-    "bg-muted/80 rounded-xl shadow-xs dark:bg-border/60 dark:border dark:border-white/10",
-};
+/** Sliding capsule behind the active icon, or behind the whole item when labels sit beside or are hidden. */
+export const bottomNavPillClasses = "rounded-full bg-foreground/10";
 
-export const bottomNavBarIndicatorClasses: Record<BottomNavVariant, string> = {
-  default: "bg-primary rounded-full",
-  floating: "bg-primary rounded-full",
-  glass: "bg-primary rounded-full",
-};
+/** Sliding line on the top edge of the active item. */
+export const bottomNavBarClasses = "rounded-full bg-primary";
 
-export const bottomNavItemPaddingClasses: Record<BottomNavSize, string> = {
-  sm: "gap-y-0.5 px-1 py-1.5",
-  md: "gap-y-0.5 px-2 py-2",
-  lg: "gap-y-1 px-2 py-2.5",
+/** Item height is the bar height: 48px at sm, 56px at md. Nothing goes taller. */
+export const bottomNavItemSizeClasses: Record<BottomNavSize, string> = {
+  sm: "h-12",
+  md: "h-14",
 };
 
 export const bottomNavIconSizeClasses: Record<BottomNavSize, string> = {
   sm: "size-5",
-  md: "size-[1.375rem]",
-  lg: "size-6",
+  md: "size-6",
 };
 
 export const bottomNavBarHeightClasses: Record<BottomNavSize, string> = {
   sm: "h-0.5",
   md: "h-0.5",
-  lg: "h-[3px]",
 };
 
+/**
+ * Label under the icon: 11px, regular weight, normal tracking.
+ * style-guide: BottomNav label (STYLE_GUIDE §22, covers these labels only).
+ */
+export const bottomNavLabelClasses =
+  "block max-w-full truncate px-1 font-normal tracking-normal";
+
+/** Leading sits after the size on purpose: tailwind-merge drops a leading that precedes a font size. */
 export const bottomNavLabelSizeClasses: Record<BottomNavSize, string> = {
-  sm: "text-[0.6875rem] leading-tight",
-  md: "text-xs sm:text-sm leading-tight",
-  lg: "text-xs sm:text-sm leading-tight",
-};
-
-export const bottomNavNavHeightClasses: Record<BottomNavSize, string> = {
-  sm: "min-h-13",
-  md: "min-h-14",
-  lg: "min-h-16",
+  sm: "text-[0.6875rem] leading-[normal]",
+  md: "text-[0.6875rem] leading-[normal]",
 };

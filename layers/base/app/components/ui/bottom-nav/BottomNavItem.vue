@@ -2,20 +2,22 @@
 import { cn } from "@/lib/utils";
 import { NuxtLink } from "#components";
 import { Primitive } from "reka-ui";
-import { computed, inject, type HTMLAttributes } from "vue";
+import { computed, inject, ref, watch, type HTMLAttributes } from "vue";
 import {
   BOTTOM_NAV_CONTEXT,
   BOTTOM_NAV_DEFAULTS,
+  bottomNavContentClasses,
   bottomNavIconSizeClasses,
   bottomNavItemClasses,
-  bottomNavItemPaddingClasses,
+  bottomNavItemSizeClasses,
+  bottomNavLabelClasses,
   bottomNavLabelSizeClasses,
 } from "./context";
 
 const props = withDefaults(
   defineProps<{
     to?: string;
-    icon: string;
+    icon?: string;
     activeIcon?: string;
     label?: string;
     badge?: number | boolean;
@@ -27,6 +29,9 @@ const props = withDefaults(
   }>(),
   {
     as: "button",
+    // Without an explicit default Vue casts a missing number | boolean prop to false,
+    // and every item would render a closed badge.
+    badge: undefined,
   },
 );
 
@@ -35,13 +40,15 @@ const emit = defineEmits<{ select: [] }>();
 const route = useRoute();
 const ctx = inject(BOTTOM_NAV_CONTEXT, null);
 
-const variant = computed(() => ctx?.variant.value ?? BOTTOM_NAV_DEFAULTS.variant);
 const size = computed(() => ctx?.size.value ?? BOTTOM_NAV_DEFAULTS.size);
 const indicator = computed(
   () => ctx?.indicator.value ?? BOTTOM_NAV_DEFAULTS.indicator,
 );
 const labelDisplay = computed(
   () => ctx?.labelDisplay.value ?? BOTTOM_NAV_DEFAULTS.labelDisplay,
+);
+const labelPlacement = computed(
+  () => ctx?.labelPlacement.value ?? BOTTOM_NAV_DEFAULTS.labelPlacement,
 );
 
 const isExternal = computed(() => props.to?.startsWith("http"));
@@ -62,33 +69,99 @@ const isActive = computed(() => {
   return route.path.startsWith(props.to);
 });
 
+/**
+ * An activeIcon (a filled glyph) marks the active state by itself, so the item
+ * keeps one color in every state (see bottomNavItemClasses). Items without one,
+ * custom icon slots included, are muted when inactive.
+ */
+const hasActiveIcon = computed(() => Boolean(props.activeIcon));
+
 const showDot = computed(() => indicator.value === "dot" && isActive.value);
 
-const showLabel = computed(() => {
-  if (!props.label || labelDisplay.value === "none") {
-    return false;
+const showLabel = computed(() => Boolean(props.label) && labelDisplay.value !== "none");
+
+const isBeside = computed(() => labelPlacement.value === "beside");
+const hidesInactiveLabel = computed(() => isBeside.value && labelDisplay.value === "active");
+
+/** The pill wraps the icon when the label sits under it, so the label steps down to clear it. */
+const pillGapClass = computed(() => {
+  if (indicator.value !== "pill" || !showLabel.value || isBeside.value) {
+    return null;
   }
-  return true;
+  return size.value === "sm" ? "gap-y-1" : "gap-y-1.5";
 });
 
+/**
+ * Label motion, transitions-dev 04 (text states swap). below keeps the label's
+ * space and swaps its opacity, blur and offset. beside takes inactive labels
+ * out of layout so items can resize; the label that appears enters from its
+ * @starting-style while BottomNav slides the icons (FLIP) and the pill.
+ */
+const labelStateClass = computed(() => {
+  const swap =
+    "transition-[opacity,filter,translate] duration-(--text-swap-dur) ease-(--text-swap-ease) motion-reduce:transition-none";
+  if (isBeside.value) {
+    if (labelDisplay.value !== "active") {
+      return "ms-2 px-0";
+    }
+    return isActive.value
+      ? cn(
+          "ms-2 px-0",
+          swap,
+          "starting:translate-y-(--text-swap-translate-y) starting:opacity-0 starting:blur-(--text-swap-blur)",
+        )
+      : "hidden";
+  }
+  if (labelDisplay.value !== "active") {
+    return null;
+  }
+  return cn(
+    swap,
+    isActive.value
+      ? "translate-y-0 opacity-100 blur-none"
+      : "translate-y-(--text-swap-translate-y) opacity-0 blur-(--text-swap-blur)",
+  );
+});
+
+const hasBadge = computed(() => props.badge !== undefined && props.badge !== null);
 const badgeIsCount = computed(() => typeof props.badge === "number");
 const showBadge = computed(() =>
   badgeIsCount.value ? (props.badge as number) > 0 : props.badge === true,
 );
-const badgeText = computed(() => {
-  const value = props.badge as number;
-  return value > 99 ? "99+" : String(value);
-});
 
+/** Keeps the last count so the number does not flip to 0 while the badge pops out. */
+const badgeText = ref("");
+watch(
+  () => props.badge,
+  (value) => {
+    if (typeof value === "number" && value > 0) {
+      badgeText.value = value > 99 ? "99+" : String(value);
+    }
+  },
+  { immediate: true },
+);
+
+/**
+ * A count badge joins the name as "Inbox, 3" even when the label is visible;
+ * the badge itself stays hidden from assistive tech so it is not read twice.
+ */
 const computedAriaLabel = computed(() => {
-  if (showLabel.value || !props.label) {
+  if (!props.label) {
     return undefined;
   }
   if (badgeIsCount.value && showBadge.value) {
     return `${props.label}, ${badgeText.value}`;
   }
-  return props.label;
+  if (!showLabel.value || hidesInactiveLabel.value) {
+    return props.label;
+  }
+  return undefined;
 });
+
+const iconSwapClass =
+  "[grid-area:1/1] size-full transition-[opacity,filter,scale] duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none";
+const iconShownClass = "scale-100 opacity-100 blur-none";
+const iconHiddenClass = "scale-(--icon-swap-start-scale) opacity-0 blur-(--icon-swap-blur)";
 
 function handleSelect(): void {
   if (props.value !== undefined) {
@@ -109,97 +182,75 @@ function handleSelect(): void {
     data-bottom-nav-item
     data-slot="bottom-nav-item"
     :data-state="isActive ? 'active' : 'inactive'"
+    :data-has-active-icon="hasActiveIcon ? 'true' : undefined"
     :aria-current="isActive ? 'page' : undefined"
     :aria-label="computedAriaLabel"
     :class="
       cn(
-        'outline-none focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-        bottomNavItemClasses[variant],
-        bottomNavItemPaddingClasses[size],
+        bottomNavItemClasses,
+        bottomNavItemSizeClasses[size],
+        isBeside ? 'flex-auto' : null,
         props.class,
       )
     "
     @click="handleSelect"
   >
-    <span class="relative inline-flex">
-      <span
-        :class="cn('inline-grid place-items-center', bottomNavIconSizeClasses[size])"
-      >
-        <Icon
-          :name="icon"
+    <span data-slot="bottom-nav-content" :class="cn(bottomNavContentClasses[labelPlacement], pillGapClass)">
+      <span data-bottom-nav-icon class="relative inline-flex shrink-0">
+        <span
           aria-hidden="true"
-          :class="
-            cn(
-              '[grid-area:1/1] size-full transition-[opacity,filter,transform] duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none',
-              activeIcon
-                ? isActive
-                  ? 'scale-[0.25] opacity-0 blur-(--icon-swap-blur)'
-                  : 'scale-100 opacity-100 blur-0'
-                : 'scale-100 opacity-100 blur-0',
-            )
-          "
-        />
-        <Icon
-          v-if="activeIcon"
-          :name="activeIcon"
+          data-slot="bottom-nav-icon"
+          :class="cn('inline-grid place-items-center', bottomNavIconSizeClasses[size])"
+        >
+          <slot name="icon" :active="isActive">
+            <Icon
+              v-if="icon"
+              :name="icon"
+              :class="cn(iconSwapClass, activeIcon && isActive ? iconHiddenClass : iconShownClass)"
+            />
+            <Icon
+              v-if="activeIcon"
+              :name="activeIcon"
+              :class="cn(iconSwapClass, isActive ? iconShownClass : iconHiddenClass)"
+            />
+          </slot>
+        </span>
+
+        <!-- transitions-dev 03 (notification badge): .t-badge slides in, .t-badge-dot pops. -->
+        <span
+          v-if="hasBadge"
           aria-hidden="true"
-          :class="
-            cn(
-              '[grid-area:1/1] size-full transition-[opacity,filter,transform] duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none',
-              isActive
-                ? 'scale-100 opacity-100 blur-0'
-                : 'scale-[0.25] opacity-0 blur-(--icon-swap-blur)',
-            )
-          "
-        />
+          :data-open="showBadge ? 'true' : 'false'"
+          :class="cn('t-badge absolute', badgeIsCount ? '-top-1.5 -right-2' : '-top-0.5 -right-0.5')"
+        >
+          <span
+            :class="
+              cn(
+                't-badge-dot bg-destructive',
+                badgeIsCount
+                  ? 'min-w-4 rounded-full px-1 py-0.5 text-center text-[0.625rem] leading-none font-medium tracking-tight text-white'
+                  : 'ring-background size-2 rounded-full ring-2',
+              )
+            "
+          >
+            <template v-if="badgeIsCount">{{ badgeText }}</template>
+          </span>
+        </span>
       </span>
 
-      <Transition
-        enter-from-class="scale-0 opacity-0"
-        enter-active-class="transition duration-300 ease-(--badge-pop-ease) motion-reduce:transition-none"
-        enter-to-class="scale-100 opacity-100"
-        leave-from-class="scale-100 opacity-100"
-        leave-active-class="transition duration-(--badge-pop-close-dur) ease-in motion-reduce:transition-none"
-        leave-to-class="scale-0 opacity-0"
-      >
-        <span
-          v-if="showBadge"
-          :aria-hidden="badgeIsCount ? undefined : 'true'"
-          :class="
-            cn(
-              'bg-destructive text-white pointer-events-none absolute origin-center',
-              badgeIsCount
-                ? '-top-1.5 -right-2 flex min-w-4 items-center justify-center rounded-full px-1 py-0.5 text-[0.625rem] leading-none font-medium tracking-tight'
-                : '-top-0.5 -right-0.5 size-2 rounded-full ring-2 ring-background',
-            )
-          "
-        >
-          <template v-if="badgeIsCount">{{ badgeText }}</template>
-        </span>
-      </Transition>
-
       <span
-        v-if="showDot"
-        aria-hidden="true"
-        class="bg-primary absolute -bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full transition-opacity duration-200 ease-out motion-reduce:transition-none"
-      />
+        v-if="showLabel"
+        data-slot="bottom-nav-label"
+        :class="cn(bottomNavLabelClasses, bottomNavLabelSizeClasses[size], labelStateClass)"
+      >
+        {{ label }}
+      </span>
     </span>
 
     <span
-      v-if="showLabel"
-      :class="
-        cn(
-          'overflow-hidden font-medium tracking-tight',
-          bottomNavLabelSizeClasses[size],
-          labelDisplay === 'active'
-            ? isActive
-              ? 'max-w-20 opacity-100 transition-[max-width,opacity] duration-200 ease-out motion-reduce:transition-none'
-              : 'max-w-0 opacity-0 transition-[max-width,opacity] duration-200 ease-out motion-reduce:transition-none'
-            : 'max-w-20 opacity-100',
-        )
-      "
-    >
-      {{ label }}
-    </span>
+      v-if="showDot"
+      aria-hidden="true"
+      class="bg-primary pointer-events-none absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full transition-[scale] duration-(--badge-pop-dur) ease-(--badge-pop-ease) starting:scale-0 motion-reduce:transition-none"
+    />
   </component>
 </template>

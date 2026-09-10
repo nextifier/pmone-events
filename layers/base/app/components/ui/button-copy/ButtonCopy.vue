@@ -1,8 +1,15 @@
+<!-- Two forms.
+     Labelled: any call site that sits in a ROW of labelled actions needs this one.
+     An unlabelled glyph beside labelled buttons reads as decoration rather than a
+     control, and at size-7 it is also below the touch target the Button primitive
+     gives its own controls for free.
+     Icon-only (unchanged): the inline control that sits beside a reference code, an
+     API key or a URL, where the thing it copies is right next to it and a label
+     would only repeat what the eye already has.
+     These notes live outside <template> on purpose: root-level comments make the dev
+     SSR build treat the root as a fragment and drop fallthrough attrs such as class,
+     which surfaces as a hydration class mismatch. -->
 <template>
-  <!-- Labelled form. Any call site that sits in a ROW of labelled actions needs
-       this one: an unlabelled glyph beside labelled buttons reads as decoration
-       rather than a control, and at size-7 it is also below the touch target the
-       Button primitive gives its own controls for free. -->
   <Button
     v-if="label"
     type="button"
@@ -17,10 +24,6 @@
     />
     {{ copied ? copiedText : label }}
   </Button>
-
-  <!-- Icon-only form, unchanged: the inline control that sits beside a reference
-       code, an API key or a URL, where the thing it copies is right next to it
-       and a label would only repeat what the eye already has. -->
   <button
     v-else
     type="button"

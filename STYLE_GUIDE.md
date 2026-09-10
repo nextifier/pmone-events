@@ -31,7 +31,7 @@ Ada tiga kelompok, dan memilih yang salah akan langsung kelihatan.
 - `text-xs` hanya untuk kontrol dan indikator yang ukurannya memang dikunci: `.cn-button-size-xs` dan `<Badge>`. Bukan untuk teks.
 - Tangga responsif **wajib punya ukuran dasar**. `class="text-muted-foreground tracking-tight sm:text-sm"` tanpa `text-sm`/`text-xs` di depannya bukan tangga, itu bug: di telepon dia mewarisi 16px dari induknya lalu MENGECIL jadi 14px di desktop, kebalikan dari yang dimaksud. Ini yang bikin deskripsi antar kartu di satu halaman kelihatan beda ukuran. `text-body` bukan ukuran, itu warna - jangan dihitung sebagai ukuran dasar.
 - Kalau teks jadi terpotong setelah dibesarkan, pendekkan teksnya, jangan kecilkan fontnya. Contoh: label bar bayar diganti dari "N tickets selected" jadi "Total", bukan diturunkan ke `text-xs` supaya muat.
-- Di bawah `text-xs` (`text-[11px]`, `text-[10px]`, `text-[9px]`) tidak boleh sama sekali untuk teks. Yang tersisa cuma indikator glyph di dalam badge (step number, key indicator) dan compact data tile - keduanya terdaftar di pengecualian §22, jangan menambah kasus baru di luar itu.
+- Di bawah `text-xs` (`text-[11px]`, `text-[10px]`, `text-[9px]`) tidak boleh sama sekali untuk teks. Yang tersisa cuma indikator glyph di dalam badge (step number, key indicator), compact data tile, dan label BottomNav - ketiganya terdaftar di pengecualian §22, jangan menambah kasus baru di luar itu.
 
 **Kontrol interaktif** (button, select, tab, toggle, item menu, label) ukurannya **tetap**: `text-sm`, sama di telepon dan di desktop. Tangga `text-base sm:text-sm` pernah dipakai mengikuti coss.com/ui, lalu dibuang karena 16px terlihat terlalu besar di telepon, paling kentara di sel kalender yang lebarnya cuma 28px. Jangan menambahkan step mobile lagi, dan jangan pula mengembalikan `sm:text-base` ke rule `cn-*` mana pun. Yang tetap responsif cuma field ketik, alasannya di bawah.
 
@@ -861,12 +861,13 @@ otomatis kontras di dua tema.
 
 ### Pengecualian yang diizinkan
 
-Empat kasus di bawah ini melanggar daftar di atas dan tetap boleh, karena aturannya memang tidak dirancang untuk bentuk ini. Di luar keempatnya, tidak ada pengecualian. Tandai di kode dengan komentar `style-guide: <nama kategori>` supaya audit bisa membedakannya dari kelalaian.
+Lima kasus di bawah ini melanggar daftar di atas dan tetap boleh, karena aturannya memang tidak dirancang untuk bentuk ini. Di luar kelimanya, tidak ada pengecualian. Tandai di kode dengan komentar `style-guide: <nama kategori>` supaya audit bisa membedakannya dari kelalaian.
 
 1. **Painted surface control** - kontrol yang seluruh permukaannya adalah datanya sendiri: swatch warna, tile preview tema. Boleh `<button type="button">` native, karena `<Button>` membawa background, padding, dan geometri yang justru harus dibuang seluruhnya. Syarat: `type="button"`, `aria-label` yang menyebut seluruh informasi visual di dalamnya, ring `focus-visible` yang terlihat, dan target sentuh minimal 44px. Preseden di dalam design system sendiri: `components/ui/color-picker/ColorPicker.vue`.
 2. **Compact data tile** - sel di grid dengan jumlah kolom tetap. Boleh turun di bawah `text-xs`, tapi hanya di belakang prefix breakpoint dan hanya di breakpoint tempat sel itu benar-benar menyempit.
 3. **Teks di atas warna arbitrer user** - token semantik tidak berlaku di atas warna yang tidak kita kendalikan. Boleh `text-white/85` atau `text-black/80`, dengan syarat pilihannya dihitung dari rasio kontras, bukan ditebak.
 4. **Contoh docs yang di-port dari upstream** - berkas di bawah `ui-docs/examples/` mencerminkan sumber aslinya apa adanya. Jangan "diperbaiki" mengikuti guide ini; itu memutus paritas yang justru jadi tujuan halaman docs.
+5. **Label BottomNav** - label di bawah icon `<BottomNavItem>`: 11px, weight 400, tracking normal. Angkanya mengikuti spesifikasi bottom nav mobile yang diukur 10 Sep 2026 (bar 56px, icon 24px), dan tidak ada size BottomNav yang lebih tinggi dari 56px. Label di situ satu kata pendek di bawah icon, bukan teks yang dibaca sebagai kalimat. Ukurannya dikunci di `components/ui/bottom-nav/context.ts`, jangan ditimpa di call site; kalau label terpotong, pendekkan labelnya. Tidak berlaku untuk teks lain di halaman yang memakai BottomNav.
 
 ---
 
