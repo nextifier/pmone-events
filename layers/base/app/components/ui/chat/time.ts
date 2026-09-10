@@ -119,7 +119,10 @@ export function relativeTimeOf(iso: string | null | undefined, now?: number): st
   const then = new Date(iso).getTime()
   if (Number.isNaN(then)) return ""
 
-  let amount = (then - (now ?? Date.now())) / 1000
+  // Never "in 7 seconds": a message just sent, or a server clock slightly
+  // ahead of this one, lands after the shared clock's last tick. Chat
+  // activity is never in the future, so anything ahead of the clock is now.
+  let amount = Math.min(0, (then - (now ?? Date.now())) / 1000)
 
   for (const [unit, span] of STEPS) {
     if (Math.abs(amount) < span) return relative.format(Math.round(amount), unit)

@@ -91,6 +91,10 @@
         </button>
       </div>
 
+      <!-- Whatever the app wants to say above the list, such as how to get
+           notifications on this device. Empty unless the app fills it. -->
+      <slot name="notice" />
+
       <!-- Content -->
       <div
         ref="contentAreaRef"

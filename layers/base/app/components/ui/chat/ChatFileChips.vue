@@ -20,6 +20,9 @@ import { cn } from "@/lib/utils";
  * after the title when the attachment is horizontal and floats over the media
  * when it is vertical, which is why one structure covers both and neither
  * needs a download button written by hand.
+ *
+ * `state` is Attachment's own: a file still on its way up is `uploading`, one
+ * that never arrived is `error`. Left out, it is `done`.
  */
 const props = defineProps<{
   items: Array<{
@@ -28,6 +31,7 @@ const props = defineProps<{
     mime?: string | null;
     size?: number | null;
     downloadUrl?: string | null;
+    state?: "idle" | "uploading" | "processing" | "error" | "done";
   }>;
   class?: HTMLAttributes["class"];
 }>();
@@ -73,7 +77,13 @@ function describe(file: { name?: string | null; size?: number | null }): string 
     data-slot="chat-file-chips"
     :class="cn('gap-2', props.class)"
   >
-    <Attachment v-for="(file, i) in items" :key="i" size="sm" class="w-60 max-w-full">
+    <Attachment
+      v-for="(file, i) in items"
+      :key="i"
+      size="sm"
+      :state="file.state ?? 'done'"
+      class="w-60 max-w-full"
+    >
       <AttachmentMedia variant="icon">
         <Icon :name="iconFor(file)" />
       </AttachmentMedia>
