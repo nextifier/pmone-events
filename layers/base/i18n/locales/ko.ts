@@ -75,7 +75,8 @@ export default {
     emptyDescription: "라인업을 준비하고 있습니다. 곧 합류할 게스트를 확인해 보세요.",
     appearanceDate: "출연 날짜",
     andManyMore: "그리고 더 많은 게스트!",
-    moreComing: "더 많은 게스트 곧 공개",
+    viewDetails: "자세히 보기",
+    moreOptions: "{name} 옵션 더보기",
   },
   rundown: {
     comingSoon: "Rundown을 준비 중이에요. 조금만 기다려 주세요!",

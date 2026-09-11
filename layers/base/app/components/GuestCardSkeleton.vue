@@ -1,23 +1,29 @@
 <template>
   <!-- Mirrors GuestCard's layout so heights match (no shift): the photo frame at
-       the same ratio and radius, then the caption with its date badge. -->
+       the same ratio and radius, then the caption with its date badge and the
+       menu trigger. -->
   <div class="flex flex-col">
     <Skeleton class="w-full rounded-xl sm:rounded-2xl" :style="{ aspectRatio }" />
 
-    <div class="mt-2.5 flex min-h-10.5 items-center gap-x-2 sm:min-h-11.5">
-      <div class="flex min-w-0 grow flex-col gap-y-0.5">
-        <!-- Name line box (text-sm / sm:text-base) -->
-        <div class="flex h-5 items-center sm:h-6">
-          <Skeleton class="h-3.5 w-3/4 rounded sm:h-4" />
+    <div class="mt-2.5 flex min-h-9 items-center gap-x-1 sm:min-h-9.5">
+      <div class="flex min-w-0 grow items-center gap-x-2">
+        <div class="flex min-w-0 grow flex-col">
+          <!-- Name line box (text-sm/4.5, sm:text-base/5) -->
+          <div class="flex h-4.5 items-center sm:h-5">
+            <Skeleton class="h-3 w-3/4 rounded sm:h-3.5" />
+          </div>
+          <!-- Title line box (text-sm/4.5) -->
+          <div class="flex h-4.5 items-center">
+            <Skeleton class="h-3 w-1/2 rounded" />
+          </div>
         </div>
-        <!-- Title line box (text-sm) -->
-        <div class="flex h-5 items-center">
-          <Skeleton class="h-3.5 w-1/2 rounded" />
-        </div>
+
+        <!-- Date badge -->
+        <Skeleton class="h-9 w-10 shrink-0 rounded-xl sm:h-9.5" />
       </div>
 
-      <!-- Date badge -->
-      <Skeleton class="size-10.5 shrink-0 rounded-xl sm:size-11.5" />
+      <!-- Menu trigger: its glyph, centred in the button's 32px box. -->
+      <Skeleton class="mx-2 size-4 shrink-0 rounded" />
     </div>
   </div>
 </template>

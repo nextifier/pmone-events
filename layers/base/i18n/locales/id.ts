@@ -77,7 +77,8 @@ export default {
     emptyDescription: "Kami masih menyusun lineup. Nantikan kabar siapa saja yang akan hadir.",
     appearanceDate: "Tanggal tampil",
     andManyMore: "dan masih banyak lagi!",
-    moreComing: "Tamu lainnya segera diumumkan",
+    viewDetails: "Lihat detail",
+    moreOptions: "Opsi lainnya untuk {name}",
   },
   rundown: {
     comingSoon: "Rundown segera hadir. Cek lagi nanti!",

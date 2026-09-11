@@ -75,7 +75,8 @@ export default {
     "emptyDescription": "We're still locking in the lineup. Check back soon to see who's joining.",
     "appearanceDate": "Appearance date",
     "andManyMore": "and many more!",
-    "moreComing": "More guests coming soon",
+    "viewDetails": "View details",
+    "moreOptions": "More options for {name}",
   },
   "rundown": {
     "comingSoon": "Rundown is coming soon. Check back later!",

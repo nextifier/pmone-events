@@ -1,131 +1,129 @@
 <template>
-  <section id="guests" class="container mx-auto">
-    <div class="flex flex-col items-center text-center">
-      <h1 class="section-title">{{ pageTitle }}</h1>
-      <p
-        v-if="pageDescription"
-        class="mt-3 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
-        data-section-description
+  <section id="guests">
+    <div class="container mx-auto">
+      <div class="flex flex-col items-center text-center">
+        <h1 class="section-title">{{ pageTitle }}</h1>
+        <p
+          v-if="pageDescription"
+          class="mt-3 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
+          data-section-description
+        >
+          {{ pageDescription }}
+        </p>
+        <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
+      </div>
+
+      <!-- Loading skeleton. Every geometry class on it must match the real grid
+           below verbatim, and GuestCardSkeleton must match GuestCard, or the grid
+           jumps the moment the guests land. -->
+      <div
+        v-if="loading"
+        class="mt-8 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4"
       >
-        {{ pageDescription }}
-      </p>
-      <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
-    </div>
+        <GuestCardSkeleton v-for="i in 8" :key="`sk-${i}`" :aspect-ratio="aspectRatio" />
+      </div>
 
-    <!-- Loading skeleton. Every geometry class on it must match the real grid
-         below verbatim, and GuestCardSkeleton must match GuestCard, or the grid
-         jumps the moment the guests land. -->
-    <div
-      v-if="loading"
-      class="mt-8 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4"
-    >
-      <GuestCardSkeleton v-for="i in 8" :key="`sk-${i}`" :aspect-ratio="aspectRatio" />
-    </div>
+      <!-- Error -->
+      <div v-else-if="error" class="mt-8 flex justify-center">
+        <span class="text-foreground text-lg font-semibold tracking-tighter">
+          {{ $t("ui.failedToGetData") }}
+        </span>
+      </div>
 
-    <!-- Error -->
-    <div v-else-if="error" class="mt-8 flex justify-center">
-      <span class="text-foreground text-lg font-semibold tracking-tighter">
-        {{ $t("ui.failedToGetData") }}
-      </span>
-    </div>
+      <!-- Empty -->
+      <EmptyState
+        v-else-if="!data?.data?.length"
+        class="mt-10"
+        :title="$t('guests.emptyTitle', 'Guests coming soon')"
+        :description="
+          $t(
+            'guests.emptyDescription',
+            'We\'re still locking in the lineup. Check back soon to see who\'s joining.',
+          )
+        "
+      >
+        <template #image>
+          <GuestListEmptyStateImage />
+        </template>
+        <template v-if="instagramUrl" #actions>
+          <Button as-child variant="outline">
+            <NuxtLink :to="instagramUrl" target="_blank" rel="noopener">
+              <Icon name="hugeicons:instagram" class="size-4 shrink-0" />
+              {{ $t("ui.followInstagram", "Follow us on Instagram") }}
+            </NuxtLink>
+          </Button>
+        </template>
+      </EmptyState>
 
-    <!-- Empty -->
-    <EmptyState
-      v-else-if="!data?.data?.length"
-      class="mt-10"
-      :title="$t('guests.emptyTitle', 'Guests coming soon')"
-      :description="
-        $t(
-          'guests.emptyDescription',
-          'We\'re still locking in the lineup. Check back soon to see who\'s joining.',
-        )
-      "
-    >
-      <template #image>
-        <GuestListEmptyStateImage />
-      </template>
-      <template v-if="instagramUrl" #actions>
-        <Button as-child variant="outline">
-          <NuxtLink :to="instagramUrl" target="_blank" rel="noopener">
-            <Icon name="hugeicons:instagram" class="size-4 shrink-0" />
-            {{ $t("ui.followInstagram", "Follow us on Instagram") }}
-          </NuxtLink>
-        </Button>
-      </template>
-    </EmptyState>
-
-    <!-- Guests. One Lightbox over the whole lineup, so its arrows walk every
-         photo, the way the tickets-page poster opens. -->
-    <Lightbox
-      v-else
-      :items="lightboxItems"
-      :show-thumbnails="false"
-      full-key="xl"
-      :alt="pageTitle"
-    >
-      <template #trigger="{ openAt }">
-        <div v-if="featured.length" class="mt-10">
-          <h2 class="text-xl font-semibold tracking-tight">
-            {{ $t("guests.featuredHeading", "Featured") }}
-          </h2>
-          <div
-            class="mt-4 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4"
-          >
-            <GuestCard
-              v-for="guest in featured"
-              :key="guest.id"
-              :guest="guest"
-              :aspect-ratio="aspectRatio"
-              featured
-              @zoom="openAt(zoomIndex(guest))"
-            />
-          </div>
-        </div>
-
-        <div :class="featured.length ? 'mt-10' : 'mt-8'">
-          <h2 v-if="featured.length" class="text-xl font-semibold tracking-tight">
-            {{ $t("guests.allHeading", "All") }}
-          </h2>
-          <div
-            :class="[
-              'grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4',
-              featured.length ? 'mt-4' : '',
-            ]"
-          >
-            <GuestCard
-              v-for="guest in nonFeatured"
-              :key="guest.id"
-              :guest="guest"
-              :aspect-ratio="aspectRatio"
-              @zoom="openAt(zoomIndex(guest))"
-            />
-
-            <!-- Last cell: the brand directory's "and many more!" flourish in a
-                 guest-card frame, so the row stays even. Only until the event
-                 opens, while the lineup can still grow. -->
-            <div v-if="lineupGrowing" class="flex flex-col">
-              <div
-                class="bg-muted flex w-full items-center overflow-hidden rounded-xl px-4 sm:rounded-2xl"
-                :style="{ aspectRatio }"
-              >
-                <div class="w-full">
-                  <TextFit
-                    tag="span"
-                    :text="$t('guests.andManyMore', 'and many more!')"
-                    text-classes="leading-[1.1] text-outline text-center font-semibold tracking-tighter"
-                  />
-                </div>
-              </div>
-              <div class="mt-2.5 flex min-h-10.5 items-center sm:min-h-11.5">
-                <p class="text-muted-foreground text-sm tracking-tight">
-                  {{ $t("guests.moreComing", "More guests coming soon") }}
-                </p>
-              </div>
+      <!-- Guests. One Lightbox over the whole lineup, so its arrows walk every
+           photo, the way the tickets-page poster opens. -->
+      <Lightbox
+        v-else
+        :items="lightboxItems"
+        :show-thumbnails="false"
+        full-key="xl"
+        :alt="pageTitle"
+      >
+        <template #trigger="{ openAt }">
+          <div v-if="featured.length" class="mt-10">
+            <h2 class="text-xl font-semibold tracking-tight">
+              {{ $t("guests.featuredHeading", "Featured") }}
+            </h2>
+            <div
+              class="mt-4 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4"
+            >
+              <GuestCard
+                v-for="guest in featured"
+                :key="guest.id"
+                :guest="guest"
+                :aspect-ratio="aspectRatio"
+                featured
+                @zoom="openAt(zoomIndex(guest))"
+              />
             </div>
           </div>
-        </div>
-      </template>
-    </Lightbox>
+
+          <div :class="featured.length ? 'mt-10' : 'mt-8'">
+            <h2 v-if="featured.length" class="text-xl font-semibold tracking-tight">
+              {{ $t("guests.allHeading", "All") }}
+            </h2>
+            <div
+              :class="[
+                'grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4',
+                featured.length ? 'mt-4' : '',
+              ]"
+            >
+              <GuestCard
+                v-for="guest in nonFeatured"
+                :key="guest.id"
+                :guest="guest"
+                :aspect-ratio="aspectRatio"
+                @zoom="openAt(zoomIndex(guest))"
+              />
+            </div>
+          </div>
+        </template>
+      </Lightbox>
+    </div>
+
+    <!-- "and many more!" while the lineup can still grow: React Bits'
+         TextLoop in the site's accent, under the grid and outside the
+         container, so the wave only ends at the edges of the screen. -->
+    <TextLoop
+      v-if="showMore"
+      class="mt-10 lg:mt-16"
+      :text="$t('guests.andManyMore', 'and many more!')"
+      shape="wave"
+      separator="✦"
+      :curviness="60"
+      :font-size="52"
+      :font-weight="600"
+      :letter-spacing="0"
+      :ribbon-width="96"
+      :max-height="180"
+      color="var(--accent-foreground)"
+      ribbon-color="var(--accent)"
+    />
   </section>
 </template>
 
@@ -192,12 +190,16 @@ const fallbackSource = computed(() => {
   return fb?.is_fallback ? fb.source_event : null;
 });
 
-// The lineup can still grow until the event opens. After that, a "more coming"
-// cell would promise names that are not coming.
+// The lineup can still grow until the event opens. After that, "and many
+// more!" would promise names that are not coming. The ribbon follows a lineup
+// on screen, never a skeleton, an error or an empty state.
 const lineupGrowing = computed(() => {
   const start = event.startTime ? new Date(event.startTime).getTime() : Number.NaN;
   return Number.isNaN(start) || start > Date.now();
 });
+const showMore = computed(
+  () => lineupGrowing.value && !loading.value && !error.value && !!data.value?.data?.length,
+);
 
 // Photo frame, the way Gallery.vue reads its ratio: PM One sends it with the
 // lineup (the source edition's, when guests are borrowed).

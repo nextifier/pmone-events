@@ -75,7 +75,8 @@ export default {
     emptyDescription: "阵容仍在敲定中，敬请期待即将登场的嘉宾。",
     appearanceDate: "出场日期",
     andManyMore: "还有更多！",
-    moreComing: "更多嘉宾即将公布",
+    viewDetails: "查看详情",
+    moreOptions: "{name} 的更多选项",
   },
   rundown: {
     comingSoon: "Rundown 即将公布，过段时间再来看看！",

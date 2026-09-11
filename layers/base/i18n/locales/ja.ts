@@ -76,7 +76,8 @@ export default {
     emptyDescription: "ラインナップを準備中です。登場するゲストをお楽しみに。",
     appearanceDate: "出演日",
     andManyMore: "ほかにも続々！",
-    moreComing: "追加ゲストも近日発表",
+    viewDetails: "詳細を見る",
+    moreOptions: "{name} のその他のオプション",
   },
   rundown: {
     comingSoon: "Rundownは近日公開です。もう少しお待ちください。",
