@@ -5,8 +5,8 @@
   <div class="flex flex-col">
     <Skeleton class="w-full rounded-xl sm:rounded-2xl" :style="{ aspectRatio }" />
 
-    <div class="mt-2.5 flex min-h-9 items-center gap-x-1 sm:min-h-9.5">
-      <div class="flex min-w-0 grow items-center gap-x-2">
+    <div class="mt-2.5 flex min-h-9 items-center sm:min-h-9.5">
+      <div class="flex min-w-0 grow items-center gap-x-1">
         <div class="flex min-w-0 grow flex-col">
           <!-- Name line box (text-sm/4.5, sm:text-base/5) -->
           <div class="flex h-4.5 items-center sm:h-5">

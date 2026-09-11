@@ -43,22 +43,23 @@
          same height whether or not a guest has a title or a date. The name
          and date link to the guest page; the menu sits beside that link,
          never inside it. -->
-    <div class="mt-2.5 flex min-h-9 items-center gap-x-1 sm:min-h-9.5">
+    <div class="mt-2.5 flex min-h-9 items-center sm:min-h-9.5">
       <NuxtLink
         :to="guestPath"
-        class="group flex min-w-0 grow items-center gap-x-2 self-stretch"
+        class="group flex min-w-0 grow items-center gap-x-1 self-stretch"
       >
         <!-- Name over title on tight lines (18px, the name 20px from `sm`) so
-             the two read as one block. -->
-        <div class="flex min-w-0 grow flex-col">
+             the two read as one block. A long one scrolls sideways under a
+             fade instead of being cut short, like a TableData cell. -->
+        <div class="no-scrollbar scroll-fade-x flex min-w-0 grow flex-col overflow-x-auto">
           <h3
-            class="text-foreground truncate text-sm leading-4.5 font-semibold tracking-tight group-hover:underline sm:text-base sm:leading-5"
+            class="text-foreground text-sm leading-4.5 font-semibold tracking-tight whitespace-nowrap group-hover:underline sm:text-base sm:leading-5"
           >
             {{ guest.name }}
           </h3>
           <p
             v-if="subtitle"
-            class="text-muted-foreground truncate text-sm leading-4.5 tracking-tight"
+            class="text-muted-foreground text-sm leading-4.5 tracking-tight whitespace-nowrap"
           >
             {{ subtitle }}
           </p>

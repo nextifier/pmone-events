@@ -193,7 +193,17 @@ const measureRef = ref<SVGTextElement | null>(null);
 const headRef = ref<SVGTextPathElement | null>(null);
 const tailRef = ref<SVGTextPathElement | null>(null);
 
-const pathId = `text-loop-${useId().replace(/:/g, "")}`;
+// The path's id and the textPath's href have to agree, and `useId()` does not
+// always come out the same on the server and in the browser: production
+// rendered v-1-2-17 while the browser made v-1-1-17, the textPath ended up
+// pointing at a path that did not exist, and the ribbon lost its text. Both
+// bind to one ref that is re-set once mounted, so the browser patches the two
+// together to its own value, whatever the server wrote.
+const uid = useId().replace(/:/g, "");
+const pathId = ref(`text-loop-${uid}`);
+onMounted(() => {
+  pathId.value = `text-loop-${uid}-client`;
+});
 
 const unit = computed(() => {
   const base = props.uppercase ? String(props.text).toUpperCase() : String(props.text);
