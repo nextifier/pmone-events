@@ -109,8 +109,8 @@ function offsetWithin(el: HTMLElement, ancestor: HTMLElement): { left: number; t
 /**
  * Pill geometry. With labels under the icons the pill is a capsule around the
  * icon (64x32 at md), so it clears the label and the rounded corners of the
- * screen. With labels beside the icons, or no labels, it fills the item inset
- * by --bottom-nav-pill-inset.
+ * screen. On glass, with labels beside the icons, or with no labels, it fills
+ * the item inset by --bottom-nav-pill-inset.
  */
 function pillRect(nav: HTMLElement, item: HTMLElement): IndicatorRect {
   const inset = parseFloat(getComputedStyle(nav).getPropertyValue("--bottom-nav-pill-inset")) || 0;
@@ -122,7 +122,12 @@ function pillRect(nav: HTMLElement, item: HTMLElement): IndicatorRect {
   };
 
   const icon = item.querySelector<HTMLElement>("[data-slot=bottom-nav-icon]");
-  if (!icon || props.labelPlacement === "beside" || props.labelDisplay === "none") {
+  if (
+    !icon ||
+    props.variant === "glass" ||
+    props.labelPlacement === "beside" ||
+    props.labelDisplay === "none"
+  ) {
     return box;
   }
 
@@ -379,8 +384,9 @@ const rootVars =
   "[--bottom-nav-safe:var(--safe-area-inset-bottom,env(safe-area-inset-bottom))] [--bottom-nav-pill-inset:4px]";
 
 const isOverlay = computed(() => props.position !== "static");
+/** floating and glass sit away from the edges; the other variants span the bottom. */
 const isFloatingOverlay = computed(
-  () => props.variant === "floating" && isOverlay.value,
+  () => (props.variant === "floating" || props.variant === "glass") && isOverlay.value,
 );
 
 const positionClass = computed(() => {
@@ -416,7 +422,7 @@ const containerClass = computed(() =>
 const indicatorVisualClass = computed(() =>
   props.indicator === "bar"
     ? cn("absolute top-0 z-0", bottomNavBarHeightClasses[props.size], bottomNavBarClasses)
-    : cn("absolute z-0", bottomNavPillClasses),
+    : cn("absolute z-0", bottomNavPillClasses[props.variant]),
 );
 </script>
 

@@ -40,6 +40,7 @@ const emit = defineEmits<{ select: [] }>();
 const route = useRoute();
 const ctx = inject(BOTTOM_NAV_CONTEXT, null);
 
+const variant = computed(() => ctx?.variant.value ?? BOTTOM_NAV_DEFAULTS.variant);
 const size = computed(() => ctx?.size.value ?? BOTTOM_NAV_DEFAULTS.size);
 const indicator = computed(
   () => ctx?.indicator.value ?? BOTTOM_NAV_DEFAULTS.indicator,
@@ -83,9 +84,12 @@ const showLabel = computed(() => Boolean(props.label) && labelDisplay.value !== 
 const isBeside = computed(() => labelPlacement.value === "beside");
 const hidesInactiveLabel = computed(() => isBeside.value && labelDisplay.value === "active");
 
-/** The pill wraps the icon when the label sits under it, so the label steps down to clear it. */
+/**
+ * The pill wraps the icon when the label sits under it, so the label steps down
+ * to clear it. A glass pill covers the whole item, so there it needs no gap.
+ */
 const pillGapClass = computed(() => {
-  if (indicator.value !== "pill" || !showLabel.value || isBeside.value) {
+  if (indicator.value !== "pill" || !showLabel.value || isBeside.value || variant.value === "glass") {
     return null;
   }
   return size.value === "sm" ? "gap-y-1" : "gap-y-1.5";

@@ -1,6 +1,6 @@
 import type { ComputedRef, InjectionKey } from "vue";
 
-export type BottomNavVariant = "default" | "solid" | "floating";
+export type BottomNavVariant = "default" | "solid" | "floating" | "glass";
 export type BottomNavSize = "sm" | "md";
 export type BottomNavIndicator = "pill" | "bar" | "dot" | "none";
 export type BottomNavLabel = "always" | "active" | "none";
@@ -52,6 +52,13 @@ export const bottomNavContainerClasses: Record<BottomNavVariant, string> = {
   default: `${topHairline} before:bg-foreground/20 ${frostedSurface}`,
   solid: `${topHairline} before:bg-border bg-background`,
   floating: `rounded-full inset-ring inset-ring-foreground/20 ${frostedSurface}`,
+  /**
+   * A clear capsule that floats like floating: the background at 45% over a
+   * 40px blur, a light rim and a soft drop shadow. Pairs with indicator="pill",
+   * whose pill then covers the whole item (see bottomNavPillClasses).
+   */
+  glass:
+    "rounded-full bg-background supports-[backdrop-filter]:bg-background/45 supports-[backdrop-filter]:backdrop-blur-2xl ring-1 ring-background/70 dark:ring-foreground/10 shadow-[0_16px_32px_-16px_rgba(0,0,0,0.4)]",
 };
 
 /**
@@ -69,8 +76,18 @@ export const bottomNavContentClasses: Record<BottomNavLabelPlacement, string> = 
   beside: "flex min-w-0 max-w-full flex-row items-center",
 };
 
-/** Sliding capsule behind the active icon, or behind the whole item when labels sit beside or are hidden. */
-export const bottomNavPillClasses = "rounded-full bg-foreground/10";
+/**
+ * Sliding capsule behind the active icon, or behind the whole item when labels
+ * sit beside or are hidden. On glass it is a solid surface with a small shadow
+ * in light and a lifted tint in dark.
+ */
+export const bottomNavPillClasses: Record<BottomNavVariant, string> = {
+  default: "rounded-full bg-foreground/10",
+  solid: "rounded-full bg-foreground/10",
+  floating: "rounded-full bg-foreground/10",
+  glass:
+    "rounded-full bg-background shadow-[0_4px_12px_-6px_rgba(0,0,0,0.35)] dark:bg-foreground/15 dark:shadow-none",
+};
 
 /** Sliding line on the top edge of the active item. */
 export const bottomNavBarClasses = "rounded-full bg-primary";
