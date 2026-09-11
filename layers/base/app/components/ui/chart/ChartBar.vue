@@ -238,6 +238,12 @@ const props = defineProps({
     type: Function,
     default: null,
   },
+  // Number locale for the value labels and the tooltip when no formatter is
+  // given, e.g. "en-US". Unset keeps the browser's.
+  locales: {
+    type: String,
+    default: undefined,
+  },
 });
 
 const keys = computed(() =>
@@ -362,7 +368,7 @@ const labelAccessor = computed(() => (d) => {
     return "";
   }
   const format = props.labelFormatter || props.valueFormatter;
-  return format ? String(format(value)) : Number(value).toLocaleString();
+  return format ? String(format(value)) : Number(value).toLocaleString(props.locales);
 });
 
 const currentConfig = computed(() => props.config);
@@ -372,6 +378,7 @@ const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
   hideLabel: false,
   valueFormatter: props.valueFormatter || undefined,
   formatter: props.tooltipFormatter || undefined,
+  locales: props.locales,
   // Reuse the axis formatter for the tooltip's x label so index-based charts
   // (numeric x) read the real category instead of a bogus epoch date.
   labelFormatter: (d) => {

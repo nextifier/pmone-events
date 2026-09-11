@@ -83,7 +83,9 @@ export default {
     "emptyTitle": "Rundown coming soon",
     "emptyDescription": "We're still putting the schedule together. Check back soon.",
     "nothingYet": "Nothing to see here… yet!",
-    "finish": "Finish"
+    "finish": "Finish",
+    "posterAlt": "Rundown poster {n}",
+    "viewPoster": "View rundown poster {n}"
   },
   "ticket": {
     "agreementPrefix": "By continuing to purchase the ticket, you agree to",

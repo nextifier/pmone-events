@@ -114,6 +114,12 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  // Number locale for the tooltip values, e.g. "en-US". Unset keeps the
+  // browser's.
+  locales: {
+    type: String,
+    default: undefined,
+  },
 });
 
 /**
@@ -257,5 +263,6 @@ const currentConfig = computed(() => props.config);
 const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
   labelFormatter: (d) =>
     new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+  locales: props.locales,
 });
 </script>

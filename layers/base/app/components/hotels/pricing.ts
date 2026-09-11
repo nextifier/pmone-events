@@ -12,18 +12,18 @@ export function formatIsoDate(d: DateValue): string {
   return `${d.year}-${pad(d.month)}-${pad(d.day)}`;
 }
 
+/**
+ * Compact Rupiah for a calendar cell, on the same Indonesian short scale as
+ * useFormatters' formatRupiahCompact (rb, jt, miliar, never an English "M"),
+ * but with no space before the suffix and thousands rounded to a whole "rb",
+ * so the rate fits under the day number.
+ */
 export function formatRupiahShort(value: number): string {
-  if (value >= 1_000_000_000) {
-    const v = Math.round((value / 1_000_000_000) * 10) / 10;
-    return `Rp${String(v).replace(".", ",").replace(/,0$/, "")}m`;
-  }
-  if (value >= 1_000_000) {
-    const v = Math.round((value / 1_000_000) * 10) / 10;
-    return `Rp${String(v).replace(".", ",").replace(/,0$/, "")}jt`;
-  }
-  if (value >= 1_000) {
-    return `Rp${Math.round(value / 1_000)}rb`;
-  }
+  const short = (v: number, suffix: string) =>
+    `Rp${v.toLocaleString("id-ID", { maximumFractionDigits: 1 })}${suffix}`;
+  if (value >= 1_000_000_000) return short(value / 1_000_000_000, "miliar");
+  if (value >= 1_000_000) return short(value / 1_000_000, "jt");
+  if (value >= 1_000) return short(Math.round(value / 1_000), "rb");
   return `Rp${Math.round(value)}`;
 }
 

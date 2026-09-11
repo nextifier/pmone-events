@@ -125,6 +125,12 @@ const props = defineProps({
     type: Function,
     default: null,
   },
+  // Number locale for the tooltip values, e.g. "en-US". Unset keeps the
+  // browser's.
+  locales: {
+    type: String,
+    default: undefined,
+  },
 });
 
 const CURVE_MAP = {
@@ -189,5 +195,6 @@ const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
     }
     return String(d);
   },
+  locales: props.locales,
 });
 </script>

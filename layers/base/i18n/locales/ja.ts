@@ -85,6 +85,8 @@ export default {
     emptyDescription: "スケジュールは現在準備中です。もうしばらくお待ちください。",
     nothingYet: "まだ情報はありません。",
     finish: "終了",
+    posterAlt: "タイムテーブルのポスター {n}",
+    viewPoster: "タイムテーブルのポスター {n} を見る",
   },
   ticket: {
     agreementPrefix:

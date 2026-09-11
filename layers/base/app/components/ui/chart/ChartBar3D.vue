@@ -71,7 +71,7 @@
           class="fill-foreground tracking-tight tabular-nums"
           :style="{ fontSize: `${labelPx}px`, fontWeight: 500 }"
         >
-          {{ valueFormatter ? valueFormatter(bar.value) : bar.value.toLocaleString() }}
+          {{ valueFormatter ? valueFormatter(bar.value) : bar.value.toLocaleString(locales) }}
         </text>
         <!-- Category label -->
         <text
@@ -100,6 +100,7 @@
           :payload="{ [xKey]: bars[active]?.rawLabel, [valueKey]: bars[active]?.value }"
           :config="config"
           :value-formatter="valueFormatter"
+          :locales="locales"
         />
       </ChartHoverTooltip>
     </div>
@@ -146,6 +147,12 @@ const props = defineProps({
   valueFormatter: {
     type: Function,
     default: null,
+  },
+  // Number locale when no valueFormatter is given, e.g. "en-US". Unset keeps
+  // the browser's.
+  locales: {
+    type: String,
+    default: undefined,
   },
   maxLabelChars: {
     type: Number,

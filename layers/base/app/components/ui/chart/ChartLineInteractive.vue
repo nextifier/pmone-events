@@ -20,7 +20,7 @@
             {{ config[key]?.label || key }}
           </span>
           <span class="text-lg leading-none font-semibold tracking-tighter sm:text-2xl">
-            {{ totals[key].toLocaleString() }}
+            {{ totals[key].toLocaleString(locales) }}
           </span>
         </button>
       </div>
@@ -87,6 +87,12 @@ const props = defineProps({
   description: {
     type: String,
     default: "",
+  },
+  // Number locale for the totals and the tooltip, e.g. "en-US". Unset keeps the
+  // browser's.
+  locales: {
+    type: String,
+    default: undefined,
   },
 });
 
@@ -191,5 +197,6 @@ const currentConfig = computed(() => props.config);
 const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
   labelFormatter: (d) =>
     new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+  locales: props.locales,
 });
 </script>

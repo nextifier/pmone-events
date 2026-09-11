@@ -11,6 +11,8 @@ const props = withDefaults(
     labelKey?: string;
     labelFormatter?: (d: number | Date) => string;
     valueFormatter?: (v: any) => string;
+    /** Number locale for the value when no `valueFormatter` is given, e.g. "en-US". */
+    locales?: string;
     /**
      * Full-control row formatter. When set, its returned string replaces the
      * default label/value split for each series row. Mirrors shadcn's tooltip
@@ -161,7 +163,7 @@ const tooltipLabel = computed(() => {
                 </span>
               </div>
               <span v-if="value != null" class="text-foreground font-medium">
-                {{ valueFormatter ? valueFormatter(value) : value.toLocaleString() }}
+                {{ valueFormatter ? valueFormatter(value) : value.toLocaleString(locales) }}
               </span>
             </template>
           </div>

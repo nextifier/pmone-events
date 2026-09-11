@@ -1,5 +1,11 @@
 <template>
-  <section v-if="sectionVisible" id="rundown" class="container lg:max-w-3xl">
+  <!-- lg:max-w-3xl frames the item list; posters take the whole container,
+       the width of the Guests grid. -->
+  <section
+    v-if="sectionVisible"
+    id="rundown"
+    :class="['container', !isPosterMode && 'lg:max-w-3xl']"
+  >
     <slot name="header" :content="content">
       <div class="flex flex-col items-center text-center">
         <h2 class="section-title">
@@ -12,7 +18,18 @@
       </div>
     </slot>
 
-    <div class="@container mx-auto mt-6 max-w-xl">
+    <!-- Posters mode: PM One shows the event's rundown posters instead of the
+         items. The error and "coming soon" states stay with the item block
+         below, which reads no days in this mode. -->
+    <RundownPosters
+      v-if="isPosterMode && (loading || posters.length)"
+      class="mt-8"
+      :posters="posters"
+      :aspect-ratio="posterAspectRatio"
+      :loading="loading"
+    />
+
+    <div v-else class="@container mx-auto mt-6 max-w-xl">
       <div v-if="loading" class="flex flex-col gap-y-6">
         <!-- Search bar skeleton (matches the real input row) -->
         <div v-if="effectiveShowSearch" class="flex gap-1.5">
@@ -659,8 +676,37 @@ const loading = computed(
   () => pending.value || (!isRundownPage && !mounted.value),
 );
 
+// Posters mode (PM One's "Website shows: Posters"): the rundown is a set of
+// uploaded posters instead of typed items. The payload still carries the days,
+// so everything below that reads them skips them in this mode.
+//
+// Until that payload arrives the active event stands in for it: it is SSR'd on
+// every page and carries the same mode and frame, so the skeleton already has
+// the posters' grid and ratio instead of guessing items and jumping. A past
+// edition renders its rundown on the server and never needs the stand-in.
+const { data: activeEvent } = useEventData();
+const pendingHint = computed(() =>
+  props.edition ? null : activeEvent.value?.data,
+);
+const isPosterMode = computed(
+  () =>
+    (rundownData.value?.data?.settings?.mode ??
+      pendingHint.value?.rundown_mode) === "posters",
+);
+const posters = computed(() =>
+  isPosterMode.value ? (rundownData.value?.data?.posters ?? []) : [],
+);
+const posterAspectRatio = computed(() =>
+  (
+    rundownData.value?.meta?.aspect_ratio ||
+    pendingHint.value?.rundown_poster_aspect_ratio ||
+    "4:5"
+  ).replace(":", " / "),
+);
+
 // An empty rundown must not render as an empty section under someone's HERO, so
-// on a home page it hides itself until it has items. Anywhere else it always
+// on a home page it hides itself until it has items (posters, in posters mode).
+// Anywhere else it always
 // renders: /rundown owns its own empty state, and the /tickets Rundown tab only
 // exists because the site turned it on — a visitor who clicks it deserves the
 // empty state, not a blank panel.
@@ -670,13 +716,15 @@ const loading = computed(
 // component out to drop the section. `?show-rundown=true` forces it.
 const isHomePage = rundownBaseName === "index";
 const forcedRundown = useForceShow("show-rundown");
-const hasRundownItems = computed(() =>
-  (rundownData.value?.data?.days ?? []).some(
-    (day) => (day.items?.length ?? 0) > 0,
-  ),
+const hasRundownContent = computed(() =>
+  isPosterMode.value
+    ? posters.value.length > 0
+    : (rundownData.value?.data?.days ?? []).some(
+        (day) => (day.items?.length ?? 0) > 0,
+      ),
 );
 const sectionVisible = computed(
-  () => !isHomePage || forcedRundown.value || hasRundownItems.value,
+  () => !isHomePage || forcedRundown.value || hasRundownContent.value,
 );
 
 // Day-first "D MMM" e.g. "7 May", "22 Jul"
@@ -742,7 +790,7 @@ function openDialog(activity) {
 }
 
 const activities = computed(() => {
-  const days = rundownData.value?.data?.days ?? [];
+  const days = isPosterMode.value ? [] : (rundownData.value?.data?.days ?? []);
   return days.flatMap((day) =>
     day.items.map((item) => ({
       ...item,

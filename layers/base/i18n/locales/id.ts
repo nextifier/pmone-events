@@ -86,6 +86,8 @@ export default {
     emptyDescription: "Jadwal acara masih kami susun. Cek lagi nanti, ya.",
     nothingYet: "Belum ada jadwal tersedia.",
     finish: "Selesai",
+    posterAlt: "Poster rundown {n}",
+    viewPoster: "Lihat poster rundown {n}",
   },
   ticket: {
     agreementPrefix: "Dengan melanjutkan, kamu setuju dengan",

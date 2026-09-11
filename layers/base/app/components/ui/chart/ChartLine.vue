@@ -174,6 +174,12 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  // Number locale for the tooltip values, e.g. "en-US". Unset keeps the
+  // browser's.
+  locales: {
+    type: String,
+    default: undefined,
+  },
 });
 
 const SOLID_KEY = "__chartSolid";
@@ -350,6 +356,7 @@ const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
       ? `${label} · still counting`
       : label;
   },
+  locales: props.locales,
 });
 
 // Instance-scoped ids. Global ones collided as soon as two ChartLines shared a

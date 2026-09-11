@@ -84,6 +84,8 @@ export default {
     emptyDescription: "活动日程正在筹备中，敬请期待。",
     nothingYet: "还没有日程安排，敬请期待！",
     finish: "结束",
+    posterAlt: "日程海报 {n}",
+    viewPoster: "查看日程海报 {n}",
   },
   ticket: {
     agreementPrefix: "继续购票即表示你同意",

@@ -46,6 +46,7 @@
             v-if="animateValue"
             class="text-foreground text-[12cqw] font-medium tracking-tighter tabular-nums"
             :value="Number(displayValue) || 0"
+            :locales="locales"
             :format="{ notation: compact ? 'compact' : 'standard' }"
           />
           <span v-else class="text-foreground text-[12cqw] font-medium tracking-tighter">{{
@@ -97,6 +98,8 @@ const props = defineProps({
   animateValue: { type: Boolean, default: true },
   suffix: { type: String, default: "" },
   compact: { type: Boolean, default: true },
+  // Number locale, e.g. "en-US". Unset keeps the browser's.
+  locales: { type: String, default: undefined },
 });
 
 const svgWidth = 242;
@@ -240,10 +243,9 @@ const bars = computed(() => {
   });
 });
 
-const compactFormatter = new Intl.NumberFormat(undefined, { notation: "compact" });
-const plainFormatter = new Intl.NumberFormat();
-
-const numberFormatter = computed(() => (props.compact ? compactFormatter : plainFormatter));
+const numberFormatter = computed(
+  () => new Intl.NumberFormat(props.locales, props.compact ? { notation: "compact" } : {})
+);
 
 const displayValue = computed(() =>
   typeof resolvedCenterValue.value === "string"

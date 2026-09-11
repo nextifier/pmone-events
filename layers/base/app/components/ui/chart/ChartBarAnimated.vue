@@ -48,7 +48,7 @@
           class="font-mono tabular-nums chart-animated-value tracking-tight"
           :style="{ fontSize: `${valueFontSize}px`, fontWeight: 500 }"
         >
-          {{ valueFormatter ? valueFormatter(bar.value) : bar.value.toLocaleString() }}
+          {{ valueFormatter ? valueFormatter(bar.value) : bar.value.toLocaleString(locales) }}
         </text>
         <!-- Every category is named, not just the hovered one. This chart draws
              no axis at all, so without a permanent label row it says nothing at
@@ -94,6 +94,7 @@
         }"
         :config="config"
         :value-formatter="valueFormatter"
+        :locales="locales"
       />
     </ChartHoverTooltip>
   </div>
@@ -144,6 +145,12 @@ const props = defineProps({
   valueFormatter: {
     type: Function,
     default: null,
+  },
+  // Number locale when no valueFormatter is given, e.g. "en-US". Unset keeps
+  // the browser's.
+  locales: {
+    type: String,
+    default: undefined,
   },
   maxLabelChars: {
     type: Number,

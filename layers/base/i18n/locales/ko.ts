@@ -84,6 +84,8 @@ export default {
     emptyDescription: "일정을 준비하고 있어요. 조금만 기다려 주세요.",
     nothingYet: "아직 준비 중이에요!",
     finish: "종료",
+    posterAlt: "런다운 포스터 {n}",
+    viewPoster: "런다운 포스터 {n} 보기",
   },
   ticket: {
     agreementPrefix: "티켓을 구매하면 아래 내용에 동의하게 돼요:",

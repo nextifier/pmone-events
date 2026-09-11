@@ -128,6 +128,12 @@ const props = defineProps({
     type: [Number, String],
     default: null,
   },
+  // Number locale for the total and the tooltip, e.g. "en-US". Unset keeps the
+  // browser's.
+  locales: {
+    type: String,
+    default: undefined,
+  },
   legend: {
     type: Boolean,
     default: false,
@@ -195,10 +201,10 @@ const resolvedCenterLabel = computed(() => {
     return props.centerLabel;
   }
   if (props.total !== null) {
-    return typeof props.total === "number" ? props.total.toLocaleString() : props.total;
+    return typeof props.total === "number" ? props.total.toLocaleString(props.locales) : props.total;
   }
   if (props.centerSubLabel) {
-    return totalSum.value.toLocaleString();
+    return totalSum.value.toLocaleString(props.locales);
   }
   return null;
 });
@@ -294,6 +300,7 @@ const tooltipTemplate = componentToString(currentConfig, ChartTooltipContent, {
   // every segment reported the same label.
   nameKey: props.nameKey,
   valueKey: props.valueKey,
+  locales: props.locales,
 });
 
 const tooltipTriggers = {
