@@ -4,7 +4,7 @@
   <div class="flex flex-col">
     <Skeleton class="w-full rounded-xl sm:rounded-2xl" :style="{ aspectRatio }" />
 
-    <div class="mt-2.5 flex min-h-11 items-center gap-x-2 sm:min-h-12">
+    <div class="mt-2.5 flex min-h-10.5 items-center gap-x-2 sm:min-h-11.5">
       <div class="flex min-w-0 grow flex-col gap-y-0.5">
         <!-- Name line box (text-sm / sm:text-base) -->
         <div class="flex h-5 items-center sm:h-6">
@@ -17,7 +17,7 @@
       </div>
 
       <!-- Date badge -->
-      <Skeleton class="size-10 shrink-0 rounded-xl" />
+      <Skeleton class="size-10.5 shrink-0 rounded-xl sm:size-11.5" />
     </div>
   </div>
 </template>

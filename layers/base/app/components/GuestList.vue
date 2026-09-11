@@ -116,7 +116,7 @@
                   />
                 </div>
               </div>
-              <div class="mt-2.5 flex min-h-11 items-center sm:min-h-12">
+              <div class="mt-2.5 flex min-h-10.5 items-center sm:min-h-11.5">
                 <p class="text-muted-foreground text-sm tracking-tight">
                   {{ $t("guests.moreComing", "More guests coming soon") }}
                 </p>

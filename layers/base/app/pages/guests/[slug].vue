@@ -28,7 +28,7 @@
           </div>
           <!-- Appearance date: badge beside its label -->
           <div class="mt-4 flex items-center gap-x-3">
-            <Skeleton class="size-10 shrink-0 rounded-xl" />
+            <Skeleton class="size-12 shrink-0 rounded-xl" />
             <Skeleton class="h-3.5 w-28 rounded" />
           </div>
           <!-- Bio -->
@@ -107,21 +107,21 @@
                the badge says what the date is for. -->
           <div v-if="guest.appearance_date?.date" class="mt-4 flex items-center gap-x-3">
             <div
-              class="bg-muted flex h-10 w-fit min-w-10 shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-xl px-2 text-center"
+              class="bg-muted flex h-12 w-fit min-w-12 shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-xl px-2 text-center"
             >
               <span
                 v-if="guest.appearance_date.month"
-                class="text-muted-foreground text-[0.625rem] leading-none font-semibold tracking-tight uppercase"
+                class="text-muted-foreground text-xs leading-none font-semibold tracking-tight uppercase"
               >
                 {{ guest.appearance_date.month }}
               </span>
               <span
-                class="text-foreground text-sm leading-none font-semibold tracking-tight whitespace-nowrap"
+                class="text-foreground text-lg leading-none font-semibold tracking-tighter whitespace-nowrap"
               >
                 {{ guest.appearance_date.date }}
               </span>
             </div>
-            <span class="text-muted-foreground text-sm tracking-tight">
+            <span class="text-muted-foreground text-sm tracking-tight sm:text-base">
               {{ t("guests.appearanceDate") }}
             </span>
           </div>

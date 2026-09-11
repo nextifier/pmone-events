@@ -41,7 +41,7 @@
          same height whether or not a guest has a title or a date. -->
     <NuxtLink
       :to="localePath(`/guests/${guest.slug}`)"
-      class="group mt-2.5 flex min-h-11 items-center gap-x-2 sm:min-h-12"
+      class="group mt-2.5 flex min-h-10.5 items-center gap-x-2 sm:min-h-11.5"
     >
       <div class="flex min-w-0 grow flex-col gap-y-0.5">
         <h3
@@ -55,21 +55,23 @@
       </div>
 
       <!-- Appearance date: WhenAndWhere's date badge, month over the day
-           range. `min-w-10 px-2` so a wide range gets room. -->
+           range, as tall as the name and title beside it (two line boxes
+           plus their gap: 42px, 46px from `sm`). `min-w-* px-2` so a wide
+           range gets room. -->
       <div
         v-if="guest.appearance_date?.date"
-        class="bg-muted flex h-10 w-fit min-w-10 shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-xl px-2 text-center"
+        class="bg-muted flex h-10.5 w-fit min-w-10.5 shrink-0 flex-col items-center justify-center gap-y-0.5 rounded-xl px-2 text-center sm:h-11.5 sm:min-w-11.5"
         :title="t('guests.appearanceDate')"
       >
         <span class="sr-only">{{ t("guests.appearanceDate") }}:</span>
         <span
           v-if="guest.appearance_date.month"
-          class="text-muted-foreground text-[0.625rem] leading-none font-semibold tracking-tight uppercase"
+          class="text-muted-foreground text-[0.625rem] leading-none font-semibold tracking-tight uppercase sm:text-xs"
         >
           {{ guest.appearance_date.month }}
         </span>
         <span
-          class="text-foreground text-sm leading-none font-semibold tracking-tight whitespace-nowrap"
+          class="text-foreground text-sm leading-none font-semibold tracking-tighter whitespace-nowrap sm:text-base"
         >
           {{ guest.appearance_date.date }}
         </span>
