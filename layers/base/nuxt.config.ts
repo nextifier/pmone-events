@@ -194,6 +194,18 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
     "@vite-pwa/nuxt",
     "nuxt-vitalizer",
+    // Keep `onServerPrefetch` in the browser bundle. Nuxt strips it from client
+    // builds by default (optimization.treeShake.composables.client), but Vue
+    // counts a component that registers one as an async boundary for useId(),
+    // and @nuxt/icon's NuxtIconSvg registers one on purpose so the server and
+    // the browser count alike. Stripped, every svg <Icon> shifted the ids after
+    // it in production only: reka menus lost their aria links and TextLoop its
+    // text. The option merges arrays with defu, so config cannot take a name
+    // out; this runs before modules:done, where Nuxt builds the plugin.
+    (_options, nuxt) => {
+      const client = nuxt.options.optimization.treeShake.composables.client;
+      if (client.vue) client.vue = client.vue.filter((name) => name !== "onServerPrefetch");
+    },
   ],
 
   vitalizer: {
