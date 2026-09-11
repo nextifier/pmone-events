@@ -40,7 +40,6 @@ const emit = defineEmits<{ select: [] }>();
 const route = useRoute();
 const ctx = inject(BOTTOM_NAV_CONTEXT, null);
 
-const variant = computed(() => ctx?.variant.value ?? BOTTOM_NAV_DEFAULTS.variant);
 const size = computed(() => ctx?.size.value ?? BOTTOM_NAV_DEFAULTS.size);
 const indicator = computed(
   () => ctx?.indicator.value ?? BOTTOM_NAV_DEFAULTS.indicator,
@@ -84,16 +83,6 @@ const showLabel = computed(() => Boolean(props.label) && labelDisplay.value !== 
 const isBeside = computed(() => labelPlacement.value === "beside");
 const hidesInactiveLabel = computed(() => isBeside.value && labelDisplay.value === "active");
 
-/**
- * The pill wraps the icon when the label sits under it, so the label steps down
- * to clear it. A glass pill covers the whole item, so there it needs no gap.
- */
-const pillGapClass = computed(() => {
-  if (indicator.value !== "pill" || !showLabel.value || isBeside.value || variant.value === "glass") {
-    return null;
-  }
-  return size.value === "sm" ? "gap-y-1" : "gap-y-1.5";
-});
 
 /**
  * Label motion, transitions-dev 04 (text states swap). below keeps the label's
@@ -132,6 +121,13 @@ const badgeIsCount = computed(() => typeof props.badge === "number");
 const showBadge = computed(() =>
   badgeIsCount.value ? (props.badge as number) > 0 : props.badge === true,
 );
+
+/**
+ * A dot badge punches a round hole in the icon instead of wearing a ring in the
+ * page color, so the gap shows whatever sits behind the icon: glass, the active
+ * pill, a photo. The hole opens and closes with the dot (.t-badge-hole).
+ */
+const hasDotBadge = computed(() => hasBadge.value && !badgeIsCount.value);
 
 /** Keeps the last count so the number does not flip to 0 while the badge pops out. */
 const badgeText = ref("");
@@ -199,12 +195,15 @@ function handleSelect(): void {
     "
     @click="handleSelect"
   >
-    <span data-slot="bottom-nav-content" :class="cn(bottomNavContentClasses[labelPlacement], pillGapClass)">
+    <span data-slot="bottom-nav-content" :class="bottomNavContentClasses[labelPlacement]">
       <span data-bottom-nav-icon class="relative inline-flex shrink-0">
         <span
           aria-hidden="true"
           data-slot="bottom-nav-icon"
-          :class="cn('inline-grid place-items-center', bottomNavIconSizeClasses[size])"
+          :data-open="hasDotBadge ? (showBadge ? 'true' : 'false') : undefined"
+          :class="
+            cn('inline-grid place-items-center', bottomNavIconSizeClasses[size], hasDotBadge && 't-badge-hole')
+          "
         >
           <slot name="icon" :active="isActive">
             <Icon
@@ -220,7 +219,8 @@ function handleSelect(): void {
           </slot>
         </span>
 
-        <!-- transitions-dev 03 (notification badge): .t-badge slides in, .t-badge-dot pops. -->
+        <!-- transitions-dev 03 (notification badge): .t-badge slides in, .t-badge-dot pops,
+             and for a dot the hole in the icon above opens with it. -->
         <span
           v-if="hasBadge"
           aria-hidden="true"
@@ -233,7 +233,7 @@ function handleSelect(): void {
                 't-badge-dot bg-destructive',
                 badgeIsCount
                   ? 'min-w-4 rounded-full px-1 py-0.5 text-center text-[0.625rem] leading-none font-medium tracking-tight text-white'
-                  : 'ring-background size-2 rounded-full ring-2',
+                  : 'size-2 rounded-full',
               )
             "
           >

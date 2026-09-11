@@ -1,8 +1,23 @@
 <template>
-  <section v-if="content && visible" id="brand-preview" class="container mx-auto">
+  <section
+    v-if="content && visible"
+    id="brand-preview"
+    class="container mx-auto"
+  >
     <div class="flex flex-col items-center text-center">
       <h2 class="section-title">{{ content.title }}</h2>
-      <FallbackNotice v-if="fallbackSource" :source="fallbackSource" class="mt-4" />
+      <p
+        v-if="content.description"
+        class="mt-3 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"
+        data-section-description
+      >
+        {{ content.description }}
+      </p>
+      <FallbackNotice
+        v-if="fallbackSource"
+        :source="fallbackSource"
+        class="mt-4"
+      />
     </div>
 
     <!-- Grid wrapper: full-bleed di mobile (sama seperti /brands), contained + rounded di sm+ -->

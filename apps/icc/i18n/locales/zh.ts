@@ -112,12 +112,14 @@ export default {
     titleMorePosts: "你可能还想看",
   },
   brandPreview: {
-    title: "品牌",
+    title: "品牌与创作者",
+    description:
+      "画师、漫画出版社、手办周边店，都来 {appName} 摆摊了。提前看一眼，到现场就知道先逛哪家。",
   },
   brandList: {
-    title: "品牌",
+    title: "品牌与创作者",
     description:
-      "看看 {appName} 有哪些品牌参展。漫画、潮玩到限定周边，一网打尽。",
+      "画师、漫画出版社、手办周边店，都来 {appName} 摆摊了。提前看一眼，到现场就知道先逛哪家。",
   },
   bookSpace: {
     title: "参展商报名",

@@ -66,9 +66,11 @@ export const bottomNavContainerClasses: Record<BottomNavVariant, string> = {
  * change uses the tabs-sliding tokens (transitions-dev 16) so it lands with the
  * pill. An item with an activeIcon keeps one color in every state because the
  * filled icon already marks it; without one, inactive items are muted.
+ * Keyboard focus tints the item instead of drawing a ring; ring-0 also cancels
+ * the focus ring an app's base styles give every button.
  */
 export const bottomNavItemClasses =
-  "relative z-10 flex min-w-0 flex-1 select-none items-center justify-center rounded-xl text-muted-foreground outline-none transition-[color] duration-(--tabs-dur) ease-(--tabs-ease) motion-reduce:transition-none pointer-fine:hover:text-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring data-[state=active]:text-foreground data-[has-active-icon=true]:text-foreground";
+  "relative z-10 flex min-w-0 flex-1 select-none items-center justify-center rounded-xl text-muted-foreground outline-none transition-[color,background-color] duration-(--tabs-dur) ease-(--tabs-ease) motion-reduce:transition-none pointer-fine:hover:text-foreground focus-visible:bg-foreground/10 focus-visible:ring-0 data-[state=active]:text-foreground data-[has-active-icon=true]:text-foreground";
 
 /** Icon + label wrapper. In beside, BottomNav slides it (FLIP) when widths change. */
 export const bottomNavContentClasses: Record<BottomNavLabelPlacement, string> = {
@@ -77,8 +79,8 @@ export const bottomNavContentClasses: Record<BottomNavLabelPlacement, string> = 
 };
 
 /**
- * Sliding capsule behind the active icon, or behind the whole item when labels
- * sit beside or are hidden. On glass it is a solid surface with a small shadow
+ * Sliding capsule behind the active item's icon and label (geometry in
+ * pillRect, BottomNav.vue). On glass it is a solid surface with a small shadow
  * in light and a lifted tint in dark.
  */
 export const bottomNavPillClasses: Record<BottomNavVariant, string> = {

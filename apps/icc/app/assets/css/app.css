@@ -43,8 +43,12 @@
   @apply text-primary text-4xl !leading-[1.2] font-medium tracking-tighter text-balance sm:text-5xl;
 }
 
-.section-title-large {
+/* .section-title-large {
   @apply xs:text-6xl 3xl:text-8xl font-display text-foreground bg-clip-text text-5xl leading-[1.1]! tracking-[-0.06em] text-balance uppercase md:text-7xl lg:text-[5.5rem];
+} */
+
+.section-title-large {
+  @apply xs:text-6xl 3xl:text-8xl 3xl:leading-[1.1] text-foreground pb-2 text-[12vw] leading-[1]! font-semibold tracking-tighter text-balance md:text-7xl lg:text-[5.5rem] dark:bg-linear-to-r dark:from-white dark:to-gray-500 dark:bg-clip-text dark:text-transparent;
 }
 
 .section-description {

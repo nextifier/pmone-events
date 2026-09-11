@@ -108,9 +108,10 @@ function offsetWithin(el: HTMLElement, ancestor: HTMLElement): { left: number; t
 
 /**
  * Pill geometry. With labels under the icons the pill is a capsule around the
- * icon (64x32 at md), so it clears the label and the rounded corners of the
- * screen. On glass, with labels beside the icons, or with no labels, it fills
- * the item inset by --bottom-nav-pill-inset.
+ * icon and its label: full height, the content width plus 12px a side (64px at
+ * least), centered, so it stays off the rounded corners of the screen. On
+ * glass, with labels beside the icons, or with no labels, it fills the item
+ * inset by --bottom-nav-pill-inset.
  */
 function pillRect(nav: HTMLElement, item: HTMLElement): IndicatorRect {
   const inset = parseFloat(getComputedStyle(nav).getPropertyValue("--bottom-nav-pill-inset")) || 0;
@@ -121,9 +122,9 @@ function pillRect(nav: HTMLElement, item: HTMLElement): IndicatorRect {
     height: item.offsetHeight - inset * 2,
   };
 
-  const icon = item.querySelector<HTMLElement>("[data-slot=bottom-nav-icon]");
+  const content = item.querySelector<HTMLElement>("[data-slot=bottom-nav-content]");
   if (
-    !icon ||
+    !content ||
     props.variant === "glass" ||
     props.labelPlacement === "beside" ||
     props.labelDisplay === "none"
@@ -131,16 +132,13 @@ function pillRect(nav: HTMLElement, item: HTMLElement): IndicatorRect {
     return box;
   }
 
-  const padY = props.size === "sm" ? 2 : 4;
-  const width = Math.min(icon.offsetWidth + 40, box.width);
-  const height = Math.min(icon.offsetHeight + padY * 2, box.height);
-  const at = offsetWithin(icon, nav);
-  const top = at.top + (icon.offsetHeight - height) / 2;
+  const width = Math.min(Math.max(content.offsetWidth + 24, 64), box.width);
+  const at = offsetWithin(content, nav);
   return {
-    x: at.left + (icon.offsetWidth - width) / 2,
-    top: Math.min(Math.max(top, box.top), box.top + box.height - height),
+    x: at.left + (content.offsetWidth - width) / 2,
+    top: box.top,
     width,
-    height,
+    height: box.height,
   };
 }
 

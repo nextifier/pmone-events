@@ -113,12 +113,14 @@ export default {
     titleMorePosts: "이런 글도 있어요",
   },
   brandPreview: {
-    title: "브랜드",
+    title: "브랜드 & 크리에이터",
+    description:
+      "일러스트레이터, 만화 출판사, 피규어·굿즈 숍까지. {appName}에 참가하는 부스를 미리 둘러보고, 당일 어디부터 갈지 정해 두세요.",
   },
   brandList: {
-    title: "브랜드",
+    title: "브랜드 & 크리에이터",
     description:
-      "{appName} 참가 브랜드를 만나보세요. 만화, 피규어부터 한정판 굿즈까지.",
+      "일러스트레이터, 만화 출판사, 피규어·굿즈 숍까지. {appName}에 참가하는 부스를 미리 둘러보고, 당일 어디부터 갈지 정해 두세요.",
   },
   bookSpace: {
     title: "전시 참가 신청",

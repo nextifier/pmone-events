@@ -133,12 +133,14 @@ export default {
     titleMorePosts: "こちらもおすすめ",
   },
   brandPreview: {
-    title: "ブランド",
+    title: "ブランド＆クリエイター",
+    description:
+      "イラストレーターに漫画の出版社、フィギュアやグッズのショップまで。{appName}に出展するブースを先にチェックして、当日の回り方を決めておこう。",
   },
   brandList: {
-    title: "ブランド一覧",
+    title: "ブランド＆クリエイター",
     description:
-      "{appName}に出展するブランドをチェック。コミック、トイ、限定グッズが勢揃い。",
+      "イラストレーターに漫画の出版社、フィギュアやグッズのショップまで。{appName}に出展するブースを先にチェックして、当日の回り方を決めておこう。",
   },
   bookSpace: {
     title: "出展者登録",

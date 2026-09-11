@@ -28,7 +28,7 @@
         }}</span>
 
         <h1
-          class="font-display 3xl:text-7xl text-foreground mt-1 text-5xl leading-none! tracking-[-0.06em] text-balance sm:text-6xl xl:text-6xl"
+          class="font-display 3xl:text-7xl text-foreground mt-1 text-5xl leading-none! tracking-[-0.06em] text-balance sm:text-6xl xl:text-6xl dark:bg-linear-to-r dark:from-white dark:to-gray-500 dark:bg-clip-text dark:text-transparent"
         >
           {{ content.title }}
         </h1>

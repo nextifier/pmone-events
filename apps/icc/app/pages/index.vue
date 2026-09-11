@@ -1,13 +1,13 @@
 <template>
   <div class="space-y-16 pb-16 lg:space-y-24 lg:pb-24">
     <Hero />
-    <!-- <LazyBrandPreview /> -->
     <LazyGuestList />
-    <!-- <LazyRundown /> -->
+    <LazyBrandPreview />
+    <LazyRundown />
     <!-- <LazyHotels :show-event-header="false" /> -->
     <LazyAboutEvent />
     <LazyPartnerships />
-    <!-- <LazyVisitorCta /> -->
+    <LazyVisitorCta />
     <!-- <LazyMediaCoveragesSlider /> -->
     <!-- <LazyCredits class="container flex flex-col items-center text-center" /> -->
     <LazyBlogPostSlider

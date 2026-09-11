@@ -213,11 +213,12 @@ export default {
     "titleMorePosts": "You might also like"
   },
   "brandPreview": {
-    "title": "Brands"
+    "title": "Brands & Creators",
+    "description": "Illustrators, comic publishers, and shops full of figures and merch are opening booths at {appName}. Browse the list before you go, so you know where to head first."
   },
   "brandList": {
-    "title": "Brands",
-    "description": "Discover the amazing brands showcasing their latest products and innovations at {appName}."
+    "title": "Brands & Creators",
+    "description": "Illustrators, comic publishers, and shops full of figures and merch are opening booths at {appName}. Browse the list before you go, so you know where to head first."
   },
   "bookSpace": {
     "title": "Tenant Registration",

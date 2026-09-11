@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div v-if="route.name?.toString().startsWith('programs')" class="container mt-10">
+    <div v-if="variant === 'grid'" class="container mt-10">
       <div
         class="grid gap-x-2 gap-y-3 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-y-8"
         :class="list[0].image ? 'grid-cols-2' : 'grid-cols-1'"
@@ -37,7 +37,14 @@
 </template>
 
 <script setup>
-const route = useRoute();
+defineProps({
+  variant: {
+    type: String,
+    default: "grid",
+    validator: (value) => ["grid", "slider"].includes(value),
+  }, // 'grid' | 'slider'
+});
+
 const { locale } = useI18n();
 
 const content = computed(() => useContentStore().components.mainPrograms ?? null);

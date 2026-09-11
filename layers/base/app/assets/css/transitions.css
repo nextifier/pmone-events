@@ -338,6 +338,42 @@
   .t-badge, .t-badge-dot { animation: none !important; transition: none !important; }
 }
 
+/* Lubang di bawah badge titik. Titiknya tidak memakai ring berwarna halaman:
+   icon di bawahnya dilubangi (mask radial-gradient), jadi celah di sekeliling
+   titik memperlihatkan apa pun di belakang icon, entah bar kaca, pill aktif,
+   atau foto. Jari-jari lubang adalah properti terdaftar (@property) supaya ikut
+   pop titik dengan token yang sama. Pusat lubang = pusat titik
+   (--t-badge-hole-x / -y), jari-jarinya radius titik + celah (--t-badge-hole-r).
+   Mask memotong semua yang keluar dari kotak icon, jadi konten slot jangan
+   meluber (mis. ring avatar) kalau item itu punya badge titik.
+   Dipakai: bottom-nav/BottomNavItem.vue */
+@property --t-badge-hole {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+.t-badge-hole {
+  --t-badge-hole: 0px;
+  -webkit-mask-image: radial-gradient(
+    circle at var(--t-badge-hole-x, calc(100% - 2px)) var(--t-badge-hole-y, 2px),
+    transparent var(--t-badge-hole),
+    #000 calc(var(--t-badge-hole) + 0.5px)
+  );
+  mask-image: radial-gradient(
+    circle at var(--t-badge-hole-x, calc(100% - 2px)) var(--t-badge-hole-y, 2px),
+    transparent var(--t-badge-hole),
+    #000 calc(var(--t-badge-hole) + 0.5px)
+  );
+  transition: --t-badge-hole var(--badge-pop-close-dur) var(--badge-close-ease);
+}
+.t-badge-hole[data-open="true"] {
+  --t-badge-hole: var(--t-badge-hole-r, 6px);
+  transition: --t-badge-hole var(--badge-pop-dur) var(--badge-pop-ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  .t-badge-hole { transition: none !important; }
+}
+
 /* -----------------------------------------------------------------------------
    Text states swap (04) — Vue <Transition name="t-tswap" mode="out-in">.
    Teks lama keluar ke atas dengan blur; teks baru masuk dari bawah.

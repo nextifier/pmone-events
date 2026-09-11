@@ -35,7 +35,9 @@
             />
             <div
               class="border-foreground/5 dark:border-primary/10 bg-pattern-diagonal absolute inset-x-0 bottom-0 z-0 rounded-3xl border [--pattern-fg:var(--color-primary)]/5 dark:[--pattern-fg:var(--color-primary)]/10"
-              :class="content?.img?.src?.endsWith('.png') ? 'h-[90%]' : 'h-full'"
+              :class="
+                content?.img?.src?.endsWith('.png') ? 'h-[90%]' : 'h-full'
+              "
             ></div>
 
             <div
@@ -118,7 +120,12 @@
               :to="lp(banner.cta.link)"
               :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
               class="lg:shadow-wrapper aspect-4/5 w-28 shrink-0 rounded-xl transition duration-500 sm:w-32 sm:rounded-2xl lg:w-full lg:shrink lg:hover:rotate-6"
-              @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
+              @click="
+                trackClick(
+                  banner.id,
+                  banner.cta.label || banner.title || 'banner',
+                )
+              "
             >
               <img
                 v-if="banner.image"
@@ -163,7 +170,12 @@
                 :target="banner.cta.link.startsWith('http') ? '_blank' : ''"
                 class="bg-border/60 text-foreground hover:bg-border/80 mt-1 flex items-center justify-center gap-x-1 rounded-lg py-2 pr-2 pl-3 text-sm font-semibold tracking-tight transition active:scale-95"
                 v-ripple
-                @click="trackClick(banner.id, banner.cta.label || banner.title || 'banner')"
+                @click="
+                  trackClick(
+                    banner.id,
+                    banner.cta.label || banner.title || 'banner',
+                  )
+                "
               >
                 <span class="line-clamp-1">{{ banner.cta.label }}</span>
                 <Icon name="lucide:arrow-up-right" class="size-4 shrink-0" />

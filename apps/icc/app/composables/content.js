@@ -125,6 +125,7 @@ export const useContentStore = defineStore("content", () => {
 
     brandPreview: {
       title: t("brandPreview.title"),
+      description: t("brandPreview.description", { appName }),
     },
 
     about: {},

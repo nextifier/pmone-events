@@ -96,12 +96,14 @@ export default {
     titleMorePosts: "Mungkin kamu juga suka",
   },
   brandPreview: {
-    title: "Brand",
+    title: "Brand & Creator",
+    description:
+      "Ilustrator, penerbit komik, sampai toko figure dan merch buka booth di {appName}. Cek daftarnya dulu, biar pas datang kamu udah tahu mau mampir ke mana.",
   },
   brandList: {
-    title: "Brand",
+    title: "Brand & Creator",
     description:
-      "Jelajahi brand-brand yang ikut meramaikan {appName}. Dari komik, toys, sampai merch eksklusif.",
+      "Ilustrator, penerbit komik, sampai toko figure dan merch buka booth di {appName}. Cek daftarnya dulu, biar pas datang kamu udah tahu mau mampir ke mana.",
   },
   bookSpace: {
     title: "Registrasi Tenant",
