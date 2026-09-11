@@ -29,7 +29,7 @@ const delegatedProps = reactiveOmit(props, "class", "size");
 
 <template>
   <div
-    class="cn-native-select-wrapper group/native-select relative w-fit has-[select:disabled]:opacity-50"
+    class="cn-native-select-wrapper group/native-select relative w-fit max-w-full has-[select:disabled]:opacity-50"
     data-slot="native-select-wrapper"
     :data-size="props.size ?? 'default'"
   >
@@ -40,7 +40,9 @@ const delegatedProps = reactiveOmit(props, "class", "size");
       :data-size="props.size ?? 'default'"
       :class="
         cn(
-          'cn-native-select outline-none disabled:cursor-not-allowed',
+          // Capped with its wrapper: a `w-fit` select is as wide as its longest
+          // option, which is a user's value as often as not.
+          'cn-native-select max-w-full outline-none disabled:cursor-not-allowed',
           props.class
         )
       "

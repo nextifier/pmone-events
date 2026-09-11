@@ -21,6 +21,9 @@ const forwardedProps = useForwardProps(delegatedProps);
     :class="
       cn(
         'cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50',
+        // Capped at the field's width so a long tag truncates (TagsInputItemText)
+        // instead of pushing the field past its panel. See ComboboxChip.
+        'max-w-full min-w-0',
         // Arrow keys move focus between tags; the active one needs to show it.
         'data-[state=active]:ring-ring/50 ring-offset-background data-[state=active]:ring-2',
         props.class

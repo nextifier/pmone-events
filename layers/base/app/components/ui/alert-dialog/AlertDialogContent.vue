@@ -37,6 +37,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
       :class="
         cn(
           'cn-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100%-4rem)] w-full -translate-x-1/2 -translate-y-1/2 overflow-y-auto outline-none',
+          // `minmax(0,1fr)` rather than the implicit `auto` column, which grows
+          // to its widest child. See DialogContent.
+          'grid-cols-1 wrap-break-word',
           'ease-(--modal-ease) data-open:duration-(--modal-open-dur) data-open:zoom-in-96 data-closed:duration-(--modal-close-dur) data-closed:zoom-out-96 motion-reduce:animate-none!',
           props.class,
         )

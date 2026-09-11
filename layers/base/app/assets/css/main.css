@@ -1577,8 +1577,13 @@ html.appearance-switching *::after {
     }
   }
 
+  /* `overflow-x-clip`, never `auto`: as a scroll container a panel swiped
+     sideways the moment anything inside ran a few pixels wide (a long chip,
+     an unbroken URL), dragging every label half off screen. Wide content
+     brings its own scroller. `wrap-break-word` lets a long token wrap instead
+     of running into the clip. Same rule as pmone (scripts/check-overflow.sh). */
   & .frame-panel {
-    @apply bg-background -m-px flex min-w-0 flex-1 flex-col gap-1 overflow-x-auto rounded-xl border px-3 py-6 before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] lg:px-5;
+    @apply bg-background -m-px flex min-w-0 flex-1 flex-col gap-1 overflow-x-clip wrap-break-word rounded-xl border px-3 py-6 before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] lg:px-5;
   }
 
   & .frame-footer {

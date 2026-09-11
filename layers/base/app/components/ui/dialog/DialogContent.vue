@@ -38,6 +38,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       :class="
         cn(
           'cn-dialog-content fixed top-1/2 left-1/2 z-50 max-h-[calc(100%-4rem)] w-full -translate-x-1/2 -translate-y-1/2 overflow-y-auto outline-none',
+          // Every style makes this a `grid`, and an implicit grid column is
+          // `auto`: it grows to its widest child, so one long unbroken value
+          // widened the dialog's content past the dialog - which, since
+          // `overflow-y` pulls `overflow-x` off `visible`, then scrolled sideways.
+          // `minmax(0,1fr)` holds the column to the dialog's width, and
+          // `wrap-break-word` lets a long token (a URL, an ID) wrap inside it.
+          'grid-cols-1 wrap-break-word',
           'ease-(--modal-ease) data-open:duration-(--modal-open-dur) data-open:zoom-in-96 data-closed:duration-(--modal-close-dur) data-closed:zoom-out-96 motion-reduce:animate-none!',
           props.class,
         )

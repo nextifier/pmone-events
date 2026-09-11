@@ -858,6 +858,8 @@ otomatis kontras di dua tema.
 - Border radius yang tidak konsisten dengan skala (jangan tiba-tiba `rounded-3xl` di satu card sedang yang lain `rounded-xl`).
 - Menambahkan `hover:scale-*` / `group-hover:scale-*` pada image atau card di kode baru. Untuk motion yang sudah ada di repo, lihat §13 - itu bukan temuan audit.
 - Menempel `bg-*`, `border-*`, `h-*`, `rounded-*`, `px-*`, `shadow-*` di call site elemen input-like (input, textarea, select trigger, combobox, chips, dropzone). Semua itu milik rule `cn-*` di `assets/css/styles/style-<name>.css`. Meng-hardcode-nya memaku field ke satu tampilan sehingga ia tidak ikut berganti saat user memilih Style lain - dan `dark:bg-background` khususnya membuat field lebur ke latar dialog di dark mode. Kalau butuh nilai yang belum ada, tambahkan rule `cn-*`-nya (ingat: 9 file style x 3 repo), jangan hardcode. Guard di pmone: `bash frontend/scripts/check-input-hardcode.sh`.
+- Nilai dari user di satu baris yang tidak bisa menyusut. Chip, tag, pill, atau baris `flex` buatan sendiri yang memuat nama, kategori, email, URL, atau ID wajib bisa mengecil: `min-w-0` di flex item-nya dan `truncate` di teksnya, atau `wrap-break-word` kalau teksnya boleh turun baris. `w-fit` + `whitespace-nowrap` tanpa batas itulah yang membuat satu kategori bisnis 60 karakter mendorong seluruh form brand ke samping di telepon. Primitive-nya (`ComboboxChip`, `TagsInputItem`, pill `ToggleGroup`, `DialogContent`, `FieldContent`, `ItemContent`, `NativeSelect`) sudah menanganinya; jangan dibuang lewat `class` di call site.
+- Container konten yang jadi scroll container horizontal. `.frame-panel` sengaja `overflow-x-clip`, bukan `auto`: panel form yang bisa di-scroll ke samping ikut bergeser begitu ada satu elemen yang kelebaran, dan di telepon semua labelnya terpotong di kiri. Jangan beri `overflow-x-auto`, `overflow-auto`, atau `overflow-hidden` ke `.frame-panel` maupun container form lain. Konten yang memang lebar membawa scroller sendiri: `<Table>` sudah punya, `<table>` mentah dibungkus `<div class="overflow-x-auto">`. Guard di pmone: `bash frontend/scripts/check-overflow.sh`.
 
 ### Pengecualian yang diizinkan
 
@@ -892,7 +894,13 @@ Lima kasus di bawah ini melanggar daftar di atas dan tetap boleh, karena aturann
 - Empty state pakai component `<Empty>`.
 - Skeleton loading pakai component `<Skeleton>`.
 - Tidak ada `font-bold`, `uppercase`, `tracking-wider`.
-- Tidak ada `bg-*` / `h-*` / `rounded-*` / `px-*` yang di-hardcode di elemen input-like. Di pmone, `bash frontend/scripts/check-theming-sync.sh` harus hijau (ia sekaligus menjalankan `check-input-hardcode.sh`).
+- Tidak ada `bg-*` / `h-*` / `rounded-*` / `px-*` yang di-hardcode di elemen input-like. Di pmone, `bash frontend/scripts/check-theming-sync.sh` harus hijau (ia sekaligus menjalankan `check-input-hardcode.sh`, `check-overflow.sh`, dan `check-route-name.sh`).
+- Tidak ada yang meluber ke samping di 390px. Isi field dengan nilai terpanjang yang realistis (kategori, nama perusahaan, email, URL, ID), lalu jalankan ini di console; hasilnya harus kosong:
+  ```js
+  document.querySelectorAll('.frame-panel, [data-slot=dialog-content]').forEach((el) => {
+    if (el.scrollWidth > el.clientWidth + 1) console.log(el.scrollWidth - el.clientWidth, el);
+  });
+  ```
 
 ---
 

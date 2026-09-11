@@ -13,6 +13,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <!-- Size and padding come from the chip, as they do for combobox chips. -->
-  <TagsInputItemText v-bind="forwardedProps" :class="cn(props.class)" />
+  <!-- Size and padding come from the chip, as they do for combobox chips. The
+       text truncates because the chip is capped at the field's width. -->
+  <TagsInputItemText v-bind="forwardedProps" :class="cn('min-w-0 truncate', props.class)" />
 </template>

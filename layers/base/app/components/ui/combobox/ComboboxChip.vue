@@ -30,14 +30,19 @@ const slots = useSlots();
     :class="
       cn(
         'cn-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50',
+        // Every style sizes the chip `w-fit` and nowrap, so a long value (a
+        // 60-character business category) grew it past the field on a phone and
+        // the field past its panel. Capped at the field's width, the text is
+        // what gives way; the remove button keeps its size.
+        'max-w-full min-w-0',
         props.class
       )
     "
   >
     <!-- Without a slot, TagsInputItemText renders the model entry (through the
          displayValue given to ComboboxChips). -->
-    <slot v-if="slots.default" />
-    <TagsInputItemText v-else />
+    <span v-if="slots.default" class="min-w-0 truncate"><slot /></span>
+    <TagsInputItemText v-else class="min-w-0 truncate" />
 
     <!-- `cn-combobox-chip` keys its right padding off `has-data-[slot=combobox-chip-remove]`,
          so this data-slot must stay even if the button is restyled. TagsInputItemDelete

@@ -31,8 +31,13 @@ export type ToggleVariants = VariantProps<typeof toggleVariants>;
 // primary selected accent that doesn't fit the canonical segmented base, so
 // they live outside the cva and are applied via `cn`. Shared here so both
 // `Toggle` and `ToggleGroupItem` render the exact same pill.
+//
+// The pill is single-line, so it is capped at the group's width and clips: a
+// label longer than the field (an event title in ScannerAllowlist) otherwise
+// ran past it. Callers truncate their text span; the clip is the backstop, and
+// the pill's own ring is a box-shadow, which its overflow never cuts.
 export const togglePillClass =
-  "inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-xl border border-border bg-background px-3 py-2 text-sm font-medium tracking-tight outline-none transition-[color,box-shadow] hover:bg-muted disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-[1px] data-[state=on]:border-primary data-[state=on]:bg-primary/5 data-[state=on]:text-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary";
+  "inline-flex max-w-full cursor-pointer items-center justify-center gap-1.5 overflow-hidden whitespace-nowrap rounded-xl border border-border bg-background px-3 py-2 text-sm font-medium tracking-tight outline-none transition-[color,box-shadow] hover:bg-muted disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-[1px] data-[state=on]:border-primary data-[state=on]:bg-primary/5 data-[state=on]:text-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary";
 
 // Like the pill but without the fixed single-line layout — the consumer supplies
 // its own inner layout (flex direction, padding, alignment), e.g. the session
