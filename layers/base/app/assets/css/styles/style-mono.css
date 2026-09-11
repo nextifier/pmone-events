@@ -1575,10 +1575,15 @@
    the blur shows through the hovered row instead of a solid grey block. The
    note in _base.css warns against a tint with accent-foreground text (invisible
    in dark mode); mono's rows keep `text-foreground`, which reads on a
-   foreground tint in both modes, and destructive rows keep their own red. */
+   foreground tint in both modes, and destructive rows keep their own red.
+   The edge is a rim of light, as on BottomNav's glass variant
+   (`ring-background/70`, `ring-foreground/10` in dark), not the content's dark
+   `ring-foreground/10`: a dark hairline reads as a grey printed border over
+   whatever colour the blur picks up, and the shadow already sets the menu
+   off the page. */
 .style-mono .cn-menu-translucent {
   --muted: color-mix(in oklab, var(--foreground) 10%, transparent);
-  @apply bg-popover/70 **:data-[slot$=-separator]:bg-foreground/5 relative animate-none! before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
+  @apply ring-background/70 dark:ring-foreground/10 bg-popover/70 **:data-[slot$=-separator]:bg-foreground/5 relative animate-none! before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
 }
 
 /* MARK: Logical-side slide-in — from _base.css. Needed for RTL/logical placement
