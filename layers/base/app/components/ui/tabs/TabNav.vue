@@ -44,7 +44,11 @@
         :class="[
           'relative flex shrink-0 items-center justify-center gap-x-1.5 font-medium tracking-tight transition-colors select-none',
           isSegmented ? [tabsTriggerClasses.segmented, tabsTriggerSizeClasses.md] : 'py-3 text-sm',
-          isActive(tab) ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
+          // Segmented leaves the idle tone to the pill it sits in, as the `Tabs`
+          // triggers do, and takes its hover from `tabsTriggerClasses`.
+          isActive(tab)
+            ? 'text-foreground'
+            : !isSegmented && 'text-muted-foreground hover:text-foreground',
         ]"
       >
         <Icon v-if="tab.icon" :name="tab.icon" class="size-4 shrink-0" />
