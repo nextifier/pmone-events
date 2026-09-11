@@ -1569,9 +1569,15 @@
   @apply flex flex-1 gap-2;
 }
 
-/* MARK: Menu Translucent — from _base.css. Glass surface for menu popovers; see
-   the long note in _base.css before changing the highlight colours. */
+/* MARK: Menu Translucent — from _base.css. Glass surface for menu popovers, and
+   a glass highlight to match: mono paints a focused, highlighted or open row
+   with `bg-muted`, so `--muted` becomes a foreground tint on this surface and
+   the blur shows through the hovered row instead of a solid grey block. The
+   note in _base.css warns against a tint with accent-foreground text (invisible
+   in dark mode); mono's rows keep `text-foreground`, which reads on a
+   foreground tint in both modes, and destructive rows keep their own red. */
 .style-mono .cn-menu-translucent {
+  --muted: color-mix(in oklab, var(--foreground) 10%, transparent);
   @apply bg-popover/70 **:data-[slot$=-separator]:bg-foreground/5 relative animate-none! before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
 }
 
