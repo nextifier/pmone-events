@@ -47,6 +47,8 @@ interface Props extends PrimitiveProps {
   highlight?: string;
   /** Text and icon color. Custom colors default to white; pass a dark one for a light color. */
   foreground?: string;
+  /** The directional drop shadow under the button. The inset rim and shade stay either way. */
+  shadow?: boolean;
   to?: string;
   target?: string;
   disabled?: boolean;
@@ -56,6 +58,7 @@ interface Props extends PrimitiveProps {
 const props = withDefaults(defineProps<Props>(), {
   as: "button",
   colorVariant: "blue",
+  shadow: true,
 });
 
 const isExternal = computed(() => props.to?.startsWith("http"));
@@ -66,6 +69,7 @@ const colorStyle = computed(() => ({
   "--aurora-button-color": props.color || undefined,
   "--aurora-button-highlight": props.highlight || undefined,
   "--aurora-button-foreground": props.foreground || undefined,
+  "--aurora-button-drop": props.shadow ? undefined : "0 0 #0000",
 }));
 </script>
 
