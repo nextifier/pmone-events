@@ -9,9 +9,13 @@
     <LazyPartnerships />
     <LazyVisitorCta>
       <template #cta="{ to, target, label }">
-        <AuroraButton :to="to" :target="target" color-variant="yellow">{{
-          label
-        }}</AuroraButton>
+        <AuroraButton
+          :to="to"
+          :target="target"
+          color-variant="yellow"
+          :shadow="false"
+          >{{ label }}</AuroraButton
+        >
       </template>
     </LazyVisitorCta>
     <!-- <LazyMediaCoveragesSlider /> -->

@@ -101,6 +101,7 @@
               <GlowButton
                 :to="localePath('/tickets')"
                 color-variant="cyan"
+                :arrow="false"
                 class="px-6 sm:px-[3.25rem]"
                 >{{ $t("hero.ctaTicket") }}</GlowButton
               >

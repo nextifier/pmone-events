@@ -11,6 +11,7 @@
         <GlowButton
           :to="to"
           :target="target"
+          :arrow="false"
           class="px-6 sm:px-[3.25rem]"
           >{{ label }}</GlowButton
         >

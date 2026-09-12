@@ -38,13 +38,19 @@
         </p>
 
         <div class="mt-6 flex w-full flex-wrap items-center gap-3">
-          <AuroraButton :to="localePath('/tickets')" color-variant="yellow">{{
-            $t("hero.ctaTicket")
-          }}</AuroraButton>
+          <AuroraButton
+            :to="localePath('/tickets')"
+            color-variant="yellow"
+            :shadow="false"
+            >{{ $t("hero.ctaTicket") }}</AuroraButton
+          >
 
-          <AuroraButton :to="localePath('/book-space')" color-variant="muted">{{
-            $t("hero.ctaExhibit")
-          }}</AuroraButton>
+          <AuroraButton
+            :to="localePath('/book-space')"
+            color-variant="muted"
+            :shadow="false"
+            >{{ $t("hero.ctaExhibit") }}</AuroraButton
+          >
         </div>
       </div>
     </div>
