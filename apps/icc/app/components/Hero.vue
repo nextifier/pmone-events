@@ -37,20 +37,14 @@
           {{ content.description }}
         </p>
 
-        <div class="mt-6 flex w-full gap-2 md:flex-wrap md:gap-3">
-          <nuxt-link
-            :to="localePath('/tickets')"
-            class="bg-primary text-primary-foreground hover:bg-primary/80 border-primary hover:border-primary/80 flex basis-1/2 items-center justify-center rounded-tl-xl border-2 px-4 py-2.5 font-semibold tracking-tighter transition [corner-shape:bevel] active:scale-95 md:basis-auto lg:px-8"
-            v-ripple
-            >{{ $t("hero.ctaTicket") }}</nuxt-link
-          >
+        <div class="mt-6 flex w-full flex-wrap items-center gap-3">
+          <AuroraButton :to="localePath('/tickets')" color-variant="yellow">{{
+            $t("hero.ctaTicket")
+          }}</AuroraButton>
 
-          <nuxt-link
-            :to="localePath('/book-space')"
-            class="hover:bg-muted text-foreground border-foreground flex basis-1/2 items-center justify-center rounded-br-xl border-2 px-4 py-2.5 font-semibold tracking-tighter backdrop-blur-lg transition [corner-shape:bevel] active:scale-95 md:basis-auto lg:px-8"
-            v-ripple
-            >{{ $t("hero.ctaExhibit") }}</nuxt-link
-          >
+          <AuroraButton :to="localePath('/book-space')" color-variant="muted">{{
+            $t("hero.ctaExhibit")
+          }}</AuroraButton>
         </div>
       </div>
     </div>

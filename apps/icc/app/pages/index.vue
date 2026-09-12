@@ -7,7 +7,13 @@
     <!-- <LazyHotels :show-event-header="false" /> -->
     <LazyAboutEvent />
     <LazyPartnerships />
-    <LazyVisitorCta />
+    <LazyVisitorCta>
+      <template #cta="{ to, target, label }">
+        <AuroraButton :to="to" :target="target" color-variant="yellow">{{
+          label
+        }}</AuroraButton>
+      </template>
+    </LazyVisitorCta>
     <!-- <LazyMediaCoveragesSlider /> -->
     <!-- <LazyCredits class="container flex flex-col items-center text-center" /> -->
     <LazyBlogPostSlider

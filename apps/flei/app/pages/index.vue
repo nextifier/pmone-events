@@ -6,7 +6,16 @@
     <!-- <LazyHotels :show-event-header="false" /> -->
     <LazyAboutEvent />
     <LazyPartnerships />
-    <LazyVisitorCta />
+    <LazyVisitorCta>
+      <template #cta="{ to, target, label }">
+        <GlowButton
+          :to="to"
+          :target="target"
+          class="px-6 sm:px-[3.25rem]"
+          >{{ label }}</GlowButton
+        >
+      </template>
+    </LazyVisitorCta>
     <!-- <LazyMediaCoveragesSlider /> -->
     <!-- <LazyCredits class="container flex flex-col items-center text-center" /> -->
     <LazyBlogPostSlider

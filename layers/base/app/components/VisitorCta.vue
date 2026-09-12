@@ -94,13 +94,22 @@
             </p>
 
             <div class="xs:w-auto mt-6 flex w-full items-center gap-2">
-              <NuxtLink
+              <slot
+                name="cta"
                 :to="lp(content?.cta?.url || '#')"
                 :target="content?.cta?.url?.startsWith('http') ? '_blank' : ''"
-                class="bg-primary text-primary-foreground hover:bg-primary/80 xs:grow-0 rainbow-button flex grow items-center justify-center gap-x-1.5 rounded-xl px-5 py-3 text-base font-medium tracking-tight transition active:scale-95 sm:text-lg"
+                :label="content?.cta?.label"
               >
-                <span>{{ content?.cta?.label }}</span>
-              </NuxtLink>
+                <NuxtLink
+                  :to="lp(content?.cta?.url || '#')"
+                  :target="
+                    content?.cta?.url?.startsWith('http') ? '_blank' : ''
+                  "
+                  class="bg-primary text-primary-foreground hover:bg-primary/80 xs:grow-0 rainbow-button flex grow items-center justify-center gap-x-1.5 rounded-xl px-5 py-3 text-base font-medium tracking-tight transition active:scale-95 sm:text-lg"
+                >
+                  <span>{{ content?.cta?.label }}</span>
+                </NuxtLink>
+              </slot>
             </div>
           </div>
         </div>
