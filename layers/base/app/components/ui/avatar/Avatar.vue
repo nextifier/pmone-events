@@ -11,16 +11,27 @@
     :style="gradientFrame ? { '--avatar-r': radiusValue } : undefined"
   >
     <div
-      :style="
-        !model?.profile_image && effectiveColorful && !gradientFrame ? meshGradientStyle : undefined
-      "
+      :style="fallbackStyle"
       :class="[
-        'outline-inside @container relative flex aspect-square shrink-0 items-center justify-center text-center',
+        '@container relative flex aspect-square shrink-0 items-center justify-center text-center',
+        fallbackVariant === 'gel' ? '' : 'outline-inside',
         !model?.profile_image && (!effectiveColorful || gradientFrame) ? 'bg-muted' : '',
         gradientFrame ? 'ring-background bg-background z-10 ring-2' : '',
         effectiveRounded,
       ]"
     >
+      <template v-if="gelLayers">
+        <span
+          aria-hidden="true"
+          class="absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0.8cqw_0.8cqw_oklch(1_0_0/0.25)] [corner-shape:inherit] dark:shadow-[inset_0_0_0.8cqw_0.8cqw_oklch(1_0_0/0.1)]"
+          :style="gelLayers.fill"
+        />
+        <span
+          aria-hidden="true"
+          class="absolute inset-0 rounded-[inherit] opacity-95 [corner-shape:inherit] dark:opacity-40"
+          :style="gelLayers.rim"
+        />
+      </template>
       <img
         v-if="model?.profile_image"
         :src="model.profile_image[size] || model.profile_image.sm"
@@ -33,12 +44,7 @@
       />
       <span
         v-else
-        :class="[
-          'initial text-[45cqw] tracking-tight select-none',
-          effectiveColorful && !gradientFrame
-            ? 'font-medium text-white'
-            : 'text-muted-foreground font-light',
-        ]"
+        :class="['initial relative text-[45cqw] tracking-tight select-none', initialsClass]"
       >
         {{
           (() => {
@@ -66,6 +72,7 @@
 
 <script setup>
 import { computed, inject } from "vue";
+import { AVATAR_VARIANTS, avatarGelLayers, avatarHue, avatarMeshGradient } from "./colors";
 
 const props = defineProps({
   model: Object,
@@ -86,6 +93,17 @@ const props = defineProps({
   colorful: {
     type: Boolean,
     default: true,
+  },
+  /** Look of the initials fallback: "gel" (the default) or "mesh". */
+  variant: {
+    type: String,
+    default: "gel",
+    validator: (v) => AVATAR_VARIANTS.includes(v),
+  },
+  /** Pins the fallback hue (0-359) instead of deriving it from the name. */
+  hue: {
+    type: Number,
+    default: null,
   },
   gradientFrame: {
     type: Boolean,
@@ -120,6 +138,8 @@ const effectiveColorful = computed(() =>
     : props.colorful
 );
 
+const effectiveVariant = computed(() => avatarGroupContext?.variant ?? props.variant);
+
 const effectiveRounded = computed(() => {
   if (props.circle || avatarGroupContext?.circle) return "rounded-full";
   return props.rounded;
@@ -140,24 +160,26 @@ const radiusValue = computed(() => {
   return `var(--radius${suffix})`;
 });
 
-const hue = computed(() => {
-  const name = props.model?.name || "";
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return Math.abs(hash) % 360;
-});
+/** The variant painting the fallback, or null when an image, a frame or `colorful=false` wins. */
+const fallbackVariant = computed(() =>
+  !props.model?.profile_image && effectiveColorful.value && !props.gradientFrame
+    ? effectiveVariant.value
+    : null
+);
 
-const meshGradientStyle = computed(() => {
-  const h = hue.value;
-  return {
-    background: [
-      `radial-gradient(at 15% 15%, oklch(0.78 0.26 ${h}) 0%, transparent 50%)`,
-      `radial-gradient(at 85% 80%, oklch(0.52 0.28 ${(h + 30) % 360}) 0%, transparent 50%)`,
-      `radial-gradient(at 60% 40%, oklch(0.65 0.3 ${(h + 12) % 360}) 0%, transparent 55%)`,
-      `oklch(0.45 0.2 ${(h + 18) % 360})`,
-    ].join(", "),
-  };
+const hue = computed(() => props.hue ?? avatarHue(props.model?.name || ""));
+
+const fallbackStyle = computed(() =>
+  fallbackVariant.value === "mesh" ? { background: avatarMeshGradient(hue.value) } : undefined
+);
+
+const gelLayers = computed(() =>
+  fallbackVariant.value === "gel" ? avatarGelLayers(hue.value) : null
+);
+
+/** Initials on a coloured fallback are always white; colors.ts darkens tiles that need it. */
+const initialsClass = computed(() => {
+  if (!effectiveColorful.value || props.gradientFrame) return "text-muted-foreground font-light";
+  return "font-medium text-[oklch(1_0_0)]";
 });
 </script>

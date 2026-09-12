@@ -63,6 +63,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends AvatarModel = AvatarModel">
+import type { AvatarVariant } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "vue";
 import { computed, provide } from "vue";
@@ -83,6 +84,8 @@ interface AvatarGroupProps {
   max?: number;
   firstOnTop?: boolean;
   colorful?: boolean;
+  /** Fallback look for every avatar in the group; each keeps its own when unset. */
+  variant?: AvatarVariant;
   showTooltip?: boolean;
   label?: string;
   class?: HTMLAttributes["class"];
@@ -109,6 +112,9 @@ provide("avatarGroupContext", {
   },
   get colorful() {
     return props.colorful;
+  },
+  get variant() {
+    return props.variant;
   },
 });
 
@@ -166,13 +172,13 @@ const styleVars = computed(() => ({
 .avatar-group:not(.avatar-group-first-on-top) > :deep(*:not(:last-child)) {
   -webkit-mask-image: radial-gradient(
     circle calc(var(--avatar-size) / 2 + var(--avatar-gap)) at var(--_mask-x) 50%,
-    transparent 99%,
-    #000 100%
+    oklch(0 0 0 / 0) 99%,
+    oklch(0 0 0) 100%
   );
   mask-image: radial-gradient(
     circle calc(var(--avatar-size) / 2 + var(--avatar-gap)) at var(--_mask-x) 50%,
-    transparent 99%,
-    #000 100%
+    oklch(0 0 0 / 0) 99%,
+    oklch(0 0 0) 100%
   );
 }
 </style>
