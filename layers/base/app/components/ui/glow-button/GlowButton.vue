@@ -342,7 +342,13 @@ onBeforeUnmount(() => {
  * With `color` unset the roles hold the `colorVariant` stops as tuned (ember is
  * the original, untouched); with it set, the same roles are derived from
  * `color` and `highlight`.
+ *
+ * The order statement repeats Tailwind's. A layer ranks where its name first
+ * appears, and in dev this block can load before the Tailwind entry: without
+ * it, components would rank below base and the reset would win.
  */
+@layer theme, base, components, utilities;
+
 @layer components {
   :where([data-slot="glow-button"]) {
     --glow-button-deep: #cd3100;

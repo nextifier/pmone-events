@@ -1,11 +1,11 @@
 /**
  * Colours for Avatar's initials fallback, all written in OKLCH. A name becomes
- * one hue, and each variant turns that hue into CSS: `gel` (the default) and
- * `mesh`. The initials are always white, so a colourway too light for them is
+ * one hue, and each variant turns that hue into CSS: `mesh` (the default) and
+ * `gel`. The initials are always white, so a colourway too light for them is
  * darkened just enough to keep MIN_WHITE_CONTRAST.
  */
 
-export const AVATAR_VARIANTS = ["gel", "mesh"] as const;
+export const AVATAR_VARIANTS = ["mesh", "gel"] as const;
 
 export type AvatarVariant = (typeof AVATAR_VARIANTS)[number];
 

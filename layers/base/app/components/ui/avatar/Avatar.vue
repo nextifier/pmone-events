@@ -94,10 +94,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  /** Look of the initials fallback: "gel" (the default) or "mesh". */
+  /** Look of the initials fallback: "mesh" (the default) or "gel". */
   variant: {
     type: String,
-    default: "gel",
+    default: "mesh",
     validator: (v) => AVATAR_VARIANTS.includes(v),
   },
   /** Pins the fallback hue (0-359) instead of deriving it from the name. */

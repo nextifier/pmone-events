@@ -549,7 +549,7 @@ Padding default `p-6 md:p-12`. Container icon `bg-muted size-12 rounded-full`. B
 
 - Pakai `<Avatar>` untuk semua representasi entitas (user, brand, project, event, organisasi).
 - Fallback otomatis: inisial dari nama, warnanya dari hash nama.
-- Gaya fallback lewat prop `variant`: `gel` (default, tile gradient ala app icon dengan bingkai terang, paling pas dengan `rounded="rounded-[38%]"`) dan `mesh` (tiga blob radial di atas dasar gelap). Inisial selalu putih (`oklch(1 0 0)`); warna yang terlalu terang untuknya digelapkan secukupnya sampai kontras minimal 3:1. Semua warna fallback ditulis dalam OKLCH. Hue 64-120 (amber/oker dan olive/mustard) tidak pernah dipakai (`AVATAR_EXCLUDED_HUES` di `components/ui/avatar/colors.ts`). Prop `hue` mengunci warna tertentu.
+- Gaya fallback lewat prop `variant`: `mesh` (default, tiga blob radial di atas dasar gelap) dan `gel` (tile gradient ala app icon dengan bingkai terang, paling pas dengan `rounded="rounded-[38%]"`). Inisial selalu putih (`oklch(1 0 0)`); warna yang terlalu terang untuknya digelapkan secukupnya sampai kontras minimal 3:1. Semua warna fallback ditulis dalam OKLCH. Hue 64-120 (amber/oker dan olive/mustard) tidak pernah dipakai (`AVATAR_EXCLUDED_HUES` di `components/ui/avatar/colors.ts`). Prop `hue` mengunci warna tertentu.
 - Ukuran umum: `size-7` (breadcrumb), `size-8` (sidebar collapsed), `size-10` (sidebar normal), `size-12` (card header), `size-20` (profile page).
 - Bentuk: `rounded-full` default untuk user, `squircle` untuk brand / project / app icon, `rounded-lg` untuk thumbnail kotak.
 - Indicator status: prop `indicator="success|info|warning|destructive|primary"`.

@@ -38,18 +38,18 @@
         </p>
 
         <div class="mt-6 flex w-full flex-wrap items-center gap-3">
-          <AuroraButton
+          <!-- 44px on phones so both fit one row from 390px up -->
+          <GameButton
             :to="localePath('/tickets')"
-            color-variant="yellow"
-            :shadow="false"
-            >{{ $t("hero.ctaTicket") }}</AuroraButton
+            class="max-sm:[--game-button-h:2.75rem]"
+            >{{ $t("hero.ctaTicket") }}</GameButton
           >
 
-          <AuroraButton
+          <GameButton
             :to="localePath('/book-space')"
             color-variant="muted"
-            :shadow="false"
-            >{{ $t("hero.ctaExhibit") }}</AuroraButton
+            class="max-sm:[--game-button-h:2.75rem]"
+            >{{ $t("hero.ctaExhibit") }}</GameButton
           >
         </div>
       </div>

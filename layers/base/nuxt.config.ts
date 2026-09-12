@@ -223,6 +223,17 @@ export default defineNuxtConfig({
         weight: "400 1000",
         display: "swap",
       },
+      // GameButton's label, self-hosted (Rubik 800, latin): @nuxt/fonts only
+      // honours `display` for local files, and `optional` is what keeps a late
+      // file from reflowing the button. Preloaded wherever the button renders;
+      // a visit that misses it keeps the metric-matched fallback.
+      {
+        name: "Rubik",
+        src: "/fonts/Rubik-ExtraBold-latin.woff2",
+        weight: "800",
+        display: "optional",
+        preload: true,
+      },
     ],
   },
 
