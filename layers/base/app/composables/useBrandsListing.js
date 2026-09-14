@@ -1,5 +1,5 @@
 import { markRaw, ref, computed, unref } from "vue";
-import { refDebounced } from "@vueuse/core";
+import { watchDebounced } from "@vueuse/core";
 import {
   VALID_VIEW_MODES,
   boothSortValue,
@@ -30,8 +30,18 @@ export const useBrandsListing = (opts = {}) => {
   const editionValue = computed(() => unref(edition));
 
   // ----- Search & filter state -----
+  // The debounced copy is a ref this composable owns, not refDebounced():
+  // that one is read-only, and clearFilters() has to empty it on the spot
+  // instead of leaving the old results up for another 300ms.
   const searchInput = ref("");
-  const debouncedSearchInput = refDebounced(searchInput, 300);
+  const debouncedSearchInput = ref("");
+  watchDebounced(
+    searchInput,
+    (value) => {
+      debouncedSearchInput.value = value;
+    },
+    { debounce: 300 },
+  );
   const selectedCategories = ref([]);
   const selectedEvents = ref([]);
 
@@ -58,6 +68,21 @@ export const useBrandsListing = (opts = {}) => {
   const totalActiveFilters = computed(
     () => selectedCategories.value.length + selectedEvents.value.length,
   );
+
+  // Reads the debounced keyword, the one filterBrands() applies, so "Clear
+  // filters" and the no-results state always describe the list on screen.
+  const hasActiveFilters = computed(
+    () =>
+      totalActiveFilters.value > 0 ||
+      Boolean(debouncedSearchInput.value?.trim()),
+  );
+
+  const clearFilters = () => {
+    selectedCategories.value = [];
+    selectedEvents.value = [];
+    searchInput.value = "";
+    debouncedSearchInput.value = "";
+  };
 
   // ----- View mode (cookie-persisted) -----
   const viewModeCookie = useCookie("brands-view-mode", {
@@ -261,7 +286,10 @@ export const useBrandsListing = (opts = {}) => {
   // ----- Pure filter & sort -----
   const filterBrands = (brands) => {
     if (!brands?.length) return brands;
-    const search = debouncedSearchInput.value?.toLowerCase() || "";
+    // Trimmed so a keyword of only spaces counts as no search, the same way
+    // hasActiveFilters sees it. Otherwise it could empty the list with no
+    // no-results state to explain why.
+    const search = debouncedSearchInput.value?.trim().toLowerCase() || "";
     const normalizedSearch = search.replace(/[^\w\s]/gi, "").replace(/\s/g, "");
     const cats = selectedCategories.value;
     const events = selectedEvents.value;
@@ -378,6 +406,8 @@ export const useBrandsListing = (opts = {}) => {
     totalActiveFilters,
     toggleCategoryFilter,
     toggleEventFilter,
+    hasActiveFilters,
+    clearFilters,
 
     // edition
     editions,

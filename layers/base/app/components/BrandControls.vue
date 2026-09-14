@@ -49,9 +49,11 @@
               class="text-muted-foreground size-4 shrink-0"
             />
             <span class="hidden sm:inline">Filter</span>
+            <!-- z-10: the Sort button after this one is also relative with
+                 z-index auto, so DOM order would paint it over the badge. -->
             <span
               v-if="totalActiveFilters > 0"
-              class="bg-primary text-primary-foreground absolute -top-1.5 -right-1.5 inline-flex size-5 items-center justify-center rounded-full text-[11px] font-medium tracking-tight"
+              class="bg-primary text-primary-foreground absolute -top-1.5 -right-1.5 z-10 inline-flex size-5 items-center justify-center rounded-full text-[11px] font-medium tracking-tight"
             >
               {{ totalActiveFilters }}
             </span>

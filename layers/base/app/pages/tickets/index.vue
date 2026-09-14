@@ -643,12 +643,15 @@ const scrollToTabsRootTop = async (event, newActiveTabValue) => {
   const el = tabsRootRef.value?.$el;
   if (!el) return;
 
-  // Tab Brands memuat konten secara async sehingga tinggi dokumen melonjak. Bila
-  // smooth-scroll berjalan saat itu, animasinya terganggu reflow lalu overshoot
-  // dan berhenti tidak di atas tab. Maka khusus Brands: tunggu sampai tinggi
-  // dokumen BENAR-BENAR stabil (lewati fase skeleton pra-data yang sempat
-  // "stabil"), baru smooth-scroll SEKALI. Tab lain langsung smooth-scroll.
-  if (typeof window !== "undefined" && activeTab.value === "brands") {
+  // Brands and Guests both fetch client-side, so the document keeps growing
+  // after the tab opens, and a smooth scroll started during that reflow
+  // overshoots and stops away from the tabs. For those two, wait until the
+  // height has really settled (past the pre-data skeleton, which also looks
+  // stable for a moment), then scroll once. Other tabs scroll straight away.
+  if (
+    typeof window !== "undefined" &&
+    (activeTab.value === "brands" || activeTab.value === "guests")
+  ) {
     let lastHeight = -1;
     let stableTicks = 0;
     const start = Date.now();

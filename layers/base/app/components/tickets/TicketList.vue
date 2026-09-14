@@ -520,18 +520,44 @@ function focusDay(ticket, dayId) {
 }
 
 // Price stays a price: the live phase price when on sale, otherwise a muted
-// preview of the upcoming phase. Status words ("Coming soon"/"Sold out") never
-// appear here - they live on the action button instead.
+// preview of the upcoming phase, or the price of a phase that just sold out.
+// Status words ("Coming soon"/"Sold out") never appear here - they live on the
+// action button instead.
 function priceLabel(ticket) {
-  const price = ticket.on_sale ? ticket.price : ticket.display_price;
+  const price = effectivePrice(ticket);
   if (price == null) return "";
   return price > 0 ? fmtIdr(price) : t("tickets.free");
 }
 
 /** The price the card is currently showing, as a number. Null when unpriced. */
 function effectivePrice(ticket) {
+  if (phaseSoldOut(ticket)) return Number(ticket.sold_out_phase_price);
   const price = ticket.on_sale ? ticket.price : ticket.display_price;
   return price == null ? null : Number(price);
+}
+
+/**
+ * A phase sold out while a later one has yet to open ("Pre-sale" gone, "Normal
+ * Registration" tomorrow). The card keeps the price that sold out, strikes the
+ * next phase's price and names the phase that ran out, instead of counting
+ * down to a phase it would otherwise read as sold out too.
+ */
+function phaseSoldOut(ticket) {
+  return (
+    Boolean(ticket.sold_out_phase_label) &&
+    ticket.sold_out_phase_price != null &&
+    !ticket.is_sold_out
+  );
+}
+
+/**
+ * The price struck through beside the shown one: the API's full price while a
+ * cheaper phase is selling, or the next phase's price after one sold out.
+ */
+function struckPrice(ticket) {
+  if (!phaseSoldOut(ticket)) return ticket.original_price ?? null;
+  const next = Number(ticket.display_price);
+  return next > effectivePrice(ticket) ? next : null;
 }
 
 function isFreeNow(ticket) {
@@ -604,8 +630,33 @@ async function onPhaseBoundary() {
   await attempt();
 }
 
+// While a phase is sold out the countdown to the next one is not on screen, so
+// nothing would flip the card when that phase opens. One timer, at the earliest
+// such start, does what the countdown's @complete does.
+let soldOutPhaseTimer = null;
+
+watch(
+  () =>
+    tickets.value
+      .filter(phaseSoldOut)
+      .map((tk) => tk.sales_starts_at)
+      .filter(Boolean)
+      .sort()[0] ?? null,
+  (next) => {
+    if (soldOutPhaseTimer) clearTimeout(soldOutPhaseTimer);
+    soldOutPhaseTimer = null;
+    if (!next || !import.meta.client) return;
+    const ms = new Date(next).getTime() - Date.now();
+    // setTimeout overflows past ~24.8 days; a tab open that long reloads anyway.
+    if (ms <= 0 || ms > 2_000_000_000) return;
+    soldOutPhaseTimer = setTimeout(onPhaseBoundary, ms + 1000);
+  },
+  { immediate: true },
+);
+
 onBeforeUnmount(() => {
   if (boundaryTimer) clearTimeout(boundaryTimer);
+  if (soldOutPhaseTimer) clearTimeout(soldOutPhaseTimer);
 });
 
 // Single source of truth for the unavailable state, shared by the label, icon,
@@ -617,6 +668,9 @@ function unavailableState(ticket) {
   // A day-required ticket with no valid days cannot be bought on any day, which
   // reads to a buyer exactly like stock having run out.
   if (dayless(ticket)) return "sold_out";
+  // A phase sold out and the next one not open yet: sold out for now, and the
+  // line under the title says which phase ran out.
+  if (phaseSoldOut(ticket)) return "sold_out";
   if (ticket.sales_status === "upcoming") return "coming_soon";
   return eventStatus.value === "completed" ? "sales_ended" : "coming_soon";
 }
@@ -631,16 +685,24 @@ function unavailableLabel(ticket) {
 
 function onUnavailableClick(ticket) {
   const state = unavailableState(ticket);
+  // Only an upcoming sale phase carries a known start date; an event that just
+  // hasn't opened sales yet falls back to the generic "not started" message.
+  const when = ticket.sales_starts_at
+    ? $dayjs(ticket.sales_starts_at).format("MMMM D, YYYY")
+    : null;
   if (state === "sold_out") {
+    // A sold-out phase is not the end of the sale: say when the next one opens.
+    if (phaseSoldOut(ticket) && !soldOut(ticket)) {
+      const lead = phaseSoldOutText(ticket, "toast");
+      toast.error(
+        when ? `${lead} ${t("tickets.comingSoonToastDated", { date: when })}` : lead,
+      );
+      return;
+    }
     toast.error(t("tickets.soldOutToast"));
     return;
   }
   if (state === "coming_soon") {
-    // Only an upcoming sale phase carries a known start date; an event that just
-    // hasn't opened sales yet falls back to the generic "not started" message.
-    const when = ticket.sales_starts_at
-      ? $dayjs(ticket.sales_starts_at).format("MMMM D, YYYY")
-      : null;
     toast.info(
       when
         ? t("tickets.comingSoonToastDated", { date: when })
@@ -675,6 +737,20 @@ function phasePrefix(ticket, mode) {
     );
   }
   return t(mode === "start" ? "tickets.salesStartsIn" : "tickets.salesEndsIn");
+}
+
+// Names the phase that ran out, in place of the countdown ("Pre-sale tickets
+// sold out") and in the toast. A generic label ("Normal", "Regular") would read
+// oddly there, so it falls back to the plain sold-out copy.
+function phaseSoldOutText(ticket, variant = "label") {
+  const label = (ticket.sold_out_phase_label || "").trim();
+  if (!label || GENERIC_PHASE_LABELS.has(label.toLowerCase())) {
+    return t(variant === "toast" ? "tickets.soldOutToast" : "tickets.soldOut");
+  }
+  return t(
+    variant === "toast" ? "tickets.phaseSoldOutToast" : "tickets.phaseSoldOut",
+    { phase: label },
+  );
 }
 
 // Navigation to checkout moved to TicketCartBarHost, which owns the one bar that
@@ -963,8 +1039,17 @@ const ticketsById = computed(() => {
                        HH:MM:SS digits (Countdown.vue) keeps the per-second width
                        constant, so the line never flips between one and two lines
                        as the seconds tick. -->
+                  <!-- A phase sold out and the next not open yet: name the
+                       phase that ran out instead of counting down, so the card
+                       never reads as the next phase being sold out too. -->
+                  <p
+                    v-if="phaseSoldOut(ticket)"
+                    class="text-muted-foreground text-sm tracking-tight"
+                  >
+                    {{ phaseSoldOutText(ticket) }}
+                  </p>
                   <Countdown
-                    v-if="ticket.sales_starts_at"
+                    v-else-if="ticket.sales_starts_at"
                     variant="no-style"
                     class="text-muted-foreground text-sm tracking-tight"
                     :text-before-countdown="phasePrefix(ticket, 'start')"
@@ -1147,12 +1232,13 @@ const ticketsById = computed(() => {
                     <!-- The full price this ticket eventually sells at. The API
                        sends it only while the current phase is actually cheaper,
                        so a pre-sale price reads as the discount it is instead of
-                       as the only price there has ever been. -->
+                       as the only price there has ever been. After a phase sells
+                       out it is the next phase's price instead. -->
                     <span
-                      v-if="ticket.original_price"
+                      v-if="struckPrice(ticket)"
                       class="text-destructive-foreground min-w-0 truncate text-sm tracking-tight tabular-nums line-through"
                     >
-                      {{ fmtIdr(ticket.original_price) }}
+                      {{ fmtIdr(struckPrice(ticket)) }}
                     </span>
                   </div>
                   <p
@@ -1179,14 +1265,17 @@ const ticketsById = computed(() => {
                   <!-- External purchase. Gated on the sale window like every
                        other buy control: this branch sits ABOVE the unavailable
                        one, so without saleOpen() a ticket whose phase had not
-                       opened yet still linked out. rel="noopener" is not
-                       optional - target="_blank" alone hands a third-party
-                       platform this page's window.opener. -->
+                       opened yet still linked out. soldOut() likewise: an
+                       organizer's manual sold-out flag has to fall through to
+                       the Sold out button, not keep the buy link.
+                       rel="noopener" is not optional - target="_blank" alone
+                       hands a third-party platform this page's window.opener. -->
                   <Button
                     v-else-if="
                       ticket.purchase_type === 'external' &&
                       ticket.external_url &&
-                      saleOpen(ticket)
+                      saleOpen(ticket) &&
+                      !soldOut(ticket)
                     "
                     as-child
                     size="sm"
@@ -1220,6 +1309,10 @@ const ticketsById = computed(() => {
                     v-else
                     variant="secondary"
                     size="sm"
+                    :class="
+                      unavailableState(ticket) === 'sold_out' &&
+                      'border-destructive-foreground/20 bg-destructive/10 text-destructive-foreground hover:bg-destructive/15'
+                    "
                     @click="onUnavailableClick(ticket)"
                   >
                     <Icon
@@ -1323,8 +1416,17 @@ const ticketsById = computed(() => {
                        HH:MM:SS digits (Countdown.vue) keeps the per-second width
                        constant, so the line never flips between one and two lines
                        as the seconds tick. -->
+                  <!-- A phase sold out and the next not open yet: name the
+                       phase that ran out instead of counting down, so the card
+                       never reads as the next phase being sold out too. -->
+                  <p
+                    v-if="phaseSoldOut(ticket)"
+                    class="text-muted-foreground text-sm tracking-tight"
+                  >
+                    {{ phaseSoldOutText(ticket) }}
+                  </p>
                   <Countdown
-                    v-if="ticket.sales_starts_at"
+                    v-else-if="ticket.sales_starts_at"
                     variant="no-style"
                     class="text-muted-foreground text-sm tracking-tight"
                     :text-before-countdown="phasePrefix(ticket, 'start')"
@@ -1437,12 +1539,13 @@ const ticketsById = computed(() => {
                     <!-- The full price this ticket eventually sells at. The API
                        sends it only while the current phase is actually cheaper,
                        so a pre-sale price reads as the discount it is instead of
-                       as the only price there has ever been. -->
+                       as the only price there has ever been. After a phase sells
+                       out it is the next phase's price instead. -->
                     <span
-                      v-if="ticket.original_price"
+                      v-if="struckPrice(ticket)"
                       class="text-destructive-foreground min-w-0 truncate text-sm tracking-tight tabular-nums line-through"
                     >
-                      {{ fmtIdr(ticket.original_price) }}
+                      {{ fmtIdr(struckPrice(ticket)) }}
                     </span>
                   </div>
                   <p
@@ -1469,7 +1572,8 @@ const ticketsById = computed(() => {
                     v-else-if="
                       ticket.purchase_type === 'external' &&
                       ticket.external_url &&
-                      saleOpen(ticket)
+                      saleOpen(ticket) &&
+                      !soldOut(ticket)
                     "
                     as-child
                     size="sm"
@@ -1506,6 +1610,10 @@ const ticketsById = computed(() => {
                     v-else
                     variant="secondary"
                     size="sm"
+                    :class="
+                      unavailableState(ticket) === 'sold_out' &&
+                      'border-destructive-foreground/20 bg-destructive/10 text-destructive-foreground hover:bg-destructive/15'
+                    "
                     @click="onUnavailableClick(ticket)"
                   >
                     <Icon

@@ -102,6 +102,34 @@
         <span>{{ t("tickets.attendee.goToDashboard") }}…</span>
       </div>
 
+      <!-- The one-tap button in the ticket email works for 30 days. Past that it
+           lands here, and the holder is emailed a fresh link rather than sent to
+           a login form asking for a password they never set. -->
+      <div v-else-if="signInExpired" class="frame">
+        <div class="frame-header">
+          <div class="frame-title">{{ t("tickets.attendee.signInExpiredTitle") }}</div>
+        </div>
+        <div class="frame-panel">
+          <div class="space-y-3">
+            <p class="text-muted-foreground text-sm tracking-tight text-pretty wrap-break-word">
+              {{
+                signInLinkSent
+                  ? t("tickets.attendee.signInLinkSent", { email: attendee?.email })
+                  : t("tickets.attendee.signInExpiredNote")
+              }}
+            </p>
+            <Button
+              v-if="!signInLinkSent"
+              type="button"
+              :loading="sendingSignInLink"
+              @click="emailSignInLink"
+            >
+              {{ t("tickets.attendee.emailNewSignInLink") }}
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <!-- The ticket owns the page, so what follows it is one block of
            secondary detail rather than peers spaced like the ticket itself.
            `space-y-3` inside, the page's `space-y-6` outside: the gap is what
@@ -408,6 +436,11 @@ async function saveRegistration() {
 
 const dashboardLoading = ref(false);
 const signingIn = ref(false);
+// The email's one-tap token is genuine but past its 30 days. The holder gets a
+// fresh link by email instead of being sent to a login form.
+const signInExpired = ref(false);
+const signInLinkSent = ref(false);
+const sendingSignInLink = ref(false);
 
 async function goToDashboard(token) {
   if (dashboardLoading.value) return;
@@ -423,9 +456,37 @@ async function goToDashboard(token) {
     }
     toast.error(t("tickets.attendee.dashboardError"));
   } catch (err) {
+    // The Nitro adapter may surface the PM One body directly or nested under
+    // `data` (same as TicketList.vue).
+    const code = err?.data?.error_code ?? err?.data?.data?.error_code;
+    if (code === "LOGIN_TOKEN_EXPIRED") {
+      signInExpired.value = true;
+      return;
+    }
     toast.error(err?.data?.message || t("tickets.attendee.dashboardError"));
   } finally {
     dashboardLoading.value = false;
+  }
+}
+
+async function emailSignInLink() {
+  if (sendingSignInLink.value) return;
+  sendingSignInLink.value = true;
+  try {
+    await $fetch(`/api/tickets/attendees/${ulid.value}/sign-in-link`, {
+      method: "POST",
+      body: { token: loginToken.value },
+    });
+    signInLinkSent.value = true;
+  } catch (err) {
+    // A link already went out a moment ago, so the inbox is still the answer.
+    if ((err?.statusCode ?? err?.status) === 429) {
+      signInLinkSent.value = true;
+      return;
+    }
+    toast.error(err?.data?.message || t("tickets.attendee.signInLinkError"));
+  } finally {
+    sendingSignInLink.value = false;
   }
 }
 

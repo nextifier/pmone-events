@@ -157,7 +157,17 @@ export function minFor(ticket) {
   return Math.max(1, Number(ticket?.min_quantity) || 1);
 }
 
+/**
+ * True when the ticket cannot be bought for lack of stock.
+ *
+ * `is_sold_out` means every phase still to come is sold out, whether the
+ * organizer flagged it (the only way for a ticket sold on another platform,
+ * whose stock lives there) or its quota ran out. A phase that sold out with a
+ * later one still ahead is not this: the API names it in
+ * `sold_out_phase_label` and the card counts down to the next phase instead.
+ */
 export function soldOut(ticket) {
+  if (ticket?.is_sold_out === true) return true;
   return ticket?.available != null && ticket.available <= 0;
 }
 

@@ -2,7 +2,12 @@
   <section id="guests">
     <div class="container mx-auto">
       <div class="flex flex-col items-center text-center">
-        <h1 class="section-title">{{ pageTitle }}</h1>
+        <!-- h1 only on /guests and /speakers. Embedded on /tickets or the home
+             page it sits below that page's own h1, so it steps down to h2 and
+             keeps the same look. -->
+        <component :is="isGuestsPage ? 'h1' : 'h2'" class="section-title">
+          {{ pageTitle }}
+        </component>
         <p
           v-if="pageDescription"
           class="mt-3 max-w-2xl text-base tracking-tight text-pretty sm:text-lg"

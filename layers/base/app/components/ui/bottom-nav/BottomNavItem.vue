@@ -53,6 +53,11 @@ const labelPlacement = computed(
 
 const isExternal = computed(() => props.to?.startsWith("http"));
 
+/** The route is the page `to` names, not a page under it, so following the link goes nowhere. */
+const isOnTarget = computed(
+  () => Boolean(props.to) && (route.path === props.to || route.path === `${props.to}/`),
+);
+
 const isActive = computed(() => {
   if (props.active === true) {
     return true;
@@ -64,7 +69,7 @@ const isActive = computed(() => {
     return false;
   }
   if (props.exact || props.to === "/") {
-    return route.path === props.to || route.path === `${props.to}/`;
+    return isOnTarget.value;
   }
   return route.path.startsWith(props.to);
 });
@@ -163,7 +168,15 @@ const iconSwapClass =
 const iconShownClass = "scale-100 opacity-100 blur-none";
 const iconHiddenClass = "scale-(--icon-swap-start-scale) opacity-0 blur-(--icon-swap-blur)";
 
+/**
+ * A tap on the item that is already active, with nowhere to navigate, asks
+ * BottomNav to scroll back to the top. A link whose page sits above the
+ * current one still navigates there first.
+ */
 function handleSelect(): void {
+  if (isActive.value && (!props.to || isOnTarget.value)) {
+    ctx?.reselect();
+  }
   if (props.value !== undefined) {
     ctx?.select(props.value);
   }

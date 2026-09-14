@@ -26,6 +26,9 @@ const settings = {
   tiktokPixelId: "",
   metaPixelId: "1960927311261132",
   gtmId: "",
+  // Guests tab on /tickets, as on inacon. app.config deep-merges, so the other
+  // tabs keep the base defaults.
+  ticket: { tabs: { showGuests: true } },
   // Reverted from the PM One dashboard — see docs/website-settings-export.json.
   bookSpaceForm: {},
 };

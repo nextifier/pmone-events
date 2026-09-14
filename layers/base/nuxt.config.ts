@@ -13,10 +13,11 @@ function apiUrlDefault(): string {
   // Production has no default here on purpose. This layer serves sites for
   // more than one instance, and a baked-in host would send a new client's site
   // to the wrong backend without any error: the build would succeed and every
-  // request would 401. Each app names its instance's API in its own
-  // nuxt.config.ts (runtimeConfig.public.apiUrl), the build environment may
-  // still override it with NUXT_PUBLIC_API_URL, and modules/static-pages.ts
-  // refuses to build when neither is set.
+  // request would 401. Each app names its instance's API (and its siteUrl) in
+  // the `$production` block of its own nuxt.config.ts, so `nuxt dev` keeps the
+  // local default below; the build environment may still override it with
+  // NUXT_PUBLIC_API_URL, and modules/static-pages.ts refuses to build when
+  // neither is set.
   if (process.env.NODE_ENV === "production") {
     return "";
   }

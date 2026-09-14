@@ -15,6 +15,8 @@ export interface BottomNavContext {
   labelPlacement: ComputedRef<BottomNavLabelPlacement>;
   selectedValue: ComputedRef<string | number | undefined>;
   select: (value: string | number | undefined) => void;
+  /** A tap on the item that is already active: scroll the content back to the top. */
+  reselect: () => void;
 }
 
 export const BOTTOM_NAV_CONTEXT: InjectionKey<BottomNavContext> =

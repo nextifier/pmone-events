@@ -58,6 +58,9 @@
         :get-conjunction-img="getConjunctionImg"
         :get-conjunction-brands-url="getConjunctionBrandsUrl"
         :show-project-column="showProjectColumn"
+        :has-active-filters="hasActiveFilters"
+        :total-active-filters="totalActiveFilters"
+        @clear-filters="clearFilters()"
       />
     </div>
   </div>
@@ -84,6 +87,8 @@ const {
   selectedCategories,
   selectedEvents,
   totalActiveFilters,
+  hasActiveFilters,
+  clearFilters,
   toggleCategoryFilter,
   toggleEventFilter,
   brandBasePath,

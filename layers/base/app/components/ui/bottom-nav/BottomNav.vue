@@ -67,6 +67,7 @@ provide(BOTTOM_NAV_CONTEXT, {
       emit("update:modelValue", value);
     }
   },
+  reselect: scrollToTop,
 });
 
 const route = useRoute();
@@ -318,17 +319,12 @@ onBeforeUnmount(() => {
 });
 
 /**
- * hideOnScroll. Resolve the scroll source: explicit scrollTarget (element or
- * selector) wins, otherwise the window. Works in every position so a bar
- * inside a container can follow that container's scroll.
+ * The scroll the bar follows: explicit scrollTarget (element or selector)
+ * wins, otherwise the window. Works in every position so a bar inside a
+ * container can follow that container's scroll.
  */
-const resolvedScrollSource = ref<HTMLElement | Window | null>(null);
-
-function resolveScrollSource(): HTMLElement | Window | null {
+function resolveScrollTarget(): HTMLElement | Window | null {
   if (typeof window === "undefined") {
-    return null;
-  }
-  if (!props.hideOnScroll) {
     return null;
   }
   const target = props.scrollTarget;
@@ -339,6 +335,29 @@ function resolveScrollSource(): HTMLElement | Window | null {
     return target;
   }
   return window;
+}
+
+/**
+ * A tap on the item that is already active scrolls the content back to the
+ * top, as phone tab bars do. Without scrollTarget only a fixed bar knows its
+ * content, the page. An absolute or static bar would scroll a window it does
+ * not sit over, so it stays put.
+ */
+function scrollToTop(): void {
+  if (!props.scrollTarget && props.position !== "fixed") {
+    return;
+  }
+  resolveScrollTarget()?.scrollTo({
+    top: 0,
+    behavior: prefersReducedMotion() ? "instant" : "smooth",
+  });
+}
+
+/** hideOnScroll listens to the same scroll. */
+const resolvedScrollSource = ref<HTMLElement | Window | null>(null);
+
+function resolveScrollSource(): HTMLElement | Window | null {
+  return props.hideOnScroll ? resolveScrollTarget() : null;
 }
 
 const isHidden = ref(false);

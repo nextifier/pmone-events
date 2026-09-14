@@ -356,30 +356,37 @@
 
               <template v-else-if="table.getRowModel().rows?.length">
                 <template v-for="row in table.getRowModel().rows" :key="row.id">
-                  <TableRow
-                    data-drag-row
-                    :data-state="row.getIsSelected() && 'selected'"
-                    class="group tracking-tight"
-                  >
-                    <TableCell
-                      v-for="(cell, index) in row.getVisibleCells()"
-                      :key="cell.id"
-                      :style="cellWidth(cell.column)"
-                      :class="[
-                        'py-2.5',
-                        cell.column.id !== 'select' &&
-                        !isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
-                          ? 'no-scrollbar scroll-fade-x overflow-x-auto'
-                          : 'overflow-hidden',
-                        index === 0 && cell.column.id !== 'select' ? 'pl-4' : '',
-                        isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
-                          ? pinnedCellClass
-                          : '',
-                      ]"
+                  <!-- Every row is its own right-click trigger. It stays inert
+                       until a TableRowActions inside it registers, so a table
+                       without one keeps the browser's menu. The row holds the
+                       hover tint while its menu is open, the same way it does
+                       for the ellipsis (`has-aria-expanded` on TableRow). -->
+                  <TableRowContextMenu>
+                    <TableRow
+                      data-drag-row
+                      :data-state="row.getIsSelected() && 'selected'"
+                      class="group data-menu-open:bg-muted/50 tracking-tight"
                     >
-                      <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
-                    </TableCell>
-                  </TableRow>
+                      <TableCell
+                        v-for="(cell, index) in row.getVisibleCells()"
+                        :key="cell.id"
+                        :style="cellWidth(cell.column)"
+                        :class="[
+                          'py-2.5',
+                          cell.column.id !== 'select' &&
+                          !isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
+                            ? 'no-scrollbar scroll-fade-x overflow-x-auto'
+                            : 'overflow-hidden',
+                          index === 0 && cell.column.id !== 'select' ? 'pl-4' : '',
+                          isPinnedCell(cell.column.id, index, row.getVisibleCells().length)
+                            ? pinnedCellClass
+                            : '',
+                        ]"
+                      >
+                        <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+                      </TableCell>
+                    </TableRow>
+                  </TableRowContextMenu>
                   <Transition v-if="$slots['expanded-row']" name="t-acc">
                     <TableRow
                       v-if="row.getIsExpanded()"
@@ -546,6 +553,7 @@
 <script setup>
 import { Button } from "@/components/ui/button";
 import TableBulkAction from "@/components/ui/table-data/TableBulkAction.vue";
+import TableRowContextMenu from "@/components/ui/table-data/TableRowContextMenu.vue";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Empty,
@@ -1389,7 +1397,7 @@ const pinnedCellClass = computed(() => [
   // sticky cell with a positive z-index makes its own stacking context, so a
   // `-z-10` child lands between that opaque base and the content.
   "before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:content-['']",
-  "group-hover:before:bg-muted/50 group-data-[state=selected]:before:bg-muted",
+  "group-hover:before:bg-muted/50 group-data-menu-open:before:bg-muted/50 group-data-[state=selected]:before:bg-muted",
   pinDividerHidden.value ? "" : PIN_DIVIDER,
 ]);
 

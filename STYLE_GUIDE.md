@@ -474,8 +474,19 @@ Jangan pula membungkus isi dialog dalam `<form>` yang men-submit halaman di bela
 
 - Pakai `<TableData>` (`components/ui/table-data/`) untuk list page yang butuh search + filter + sort + pagination. Jangan rakit table dari nol kalau use case-nya cocok.
 - Untuk table statis sederhana: `<Table>` + `<TableHeader>` + `<TableRow>` + `<TableCell>`.
-- Row action: pakai `<DropdownMenu>` dengan trigger `<Button variant="ghost" size="iconSm">`.
-- Delete action di dropdown wajib buka `<ResponsiveDialog>` konfirmasi, tidak langsung delete.
+- Row action: pakai `<TableRowActions>` berisi `<TableRowActionsItem>` (`components/ui/table-data/`).
+  Item-nya ditulis sekali dan muncul di dua tempat: dropdown dari tombol ellipsis, dan
+  context menu waktu baris diklik kanan (long press di layar sentuh). `TableData` yang
+  menjadikan tiap baris trigger klik kanan, jadi jangan rakit `<Popover>` atau
+  `<DropdownMenu>` sendiri di kolom actions. Menu rakitan sendiri tidak ikut klik kanan.
+  - `to` = link internal, `href` + `target` = link luar, selain itu tombol dengan `@select`
+    (`onSelect` di render function). Opsi lain: `variant="destructive"`, `disabled`,
+    `loading`, slot `#icon` untuk ikon berwarna, dan `<TableRowActionsSeparator>`.
+  - Dialog tetap milik komponen RowActions, di luar `<TableRowActions>`. Kalau dialognya
+    di-mount malas, latch-nya pakai `@open`, yang terpicu dari ellipsis maupun klik kanan.
+  - Klik kanan mouse di link, field, atau teks yang sedang dipilih tetap memunculkan menu
+    browser (buka di tab baru, paste, copy).
+- Delete action di menu baris wajib buka `<ResponsiveDialog>` konfirmasi, tidak langsung delete.
 - Urutan manual: `draggable-rows`. `TableData` yang menyuntik kolom handle,
   mengikat SortableJS ke `tbody`, dan meng-emit `reorder` berisi
   `{ items, from, to }` - `items` array baru dalam urutan yang sekarang tampil.

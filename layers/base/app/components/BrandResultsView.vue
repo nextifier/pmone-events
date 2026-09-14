@@ -3,12 +3,26 @@
     <div class="flex items-end justify-between gap-x-2.5">
       <div
         v-if="!pending"
-        class="text-muted-foreground text-sm tracking-tight"
+        class="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1 text-sm tracking-tight"
       >
-        Showing {{ filteredBrands.length }} brand<span
-          v-if="filteredBrands.length !== 1"
-          >s</span
+        <span class="text-muted-foreground">
+          Showing {{ filteredBrands.length }} brand<span
+            v-if="filteredBrands.length !== 1"
+            >s</span
+          >
+        </span>
+        <!-- h-auto p-0 shrinks the button to the text line beside it, so the
+             row keeps its height when the action comes and goes. Touch still
+             gets the 44px hit area buttonVariants adds. -->
+        <Button
+          v-if="hasActiveFilters"
+          variant="link"
+          size="sm"
+          class="h-auto p-0"
+          @click="$emit('clear-filters')"
         >
+          Clear filters
+        </Button>
       </div>
       <Skeleton v-else class="h-4 w-36" />
 
@@ -61,11 +75,40 @@
         </template>
       </EmptyState>
 
+      <!-- ===================== NO MATCHES ===================== -->
+      <!-- One no-results state for all three views. allBrands is non-empty
+           here, so an empty list comes from the keyword, the category/event
+           filters, or both. The copy only names a keyword when there is one. -->
+      <Empty
+        v-else-if="hasActiveFilters && !filteredBrands?.length"
+        class="border-none"
+      >
+        <EmptyHeader>
+          <EmptyTitle
+            class="text-4xl font-semibold tracking-tighter sm:text-5xl"
+          >
+            <template v-if="searchKeyword">
+              No results found for
+              <span class="font-semibold italic">{{ searchKeyword }}.</span>
+            </template>
+            <template v-else>No results found.</template>
+          </EmptyTitle>
+          <EmptyDescription class="text-base tracking-tight sm:text-lg">
+            {{ noResultsHint }}
+          </EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent>
+          <Button variant="outline" size="sm" @click="$emit('clear-filters')">
+            Clear filters
+          </Button>
+        </EmptyContent>
+      </Empty>
+
       <!-- ===================== RESULTS ===================== -->
       <template v-else>
         <!-- ============ TABLE VIEW ============ -->
         <div v-if="viewMode === 'table'">
-          <ClientOnly v-if="filteredBrands?.length">
+          <ClientOnly>
             <BrandTableVirtual
               :data="filteredBrands"
               :columns="brandTableColumns"
@@ -82,45 +125,11 @@
               <BrandTableSkeleton />
             </template>
           </ClientOnly>
-          <Empty v-else class="border-none">
-            <EmptyHeader>
-              <EmptyTitle
-                class="text-4xl font-semibold tracking-tighter sm:text-5xl"
-              >
-                No results found for
-                <span class="font-semibold italic"
-                  >{{ debouncedSearchInput }}.</span
-                >
-              </EmptyTitle>
-              <EmptyDescription class="text-base tracking-tight sm:text-lg">
-                Maybe try a different keyword.
-              </EmptyDescription>
-            </EmptyHeader>
-          </Empty>
         </div>
 
         <!-- ============ GRID & CARD VIEW (virtualized) ============ -->
         <div v-else-if="viewMode === 'grid' || viewMode === 'card'">
-          <Empty
-            v-if="debouncedSearchInput && !filteredBrands?.length"
-            class="border-none"
-          >
-            <EmptyHeader>
-              <EmptyTitle
-                class="text-4xl font-semibold tracking-tighter sm:text-5xl"
-              >
-                No results found for
-                <span class="font-semibold italic"
-                  >{{ debouncedSearchInput }}.</span
-                >
-              </EmptyTitle>
-              <EmptyDescription class="text-base tracking-tight sm:text-lg">
-                Maybe try a different keyword.
-              </EmptyDescription>
-            </EmptyHeader>
-          </Empty>
-
-          <ClientOnly v-else>
+          <ClientOnly>
             <BrandVirtualList
               :variant="viewMode"
               :brand-groups="brandGroups"
@@ -158,7 +167,11 @@ const props = defineProps({
   getConjunctionImg: { type: Function, required: true },
   getConjunctionBrandsUrl: { type: Function, default: null },
   showProjectColumn: { type: Boolean, default: false },
+  hasActiveFilters: { type: Boolean, default: false },
+  totalActiveFilters: { type: Number, default: 0 },
 });
+
+defineEmits(["clear-filters"]);
 
 const viewMode = defineModel("viewMode", { type: String, default: "grid" });
 
@@ -252,5 +265,17 @@ const errorDetail = computed(() => {
   const err = props.error;
   if (!err) return null;
   return err.statusMessage || err.message || null;
+});
+
+const searchKeyword = computed(() => props.debouncedSearchInput.trim());
+
+// A category or event filter can empty the list with no keyword typed, and
+// "try a different keyword" would then point at a search that doesn't exist.
+const noResultsHint = computed(() => {
+  if (!searchKeyword.value) return "No brands match the selected filters.";
+  if (props.totalActiveFilters > 0) {
+    return "Try a different keyword, or clear the filters.";
+  }
+  return "Maybe try a different keyword.";
 });
 </script>

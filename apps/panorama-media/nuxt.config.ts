@@ -7,12 +7,21 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      siteUrl: "https://panoramamedia.co.id",
-      // The instance this site belongs to. NUXT_PUBLIC_API_URL in the build
-      // environment overrides it; leaving both unset fails the build.
-      apiUrl: "https://api.pmone.id",
       turnstileSiteKey: "0x4AAAAAADpOqQtuQn6UfF_P",
       blogUsernames: "", // Empty string means show all posts (no author filter)
+    },
+  },
+
+  // Production identity only. Under `nuxt dev` the base layer's defaults apply
+  // (the local API on :8000 and a localhost siteUrl), so `pnpm dev:<site>`
+  // reads the local database. NUXT_PUBLIC_API_URL / NUXT_PUBLIC_SITE_URL still
+  // override either value at runtime.
+  $production: {
+    runtimeConfig: {
+      public: {
+        siteUrl: "https://panoramamedia.co.id",
+        apiUrl: "https://api.pmone.id",
+      },
     },
   },
 
