@@ -76,7 +76,9 @@ export const bottomNavItemClasses =
 
 /** Icon + label wrapper. In beside, BottomNav slides it (FLIP) when widths change. */
 export const bottomNavContentClasses: Record<BottomNavLabelPlacement, string> = {
-  below: "flex min-w-0 max-w-full flex-col items-center",
+  // 4px between icon and label: flush (0, as measured off YouTube) read as
+  // cramped, with ~4px of ink gap under a 24px glyph. This leaves ~8px.
+  below: "flex min-w-0 max-w-full flex-col items-center gap-1",
   beside: "flex min-w-0 max-w-full flex-row items-center",
 };
 

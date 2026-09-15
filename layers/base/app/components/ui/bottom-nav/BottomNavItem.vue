@@ -163,10 +163,12 @@ const computedAriaLabel = computed(() => {
   return undefined;
 });
 
-const iconSwapClass =
-  "[grid-area:1/1] size-full transition-[opacity,filter,scale] duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none";
-const iconShownClass = "scale-100 opacity-100 blur-none";
-const iconHiddenClass = "scale-(--icon-swap-start-scale) opacity-0 blur-(--icon-swap-blur)";
+/**
+ * Both glyphs stay mounted in one grid cell, so the active one takes over at
+ * once with nothing to load. No icon swap motion (transitions-dev 09): in a
+ * tab bar the linear-to-bold cross-fade read as too busy.
+ */
+const iconClass = "[grid-area:1/1] size-full";
 
 /**
  * A tap on the item that is already active, with nowhere to navigate, asks
@@ -206,7 +208,6 @@ function handleSelect(): void {
         props.class,
       )
     "
-    v-ripple
     @click="handleSelect"
   >
     <span data-slot="bottom-nav-content" :class="bottomNavContentClasses[labelPlacement]">
@@ -223,12 +224,12 @@ function handleSelect(): void {
             <Icon
               v-if="icon"
               :name="icon"
-              :class="cn(iconSwapClass, activeIcon && isActive ? iconHiddenClass : iconShownClass)"
+              :class="cn(iconClass, activeIcon && isActive && 'invisible')"
             />
             <Icon
               v-if="activeIcon"
               :name="activeIcon"
-              :class="cn(iconSwapClass, isActive ? iconShownClass : iconHiddenClass)"
+              :class="cn(iconClass, !isActive && 'invisible')"
             />
           </slot>
         </span>
