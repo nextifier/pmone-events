@@ -26,6 +26,18 @@
         <RowRegistration />
         <ContextMenuContent class="w-auto">
           <MenuSurface kind="context">
+            <!-- Right-clicked on a link inside the row: its new tab comes first,
+                 where the browser's own menu would have put it. -->
+            <template v-if="rowLink">
+              <TableRowActionsItem
+                :href="rowLink"
+                target="_blank"
+                icon="hugeicons:arrow-up-right-03"
+              >
+                Open in new tab
+              </TableRowActionsItem>
+              <TableRowActionsSeparator />
+            </template>
             <slot />
           </MenuSurface>
         </ContextMenuContent>
@@ -50,6 +62,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { hasSlotContent } from "@/lib/utils";
 import { TABLE_ROW_ACTIONS_SURFACE, TABLE_ROW_MENU } from "./context";
+import TableRowActionsItem from "./TableRowActionsItem.vue";
+import TableRowActionsSeparator from "./TableRowActionsSeparator.vue";
 
 defineProps({
   label: {
@@ -67,6 +81,7 @@ defineProps({
 const emit = defineEmits(["open"]);
 
 const rowMenu = inject(TABLE_ROW_MENU, null);
+const rowLink = computed(() => rowMenu?.link.value ?? null);
 const dropdownOpen = ref(false);
 
 watch(

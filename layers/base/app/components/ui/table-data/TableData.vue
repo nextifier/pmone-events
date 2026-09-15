@@ -215,7 +215,7 @@
           >
             <div
               v-if="floatingActions && selectedRowsCount > 0 && $slots.actions"
-              class="fixed bottom-4 left-1/2 z-40 w-fit max-w-[calc(100vw-1.5rem)] -translate-x-1/2 sm:bottom-6"
+              class="fixed bottom-[calc(1rem+var(--app-bottom-inset,0px))] left-1/2 z-40 w-fit max-w-[calc(100vw-1.5rem)] -translate-x-1/2 sm:bottom-[calc(1.5rem+var(--app-bottom-inset,0px))]"
             >
               <!-- Static circle; only the value animates on change (NumberFlow),
                    so the circle itself never re-pops. -->
@@ -1027,14 +1027,26 @@ const clearSearch = () => {
   table.setPageIndex(0);
 };
 
+// A page kept alive by <KeepAlive> stays mounted while another page is on
+// screen; its table's keys must not reach through to it from there.
+const isShown = ref(true);
+onActivated(() => {
+  isShown.value = true;
+});
+onDeactivated(() => {
+  isShown.value = false;
+});
+
 defineShortcuts({
   meta_k: {
     usingInput: true,
+    whenever: [() => isShown.value],
     handler: () => {
       searchInputEl.value?.focus();
     },
   },
   r: {
+    whenever: [() => isShown.value],
     handler: () => {
       requestRefresh();
     },

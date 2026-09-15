@@ -105,20 +105,24 @@ const fallbackDestination = computed(() => {
   return "/" + pathSegments.join("/"); // Gabungkan kembali
 });
 
+/**
+ * History first. Vue Router writes the previous in-app entry into
+ * `history.state.back`, and the first entry of a session (a fresh window, a
+ * deep link, a link from an e-mail) has none. `history.length` could not tell
+ * those apart - it counts other sites' entries too - so Back could leave the
+ * app, or ignore the page the reader had just come from. The fallback replaces
+ * this page rather than pushing, so Back never grows the stack.
+ */
 const goBack = () => {
-  // Jika forceDestination aktif, langsung arahkan ke fallbackDestination
   if (props.forceDestination) {
-    router.push(fallbackDestination.value);
+    router.replace(fallbackDestination.value);
     return;
   }
 
-  // Cek apakah ada histori navigasi di dalam sesi browser saat ini.
-  if (window?.history?.length > 2) {
-    // Jika ada, kembali ke halaman sebelumnya
+  if (typeof window?.history?.state?.back === "string") {
     router.back();
   } else {
-    // Jika tidak ada, arahkan ke tujuan fallback yang sudah kita tentukan.
-    router.push(fallbackDestination.value);
+    router.replace(fallbackDestination.value);
   }
 };
 </script>

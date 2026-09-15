@@ -36,11 +36,14 @@
           : 'no-scrollbar scroll-fade-x relative flex h-full w-full min-w-0 gap-x-5 overflow-x-auto px-4 sm:px-0'
       "
     >
+      <!-- `replace`: a tab is another view of the same place, not a step
+           forward. Pushing every switch made Back walk through each tab. -->
       <NuxtLink
         v-for="(tab, index) in tabs"
         :key="tab.value ?? tab.to"
         :ref="(el) => (tabRefs[index] = el?.$el || el)"
         :to="tab.to"
+        replace
         :class="[
           'relative flex shrink-0 items-center justify-center gap-x-1.5 font-medium tracking-tight transition-colors select-none',
           isSegmented ? [tabsTriggerClasses.segmented, tabsTriggerSizeClasses.md] : 'py-3 text-sm',

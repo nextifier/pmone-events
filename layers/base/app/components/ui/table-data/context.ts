@@ -8,6 +8,8 @@ import type { InjectionKey, Ref } from "vue";
  */
 export interface TableRowMenuContext {
   open: Ref<boolean>;
+  /** The http(s) link the menu was opened on, offered as "Open in new tab". */
+  link: Ref<string | null>;
   register: () => () => void;
 }
 

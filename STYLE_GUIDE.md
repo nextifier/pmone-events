@@ -484,8 +484,9 @@ Jangan pula membungkus isi dialog dalam `<form>` yang men-submit halaman di bela
     `loading`, slot `#icon` untuk ikon berwarna, dan `<TableRowActionsSeparator>`.
   - Dialog tetap milik komponen RowActions, di luar `<TableRowActions>`. Kalau dialognya
     di-mount malas, latch-nya pakai `@open`, yang terpicu dari ellipsis maupun klik kanan.
-  - Klik kanan mouse di link, field, atau teks yang sedang dipilih tetap memunculkan menu
-    browser (buka di tab baru, paste, copy).
+  - Klik kanan mouse di field atau di teks yang sudah dipilih tetap memunculkan menu
+    browser (paste, copy). Link tidak dikecualikan: klik kanan di link membuka menu baris
+    yang otomatis diawali "Open in new tab" untuk link itu. Call site tidak perlu apa-apa.
 - Delete action di menu baris wajib buka `<ResponsiveDialog>` konfirmasi, tidak langsung delete.
 - Urutan manual: `draggable-rows`. `TableData` yang menyuntik kolom handle,
   mengikat SortableJS ke `tbody`, dan meng-emit `reorder` berisi

@@ -206,6 +206,7 @@ function handleSelect(): void {
         props.class,
       )
     "
+    v-ripple
     @click="handleSelect"
   >
     <span data-slot="bottom-nav-content" :class="bottomNavContentClasses[labelPlacement]">
