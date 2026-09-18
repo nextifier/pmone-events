@@ -50,8 +50,14 @@ function isSoldOut(session) {
   return session.available != null && Number(session.available) <= 0;
 }
 
+// Staff can hold a session back (Coming soon) while its ticket is on sale.
+function isClosed(session) {
+  return isSoldOut(session) || (session.status != null && session.status !== "available");
+}
+
 function availabilityText(session) {
   if (isSoldOut(session)) return t("tickets.soldOut");
+  if (isClosed(session)) return t("tickets.comingSoon");
   if (session.available != null) return t("tickets.spotsLeft", { count: Number(session.available) });
   return "";
 }
@@ -59,7 +65,7 @@ function availabilityText(session) {
 // A Toggle (not a radio) so re-clicking the chosen session clears it - the same
 // behaviour as the day-pass pills, and it lets a buyer undo a mis-tap.
 function pick(session) {
-  if (isSoldOut(session)) return;
+  if (isClosed(session)) return;
   emit("update:modelValue", props.modelValue === session.id ? null : session.id);
 }
 </script>
@@ -72,19 +78,19 @@ function pick(session) {
       variant="card"
       indicator
       :model-value="modelValue === s.id"
-      :disabled="isSoldOut(s)"
+      :disabled="isClosed(s)"
       class="flex flex-row items-center gap-3 p-3 text-left"
       @update:model-value="() => pick(s)"
     >
       <span class="flex min-w-0 flex-1 flex-col gap-0.5">
         <span class="text-foreground text-sm font-medium tracking-tight">{{ timeRange(s) }}</span>
-        <span v-if="metaLine(s)" class="text-muted-foreground text-xs tracking-tight">
+        <span v-if="metaLine(s)" class="text-muted-foreground text-sm tracking-tight">
           {{ metaLine(s) }}
         </span>
         <span
           v-if="availabilityText(s)"
-          class="text-xs tracking-tight"
-          :class="isSoldOut(s) ? 'text-destructive-foreground' : 'text-success-foreground'"
+          class="text-sm tracking-tight"
+          :class="isClosed(s) ? 'text-destructive-foreground' : 'text-success-foreground'"
         >
           {{ availabilityText(s) }}
         </span>

@@ -37,6 +37,12 @@ const { t, locale } = useI18n();
 const localePath = useLocalePath();
 const cart = useTicketCartStore();
 const event = useEvent();
+const accessErrorMessage = useAccessCodeErrors();
+
+// True while the remembered access code is being re-validated. The tickets it
+// unlocks are not in the public listing, so reconciling before it answers used
+// to delete every hidden ticket from the cart the moment checkout opened.
+const accessResolving = ref(false);
 
 usePageMeta(null, {
   title: computed(() => `${t("tickets.checkout")} · ${event.title}`),
@@ -57,6 +63,7 @@ onMounted(() => {
     return;
   }
   cart.setEventContext({ eventId: event.id, eventSlug: event.slug });
+  accessResolving.value = !!cart.accessCode && !cart.accessApplied;
 
   // Pre-fill the buyer's saved contact details (client-only, after mount).
   restoreBuyer();
@@ -93,15 +100,42 @@ onNuxtReady(async () => {
   try {
     await refreshTickets();
   } catch {
+    accessResolving.value = false;
     cart.fetchPreview({ eventId: event.id });
     return;
   }
 
+  await resolveAccessCode();
   reconcileCart();
   cart.fetchPreview({ eventId: event.id });
 });
 
+/**
+ * Re-validate the access code carried over from the tickets page. Checkout is
+ * reachable by URL with a day-old cart, and a code can be revoked, run out, or
+ * already be used on this browser since. Forgetting it here, with the reason,
+ * beats sending it along and having the whole order refused at submit.
+ */
+async function resolveAccessCode() {
+  if (!cart.accessCode || cart.accessApplied) {
+    accessResolving.value = false;
+    return;
+  }
+
+  try {
+    const result = await cart.validateAccessCode({ eventId: event.id, code: cart.accessCode });
+    if (!result.valid) {
+      const errorCode = result.errorCode || (result.status === 429 ? "TOO_MANY_ATTEMPTS" : null);
+      toast.error(accessErrorMessage(errorCode, result.message));
+      cart.clearAccessCode();
+    }
+  } finally {
+    accessResolving.value = false;
+  }
+}
+
 function reconcileCart() {
+  if (accessResolving.value) return;
   const { removed } = cart.reconcile(ticketsById.value);
   if (!removed.length) return;
 
@@ -148,10 +182,12 @@ const eventSlug = computed(() => cart.eventSlug || event.slug);
 const { data: ticketsData, refresh: refreshTickets } =
   await useTicketsListing(eventSlug);
 
+// Tickets the access code unlocked win over the public copies: hidden ones are
+// not in the listing at all, and public ones arrive priced with the code.
 const ticketsById = computed(() => {
   const map = {};
   for (const ticket of ticketsData.value?.data ?? []) map[ticket.id] = ticket;
-  return map;
+  return { ...map, ...cart.accessTicketsById };
 });
 
 const terms = computed(() => ticketsData.value?.meta?.terms || "");
@@ -163,7 +199,7 @@ const terms = computed(() => ticketsData.value?.meta?.terms || "");
  * attendee details and then refused by the order endpoint.
  */
 watch(ticketsById, (map) => {
-  if (!import.meta.client || !cartReady.value || !Object.keys(map).length) {
+  if (!import.meta.client || !cartReady.value || accessResolving.value || !Object.keys(map).length) {
     return;
   }
   reconcileCart();
@@ -636,8 +672,13 @@ async function submit() {
   if (promo) payload.promo_code = promo;
 
   // Carry the access code applied on the tickets page (unlocks gated tickets +
-  // any price effect). The backend re-validates + holds it authoritatively.
-  if (cart.accessCode) payload.access_code = cart.accessCode;
+  // any price effect). The backend re-validates + holds it authoritatively. The
+  // browser fingerprint goes with it for a code limited to one use per browser.
+  if (cart.accessCode) {
+    payload.access_code = cart.accessCode;
+    const fingerprint = await getBrowserFingerprint();
+    if (fingerprint) payload.browser_fingerprint = fingerprint;
+  }
 
   if (!idempotencyKey.value) idempotencyKey.value = crypto.randomUUID();
   payload.idempotency_key = idempotencyKey.value;
@@ -705,9 +746,19 @@ async function submit() {
         ? messages[0]
         : messages;
     }
+    // An access code refusal carries its own error code; say it in the buyer's
+    // language. Only a code bound to another mailbox points at the email field,
+    // because there the fix really is the email. A used-up per-person share
+    // stays off the field: highlighting it would read as "try another address".
+    const accessErrorCode = body.data?.error_code ?? body.error_code ?? null;
+    let message = body.message || body.data?.message || t("tickets.submitError");
+    if (accessErrorCode) {
+      message = accessErrorMessage(accessErrorCode, body.data?.message);
+      if (accessErrorCode === "BIND_EMAIL_MISMATCH") {
+        errors.value = { ...errors.value, buyer_email: [message] };
+      }
+    }
     await revealFirstError();
-    const message =
-      body.message || body.data?.message || t("tickets.submitError");
     toast.error(message);
   } finally {
     submitting.value = false;

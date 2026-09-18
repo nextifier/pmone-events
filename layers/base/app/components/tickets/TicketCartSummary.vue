@@ -40,6 +40,13 @@ const { t, te } = useI18n();
 const cart = useTicketCartStore();
 
 const ticketFor = (id) => props.ticketsById[id] ?? null;
+const accessErrorMessage = useAccessCodeErrors();
+
+const accessPreviewError = computed(() => {
+  const info = cart.accessInfo;
+  if (!info?.error_code) return "";
+  return accessErrorMessage(info.error_code, info.message);
+});
 
 /**
  * The store merges local quantity with server pricing; this only decorates each
@@ -358,8 +365,19 @@ defineExpose({ appliedPromo });
     </ul>
 
     <div v-if="lines.length" class="space-y-3 border-t pt-3">
+      <!-- The preview re-checks the code against the real cart. When it refuses
+           (too many tickets for the code, say), the summary says so here instead
+           of quietly pricing the cart without it and failing at submit. -->
+      <p
+        v-if="cart.accessCode && accessPreviewError"
+        role="alert"
+        class="bg-destructive/10 text-destructive-foreground flex items-start gap-1.5 rounded-md px-3 py-2 text-sm tracking-tight"
+      >
+        <Icon name="hugeicons:alert-circle" class="mt-0.5 size-4 shrink-0" />
+        <span>{{ accessPreviewError }}</span>
+      </p>
       <div
-        v-if="cart.accessCode"
+        v-else-if="cart.accessCode"
         class="text-success-foreground flex items-center gap-1.5 text-sm tracking-tight"
       >
         <Icon name="hugeicons:ticket-star" class="size-4 shrink-0" />

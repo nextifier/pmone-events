@@ -41,10 +41,13 @@ const eventSlug = computed(() => cart.eventSlug || event.slug);
 // instead of adding a request.
 const { data: ticketsData } = await useTicketsListing(eventSlug);
 
+// Tickets an applied access code unlocked win over the public copies: a hidden
+// one is not in the listing at all (the bar used to call it "Ticket", priced
+// Free), and a public one arrives priced with the code.
 const ticketsById = computed(() => {
   const map = {};
   for (const ticket of ticketsData.value?.data ?? []) map[ticket.id] = ticket;
-  return map;
+  return { ...map, ...cart.accessTicketsById };
 });
 
 onMounted(() => {

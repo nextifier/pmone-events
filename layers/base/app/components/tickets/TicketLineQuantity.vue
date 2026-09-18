@@ -53,8 +53,12 @@ const sessionId = computed(() => props.line.ticket_session_id ?? null);
 const dayId = computed(() => props.line.selected_event_day_id ?? null);
 
 const min = computed(() => minFor(ticket.value));
+// The access code's per-order limit binds every line it unlocks, together.
 const cap = computed(() =>
-  lineCapFor(ticket.value, cart.items, sessionId.value, dayId.value),
+  Math.min(
+    lineCapFor(ticket.value, cart.items, sessionId.value, dayId.value),
+    cart.accessCapFor(props.line.ticket_id, sessionId.value, dayId.value),
+  ),
 );
 
 /**
@@ -62,7 +66,11 @@ const cap = computed(() =>
  * to a plain remove control rather than two permanently disabled arrows around
  * a number that cannot move.
  */
-const isSingle = computed(() => singleQuantity(ticket.value));
+const isSingle = computed(
+  () =>
+    singleQuantity(ticket.value) ||
+    (cart.accessUnlocks(props.line.ticket_id) && Number(cart.accessMaxQty) === 1),
+);
 
 function snapshotIndex() {
   return cart.items.findIndex(

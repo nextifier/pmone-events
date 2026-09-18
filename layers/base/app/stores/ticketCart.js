@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import { accessErrorPayload } from "../composables/useAccessCodeErrors";
+import { getBrowserFingerprint } from "../composables/useBrowserFingerprint";
 import { lineCapFor, maxFor } from "../composables/useTicketLine";
 
 const STORAGE_KEY = "pmone.ticketCart.v1";
@@ -55,6 +57,31 @@ function persistDebounced(state) {
   persistTimer = setTimeout(() => saveToStorage(state), 300);
 }
 
+/**
+ * Write now, dropping any debounced write still pending. For changes that are
+ * followed by a hard navigation: checkout empties the cart and then sets
+ * window.location, and a 300ms timer never fires on a page that is unloading.
+ * The claimed tickets came back into the cart on the next visit.
+ */
+function persistNow(state) {
+  if (persistTimer) clearTimeout(persistTimer);
+  persistTimer = null;
+  saveToStorage(state);
+}
+
+/** The persisted slice of the cart. */
+function snapshotOf(state) {
+  return {
+    eventId: state.eventId,
+    eventSlug: state.eventSlug,
+    items: state.items.map((i) => ({ ...i })),
+    accessCode: state.accessCode,
+    accessBindEmailHint: state.accessBindEmailHint,
+    forceCheckout: state.forceCheckout,
+    previewToken: state.previewToken,
+  };
+}
+
 export function lineKey(ticketId, sessionId, dayId) {
   return `${ticketId}:${sessionId ?? ""}:${dayId ?? ""}`;
 }
@@ -81,6 +108,22 @@ export const useTicketCartStore = defineStore("ticketCart", {
     // changed is worse than no copy, and it is what `addItem`/`setQty` clamp
     // against so no path can push a line past the ticket's real cap.
     catalog: {},
+    // What the applied access code unlocks, from its last successful validation.
+    // Never persisted: the code is, and every page re-validates it on load, so a
+    // code that was revoked or ran out overnight is caught instead of trusted.
+    // `accessValidatedCode` is the code these fields belong to; until it matches
+    // `accessCode` the code is only remembered, not applied.
+    accessValidatedCode: null,
+    // The unlocked tickets as the validate call returned them: hidden ones the
+    // public listing never carries, and public ones already priced with the code.
+    // Every surface that looks a cart line up by ticket id reads these first.
+    accessTickets: [],
+    accessUnlockedIds: [],
+    // How many tickets one order may take with the code, across every ticket it
+    // unlocks. Null for an older API that does not send it.
+    accessMaxQty: null,
+    accessExclusive: false,
+    accessPriceEffect: null,
   }),
 
   getters: {
@@ -207,6 +250,50 @@ export const useTicketCartStore = defineStore("ticketCart", {
       return this.mergedLines.some((l) => l.pending);
     },
 
+    /** True once the remembered code has been validated on this page load. */
+    accessApplied(state) {
+      return !!state.accessCode && state.accessValidatedCode === state.accessCode;
+    },
+
+    /** Unlocked tickets keyed by id, for merging over a public listing. */
+    accessTicketsById(state) {
+      if (!this.accessApplied) return {};
+      return Object.fromEntries(state.accessTickets.map((tk) => [tk.id, tk]));
+    },
+
+    /** Whether the applied code unlocks this ticket (and so its per-order cap applies). */
+    accessUnlocks(state) {
+      return (ticketId) =>
+        this.accessApplied && state.accessUnlockedIds.includes(ticketId);
+    },
+
+    /**
+     * The per-order cap the access code puts on one line: its limit minus what
+     * every OTHER line of an unlocked ticket already holds. Infinity when no code
+     * applies to the ticket, so callers can take a plain `Math.min`.
+     *
+     * The limit is per order, not per ticket or per day. PM One sums every
+     * unlocked line against it, so the cart has to as well, or a pass booked
+     * on two days sails past the stepper and fails at submit.
+     */
+    accessCapFor(state) {
+      return (ticketId, sessionId = null, dayId = null) => {
+        const limit = Number(state.accessMaxQty);
+        if (!limit || !this.accessUnlocks(ticketId)) return Infinity;
+
+        const key = lineKey(ticketId, sessionId, dayId);
+        const heldElsewhere = state.items
+          .filter(
+            (i) =>
+              this.accessUnlocks(i.ticket_id) &&
+              lineKey(i.ticket_id, i.ticket_session_id, i.selected_event_day_id) !== key,
+          )
+          .reduce((sum, i) => sum + (Number(i.qty) || 0), 0);
+
+        return Math.max(0, limit - heldElsewhere);
+      };
+    },
+
     /**
      * Optimistic while a line is pending: multiplication is deterministic
      * client-side. The discount deliberately is not - percentage vs fixed vs
@@ -277,16 +364,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
       // and was lost on the next reload, mid-purchase.
       this.$subscribe(
         (_, state) => {
-          const snapshot = {
-            eventId: state.eventId,
-            eventSlug: state.eventSlug,
-            items: state.items.map((i) => ({ ...i })),
-            accessCode: state.accessCode,
-            accessBindEmailHint: state.accessBindEmailHint,
-            forceCheckout: state.forceCheckout,
-            previewToken: state.previewToken,
-          };
-          persistDebounced(snapshot);
+          persistDebounced(snapshotOf(state));
         },
         { detached: true },
       );
@@ -301,6 +379,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
       if (changed && (this.eventId !== null || this.eventSlug !== null)) {
         this.items = [];
         this._resetPricing();
+        this._resetAccess();
         this.accessCode = null;
         this.accessBindEmailHint = null;
         this.forceCheckout = false;
@@ -333,10 +412,101 @@ export const useTicketCartStore = defineStore("ticketCart", {
       this.accessBindEmailHint = bindEmailHint || null;
     },
 
-    clearAccessCode() {
+    _resetAccess() {
+      this.accessValidatedCode = null;
+      this.accessTickets = [];
+      this.accessUnlockedIds = [];
+      this.accessMaxQty = null;
+      this.accessExclusive = false;
+      this.accessPriceEffect = null;
+    },
+
+    /**
+     * Forget the access code.
+     *
+     * With `dropGatedLines`, the lines only the code could buy (hidden and
+     * code-required tickets) leave the cart too, and their titles come back so
+     * the caller can say why. Left in place, they used to be refused by the order
+     * endpoint, or dropped later as "no longer available", which is not what
+     * happened.
+     *
+     * @returns {string[]} titles of the lines removed
+     */
+    clearAccessCode({ dropGatedLines = false } = {}) {
+      const removed = [];
+
+      if (dropGatedLines && this.accessApplied) {
+        const gated = (ticketId) => {
+          const ticket = this.accessTicketsById[ticketId] ?? this.catalog?.[ticketId];
+          return ticket?.visibility === "hidden" || ticket?.visibility === "code_required";
+        };
+
+        this.items = this.items.filter((i) => {
+          if (!this.accessUnlocks(i.ticket_id) || !gated(i.ticket_id)) return true;
+          const ticket = this.accessTicketsById[i.ticket_id] ?? this.catalog?.[i.ticket_id];
+          removed.push(ticket?.title ?? null);
+          return false;
+        });
+      }
+
       this.accessCode = null;
       this.accessBindEmailHint = null;
       this.accessInfo = null;
+      this._resetAccess();
+
+      return removed;
+    },
+
+    /**
+     * Validate an access code and, when it holds, apply it.
+     *
+     * The one place a code is checked, so the tickets page and checkout cannot
+     * disagree about what it unlocks. The browser fingerprint goes along so a
+     * code limited to one use per browser is refused here, before the buyer has
+     * filled in a form, rather than at submit.
+     *
+     * @returns {Promise<{ valid: boolean, errorCode?: string|null, message?: string|null, status?: number|null }>}
+     */
+    async validateAccessCode({ eventId, code }) {
+      const normalized = String(code ?? "").toUpperCase().trim();
+      if (!normalized) return { valid: false, errorCode: "INVALID_CODE" };
+
+      const fingerprint = await getBrowserFingerprint();
+
+      try {
+        const res = await $fetch("/api/tickets/validate-access-code", {
+          method: "POST",
+          body: {
+            event_id: eventId ?? this.eventId,
+            code: normalized,
+            ...(fingerprint ? { browser_fingerprint: fingerprint } : {}),
+          },
+        });
+        const data = res?.data ?? res;
+
+        if (!data?.valid) {
+          return { valid: false, errorCode: data?.error_code ?? null, message: data?.message ?? null };
+        }
+
+        this.setAccessCode(normalized, data.bind_email_hint ?? null);
+        this.accessTickets = data.tickets ?? [];
+        this.accessUnlockedIds = (data.unlocks ?? []).map((u) => u.ticket_id);
+        this.accessMaxQty = data.max_qty_per_redemption ?? null;
+        this.accessExclusive = !!data.exclusive_display;
+        this.accessPriceEffect =
+          data.price_effect && data.price_effect !== "none" ? data.price_effect : null;
+        this.accessValidatedCode = normalized;
+
+        return { valid: true };
+      } catch (err) {
+        const payload = accessErrorPayload(err);
+        return {
+          valid: false,
+          errorCode: payload?.error_code ?? null,
+          message: payload?.message ?? null,
+          status: err?.statusCode ?? err?.response?.status ?? err?.data?.statusCode ?? null,
+        };
+      }
     },
 
     /**
@@ -350,9 +520,10 @@ export const useTicketCartStore = defineStore("ticketCart", {
      * listing resolves behaves exactly as it did - unclamped, not blocked.
      */
     capFor(ticketId, sessionId = null, dayId = null) {
+      const accessCap = this.accessCapFor(ticketId, sessionId, dayId);
       const ticket = this.catalog?.[ticketId];
-      if (!ticket) return Infinity;
-      return lineCapFor(ticket, this.items, sessionId, dayId);
+      if (!ticket) return accessCap;
+      return Math.min(lineCapFor(ticket, this.items, sessionId, dayId), accessCap);
     },
 
     addItem(ticketId, sessionId = null, qty = 1, dayId = null) {
@@ -470,6 +641,10 @@ export const useTicketCartStore = defineStore("ticketCart", {
       // Running total per ticket: the cap is per ticket, not per line, so two
       // day lines of the same pass have to share one budget.
       const spent = {};
+      // And one budget for every line the access code unlocks, which PM One
+      // caps per order across all of them.
+      const accessLimit = Number(this.accessMaxQty) || Infinity;
+      let accessSpent = 0;
 
       for (const item of this.items) {
         const ticket = lookup[item.ticket_id];
@@ -498,7 +673,16 @@ export const useTicketCartStore = defineStore("ticketCart", {
           continue;
         }
 
-        const budget = maxFor(ticket) - (spent[ticket.id] ?? 0);
+        // A code-required ticket with no code to open it cannot be bought; the
+        // order endpoint refuses the whole order over it.
+        const unlocked = this.accessUnlocks(ticket.id);
+        if (ticket.visibility === "code_required" && !unlocked) {
+          removed.push(ticket.title);
+          continue;
+        }
+
+        let budget = maxFor(ticket) - (spent[ticket.id] ?? 0);
+        if (unlocked) budget = Math.min(budget, accessLimit - accessSpent);
         const headroom = Math.min(budget, Math.max(1, Number(item.qty) || 1));
 
         if (headroom < 1) {
@@ -507,6 +691,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
         }
 
         spent[ticket.id] = (spent[ticket.id] ?? 0) + headroom;
+        if (unlocked) accessSpent += headroom;
 
         kept.push({
           ...item,
@@ -522,18 +707,33 @@ export const useTicketCartStore = defineStore("ticketCart", {
       return { removed };
     },
 
+    /**
+     * Empty the cart and nothing else, for the "Clear cart" button. The
+     * invitation code and a staff preview stay: the buyer asked to drop their
+     * tickets, not the invitation they came in on, and reapplying it means
+     * finding the link again.
+     */
+    clearItems() {
+      this.items = [];
+      this._resetPricing();
+    },
+
+    /** Everything, for after an order is placed. Persisted at once, see persistNow. */
     clear() {
       this.items = [];
       this._resetPricing();
+      this._resetAccess();
       this.accessCode = null;
       this.accessBindEmailHint = null;
       this.forceCheckout = false;
       this.previewToken = null;
+      if (import.meta.client) persistNow(snapshotOf(this));
     },
 
     reset() {
       Object.assign(this, defaultState());
       this._resetPricing();
+      this._resetAccess();
       if (import.meta.client) {
         try {
           localStorage.removeItem(STORAGE_KEY);

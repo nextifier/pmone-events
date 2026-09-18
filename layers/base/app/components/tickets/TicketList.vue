@@ -20,6 +20,7 @@ import { Lightbox } from "../ui/lightbox";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 import TicketCardQuantity from "./TicketCardQuantity.vue";
 import TicketListSkeleton from "./TicketListSkeleton.vue";
+import TicketSessionList from "./TicketSessionList.vue";
 import TicketSlotPicker from "./TicketSlotPicker.vue";
 import TicketStub from "./TicketStub.vue";
 
@@ -33,7 +34,7 @@ const route = useRoute();
 const router = useRouter();
 const cart = useTicketCartStore();
 const event = useEvent();
-const accessCodeErrors = useAccessCodeErrors();
+const accessErrorMessage = useAccessCodeErrors();
 
 // Event lifecycle drives the closed-sale label: a ticket with no live/upcoming
 // sale phase reads as "Coming soon" until the event itself is over, and only
@@ -64,12 +65,14 @@ const ticketsDisabled = computed(() => {
 });
 
 // Tickets revealed by a valid access code (may include `hidden` ones absent from
-// the public listing). Merged over the listing, deduped by id.
-const revealedTickets = ref([]);
-const unlockedIds = ref([]);
+// the public listing). Merged over the listing, deduped by id. They live in the
+// cart store, because checkout and the cart bar need them too: a hidden ticket
+// the checkout page could not look up used to be dropped from the cart there.
+const revealedTickets = computed(() => (cart.accessApplied ? cart.accessTickets : []));
+const unlockedIds = computed(() => (cart.accessApplied ? cart.accessUnlockedIds : []));
 // Set by the applied code: an "exclusive" code turns this page into the
 // invitation it came from, hiding every ticket it does not unlock.
-const exclusiveDisplay = ref(false);
+const exclusiveDisplay = computed(() => cart.accessApplied && cart.accessExclusive);
 
 const mergedTickets = computed(() => {
   const byId = new Map();
@@ -109,11 +112,24 @@ function isLocked(ticket) {
 // --- Access code (unlock gated tickets + optional price effect) ---
 const accessBox = ref(null);
 const removeConfirmOpen = ref(false);
+
+// One terms dialog for every card. The ticket is kept after closing so the
+// close animation still has its content to fade out with.
+const termsOpen = ref(false);
+const termsTicket = ref(null);
+
+function openTerms(ticket) {
+  termsTicket.value = ticket;
+  termsOpen.value = true;
+}
 const accessCodeInput = ref("");
 const accessApplying = ref(false);
 const accessError = ref("");
-const appliedAccessCode = ref("");
-const accessPriceEffect = ref(null);
+const appliedAccessCode = computed(() => (cart.accessApplied ? cart.accessCode : ""));
+const accessPriceEffect = computed(() => (cart.accessApplied ? cart.accessPriceEffect : null));
+// True while a remembered code is being re-validated on load. Reconciling in
+// that window would drop every line the code unlocks, before it is known.
+const accessResolving = ref(false);
 
 // `set_price` and `percentage` resolve to a unit price, so the card already
 // shows what the holder pays with the old price struck through. Repeating
@@ -121,6 +137,14 @@ const accessPriceEffect = ref(null);
 // about WHERE the discount lands. `amount` is the one effect that genuinely
 // only appears in the cart total, so it keeps the note to itself.
 const showAccessPriceNote = computed(() => accessPriceEffect.value === "amount");
+
+// Said up front, so the buyer learns the per-order limit from the code itself
+// rather than from a stepper that stops at 3 for no stated reason.
+const accessLimitNote = computed(() => {
+  const limit = Number(cart.accessMaxQty);
+  if (!appliedAccessCode.value || !limit) return "";
+  return t("tickets.accessMaxPerOrder", { count: limit }, limit);
+});
 
 // The access-code box stays hidden for the public ("Don't make the user think").
 // It only surfaces when a code_required ticket is visibly locked in the listing,
@@ -143,41 +167,24 @@ async function applyAccessCode(rawCode) {
   accessApplying.value = true;
   accessError.value = "";
   try {
-    const res = await $fetch("/api/tickets/validate-access-code", {
-      method: "POST",
-      body: { event_id: event.id, code },
-    });
-    const dataRes = res?.data ?? res;
-    if (!dataRes?.valid) {
-      accessError.value =
-        accessCodeErrors[dataRes?.error_code] ||
-        dataRes?.message ||
-        t("tickets.accessInvalid");
-      return;
-    }
-    revealedTickets.value = dataRes.tickets ?? [];
-    unlockedIds.value = (dataRes.unlocks ?? []).map((u) => u.ticket_id);
-    exclusiveDisplay.value = !!dataRes.exclusive_display;
-    appliedAccessCode.value = code.toUpperCase();
-    accessPriceEffect.value =
-      dataRes.price_effect && dataRes.price_effect !== "none"
-        ? dataRes.price_effect
-        : null;
     cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
-    cart.setAccessCode(code, dataRes.bind_email_hint ?? null);
-  } catch (err) {
-    const payload = err?.data?.data ?? err?.data ?? {};
+    const result = await cart.validateAccessCode({ eventId: event.id, code });
+    if (result.valid) return;
+
     // A 429 from the coarse ceiling in front of the endpoint carries no
     // error_code, only Laravel's own "Too Many Attempts." That string is
-    // truthy, so it has to be intercepted BEFORE payload.message or raw
+    // truthy, so it has to be intercepted BEFORE the server message or raw
     // framework English lands in a localised UI.
-    const status =
-      err?.statusCode ?? err?.response?.status ?? err?.data?.statusCode;
-    accessError.value =
-      accessCodeErrors[payload?.error_code] ||
-      (status === 429
-        ? accessCodeErrors.TOO_MANY_ATTEMPTS
-        : payload?.message || t("tickets.accessInvalid"));
+    const errorCode =
+      result.errorCode || (result.status === 429 ? "TOO_MANY_ATTEMPTS" : null);
+    accessError.value = accessErrorMessage(errorCode, result.message);
+
+    // A remembered code that stopped working (revoked, used up, already used on
+    // this browser) must not ride along to checkout, where it would refuse the
+    // whole order. Forget it and drop the lines only it could buy.
+    if (cart.accessCode === code.toUpperCase()) {
+      cart.clearAccessCode();
+    }
   } finally {
     accessApplying.value = false;
   }
@@ -186,13 +193,15 @@ async function applyAccessCode(rawCode) {
 async function removeAccessCode() {
   removeConfirmOpen.value = false;
   accessCodeInput.value = "";
-  appliedAccessCode.value = "";
   accessError.value = "";
-  accessPriceEffect.value = null;
-  revealedTickets.value = [];
-  unlockedIds.value = [];
-  exclusiveDisplay.value = false;
-  cart.clearAccessCode();
+
+  // Lines only the code could buy leave with it, named, instead of turning up
+  // later as "no longer available".
+  const removed = cart.clearAccessCode({ dropGatedLines: true });
+  if (removed.length) {
+    const titles = removed.map((r) => r || t("tickets.ticket")).join(", ");
+    toast(t("tickets.accessLinesRemoved", { titles }));
+  }
 
   // The code also lives in the address bar, and onMounted reads it back. Without
   // dropping it here, Remove survives exactly until the next reload and then the
@@ -217,7 +226,7 @@ async function removeAccessCode() {
  * endpoint on every load.
  */
 function reconcileCart() {
-  if (!import.meta.client || !mergedTickets.value.length) return;
+  if (!import.meta.client || !mergedTickets.value.length || accessResolving.value) return;
   const { removed } = cart.reconcile(
     Object.fromEntries(mergedTickets.value.map((tk) => [tk.id, tk])),
   );
@@ -231,18 +240,26 @@ function reconcileCart() {
 // it - those lines must not be dropped for having been absent a moment ago.
 watch(mergedTickets, reconcileCart);
 
-onMounted(() => {
+onMounted(async () => {
   cart.hydrate();
   cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
-  reconcileCart();
 
   // Auto-apply a code from a magic invite link (?invite=XXXX) or a persisted cart.
+  // Reconcile only once it has answered: the lines it unlocks are not in the
+  // public listing yet, and reconciling first deleted them on every reload.
   const invite = route.query.invite || route.query.code;
   const initial = (typeof invite === "string" && invite) || cart.accessCode;
   if (initial) {
     accessCodeInput.value = String(initial);
-    applyAccessCode(String(initial));
+    accessResolving.value = true;
+    try {
+      await applyAccessCode(String(initial));
+    } finally {
+      accessResolving.value = false;
+    }
   }
+
+  reconcileCart();
 });
 
 // Per-add-on chosen session (add-ons with >1 session require a pick first).
@@ -360,7 +377,11 @@ function qtyOf(ticket) {
 function headroom(ticket) {
   const dayId = resolveDayId(ticket);
   if (dayId === undefined) return 0;
-  return lineCapFor(ticket, cart.items, resolveSessionId(ticket), dayId);
+  const sessionId = resolveSessionId(ticket);
+  return Math.min(
+    lineCapFor(ticket, cart.items, sessionId, dayId),
+    cart.accessCapFor(ticket.id, sessionId, dayId),
+  );
 }
 
 /** Everything this ticket already holds in the cart, across every day. */
@@ -380,7 +401,7 @@ function atMax(ticket) {
  * a number that cannot move.
  */
 function isSingle(ticket) {
-  return singleQuantity(ticket);
+  return singleQuantity(ticket) || (cart.accessUnlocks(ticket.id) && Number(cart.accessMaxQty) === 1);
 }
 
 // Staff preview: `?force-checkout-ticket` lets a switched-off or not-yet-open
@@ -474,7 +495,12 @@ function addToCart(ticket) {
     const held = qtyHeldFor(ticket);
     const perEmail = ticket.max_per_buyer;
     const perOrder = ticket.max_quantity;
-    if (perEmail != null && held >= Number(perEmail)) {
+    const dayId = resolveDayId(ticket);
+    if (cart.accessCapFor(ticket.id, resolveSessionId(ticket), dayId) < minFor(ticket)) {
+      toast.error(
+        t("tickets.accessMaxPerOrder", { count: cart.accessMaxQty }, Number(cart.accessMaxQty)),
+      );
+    } else if (perEmail != null && held >= Number(perEmail)) {
       toast.error(
         t(
           isFreeNow(ticket) ? "tickets.maxPerEmailFree" : "tickets.maxPerEmail",
@@ -594,9 +620,19 @@ function perEmailNote(ticket) {
   );
 }
 
-/** First-party: a free phase is a registration, a priced one is a cart add. */
+/**
+ * A free ticket that can only be taken once is a registration: "Register", no
+ * plus sign, and a single remove control once it is in. The moment more than one
+ * is allowed (a code that grants a team three free passes, say) it is a
+ * quantity again, so it gets the same "+ Add" and stepper a priced ticket does.
+ */
+function registersOnce(ticket) {
+  return isFreeNow(ticket) && isSingle(ticket);
+}
+
+/** First-party: a once-only free ticket is a registration, anything else a cart add. */
 function addCtaLabel(ticket) {
-  return isFreeNow(ticket) ? t("tickets.register") : t("tickets.add");
+  return registersOnce(ticket) ? t("tickets.register") : t("tickets.add");
 }
 
 // A countdown that hits zero used to just vanish, leaving the card advertising
@@ -839,8 +875,9 @@ const ticketsById = computed(() => {
         <!-- The success variant retints the description from its own hue, the
              way destructive does, so this stays readable instead of dropping to
              muted gray on a coloured surface. -->
-        <AlertDescription v-if="showAccessPriceNote">
-          {{ t("tickets.accessPriceNote") }}
+        <AlertDescription v-if="showAccessPriceNote || accessLimitNote">
+          <p v-if="accessLimitNote">{{ accessLimitNote }}</p>
+          <p v-if="showAccessPriceNote">{{ t("tickets.accessPriceNote") }}</p>
         </AlertDescription>
         <AlertAction>
           <Button
@@ -939,6 +976,47 @@ const ticketsById = computed(() => {
             </Button>
             <Button variant="destructive" @click="removeAccessCode">
               {{ t("tickets.removeAccessConfirm") }}
+            </Button>
+          </div>
+        </div>
+      </template>
+    </ResponsiveDialog>
+
+    <!-- Per-ticket terms (staff-managed HTML, localized by the API). The
+         header stays put while long terms scroll underneath it. -->
+    <ResponsiveDialog
+      v-model:open="termsOpen"
+      :title="t('tickets.ticketTerms')"
+      :description="termsTicket?.title"
+      :overflow-content="true"
+      dialog-max-width="40rem"
+    >
+      <template #sticky-header>
+        <div
+          aria-hidden="true"
+          class="border-border sticky top-0 z-10 border-b px-4 pt-5 pb-2 text-center md:px-6 md:py-3.5 md:pr-14 md:text-left"
+        >
+          <div
+            class="text-foreground text-lg font-semibold tracking-tighter text-balance"
+          >
+            {{ t("tickets.ticketTerms") }}
+          </div>
+          <p class="text-muted-foreground mt-0.5 text-sm tracking-tight">
+            {{ termsTicket?.title }}
+          </p>
+        </div>
+      </template>
+      <template #default>
+        <!-- Same body as the checkout's terms dialog (pages/tickets/checkout.vue):
+             the house typeset-cms preset, untouched. -->
+        <div class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
+          <div
+            v-html="termsTicket?.terms"
+            class="typeset typeset-cms max-w-none tracking-tight"
+          ></div>
+          <div class="flex justify-end pt-1">
+            <Button size="sm" @click="termsOpen = false">
+              {{ t("tickets.termsClose") }}
             </Button>
           </div>
         </div>
@@ -1093,6 +1171,7 @@ const ticketsById = computed(() => {
                 <Badge
                   v-if="ticket.tier && !ticket.day_pass && !ticket.entrance"
                   variant="outline"
+                  :icon="ticket.tier_icon || undefined"
                 >
                   {{ ticket.tier }}
                 </Badge>
@@ -1123,6 +1202,22 @@ const ticketsById = computed(() => {
                   </span>
                 </div>
               </div>
+
+              <!-- The ticket's own terms sit behind a link: long enough to
+                   swamp the card. One dialog serves every card (openTerms).
+                   px-2 cancelled by -ml-2 starts the text on the content's
+                   edge whatever the style's sm padding; self-start keeps the
+                   column's flex stretch off it. -->
+              <Button
+                v-if="ticket.terms"
+                variant="ghost"
+                size="sm"
+                aria-haspopup="dialog"
+                class="mt-2.5 -ml-2 self-start px-2"
+                @click="openTerms(ticket)"
+              >
+                {{ t("tickets.ticketTerms") }}
+              </Button>
 
               <!-- Day picker: a Day Pass is valid on many days but the buyer
                    chooses one. Switching the day starts a fresh cart line.
@@ -1297,7 +1392,7 @@ const ticketsById = computed(() => {
                     :single="isSingle(ticket)"
                     :dimmed="!canAdd(ticket)"
                     :add-label="addCtaLabel(ticket)"
-                    :add-icon="isFreeNow(ticket) ? '' : 'hugeicons:plus-sign'"
+                    :add-icon="registersOnce(ticket) ? '' : 'hugeicons:plus-sign'"
                     @add="addToCart(ticket)"
                     @increase="inc(ticket)"
                     @decrease="dec(ticket)"
@@ -1470,6 +1565,7 @@ const ticketsById = computed(() => {
                 <Badge
                   v-if="ticket.tier && !ticket.day_pass && !ticket.entrance"
                   variant="outline"
+                  :icon="ticket.tier_icon || undefined"
                 >
                   {{ ticket.tier }}
                 </Badge>
@@ -1513,6 +1609,31 @@ const ticketsById = computed(() => {
                   @update:model-value="(v) => (selectedSession[ticket.id] = v)"
                 />
               </div>
+
+              <!-- Read-only schedule whenever there is nothing to pick here:
+                   an external ticket (the session is chosen on the other
+                   store), a sale that has not opened, or a single session. -->
+              <TicketSessionList
+                v-else-if="sessionsFor(ticket).length"
+                :sessions="sessionsFor(ticket)"
+                class="mt-4"
+              />
+
+              <!-- The ticket's own terms sit behind a link: long enough to
+                   swamp the card. One dialog serves every card (openTerms).
+                   px-2 cancelled by -ml-2 starts the text on the content's
+                   edge whatever the style's sm padding; self-start keeps the
+                   column's flex stretch off it. -->
+              <Button
+                v-if="ticket.terms"
+                variant="ghost"
+                size="sm"
+                aria-haspopup="dialog"
+                class="mt-2.5 -ml-2 self-start px-2"
+                @click="openTerms(ticket)"
+              >
+                {{ t("tickets.ticketTerms") }}
+              </Button>
             </div>
 
             <template #footer>
@@ -1598,7 +1719,7 @@ const ticketsById = computed(() => {
                     :single="isSingle(ticket)"
                     :dimmed="!canAdd(ticket)"
                     :add-label="addCtaLabel(ticket)"
-                    :add-icon="isFreeNow(ticket) ? '' : 'hugeicons:plus-sign'"
+                    :add-icon="registersOnce(ticket) ? '' : 'hugeicons:plus-sign'"
                     @add="addToCart(ticket)"
                     @increase="inc(ticket)"
                     @decrease="dec(ticket)"

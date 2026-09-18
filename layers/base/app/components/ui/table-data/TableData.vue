@@ -63,6 +63,7 @@
               class="cn-input peer placeholder:text-placeholder h-full w-full px-9 tracking-tight outline-none"
               :value="searchValue"
               @input="handleSearchInput"
+              @keydown.enter.prevent
             />
             <span
               v-if="!searchValue"
@@ -72,6 +73,7 @@
             </span>
             <button
               v-if="searchValue"
+              type="button"
               class="bg-muted hover:bg-border absolute top-1/2 right-3 flex size-6 -translate-y-1/2 items-center justify-center rounded-full peer-placeholder-shown:hidden"
               aria-label="Clear search"
               @click="clearSearch"

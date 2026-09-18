@@ -382,6 +382,9 @@
 </template>
 
 <script setup>
+// A detail page is read on its own, without the site's tab bar.
+definePageMeta({ bottomNav: false });
+
 const route = useRoute();
 
 const { $dayjs } = useNuxtApp();

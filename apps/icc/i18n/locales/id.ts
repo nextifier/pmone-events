@@ -357,4 +357,9 @@ export default {
     noteContact:
       "Peserta terpilih akan dihubungi oleh tim Indonesia Comic Con dan mendapatkan tiket masuk gratis (tanpa perlu membeli tiket).",
   },
+  // ICC speaks casually ("kamu"); the base layer's ticket copy says "Anda"
+  // for the trade expos. Only the line shown above the add-on cards here.
+  tickets: {
+    addOnSubtitle: "Lengkapi kunjunganmu dengan sesi dan pengalaman tambahan.",
+  },
 };

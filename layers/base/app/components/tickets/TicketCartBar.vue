@@ -154,7 +154,7 @@ useEventListener(window, "keydown", (event) => {
 const clearConfirmOpen = ref(false);
 
 function confirmClear() {
-  cart.clear();
+  cart.clearItems();
   clearConfirmOpen.value = false;
 }
 

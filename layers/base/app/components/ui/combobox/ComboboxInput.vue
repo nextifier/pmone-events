@@ -38,6 +38,11 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 // ring off. Reka renders the native input itself (an `as-child` InputGroupInput would
 // fight it over `v-model`), so the classes Input + InputGroupInput would have
 // contributed are applied directly instead.
+//
+// Reka only swallows Enter while a list item is highlighted. With no match, or with
+// the list closed, Enter fell through to the surrounding <form> and submitted it.
+// The query is never the form's value, so Enter is always kept inside the combobox;
+// Reka still reads the same event to pick the highlighted item.
 </script>
 
 <template>
@@ -46,6 +51,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       data-slot="input-group-control"
       class="cn-input cn-input-group-input w-full min-w-0 flex-1 outline-none placeholder:text-placeholder disabled:cursor-not-allowed disabled:opacity-50"
       v-bind="{ ...forwarded, ...$attrs }"
+      @keydown.enter.prevent
     />
     <InputGroupAddon align="inline-end">
       <InputGroupButton
