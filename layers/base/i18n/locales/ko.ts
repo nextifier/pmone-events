@@ -2,6 +2,7 @@ export default {
   bottomNav: {
     label: "주 메뉴",
     home: "홈",
+    guests: "게스트",
     brands: "브랜드",
     rundown: "행사 일정",
     exhibit: "부스 신청",

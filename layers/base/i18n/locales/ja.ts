@@ -2,6 +2,7 @@ export default {
   bottomNav: {
     label: "メインナビゲーション",
     home: "ホーム",
+    guests: "ゲスト",
     brands: "ブランド",
     rundown: "進行表",
     exhibit: "出展",

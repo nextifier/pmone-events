@@ -2,6 +2,7 @@ export default {
   bottomNav: {
     label: "主导航",
     home: "首页",
+    guests: "嘉宾",
     brands: "品牌",
     rundown: "议程",
     exhibit: "参展",

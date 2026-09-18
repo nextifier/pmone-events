@@ -67,6 +67,7 @@ onBeforeUnmount(stopClearingPending);
  */
 const ICONS: Record<SiteNavKey, { icon: string; activeIcon: string }> = {
   home: { icon: "solar:home-smile-linear", activeIcon: "solar:home-smile-bold" },
+  guests: { icon: "solar:star-linear", activeIcon: "solar:star-bold" },
   brands: { icon: "solar:shop-2-linear", activeIcon: "solar:shop-2-bold" },
   rundown: { icon: "solar:clipboard-list-linear", activeIcon: "solar:clipboard-list-bold" },
   exhibit: { icon: "solar:case-round-linear", activeIcon: "solar:case-round-bold" },

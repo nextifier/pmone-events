@@ -282,7 +282,8 @@ defineExpose({ appliedPromo });
       >
         <div
           v-if="posterSrc(line.ticket)"
-          class="bg-muted outline-inside size-14 shrink-0 overflow-hidden rounded-lg"
+          class="bg-muted outline-inside w-14 shrink-0 overflow-hidden rounded-lg"
+          :style="{ aspectRatio: posterAspectRatio(line.ticket) }"
         >
           <BlurImage
             :src="posterSrc(line.ticket)"

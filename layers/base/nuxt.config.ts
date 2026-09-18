@@ -280,6 +280,8 @@ export default defineNuxtConfig({
         // SiteBottomNav's tabs, looked up from its ICONS map.
         "solar:home-smile-linear",
         "solar:home-smile-bold",
+        "solar:star-linear",
+        "solar:star-bold",
         "solar:shop-2-linear",
         "solar:shop-2-bold",
         "solar:clipboard-list-linear",

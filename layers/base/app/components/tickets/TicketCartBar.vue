@@ -248,7 +248,8 @@ const visible = computed(
                 >
                   <div
                     v-if="posterSrc(line.ticket)"
-                    class="bg-background/10 size-11 shrink-0 overflow-hidden rounded-lg"
+                    class="bg-background/10 w-11 shrink-0 overflow-hidden rounded-lg"
+                    :style="{ aspectRatio: posterAspectRatio(line.ticket) }"
                   >
                     <BlurImage
                       :src="posterSrc(line.ticket)"

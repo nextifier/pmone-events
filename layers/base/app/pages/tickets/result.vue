@@ -145,7 +145,8 @@
                  they picked. -->
             <div
               v-if="posterSrc(item)"
-              class="bg-muted size-11 shrink-0 overflow-hidden rounded-lg"
+              class="bg-muted w-11 shrink-0 overflow-hidden rounded-lg"
+              :style="{ aspectRatio: posterAspectRatio(item) }"
             >
               <BlurImage
                 :src="posterSrc(item)"

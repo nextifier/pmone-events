@@ -4,7 +4,7 @@
  * SiteBottomNav.vue, as the admin app keeps its own in AppBottomNav.vue.
  */
 
-export type SiteNavKey = "home" | "brands" | "rundown" | "exhibit" | "tickets";
+export type SiteNavKey = "home" | "guests" | "brands" | "rundown" | "exhibit" | "tickets";
 
 export interface SiteNavItem {
   key: SiteNavKey;
@@ -15,6 +15,7 @@ export interface SiteNavItem {
 /** Where each tab points, before the locale and edition prefixes. */
 const TAB_PATHS: Record<SiteNavKey, string> = {
   home: "/",
+  guests: "/guests",
   brands: "/brands",
   rundown: "/rundown",
   exhibit: "/book-space",
@@ -29,11 +30,20 @@ const TAB_PATHS: Record<SiteNavKey, string> = {
  */
 const TAB_ROUTES: Record<SiteNavKey, string[]> = {
   home: ["index"],
+  guests: ["guests"],
   brands: ["brands", "edition-brands"],
   rundown: ["rundown", "edition-rundown"],
   exhibit: ["book-space"],
   tickets: ["tickets"],
 };
+
+/**
+ * The tabs, in order, when an app does not choose its own with
+ * `settings.bottomNavTabs` in its app.config. There is deliberately no default
+ * in the base layer's app.config: Nuxt merges app.config arrays by
+ * concatenating them, so an app's list would be appended to the base one.
+ */
+const DEFAULT_TABS: SiteNavKey[] = ["home", "brands", "rundown", "exhibit", "tickets"];
 
 export function useSiteNav() {
   const route = useRoute();
@@ -42,8 +52,17 @@ export function useSiteNav() {
   const editionPath = useEditionPath();
   const appConfig = useAppConfig();
 
+  // Unknown keys are dropped rather than rendered as a dead tab.
+  const tabs = computed<SiteNavKey[]>(() => {
+    const chosen = appConfig.settings?.bottomNavTabs;
+    const known = Array.isArray(chosen)
+      ? (chosen.filter((key) => key in TAB_PATHS) as SiteNavKey[])
+      : [];
+    return known.length ? known : DEFAULT_TABS;
+  });
+
   const items = computed<SiteNavItem[]>(() =>
-    (Object.keys(TAB_PATHS) as SiteNavKey[]).map((key) => ({
+    tabs.value.map((key) => ({
       key,
       label: t(`bottomNav.${key}`),
       to: editionPath(TAB_PATHS[key]),

@@ -637,9 +637,12 @@ function addCtaLabel(ticket) {
 
 // A countdown that hits zero used to just vanish, leaving the card advertising
 // the phase that had already ended - old price, old button - until someone
-// reloaded. The listing is response-cached for 300s upstream, so one refresh at
-// the boundary can still come back pre-boundary; retry until the phase the
-// payload reports actually moves, then stop.
+// reloaded. The API's cache entry for the listing expires at the next phase
+// boundary, so a refresh at the boundary normally gets the new phase. It can
+// still come back pre-boundary when this device's clock runs ahead of the
+// server's, so retry - soon at first, then backing off - until the phase the
+// payload reports actually moves, then stop (about four minutes in all).
+const BOUNDARY_RETRY_DELAYS_MS = [3000, 10000, 30000, 30000, 60000, 60000, 60000];
 const boundaryRetries = ref(0);
 let boundaryTimer = null;
 
@@ -658,9 +661,10 @@ async function onPhaseBoundary() {
     boundaryTimer = null;
     await refresh();
     if (phaseSignature() !== before) return;
-    if (boundaryRetries.value >= 6) return;
+    const delay = BOUNDARY_RETRY_DELAYS_MS[boundaryRetries.value];
+    if (delay === undefined) return;
     boundaryRetries.value += 1;
-    boundaryTimer = setTimeout(attempt, 30000);
+    boundaryTimer = setTimeout(attempt, delay);
   };
 
   await attempt();
@@ -1076,14 +1080,15 @@ const ticketsById = computed(() => {
                   <template #trigger="{ openAt }">
                     <button
                       type="button"
-                      class="group bg-muted border-border relative block size-12 shrink-0 cursor-zoom-in overflow-hidden rounded-xl lg:size-14"
+                      class="group bg-muted border-border relative block w-12 shrink-0 cursor-zoom-in overflow-hidden rounded-lg lg:w-14"
+                      :style="{ aspectRatio: posterAspectRatio(ticket) }"
                       :aria-label="ticket.title"
                       @click="openAt(0)"
                     >
                       <img
                         :src="posterSrc(ticket)"
                         :alt="ticket.title"
-                        class="outline-inside size-full rounded-xl object-cover"
+                        class="outline-inside size-full rounded-lg object-cover"
                         loading="lazy"
                         decoding="async"
                       />
@@ -1470,14 +1475,15 @@ const ticketsById = computed(() => {
                   <template #trigger="{ openAt }">
                     <button
                       type="button"
-                      class="group bg-muted border-border relative block size-12 shrink-0 cursor-zoom-in overflow-hidden rounded-xl lg:size-14"
+                      class="group bg-muted border-border relative block w-12 shrink-0 cursor-zoom-in overflow-hidden rounded-lg lg:w-14"
+                      :style="{ aspectRatio: posterAspectRatio(ticket) }"
                       :aria-label="ticket.title"
                       @click="openAt(0)"
                     >
                       <img
                         :src="posterSrc(ticket)"
                         :alt="ticket.title"
-                        class="outline-inside size-full rounded-xl object-cover"
+                        class="outline-inside size-full rounded-lg object-cover"
                         loading="lazy"
                         decoding="async"
                       />
@@ -1498,6 +1504,17 @@ const ticketsById = computed(() => {
                   >
                     {{ ticket.title }}
                   </p>
+                  <!-- An add-on names its token right under the title, plain
+                       (no pill), so it reads as what the ticket is rather than
+                       as one more tag among the badges below. -->
+                  <Badge
+                    v-if="ticket.tier"
+                    variant="outline"
+                    plain
+                    :icon="ticket.tier_icon || undefined"
+                  >
+                    {{ ticket.tier }}
+                  </Badge>
                   <!-- Staff preview only: this ticket is buyable here because
                        of ?force-checkout-ticket, not because it is on sale. -->
                   <Badge
@@ -1550,7 +1567,7 @@ const ticketsById = computed(() => {
               </div>
 
               <div
-                v-if="ticket.day_pass || ticket.entrance || ticket.tier"
+                v-if="ticket.day_pass || ticket.entrance"
                 class="mt-4 flex flex-wrap gap-1.5"
               >
                 <Badge v-if="ticket.day_pass" icon="hugeicons:ticket-star">
@@ -1561,13 +1578,6 @@ const ticketsById = computed(() => {
                   icon="hugeicons:square-arrow-right-03"
                 >
                   {{ ticket.entrance }}
-                </Badge>
-                <Badge
-                  v-if="ticket.tier && !ticket.day_pass && !ticket.entrance"
-                  variant="outline"
-                  :icon="ticket.tier_icon || undefined"
-                >
-                  {{ ticket.tier }}
                 </Badge>
               </div>
 
@@ -1705,10 +1715,6 @@ const ticketsById = computed(() => {
                       rel="noopener noreferrer"
                     >
                       {{ externalCtaLabel(ticket) }}
-                      <Icon
-                        name="hugeicons:link-square-02"
-                        class="size-3.5 shrink-0 opacity-70"
-                      />
                     </a>
                   </Button>
 

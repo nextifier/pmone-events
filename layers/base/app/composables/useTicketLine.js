@@ -37,6 +37,18 @@ export function posterSrc(ticket) {
   return p.md || p.sm || p.lg || p.url || null;
 }
 
+/**
+ * CSS aspect-ratio of a ticket poster, from the width and height the upload
+ * recorded, so the thumbnail frame takes the poster's own shape before the
+ * image arrives and nothing moves when it does. A poster uploaded before the
+ * dimensions were recorded keeps the square frame the card always had.
+ */
+export function posterAspectRatio(ticket) {
+  const width = Number(ticket?.poster?.width);
+  const height = Number(ticket?.poster?.height);
+  return width > 0 && height > 0 ? `${width} / ${height}` : "1 / 1";
+}
+
 /** A single-image lightbox payload for a ticket poster (opens the larger image). */
 export function posterLightboxItems(ticket) {
   const p = ticket?.poster;

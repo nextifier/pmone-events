@@ -2,6 +2,7 @@ export default {
   "bottomNav": {
     "label": "Main navigation",
     "home": "Home",
+    "guests": "Guests",
     "brands": "Brands",
     "rundown": "Rundown",
     "exhibit": "Exhibit",

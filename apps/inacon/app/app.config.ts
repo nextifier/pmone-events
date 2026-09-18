@@ -12,8 +12,9 @@ const app = {
 };
 
 const settings = {
-  // Phone tab bar below lg (Home, Brands, Rundown, Exhibit, Tickets).
+  // Phone tab bar below lg, with Guests in place of Rundown.
   bottomNav: true,
+  bottomNavTabs: ["home", "guests", "brands", "exhibit", "tickets"],
   header: {
     logoClass: "h-8",
   },

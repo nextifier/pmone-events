@@ -1,10 +1,11 @@
 export default {
   bottomNav: {
     label: "Navigasi utama",
-    home: "Beranda",
-    brands: "Brand",
+    home: "Home",
+    guests: "Guests",
+    brands: "Brands",
     rundown: "Rundown",
-    exhibit: "Exhibitor",
+    exhibit: "Exhibit",
     tickets: "Tiket",
   },
   fallbackNotice: {
