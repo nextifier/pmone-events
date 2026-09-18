@@ -691,6 +691,7 @@ import { TimePicker, TimeRangePicker } from "../date-picker";
 import { countries as defaultCountries } from "./countries";
 import {
   JABODETABEK_CITIES,
+  locationParentKey,
   normalizeField,
   parseLocalDateString,
   shortProvinceLabel,
@@ -721,7 +722,8 @@ const props = defineProps({
   // renders one field and is handed only that field's value.
   contextValues: { type: Object, default: () => ({}) },
   /**
-   * `system_key`s of sibling fields the form answers on the respondent's behalf,
+   * Slots (`system_key`, or the type of a Form Builder location field; see
+   * `fieldSlot`) of sibling fields the form answers on the respondent's behalf,
    * so they are not rendered. A dependent field must not narrow itself to a
    * parent nobody chose: the province is set only because the city set it, and
    * narrowing on it would lock the list to that one province the moment anything
@@ -759,24 +761,36 @@ watch(
   { immediate: true },
 );
 
-/** The answer this field depends on, resolved through `settings.depends_on`. */
+/**
+ * The answer this field depends on: `settings.depends_on` on a predefined field,
+ * the implied parent (province -> country, city -> province) on one built in the
+ * Form Builder, which carries neither.
+ */
+const parentKey = computed(() => locationParentKey(props.field));
+
 const parentValue = computed(() => {
-  const key = props.field?.settings?.depends_on;
+  const key = parentKey.value;
   return key ? (props.contextValues?.[key] ?? null) : null;
 });
 
-// province depends on country; city depends on province, which itself only has
-// options inside Indonesia. Walking up one more level keeps the city field from
-// offering a dropdown when the country is not Indonesia.
 /** Whether the parent this field depends on is one the form fills in itself. */
-const isParentDerived = computed(() => {
-  const key = normalized.value.settings?.depends_on;
-  return !!key && props.derivedSystemKeys.includes(key);
-});
+const isParentDerived = computed(
+  () => !!parentKey.value && props.derivedSystemKeys.includes(parentKey.value)
+);
 
+/**
+ * province depends on country; city depends on province, which itself only has
+ * options inside Indonesia. Walking up one more level keeps the city field from
+ * offering a dropdown when the country is not Indonesia.
+ *
+ * A form that never asks for a country (no such slot among its siblings) is
+ * asking for an Indonesian place - the dataset has nothing else to offer - so
+ * the field stays. CustomFieldValidation::isWithdrawn() says the same.
+ */
 const countryValue = computed(() => {
-  if (normalized.value.type === "province") return parentValue.value;
-  return props.contextValues?.country ?? null;
+  const key = normalized.value.type === "province" ? parentKey.value : "country";
+  if (!key || !(key in (props.contextValues ?? {}))) return "Indonesia";
+  return props.contextValues[key];
 });
 
 /**

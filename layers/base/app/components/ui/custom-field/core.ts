@@ -432,14 +432,40 @@ export const parseLocalDateString = (value: string | null | undefined): Date | n
   return new Date(Number(y), Number(m) - 1, Number(d));
 };
 
+const LOCATION_TYPES = ["country", "province", "city"];
+
 /**
- * Answers re-keyed by `system_key`, which is what `settings.depends_on` names.
+ * The parent each dependent location type hangs off when the field does not
+ * say. Predefined library fields spell it out in `settings.depends_on`; a Form
+ * Builder field is picked by type and carries nothing, so it gets the same
+ * chain. Mirrors CustomFieldValidation::IMPLIED_PARENTS on the API.
+ */
+const IMPLIED_PARENTS: Record<string, string> = { province: "country", city: "province" };
+
+/**
+ * The name a field answers to in `contextValues`. `system_key` wins, which is
+ * how predefined fields are linked; a location field without one is named by its
+ * type, so the country field of a Form Builder form is "country" too.
+ */
+export const fieldSlot = (field: Record<string, any> | null | undefined): string | null =>
+  field?.system_key ?? (LOCATION_TYPES.includes(field?.type) ? field?.type : null);
+
+/** The slot a province or city takes its parent answer from. */
+export const locationParentKey = (field: Record<string, any> | null | undefined): string | null =>
+  field?.settings?.depends_on ?? IMPLIED_PARENTS[field?.type] ?? null;
+
+/**
+ * Answers re-keyed by slot (see `fieldSlot`), which is what
+ * `settings.depends_on` names.
  *
  * A renderer is handed one field and one value, so a dependent select (city
  * narrowing on province) cannot see its parent on its own. Only whoever holds
  * every answer can build this, so every surface that renders fields one at a
  * time has to pass the result down: without it a province or city field decides
  * its country is missing and withdraws itself, even inside Indonesia.
+ *
+ * A field named by its type never displaces one that carries the `system_key`,
+ * and a field switched off is not there to answer anything.
  */
 export const contextValuesFor = (
   fields: Array<Record<string, any>>,
@@ -447,10 +473,17 @@ export const contextValuesFor = (
   keyBy = "ulid"
 ): Record<string, any> => {
   const out: Record<string, any> = {};
-  for (const field of fields) {
-    if (!field?.system_key) continue;
+  const active = fields.filter((field) => field && field.is_active !== false);
+  const ordered = [
+    ...active.filter((field) => field.system_key),
+    ...active.filter((field) => !field.system_key),
+  ];
+
+  for (const field of ordered) {
+    const slot = fieldSlot(field);
+    if (!slot || slot in out) continue;
     const key = String(field[keyBy] ?? field.ulid ?? field.id ?? "");
-    out[field.system_key] = values[key] ?? null;
+    out[slot] = values[key] ?? null;
   }
   return out;
 };
@@ -472,20 +505,27 @@ export const derivedLocationValues = (
   fields: Array<Record<string, any>>,
   regions: Record<string, any> | null,
   keyBy = "ulid"
-): Record<string, string> => {
-  if (!regions || field?.type !== "city" || typeof value !== "string" || !value) return {};
+): Record<string, string | null> => {
+  if (field?.type !== "city") return {};
 
-  const province = fields.find((f) => f?.type === "province");
+  const province = fields.find((f) => f?.type === "province" && f?.is_active !== false);
   if (!province) return {};
+  const key = String(province[keyBy] ?? province.ulid ?? province.id ?? "");
+  if (!key) return {};
+
+  // Clearing the city clears a province nobody chose: it was only ever the
+  // city's, and left behind it would be stored as an answer on its own.
+  if (typeof value !== "string" || !value) {
+    return derivedFieldKeys(fields, keyBy).has(key) ? { [key]: null } : {};
+  }
+
+  if (!regions) return {};
 
   const city = regions.INDONESIA_CITIES.find((row: any) => row.label === value);
   const match = city
     ? regions.INDONESIA_PROVINCES.find((row: any) => row.value === city.province)
     : null;
-  if (!match) return {};
-
-  const key = String(province[keyBy] ?? province.ulid ?? province.id ?? "");
-  return key ? { [key]: match.label } : {};
+  return match ? { [key]: match.label } : {};
 };
 
 /**
@@ -495,10 +535,11 @@ export const derivedLocationValues = (
  * is a control nobody has to touch. It is still a field, still stored, still in
  * exports and analytics - it just is not put to the respondent.
  *
- * The exception is a province the organiser marked required. Hiding a required
- * field means a form that can be blocked by something the respondent was never
- * shown, so that one stays on screen and simply fills itself in when a city is
- * chosen.
+ * The exception is a province the organiser marked required while the city is
+ * optional. Hiding it then means a form that can be blocked by something the
+ * respondent was never shown, so that one stays on screen and simply fills
+ * itself in when a city is chosen. With the city required too, answering the
+ * city always answers the province, so it is hidden like any other.
  */
 export const derivedFieldKeys = (
   fields: Array<Record<string, any>>,
@@ -509,11 +550,27 @@ export const derivedFieldKeys = (
   const province = active.find((field) => field?.type === "province");
   if (!city || !province) return new Set();
 
-  const required = province.validation?.required ?? province.required ?? false;
-  if (required) return new Set();
+  const isRequired = (field: Record<string, any>) =>
+    Boolean(field.validation?.required ?? field.required ?? false);
+  if (isRequired(province) && !isRequired(city)) return new Set();
 
   const key = String(province[keyBy] ?? province.ulid ?? province.id ?? "");
   return key ? new Set([key]) : new Set();
+};
+
+/**
+ * Slots of the fields the form fills in itself (see `derivedFieldKeys`), which
+ * is how a dependent field recognises a parent nobody chose.
+ */
+export const derivedFieldSlots = (
+  fields: Array<Record<string, any>>,
+  keyBy = "ulid"
+): string[] => {
+  const derived = derivedFieldKeys(fields, keyBy);
+  return fields
+    .filter((field) => derived.has(String(field?.[keyBy] ?? field?.ulid ?? field?.id ?? "")))
+    .map(fieldSlot)
+    .filter((slot): slot is string => Boolean(slot));
 };
 
 /**

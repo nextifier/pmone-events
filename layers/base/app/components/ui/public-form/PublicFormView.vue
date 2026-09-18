@@ -43,17 +43,45 @@
         </div>
       </div>
 
-      <!-- Terminal states (closed / load error / success / already responded)
-           share one card. Result draws its own checkmark when no icon is given. -->
-      <Result
+      <!-- Terminal states (not open yet / closed / full / load error / success /
+           already responded) share one Empty. Its root is `t-stagger`, so the
+           header and the actions rise in on mount; nothing else moves. Painted
+           neutral on purpose: a closed or missing form is not the visitor's
+           fault, so it should not read as a failure they caused. -->
+      <Empty
         v-else-if="statusCard"
         ref="terminalRef"
         tabindex="-1"
         class="outline-none"
-        :size="embed ? 'sm' : 'default'"
-        title-as="h1"
-        v-bind="statusCard"
-      />
+        :class="embed ? 'px-0 py-6' : 'px-0 py-10'"
+      >
+        <EmptyHeader role="status">
+          <EmptyMedia variant="stacked">
+            <Icon :name="statusCard.icon" aria-hidden="true" />
+          </EmptyMedia>
+          <EmptyTitle>
+            <h1>{{ statusCard.title }}</h1>
+          </EmptyTitle>
+          <EmptyDescription v-if="statusCard.description" class="whitespace-pre-line">
+            {{ statusCard.description }}
+          </EmptyDescription>
+        </EmptyHeader>
+
+        <EmptyContent v-if="statusCard.actions.length">
+          <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
+            <Button
+              v-for="(action, index) in statusCard.actions"
+              :key="action.key"
+              :to="action.href"
+              :variant="index === 0 ? 'default' : 'outline'"
+              @click="action.onClick?.()"
+            >
+              <Icon :name="action.icon" class="size-4 shrink-0" aria-hidden="true" />
+              <span>{{ action.label }}</span>
+            </Button>
+          </div>
+        </EmptyContent>
+      </Empty>
 
       <div v-else-if="form" class="relative">
         <!-- BlurImage sets inheritAttrs:false and binds $attrs to the inner <img>,
@@ -123,6 +151,7 @@
           :fields="renderedFields"
           :responses="responses"
           :context-values="contextValues"
+          :derived-system-keys="derivedSystemKeys"
           :form-errors="formErrors"
           :locale="locale"
           :upload-handlers="uploadHandlers"
@@ -180,10 +209,13 @@ import {
   contextValuesFor,
   defaultValueFor,
   derivedFieldKeys,
+  derivedFieldSlots,
   derivedLocationValues,
   supportsPrefill,
+  usePhoneSeededCountry,
 } from "../custom-field";
-import { Result } from "../result";
+import { Button } from "../button";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "../empty";
 import { Skeleton } from "../skeleton";
 
 /**
@@ -227,8 +259,9 @@ const respondentEmail = ref("");
 const formErrors = ref({});
 const submitting = ref(false);
 const submitted = ref(false);
-const successMessage = ref("");
 const alreadySubmitted = ref(false);
+/** A 403 from submit: the form closed or filled up while it was being filled in. */
+const submitUnavailable = ref(null);
 const duplicateCheckDone = ref(false);
 const uploadsInProgress = ref(0);
 const visitorId = ref(null);
@@ -264,7 +297,18 @@ const isMultiStep = computed(() => props.form?.settings?.layout === "multi_step"
  */
 const contextValues = computed(() => contextValuesFor(sortedFields.value, responses.value));
 
-const cityField = computed(() => sortedFields.value.find((field) => field?.type === "city") ?? null);
+/**
+ * A city whose province is filled in for the respondent must not narrow itself
+ * to that province, or the list would collapse to one province the moment a
+ * city is picked. See `derivedFieldSlots`.
+ */
+const derivedSystemKeys = computed(() => derivedFieldSlots(sortedFields.value));
+
+const fieldOfType = (type) => sortedFields.value.find((field) => field?.type === type) ?? null;
+const cityField = computed(() => fieldOfType("city"));
+const phoneField = computed(() => fieldOfType("phone"));
+const countryField = computed(() => fieldOfType("country"));
+
 const regions = shallowRef(null);
 
 watch(
@@ -286,6 +330,17 @@ const setResponse = (ulid, value) => {
     derivedLocationValues(field, value, sortedFields.value, regions.value)
   );
 };
+
+/**
+ * The form asks for a phone number before it asks where the respondent is, so
+ * the country follows the number's dial code until they pick one themselves -
+ * the same thing checkout does with the buyer's phone.
+ */
+usePhoneSeededCountry(
+  () => (phoneField.value && countryField.value ? responses.value[phoneField.value.ulid] : ""),
+  () => responses.value[countryField.value?.ulid],
+  (label) => setResponse(countryField.value.ulid, label)
+);
 
 /* ----- Description clamp ----- */
 /**
@@ -407,70 +462,182 @@ const handleUploading = (active) => {
 };
 
 /**
- * One shared Result for every terminal state. A closed or missing form is
- * painted neutral on purpose: it is not the visitor's fault, so it should not
- * read as a failure they caused.
+ * A date and time in the zone the API keeps them in, so the server render and
+ * the browser agree on the text (a visitor's own zone would change it during
+ * hydration) and the zone is named in the string so nobody misreads it.
  */
+const formatWhen = (iso, timeZone) => {
+  if (!iso) return null;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return null;
+
+  try {
+    return new Intl.DateTimeFormat(props.locale, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: timeZone || undefined,
+      timeZoneName: "short",
+    }).format(date);
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Why the form is not taking responses, from the 403 body. Older API builds
+ * sent only a message, which reads as "closed".
+ */
+const unavailableCopy = (body) => {
+  const reason = body?.reason ?? "closed";
+  const ownWords = body?.closed_message || null;
+
+  if (reason === "not_open") {
+    const when = formatWhen(body?.opens_at, body?.timezone);
+    return {
+      icon: "hugeicons:clock-01",
+      title: t("forms.notOpenTitle"),
+      description: when
+        ? t("forms.notOpenMessage", { date: when })
+        : t("forms.notOpenMessageNoDate"),
+    };
+  }
+
+  if (reason === "full") {
+    return {
+      icon: "hugeicons:user-block-01",
+      title: t("forms.fullTitle"),
+      description: ownWords || t("forms.fullMessage"),
+    };
+  }
+
+  const closedOn = body?.reason ? formatWhen(body?.closes_at, body?.timezone) : null;
+  return {
+    icon: "hugeicons:calendar-remove-01",
+    title: t("forms.closedTitle"),
+    description:
+      ownWords ||
+      (closedOn ? t("forms.closedMessageDate", { date: closedOn }) : null) ||
+      // An old API put the organiser's wording, or its own English default,
+      // in `message`; only the former is worth showing.
+      (body?.reason ? null : body?.message) ||
+      t("forms.closedMessage"),
+  };
+};
+
+/** The organiser, from the form payload or, when there is no form, the 403 body. */
+const organizer = computed(
+  () => props.form?.organizer ?? submitUnavailable.value?.organizer ?? props.fetchError?.data?.organizer ?? null
+);
+
+/**
+ * Every terminal state gets somewhere to go next. The organiser's website is
+ * the one exit that makes sense on every host - pmone.id has nothing a
+ * respondent should land on, and an event site's own home is usually that same
+ * website - so it is offered wherever it exists.
+ */
+const organizerAction = computed(() =>
+  organizer.value?.website
+    ? {
+        key: "organizer",
+        icon: "hugeicons:arrow-up-right-01",
+        label: t("forms.visitOrganizer", { name: organizer.value.name }),
+        href: organizer.value.website,
+      }
+    : null
+);
+
+const actionsFrom = (...actions) => actions.filter(Boolean);
+
 const statusCard = computed(() => {
   // The builder's state switcher: the confirmation and closed copy are edited
   // on another tab, so they need to be viewable without actually submitting the
   // form or closing it.
   if (props.preview && props.previewState !== "form") {
     if (props.previewState === "success") {
+      return successCard.value;
+    }
+
+    return {
+      ...unavailableCopy({ reason: "closed", closed_message: props.form?.settings?.closed_message }),
+      actions: actionsFrom(organizerAction.value),
+    };
+  }
+
+  if (props.fetchError || submitUnavailable.value) {
+    const body = submitUnavailable.value ?? props.fetchError.data;
+
+    if (submitUnavailable.value || isClosedError(props.fetchError)) {
+      return { ...unavailableCopy(body), actions: actionsFrom(organizerAction.value) };
+    }
+
+    // Only reached when embedded: a standalone page sends these to error.vue.
+    const status = props.fetchError.statusCode || props.fetchError.data?.statusCode;
+    if (status === 404) {
       return {
-        status: "success",
-        variant: "soft",
-        title: t("forms.successTitle"),
-        description: props.form?.settings?.confirmation_message || t("forms.successMessage"),
+        icon: "hugeicons:search-01",
+        title: t("forms.notFoundTitle"),
+        description: t("forms.notFoundMessage"),
+        actions: [],
       };
     }
 
     return {
-      status: "error",
-      variant: "muted",
-      icon: "hugeicons:alert-circle",
-      title: t("forms.closedTitle"),
-      description: props.form?.settings?.closed_message || t("forms.closedMessage"),
-    };
-  }
-
-  if (props.fetchError) {
-    const closed = isClosedError(props.fetchError);
-
-    return {
-      status: "error",
-      variant: "muted",
-      icon: "hugeicons:alert-circle",
-      title: closed ? t("forms.closedTitle") : t("forms.notFoundTitle"),
-      // The 403 body carries the owner's own "form closed" wording. A 404 body
-      // does not: Laravel answers a missing form with the raw model name.
-      description: closed
-        ? props.fetchError.data?.message || t("forms.closedMessage")
-        : t("forms.notFoundMessage"),
+      icon: "hugeicons:cloud-off",
+      title: t("forms.errorTitle"),
+      description: t("forms.errorMessage"),
+      actions: [
+        {
+          key: "retry",
+          icon: "hugeicons:reload",
+          label: t("forms.tryAgain"),
+          onClick: () => window.location.reload(),
+        },
+      ],
     };
   }
 
   if (submitted.value) {
-    return {
-      status: "success",
-      variant: "soft",
-      title: t("forms.successTitle"),
-      description: successMessage.value || t("forms.successMessage"),
-    };
+    return successCard.value;
   }
 
   if (alreadySubmitted.value && props.form) {
     return {
-      status: "info",
-      variant: "soft",
-      icon: "hugeicons:checkmark-circle-02",
+      icon: "hugeicons:task-done-01",
       title: t("forms.alreadyTitle"),
       description: t("forms.alreadyMessage"),
+      actions: actionsFrom(organizerAction.value),
     };
   }
 
   return null;
 });
+
+/**
+ * The organiser's own confirmation wins; ours names them when we know who they
+ * are. "Submit another response" only where the form accepts more than one per
+ * person - offering it on a deduplicated form would lead straight to a 409.
+ */
+const successCard = computed(() => ({
+  icon: "hugeicons:checkmark-circle-02",
+  title: t("forms.successTitle"),
+  description:
+    props.form?.settings?.confirmation_message ||
+    (organizer.value?.name
+      ? t("forms.successMessageOrganizer", { name: organizer.value.name })
+      : t("forms.successMessage")),
+  actions: actionsFrom(
+    !props.form?.settings?.prevent_duplicate && {
+      key: "again",
+      icon: "hugeicons:add-01",
+      label: t("forms.submitAnother"),
+      onClick: startOver,
+    },
+    organizerAction.value
+  ),
+}));
 
 const duplicateMode = computed(() => duplicateModeFor(props.form?.settings));
 
@@ -558,17 +725,30 @@ const prefillValueFor = (field) => {
   return coercePrefill(field, raw);
 };
 
-watch(
-  sortedFields,
-  (fields) => {
-    for (const field of fields) {
-      if (field.type !== "section" && responses.value[field.ulid] === undefined) {
-        responses.value[field.ulid] = prefillValueFor(field) ?? defaultValueFor(field);
-      }
+const seedResponses = (fields) => {
+  for (const field of fields) {
+    if (field.type !== "section" && responses.value[field.ulid] === undefined) {
+      responses.value[field.ulid] = prefillValueFor(field) ?? defaultValueFor(field);
     }
-  },
-  { immediate: true }
-);
+  }
+};
+
+watch(sortedFields, seedResponses, { immediate: true });
+
+/**
+ * "Submit another response": a blank form again, as if the page had just been
+ * opened (URL prefill included), with a fresh honeypot clock so the second
+ * submission is not mistaken for a bot filling the form in a second.
+ */
+function startOver() {
+  responses.value = {};
+  seedResponses(sortedFields.value);
+  respondentEmail.value = "";
+  formErrors.value = {};
+  honeypotToken.value = generateHoneypotToken();
+  submitted.value = false;
+  nextTick(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
 
 // Scroll the first invalid field into view after server-side validation. In
 // multi-step the offending field is usually not even on screen, so that body
@@ -604,7 +784,6 @@ const handleSubmit = async () => {
       return;
     }
 
-    successMessage.value = result.message || t("forms.successMessage");
     submitted.value = true;
   } catch (err) {
     if (err.status === 422 && err.data?.errors) {
@@ -612,8 +791,13 @@ const handleSubmit = async () => {
       scrollToFirstError();
     } else if (err.status === 409) {
       alreadySubmitted.value = true;
+    } else if (err.status === 403) {
+      // Closed or filled up while it was open in this tab.
+      submitUnavailable.value = err.data ?? {};
     } else {
-      formErrors.value._general = err.data?.message || t("forms.submitFailed");
+      // The server's own text here is a transport or framework message in
+      // English, not something to put in front of a visitor.
+      formErrors.value._general = t("forms.submitFailed");
     }
   } finally {
     submitting.value = false;

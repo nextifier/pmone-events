@@ -3,3 +3,4 @@ export { default as CustomFieldGroup } from "./CustomFieldGroup.vue";
 export { default as CustomFieldFileUpload } from "./CustomFieldFileUpload.vue";
 export * from "./core";
 export * from "./validation";
+export { usePhoneSeededCountry } from "./usePhoneSeededCountry";

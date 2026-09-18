@@ -25,6 +25,9 @@ defineProps({
    *  field can see the country it hangs off. Built by PublicFormView, which is
    *  the only place holding every answer. */
   contextValues: { type: Object, default: () => ({}) },
+  /** Slots of the fields the form fills in itself, so a city does not narrow
+   *  itself to a province nobody chose. */
+  derivedSystemKeys: { type: Array, default: () => [] },
   formErrors: { type: Object, required: true },
   respondentEmail: { type: String, default: "" },
   honeypot: { type: String, default: "" },
@@ -101,6 +104,7 @@ const { t } = useI18n();
       label-size="lg"
       :model-value="responses[field.ulid]"
       :context-values="contextValues"
+      :derived-system-keys="derivedSystemKeys"
       :error="firstFieldError(formErrors, field.ulid)"
       :upload-handler="uploadHandlers.uploadHandler"
       :revert-handler="uploadHandlers.revertHandler"

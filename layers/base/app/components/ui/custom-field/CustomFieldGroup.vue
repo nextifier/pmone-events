@@ -33,17 +33,15 @@
 <script setup>
 import { computed, onMounted, shallowRef, watch } from "vue";
 import CustomFieldRenderer from "./CustomFieldRenderer.vue";
-import { countries } from "./countries";
 import {
   contextValuesFor,
   defaultValueFor,
   derivedFieldKeys,
+  derivedFieldSlots,
   derivedLocationValues,
   normalizeField,
 } from "./core";
-
-// Auto-imported composable; all three repos sharing this folder ship it.
-const { getCountryCode } = usePhoneCountry();
+import { usePhoneSeededCountry } from "./usePhoneSeededCountry";
 
 const props = defineProps({
   fields: { type: Array, default: () => [] },
@@ -67,10 +65,10 @@ const props = defineProps({
   valueKey: { type: String, default: "ulid" },
   /**
    * The respondent's phone number, when the surrounding form already asks for
-   * one. A blank country field is seeded from its dial code, because a checkout
-   * that already knows the buyer is on +62 should not make them say so again.
-   * Only ever fills a blank: a country they picked, or one that arrived with the
-   * record, is never overwritten.
+   * one. The country field follows its dial code, because a checkout that
+   * already knows the buyer is on +62 should not make them say so again. A
+   * country they picked, or one that arrived with the record, is never
+   * overwritten; see `usePhoneSeededCountry`.
    */
   phone: { type: String, default: "" },
 });
@@ -102,16 +100,13 @@ const visibleFields = computed(() =>
 );
 
 /**
- * The same set named by `system_key`, which is how a dependent field refers to
- * its parent. A city whose province field is hidden must not narrow itself to
- * that province: the province is only set because the city set it, so narrowing
- * would lock the list to one province the moment anything is chosen.
+ * The same set named by slot (`system_key`, or the type of a location field
+ * that has none), which is how a dependent field refers to its parent. A city
+ * whose province field is hidden must not narrow itself to that province: the
+ * province is only set because the city set it, so narrowing would lock the
+ * list to one province the moment anything is chosen.
  */
-const derivedSystemKeys = computed(() =>
-  activeFields.value
-    .filter((field) => derivedKeys.value.has(fieldKey(field)) && field?.system_key)
-    .map((field) => field.system_key)
-);
+const derivedSystemKeys = computed(() => derivedFieldSlots(props.fields, props.valueKey));
 
 /**
  * Answers re-keyed by `system_key`, for fields that depend on a sibling.
@@ -123,7 +118,7 @@ const derivedSystemKeys = computed(() =>
  * library key, not a per-event id.
  */
 const contextValues = computed(() =>
-  contextValuesFor(props.fields, props.modelValue, props.valueKey)
+  contextValuesFor(activeFields.value, props.modelValue, props.valueKey)
 );
 
 /**
@@ -186,17 +181,12 @@ watch(
   { immediate: true }
 );
 
-// Seed a blank country from the phone's dial code. Never overwrites an answer.
-watch(
-  [() => props.phone, countryField],
-  ([phone, field]) => {
-    if (!phone || !field || props.modelValue[fieldKey(field)]) return;
-    const iso = getCountryCode(phone);
-    const label = iso ? (countries.find((row) => row.value === iso)?.label ?? "") : "";
-    if (!label) return;
-    emit("update:modelValue", { ...props.modelValue, [fieldKey(field)]: label });
-  },
-  { immediate: true }
+// Only read while a country field exists, so a field list that arrives after
+// the phone still gets seeded.
+usePhoneSeededCountry(
+  () => (countryField.value ? props.phone : ""),
+  () => props.modelValue[fieldKey(countryField.value)],
+  (label) => emit("update:modelValue", { ...props.modelValue, [fieldKey(countryField.value)]: label })
 );
 
 // First error for a field, including nested keys (date_range .start/.end,
