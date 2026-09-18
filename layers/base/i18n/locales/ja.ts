@@ -1,4 +1,12 @@
 export default {
+  bottomNav: {
+    label: "メインナビゲーション",
+    home: "ホーム",
+    brands: "ブランド",
+    rundown: "進行表",
+    exhibit: "出展",
+    tickets: "チケット",
+  },
   fallbackNotice: {
     label: "前回開催",
     labelWithEdition: "前回開催 · 第{n}回",

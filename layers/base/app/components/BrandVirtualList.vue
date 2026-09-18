@@ -1,5 +1,8 @@
 <template>
-  <div ref="containerRef" :class="!isCard && 'mx-[calc(50%_-_50vw)] sm:mx-0'">
+  <!-- Full-bleed on mobile by cancelling the container's px-4. Not
+       calc(50% - 50vw): 100vw counts a classic scrollbar, which widened the
+       page by its width and let it slide sideways. -->
+  <div ref="containerRef" :class="!isCard && '-mx-4 sm:mx-0'">
     <div
       :style="{ height: `${totalSize}px`, width: '100%', position: 'relative' }"
     >

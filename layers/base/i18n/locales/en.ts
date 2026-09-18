@@ -1,4 +1,12 @@
 export default {
+  "bottomNav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "brands": "Brands",
+    "rundown": "Rundown",
+    "exhibit": "Exhibit",
+    "tickets": "Tickets"
+  },
   "fallbackNotice": {
     "label": "Previous edition",
     "labelWithEdition": "Previous edition · {n}{ordinal}",

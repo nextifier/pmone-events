@@ -254,6 +254,7 @@ import { Spinner } from "../../../components/ui/spinner";
 definePageMeta({
   layout: "default",
   noFooter: true,
+  bottomNav: false,
 });
 
 const route = useRoute();

@@ -1,4 +1,12 @@
 export default {
+  bottomNav: {
+    label: "주 메뉴",
+    home: "홈",
+    brands: "브랜드",
+    rundown: "행사 일정",
+    exhibit: "부스 신청",
+    tickets: "티켓",
+  },
   fallbackNotice: {
     label: "이전 에디션",
     labelWithEdition: "이전 에디션 · 제{n}회",

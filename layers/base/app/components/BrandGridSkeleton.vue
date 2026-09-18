@@ -1,6 +1,7 @@
 <template>
-  <!-- GRID: full-bleed on mobile + one framed grid with hairline cells -->
-  <div v-if="variant === 'grid'" class="mx-[calc(50%_-_50vw)] sm:mx-0">
+  <!-- GRID: full-bleed on mobile (cancels the container's px-4, like
+       BrandVirtualList) + one framed grid with hairline cells -->
+  <div v-if="variant === 'grid'" class="-mx-4 sm:mx-0">
     <div class="border-border overflow-hidden border sm:rounded-lg">
       <div
         class="-mt-px -ml-px grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(260px,1fr))]"

@@ -14,6 +14,8 @@ const app = {
 };
 
 const settings = {
+  // Phone tab bar below lg (Home, Brands, Rundown, Exhibit, Tickets).
+  bottomNav: false,
   header: {
     logoClass: "h-8",
     cta: [{ label: "ui.contactUs", path: "/contact", variant: "primary" }],

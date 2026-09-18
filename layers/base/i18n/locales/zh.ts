@@ -1,4 +1,12 @@
 export default {
+  bottomNav: {
+    label: "主导航",
+    home: "首页",
+    brands: "品牌",
+    rundown: "议程",
+    exhibit: "参展",
+    tickets: "门票",
+  },
   fallbackNotice: {
     label: "往届",
     labelWithEdition: "往届 · 第{n}届",

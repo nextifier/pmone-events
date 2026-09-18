@@ -26,6 +26,12 @@ export default defineAppConfig({
     footer: {
       logoClass: "h-8 text-foreground",
     },
+
+    // The phone tab bar (Home, Brands, Rundown, Exhibit, Tickets), below lg.
+    // Off unless the app turns it on: it links to /brands, /rundown,
+    // /book-space and /tickets, which an app with its own page set (campx,
+    // iicc, the company sites) does not serve. Every app states its own value.
+    bottomNav: false,
     ogImage: {
       isDarkMode: true,
     },

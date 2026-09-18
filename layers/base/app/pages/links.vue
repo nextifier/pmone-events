@@ -193,6 +193,9 @@
 </template>
 
 <script setup>
+// A link-in-bio page stands on its own, without the site's tab bar.
+definePageMeta({ bottomNav: false });
+
 const SOCIAL_LABELS = [
   "website",
   "instagram",

@@ -1,5 +1,6 @@
 <template>
   <header
+    data-site-header
     class="sticky inset-x-0 top-0 z-50 flex h-(--navbar-height-mobile) items-center justify-center text-sm lg:h-(--navbar-height-desktop)"
     :class="{
       'bg-background': isMenuOpen,
@@ -33,10 +34,13 @@
         />
 
         <div class="flex h-full shrink-0 items-center gap-x-2">
+          <!-- Below lg the phone tab bar already carries Exhibit and Tickets,
+               so these wait for the width where the bar is gone. -->
           <Button
             :to="localePath('/book-space')"
             variant="secondary"
-            class="text-foreground border-border hidden border font-semibold sm:inline-flex"
+            class="text-foreground border-border hidden border font-semibold"
+            :class="ctaDisplayClass"
             @click="$scrollToTopIfCurrentPageIs(localePath('/book-space'))"
           >
             {{ $t("ui.bookSpace") }}
@@ -44,7 +48,8 @@
 
           <Button
             :to="localePath('/tickets')"
-            class="hidden font-semibold sm:inline-flex"
+            class="hidden font-semibold"
+            :class="ctaDisplayClass"
             @click="$scrollToTopIfCurrentPageIs(localePath('/tickets'))"
           >
             {{ $t("ui.getTicket") }}
@@ -146,6 +151,11 @@ const localePath = useLocalePath();
 const { metaSymbol } = useShortcuts();
 
 const isMenuOpen = ref(false);
+
+const { showBottomNav } = useSiteNav();
+const ctaDisplayClass = computed(() =>
+  showBottomNav.value ? "lg:inline-flex" : "sm:inline-flex",
+);
 
 const isEditionableRoute = computed(() => {
   const baseName = (route.name?.toString() ?? "").split("___")[0];

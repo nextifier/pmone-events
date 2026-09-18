@@ -13,12 +13,22 @@
           }"
         />
       </NuxtLayout>
-      <ScrollToTop v-if="!hidesScrollToTop" />
+      <!-- Hidden on a phone with the tab bar (body[data-bottom-nav]): tapping the
+           active tab already scrolls to the top, and the button would sit on the bar. -->
+      <ScrollToTop
+        v-if="!hidesScrollToTop"
+        class="in-data-bottom-nav:max-lg:hidden"
+      />
       <!-- One cart bar for the whole ticket flow. Outside <NuxtLayout> so it
            survives /tickets -> /tickets/checkout instead of unmounting and
            remounting. -->
       <TicketsTicketCartBarHost v-if="showsCartBar" />
-      <Toaster class="pointer-events-auto" />
+      <!-- Sonner's own offsets (24px, 16px below 600px), lifted above the phone tab bar. -->
+      <Toaster
+        class="pointer-events-auto"
+        :offset="{ bottom: 'calc(var(--app-bottom-inset, 0px) + 24px)' }"
+        :mobile-offset="{ bottom: 'calc(var(--app-bottom-inset, 0px) + 16px)' }"
+      />
     </Body>
   </Html>
 </template>

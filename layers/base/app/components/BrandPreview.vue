@@ -24,7 +24,7 @@
     <div
       v-if="pending || brandsWithLogo.length"
       ref="wrapRef"
-      class="mx-[calc(50%_-_50vw)] mt-10 sm:mx-0"
+      class="-mx-4 mt-10 sm:mx-0"
     >
       <!-- Loading: skeleton grid mengikuti bentuk final (selalu penuh, tanpa cell kosong) -->
       <GridFill

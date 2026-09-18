@@ -65,6 +65,12 @@ export default defineNuxtConfig({
       // covers the panel. WebKit has never implemented the descriptor, so iOS
       // still needs the `useDrawerVirtualKeyboard` fallback in ui/drawer.
       //
+      // `viewport-fit=cover`: env(safe-area-inset-*) only reports the home
+      // indicator and the notch once the page may run under them, and the
+      // phone tab bar (SiteBottomNav) pads its bottom edge by that inset. The
+      // status bar style is `black`, so a home-screen launch still starts
+      // below the status bar; body pads the landscape notch (main.css).
+      //
       // Declared as a `meta` entry rather than `app.head.viewport`: Nuxt fills
       // in a default `viewport` at app level, and defu lets that default win
       // over a layer's value. A tag in the array is deduped by name instead.
@@ -75,7 +81,7 @@ export default defineNuxtConfig({
         {
           name: "viewport",
           content:
-            "width=device-width, initial-scale=1, interactive-widget=resizes-content",
+            "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content",
         },
         { name: "google", content: "notranslate" },
         // iOS ignores the manifest's `display`, so without these an
@@ -271,6 +277,17 @@ export default defineNuxtConfig({
         "lucide:search",
         "lucide:check",
         "lucide:loader",
+        // SiteBottomNav's tabs, looked up from its ICONS map.
+        "solar:home-smile-linear",
+        "solar:home-smile-bold",
+        "solar:shop-2-linear",
+        "solar:shop-2-bold",
+        "solar:clipboard-list-linear",
+        "solar:clipboard-list-bold",
+        "solar:case-round-linear",
+        "solar:case-round-bold",
+        "solar:ticket-linear",
+        "solar:ticket-bold",
       ],
     },
   },

@@ -5,7 +5,7 @@ import TicketLineQuantity from "./TicketLineQuantity.vue";
 import { Button } from "../ui/button";
 import ResponsiveDialog from "../ui/responsive-dialog/ResponsiveDialog.vue";
 import { onClickOutside, useEventListener } from "@vueuse/core";
-import { computed, onBeforeUnmount, ref } from "vue";
+import { computed, ref } from "vue";
 import { toast } from "vue-sonner";
 
 const props = defineProps({
@@ -175,47 +175,11 @@ function toggleDetail(event) {
 
 /**
  * A fixed bottom bar and a virtual keyboard fight for the same space, and on a
- * page that is mostly text inputs the buyer is in that state most of the time.
- * Rather than measure `visualViewport` (which reports late on iOS and lands
- * after paint), step out of the way whenever a field has focus.
+ * page that is mostly text inputs the buyer is in that state most of the time,
+ * so the bar steps out of the way whenever a field has focus. `visible` does
+ * the gating; the listeners stay on for the bar's whole life.
  */
-const typing = ref(false);
-let typingTimer = null;
-
-/**
- * A field the on-screen keyboard would cover. A quantity stepper is not one:
- * reka marks it `role="spinbutton"` and focuses it on every +/- press, so
- * counting it as typing tore the bar down and rebuilt it on each tap - the panel
- * blinked shut and back open under the buyer's thumb. The role, rather than
- * "is it inside the bar", because the checkout aside has the same stepper and
- * the same tap must not move the bar there either.
- */
-const isTextEntry = (el) =>
-  !!el &&
-  el.getAttribute("role") !== "spinbutton" &&
-  (el.tagName === "INPUT" ||
-    el.tagName === "TEXTAREA" ||
-    el.isContentEditable === true);
-
-function onFocusChange() {
-  if (typingTimer) clearTimeout(typingTimer);
-  // Debounced so tabbing from one field to the next does not flash the bar.
-  typingTimer = setTimeout(() => {
-    typing.value = isTextEntry(document.activeElement);
-  }, 80);
-}
-
-// Attached unconditionally, and NOT gated on `hideWhileTyping` here. The bar is
-// mounted once in app.vue and lives across /tickets -> /tickets/checkout, so
-// `onMounted` ran while the prop was still false on the listing page and an
-// early return left the listeners off for the rest of the session - the reason
-// the bar sat on top of the keyboard at checkout. `visible` does the gating.
-useEventListener(document, "focusin", onFocusChange);
-useEventListener(document, "focusout", onFocusChange);
-
-onBeforeUnmount(() => {
-  if (typingTimer) clearTimeout(typingTimer);
-});
+const typing = useTextEntryFocus();
 
 const visible = computed(
   () => !cart.isEmpty && !(props.hideWhileTyping && typing.value),
@@ -229,9 +193,12 @@ const visible = computed(
     enter-from-class="translate-y-4 opacity-0 blur-[2px]"
     leave-to-class="translate-y-4 opacity-0 blur-[2px]"
   >
+    <!-- On a phone with the tab bar (body[data-bottom-nav]) the strip stands on
+         top of it: --app-bottom-inset lifts it, and the bar already pads the
+         safe area, so only the 1rem gap is left below the pill. -->
     <div
       v-if="visible"
-      class="fixed inset-x-0 bottom-0 z-40 px-2 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6"
+      class="fixed inset-x-0 bottom-(--app-bottom-inset,0px) z-40 px-2 pb-[max(1rem,env(safe-area-inset-bottom))] in-data-bottom-nav:max-lg:pb-4 sm:px-6"
     >
       <!-- Inverted "contrast" pill: bg-foreground/text-background flips with the
            theme, so it stays high-contrast in light AND dark mode. Tapping the
@@ -245,10 +212,14 @@ const visible = computed(
            bar in dark mode (2.08:1). Both fail the 3:1 floor for an icon.
            Swapping the two ends here fixes every destructive descendant at once
            (the trash button, the missing-day sub-label) with no call site
-           reaching for a raw palette colour. -->
+           reaching for a raw palette colour.
+
+           While the tab bar is scrolled away (body[data-chrome-hidden]) the pill
+           drops by the bar's 3.5rem, so it does not hang over an empty strip;
+           the safe area stays under it either way. -->
       <div
         ref="pillRef"
-        class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden shadow-lg ring-1 ring-white/20 transition-[border-radius,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] [--destructive-foreground:var(--color-red-400)] motion-reduce:transition-none dark:[--destructive-foreground:var(--color-red-700)]"
+        class="t-acc bg-foreground text-background ring-foreground/10 mx-auto w-full max-w-xl overflow-hidden shadow-lg ring-1 ring-white/20 transition-[border-radius,padding,translate] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] [--destructive-foreground:var(--color-red-400)] motion-reduce:transition-none in-data-chrome-hidden:translate-y-14 dark:[--destructive-foreground:var(--color-red-700)]"
         :class="
           expanded
             ? 'rounded-3xl px-2.5 py-3 sm:p-4'

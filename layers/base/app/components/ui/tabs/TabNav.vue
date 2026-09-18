@@ -136,8 +136,11 @@ const isActive = (tab) => {
     return tab.value === current;
   }
 
+  // A tab may carry a query (`/leads?booth=12`); only its path says where it is.
+  const to = typeof tab.to === "string" ? tab.to.split("?")[0] : (tab.to?.path ?? "");
+
   if (tab.exact) {
-    return route.path === tab.to || route.path === `${tab.to}/`;
+    return route.path === to || route.path === `${to}/`;
   }
   if (tab.notFor?.some((path) => route.path.startsWith(path))) {
     return false;
@@ -145,7 +148,7 @@ const isActive = (tab) => {
   if (tab.activeFor?.some((path) => route.path.startsWith(path))) {
     return true;
   }
-  return route.path.startsWith(tab.to);
+  return route.path.startsWith(to);
 };
 
 const updateIndicator = () => {

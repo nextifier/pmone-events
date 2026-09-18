@@ -183,6 +183,9 @@
 <script setup>
 usePageMeta("winner");
 
+// The draw stands its own controls on the bottom edge; no tab bar under them.
+definePageMeta({ bottomNav: false });
+
 import { gsap } from "gsap";
 import confetti from "canvas-confetti";
 import { toast } from "vue-sonner";

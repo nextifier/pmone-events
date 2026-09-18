@@ -231,7 +231,7 @@ import { useBookingStore } from "../../../../stores/booking";
 import { toast } from "vue-sonner";
 import { computed, onMounted, ref, watch } from "vue";
 
-definePageMeta({ layout: "default", noFooter: true });
+definePageMeta({ layout: "default", noFooter: true, bottomNav: false });
 
 const route = useRoute();
 const router = useRouter();

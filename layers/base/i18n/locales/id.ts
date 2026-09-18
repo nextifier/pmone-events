@@ -1,4 +1,12 @@
 export default {
+  bottomNav: {
+    label: "Navigasi utama",
+    home: "Beranda",
+    brands: "Brand",
+    rundown: "Rundown",
+    exhibit: "Exhibitor",
+    tickets: "Tiket",
+  },
   fallbackNotice: {
     label: "Dari edisi sebelumnya",
     labelWithEdition: "Dari edisi ke-{n}",

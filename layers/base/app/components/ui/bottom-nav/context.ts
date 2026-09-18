@@ -19,8 +19,7 @@ export interface BottomNavContext {
   reselect: () => void;
 }
 
-export const BOTTOM_NAV_CONTEXT: InjectionKey<BottomNavContext> =
-  Symbol("BottomNavContext");
+export const BOTTOM_NAV_CONTEXT: InjectionKey<BottomNavContext> = Symbol("BottomNavContext");
 
 export const BOTTOM_NAV_DEFAULTS = {
   variant: "default" as const,
@@ -76,9 +75,9 @@ export const bottomNavItemClasses =
 
 /** Icon + label wrapper. In beside, BottomNav slides it (FLIP) when widths change. */
 export const bottomNavContentClasses: Record<BottomNavLabelPlacement, string> = {
-  // 4px between icon and label: flush (0, as measured off YouTube) read as
-  // cramped, with ~4px of ink gap under a 24px glyph. This leaves ~8px.
-  below: "flex min-w-0 max-w-full flex-col items-center gap-1",
+  // 2px between icon and label: flush (0, as measured off YouTube) read as
+  // cramped, with ~4px of ink gap under a 24px glyph. This leaves ~6px.
+  below: "flex min-w-0 max-w-full flex-col items-center gap-y-0.5",
   beside: "flex min-w-0 max-w-full flex-row items-center",
 };
 
@@ -118,8 +117,7 @@ export const bottomNavBarHeightClasses: Record<BottomNavSize, string> = {
  * Label under the icon: 11px, regular weight, normal tracking.
  * style-guide: BottomNav label (STYLE_GUIDE §22, covers these labels only).
  */
-export const bottomNavLabelClasses =
-  "block max-w-full truncate px-1 font-normal tracking-normal";
+export const bottomNavLabelClasses = "block max-w-full truncate px-1 font-normal tracking-normal";
 
 /** Leading sits after the size on purpose: tailwind-merge drops a leading that precedes a font size. */
 export const bottomNavLabelSizeClasses: Record<BottomNavSize, string> = {

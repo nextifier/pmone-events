@@ -241,7 +241,7 @@
         :value="tab.value"
         :forceMount="tab.forceMount"
         tabindex="-1"
-        class="max-sm:[&_[data-section-description]]:text-muted-foreground! min-h-[calc(100dvh-var(--navbar-height-mobile)*2)] outline-hidden data-[state=inactive]:hidden max-sm:[&_[data-section-description]]:mt-1"
+        class="max-sm:[&_[data-section-description]]:text-muted-foreground! min-h-[calc(100dvh-var(--navbar-height-mobile)*2-var(--app-bottom-inset))] outline-hidden data-[state=inactive]:hidden max-sm:[&_[data-section-description]]:mt-1"
         :class="{
           'pt-2 sm:pt-5': tab.withPadding,
         }"

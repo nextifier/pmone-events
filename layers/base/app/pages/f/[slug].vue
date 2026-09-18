@@ -22,6 +22,7 @@ import { createPublicFormUploadHandlers } from "../../lib/uploadHandlers";
 definePageMeta({
   layout: "default",
   noFooter: true,
+  bottomNav: false,
 });
 
 /**

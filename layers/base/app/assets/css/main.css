@@ -477,15 +477,39 @@ html.appearance-switching *::after {
 }
 
 @utility h-screen-offset {
-  @apply h-[calc(100svh-var(--navbar-height-mobile))] lg:h-[calc(100lvh-var(--navbar-height-desktop))];
+  @apply h-[calc(100svh-var(--navbar-height-mobile)-var(--app-bottom-inset))] lg:h-[calc(100lvh-var(--navbar-height-desktop))];
 }
 
 @utility min-h-screen-offset {
-  @apply min-h-[calc(100svh-var(--navbar-height-mobile))] lg:min-h-[calc(100lvh-var(--navbar-height-desktop))];
+  @apply min-h-[calc(100svh-var(--navbar-height-mobile)-var(--app-bottom-inset))] lg:min-h-[calc(100lvh-var(--navbar-height-desktop))];
 }
 
 @utility max-h-screen-offset {
-  @apply max-h-[calc(100svh-var(--navbar-height-mobile))] lg:max-h-[calc(100lvh-var(--navbar-height-desktop))];
+  @apply max-h-[calc(100svh-var(--navbar-height-mobile)-var(--app-bottom-inset))] lg:max-h-[calc(100lvh-var(--navbar-height-desktop))];
+}
+
+/* The phone tab bar (SiteBottomNav, on where the app sets settings.bottomNav).
+   --app-bottom-inset is the room it takes (body[data-bottom-nav], set by the
+   default layout): the page pads by it, the screen-offset utilities above
+   subtract it so a one-screen hero ends above the bar, and the floating
+   button, toasts and the ticket cart bar sit on top of it. While the bar is
+   scrolled away (body[data-chrome-hidden], useSiteChrome) the floating button
+   and the cart pill drop with it.
+   64rem is lg, where BottomNav hides itself. The bar is the default size:
+   3.5rem on the bottom edge, plus the safe area it pads itself by. */
+:root {
+  --app-bottom-inset: 0px;
+}
+
+@media (width < 64rem) {
+  body[data-bottom-nav] {
+    --app-bottom-inset: calc(3.5rem + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
+  }
+}
+
+body {
+  /* viewport-fit=cover lets the page run under a landscape notch; content stays clear of it. */
+  padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
 }
 
 @utility container-wider {

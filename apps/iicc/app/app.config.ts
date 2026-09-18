@@ -20,6 +20,8 @@ const ticket = {
 };
 
 const settings = {
+  // Phone tab bar below lg (Home, Brands, Rundown, Exhibit, Tickets).
+  bottomNav: false,
   ogImage: {
     isDarkMode: false,
   },

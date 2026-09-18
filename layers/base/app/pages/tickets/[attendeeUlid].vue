@@ -320,6 +320,7 @@ import { toast } from "vue-sonner";
 definePageMeta({
   layout: "default",
   noFooter: true,
+  bottomNav: false,
 });
 
 const { t, locale } = useI18n();

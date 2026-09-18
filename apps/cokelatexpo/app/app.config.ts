@@ -15,6 +15,8 @@ const app = {
 };
 
 const settings = {
+  // Phone tab bar below lg (Home, Brands, Rundown, Exhibit, Tickets).
+  bottomNav: true,
   header: {
     logoClass: "h-8",
   },
