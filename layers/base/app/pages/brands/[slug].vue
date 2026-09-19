@@ -397,7 +397,7 @@ const localePath = useLocalePath();
 // while the event's brands switch is off.
 const forceShowBrands = useForceShow("force-show-brands");
 
-const { data: brand, pending } = await useFetch(
+const { data: brand, pending, error } = await useFetch(
   `/api/exhibitors/${route.params.slug}`,
   {
     query: forceShowBrands.value ? { force_show_brands: 1 } : {},
@@ -406,12 +406,12 @@ const { data: brand, pending } = await useFetch(
   },
 );
 
-if (!brand.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: "Page not found",
-  });
-}
+assertDetailPageLoaded({
+  record: brand.value,
+  error: error.value,
+  pending: pending.value,
+  notFound: "Page not found",
+});
 
 const title = computed(() => brand.value?.brand_name ?? "");
 const description = computed(() => brand.value?.brand_description ?? "");

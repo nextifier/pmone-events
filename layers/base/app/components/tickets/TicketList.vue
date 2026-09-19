@@ -643,8 +643,27 @@ function addCtaLabel(ticket) {
 // server's, so retry - soon at first, then backing off - until the phase the
 // payload reports actually moves, then stop (about four minutes in all).
 const BOUNDARY_RETRY_DELAYS_MS = [3000, 10000, 30000, 30000, 60000, 60000, 60000];
+
+// Every browser aligns its tick to the whole second (useCurrentTime) and every
+// countdown for a given phase completes on the same one, so an unjittered delay
+// lands in the same millisecond in every visitor's browser at once. That turned
+// each retry above into one synchronised burst against the origin - part of
+// what saturated api.pmone.id on 19 Sep 2026. Spreading each delay across +/-40%
+// turns those spikes back into traffic.
+//
+// The first attempt is deliberately NOT jittered: the countdown has just hit
+// zero on screen and the card should flip now. That burst is absorbed by the
+// Worker-side cache on /api/tickets/{slug} instead.
+const BOUNDARY_RETRY_JITTER = 0.4;
 const boundaryRetries = ref(0);
 let boundaryTimer = null;
+let boundaryRunning = false;
+
+function boundaryRetryDelay(delay) {
+  const spread = delay * BOUNDARY_RETRY_JITTER;
+
+  return Math.round(delay - spread + Math.random() * spread * 2);
+}
 
 function phaseSignature() {
   return tickets.value
@@ -653,18 +672,47 @@ function phaseSignature() {
 }
 
 async function onPhaseBoundary() {
-  if (boundaryTimer) return;
+  // `boundaryTimer` cannot guard re-entry on its own: it is null for as long as
+  // an attempt is in flight. @complete is bound in four places (two layouts x
+  // start/end) and they fire in the same flush, so several ladders could run at
+  // once, share `boundaryRetries`, and march through the delays faster than
+  // they read - while each overwrote the single `boundaryTimer`, leaking the
+  // previous one past unmount.
+  if (boundaryRunning) return;
+  boundaryRunning = true;
+
   const before = phaseSignature();
   boundaryRetries.value = 0;
 
   const attempt = async () => {
     boundaryTimer = null;
-    await refresh();
-    if (phaseSignature() !== before) return;
+
+    // refresh() resolves even when the request fails - useFetch routes that to
+    // `error` - but a throw here would otherwise strand `boundaryRunning` at
+    // true and stop the ladder for the life of the component. A failed refresh
+    // leaves the signature unchanged, which is already "retry".
+    try {
+      await refresh();
+    } catch {
+      // Intentionally empty: handled by the signature check below.
+    }
+
+    if (phaseSignature() !== before) {
+      boundaryRunning = false;
+
+      return;
+    }
+
     const delay = BOUNDARY_RETRY_DELAYS_MS[boundaryRetries.value];
-    if (delay === undefined) return;
+
+    if (delay === undefined) {
+      boundaryRunning = false;
+
+      return;
+    }
+
     boundaryRetries.value += 1;
-    boundaryTimer = setTimeout(attempt, delay);
+    boundaryTimer = setTimeout(attempt, boundaryRetryDelay(delay));
   };
 
   await attempt();
@@ -697,6 +745,7 @@ watch(
 onBeforeUnmount(() => {
   if (boundaryTimer) clearTimeout(boundaryTimer);
   if (soldOutPhaseTimer) clearTimeout(soldOutPhaseTimer);
+  boundaryRunning = false;
 });
 
 // Single source of truth for the unavailable state, shared by the label, icon,

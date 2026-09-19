@@ -4,6 +4,13 @@ export default defineCachedEventHandler(
     // header (dates, venue, edition, in-conjunction) matches the borrowed
     // content; apps without a dataSourceUsername use their own project.
     return await pmOneFetch("/events/active", {
+      // Every SSR page pulls this in through the default layout (Header,
+      // Footer, DialogContact), and it had no timeout, so it fell back to
+      // pmOneFetch's 15s default. During the 19 Sep 2026 outage that meant
+      // every /guests, /rundown, /partners and /news render held its Worker
+      // for fifteen seconds before painting a shell without the data anyway -
+      // which to a visitor is indistinguishable from the site being down.
+      timeoutMs: API_TIMEOUT_MS,
       errorPrefix: "Active event fetch",
     });
   },

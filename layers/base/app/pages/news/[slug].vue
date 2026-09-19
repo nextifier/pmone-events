@@ -277,12 +277,12 @@ const { data, pending, error } = await useFetch(`/api/blog/posts/${route.params.
 
 const post = computed(() => data?.value?.data);
 
-if (!post.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: "Page not found",
-  });
-}
+assertDetailPageLoaded({
+  record: post.value,
+  error: error.value,
+  pending: pending.value,
+  notFound: "Page not found",
+});
 
 function generatePostExcerpt(postBody) {
   // Match the first paragraph with formatting tags
