@@ -1,5 +1,6 @@
 <script setup>
 import { Badge } from "../ui/badge";
+import { QRCodeScannedBadge } from "../ui/qr-code";
 import { Button } from "../ui/button";
 import { computed, onBeforeUnmount, onMounted, ref, useId } from "vue";
 import { toast } from "vue-sonner";
@@ -70,6 +71,17 @@ const sessionDetail = computed(() => {
   return [session.location, session.host ? t("tickets.eticket.sessionHost", { host: session.host }) : null]
     .filter(Boolean)
     .join(" · ");
+});
+
+// "Checked in · 09:41": at a door with several people on one order, the time is
+// what tells the holder this scan was theirs just now and not yesterday's.
+const checkedInLabel = computed(() => {
+  const at = props.attendee?.checked_in_at;
+  const label = t("tickets.eticket.checkedIn");
+  if (!at) return label;
+
+  const time = new Date(at).toLocaleTimeString(locale.value, { hour: "2-digit", minute: "2-digit" });
+  return `${label} · ${time}`;
 });
 
 function formatSessionTime(start, end) {
@@ -319,7 +331,13 @@ function slugifyFileName(value) {
               {{ t("tickets.eticket.cancelledHelp") }}
             </span>
           </div>
-          <QRCode v-else-if="attendee.qr_token" :url="attendee.qr_token" :size="240" />
+          <QRCode
+            v-else-if="attendee.qr_token"
+            :url="attendee.qr_token"
+            :size="240"
+            :scanned="attendee.is_checked_in"
+            :scanned-animate="attendee.checked_in_recent !== false"
+          />
           <div
             v-else-if="locked"
             class="bg-muted/50 text-muted-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
@@ -341,16 +359,25 @@ function slugifyFileName(value) {
           </div>
         </div>
 
-        <!-- Status chips -->
+        <!-- Status chips. Pulled up under a code: the QR already carries a quiet
+             zone of its own, and the card's gap on top of it left the chips
+             floating away from the ticket they describe. The cancelled and
+             locked panels have no such margin, so they keep the full gap. -->
         <div
           v-if="dayLabel || sessionLabel || attendee.is_checked_in"
-          class="flex flex-wrap items-center justify-center gap-1.5"
+          :class="[
+            'flex flex-wrap items-center justify-center gap-1.5',
+            !cancelled && attendee.qr_token && '-mt-4',
+          ]"
         >
           <Badge v-if="dayLabel" variant="info" icon="hugeicons:calendar-03">{{ dayLabel }}</Badge>
           <Badge v-if="sessionLabel" variant="muted" icon="hugeicons:clock-01">{{ sessionLabel }}</Badge>
-          <Badge v-if="attendee.is_checked_in" variant="success" icon="lucide:check">
-            {{ t("tickets.eticket.checkedIn") }}
-          </Badge>
+          <QRCodeScannedBadge
+            :show="!!attendee.is_checked_in"
+            :after-sweep="attendee.checked_in_recent !== false"
+          >
+            {{ checkedInLabel }}
+          </QRCodeScannedBadge>
         </div>
 
         <p

@@ -349,6 +349,23 @@ const { data, pending, refresh } = await useLazyAsyncData(
 
 const order = computed(() => data.value?.data ?? null);
 
+// Each e-ticket turns to checked-in as the gate scans it (see
+// useTicketLiveStatus); a seat with nothing to wait for has no `live`.
+useTicketLiveStatus(
+  () => (order.value?.attendees ?? []).map((att) => att.live),
+  (channel, state) => {
+    if (!data.value?.data?.attendees) return;
+
+    data.value = {
+      ...data.value,
+      data: {
+        ...data.value.data,
+        attendees: applyTicketLiveState(data.value.data.attendees, channel, state),
+      },
+    };
+  }
+);
+
 // Latches once the first fetch settles so the confirmation poll below never
 // sends the page back to the skeleton, which would replay the hero entrance.
 const hasLoadedOnce = ref(false);

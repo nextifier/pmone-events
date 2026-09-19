@@ -337,6 +337,23 @@ const { data, pending, refresh } = await useLazyAsyncData(
 );
 
 const attendee = computed(() => data.value?.data ?? null);
+
+// The gate's scan, heard live: the QR turns to its checked-in state as the
+// scanner beeps. `live` is null when there is nothing to wait for (already in,
+// unpaid, feature off), and then no socket opens. `data` is a shallow ref, so
+// the change lands as a new object.
+useTicketLiveStatus(
+  () => [attendee.value?.live],
+  (channel, state) => {
+    if (!data.value?.data) return;
+
+    data.value = {
+      ...data.value,
+      data: applyTicketLiveState([data.value.data], channel, state)[0],
+    };
+  }
+);
+
 const orderInfo = computed(() => data.value?.order ?? null);
 const eventTitle = computed(() => data.value?.event?.title ?? "");
 

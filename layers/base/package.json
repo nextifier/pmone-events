@@ -68,6 +68,8 @@
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^5.2.0",
-    "@tiptap/extension-text-align": "^3.27.3"
+    "@tiptap/extension-text-align": "^3.27.3",
+    "laravel-echo": "^2.5.0",
+    "pusher-js": "^8.6.0"
   }
 }

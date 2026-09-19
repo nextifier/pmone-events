@@ -15,9 +15,10 @@
 
     <div class="t-skel-content">
       <template v-if="svgContent">
-        <Tippy v-if="canToggle" tag="div" theme="primary" placement="bottom">
+        <Tippy v-if="canToggle && hint" tag="div" theme="primary" placement="bottom">
           <button
             type="button"
+            aria-label="Change QR Code style"
             @click="toggleQrStyle"
             class="block w-full cursor-pointer rounded-lg transition active:scale-98"
           >
@@ -30,6 +31,15 @@
             </span>
           </template>
         </Tippy>
+        <button
+          v-else-if="canToggle"
+          type="button"
+          aria-label="Change QR Code style"
+          @click="toggleQrStyle"
+          class="block w-full cursor-pointer rounded-lg transition active:scale-98"
+        >
+          <div v-html="svgContent" class="[&>svg]:block [&>svg]:h-auto [&>svg]:w-full" />
+        </button>
         <div
           v-else
           v-html="svgContent"
@@ -37,6 +47,24 @@
         />
       </template>
     </div>
+
+    <!-- Scanned: the gate scanner's own sweep (a line dragging a fine grid, as
+         on /scan) runs down the code once. It is an overlay that takes no
+         pointer events and leaves the DOM when it ends, so the code is never
+         covered afterwards - a gate that needs a second read still gets one -
+         and a click still reaches the style toggle. -->
+    <span
+      v-if="sweepKey"
+      :key="sweepKey"
+      class="t-qr-sweep"
+      aria-hidden="true"
+      @animationend.self="sweepKey = 0"
+    >
+      <span class="t-qr-sweep-track">
+        <span class="t-qr-sweep-mesh" />
+        <span class="t-qr-sweep-edge" />
+      </span>
+    </span>
   </div>
 </template>
 
@@ -86,16 +114,97 @@
   filter: blur(0);
 }
 
+/* The scan sweep. Same mesh as the scanner's `scan-beam` utility (a 7px grid
+   of 1px lines at half strength over a 12% wash, masked to dissolve away from
+   the line), run once, downwards. sky-600 on light surfaces, where the
+   scanner's sky-400 all but vanishes on white; sky-400 on dark, as on /scan.
+   QRCodeScannedBadge reads the same pair. */
+.t-skel {
+  --qr-scan-color: var(--color-sky-600, oklch(0.588 0.158 241.966));
+  --qr-sweep-dur: 1100ms;
+}
+.dark .t-skel {
+  --qr-scan-color: var(--color-sky-400, oklch(0.746 0.16 232.661));
+}
+.t-qr-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  pointer-events: none;
+  animation: t-qr-sweep-frame var(--qr-sweep-dur) linear both;
+}
+.t-qr-sweep-track {
+  position: absolute;
+  inset: 0;
+  animation: t-qr-sweep-down var(--qr-sweep-dur) ease-in-out both;
+}
+.t-qr-sweep-mesh {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 100%;
+  height: 3.5rem;
+  background-image:
+    linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--qr-scan-color) 12%, transparent) 100%),
+    repeating-linear-gradient(
+      to right,
+      color-mix(in oklab, var(--qr-scan-color) 50%, transparent) 0 1px,
+      transparent 1px 7px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--qr-scan-color) 50%, transparent) 0 1px,
+      transparent 1px 7px
+    );
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 85%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 85%, #000 100%);
+}
+.t-qr-sweep-edge {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  background: var(--qr-scan-color);
+  box-shadow:
+    0 0 6px color-mix(in oklab, var(--qr-scan-color) 90%, transparent),
+    0 0 18px color-mix(in oklab, var(--qr-scan-color) 55%, transparent);
+}
+/* Fades at both ends so the line never pops in or out. */
+@keyframes t-qr-sweep-frame {
+  0% {
+    opacity: 0;
+  }
+  8%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes t-qr-sweep-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(100% - 2px));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .t-skel-skeleton,
   .t-skel-content {
     transition: none !important;
   }
+  .t-qr-sweep {
+    display: none;
+  }
 }
 </style>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, shallowRef, watch } from "vue";
+import { computed, nextTick, onMounted, ref, shallowRef, watch } from "vue";
 import type { HTMLAttributes } from "vue";
 import type QRCodeLib from "qrcode";
 import { cn } from "@/lib/utils";
@@ -124,6 +233,14 @@ const props = withDefaults(
     /** Cross-fade from the skeleton once the code is drawn. Off inside a dialog,
      * where the panel's own entrance already covers the same frames. */
     animate?: boolean;
+    /** Show the "Click to change QR Code style" tooltip. The click works either way. */
+    hint?: boolean;
+    /** The code was redeemed. Turning it on while mounted runs the scanner's
+     * sweep over the code once; the code itself never changes, so it still scans. */
+    scanned?: boolean;
+    /** Run the sweep when `scanned` turns on. Off for a change nobody just
+     * watched happen, such as a scan synced minutes late. */
+    scannedAnimate?: boolean;
     class?: HTMLAttributes["class"];
   }>(),
   {
@@ -135,7 +252,20 @@ const props = withDefaults(
     variant: undefined,
     toggleable: true,
     animate: true,
+    hint: false,
+    scanned: false,
+    scannedAnimate: true,
     class: undefined,
+  },
+);
+
+/** Bumped when a scan lands while this code is on screen; 0 = no sweep. */
+const sweepKey = ref(0);
+
+watch(
+  () => props.scanned,
+  (scanned, wasScanned) => {
+    if (scanned && !wasScanned && props.scannedAnimate) sweepKey.value += 1;
   },
 );
 

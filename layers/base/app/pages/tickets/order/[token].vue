@@ -111,13 +111,13 @@
                   {{ att.is_personalized ? t("tickets.manage.personalized") : t("tickets.manage.notPersonalized") }}
                 </p>
               </div>
-              <span
-                v-if="att.is_checked_in"
-                class="bg-success/15 text-success-foreground inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium tracking-tight"
+              <QRCodeScannedBadge
+                :show="!!att.is_checked_in"
+                :after-sweep="att.checked_in_recent !== false"
+                class="shrink-0"
               >
-                <Icon name="hugeicons:checkmark-circle-02" class="size-3.5 shrink-0" />
                 {{ t("tickets.eticket.checkedIn") }}
-              </span>
+              </QRCodeScannedBadge>
             </div>
 
             <!-- E-ticket QR shown inline so opening the email link lands straight
@@ -129,7 +129,12 @@
                 role="img"
                 :aria-label="t('tickets.eticket.qrAlt', { name: att.name || att.ticket?.title })"
               >
-                <QRCode :url="att.qr_token" :size="240" />
+                <QRCode
+                  :url="att.qr_token"
+                  :size="240"
+                  :scanned="att.is_checked_in"
+                  :scanned-animate="att.checked_in_recent !== false"
+                />
               </div>
               <p class="text-muted-foreground text-center text-xs tracking-tight text-balance">
                 {{ t("tickets.manage.scanAtEntrance") }}
@@ -239,6 +244,7 @@ import { Textarea } from "../../../components/ui/textarea";
 import { Label } from "../../../components/ui/label";
 import { FieldError } from "../../../components/ui/field";
 import { Skeleton } from "../../../components/ui/skeleton";
+import { QRCodeScannedBadge } from "../../../components/ui/qr-code";
 import {
   Collapsible,
   CollapsibleContent,
@@ -268,6 +274,23 @@ const { data, pending, refresh } = await useLazyAsyncData(
 );
 
 const order = computed(() => data.value?.data ?? null);
+
+// One socket for every seat on the order: whoever holds the phone at the door
+// sees which codes the gate has taken and which are still to go.
+useTicketLiveStatus(
+  () => (order.value?.attendees ?? []).map((att) => att.live),
+  (channel, state) => {
+    if (!data.value?.data?.attendees) return;
+
+    data.value = {
+      ...data.value,
+      data: {
+        ...data.value.data,
+        attendees: applyTicketLiveState(data.value.data.attendees, channel, state),
+      },
+    };
+  }
+);
 
 // Registration questions + each attendee's saved answers (keyed by attendee
 // ulid), empty when the event has none - so existing orders render unchanged.
