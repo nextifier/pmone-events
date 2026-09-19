@@ -73,17 +73,6 @@ const sessionDetail = computed(() => {
     .join(" · ");
 });
 
-// "Checked in · 09:41": at a door with several people on one order, the time is
-// what tells the holder this scan was theirs just now and not yesterday's.
-const checkedInLabel = computed(() => {
-  const at = props.attendee?.checked_in_at;
-  const label = t("tickets.eticket.checkedIn");
-  if (!at) return label;
-
-  const time = new Date(at).toLocaleTimeString(locale.value, { hour: "2-digit", minute: "2-digit" });
-  return `${label} · ${time}`;
-});
-
 function formatSessionTime(start, end) {
   if (!start) return "";
   const fmt = (value) =>
@@ -312,59 +301,72 @@ function slugifyFileName(value) {
         </div>
 
         <!-- QR: the shared QRCode component, same as the /links page. It handles
-             theme/dark-mode colours and click-to-change-style itself. -->
-        <div
-          class="w-44 sm:w-52"
-          role="img"
-          :aria-label="t('tickets.eticket.qrAlt', { name: attendee.name || ticketTitle })"
-        >
+             theme/dark-mode colours and click-to-change-style itself. The
+             checked-in badge sits right under it, in the same column with no
+             gap, so the badge's own growth is the only thing that moves. -->
+        <div class="flex flex-col items-center">
           <div
-            v-if="cancelled"
-            class="bg-destructive/10 text-destructive-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
-            role="status"
+            class="w-44 sm:w-52"
+            role="img"
+            :aria-label="t('tickets.eticket.qrAlt', { name: attendee.name || ticketTitle })"
           >
-            <Icon name="hugeicons:ticket-star" class="size-7 shrink-0" />
-            <span class="text-sm tracking-tight text-balance">
-              {{ t("tickets.eticket.cancelled") }}
-            </span>
-            <span class="text-muted-foreground text-sm tracking-tight text-balance">
-              {{ t("tickets.eticket.cancelledHelp") }}
-            </span>
-          </div>
-          <QRCode
-            v-else-if="attendee.qr_token"
-            :url="attendee.qr_token"
-            :size="240"
-            :scanned="attendee.is_checked_in"
-            :scanned-animate="attendee.checked_in_recent !== false"
-          />
-          <div
-            v-else-if="locked"
-            class="bg-muted/50 text-muted-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
-            role="status"
-          >
-            <Icon name="lucide:lock" class="size-7 shrink-0" />
-            <span class="text-sm tracking-tight text-balance">{{ t("tickets.eticket.locked") }}</span>
-          </div>
-          <div
-            v-else
-            class="bg-muted flex aspect-square w-full items-center justify-center rounded-xl"
-            role="status"
-            :aria-label="t('ui.loading')"
-          >
-            <Icon
-              name="svg-spinners:180-ring"
-              class="text-muted-foreground size-6 motion-reduce:hidden"
+            <div
+              v-if="cancelled"
+              class="bg-destructive/10 text-destructive-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
+              role="status"
+            >
+              <Icon name="hugeicons:ticket-star" class="size-7 shrink-0" />
+              <span class="text-sm tracking-tight text-balance">
+                {{ t("tickets.eticket.cancelled") }}
+              </span>
+              <span class="text-muted-foreground text-sm tracking-tight text-balance">
+                {{ t("tickets.eticket.cancelledHelp") }}
+              </span>
+            </div>
+            <QRCode
+              v-else-if="attendee.qr_token"
+              :url="attendee.qr_token"
+              :size="240"
+              :scanned="attendee.is_checked_in"
+              :scanned-animate="attendee.checked_in_recent !== false"
             />
+            <div
+              v-else-if="locked"
+              class="bg-muted/50 text-muted-foreground flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl px-4 text-center"
+              role="status"
+            >
+              <Icon name="lucide:lock" class="size-7 shrink-0" />
+              <span class="text-sm tracking-tight text-balance">{{ t("tickets.eticket.locked") }}</span>
+            </div>
+            <div
+              v-else
+              class="bg-muted flex aspect-square w-full items-center justify-center rounded-xl"
+              role="status"
+              :aria-label="t('ui.loading')"
+            >
+              <Icon
+                name="svg-spinners:180-ring"
+                class="text-muted-foreground size-6 motion-reduce:hidden"
+              />
+            </div>
           </div>
+          <QRCodeScannedBadge
+            v-if="!cancelled && attendee.qr_token"
+            :show="!!attendee.is_checked_in"
+            :at="attendee.checked_in_at"
+            :label="t('tickets.eticket.checkedIn')"
+            :locale="locale"
+            :after-sweep="attendee.checked_in_recent !== false"
+          />
         </div>
 
         <!-- Status chips. Pulled up under a code: the QR already carries a quiet
-             zone of its own, and the card's gap on top of it left the chips
-             floating away from the ticket they describe. The cancelled and
-             locked panels have no such margin, so they keep the full gap. -->
+             zone of its own (and the checked-in badge 4px of padding), and the
+             card's gap on top of it left the chips floating away from the
+             ticket they describe. The cancelled and locked panels have no such
+             margin, so they keep the full gap. -->
         <div
-          v-if="dayLabel || sessionLabel || attendee.is_checked_in"
+          v-if="dayLabel || sessionLabel"
           :class="[
             'flex flex-wrap items-center justify-center gap-1.5',
             !cancelled && attendee.qr_token && '-mt-4',
@@ -372,12 +374,6 @@ function slugifyFileName(value) {
         >
           <Badge v-if="dayLabel" variant="info" icon="hugeicons:calendar-03">{{ dayLabel }}</Badge>
           <Badge v-if="sessionLabel" variant="muted" icon="hugeicons:clock-01">{{ sessionLabel }}</Badge>
-          <QRCodeScannedBadge
-            :show="!!attendee.is_checked_in"
-            :after-sweep="attendee.checked_in_recent !== false"
-          >
-            {{ checkedInLabel }}
-          </QRCodeScannedBadge>
         </div>
 
         <p

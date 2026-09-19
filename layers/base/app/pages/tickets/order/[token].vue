@@ -111,29 +111,33 @@
                   {{ att.is_personalized ? t("tickets.manage.personalized") : t("tickets.manage.notPersonalized") }}
                 </p>
               </div>
-              <QRCodeScannedBadge
-                :show="!!att.is_checked_in"
-                :after-sweep="att.checked_in_recent !== false"
-                class="shrink-0"
-              >
-                {{ t("tickets.eticket.checkedIn") }}
-              </QRCodeScannedBadge>
             </div>
 
             <!-- E-ticket QR shown inline so opening the email link lands straight
                  on a scannable code (no extra "View e-ticket" tap needed). Only a
                  confirmed order exposes qr_token. -->
             <div v-if="att.qr_token" class="flex flex-col items-center gap-2">
-              <div
-                class="w-44"
-                role="img"
-                :aria-label="t('tickets.eticket.qrAlt', { name: att.name || att.ticket?.title })"
-              >
-                <QRCode
-                  :url="att.qr_token"
-                  :size="240"
-                  :scanned="att.is_checked_in"
-                  :scanned-animate="att.checked_in_recent !== false"
+              <!-- Code and checked-in badge share one column with no gap, so
+                   the badge's own growth is the only thing that moves. -->
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-44"
+                  role="img"
+                  :aria-label="t('tickets.eticket.qrAlt', { name: att.name || att.ticket?.title })"
+                >
+                  <QRCode
+                    :url="att.qr_token"
+                    :size="240"
+                    :scanned="att.is_checked_in"
+                    :scanned-animate="att.checked_in_recent !== false"
+                  />
+                </div>
+                <QRCodeScannedBadge
+                  :show="!!att.is_checked_in"
+                  :at="att.checked_in_at"
+                  :label="t('tickets.eticket.checkedIn')"
+                  :locale="locale"
+                  :after-sweep="att.checked_in_recent !== false"
                 />
               </div>
               <p class="text-muted-foreground text-center text-xs tracking-tight text-balance">
