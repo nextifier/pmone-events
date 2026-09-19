@@ -51,7 +51,27 @@ const { data, pending, error, refresh } = await useTicketsListing(
   () => props.eventSlug,
 );
 
-const tickets = computed(() => data.value?.data ?? []);
+// Nuxt clears `data` back to its default the moment a fetch fails - it does not
+// merely populate `error` - so a failed refresh wipes the tickets that were
+// already on screen. On /tickets that copy is the prerendered build-time
+// snapshot, and it is exactly what is worth keeping when PM One is unreachable:
+// the visitor sees the tickets as they stood at build time instead of
+// "Couldn't load tickets" on a page whose HTML already contains them.
+//
+// Verified 19 Sep 2026 by serving a production build with the API pointed at a
+// dead port: without this, the whole list vanished. Same pattern as the PM One
+// dashboard's attendees/index.vue, which hit this during the polling rework.
+const lastGoodListing = ref(data.value ?? null);
+
+watch(data, (value) => {
+  if (value) {
+    lastGoodListing.value = value;
+  }
+});
+
+const tickets = computed(
+  () => (data.value ?? lastGoodListing.value)?.data ?? [],
+);
 
 // A 404 with this code means the organizer has not enabled ticketing yet, shown
 // as a calm "coming soon" rather than a real (retryable) load failure. The Nitro
