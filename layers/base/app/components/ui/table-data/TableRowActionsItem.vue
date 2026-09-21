@@ -52,6 +52,17 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  /**
+   * Overrides the `rel` of an external link. A `_blank` link defaults to
+   * "noopener noreferrer", which is right for somebody else's site; pass
+   * "noopener" for one of our own hosts, because dropping the referrer also
+   * drops the header Sanctum reads to recognise a request from the frontend,
+   * and the tab lands on "Unauthenticated".
+   */
+  rel: {
+    type: String,
+    default: null,
+  },
   icon: {
     type: String,
     default: null,
@@ -85,7 +96,7 @@ const linkAttrs = computed(() => {
   return {
     href: props.href,
     target: props.target ?? undefined,
-    rel: props.target === "_blank" ? "noopener noreferrer" : undefined,
+    rel: props.rel ?? (props.target === "_blank" ? "noopener noreferrer" : undefined),
   };
 });
 </script>
