@@ -29,7 +29,8 @@ const props = defineProps({
 });
 
 const { t, locale } = useI18n();
-const { $dayjs } = useNuxtApp();
+const nuxtApp = useNuxtApp();
+const { $dayjs } = nuxtApp;
 const route = useRoute();
 const router = useRouter();
 const cart = useTicketCartStore();
@@ -61,17 +62,49 @@ const { data, pending, error, refresh } = await useTicketsListing(
 // Verified 19 Sep 2026 by serving a production build with the API pointed at a
 // dead port: without this, the whole list vanished. Same pattern as the PM One
 // dashboard's attendees/index.vue, which hit this during the polling rework.
-const lastGoodListing = ref(data.value ?? null);
+//
+// That build-time copy only reaches the browser when the browser asks for the
+// PAGE. Arriving by client-side navigation renders this component with no
+// payload at all: `payloadExtraction` and `appManifest` are both false
+// (layers/base/nuxt.config.ts:625,634), so Nuxt fetches no `_payload.json` for
+// the target route, and `ticketsListingCachedData` returns undefined outside
+// SSR and hydration. `data` starts null, there is nothing to hold on to, and a
+// failed fetch lands straight on "Couldn't load tickets" - which is what
+// visitors saw on 21 Sep 2026 while PM One was unreachable, on the same page
+// whose own HTML would have rendered the tickets fine. So the last listing this
+// browser actually received is kept, and stands in on exactly that path.
+//
+// Not read while hydrating: `data` already carries the prerendered snapshot
+// there, and seeding from storage instead would risk painting something the
+// server HTML does not contain.
+const { active: staffPreview } = useTicketsListingPreview();
+
+const lastGoodListing = ref(
+  data.value ??
+    (nuxtApp.isHydrating || staffPreview.value
+      ? null
+      : readStoredTicketsListing(props.eventSlug, locale.value)),
+);
 
 watch(data, (value) => {
-  if (value) {
-    lastGoodListing.value = value;
-  }
+  if (!value) return;
+  lastGoodListing.value = value;
+  rememberListing(value);
 });
 
 const tickets = computed(
   () => (data.value ?? lastGoodListing.value)?.data ?? [],
 );
+
+/**
+ * Keeps the public listing only. A staff preview lists tickets whose Active
+ * toggle is off and can pin a rehearsed price phase, so storing it would hand
+ * an ordinary visit prices and tickets that were never on sale.
+ */
+function rememberListing(listing) {
+  if (staffPreview.value) return;
+  storeTicketsListing(props.eventSlug, locale.value, listing);
+}
 
 // A 404 with this code means the organizer has not enabled ticketing yet, shown
 // as a calm "coming soon" rather than a real (retryable) load failure. The Nitro
@@ -263,6 +296,11 @@ watch(mergedTickets, reconcileCart);
 onMounted(async () => {
   cart.hydrate();
   cart.setEventContext({ eventId: event.id, eventSlug: props.eventSlug });
+
+  // The watcher above only sees CHANGES, and a listing that resolved during
+  // setup is already in `data` by the time it is installed. Runs after
+  // cart.hydrate() so a persisted staff-preview flag is in effect first.
+  rememberListing(data.value);
 
   // Auto-apply a code from a magic invite link (?invite=XXXX) or a persisted cart.
   // Reconcile only once it has answered: the lines it unlocks are not in the
