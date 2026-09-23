@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { computed, onUnmounted, watchEffect } from "vue";
+import { computed, onMounted, onUnmounted, watch, watchEffect } from "vue";
 import {
   availableFormLocales,
   isClosedError,
@@ -100,4 +100,20 @@ usePageMeta(null, {
 
 // Public forms should never be indexed.
 useSeoMeta({ robots: "noindex, nofollow" });
+
+// View counting for the form's analytics board in PM One. In the browser, like
+// every other view on these sites: the page is edge-cacheable, and a cache HIT
+// never reaches the server.
+const { trackVisit: trackFormVisit } = useFormTracking(() => form.value?.id);
+
+watch(
+  () => form.value?.id,
+  () => {
+    if (import.meta.client) trackFormVisit();
+  },
+);
+
+onMounted(() => {
+  trackFormVisit();
+});
 </script>
