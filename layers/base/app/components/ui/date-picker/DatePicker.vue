@@ -3,9 +3,10 @@
     <PopoverTrigger as-child>
       <button
         :id="id"
+        ref="triggerEl"
         type="button"
         :disabled="disabled"
-        :class="cn(triggerClass, props.class)"
+        :class="cn(triggerClass, 'scroll-mt-navbar', props.class)"
       >
         <Icon name="hugeicons:calendar-04" class="size-4 shrink-0" />
         <span class="truncate">{{ displayText }}</span>
@@ -24,7 +25,10 @@
         "the date didn't save" — the user changes date and time, closes the
         popover, and nothing was ever applied.
       -->
-      <div class="no-scrollbar min-h-0 flex-1 overflow-y-auto overscroll-contain">
+      <!-- The scrollbar stays visible. Hidden, a popover squeezed by a short
+           viewport cut the last week off with nothing to say it was there: a
+           28-30 September that could not be found, let alone picked. -->
+      <div ref="scrollBody" class="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <!-- fixed-weeks: always six rows, so the popover height doesn't jump
              while navigating between 4/5/6-row months. -->
         <Calendar
@@ -396,8 +400,58 @@ watch(isOpen, (open) => {
   if (open) {
     placeholderOverride.value = undefined;
     syncFromModelValue();
+    makeRoomIfSqueezed();
   }
 });
+
+const triggerEl = ref<HTMLElement | null>(null);
+const scrollBody = ref<HTMLElement | null>(null);
+
+/**
+ * A trigger in the middle of a short viewport (a 13" laptop is ~760px tall)
+ * has about 350px above and below it, and a month with the time row needs
+ * about 420. The popover then fits whichever side it picks by scrolling its
+ * calendar, and the last week ends up out of sight. When that happens, bring
+ * the trigger up under the navbar so the popover can open below it at full
+ * height. Measured rather than estimated, so a picker that already fits never
+ * moves the page; a viewport too short even then keeps the visible scrollbar.
+ */
+function makeRoomIfSqueezed() {
+  // Two frames: one for the content to mount, one for reka to size it.
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      const body = scrollBody.value;
+      const trigger = triggerEl.value;
+      if (!body || !trigger || body.scrollHeight <= body.clientHeight + 1) return;
+
+      // Scroll only the container that is meant to scroll. scrollIntoView() also
+      // scrolls overflow-hidden ancestors, and the app shell has one: it slid the
+      // sidebar and header down the screen. The navbar's height comes from the
+      // trigger's own scroll margin (scroll-mt-navbar), so it is not hardcoded.
+      const scroller = scrollableAncestor(trigger);
+      const offset = parseFloat(getComputedStyle(trigger).scrollMarginTop) || 0;
+      const top = trigger.getBoundingClientRect().top;
+      const containerTop = scroller === document.scrollingElement ? 0 : scroller.getBoundingClientRect().top;
+
+      // Instant, not smooth: the calendar focuses a day as it opens, and that
+      // focus cancels a smooth scroll half way, leaving the popover pinned
+      // above a trigger that has already moved and running off the top edge.
+      // One jump lets reka re-place it below, where the room now is.
+      scroller.scrollBy({ top: top - containerTop - offset, behavior: "instant" });
+    })
+  );
+}
+
+/** The nearest ancestor that scrolls on purpose, or the page itself. */
+function scrollableAncestor(el: HTMLElement): Element {
+  for (let node = el.parentElement; node; node = node.parentElement) {
+    const { overflowY } = getComputedStyle(node);
+    if ((overflowY === "auto" || overflowY === "scroll") && node.scrollHeight > node.clientHeight) {
+      return node;
+    }
+  }
+  return document.scrollingElement ?? document.documentElement;
+}
 
 function syncFromModelValue() {
   if (props.mode === "range") {

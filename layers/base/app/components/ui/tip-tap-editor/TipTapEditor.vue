@@ -4,13 +4,15 @@
     class="tiptap-editor cn-input flex h-auto w-full min-w-0 flex-col items-stretch p-0"
     :style="{ '--editor-min-h': minHeight }"
   >
-    <!-- Toolbar -->
-    <div v-if="editor" :class="['editor-toolbar', sticky ? 'editor-toolbar-sticky' : '']">
+    <!-- Toolbar. Rendered from the server on, and inert until the editor exists
+         (TipTap only builds it in the browser): a toolbar that appeared after
+         mount pushed the content area down on every page holding an editor. -->
+    <div :class="['editor-toolbar', sticky ? 'editor-toolbar-sticky' : '']" :inert="!editor">
       <div class="toolbar-group">
         <button
           type="button"
           @click="editor.chain().focus().toggleBold().run()"
-          :class="{ 'is-active': editor.isActive('bold') }"
+          :class="{ 'is-active': editor?.isActive('bold') }"
           class="toolbar-button"
           title="Bold (Cmd+B)"
           v-tippy="'Bold (Cmd+B)'"
@@ -20,7 +22,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleItalic().run()"
-          :class="{ 'is-active': editor.isActive('italic') }"
+          :class="{ 'is-active': editor?.isActive('italic') }"
           class="toolbar-button"
           title="Italic (Cmd+I)"
           v-tippy="'Italic (Cmd+I)'"
@@ -30,7 +32,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleUnderline().run()"
-          :class="{ 'is-active': editor.isActive('underline') }"
+          :class="{ 'is-active': editor?.isActive('underline') }"
           class="toolbar-button"
           title="Underline (Cmd+U)"
           v-tippy="'Underline (Cmd+U)'"
@@ -45,7 +47,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-          :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
+          :class="{ 'is-active': editor?.isActive('heading', { level: 2 }) }"
           class="toolbar-button"
           title="Heading 2"
           v-tippy="'Heading 2'"
@@ -55,7 +57,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-          :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
+          :class="{ 'is-active': editor?.isActive('heading', { level: 3 }) }"
           class="toolbar-button"
           title="Heading 3"
           v-tippy="'Heading 3'"
@@ -70,7 +72,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleBulletList().run()"
-          :class="{ 'is-active': editor.isActive('bulletList') }"
+          :class="{ 'is-active': editor?.isActive('bulletList') }"
           class="toolbar-button"
           title="Bullet List"
           v-tippy="'Bullet List'"
@@ -80,7 +82,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleOrderedList().run()"
-          :class="{ 'is-active': editor.isActive('orderedList') }"
+          :class="{ 'is-active': editor?.isActive('orderedList') }"
           class="toolbar-button"
           title="Ordered List"
           v-tippy="'Ordered List'"
@@ -90,7 +92,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleBlockquote().run()"
-          :class="{ 'is-active': editor.isActive('blockquote') }"
+          :class="{ 'is-active': editor?.isActive('blockquote') }"
           class="toolbar-button"
           title="Blockquote"
           v-tippy="'Blockquote'"
@@ -100,7 +102,7 @@
         <button
           type="button"
           @click="editor.chain().focus().toggleCodeBlock().run()"
-          :class="{ 'is-active': editor.isActive('codeBlock') }"
+          :class="{ 'is-active': editor?.isActive('codeBlock') }"
           class="toolbar-button"
           title="Code Block"
           v-tippy="'Code Block'"
@@ -117,7 +119,7 @@
             <button
               type="button"
               @click="openLinkPopover"
-              :class="{ 'is-active': editor.isActive('link') }"
+              :class="{ 'is-active': editor?.isActive('link') }"
               class="toolbar-button"
               title="Add Link"
               v-tippy="'Add Link'"

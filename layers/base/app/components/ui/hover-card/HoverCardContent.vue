@@ -18,7 +18,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <HoverCardPortal data-slot="hover-card-portal">
+  <HoverCardPortal>
     <!-- Dropdown tokens, not tooltip: a hover card is an anchored content surface that
          grows from its trigger (and can be hovered into), so the tooltip's 50ms exit
          would read as a snap. Same shape-based tie-breaker the skill uses. -->
