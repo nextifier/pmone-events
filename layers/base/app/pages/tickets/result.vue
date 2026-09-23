@@ -176,7 +176,7 @@
               v-if="Number(order.discount_amount) > 0"
               class="text-success-foreground flex justify-between"
             >
-              <span>{{ t("tickets.result.discount") }}</span>
+              <span>{{ t("tickets.result.discount") }}<template v-if="order.promo_code_applied"> · {{ order.promo_code_applied }}</template></span>
               <span class="tabular-nums">-Rp{{ formatRupiah(order.discount_amount) }}</span>
             </div>
             <div class="flex justify-between border-t pt-1.5 text-base font-semibold">

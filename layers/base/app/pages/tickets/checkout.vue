@@ -33,7 +33,7 @@ definePageMeta({
   bottomNav: false,
 });
 
-const { t, locale } = useI18n();
+const { t, te, locale } = useI18n();
 const localePath = useLocalePath();
 const cart = useTicketCartStore();
 const event = useEvent();
@@ -226,7 +226,6 @@ const form = ref({
   buyer_email: "",
   buyer_name: "",
   buyer_phone: "",
-  promo_code: "",
 });
 const acceptTerms = ref(false);
 
@@ -664,18 +663,18 @@ async function submit() {
     payload.registration = buildRegistrationPayload();
   }
 
-  const promo = (
-    summaryRef.value?.appliedPromo ||
-    form.value.promo_code ||
-    ""
-  ).trim();
+  // Only a code that applies. One still waiting for more tickets stays in the
+  // summary as a note and is not sent, or the order would be refused over it.
+  const promo = (summaryRef.value?.appliedPromo || "").trim();
   if (promo) payload.promo_code = promo;
 
   // Carry the access code applied on the tickets page (unlocks gated tickets +
-  // any price effect). The backend re-validates + holds it authoritatively. The
-  // browser fingerprint goes with it for a code limited to one use per browser.
-  if (cart.accessCode) {
-    payload.access_code = cart.accessCode;
+  // any price effect). The backend re-validates + holds it authoritatively.
+  if (cart.accessCode) payload.access_code = cart.accessCode;
+
+  // The browser fingerprint goes with either code: both can be limited to one
+  // use per browser.
+  if (promo || cart.accessCode) {
     const fingerprint = await getBrowserFingerprint();
     if (fingerprint) payload.browser_fingerprint = fingerprint;
   }
@@ -757,6 +756,17 @@ async function submit() {
       if (accessErrorCode === "BIND_EMAIL_MISMATCH") {
         errors.value = { ...errors.value, buyer_email: [message] };
       }
+    }
+
+    // A promo refusal arrives as `code: ["ALREADY_USED: ..."]`. Say it in the
+    // buyer's language rather than toasting the raw engine string, and let the
+    // summary re-check the code so it shows the same reason.
+    const promoRefusal = [errors.value.code].flat().find(Boolean);
+    if (!accessErrorCode && typeof promoRefusal === "string") {
+      const promoErrorCode = promoRefusal.match(/^([A-Z_]+):/)?.[1];
+      const key = promoErrorKey(promoErrorCode);
+      message = key && te(key) ? t(key) : t("tickets.promoError");
+      summaryRef.value?.recheckPromo?.();
     }
     await revealFirstError();
     toast.error(message);
@@ -1091,6 +1101,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
                   :tickets-by-id="ticketsById"
                   editable
                   :frozen="handingOff"
+                  :buyer-email="form.buyer_email"
                 />
               </div>
             </div>

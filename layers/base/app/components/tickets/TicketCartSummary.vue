@@ -1,5 +1,10 @@
 <script setup>
-import { Alert, AlertAction, AlertTitle } from "../ui/alert";
+import {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertTitle,
+} from "../ui/alert";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Field, FieldLabel } from "../ui/field";
@@ -18,7 +23,7 @@ import {
 } from "../ui/collapsible";
 import { useTicketCartStore } from "../../stores/ticketCart";
 import { computed, ref, watch } from "vue";
-import { useDebounceFn, useTimeoutFn } from "@vueuse/core";
+import { useDebounceFn } from "@vueuse/core";
 
 const props = defineProps({
   // Map of ticket_id -> ticket object, so we can render posters/days/limits.
@@ -32,11 +37,16 @@ const props = defineProps({
    * browser keeps painting this page until the next document loads.
    */
   frozen: { type: Boolean, default: false },
+  /**
+   * The email typed on checkout. A promo code limited to one use per person is
+   * re-checked against it, so "already used" shows here instead of at Pay.
+   */
+  buyerEmail: { type: String, default: "" },
 });
 
 const emit = defineEmits(["promo-applied", "promo-cleared"]);
 
-const { t, te } = useI18n();
+const { t, te, locale } = useI18n();
 const cart = useTicketCartStore();
 
 const ticketFor = (id) => props.ticketsById[id] ?? null;
@@ -157,51 +167,94 @@ const originalTotal = computed(() => {
 const promoOpen = ref(false);
 const promoInput = ref("");
 const appliedPromo = ref("");
+// A buy X get Y code the cart does not hold enough tickets for yet. It stays
+// attached, with a note saying how many to add, instead of being refused: "does
+// not apply" read as a dead code to a buyer holding exactly the three tickets
+// "buy 3 get 1" names. It is never sent with the order until it applies.
+const pendingPromo = ref("");
+const pendingMeta = ref(null);
 const promoApplying = ref(false);
 const promoError = ref("");
 
-const { start: startPromoErrorTimer, stop: stopPromoErrorTimer } = useTimeoutFn(
-  () => {
-    promoError.value = "";
-  },
-  6000,
-  { immediate: false },
-);
+const activePromo = computed(() => appliedPromo.value || pendingPromo.value);
 
+// Stays until the buyer does something about it (types, changes the cart,
+// removes the code). It used to clear itself after six seconds, which is how a
+// code dropped by a quantity change could vanish before anyone read why.
 function showPromoError(message) {
   promoError.value = message;
-  stopPromoErrorTimer();
-  startPromoErrorTimer();
 }
 
 /** Translated message for a backend error code, falling back to the backend's own text. */
 function promoMessage(info) {
+  if (info?.error_code === "NOT_YET_VALID" && info.meta?.starts_at) {
+    const date = new Date(info.meta.starts_at).toLocaleDateString(locale.value, {
+      day: "numeric",
+      month: "long",
+    });
+    return t("tickets.promoStartsOn", { date });
+  }
   const key = promoErrorKey(info?.error_code);
-  if (key && te(key)) return t(key);
+  // Named values ride in `meta` (the limit a free ticket would break, say).
+  if (key && te(key)) return t(key, info?.meta ?? {});
   return info?.message || t("tickets.promoError");
 }
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const previewEmail = () => {
+  const email = props.buyerEmail?.trim();
+  return email && EMAIL_PATTERN.test(email) ? email : null;
+};
+
+function previewWith(code) {
+  return cart.fetchPreview({ promoCode: code || null, email: previewEmail() });
+}
+
+/**
+ * Read the preview's verdict on `code` and move it to applied, pending or gone.
+ * Returns false when the code was refused outright.
+ */
+function settlePromo(code) {
+  const info = cart.promoInfo;
+
+  if (!info?.error_code) {
+    const wasApplied = appliedPromo.value === code;
+    appliedPromo.value = code;
+    pendingPromo.value = "";
+    pendingMeta.value = null;
+    if (!wasApplied) emit("promo-applied", code);
+    return true;
+  }
+
+  if (info.error_code === "QUANTITY_NOT_MET" && info.meta?.missing_qty) {
+    if (appliedPromo.value) emit("promo-cleared");
+    appliedPromo.value = "";
+    pendingPromo.value = code;
+    pendingMeta.value = info.meta;
+    return true;
+  }
+
+  if (appliedPromo.value) emit("promo-cleared");
+  appliedPromo.value = "";
+  pendingPromo.value = "";
+  pendingMeta.value = null;
+  showPromoError(promoMessage(info));
+  return false;
+}
+
 async function applyPromo() {
-  // Uppercase once, here. The store re-sends `appliedPromo` on every cart change,
-  // so a lowercase apply followed by a quantity tap used to re-send a different
+  // Uppercase once, here. The store re-sends the code on every cart change, so
+  // a lowercase apply followed by a quantity tap used to re-send a different
   // string than the one that was accepted.
   const code = promoInput.value?.trim().toUpperCase();
   if (!code) return;
   promoInput.value = code;
   promoApplying.value = true;
   promoError.value = "";
-  stopPromoErrorTimer();
   try {
-    await cart.fetchPreview({ promoCode: code });
-    if (cart.promoInfo?.error_code) {
-      // Invalid / not applicable: surface the reason and revert to plain pricing.
-      showPromoError(promoMessage(cart.promoInfo));
-      appliedPromo.value = "";
-      await cart.fetchPreview();
-    } else {
-      appliedPromo.value = code;
-      emit("promo-applied", appliedPromo.value);
-    }
+    await previewWith(code);
+    // Invalid / not applicable: the reason is on screen; price the cart without it.
+    if (!settlePromo(code)) await previewWith(null);
   } catch {
     showPromoError(t("tickets.promoError"));
   } finally {
@@ -210,33 +263,31 @@ async function applyPromo() {
 }
 
 function removePromo() {
+  const hadApplied = !!appliedPromo.value;
   appliedPromo.value = "";
+  pendingPromo.value = "";
+  pendingMeta.value = null;
   promoInput.value = "";
   promoError.value = "";
-  stopPromoErrorTimer();
   cart.fetchPreview();
-  emit("promo-cleared");
+  if (hadApplied) emit("promo-cleared");
 }
 
 // Typing is an attempt at a new code; the previous verdict no longer applies.
 watch(promoInput, () => {
-  if (promoError.value) {
-    promoError.value = "";
-    stopPromoErrorTimer();
-  }
+  promoError.value = "";
 });
 
 // Re-price whenever the cart changes. Debounced because the optimistic quantity
 // already covers the gap, so a burst of taps should cost one request, not five.
 const repriceDebounced = useDebounceFn(() => {
   if (cart.isEmpty) return;
-  cart.fetchPreview({ promoCode: appliedPromo.value || null }).then(() => {
-    // Re-check rather than blanket-clear: a MIN_PURCHASE_NOT_MET that becomes
-    // true again after a quantity drop genuinely needs to be shown again.
-    if (appliedPromo.value && cart.promoInfo?.error_code) {
-      showPromoError(promoMessage(cart.promoInfo));
-      appliedPromo.value = "";
-      emit("promo-cleared");
+  const code = activePromo.value;
+  previewWith(code).then(() => {
+    // Re-check rather than blanket-clear: adding the missing ticket turns a
+    // pending code on, and dropping below the threshold turns it back to a note.
+    if (code && code === activePromo.value && !settlePromo(code)) {
+      previewWith(null);
     }
   });
 }, 250);
@@ -251,12 +302,52 @@ watch(
       .join(","),
   () => {
     promoError.value = "";
-    stopPromoErrorTimer();
     repriceDebounced();
   },
 );
 
-defineExpose({ appliedPromo });
+// Once a real address is typed, re-check the code against it.
+const recheckForEmail = useDebounceFn(() => {
+  if (activePromo.value && previewEmail()) repriceDebounced();
+}, 600);
+watch(() => props.buyerEmail, recheckForEmail);
+
+/** "AJAKTEMAN · 1 free ticket" instead of a bare "Discount". */
+const discountLabel = computed(() => {
+  const info = cart.promoInfo;
+  if (!appliedPromo.value || info?.error_code || cart.accessInfo?.discount) {
+    return t("tickets.discount");
+  }
+  const free = Number(info?.free_qty) || 0;
+  return free > 0
+    ? `${appliedPromo.value} · ${t("tickets.promoFreeTickets", { count: free }, free)}`
+    : `${t("tickets.discount")} · ${appliedPromo.value}`;
+});
+
+// The freeze keeps the last cart on screen after the store empties, and the
+// promo info empties with it; hold the label the buyer last saw.
+const frozenDiscountLabel = ref("");
+watch(
+  discountLabel,
+  (label) => {
+    if (!props.frozen) frozenDiscountLabel.value = label;
+  },
+  { immediate: true },
+);
+const shownDiscountLabel = computed(() =>
+  showingSnapshot.value ? frozenDiscountLabel.value : discountLabel.value,
+);
+
+/**
+ * Called by checkout when the order endpoint refuses the code (it was used up
+ * by someone else in the meantime, say): re-check it so the summary tells the
+ * same story as the toast.
+ */
+function recheckPromo() {
+  repriceDebounced();
+}
+
+defineExpose({ appliedPromo, recheckPromo });
 </script>
 
 <template>
@@ -320,6 +411,17 @@ defineExpose({ appliedPromo });
                 "
               >
                 {{ line.subLabel }}
+              </p>
+              <!-- The free tickets the promo adds to this line. Their own line
+                   under the title rather than a bigger number in the stepper:
+                   the stepper is what the buyer pays for, and changing it by
+                   hand must not fight a count the promo keeps adding to. -->
+              <p
+                v-if="line.bonus"
+                class="text-success-foreground flex items-center gap-1 text-sm leading-snug tracking-tight"
+              >
+                <Icon name="hugeicons:gift" class="size-4 shrink-0" />
+                {{ t("tickets.promoBonusLine", { count: line.bonus }, line.bonus) }}
               </p>
               <!-- No cap or stock note here. This is a review surface: the row
                    already shows the quantity with no control beside it, so the
@@ -402,7 +504,7 @@ defineExpose({ appliedPromo });
         :class="{ 'opacity-60': anyPending }"
         :aria-busy="anyPending || undefined"
       >
-        <span class="text-sm tracking-tight">{{ t("tickets.discount") }}</span>
+        <span class="min-w-0 truncate text-sm tracking-tight">{{ shownDiscountLabel }}</span>
         <span class="text-sm font-medium tabular-nums tracking-tight">
           -{{ fmtIdr(discount) }}
         </span>
@@ -446,7 +548,7 @@ defineExpose({ appliedPromo });
         <!-- An imperative, not a question. "Have a promo code?" told the buyer
              nothing about what to do if the answer was yes; the plus/minus and
              the control-weight type are what make it read as pressable. -->
-        <CollapsibleTrigger v-if="!appliedPromo" as-child>
+        <CollapsibleTrigger v-if="!activePromo" as-child>
           <Button variant="ghost" size="sm" class="-ml-3 gap-1.5">
             <Icon
               :name="promoOpen ? 'hugeicons:minus-sign' : 'hugeicons:plus-sign'"
@@ -460,6 +562,34 @@ defineExpose({ appliedPromo });
              hand-built success strips until Alert grew a success variant; they
              go through the primitive now so the two states cannot drift apart
              again. -->
+        <!-- Waiting on the cart: the code is fine, the quantity is not there
+             yet. Neutral, not red - nothing is wrong, one step is left. -->
+        <Alert v-else-if="pendingPromo" role="status">
+          <Icon name="hugeicons:ticket-01" />
+          <AlertTitle>
+            {{
+              t(
+                "tickets.promoNeedsMore",
+                { count: pendingMeta.missing_qty, code: pendingPromo },
+                Number(pendingMeta.missing_qty),
+              )
+            }}
+          </AlertTitle>
+          <AlertDescription>
+            {{
+              t("tickets.promoBuyGet", {
+                buy: pendingMeta.buy_qty,
+                free: pendingMeta.get_free_qty,
+              })
+            }}
+          </AlertDescription>
+          <AlertAction>
+            <Button variant="ghost" size="sm" @click="removePromo">
+              {{ t("tickets.remove") }}
+            </Button>
+          </AlertAction>
+        </Alert>
+
         <Alert v-else variant="success" role="status">
           <Icon name="lucide:circle-check" />
           <AlertTitle>
@@ -472,7 +602,7 @@ defineExpose({ appliedPromo });
           </AlertAction>
         </Alert>
 
-        <CollapsibleContent v-if="!appliedPromo" class="mt-3 space-y-2">
+        <CollapsibleContent v-if="!activePromo" class="mt-3 space-y-2">
           <div class="flex items-end gap-2">
             <Field class="flex-1">
               <FieldLabel for="promo_code">

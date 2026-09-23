@@ -94,7 +94,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
     cachedSubtotal: 0,
     cachedDiscount: 0,
     cachedTotal: 0,
-    // { code, discount } when a promo applied, { error_code, message } on failure.
+    // { code, discount, free_qty } when a promo applied, { code, error_code, message, meta } on failure.
     promoInfo: null,
     // { code, unlocks, price_effect, discount } from the last preview, or error.
     accessInfo: null,
@@ -166,6 +166,7 @@ export const useTicketCartStore = defineStore("ticketCart", {
         qty: Number(i.qty) || 0,
         unit: 0,
         subtotal: 0,
+        bonus: 0,
         pending,
         title: "",
         phaseLabel: "",
@@ -198,6 +199,10 @@ export const useTicketCartStore = defineStore("ticketCart", {
               qty,
               unit,
               subtotal: qty === l.quantity ? Number(l.subtotal) || 0 : unit * qty,
+              // Free tickets a buy X get Y code adds on top of `qty`. Only
+              // trusted while the quantity it was priced for is still the one
+              // in the cart; a tap in flight shows none rather than a stale count.
+              bonus: qty === l.quantity ? Number(l.bonus_quantity) || 0 : 0,
               pending: qty !== l.quantity,
               title: l.title || "",
               phaseLabel: l.phase_label || "",
@@ -773,6 +778,12 @@ export const useTicketCartStore = defineStore("ticketCart", {
         if (this.accessCode) body.access_code = this.accessCode;
         if (email) body.email = email;
         if (phone) body.phone = phone;
+        // A promo or invitation code can be limited to one use per browser; the
+        // preview checks that too, so the buyer hears it before paying.
+        if (promoCode || this.accessCode) {
+          const fingerprint = await getBrowserFingerprint();
+          if (fingerprint) body.browser_fingerprint = fingerprint;
+        }
         const res = await $fetch("/api/tickets/preview", {
           method: "POST",
           body,

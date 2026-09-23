@@ -81,6 +81,18 @@ const subtotal = computed(() =>
     : localSubtotal.value,
 );
 const discount = computed(() => (isPay.value ? cart.displayDiscount : 0));
+
+/** Same wording as the order summary: "AJAKTEMAN · 1 free ticket". */
+const discountLabel = computed(() => {
+  const info = cart.promoInfo;
+  if (!info?.code || info.error_code || cart.accessInfo?.discount) {
+    return t("tickets.discount");
+  }
+  const free = Number(info.free_qty) || 0;
+  return free > 0
+    ? `${info.code} · ${t("tickets.promoFreeTickets", { count: free }, free)}`
+    : `${t("tickets.discount")} · ${info.code}`;
+});
 const total = computed(() => Math.max(0, subtotal.value - discount.value));
 
 /** The figure in the always-visible action row: the real total when paying, the subtotal when selecting. */
@@ -290,6 +302,16 @@ const visible = computed(
                     >
                       {{ line.subLabel }}
                     </p>
+                    <!-- Same note as the order summary; the bar sits on the
+                         inverted surface, so it takes that surface's text
+                         colour rather than the success token. -->
+                    <p
+                      v-if="line.bonus"
+                      class="text-background/80 flex items-center gap-1 truncate text-sm tracking-tight"
+                    >
+                      <Icon name="hugeicons:gift" class="size-4 shrink-0" />
+                      {{ t("tickets.promoBonusLine", { count: line.bonus }, line.bonus) }}
+                    </p>
                   </div>
                   <!-- Price over quantity on the trailing edge. The `x` button
                        that used to sit here is gone: stepping below the ticket's
@@ -328,7 +350,7 @@ const visible = computed(
                 </p>
                 <p class="flex items-baseline justify-end leading-tight">
                   <span class="text-background/80 text-sm tracking-tight">
-                    {{ t("tickets.discount") }}
+                    {{ discountLabel }}
                   </span>
                   <span
                     class="ml-2 text-sm font-medium tabular-nums sm:text-base"
