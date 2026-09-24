@@ -183,7 +183,11 @@ function dispatch(name: string, state: TicketLiveState): void {
   }
 
   if (state.is_checked_in) {
-    if (state.recent && isVisible()) navigator.vibrate?.(35);
+    // The subtlest tick that still registers: the same 12 ms the success
+    // toast uses (ui/sonner/feedback.ts). Browsers drop it silently unless the
+    // visitor has touched the page since it loaded (sticky user activation),
+    // and iOS Safari has no vibration at all.
+    if (state.recent && isVisible()) navigator.vibrate?.(12);
 
     entry.grace = setTimeout(() => retire(name), GRACE_AFTER_SCAN_MS);
   }
