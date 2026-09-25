@@ -165,6 +165,20 @@
                 </span>
               </div>
             </GridFill>
+
+            <!-- Meetings with this exhibitor, for ticket holders. Renders
+                 nothing when the event doesn't run meetings, and never for a
+                 previous edition's exhibitor. -->
+            <MeetingSection
+              v-if="brand.brand_event_id && meetingEventSlug"
+              :event-slug="meetingEventSlug"
+              :event-title="brand.event_title || eventInfo.title"
+              :brand-slug="String(route.params.slug)"
+              :brand-name="brand.brand_name"
+              :brand-event-id="brand.brand_event_id"
+              :initial-slot="typeof route.query.slot === 'string' ? route.query.slot : null"
+              class="mt-10"
+            />
           </div>
 
           <!-- Right content: description + promotions -->
@@ -382,6 +396,7 @@
 </template>
 
 <script setup>
+import MeetingSection from "../../components/meetings/MeetingSection.vue";
 // A detail page is read on its own, without the site's tab bar.
 definePageMeta({ bottomNav: false });
 
@@ -634,6 +649,10 @@ const eventFactCount = computed(
 );
 
 // Render the section only when there is a real event with something to show.
+// The event the exhibitor's booth belongs to: a co-located event's exhibitor
+// is booked under that event, not the site's own.
+const meetingEventSlug = computed(() => brand.value?.event_slug || event.slug || null);
+
 const hasEventInvite = computed(
   () => !!eventInfo.value.title && (!!event.poster || eventFactCount.value > 0),
 );

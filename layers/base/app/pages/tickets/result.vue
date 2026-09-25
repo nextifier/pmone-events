@@ -47,6 +47,16 @@
         </ResultReference>
       </Result>
 
+      <!-- Meetings: finish a request started before buying, or find exhibitors. -->
+      <ClientOnly>
+        <MeetingResumeBanner
+          v-if="isConfirmed"
+          :order-token="magicToken || null"
+          :order-ulid="orderUlid || null"
+          class="mt-6"
+        />
+      </ClientOnly>
+
       <!-- Pending payment CTA -->
       <div
         v-if="isPending && order.payment_url"
@@ -309,6 +319,7 @@ import { Result, ResultReference } from "../../components/ui/result";
 import { Skeleton } from "../../components/ui/skeleton";
 import { Spinner } from "../../components/ui/spinner";
 import ETicket from "../../components/tickets/ETicket.vue";
+import MeetingResumeBanner from "../../components/meetings/MeetingResumeBanner.vue";
 import { BlurImage } from "../../components/ui/blur-image";
 import { useTicketImage } from "../../composables/useTicketImage";
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";

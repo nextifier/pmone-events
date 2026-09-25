@@ -64,23 +64,43 @@
           align="end"
           class="max-h-[60vh] w-72 space-y-4 overflow-y-auto rounded-lg px-1 py-4"
         >
+          <div v-if="meetingsAvailable">
+            <DropdownMenuLabel>{{ $t("meetings.list.filterLabel") }}</DropdownMenuLabel>
+            <Field
+              orientation="horizontal"
+              class="hover:bg-muted/70 gap-x-2 rounded-md px-3 py-1"
+            >
+              <Checkbox id="meetings-filter" v-model="meetingsOnly" />
+              <FieldLabel
+                for="meetings-filter"
+                class="min-w-0 grow cursor-pointer items-center gap-x-2 font-normal"
+              >
+                <span class="grow truncate text-sm tracking-tight">
+                  {{ $t("meetings.list.filterOption") }}
+                </span>
+              </FieldLabel>
+            </Field>
+          </div>
+
           <div v-if="availableEvents.length > 1">
             <div class="flex items-center justify-between">
               <DropdownMenuLabel>Events</DropdownMenuLabel>
-              <button
+              <Button
                 v-if="selectedEvents.length > 0"
-                class="text-primary hover:text-primary/80 px-3 text-xs tracking-tight transition"
+                variant="link"
+                size="xs"
+                class="h-auto px-3 py-0"
                 @click="$emit('clear-events')"
               >
                 Clear
-              </button>
+              </Button>
             </div>
             <div class="space-y-0">
-              <label
+              <Field
                 v-for="(event, index) in availableEvents"
                 :key="event.projectUsername"
-                :for="`event-filter-${index}`"
-                class="hover:bg-muted/70 flex cursor-pointer items-center gap-x-2 rounded-md px-3 py-1"
+                orientation="horizontal"
+                class="hover:bg-muted/70 gap-x-2 rounded-md px-3 py-1"
               >
                 <Checkbox
                   :id="`event-filter-${index}`"
@@ -89,40 +109,47 @@
                     toggleEventFilter(event.projectUsername, $event)
                   "
                 />
-                <img
-                  v-if="event.img"
-                  :src="event.img"
-                  :alt="event.title"
-                  width="20"
-                  height="20"
-                  loading="lazy"
-                  decoding="async"
-                  class="bg-muted border-border size-5 shrink-0 rounded-full border object-cover"
-                />
-                <div
-                  v-else
-                  class="bg-muted border-border size-5 shrink-0 rounded-full border"
-                />
-                <span class="grow truncate text-sm tracking-tight">
-                  {{ event.title }}
-                </span>
-                <span class="text-muted-foreground text-xs tabular-nums">
-                  {{ event.count }}
-                </span>
-              </label>
+                <FieldLabel
+                  :for="`event-filter-${index}`"
+                  class="min-w-0 grow cursor-pointer items-center gap-x-2 font-normal"
+                >
+                  <img
+                    v-if="event.img"
+                    :src="event.img"
+                    :alt="event.title"
+                    width="20"
+                    height="20"
+                    loading="lazy"
+                    decoding="async"
+                    class="bg-muted border-border size-5 shrink-0 rounded-full border object-cover"
+                  />
+                  <div
+                    v-else
+                    class="bg-muted border-border size-5 shrink-0 rounded-full border"
+                  />
+                  <span class="grow truncate text-sm tracking-tight">
+                    {{ event.title }}
+                  </span>
+                  <span class="text-muted-foreground text-xs tabular-nums">
+                    {{ event.count }}
+                  </span>
+                </FieldLabel>
+              </Field>
             </div>
           </div>
 
           <div>
             <div class="flex items-center justify-between">
               <DropdownMenuLabel>Categories</DropdownMenuLabel>
-              <button
+              <Button
                 v-if="selectedCategories.length > 0"
-                class="text-primary hover:text-primary/80 px-3 text-xs tracking-tight transition"
+                variant="link"
+                size="xs"
+                class="h-auto px-3 py-0"
                 @click="$emit('clear-categories')"
               >
                 Clear
-              </button>
+              </Button>
             </div>
 
             <div
@@ -133,24 +160,29 @@
             </div>
 
             <div v-else>
-              <label
+              <Field
                 v-for="(item, index) in availableCategories"
                 :key="item.name"
-                :for="`category-filter-${index}`"
-                class="hover:bg-muted/70 flex cursor-pointer items-center gap-x-2 rounded-md px-3 py-1"
+                orientation="horizontal"
+                class="hover:bg-muted/70 gap-x-2 rounded-md px-3 py-1"
               >
                 <Checkbox
                   :id="`category-filter-${index}`"
                   :model-value="selectedCategories.includes(item.name)"
                   @update:model-value="toggleCategoryFilter(item.name, $event)"
                 />
-                <span class="grow truncate text-sm tracking-tight">
-                  {{ item.name }}
-                </span>
-                <span class="text-muted-foreground text-xs tabular-nums">
-                  {{ item.count }}
-                </span>
-              </label>
+                <FieldLabel
+                  :for="`category-filter-${index}`"
+                  class="min-w-0 grow cursor-pointer items-center gap-x-2 font-normal"
+                >
+                  <span class="grow truncate text-sm tracking-tight">
+                    {{ item.name }}
+                  </span>
+                  <span class="text-muted-foreground text-xs tabular-nums">
+                    {{ item.count }}
+                  </span>
+                </FieldLabel>
+              </Field>
             </div>
           </div>
         </PopoverContent>
@@ -232,7 +264,10 @@ defineProps({
   changeSelectedSortOption: { type: Function, required: true },
   pending: { type: Boolean, default: false },
   viewMode: { type: String, default: "grid" },
+  meetingsAvailable: { type: Boolean, default: false },
 });
+
+const meetingsOnly = defineModel("meetingsOnly", { type: Boolean, default: false });
 
 defineEmits(["refresh", "clear-events", "clear-categories"]);
 

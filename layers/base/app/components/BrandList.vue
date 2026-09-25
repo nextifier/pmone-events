@@ -35,6 +35,8 @@
       :change-selected-sort-option="changeSelectedSortOption"
       :pending="pending"
       :view-mode="viewMode"
+      :meetings-available="meetingsAvailable"
+      v-model:meetings-only="meetingsOnly"
       @refresh="refresh()"
       @clear-events="selectedEvents = []"
       @clear-categories="selectedCategories = []"
@@ -104,6 +106,8 @@ const {
   getConjunctionImg,
   getConjunctionBrandsUrl,
   showProjectColumn,
+  meetingsOnly,
+  meetingsAvailable,
 } = useBrandsListing({ edition: toRef(props, "edition") });
 
 // Pull results into view when search/filter changes, so a virtualized,
@@ -120,7 +124,7 @@ const scrollToResults = () => {
   }
 };
 
-watch([debouncedSearchInput, selectedCategories, selectedEvents], () => {
+watch([debouncedSearchInput, selectedCategories, selectedEvents, meetingsOnly], () => {
   nextTick(scrollToResults);
 });
 </script>

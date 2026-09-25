@@ -44,6 +44,11 @@ export const useBrandsListing = (opts = {}) => {
   );
   const selectedCategories = ref([]);
   const selectedEvents = ref([]);
+  // Only exhibitors that take meeting requests (the event's meeting config).
+  // `?meetings=1` opens the list already narrowed, the way back from a request.
+  const meetingsOnly = ref(useRoute().query.meetings === "1");
+  const { ids: meetingBrandIds, takesMeetings } = useMeetingBrands();
+  const meetingsAvailable = computed(() => (meetingBrandIds.value ?? []).length > 0);
 
   const toggleCategoryFilter = (name, checked) => {
     if (checked) {
@@ -66,7 +71,7 @@ export const useBrandsListing = (opts = {}) => {
   };
 
   const totalActiveFilters = computed(
-    () => selectedCategories.value.length + selectedEvents.value.length,
+    () => selectedCategories.value.length + selectedEvents.value.length + (meetingsOnly.value ? 1 : 0),
   );
 
   // Reads the debounced keyword, the one filterBrands() applies, so "Clear
@@ -80,6 +85,7 @@ export const useBrandsListing = (opts = {}) => {
   const clearFilters = () => {
     selectedCategories.value = [];
     selectedEvents.value = [];
+    meetingsOnly.value = false;
     searchInput.value = "";
     debouncedSearchInput.value = "";
   };
@@ -293,9 +299,11 @@ export const useBrandsListing = (opts = {}) => {
     const normalizedSearch = search.replace(/[^\w\s]/gi, "").replace(/\s/g, "");
     const cats = selectedCategories.value;
     const events = selectedEvents.value;
-    if (!search && cats.length === 0 && events.length === 0) return brands;
+    const meetings = meetingsOnly.value;
+    if (!search && cats.length === 0 && events.length === 0 && !meetings) return brands;
 
     return brands.filter((brand) => {
+      if (meetings && !takesMeetings(brand.brand_event_id)) return false;
       if (events.length > 0 && !events.includes(brand._project_username)) {
         return false;
       }
@@ -402,6 +410,8 @@ export const useBrandsListing = (opts = {}) => {
 
     // filters
     selectedCategories,
+    meetingsOnly,
+    meetingsAvailable,
     selectedEvents,
     totalActiveFilters,
     toggleCategoryFilter,

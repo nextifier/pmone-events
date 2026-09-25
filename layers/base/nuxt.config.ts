@@ -384,6 +384,10 @@ export default defineNuxtConfig({
     "/brands/*": { ssr: false },
     "/*/brands/*": { ssr: false },
     "/*/*/brands/*": { ssr: false },
+    // One visitor's meetings, read with their session cookie: nothing to render
+    // on the server and nothing to cache.
+    "/meetings": { ssr: false },
+    "/*/meetings": { ssr: false },
   },
 
   site: {
@@ -438,6 +442,12 @@ export default defineNuxtConfig({
       "/tickets/",
       "/hotels/reservation",
       "/hotels/success",
+      // `/rsvp/<token>` is one invitee's personal RSVP link, mailed or sent by
+      // WhatsApp to a single guest. Same trailing-slash reasoning as /tickets/.
+      "/rsvp/",
+      // A signed-in ticket holder's own meetings; the emailed link carries a
+      // sign-in token.
+      "/meetings",
     ],
     // NO AI-crawler group, ON PURPOSE.
     //

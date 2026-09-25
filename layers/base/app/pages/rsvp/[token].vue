@@ -7,6 +7,22 @@
       <Skeleton class="h-56 w-full rounded-xl" />
     </div>
 
+    <!-- The link may be fine and the API just busy (429, 5xx, timeout): offer
+         a retry instead of telling the guest their invitation is gone. -->
+    <Empty v-else-if="!invitation && loadFailed" class="border-border bg-muted/30 mx-auto max-w-md border">
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <Icon name="hugeicons:alert-02" class="text-destructive-foreground" />
+        </EmptyMedia>
+        <EmptyTitle>{{ t("tickets.rsvp.loadErrorTitle") }}</EmptyTitle>
+        <EmptyDescription>{{ t("tickets.rsvp.loadErrorDescription") }}</EmptyDescription>
+      </EmptyHeader>
+      <Button variant="outline" :disabled="pending" @click="refresh()">
+        <Icon v-if="pending" name="svg-spinners:180-ring" class="size-4" />
+        {{ t("tickets.rsvp.loadErrorRetry") }}
+      </Button>
+    </Empty>
+
     <Empty v-else-if="!invitation" class="mx-auto max-w-md py-12">
       <EmptyHeader>
         <EmptyMedia variant="stacked">
@@ -93,8 +109,8 @@
       <!-- Closed and never answered -->
       <div v-else-if="!invitation.accepts_responses" class="frame">
         <div class="frame-panel space-y-2">
-          <p class="text-foreground text-base font-medium tracking-tight">{{ t("tickets.rsvp.closed") }}</p>
-          <p class="text-muted-foreground text-sm tracking-tight">{{ t("tickets.rsvp.closedNote") }}</p>
+          <p class="text-foreground text-base font-medium tracking-tight">{{ closedCopy.title }}</p>
+          <p class="text-muted-foreground text-sm tracking-tight">{{ closedCopy.note }}</p>
         </div>
       </div>
 
@@ -113,7 +129,7 @@
                 {{ t("tickets.rsvp.intro") }}
               </p>
               <p v-if="invitation.respond_by" class="text-muted-foreground text-sm tracking-tight">
-                {{ t("tickets.rsvp.respondBy", { date: formatDate(invitation.respond_by) }) }}
+                {{ t("tickets.rsvp.respondBy", { date: formatDeadline(invitation.respond_by) }) }}
               </p>
             </div>
 
@@ -127,14 +143,18 @@
                 :key="opt.value"
                 :for="`rsvp-${opt.value}`"
                 class="bg-card hover:bg-muted flex cursor-pointer items-center gap-3 rounded-xl border px-3 py-3 transition-colors has-[[data-state=checked]]:border-foreground"
+                :class="opt.disabled && 'hover:bg-card cursor-not-allowed opacity-50'"
               >
-                <RadioGroupItem :id="`rsvp-${opt.value}`" :value="opt.value" />
+                <RadioGroupItem :id="`rsvp-${opt.value}`" :value="opt.value" :disabled="opt.disabled" />
                 <span class="flex min-w-0 items-center gap-2">
                   <Icon :name="opt.icon" class="size-4 shrink-0" :class="opt.iconClass" />
                   <span class="text-sm font-medium tracking-tight">{{ opt.label }}</span>
                 </span>
               </label>
             </RadioGroup>
+            <p v-if="invitation.checked_in" class="text-muted-foreground text-sm tracking-tight">
+              {{ t("tickets.rsvp.checkedInHint") }}
+            </p>
             <FieldError :errors="errors.response" />
           </div>
         </div>
@@ -180,6 +200,7 @@
                       :id="`rsvp-guest-name-${i}`"
                       v-model="g.name"
                       autocapitalize="words"
+                      :disabled="g.locked"
                       :required="invitation.guest_names_required"
                       :aria-invalid="!!errors?.[`guests.${i}.name`]"
                     />
@@ -189,7 +210,7 @@
                     <FieldLabel :for="`rsvp-guest-email-${i}`" class="text-base leading-snug">
                       {{ t("tickets.rsvp.guestEmailLabel") }}
                     </FieldLabel>
-                    <Input :id="`rsvp-guest-email-${i}`" v-model="g.email" type="email" autocomplete="off" />
+                    <Input :id="`rsvp-guest-email-${i}`" v-model="g.email" type="email" autocomplete="off" :disabled="g.locked" />
                     <FieldError :errors="errors[`guests.${i}.email`]" />
                   </Field>
                 </div>
@@ -200,6 +221,7 @@
                 <FieldLabel for="rsvp-day" required class="text-base leading-snug">{{ t("tickets.rsvp.dayLabel") }}</FieldLabel>
                 <Select
                   :model-value="form.selected_event_day_id ? String(form.selected_event_day_id) : ''"
+                  :disabled="choiceLocked"
                   @update:model-value="(v) => (form.selected_event_day_id = Number(v))"
                 >
                   <SelectTrigger id="rsvp-day" class="w-full">
@@ -207,10 +229,13 @@
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem v-for="d in ticket.valid_days" :key="d.id" :value="String(d.id)">
-                      {{ d.label }}<template v-if="d.date"> · {{ formatDate(d.date) }}</template>
+                      {{ formatTicketDay(d.label, null, d.date, locale) }}
                     </SelectItem>
                   </SelectContent>
                 </Select>
+                <p v-if="choiceLocked" class="text-muted-foreground text-sm tracking-tight">
+                  {{ t("tickets.rsvp.choiceLockedHint") }}
+                </p>
                 <FieldError :errors="errors.selected_event_day_id" />
               </Field>
 
@@ -218,6 +243,7 @@
                 <FieldLabel for="rsvp-session" required class="text-base leading-snug">{{ t("tickets.rsvp.sessionLabel") }}</FieldLabel>
                 <Select
                   :model-value="form.ticket_session_id ? String(form.ticket_session_id) : ''"
+                  :disabled="choiceLocked"
                   @update:model-value="(v) => (form.ticket_session_id = Number(v))"
                 >
                   <SelectTrigger id="rsvp-session" class="w-full">
@@ -227,6 +253,9 @@
                     <SelectItem v-for="s in ticket.sessions" :key="s.id" :value="String(s.id)">{{ s.label }}</SelectItem>
                   </SelectContent>
                 </Select>
+                <p v-if="choiceLocked" class="text-muted-foreground text-sm tracking-tight">
+                  {{ t("tickets.rsvp.choiceLockedHint") }}
+                </p>
                 <FieldError :errors="errors.ticket_session_id" />
               </Field>
 
@@ -250,9 +279,17 @@
 
         <div v-else-if="form.response === 'declined'" class="frame">
           <div class="frame-panel">
-            <Field>
+            <Field :data-invalid="!!errors?.decline_reason">
               <FieldLabel for="rsvp-reason" class="text-base leading-snug">{{ t("tickets.rsvp.reasonLabel") }}</FieldLabel>
-              <Textarea id="rsvp-reason" v-model="form.decline_reason" :rows="3" :placeholder="t('tickets.rsvp.reasonPlaceholder')" />
+              <Textarea
+                id="rsvp-reason"
+                v-model="form.decline_reason"
+                :rows="3"
+                maxlength="500"
+                :placeholder="t('tickets.rsvp.reasonPlaceholder')"
+                :aria-invalid="!!errors?.decline_reason"
+              />
+              <FieldError :errors="errors.decline_reason" />
             </Field>
           </div>
         </div>
@@ -304,13 +341,21 @@ const localePath = useLocalePath();
 const route = useRoute();
 const token = computed(() => route.params.token);
 
-const { data, pending, refresh } = await useLazyAsyncData(
+const { data, pending, error, refresh } = await useLazyAsyncData(
   () => `rsvp-${token.value}`,
   () =>
     $fetch(`/api/rsvp/${token.value}`, {
       query: { locale: locale.value },
-    }).catch(() => null)
+    })
 );
+
+// Only a 404 says the link is dead. A 429, a 5xx or a timeout says nothing
+// about the invitation, so the guest gets a retry instead of "not found".
+const loadFailed = computed(() => {
+  if (!error.value) return false;
+  const status = error.value.statusCode ?? error.value.status ?? error.value.data?.statusCode;
+  return status !== 404;
+});
 
 const invitation = computed(() => data.value?.data ?? null);
 const eventInfo = computed(() => data.value?.event ?? null);
@@ -323,6 +368,10 @@ usePageMeta(null, {
   title: computed(() => [t("tickets.rsvp.title"), eventInfo.value?.title].filter(Boolean).join(" · ")),
 });
 
+// A personal invitation link, like /f/{slug}. robots.disallow already sends
+// X-Robots-Tag for /rsvp/; the meta tag covers a copy served without it.
+useSeoMeta({ robots: "noindex, nofollow" });
+
 // "Answered" means anything but the untouched invitation. `editing` reopens
 // the form on top of an existing answer.
 const editing = ref(false);
@@ -330,11 +379,33 @@ const showOutcome = computed(
   () => !!invitation.value && invitation.value.status !== "invited" && invitation.value.status !== "cancelled" && !editing.value
 );
 
-const responseOptions = computed(() => [
-  { value: "attending", label: t("tickets.rsvp.yes"), icon: "hugeicons:checkmark-circle-02", iconClass: "text-success-foreground" },
-  { value: "declined", label: t("tickets.rsvp.no"), icon: "hugeicons:cancel-circle", iconClass: "text-destructive-foreground" },
-  { value: "maybe", label: t("tickets.rsvp.maybe"), icon: "hugeicons:help-circle", iconClass: "text-warning-foreground" },
-]);
+// Once anyone in the party is through the gate, the backend refuses a
+// decline or a maybe (RSVP_CHECKED_IN), so the page does not offer them.
+const responseOptions = computed(() => {
+  const checkedIn = !!invitation.value?.checked_in;
+  return [
+    { value: "attending", label: t("tickets.rsvp.yes"), icon: "hugeicons:checkmark-circle-02", iconClass: "text-success-foreground" },
+    { value: "declined", label: t("tickets.rsvp.no"), icon: "hugeicons:cancel-circle", iconClass: "text-destructive-foreground", disabled: checkedIn },
+    { value: "maybe", label: t("tickets.rsvp.maybe"), icon: "hugeicons:help-circle", iconClass: "text-warning-foreground", disabled: checkedIn },
+  ];
+});
+
+// The backend does not move an attending party to another day or session, so
+// those selects are fixed once the guest is attending.
+const choiceLocked = computed(() => invitation.value?.status === "attending");
+
+const closedCopy = computed(() => {
+  const map = {
+    cancelled: { title: t("tickets.rsvp.closedCancelled"), note: t("tickets.rsvp.closedCancelledNote") },
+    deadline: { title: t("tickets.rsvp.closed"), note: t("tickets.rsvp.closedNote") },
+    ended: { title: t("tickets.rsvp.closedEnded"), note: t("tickets.rsvp.closedEndedNote") },
+    ticket_unavailable: {
+      title: t("tickets.rsvp.closedTicketUnavailable"),
+      note: t("tickets.rsvp.closedTicketUnavailableNote"),
+    },
+  };
+  return map[invitation.value?.closed_reason] || map.deadline;
+});
 
 const form = reactive({
   response: "attending",
@@ -360,7 +431,15 @@ watch(
     if (!inv) return;
     form.response = inv.status === "declined" || inv.status === "maybe" ? inv.status : "attending";
     form.guest_count = inv.status === "attending" || inv.status === "waitlisted" ? inv.guest_count : 0;
-    form.guests = (inv.guests ?? []).map((g) => ({ name: g.name || "", email: g.email || "" }));
+    // A guest who already has a name holds a seat under it; the backend does
+    // not rename seats, so only the empty placeholders stay editable.
+    const attending = inv.status === "attending";
+    form.guests = (inv.guests ?? []).map((g) => ({
+      ulid: g.ulid || null,
+      name: g.name || "",
+      email: g.email || "",
+      locked: attending && !!g.name,
+    }));
     form.selected_event_day_id = inv.selected_event_day_id ?? (ticket.value?.valid_days?.length === 1 ? ticket.value.valid_days[0].id : null);
     form.ticket_session_id = inv.ticket_session_id ?? null;
     form.decline_reason = inv.decline_reason || "";
@@ -372,7 +451,7 @@ watch(
 
 function syncGuests() {
   const count = Number(form.guest_count) || 0;
-  while (form.guests.length < count) form.guests.push({ name: "", email: "" });
+  while (form.guests.length < count) form.guests.push({ ulid: null, name: "", email: "", locked: false });
   form.guests.splice(count);
 }
 watch(() => form.guest_count, syncGuests);
@@ -395,12 +474,33 @@ const outcome = computed(() => {
   return map[status] || map.maybe;
 });
 
-function formatDate(value) {
+// The deadline is an instant, so it is written with its time and in the
+// event's timezone: a guest abroad must read the same cut-off as the host.
+// "en" goes day-first like every other date on these sites (see dayDate.js).
+function formatDeadline(value) {
   try {
-    return new Intl.DateTimeFormat(locale.value, { dateStyle: "long" }).format(new Date(value));
+    return new Intl.DateTimeFormat(locale.value === "en" ? "en-GB" : locale.value, {
+      dateStyle: "long",
+      timeStyle: "short",
+      ...(eventInfo.value?.timezone ? { timeZone: eventInfo.value.timezone } : {}),
+    }).format(new Date(value));
   } catch {
     return value;
   }
+}
+
+// errors.response[0] carries a machine prefix when the invitation itself
+// refused the answer; the text after it is the API's English, never shown.
+const RESPONSE_CODES = {
+  "RSVP_CLOSED:": "tickets.rsvp.closed",
+  "RSVP_CANCELLED:": "tickets.rsvp.closedCancelled",
+  "RSVP_TICKET_UNAVAILABLE:": "tickets.rsvp.closedTicketUnavailable",
+  "RSVP_CHECKED_IN:": "tickets.rsvp.checkedInHint",
+};
+
+function responseCode(message) {
+  if (typeof message !== "string") return null;
+  return Object.keys(RESPONSE_CODES).find((prefix) => message.startsWith(prefix)) ?? null;
 }
 
 async function submit() {
@@ -412,7 +512,7 @@ async function submit() {
     ...(form.response === "attending"
       ? {
           guest_count: Number(form.guest_count) || 0,
-          guests: form.guests.map((g) => ({ name: g.name || null, email: g.email || null })),
+          guests: form.guests.map((g) => ({ ulid: g.ulid || null, name: g.name || null, email: g.email || null })),
           ...(form.selected_event_day_id ? { selected_event_day_id: form.selected_event_day_id } : {}),
           ...(form.ticket_session_id ? { ticket_session_id: form.ticket_session_id } : {}),
           registration: form.registration,
@@ -436,7 +536,25 @@ async function submit() {
     await refresh();
   } catch (err) {
     const payload = err?.data || {};
-    errors.value = payload.errors || payload.data?.errors || {};
+    const status = err?.statusCode ?? err?.status ?? payload.statusCode;
+    const fieldErrors = payload.errors || payload.data?.errors || {};
+
+    if (status === 429) {
+      toast.error(t("tickets.rsvp.tooManyAttempts"));
+      return;
+    }
+
+    const code = responseCode(fieldErrors.response?.[0]);
+    if (code) {
+      // The invitation changed under the guest (closed, withdrawn, sold out,
+      // someone checked in): reload it so the page shows its current state.
+      toast.error(t(RESPONSE_CODES[code]));
+      if (code !== "RSVP_CHECKED_IN:") editing.value = false;
+      await refresh();
+      return;
+    }
+
+    errors.value = fieldErrors;
     const message = payload.message || payload.data?.message || payload.statusMessage || t("tickets.rsvp.saveError");
     toast.error(message);
   } finally {

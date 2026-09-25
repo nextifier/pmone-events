@@ -233,7 +233,17 @@ const profileGroups = computed(() => {
   return groups;
 });
 
+// A ticket holder signed in for meetings finds their meetings here. Asked when
+// the menu first opens; without a session cookie the site answers locally.
+const { visitor, load: loadVisitor } = useVisitorSession();
+const meetingGroups = computed(() =>
+  visitor.value
+    ? [{ label: t("meetings.menu.group"), links: [{ label: t("meetings.mine.title"), path: "/meetings" }] }]
+    : [],
+);
+
 const secondaryGroups = computed(() => [
+  ...meetingGroups.value,
   ...dialogGroups.value.slice(1),
   ...profileGroups.value,
 ]);
@@ -249,6 +259,10 @@ const emit = defineEmits(["update:open"]);
 const isOpen = computed({
   get: () => props.open,
   set: (value) => emit("update:open", value),
+});
+
+watch(isOpen, (open) => {
+  if (open) loadVisitor();
 });
 
 defineShortcuts({
