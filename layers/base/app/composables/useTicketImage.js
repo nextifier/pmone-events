@@ -174,9 +174,8 @@ function ticketPath(ctx, x, y, w, h, stubH) {
   ctx.closePath();
 }
 
-/** Header poster: the page's `w-20 aspect-4/5`. */
+/** Header poster: the page's `w-20`, as tall as the poster's own ratio makes it. */
 const POSTER_W = 80;
-const POSTER_H = 100;
 
 /** The page's `w-44` QR. */
 const QR_SIZE = 176;
@@ -357,7 +356,8 @@ export function useTicketImage() {
     if (dateLines.length) headerTextH += 6 + dateLines.length * 20;
     if (venueLines.length) headerTextH += 4 + venueLines.length * 20;
 
-    const headerH = Math.max(poster ? POSTER_H : 0, headerTextH);
+    const posterH = poster ? Math.round((POSTER_W * poster.height) / poster.width) : 0;
+    const headerH = Math.max(posterH, headerTextH);
 
     const innerW = CONTENT - 48;
 
@@ -406,18 +406,18 @@ export function useTicketImage() {
     // Header: poster, then title / date / venue beside it.
     if (poster) {
       ctx.save();
-      roundRect(ctx, PAD, y, POSTER_W, POSTER_H, 12);
+      roundRect(ctx, PAD, y, POSTER_W, posterH, 12);
       ctx.clip();
       // object-cover: fill the box on the tighter axis and centre the overflow.
-      const ratio = Math.max(POSTER_W / poster.width, POSTER_H / poster.height);
+      const ratio = Math.max(POSTER_W / poster.width, posterH / poster.height);
       const dw = poster.width * ratio;
       const dh = poster.height * ratio;
-      ctx.drawImage(poster, PAD + (POSTER_W - dw) / 2, y + (POSTER_H - dh) / 2, dw, dh);
+      ctx.drawImage(poster, PAD + (POSTER_W - dw) / 2, y + (posterH - dh) / 2, dw, dh);
       ctx.restore();
 
       ctx.strokeStyle = LINE;
       ctx.lineWidth = 1;
-      roundRect(ctx, PAD + 0.5, y + 0.5, POSTER_W - 1, POSTER_H - 1, 12);
+      roundRect(ctx, PAD + 0.5, y + 0.5, POSTER_W - 1, posterH - 1, 12);
       ctx.stroke();
     }
 

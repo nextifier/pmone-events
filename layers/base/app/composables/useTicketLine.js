@@ -44,9 +44,7 @@ export function posterSrc(ticket) {
  * dimensions were recorded keeps the square frame the card always had.
  */
 export function posterAspectRatio(ticket) {
-  const width = Number(ticket?.poster?.width);
-  const height = Number(ticket?.poster?.height);
-  return width > 0 && height > 0 ? `${width} / ${height}` : "1 / 1";
+  return mediaAspectRatio(ticket?.poster, "1 / 1");
 }
 
 /** A single-image lightbox payload for a ticket poster (opens the larger image). */

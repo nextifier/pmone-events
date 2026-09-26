@@ -340,8 +340,8 @@
                 :src="event.posterImage?.lg || event.poster"
                 :alt="eventInfo.title"
                 class="outline-inside w-full rounded-xl sm:rounded-2xl"
-                width="1080"
-                height="1350"
+                :width="event.posterImage?.width || 1080"
+                :height="event.posterImage?.height || 1350"
                 loading="lazy"
                 decoding="async"
               />

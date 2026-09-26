@@ -38,7 +38,8 @@
           <template #trigger="{ openAt }">
             <button
               type="button"
-              class="bg-muted ring-border block aspect-4/5 w-20 shrink-0 cursor-zoom-in overflow-hidden rounded-xl ring-1 transition active:scale-98 sm:w-24"
+              class="bg-muted ring-border block w-20 shrink-0 cursor-zoom-in overflow-hidden rounded-xl ring-1 transition active:scale-98 sm:w-24"
+              :style="{ aspectRatio: mediaAspectRatio(event.posterImage, '4 / 5') }"
               :aria-label="t('ui.viewPoster')"
               @click="openAt(0)"
             >

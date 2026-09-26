@@ -316,13 +316,19 @@
                         <div
                           v-if="activity.poster_image?.sm"
                           class="hidden w-20 shrink-0 self-start overflow-hidden rounded-xl bg-gray-100 sm:block dark:bg-gray-900"
+                          :style="{
+                            aspectRatio: mediaAspectRatio(
+                              activity.poster_image,
+                              '4 / 5',
+                            ),
+                          }"
                         >
                           <img
                             :src="activity.poster_image.sm"
                             alt=""
                             class="h-full w-full object-cover"
-                            width="1080"
-                            height="1350"
+                            :width="activity.poster_image.width || 1080"
+                            :height="activity.poster_image.height || 1350"
                             loading="lazy"
                             decoding="async"
                           />
@@ -358,13 +364,19 @@
                           <div
                             v-if="activity.poster_image?.sm"
                             class="w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900"
+                            :style="{
+                              aspectRatio: mediaAspectRatio(
+                                activity.poster_image,
+                                '4 / 5',
+                              ),
+                            }"
                           >
                             <img
                               :src="activity.poster_image.sm"
                               alt=""
                               class="h-full w-full object-cover"
-                              width="1080"
-                              height="1350"
+                              :width="activity.poster_image.width || 1080"
+                              :height="activity.poster_image.height || 1350"
                               loading="lazy"
                               decoding="async"
                             />

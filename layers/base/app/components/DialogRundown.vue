@@ -7,7 +7,11 @@
     "
     :flush-content="hasPoster"
   >
-    <div v-if="hasPoster" class="bg-muted aspect-4/5 w-full overflow-hidden">
+    <div
+      v-if="hasPoster"
+      class="bg-muted w-full overflow-hidden"
+      :style="{ aspectRatio: mediaAspectRatio(activity.poster_image, '4 / 5') }"
+    >
       <BlurImage
         :src="activity.poster_image.lg || activity.poster_image.url"
         :lqip="activity.poster_image.lqip || ''"

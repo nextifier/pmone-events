@@ -44,7 +44,8 @@
       <div class="flex items-start gap-4">
         <div
           v-if="poster"
-          class="bg-muted ring-border aspect-4/5 w-20 shrink-0 overflow-hidden rounded-xl ring-1 sm:w-24"
+          class="bg-muted ring-border w-20 shrink-0 overflow-hidden rounded-xl ring-1 sm:w-24"
+          :style="{ aspectRatio: mediaAspectRatio(poster, '4 / 5') }"
         >
           <BlurImage
             :src="poster.md || poster.url"

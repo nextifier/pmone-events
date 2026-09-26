@@ -72,7 +72,8 @@
         >
           <template #trigger="{ openAt }">
             <TiltCard
-              class="bg-muted relative isolate aspect-4/5 w-full overflow-hidden rounded-xl sm:rounded-2xl"
+              class="bg-muted relative isolate w-full overflow-hidden rounded-xl sm:rounded-2xl"
+              :style="{ aspectRatio: posterAspect }"
             >
               <button
                 type="button"
@@ -396,6 +397,19 @@ onMounted(() => {
 // re-optimization.
 const hasPoster = computed(() => Boolean(event.posterImage));
 
+// The frame takes the poster's own shape from the recorded dimensions, so any
+// ratio fits uncropped and nothing moves when the image lands. A poster
+// uploaded before the dimensions were recorded keeps the old 4:5 frame.
+const posterAspect = computed(() =>
+  mediaAspectRatio(event.posterImage, "4 / 5"),
+);
+
+// Poster height over width, for the phone title fit below.
+const posterHeightRatio = computed(() => {
+  const [width, height] = posterAspect.value.split("/").map(Number);
+  return height / width;
+});
+
 // Displayed at `lg` (fast); the Lightbox opens the `xl` conversion.
 const posterSrc = computed(() => {
   const p = event.posterImage;
@@ -438,14 +452,17 @@ const SPLIT = {
   //  - width bound: column width (17/25 of the grid, in cqi) over the
   //    longest line of the balanced `--title-lines`-line wrap (~0.55em per
   //    character); `text-balance` makes the browser wrap the same way;
-  //  - height bound: poster height (8/25 of the grid × 5/4 = 40cqi - 4.8px)
-  //    minus the column's fixed rows (countdown 24 + edition/share row 32 +
-  //    margins 8 = 64px), over line-height 1.1 × target lines;
-  // clamped between text-xl and 3.5rem. `--title-line-chars`/`--title-lines`
-  // come from the data (see `titleFitVars`), so SSR and client agree. `!`
-  // because `sm:text-2xl` would otherwise win between 640 and 767px.
+  //  - height bound: poster height (its 8/25 share of the grid less the
+  //    12px gap, 32cqi - 3.84px, times `--poster-hw`, the poster's height
+  //    over width) minus the column's fixed rows (countdown 24 +
+  //    edition/share row 32 + margins 8 = 64px), over line-height 1.1 ×
+  //    target lines;
+  // clamped between text-xl and 3.5rem. `--title-line-chars`,
+  // `--title-lines` and `--poster-hw` come from the data (see
+  // `titleFitVars`), so SSR and client agree. `!` because `sm:text-2xl`
+  // would otherwise win between 640 and 767px.
   titleFit:
-    "max-md:text-balance max-md:text-[clamp(1.25rem,min(calc(100cqi*0.68/(var(--title-line-chars)*0.55)),calc((40cqi-69px)/(1.1*var(--title-lines)))),3.5rem)]!",
+    "max-md:text-balance max-md:text-[clamp(1.25rem,min(calc(100cqi*0.68/(var(--title-line-chars)*0.55)),calc(((32cqi-3.84px)*var(--poster-hw)-64px)/(1.1*var(--title-lines)))),3.5rem)]!",
   edition: "max-md:col-start-2 max-md:row-start-4 max-md:mt-1",
   // Below the poster, full width, inline like on desktop.
   conjunction:
@@ -462,6 +479,7 @@ const titleFitVars = computed(() => {
   return {
     "--title-lines": lines,
     "--title-line-chars": Math.max(1, longestBalancedLine(text, lines)),
+    "--poster-hw": posterHeightRatio.value,
   };
 });
 

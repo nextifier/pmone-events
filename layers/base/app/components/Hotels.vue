@@ -46,7 +46,10 @@
     <div v-else class="mt-8 space-y-12 sm:mt-12">
       <section v-for="group in groupedHotels" :key="group.event.id" class="space-y-5">
         <div v-if="showEventHeader" class="flex items-center gap-3 border-b pb-4">
-          <div class="bg-muted aspect-4/5 w-18 shrink-0 overflow-hidden rounded-lg border sm:w-20">
+          <div
+            class="bg-muted w-18 shrink-0 overflow-hidden rounded-lg border sm:w-20"
+            :style="{ aspectRatio: mediaAspectRatio(group.event.poster, '4 / 5') }"
+          >
             <img
               v-if="group.event.poster?.md"
               :src="group.event.poster.md"
