@@ -699,6 +699,7 @@ export default {
       "loadFailedBody": "接続を確認して再試行してください。"
     },
     "errors": {
+      "unreachable": "サーバーに接続できませんでした。通信環境を確認して、もう一度お試しください。",
       "generic": "うまくいきませんでした。もう一度お試しください。",
       "MEETINGS_CLOSED": "商談の申し込みは締め切られました。",
       "MEETINGS_NOT_OPEN": "商談の申し込みはまだ始まっていません。",
@@ -728,6 +729,7 @@ export default {
       "group": "あなた"
     },
     "signIn": {
+      "codeBodyUnconfirmed": "{email} にコードが送信されたか確認できませんでした。受信している場合はここに入力し、届いていない場合は再送信してください。",
       "notEligibleNoTitle": "このメールアドレスのチケットには商談が含まれていません。",
       "forHolders": "チケット保有者向け。チケットのメールアドレスで確認します。",
       "bookingAs": "{email} で予約中。",

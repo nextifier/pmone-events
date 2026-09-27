@@ -246,7 +246,9 @@ async function pmOneRequestOnce<T = any>(
       signal: controller.signal,
     })) as T;
   } catch (error: any) {
-    const timedOut = error.name === "AbortError";
+    // ofetch wraps the abort in a FetchError ("<no response> The operation was
+    // aborted"), so the error's name never says AbortError; the signal does.
+    const timedOut = controller.signal.aborted || error.name === "AbortError";
 
     const message = timedOut
       ? "Request timeout - API server took too long to respond"

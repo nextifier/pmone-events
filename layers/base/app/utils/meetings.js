@@ -101,11 +101,34 @@ const MEETING_ERROR_CODES = [
 export const MEETING_SLOT_ERRORS = ["SLOT_CLOSED", "SLOT_FULL", "SLOT_CONFLICT", "TICKET_NOT_VALID_ON_DAY"];
 
 /**
- * The translated sentence for a meeting error, from the API's error_code and
- * context. Falls back to the API's own message, then a generic line.
+ * No answer from PM One: the request never came back (a dropped connection, a
+ * timeout) or the server failed. There is nothing the visitor should read in
+ * such an error, only that trying again is safe.
+ */
+export function meetingUnreachable(err) {
+  const status = err?.statusCode ?? err?.status ?? err?.response?.status;
+  return !status || status >= 500;
+}
+
+/**
+ * The PM One body behind a failed call. An event site's server wraps it in
+ * `data.data`; the dashboard gets it as `data`. When there is no body at all,
+ * the wrapper's own message is transport detail ("[POST] https://… <no
+ * response>"), never copy, so it is dropped.
+ */
+export function meetingErrorData(err) {
+  if (err?.data?.data) return err.data.data;
+  if (meetingUnreachable(err)) return {};
+  return err?.data ?? {};
+}
+
+/**
+ * The translated sentence for a failed meeting call, from the API's error_code
+ * and context. Falls back to the API's own message, then to a line that says
+ * whether the server was reached at all.
  */
 export function meetingErrorText(err, t) {
-  const data = err?.data ?? {};
+  const data = meetingErrorData(err);
   const code = data.error_code;
   if (code && MEETING_ERROR_CODES.includes(code)) {
     const ctx = data.context ?? {};
@@ -117,7 +140,7 @@ export function meetingErrorText(err, t) {
     });
   }
   const first = data.errors ? Object.values(data.errors)[0]?.[0] : null;
-  return first || data.message || t("meetings.errors.generic");
+  return first || data.message || (meetingUnreachable(err) ? t("meetings.errors.unreachable") : t("meetings.errors.generic"));
 }
 
 /** The exhibitor meetings page shares the Requests tab's live waiting count through this key. */

@@ -696,6 +696,7 @@ export default {
       "loadFailedBody": "연결을 확인하고 다시 시도하세요."
     },
     "errors": {
+      "unreachable": "서버에 연결하지 못했어요. 연결 상태를 확인하고 다시 시도하세요.",
       "generic": "처리하지 못했습니다. 다시 시도하세요.",
       "MEETINGS_CLOSED": "미팅 신청이 마감되었습니다.",
       "MEETINGS_NOT_OPEN": "미팅 신청이 아직 시작되지 않았습니다.",
@@ -725,6 +726,7 @@ export default {
       "group": "내 정보"
     },
     "signIn": {
+      "codeBodyUnconfirmed": "{email}(으)로 코드가 발송됐는지 확인하지 못했어요. 받은편지함에 있다면 여기에 입력하고, 없다면 다시 보내세요.",
       "notEligibleNoTitle": "이 이메일의 티켓에는 비즈니스 미팅이 포함되지 않아요.",
       "forHolders": "티켓 소지자 전용입니다. 티켓의 이메일로 확인합니다.",
       "bookingAs": "{email}(으)로 예약 중.",

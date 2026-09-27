@@ -694,6 +694,7 @@ export default {
       "emptyBodySite": "在「品牌」页面打开展商并选择时间即可申请会面。"
     },
     "errors": {
+      "unreachable": "无法连接服务器，请检查网络后重试。",
       "generic": "操作失败，请重试。",
       "MEETINGS_CLOSED": "会面申请已截止。",
       "MEETINGS_NOT_OPEN": "会面申请尚未开放。",
@@ -723,6 +724,7 @@ export default {
       "group": "我的"
     },
     "signIn": {
+      "codeBodyUnconfirmed": "无法确认验证码是否已发送到 {email}。如果已收到，请在此输入；如果没有，请重新发送。",
       "notEligibleNoTitle": "该邮箱名下的门票不包含商务会面。",
       "forHolders": "仅限持票人，需用门票上的邮箱确认。",
       "bookingAs": "预约人：{email}。",

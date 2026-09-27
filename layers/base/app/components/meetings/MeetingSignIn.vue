@@ -23,7 +23,7 @@
     <template v-else-if="step === 'code'">
       <div class="space-y-1">
         <h2 class="text-lg font-semibold tracking-tighter">{{ $t("meetings.signIn.codeTitle") }}</h2>
-        <p class="text-muted-foreground text-sm tracking-tight">{{ $t("meetings.signIn.codeBody", { email: masked }) }}</p>
+        <p class="text-muted-foreground text-sm tracking-tight">{{ $t(unconfirmed ? "meetings.signIn.codeBodyUnconfirmed" : "meetings.signIn.codeBody", { email: masked }) }}</p>
       </div>
       <InputOTP
             v-model="code"
@@ -88,6 +88,8 @@ const { sendCode, verify } = useVisitorSession();
 const step = ref("email");
 const email = ref("");
 const masked = ref("");
+/** The code request got no answer, so whether the email went out is unknown. */
+const unconfirmed = ref(false);
 const code = ref("");
 const busy = ref(false);
 const error = ref(null);
@@ -99,11 +101,11 @@ const validEmail = computed(() => /.+@.+\..+/.test(email.value.trim()));
 onBeforeUnmount(() => clearInterval(timer));
 
 function explain(err) {
-  const data = err?.data?.data ?? err?.data ?? {};
+  const data = meetingErrorData(err);
   if (data.error_code === "CODE_INVALID") return t("meetings.signIn.codeInvalid", { count: data.context?.attempts_left ?? 0 }, data.context?.attempts_left ?? 0);
   if (data.error_code === "CODE_EXPIRED") return t("meetings.signIn.codeExpired");
   if (data.error_code === "TOO_MANY_REQUESTS") return t("meetings.signIn.tooMany");
-  return meetingErrorText({ data }, t);
+  return meetingErrorText(err, t);
 }
 
 async function submitEmail() {
@@ -114,14 +116,8 @@ async function submitEmail() {
     const res = await sendCode(props.eventSlug, email.value.trim());
     if (res?.status === "code_sent") {
       masked.value = res.email;
-      code.value = "";
-      step.value = "code";
-      resendIn.value = res.resend_in ?? 60;
-      clearInterval(timer);
-      timer = setInterval(() => {
-        resendIn.value -= 1;
-        if (resendIn.value <= 0) clearInterval(timer);
-      }, 1000);
+      unconfirmed.value = false;
+      openCodeStep(res.resend_in ?? 60);
     } else if (res?.status === "ticket_not_eligible") {
       ticketTitle.value = res.ticket || "";
       step.value = "not_eligible";
@@ -129,10 +125,29 @@ async function submitEmail() {
       step.value = "no_ticket";
     }
   } catch (err) {
-    error.value = explain(err);
+    // The request may have reached PM One and the email gone out even though
+    // the answer never came back, so the code box opens instead of a dead end.
+    if (meetingUnreachable(err)) {
+      masked.value = email.value.trim();
+      unconfirmed.value = true;
+      openCodeStep(30);
+    } else {
+      error.value = explain(err);
+    }
   } finally {
     busy.value = false;
   }
+}
+
+function openCodeStep(resendAfter) {
+  code.value = "";
+  step.value = "code";
+  resendIn.value = resendAfter;
+  clearInterval(timer);
+  timer = setInterval(() => {
+    resendIn.value -= 1;
+    if (resendIn.value <= 0) clearInterval(timer);
+  }, 1000);
 }
 
 async function submitCode(value) {

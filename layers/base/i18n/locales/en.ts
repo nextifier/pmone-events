@@ -690,6 +690,7 @@ export default {
       "emptyBodySite": "Open an exhibitor on the Brands page and pick a time to request a meeting."
     },
     "errors": {
+      "unreachable": "We couldn't reach the server. Check your connection and try again.",
       "generic": "That didn't work. Try again.",
       "MEETINGS_CLOSED": "Meeting requests are closed.",
       "MEETINGS_NOT_OPEN": "Meeting requests aren't open yet.",
@@ -719,6 +720,7 @@ export default {
       "group": "You"
     },
     "signIn": {
+      "codeBodyUnconfirmed": "We couldn't confirm the code went out to {email}. If it's in your inbox, enter it here. If not, send a new one.",
       "notEligibleNoTitle": "The ticket on this email doesn't include business meetings.",
       "forHolders": "For ticket holders. You confirm with the email on your ticket.",
       "bookingAs": "Booking as {email}.",

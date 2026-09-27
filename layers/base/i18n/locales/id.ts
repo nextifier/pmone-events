@@ -698,6 +698,7 @@ export default {
       "emptyBodySite": "Buka exhibitor di halaman Brands, lalu pilih jam untuk mengajukan meeting."
     },
     "errors": {
+      "unreachable": "Server nggak bisa dihubungi. Cek koneksi kamu lalu coba lagi.",
       "generic": "Gagal. Coba lagi.",
       "MEETINGS_CLOSED": "Permintaan meeting sudah ditutup.",
       "MEETINGS_NOT_OPEN": "Permintaan meeting belum dibuka.",
@@ -727,6 +728,7 @@ export default {
       "group": "Akun kamu"
     },
     "signIn": {
+      "codeBodyUnconfirmed": "Kami belum bisa memastikan kode terkirim ke {email}. Kalau sudah masuk ke inbox, masukkan di sini. Kalau belum, kirim ulang.",
       "notEligibleNoTitle": "Tiket di email ini nggak termasuk business meeting.",
       "forHolders": "Untuk pemegang tiket. Konfirmasi pakai email di tiket kamu.",
       "bookingAs": "Atas nama {email}.",

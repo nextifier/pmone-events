@@ -1585,6 +1585,20 @@ body {
   &[data-type="error"] [data-icon] {
     @apply text-red-400 dark:text-red-700;
   }
+
+  /* A long description with an action: the button drops under the text,
+     lined up with it, so the sentence keeps the toast's full width. */
+  &.toast-stacked {
+    @apply !flex-wrap;
+
+    & [data-content] {
+      @apply min-w-0 basis-[calc(100%-1.5rem)];
+    }
+
+    & [data-button] {
+      @apply !mt-1.5 !mr-0 !ml-6 !self-start;
+    }
+  }
 }
 
 .sortable-drag {

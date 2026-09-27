@@ -365,10 +365,6 @@ const quotaNote = computed(() => {
   return t("meetings.panel.quota", { used: v.open_requests, max: v.max_open_requests });
 });
 
-function upstream(err) {
-  return err?.data?.data ?? err?.data ?? {};
-}
-
 async function load() {
   try {
     const res = await $fetch(`/api/meetings/${props.eventSlug}/brands/${props.brandSlug}`);
@@ -490,7 +486,7 @@ async function onSent(meeting) {
   const action = { label: t("meetings.actions.seeMine"), onClick: () => navigateTo(localePath("/meetings")) };
   dialogNotice.value = null;
   if (meeting?.status === "accepted") {
-    toast.success(t("meetings.request.bookedTitle"), { description: t("meetings.request.bookedBody", { email }), action });
+    toast.success(t("meetings.request.bookedTitle"), { description: t("meetings.request.bookedBody", { email }), action, class: "toast-stacked" });
   } else {
     const deadline = replyBy(meeting);
     toast.success(t("meetings.request.sentTitle"), {
@@ -498,6 +494,7 @@ async function onSent(meeting) {
         ? t("meetings.request.sentBody", { brand: props.brandName, deadline, email })
         : t("meetings.outcome.pendingNoDeadline", { brand: props.brandName }),
       action,
+      class: "toast-stacked",
     });
   }
   changing.value = false;
@@ -514,8 +511,8 @@ async function onFailed(err) {
     sessionLost();
     return;
   }
-  const data = upstream(err);
-  sendError.value = meetingErrorText({ data }, t);
+  const data = meetingErrorData(err);
+  sendError.value = meetingErrorText(err, t);
   // Someone else may have taken the time: show the grid as it is now.
   if (MEETING_SLOT_ERRORS.includes(data.error_code)) {
     selectedKey.value = null;
@@ -542,7 +539,7 @@ async function cancelMine() {
       sessionLost();
       return;
     }
-    toast.error(meetingErrorText({ data: upstream(err) }, t));
+    toast.error(meetingErrorText(err, t));
   } finally {
     busy.value = null;
   }
@@ -560,7 +557,7 @@ async function answer(choice) {
       sessionLost();
       return;
     }
-    toast.error(meetingErrorText({ data: upstream(err) }, t));
+    toast.error(meetingErrorText(err, t));
   } finally {
     busy.value = null;
     await load();
@@ -584,7 +581,7 @@ async function takeSuggestion(key) {
       sessionLost();
       return;
     }
-    toast.error(meetingErrorText({ data: upstream(err) }, t));
+    toast.error(meetingErrorText(err, t));
   } finally {
     busy.value = null;
     await load();

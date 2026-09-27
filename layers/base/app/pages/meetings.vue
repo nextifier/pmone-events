@@ -192,7 +192,7 @@ async function confirmCancel() {
       cancelOpen.value = false;
       return;
     }
-    toast.error(meetingErrorText({ data: err?.data?.data ?? err?.data }, t));
+    toast.error(meetingErrorText(err, t));
   } finally {
     busy.value = null;
     await loadMeetings();
@@ -229,7 +229,7 @@ async function sendAnswer(meeting, choice) {
       cancelOpen.value = false;
       return;
     }
-    toast.error(meetingErrorText({ data: err?.data?.data ?? err?.data }, t));
+    toast.error(meetingErrorText(err, t));
   } finally {
     busy.value = null;
     await loadMeetings();
@@ -248,7 +248,7 @@ async function takeSuggestion(meeting, key) {
       cancelOpen.value = false;
       return;
     }
-    toast.error(meetingErrorText({ data: err?.data?.data ?? err?.data }, t));
+    toast.error(meetingErrorText(err, t));
   } finally {
     busy.value = null;
     await loadMeetings();

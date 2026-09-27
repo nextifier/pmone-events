@@ -50,7 +50,7 @@
         <div class="space-y-1">
           <h2 class="text-lg font-semibold tracking-tighter">{{ $t("meetings.signIn.codeTitle") }}</h2>
           <p class="text-muted-foreground text-sm tracking-tight">
-            {{ $t("meetings.signIn.codeBody", { email: maskedEmail }) }}
+            {{ $t(unconfirmed ? "meetings.signIn.codeBodyUnconfirmed" : "meetings.signIn.codeBody", { email: maskedEmail }) }}
           </p>
         </div>
         <div class="flex justify-center">
@@ -149,6 +149,8 @@ const intent = useMeetingIntent();
 const step = ref("email");
 const email = ref("");
 const maskedEmail = ref("");
+/** The code request got no answer, so whether the email went out is unknown. */
+const unconfirmed = ref(false);
 const code = ref("");
 const busy = ref(false);
 const error = ref(null);
@@ -192,7 +194,7 @@ function startCountdown(seconds) {
 onBeforeUnmount(() => clearInterval(timer));
 
 function apiError(err) {
-  const data = err?.data?.data ?? err?.data ?? {};
+  const data = meetingErrorData(err);
   const codeName = data.error_code;
   if (codeName === "CODE_INVALID") {
     return t("meetings.signIn.codeInvalid", { count: data.context?.attempts_left ?? 0 }, data.context?.attempts_left ?? 0);
@@ -200,7 +202,7 @@ function apiError(err) {
   if (codeName === "CODE_EXPIRED") return t("meetings.signIn.codeExpired");
   if (codeName === "TOO_MANY_REQUESTS") return t("meetings.signIn.tooMany");
   if (codeName === "LINK_INVALID") return t("meetings.signIn.linkInvalid");
-  return meetingErrorText({ data }, t);
+  return meetingErrorText(err, t);
 }
 
 async function submitEmail() {
@@ -211,6 +213,7 @@ async function submitEmail() {
     const res = await sendCode(props.eventSlug, email.value.trim());
     if (res?.status === "code_sent") {
       maskedEmail.value = res.email;
+      unconfirmed.value = false;
       step.value = "code";
       startCountdown(res.resend_in ?? 60);
     } else if (res?.status === "ticket_not_eligible") {
@@ -220,7 +223,16 @@ async function submitEmail() {
       step.value = "no_ticket";
     }
   } catch (err) {
-    error.value = apiError(err);
+    // The request may have reached PM One and the email gone out even though
+    // the answer never came back, so the code box opens instead of a dead end.
+    if (meetingUnreachable(err)) {
+      maskedEmail.value = email.value.trim();
+      unconfirmed.value = true;
+      step.value = "code";
+      startCountdown(30);
+    } else {
+      error.value = apiError(err);
+    }
   } finally {
     busy.value = false;
   }
