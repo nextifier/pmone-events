@@ -146,6 +146,7 @@
             :timezone="zone"
             :brand-name="brandName"
             :my-status="myMeeting?.status"
+            @day-change="sendError = null"
           />
 
           <!-- The note rides along with the request; optional ones stay folded
@@ -252,7 +253,7 @@ import MeetingRequestDialog from "./MeetingRequestDialog.vue";
 import MeetingSlotGrid from "./MeetingSlotGrid.vue";
 import MeetingStatusBadge from "./MeetingStatusBadge.vue";
 import MeetingSuggestions from "./MeetingSuggestions.vue";
-import { computed, nextTick, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { toast } from "vue-sonner";
 
 const props = defineProps({
@@ -282,6 +283,10 @@ const busy = ref(null);
 const message = ref("");
 const noteOpen = ref(false);
 const sendError = ref(null);
+// A failed send is about the time that was picked; picking another clears it.
+watch(selectedKey, (key) => {
+  if (key) sendError.value = null;
+});
 const suggestions = ref([]);
 const declineInviteOpen = ref(false);
 const dialogNotice = ref(null);

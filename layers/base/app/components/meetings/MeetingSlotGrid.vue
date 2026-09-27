@@ -164,7 +164,8 @@ const props = defineProps({
 });
 
 const selected = defineModel({ type: [String, Array], default: null });
-const emit = defineEmits(["toggle"]);
+/** `day-change` fires when the shown day changes, so a parent can drop a message about the old one. */
+const emit = defineEmits(["toggle", "day-change"]);
 
 const { t, locale } = useI18n();
 
@@ -190,8 +191,9 @@ watch(
   { immediate: true }
 );
 
-watch(activeDate, (date) => {
+watch(activeDate, (date, previous) => {
   tapped.value = null;
+  if (previous) emit("day-change", date);
   // A time belongs to its day: switching days drops a pick made on another.
   if (compact.value && typeof selected.value === "string") {
     const day = props.days.find((d) => d.date === date);
