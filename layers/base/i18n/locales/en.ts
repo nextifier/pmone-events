@@ -626,6 +626,8 @@ export default {
       "expired": "{brand} didn't reply in time."
     },
     "panel": {
+      "answerInvitation": "Answer the invitation",
+      "seeMeeting": "See your meeting",
       "declineInviteBody": "{brand} is told you can't make it.",
       "declineInviteTitle": "Decline this invitation?",
       "changeConfirmedNoteAuto": "Your meeting moves to the time you pick. The old time opens for other visitors.",

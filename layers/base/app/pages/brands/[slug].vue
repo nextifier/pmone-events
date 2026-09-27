@@ -170,14 +170,15 @@
                  exhibitor the event's meeting config lists as taking requests,
                  so the other exhibitors' pages never flash an empty section. -->
             <MeetingSection
-              v-if="brand.brand_event_id && meetingEventSlug && takesMeetings(brand.brand_event_id)"
+              v-if="showsMeetings"
+              ref="meetingSection"
               :event-slug="meetingEventSlug"
               :event-title="brand.event_title || eventInfo.title"
               :brand-slug="String(route.params.slug)"
               :brand-name="brand.brand_name"
               :brand-event-id="brand.brand_event_id"
               :initial-slot="typeof route.query.slot === 'string' ? route.query.slot : null"
-              class="mt-10"
+              class="mt-8"
             />
           </div>
 
@@ -322,10 +323,7 @@
           </div>
         </div>
 
-        <section
-          v-if="hasEventInvite"
-          class="mx-auto mt-16 w-full max-w-6xl lg:mt-24"
-        >
+        <section v-if="hasEventInvite" class="mt-16 w-full lg:mt-24">
           <!-- Same shape as the ticket page hero. Below `md` the poster sits
                in a narrow column with the heading and the body beside it, and
                the invite's own wrapper goes `display: contents` so those two
@@ -377,13 +375,25 @@
                 :hall="event.hall"
               />
 
-              <Button
-                :to="localePath('/tickets')"
-                size="lg"
-                class="mt-5 active:scale-98 max-md:col-span-2 max-md:row-start-4 md:mt-6"
+              <div
+                class="mt-5 flex flex-wrap items-center gap-x-1.5 gap-y-2.5 max-md:col-span-2 max-md:row-start-4 md:mt-6"
               >
-                <span>{{ $t("brandEvent.cta") }}</span>
-              </Button>
+                <Button :to="localePath('/tickets')" size="lg" class="active:scale-98">
+                  <span>{{ $t("brandEvent.cta") }}</span>
+                </Button>
+                <!-- The same dialog as the rail's button: booking a meeting is
+                     the other thing a visitor comes to this booth for. -->
+                <Button
+                  v-if="showsMeetings && meetingSection?.canOpen"
+                  variant="outline"
+                  size="lg"
+                  class="active:scale-98"
+                  @click="meetingSection?.open()"
+                >
+                  <Icon name="hugeicons:calendar-add-01" class="size-4 shrink-0" />
+                  <span>{{ meetingSection?.primaryAction }}</span>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -402,6 +412,12 @@ definePageMeta({ bottomNav: false });
 
 const route = useRoute();
 const { takesMeetings } = useMeetingBrands();
+// The meeting section in the rail; the invite below opens the same dialog.
+const meetingSection = ref(null);
+
+const showsMeetings = computed(
+  () => !!(brand.value?.brand_event_id && meetingEventSlug.value && takesMeetings(brand.value.brand_event_id))
+);
 
 const { $dayjs } = useNuxtApp();
 

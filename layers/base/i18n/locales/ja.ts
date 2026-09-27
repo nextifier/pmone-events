@@ -635,6 +635,8 @@ export default {
       "expired": "{brand} から期限内に返信がありませんでした。"
     },
     "panel": {
+      "answerInvitation": "招待に回答",
+      "seeMeeting": "商談を確認",
       "declineInviteBody": "{brand}に参加できないことが伝わります。",
       "declineInviteTitle": "この招待を辞退しますか？",
       "changeConfirmedNoteAuto": "商談は選んだ時間に移ります。元の時間は他の来場者に開放されます。",

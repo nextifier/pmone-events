@@ -8,27 +8,15 @@
 -->
 <template>
   <!-- An exhibitor not taking meetings shows nothing, unless the visitor
-       already has one with them. -->
-  <section v-if="state !== 'hidden' && !quietBrand" class="w-full space-y-4 text-left">
-    <div class="space-y-1">
-      <h2 class="text-foreground text-xl font-semibold tracking-tighter">
-        {{ $t("meetings.panel.title", { brand: brandName }) }}
-      </h2>
-      <p class="text-muted-foreground text-sm tracking-tight">
-        {{ approval === "auto" ? $t("meetings.panel.subtitleAuto") : $t("meetings.panel.subtitle", { brand: brandName }) }}
-      </p>
-      <p class="text-muted-foreground text-sm tracking-tight">
-        <template v-if="visitor">
-          {{ $t("meetings.signIn.bookingAs", { email: visitor.email }) }}
-          <Button variant="link" size="sm" class="h-auto p-0 align-baseline" @click="signOut">{{ $t("meetings.signIn.notYou") }}</Button>
-        </template>
-        <template v-else>{{ $t("meetings.signIn.forHolders") }}</template>
-      </p>
-    </div>
+       already has one with them. On the page it stays compact (a title, a
+       line, one button) so the sticky rail keeps fitting the screen; the
+       picker, the note and every answer live in the dialog. -->
+  <section v-if="state !== 'hidden' && !quietBrand" class="w-full space-y-3 text-left">
+    <h2 class="text-foreground text-xl font-semibold tracking-tighter">
+      {{ $t("meetings.panel.title", { brand: brandName }) }}
+    </h2>
 
-    <div v-if="state === 'loading'" class="grid grid-cols-2 gap-2">
-      <Skeleton v-for="i in 2" :key="i" class="h-9 rounded-lg" />
-    </div>
+    <Skeleton v-if="state === 'loading'" class="h-10 w-44 rounded-lg" />
 
     <p v-else-if="state === 'error'" class="text-muted-foreground text-sm tracking-tight">
       {{ $t("meetings.panel.loadFailed") }}
@@ -36,137 +24,168 @@
     </p>
 
     <template v-else-if="data">
-      <div v-if="myMeeting" class="border-border space-y-3 rounded-xl border p-4">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <p class="text-sm font-medium tracking-tight tabular-nums">{{ meetingWhen(myMeeting, locale) }}</p>
-          <MeetingStatusBadge :status="myMeeting.status" :awaits-visitor="myMeeting.awaits_visitor" />
-        </div>
-        <p v-if="myMeeting.where && myMeeting.status === 'accepted'" class="text-sm tracking-tight">{{ myMeeting.where }}</p>
-        <blockquote
-          v-if="myMeeting.awaits_visitor && myMeeting.message"
-          class="border-border border-l pl-3 text-sm tracking-tight"
-        >
-          <span class="text-muted-foreground">{{ $t("meetings.panel.theyWrote", { brand: brandName }) }}</span>
-          {{ myMeeting.message }}
-        </blockquote>
-        <MeetingOutcome :meeting="myMeeting" :brand-name="brandName" />
+      <p v-if="myOpen" class="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-sm tracking-tight">
+        <MeetingStatusBadge :status="myMeeting.status" :awaits-visitor="myMeeting.awaits_visitor" />
+        <span class="font-medium tabular-nums">{{ meetingWhen(myMeeting, locale) }}</span>
+      </p>
+      <p v-else-if="blockReason && !requestable" class="text-muted-foreground text-sm tracking-tight">{{ blockReason }}</p>
 
-        <div v-if="myMeeting.suggested_slots?.length" class="space-y-2">
-          <p class="text-sm font-medium tracking-tight">{{ $t("meetings.panel.suggested", { brand: brandName }) }}</p>
-          <div class="flex flex-wrap gap-1.5">
-            <Button
-              v-for="key in myMeeting.suggested_slots"
-              :key="key"
-              variant="outline"
-              size="sm"
-              :loading="busy === key"
-              @click="takeSuggestion(key)"
-            >
-              {{ meetingDay(key, zone, locale) }} · {{ suggestedRange(key) }}
+      <Button v-if="myOpen || requestable" size="lg" class="active:scale-98" @click="openPanel">
+        <Icon name="hugeicons:calendar-add-01" class="size-4 shrink-0" />
+        <span>{{ primaryAction }}</span>
+      </Button>
+    </template>
+
+    <ResponsiveDialog v-model:open="panelOpen" dialog-max-width="520px" :title="$t('meetings.panel.title', { brand: brandName })">
+      <div v-if="data" class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
+        <div class="space-y-1">
+          <h2 class="text-foreground text-lg font-semibold tracking-tighter">
+            {{ $t("meetings.panel.title", { brand: brandName }) }}
+          </h2>
+          <p class="text-muted-foreground text-sm tracking-tight">
+            {{ approval === "auto" ? $t("meetings.panel.subtitleAuto") : $t("meetings.panel.subtitle", { brand: brandName }) }}
+          </p>
+          <p class="text-muted-foreground text-sm tracking-tight">
+            <template v-if="visitor">
+              {{ $t("meetings.signIn.bookingAs", { email: visitor.email }) }}
+              <Button variant="link" size="sm" class="h-auto p-0 align-baseline" @click="signOut">{{ $t("meetings.signIn.notYou") }}</Button>
+            </template>
+            <template v-else>{{ $t("meetings.signIn.forHolders") }}</template>
+          </p>
+        </div>
+
+        <div v-if="myMeeting" class="border-border space-y-3 rounded-xl border p-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <p class="text-sm font-medium tracking-tight tabular-nums">{{ meetingWhen(myMeeting, locale) }}</p>
+            <MeetingStatusBadge :status="myMeeting.status" :awaits-visitor="myMeeting.awaits_visitor" />
+          </div>
+          <p v-if="myMeeting.where && myMeeting.status === 'accepted'" class="text-sm tracking-tight">{{ myMeeting.where }}</p>
+          <blockquote
+            v-if="myMeeting.awaits_visitor && myMeeting.message"
+            class="border-border border-l pl-3 text-sm tracking-tight"
+          >
+            <span class="text-muted-foreground">{{ $t("meetings.panel.theyWrote", { brand: brandName }) }}</span>
+            {{ myMeeting.message }}
+          </blockquote>
+          <MeetingOutcome :meeting="myMeeting" :brand-name="brandName" />
+
+          <div v-if="myMeeting.suggested_slots?.length" class="space-y-2">
+            <p class="text-sm font-medium tracking-tight">{{ $t("meetings.panel.suggested", { brand: brandName }) }}</p>
+            <div class="flex flex-wrap gap-1.5">
+              <Button
+                v-for="key in myMeeting.suggested_slots"
+                :key="key"
+                variant="outline"
+                size="sm"
+                :loading="busy === key"
+                @click="takeSuggestion(key)"
+              >
+                {{ meetingDay(key, zone, locale) }} · {{ suggestedRange(key) }}
+              </Button>
+            </div>
+          </div>
+
+          <div v-if="myMeeting.awaits_visitor" class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
+            <Button size="sm" :loading="busy === 'accept'" @click="answer('accept')">{{ $t("meetings.actions.acceptInvitation") }}</Button>
+            <Button size="sm" variant="outline" :loading="busy === 'decline'" @click="swapTo('declineInvite')">
+              {{ $t("meetings.actions.declineInvitation") }}
+            </Button>
+          </div>
+
+          <div v-if="myMeeting.can_change" class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
+            <Button v-if="!changing" variant="outline" size="sm" @click="startChange">
+              <Icon name="hugeicons:calendar-03" class="size-4 shrink-0" />
+              <span>{{ $t("meetings.actions.changeTime") }}</span>
+            </Button>
+            <Button variant="outline" size="sm" @click="swapTo('cancel')">
+              <Icon name="hugeicons:cancel-circle" class="size-4 shrink-0" />
+              <span>{{ myMeeting.status === "accepted" ? $t("meetings.actions.cancelMeeting") : $t("meetings.actions.cancelRequest") }}</span>
             </Button>
           </div>
         </div>
 
-        <div v-if="myMeeting.awaits_visitor" class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
-          <Button size="sm" :loading="busy === 'accept'" @click="answer('accept')">{{ $t("meetings.actions.acceptInvitation") }}</Button>
-          <Button size="sm" variant="outline" :loading="busy === 'decline'" @click="declineInviteOpen = true">
-            {{ $t("meetings.actions.declineInvitation") }}
-          </Button>
-        </div>
-
-        <div v-if="myMeeting.can_change" class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
-          <Button v-if="!changing" variant="outline" size="sm" @click="startChange">
-            <Icon name="hugeicons:calendar-03" class="size-4 shrink-0" />
-            <span>{{ $t("meetings.actions.changeTime") }}</span>
-          </Button>
-          <Button variant="outline" size="sm" @click="cancelOpen = true">
-            <Icon name="hugeicons:cancel-circle" class="size-4 shrink-0" />
-            <span>{{ myMeeting.status === "accepted" ? $t("meetings.actions.cancelMeeting") : $t("meetings.actions.cancelRequest") }}</span>
-          </Button>
-        </div>
-      </div>
-
-      <!-- The next exhibitor is one tap away: those matching the visitor's
-           answers first, then the whole list narrowed to meetings. -->
-      <MeetingSuggestions
-        v-if="myOpen && !changing"
-        :items="suggestions"
-        :to="(item) => localePath(`/brands/${item.slug}`)"
-      />
-      <Button v-if="myOpen && !changing" variant="outline" :to="`${localePath('/brands')}?meetings=1`">
-        <Icon name="hugeicons:store-01" class="size-4 shrink-0" />
-        <span>{{ $t("meetings.actions.findMore") }}</span>
-      </Button>
-
-      <div
-        v-if="blockReason"
-        class="border-border space-y-2.5 rounded-xl border border-dashed px-3 py-2.5 text-sm tracking-tight"
-      >
-        <p class="text-muted-foreground">{{ blockReason }}</p>
-        <Button v-if="blockAction === 'tickets'" size="sm" variant="outline" @click="goGetTicket">
-          {{ $t("meetings.signIn.seeTickets") }}
-        </Button>
-        <Button v-else-if="blockAction === 'profile'" size="sm" variant="outline" :href="data.visitor.profile_url" target="_blank" rel="noopener" as="a">
-          {{ $t("meetings.panel.answerQuestions") }}
-        </Button>
-      </div>
-
-      <template v-else-if="showPicker">
-        <p v-if="changing" class="text-sm tracking-tight">
-          {{
-            myMeeting?.status !== "accepted"
-              ? $t("meetings.panel.changePendingNote")
-              : approval === "auto"
-                ? $t("meetings.panel.changeConfirmedNoteAuto")
-                : $t("meetings.panel.changeConfirmedNote", { brand: brandName })
-          }}
-        </p>
-
-        <MeetingSlotGrid
-          v-model="selectedKey"
-          :days="data.days"
-          :timezone="zone"
-          :brand-name="brandName"
-          :my-status="myMeeting?.status"
+        <!-- The next exhibitor is one tap away: those matching the visitor's
+             answers first, then the whole list narrowed to meetings. -->
+        <MeetingSuggestions
+          v-if="myOpen && !changing"
+          :items="suggestions"
+          :to="(item) => localePath(`/brands/${item.slug}`)"
         />
+        <Button v-if="myOpen && !changing" variant="outline" :to="`${localePath('/brands')}?meetings=1`">
+          <Icon name="hugeicons:store-01" class="size-4 shrink-0" />
+          <span>{{ $t("meetings.actions.findMore") }}</span>
+        </Button>
 
-        <!-- The note rides along with the request; optional ones stay folded
-             so booking the next exhibitor is two picks and one tap. -->
-        <div v-if="messageRequired || noteOpen" class="space-y-2">
-          <Label for="meeting-message" :required="messageRequired">{{ $t("meetings.request.messageLabel") }}</Label>
-          <Textarea
-            id="meeting-message"
-            v-model="message"
-            rows="2"
-            maxlength="1000"
-            :placeholder="$t('meetings.request.messagePlaceholder')"
-          />
-          <p class="text-muted-foreground text-sm tracking-tight">
-            {{ messageRequired ? $t("meetings.request.messageHelpRequired") : $t("meetings.request.messageHelp") }}
+        <div
+          v-if="blockReason"
+          class="border-border space-y-2.5 rounded-xl border border-dashed px-3 py-2.5 text-sm tracking-tight"
+        >
+          <p class="text-muted-foreground">{{ blockReason }}</p>
+          <Button v-if="blockAction === 'tickets'" size="sm" variant="outline" @click="goGetTicket">
+            {{ $t("meetings.signIn.seeTickets") }}
+          </Button>
+          <Button v-else-if="blockAction === 'profile'" size="sm" variant="outline" :href="data.visitor.profile_url" target="_blank" rel="noopener" as="a">
+            {{ $t("meetings.panel.answerQuestions") }}
+          </Button>
+        </div>
+
+        <template v-else-if="showPicker">
+          <p v-if="changing" class="text-sm tracking-tight">
+            {{
+              myMeeting?.status !== "accepted"
+                ? $t("meetings.panel.changePendingNote")
+                : approval === "auto"
+                  ? $t("meetings.panel.changeConfirmedNoteAuto")
+                  : $t("meetings.panel.changeConfirmedNote", { brand: brandName })
+            }}
           </p>
-        </div>
 
-        <p v-if="sendError" class="text-destructive-foreground text-sm tracking-tight" role="alert">{{ sendError }}</p>
+          <MeetingSlotGrid
+            v-model="selectedKey"
+            :days="data.days"
+            :timezone="zone"
+            :brand-name="brandName"
+            :my-status="myMeeting?.status"
+          />
 
-        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
-          <Button
-            size="lg"
-            class="active:scale-98"
-            :disabled="!selectedKey || (messageRequired && !message.trim())"
-            :loading="busy === 'send'"
-            @click="request"
-          >
-            {{ changing ? $t("meetings.actions.useThisTime") : approval === "auto" ? $t("meetings.actions.book") : $t("meetings.actions.request") }}
-          </Button>
-          <Button v-if="!messageRequired && !noteOpen" variant="ghost" @click="noteOpen = true">
-            <Icon name="hugeicons:note-add" class="size-4 shrink-0" />
-            <span>{{ $t("meetings.request.addNote") }}</span>
-          </Button>
-          <Button v-if="changing" variant="ghost" @click="stopChange">{{ $t("meetings.common.back") }}</Button>
-        </div>
-        <p v-if="quotaNote" class="text-muted-foreground text-sm tracking-tight">{{ quotaNote }}</p>
-      </template>
-    </template>
+          <!-- The note rides along with the request; optional ones stay folded
+               so booking the next exhibitor is two picks and one tap. -->
+          <div v-if="messageRequired || noteOpen" class="space-y-2">
+            <Label for="meeting-message" :required="messageRequired">{{ $t("meetings.request.messageLabel") }}</Label>
+            <Textarea
+              id="meeting-message"
+              v-model="message"
+              rows="2"
+              maxlength="1000"
+              :placeholder="$t('meetings.request.messagePlaceholder')"
+            />
+            <p class="text-muted-foreground text-sm tracking-tight">
+              {{ messageRequired ? $t("meetings.request.messageHelpRequired") : $t("meetings.request.messageHelp") }}
+            </p>
+          </div>
+
+          <p v-if="sendError" class="text-destructive-foreground text-sm tracking-tight" role="alert">{{ sendError }}</p>
+
+          <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
+            <Button
+              size="lg"
+              class="active:scale-98"
+              :disabled="!selectedKey || (messageRequired && !message.trim())"
+              :loading="busy === 'send'"
+              @click="request"
+            >
+              {{ changing ? $t("meetings.actions.useThisTime") : approval === "auto" ? $t("meetings.actions.book") : $t("meetings.actions.request") }}
+            </Button>
+            <Button v-if="!messageRequired && !noteOpen" variant="ghost" size="lg" @click="noteOpen = true">
+              <Icon name="hugeicons:note-add" class="size-4 shrink-0" />
+              <span>{{ $t("meetings.request.addNote") }}</span>
+            </Button>
+            <Button v-if="changing" variant="ghost" size="lg" @click="stopChange">{{ $t("meetings.common.back") }}</Button>
+          </div>
+          <p v-if="quotaNote" class="text-muted-foreground text-sm tracking-tight">{{ quotaNote }}</p>
+        </template>
+      </div>
+    </ResponsiveDialog>
 
     <MeetingRequestDialog
       v-model:open="requestOpen"
@@ -233,7 +252,7 @@ import MeetingRequestDialog from "./MeetingRequestDialog.vue";
 import MeetingSlotGrid from "./MeetingSlotGrid.vue";
 import MeetingStatusBadge from "./MeetingStatusBadge.vue";
 import MeetingSuggestions from "./MeetingSuggestions.vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 import { toast } from "vue-sonner";
 
 const props = defineProps({
@@ -256,6 +275,7 @@ const data = ref(null);
 const state = ref("loading");
 const selectedKey = ref(props.initialSlot);
 const requestOpen = ref(false);
+const panelOpen = ref(false);
 const cancelOpen = ref(false);
 const changing = ref(false);
 const busy = ref(null);
@@ -333,6 +353,7 @@ function goGetTicket() {
  * email again. Never retried by itself.
  */
 function sessionLost() {
+  panelOpen.value = false;
   forget();
   dialogNotice.value = t("meetings.signIn.sessionEnded");
   requestOpen.value = true;
@@ -358,6 +379,7 @@ async function load() {
     // "Change time" from My meetings lands here ready to pick the new time.
     if (route.query.change && route.query.change === myMeeting.value?.ulid && myMeeting.value?.can_change && !changing.value) {
       startChange();
+      panelOpen.value = true;
     }
   } catch (err) {
     state.value = err?.statusCode === 404 ? "hidden" : "error";
@@ -409,9 +431,40 @@ async function submit() {
  * the dialog once (email, code), and the request leaves as soon as the code
  * checks out: no second confirmation.
  */
+/** Closes the meeting dialog and opens a confirmation in its place: one dialog at a time. */
+async function swapTo(which) {
+  panelOpen.value = false;
+  await nextTick();
+  (which === "cancel" ? cancelOpen : declineInviteOpen).value = true;
+}
+
+/** Opens the meeting dialog; also called by the page's other "Request meeting" button. */
+function openPanel() {
+  panelOpen.value = true;
+}
+
+
+// A visitor who can act gets the button; a closed door is said in one line.
+const requestable = computed(() => !blockState.value || !!blockState.value.action);
+
+const primaryAction = computed(() => {
+  if (myOpen.value) {
+    return myMeeting.value.awaits_visitor ? t("meetings.panel.answerInvitation") : t("meetings.panel.seeMeeting");
+  }
+  return approval.value === "auto" ? t("meetings.actions.book") : t("meetings.actions.request");
+});
+
+/** Whether the button makes sense anywhere on the page right now. */
+const canOpen = computed(() => state.value === "ready" && !quietBrand.value && (myOpen.value || requestable.value));
+
+defineExpose({ open: openPanel, primaryAction, canOpen });
+
 async function request() {
   sendError.value = null;
   if (!visitor.value || !eligible.value) {
+    // One dialog at a time: the sign-in steps replace the picker.
+    panelOpen.value = false;
+    await nextTick();
     requestOpen.value = true;
     return;
   }
@@ -448,6 +501,7 @@ async function onSent(meeting) {
     });
   }
   changing.value = false;
+  panelOpen.value = false;
   selectedKey.value = null;
   message.value = "";
   noteOpen.value = false;
@@ -540,5 +594,7 @@ async function takeSuggestion(key) {
 onMounted(async () => {
   await loadVisitor(props.eventSlug);
   await load();
+  // Back from checkout with a time already chosen: straight to the picker.
+  if (props.initialSlot && selectedKey.value && !myOpen.value) panelOpen.value = true;
 });
 </script>

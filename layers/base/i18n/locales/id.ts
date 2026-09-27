@@ -634,6 +634,8 @@ export default {
       "expired": "{brand} tidak menjawab sampai batas waktu."
     },
     "panel": {
+      "answerInvitation": "Jawab undangan",
+      "seeMeeting": "Lihat meeting kamu",
       "declineInviteBody": "{brand} diberi tahu kamu nggak bisa datang.",
       "declineInviteTitle": "Tolak undangan ini?",
       "changeConfirmedNoteAuto": "Meeting kamu pindah ke jam yang kamu pilih. Jam lama dibuka lagi untuk visitor lain.",

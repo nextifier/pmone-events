@@ -632,6 +632,8 @@ export default {
       "expired": "{brand}이(가) 기한 내에 답하지 않았습니다."
     },
     "panel": {
+      "answerInvitation": "초대에 답하기",
+      "seeMeeting": "내 미팅 보기",
       "declineInviteBody": "{brand}에 참석할 수 없다고 알려요.",
       "declineInviteTitle": "이 초대를 거절할까요?",
       "changeConfirmedNoteAuto": "미팅이 선택한 시간으로 옮겨져요. 기존 시간은 다른 방문객에게 열려요.",

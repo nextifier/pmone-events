@@ -630,6 +630,8 @@ export default {
       "expired": "{brand} 未在截止前回复。"
     },
     "panel": {
+      "answerInvitation": "回复邀请",
+      "seeMeeting": "查看你的会面",
       "declineInviteBody": "{brand} 会收到你无法参加的通知。",
       "declineInviteTitle": "拒绝此邀请？",
       "changeConfirmedNoteAuto": "你的会面会改到新选的时间，原时间将开放给其他访客。",
