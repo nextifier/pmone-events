@@ -21,7 +21,7 @@
             <span v-if="activeDay" class="truncate">{{ dayLabel(activeDay.date) }}</span>
           </SelectValue>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent class="max-w-[calc(100vw-2rem)]">
           <SelectItem
             v-for="day in days"
             :key="day.date"
@@ -43,7 +43,7 @@
             <span v-if="selectedSlot" class="truncate">{{ clockRange(selectedSlot) }}</span>
           </SelectValue>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent class="max-w-[calc(100vw-2rem)]">
           <SelectItem
             v-for="slot in activeDay?.slots ?? []"
             :key="slot.key"
@@ -55,7 +55,7 @@
               <span class="tabular-nums" :class="slot.state !== 'available' && 'text-muted-foreground line-through decoration-1'">
                 {{ clockRange(slot) }}
               </span>
-              <span v-if="slot.state !== 'available'" class="text-muted-foreground truncate text-sm">
+              <span v-if="slot.state !== 'available'" class="text-muted-foreground min-w-0 truncate text-sm">
                 {{ reasonLabel(slot) }}
               </span>
             </span>
@@ -115,6 +115,11 @@
         <Icon
           v-else-if="mode === 'block' && slot.state === 'unavailable'"
           name="hugeicons:square-lock-02"
+          class="size-4 shrink-0"
+        />
+        <Icon
+          v-else-if="mode === 'block' && slot.booked > 0"
+          name="hugeicons:user-check-01"
           class="size-4 shrink-0"
         />
         <span>{{ clockRange(slot) }}</span>

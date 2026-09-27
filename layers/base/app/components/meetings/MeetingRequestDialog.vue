@@ -27,13 +27,15 @@
             <Input
               id="meeting-email"
               v-model="email"
+              name="email"
               type="email"
+              spellcheck="false"
               inputmode="email"
               autocomplete="email"
               required
               :placeholder="$t('meetings.signIn.emailPlaceholder')"
             />
-            <p class="text-muted-foreground text-xs tracking-tight sm:text-sm">{{ $t("meetings.signIn.emailHelp") }}</p>
+            <p class="text-muted-foreground text-sm tracking-tight">{{ $t("meetings.signIn.emailHelp") }}</p>
           </div>
           <p v-if="error" class="text-destructive-foreground text-sm tracking-tight" role="alert">{{ error }}</p>
           <div class="flex flex-wrap justify-end gap-2">
@@ -89,12 +91,20 @@
         </div>
       </template>
 
+      <!-- Step: the code checked out and the request is on its way. -->
+      <template v-else-if="step === 'send'">
+        <div class="flex flex-col items-center gap-y-3 py-6 text-center" role="status">
+          <Spinner class="size-6" />
+          <p class="text-sm tracking-tight">{{ $t("meetings.request.sending", { brand: brandName }) }}</p>
+        </div>
+      </template>
+
       <!-- Step: ticket without meetings -->
       <template v-else-if="step === 'not_eligible'">
         <div class="space-y-1">
           <h2 class="text-lg font-semibold tracking-tighter">{{ $t("meetings.signIn.notEligibleTitle") }}</h2>
           <p class="text-muted-foreground text-sm tracking-tight">
-            {{ $t("meetings.errors.TICKET_NOT_ELIGIBLE", { ticket: ticketTitle }) }}
+            {{ ticketTitle ? $t("meetings.errors.TICKET_NOT_ELIGIBLE", { ticket: ticketTitle }) : $t("meetings.signIn.notEligibleNoTitle") }}
             {{ $t("meetings.signIn.notEligibleBody") }}
           </p>
         </div>
@@ -114,6 +124,7 @@ import { Input } from "../ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Label } from "../ui/label";
 import ResponsiveDialog from "../ui/responsive-dialog/ResponsiveDialog.vue";
+import { Spinner } from "../ui/spinner";
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 
 const props = defineProps({
@@ -124,6 +135,8 @@ const props = defineProps({
   slotKey: { type: String, default: null },
   /** Sends the request the page holds; called once the visitor is known. */
   submit: { type: Function, required: true },
+  /** A line shown over the email step, e.g. after the session ended. */
+  notice: { type: String, default: null },
 });
 const emit = defineEmits(["signed-in", "sent", "failed"]);
 const openModel = defineModel("open", { type: Boolean, default: false });
@@ -144,7 +157,7 @@ const resendIn = ref(0);
 let timer = null;
 
 const validEmail = computed(() => /.+@.+\..+/.test(email.value.trim()));
-const resendLabel = computed(() => `0:${String(resendIn.value).padStart(2, "0")}`);
+const resendLabel = computed(() => `${Math.floor(resendIn.value / 60)}:${String(resendIn.value % 60).padStart(2, "0")}`);
 function stepForVisitor() {
   const status = visitor.value?.eligibility?.status;
   if (!visitor.value) return "email";
@@ -156,13 +169,15 @@ function stepForVisitor() {
   return "send";
 }
 
+// Sending happens only after a code checks out, never on opening: a dialog
+// that sends by itself on open loops when the session keeps failing.
 watch(openModel, (open) => {
   if (!open) return;
-  error.value = null;
+  error.value = props.notice;
   code.value = "";
-  step.value = stepForVisitor();
+  const next = stepForVisitor();
+  step.value = next === "send" ? "email" : next;
   if (visitor.value?.email) email.value = visitor.value.email;
-  if (step.value === "send") send();
 });
 
 function startCountdown(seconds) {
@@ -180,7 +195,7 @@ function apiError(err) {
   const data = err?.data?.data ?? err?.data ?? {};
   const codeName = data.error_code;
   if (codeName === "CODE_INVALID") {
-    return t("meetings.signIn.codeInvalid", { count: data.context?.attempts_left ?? 0 });
+    return t("meetings.signIn.codeInvalid", { count: data.context?.attempts_left ?? 0 }, data.context?.attempts_left ?? 0);
   }
   if (codeName === "CODE_EXPIRED") return t("meetings.signIn.codeExpired");
   if (codeName === "TOO_MANY_REQUESTS") return t("meetings.signIn.tooMany");

@@ -558,6 +558,8 @@ export default {
       "expired": "Kedaluwarsa"
     },
     "actions": {
+      "message": "Kirim pesan",
+      "takeTime": "Pilih {time}",
       "declineInvitation": "Tolak",
       "findMore": "Cari exhibitor lain",
       "acceptInvitation": "Terima",
@@ -616,6 +618,8 @@ export default {
       "blockPast": "{time} sudah lewat batas permintaan."
     },
     "outcome": {
+      "organizer": "Penyelenggara",
+      "noteFrom": "{who} menulis:",
       "invited": "{brand} mengundang kamu untuk meeting. Jawab sebelum {deadline}.",
       "pending": "{brand} punya waktu sampai {deadline} untuk menjawab. Apa pun jawabannya, kami kabari lewat email.",
       "pendingNoDeadline": "Menunggu jawaban {brand}. Apa pun jawabannya, kami kabari lewat email.",
@@ -630,6 +634,12 @@ export default {
       "expired": "{brand} tidak menjawab sampai batas waktu."
     },
     "panel": {
+      "declineInviteBody": "{brand} diberi tahu kamu nggak bisa datang.",
+      "declineInviteTitle": "Tolak undangan ini?",
+      "changeConfirmedNoteAuto": "Meeting kamu pindah ke jam yang kamu pilih. Jam lama dibuka lagi untuk visitor lain.",
+      "answerQuestions": "Jawab pertanyaannya",
+      "profileRequired": "Event ini meminta visitor menjawab beberapa pertanyaan bisnis dulu sebelum meminta meeting.",
+      "theyWrote": "{brand} menulis:",
       "title": "Meeting dengan {brand}",
       "subtitle": "Pilih jam selama event. {brand} akan menerima atau menolak, dan jawabannya kami kirim lewat email.",
       "subtitleAuto": "Pilih jam selama event. Jam yang tersedia langsung terkonfirmasi.",
@@ -643,6 +653,7 @@ export default {
       "changePendingNote": "Permintaan kamu pindah ke jam yang kamu pilih."
     },
     "request": {
+      "sending": "Mengirim permintaan ke {brand}…",
       "title": "Ajukan meeting",
       "titleBook": "Pesan meeting",
       "titleChange": "Ganti jam",
@@ -653,7 +664,7 @@ export default {
       "where": "Di mana",
       "atBooth": "Di booth mereka",
       "messageLabel": "Apa yang ingin kamu bahas?",
-      "messagePlaceholder": "Contoh: distribusi di Jawa Timur, harga untuk 500 unit",
+      "messagePlaceholder": "Contoh: distribusi di Jawa Timur, harga untuk 500 unit…",
       "messageHelp": "Opsional. Topik yang jelas bikin exhibitor lebih mudah bilang ya.",
       "messageHelpRequired": "Penyelenggara meminta setiap pengunjung mengisinya.",
       "addNote": "Tambah catatan",
@@ -714,6 +725,7 @@ export default {
       "group": "Akun kamu"
     },
     "signIn": {
+      "notEligibleNoTitle": "Tiket di email ini nggak termasuk business meeting.",
       "forHolders": "Untuk pemegang tiket. Konfirmasi pakai email di tiket kamu.",
       "bookingAs": "Atas nama {email}.",
       "notYou": "Bukan kamu?",
@@ -731,7 +743,7 @@ export default {
       "wrongEmail": "Salah email? Ganti",
       "resend": "Kirim kode baru",
       "resendIn": "Kode baru dalam {time}",
-      "codeInvalid": "Kodenya salah. Sisa {count} kali percobaan.",
+      "codeInvalid": "Kodenya salah. Sisa {count} kali percobaan. | Kodenya salah. Sisa {count} kali percobaan.",
       "codeExpired": "Kodenya sudah kedaluwarsa. Kirim yang baru.",
       "tooMany": "Terlalu banyak percobaan. Tunggu beberapa menit, lalu coba lagi.",
       "noTicketTitle": "Tiket tidak ditemukan",
@@ -745,6 +757,8 @@ export default {
       "sessionEnded": "Kamu sudah keluar. Masukkan lagi email tiket kamu."
     },
     "resume": {
+      "promoBodySignIn": "Tiketmu bisa dipakai untuk meminta meeting dengan exhibitor. Masuk dengan email tiketmu di halaman exhibitor mana pun.",
+      "bodySignIn": "Masuk dengan email tiketmu untuk menyelesaikannya. Jam yang kamu pilih masih tersimpan.",
       "title": "Lanjutkan permintaan meeting dengan {brand}",
       "body": "Kamu sudah masuk dengan tiket baru. Jam yang kamu pilih masih tersimpan.",
       "cta": "Lanjutkan",

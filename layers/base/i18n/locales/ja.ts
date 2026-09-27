@@ -559,6 +559,8 @@ export default {
       "expired": "期限切れ"
     },
     "actions": {
+      "message": "メッセージ",
+      "takeTime": "{time}を選ぶ",
       "declineInvitation": "辞退",
       "findMore": "ほかの出展者を探す",
       "acceptInvitation": "承諾",
@@ -617,6 +619,8 @@ export default {
       "blockPast": ""
     },
     "outcome": {
+      "organizer": "主催者",
+      "noteFrom": "{who}からのメッセージ：",
       "invited": "{brand} から商談の招待が届いています。{deadline} までに返信してください。",
       "pending": "{brand} は {deadline} までに返信します。結果はメールでお知らせします。",
       "pendingNoDeadline": "{brand} の返信待ちです。結果はメールでお知らせします。",
@@ -631,6 +635,12 @@ export default {
       "expired": "{brand} から期限内に返信がありませんでした。"
     },
     "panel": {
+      "declineInviteBody": "{brand}に参加できないことが伝わります。",
+      "declineInviteTitle": "この招待を辞退しますか？",
+      "changeConfirmedNoteAuto": "商談は選んだ時間に移ります。元の時間は他の来場者に開放されます。",
+      "answerQuestions": "質問に回答する",
+      "profileRequired": "このイベントでは、商談を申し込む前にいくつかのビジネス質問への回答が必要です。",
+      "theyWrote": "{brand}からのメッセージ：",
       "title": "{brand} と商談",
       "subtitle": "会期中の時間を選んでください。{brand} が承諾または辞退し、結果をメールでお知らせします。",
       "subtitleAuto": "会期中の時間を選んでください。空いている時間はすぐに確定します。",
@@ -644,6 +654,7 @@ export default {
       "changePendingNote": "申し込みは選んだ時間に変更されます。"
     },
     "request": {
+      "sending": "{brand}に申し込みを送信中…",
       "title": "商談を申し込む",
       "titleBook": "商談を予約",
       "titleChange": "時間を変更",
@@ -655,7 +666,7 @@ export default {
       "atBooth": "出展者のブース",
       "as": "予約者",
       "messageLabel": "話したい内容は？",
-      "messagePlaceholder": "例：東ジャワでの販売、500 台の見積もり",
+      "messagePlaceholder": "例：東ジャワでの流通、500個の価格…",
       "messageHelp": "任意。内容がはっきりしていると承諾されやすくなります。",
       "messageHelpRequired": "主催者が全員に記入をお願いしています。",
       "addNote": "メモを追加",
@@ -715,6 +726,7 @@ export default {
       "group": "あなた"
     },
     "signIn": {
+      "notEligibleNoTitle": "このメールアドレスのチケットには商談が含まれていません。",
       "forHolders": "チケット保有者向け。チケットのメールアドレスで確認します。",
       "bookingAs": "{email} で予約中。",
       "notYou": "別の方ですか？",
@@ -732,7 +744,7 @@ export default {
       "wrongEmail": "メールアドレスが違う？変更する",
       "resend": "新しいコードを送信",
       "resendIn": "{time} 後に再送できます",
-      "codeInvalid": "コードが正しくありません。残り {count} 回です。",
+      "codeInvalid": "コードが正しくありません。残り{count}回です。 | コードが正しくありません。残り{count}回です。",
       "codeExpired": "コードの有効期限が切れました。新しいコードを送信してください。",
       "tooMany": "試行回数が多すぎます。数分待ってからお試しください。",
       "noTicketTitle": "チケットが見つかりません",
@@ -746,6 +758,8 @@ export default {
       "sessionEnded": "ログアウトされました。チケットのメールアドレスをもう一度入力してください。"
     },
     "resume": {
+      "promoBodySignIn": "チケットで出展者との商談を申し込めます。どの出展者ページでもチケットのメールアドレスでサインインできます。",
+      "bodySignIn": "チケットのメールアドレスでサインインして完了してください。選んだ時間はそのままです。",
       "title": "{brand} への商談申し込みを続ける",
       "body": "新しいチケットでログインしました。選んだ時間はそのままです。",
       "cta": "続ける",

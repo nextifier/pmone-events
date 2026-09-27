@@ -550,6 +550,8 @@ export default {
       "expired": "Expired"
     },
     "actions": {
+      "message": "Message",
+      "takeTime": "Take {time}",
       "declineInvitation": "Decline",
       "findMore": "Find more exhibitors",
       "acceptInvitation": "Accept",
@@ -608,6 +610,8 @@ export default {
       "blockPast": "{time} has passed the request cutoff."
     },
     "outcome": {
+      "organizer": "The organizer",
+      "noteFrom": "{who} wrote:",
       "invited": "{brand} invited you to meet. Answer before {deadline}.",
       "pending": "{brand} has until {deadline} to reply. We'll email you either way.",
       "pendingNoDeadline": "Waiting for {brand} to reply. We'll email you either way.",
@@ -622,6 +626,12 @@ export default {
       "expired": "{brand} didn't reply in time."
     },
     "panel": {
+      "declineInviteBody": "{brand} is told you can't make it.",
+      "declineInviteTitle": "Decline this invitation?",
+      "changeConfirmedNoteAuto": "Your meeting moves to the time you pick. The old time opens for other visitors.",
+      "answerQuestions": "Answer the questions",
+      "profileRequired": "This event asks visitors to answer a few business questions before requesting meetings.",
+      "theyWrote": "{brand} wrote:",
       "title": "Meet {brand}",
       "subtitle": "Pick a time during the event. {brand} accepts or declines, and we email you the answer.",
       "subtitleAuto": "Pick a time during the event. Open times are confirmed right away.",
@@ -635,6 +645,7 @@ export default {
       "changePendingNote": "Your request moves to the time you pick."
     },
     "request": {
+      "sending": "Sending your request to {brand}…",
       "title": "Request a meeting",
       "titleBook": "Book a meeting",
       "titleChange": "Change the time",
@@ -645,7 +656,7 @@ export default {
       "where": "Where",
       "atBooth": "At their booth",
       "messageLabel": "What do you want to discuss?",
-      "messagePlaceholder": "For example: distribution in East Java, prices for 500 units",
+      "messagePlaceholder": "For example: distribution in East Java, prices for 500 units…",
       "messageHelp": "Optional. A clear topic helps the exhibitor say yes.",
       "messageHelpRequired": "The organizer asks every visitor to add one.",
       "addNote": "Add a note",
@@ -706,6 +717,7 @@ export default {
       "group": "You"
     },
     "signIn": {
+      "notEligibleNoTitle": "The ticket on this email doesn't include business meetings.",
       "forHolders": "For ticket holders. You confirm with the email on your ticket.",
       "bookingAs": "Booking as {email}.",
       "notYou": "Not you?",
@@ -723,7 +735,7 @@ export default {
       "wrongEmail": "Wrong email? Change it",
       "resend": "Send a new code",
       "resendIn": "New code in {time}",
-      "codeInvalid": "That code isn't right. {count} tries left.",
+      "codeInvalid": "That code isn't right. {count} try left. | That code isn't right. {count} tries left.",
       "codeExpired": "That code expired. Send a new one.",
       "tooMany": "Too many attempts. Wait a few minutes, then try again.",
       "noTicketTitle": "No ticket found",
@@ -737,6 +749,8 @@ export default {
       "sessionEnded": "You were signed out. Enter your ticket email again."
     },
     "resume": {
+      "promoBodySignIn": "Your ticket lets you request meetings with exhibitors. Sign in with your ticket email on any exhibitor's page.",
+      "bodySignIn": "Sign in with your ticket email to finish it. The time you picked is still selected.",
       "title": "Finish your meeting request with {brand}",
       "body": "You're signed in with your new ticket. The time you picked is still selected.",
       "cta": "Continue",

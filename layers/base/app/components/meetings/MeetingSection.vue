@@ -7,7 +7,9 @@
   with their ticket email. Signed-in visitors see whose account books.
 -->
 <template>
-  <section v-if="state !== 'hidden'" class="w-full space-y-4 text-left">
+  <!-- An exhibitor not taking meetings shows nothing, unless the visitor
+       already has one with them. -->
+  <section v-if="state !== 'hidden' && !quietBrand" class="w-full space-y-4 text-left">
     <div class="space-y-1">
       <h2 class="text-foreground text-xl font-semibold tracking-tighter">
         {{ $t("meetings.panel.title", { brand: brandName }) }}
@@ -40,6 +42,13 @@
           <MeetingStatusBadge :status="myMeeting.status" :awaits-visitor="myMeeting.awaits_visitor" />
         </div>
         <p v-if="myMeeting.where && myMeeting.status === 'accepted'" class="text-sm tracking-tight">{{ myMeeting.where }}</p>
+        <blockquote
+          v-if="myMeeting.awaits_visitor && myMeeting.message"
+          class="border-border border-l pl-3 text-sm tracking-tight"
+        >
+          <span class="text-muted-foreground">{{ $t("meetings.panel.theyWrote", { brand: brandName }) }}</span>
+          {{ myMeeting.message }}
+        </blockquote>
         <MeetingOutcome :meeting="myMeeting" :brand-name="brandName" />
 
         <div v-if="myMeeting.suggested_slots?.length" class="space-y-2">
@@ -60,7 +69,7 @@
 
         <div v-if="myMeeting.awaits_visitor" class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5">
           <Button size="sm" :loading="busy === 'accept'" @click="answer('accept')">{{ $t("meetings.actions.acceptInvitation") }}</Button>
-          <Button size="sm" variant="outline" :loading="busy === 'decline'" @click="answer('decline')">
+          <Button size="sm" variant="outline" :loading="busy === 'decline'" @click="declineInviteOpen = true">
             {{ $t("meetings.actions.declineInvitation") }}
           </Button>
         </div>
@@ -89,16 +98,28 @@
         <span>{{ $t("meetings.actions.findMore") }}</span>
       </Button>
 
-      <p
+      <div
         v-if="blockReason"
-        class="text-muted-foreground border-border rounded-xl border border-dashed px-3 py-2.5 text-sm tracking-tight"
+        class="border-border space-y-2.5 rounded-xl border border-dashed px-3 py-2.5 text-sm tracking-tight"
       >
-        {{ blockReason }}
-      </p>
+        <p class="text-muted-foreground">{{ blockReason }}</p>
+        <Button v-if="blockAction === 'tickets'" size="sm" variant="outline" @click="goGetTicket">
+          {{ $t("meetings.signIn.seeTickets") }}
+        </Button>
+        <Button v-else-if="blockAction === 'profile'" size="sm" variant="outline" :href="data.visitor.profile_url" target="_blank" rel="noopener" as="a">
+          {{ $t("meetings.panel.answerQuestions") }}
+        </Button>
+      </div>
 
       <template v-else-if="showPicker">
         <p v-if="changing" class="text-sm tracking-tight">
-          {{ myMeeting?.status === "accepted" ? $t("meetings.panel.changeConfirmedNote", { brand: brandName }) : $t("meetings.panel.changePendingNote") }}
+          {{
+            myMeeting?.status !== "accepted"
+              ? $t("meetings.panel.changePendingNote")
+              : approval === "auto"
+                ? $t("meetings.panel.changeConfirmedNoteAuto")
+                : $t("meetings.panel.changeConfirmedNote", { brand: brandName })
+          }}
         </p>
 
         <MeetingSlotGrid
@@ -155,10 +176,26 @@
       :brand-slug="brandSlug"
       :slot-key="selectedKey"
       :submit="submit"
+      :notice="dialogNotice"
       @signed-in="load"
       @sent="onSent"
       @failed="onFailed"
     />
+
+    <ResponsiveDialog v-model:open="declineInviteOpen" :title="$t('meetings.panel.declineInviteTitle')">
+      <div class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
+        <div class="space-y-1">
+          <h2 class="text-lg font-semibold tracking-tighter">{{ $t("meetings.panel.declineInviteTitle") }}</h2>
+          <p class="text-muted-foreground text-sm tracking-tight">{{ $t("meetings.panel.declineInviteBody", { brand: brandName }) }}</p>
+        </div>
+        <div class="flex flex-wrap justify-end gap-2">
+          <Button variant="outline" @click="declineInviteOpen = false">{{ $t("meetings.cancel.keep") }}</Button>
+          <Button variant="destructive" :loading="busy === 'decline'" @click="confirmDeclineInvite">
+            {{ $t("meetings.actions.declineInvitation") }}
+          </Button>
+        </div>
+      </div>
+    </ResponsiveDialog>
 
     <ResponsiveDialog v-model:open="cancelOpen" :title="$t('meetings.cancel.title')">
       <div class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
@@ -211,7 +248,9 @@ const props = defineProps({
 
 const { t, locale } = useI18n();
 const localePath = useLocalePath();
-const { visitor, load: loadVisitor, signOut: endSession } = useVisitorSession();
+const { visitor, load: loadVisitor, signOut: endSession, forget } = useVisitorSession();
+const route = useRoute();
+const intent = useMeetingIntent();
 
 const data = ref(null);
 const state = ref("loading");
@@ -224,6 +263,8 @@ const message = ref("");
 const noteOpen = ref(false);
 const sendError = ref(null);
 const suggestions = ref([]);
+const declineInviteOpen = ref(false);
+const dialogNotice = ref(null);
 
 const zone = computed(() => data.value?.timezone || "Asia/Jakarta");
 const approval = computed(() => data.value?.approval || "manual");
@@ -251,21 +292,51 @@ const selectedSlot = computed(() => {
   return null;
 });
 
-const blockReason = computed(() => {
+/** Nothing to show for an exhibitor that isn't taking meetings. */
+const quietBrand = computed(() => !!data.value && !data.value.taking_meetings && !myMeeting.value);
+
+const blockReason = computed(() => blockState.value?.text ?? null);
+const blockAction = computed(() => blockState.value?.action ?? null);
+
+// What stops a new request, said before any time is picked. A meeting the
+// visitor already has here comes first: no "closed" line under it.
+const blockState = computed(() => {
   const d = data.value;
   if (!d) return null;
-  if (!d.taking_meetings) return t("meetings.panel.notTaking", { brand: props.brandName });
-  if (d.window === "not_open") {
-    return t("meetings.panel.notOpen", { date: `${meetingDay(d.opens_at, zone.value, locale.value)} ${meetingClock(d.opens_at, zone.value)} ${meetingZone(zone.value)}` });
-  }
-  if (d.window === "closed") return t("meetings.panel.closed");
   if (myOpen.value && !changing.value) return null;
+  if (!d.taking_meetings) return { text: t("meetings.panel.notTaking", { brand: props.brandName }) };
+  if (d.window === "not_open") {
+    return { text: t("meetings.panel.notOpen", { date: `${meetingDay(d.opens_at, zone.value, locale.value)} ${meetingClock(d.opens_at, zone.value)} ${meetingZone(zone.value)}` }) };
+  }
+  if (d.window === "closed") return { text: t("meetings.panel.closed") };
   const v = d.visitor;
+  const status = v?.eligibility?.status;
+  if (status === "no_ticket") return { text: t("meetings.errors.NO_TICKET"), action: "tickets" };
+  if (status === "ticket_not_eligible") {
+    return { text: t("meetings.errors.TICKET_NOT_ELIGIBLE", { ticket: v.eligibility.ticket || "" }), action: "tickets" };
+  }
+  if (v && v.profile_complete === false) return { text: t("meetings.panel.profileRequired"), action: "profile" };
   if (!changing.value && v && v.max_open_requests > 0 && v.open_requests >= v.max_open_requests) {
-    return t("meetings.errors.REQUEST_LIMIT_REACHED", { count: v.max_open_requests });
+    return { text: t("meetings.errors.REQUEST_LIMIT_REACHED", { count: v.max_open_requests }) };
   }
   return null;
 });
+
+/** The chosen time rides along to checkout and comes back afterwards. */
+function goGetTicket() {
+  intent.save({ event_slug: props.eventSlug, brand_slug: props.brandSlug, brand_name: props.brandName, slot: selectedKey.value });
+  navigateTo(localePath("/tickets"));
+}
+
+/**
+ * The server dropped the session: say so, forget it here, and ask for the
+ * email again. Never retried by itself.
+ */
+function sessionLost() {
+  forget();
+  dialogNotice.value = t("meetings.signIn.sessionEnded");
+  requestOpen.value = true;
+}
 
 const quotaNote = computed(() => {
   const v = data.value?.visitor;
@@ -284,6 +355,10 @@ async function load() {
     state.value = "ready";
     loadSuggestions();
     if (selectedKey.value && !selectedSlot.value) selectedKey.value = null;
+    // "Change time" from My meetings lands here ready to pick the new time.
+    if (route.query.change && route.query.change === myMeeting.value?.ulid && myMeeting.value?.can_change && !changing.value) {
+      startChange();
+    }
   } catch (err) {
     state.value = err?.statusCode === 404 ? "hidden" : "error";
   }
@@ -359,14 +434,17 @@ function replyBy(meeting) {
 
 async function onSent(meeting) {
   const email = visitor.value?.email || "";
+  const action = { label: t("meetings.actions.seeMine"), onClick: () => navigateTo(localePath("/meetings")) };
+  dialogNotice.value = null;
   if (meeting?.status === "accepted") {
-    toast.success(t("meetings.request.bookedTitle"), { description: t("meetings.request.bookedBody", { email }) });
+    toast.success(t("meetings.request.bookedTitle"), { description: t("meetings.request.bookedBody", { email }), action });
   } else {
     const deadline = replyBy(meeting);
     toast.success(t("meetings.request.sentTitle"), {
       description: deadline
         ? t("meetings.request.sentBody", { brand: props.brandName, deadline, email })
         : t("meetings.outcome.pendingNoDeadline", { brand: props.brandName }),
+      action,
     });
   }
   changing.value = false;
@@ -379,8 +457,7 @@ async function onSent(meeting) {
 
 async function onFailed(err) {
   if (err?.statusCode === 401) {
-    await loadVisitor(props.eventSlug);
-    requestOpen.value = true;
+    sessionLost();
     return;
   }
   const data = upstream(err);
@@ -405,6 +482,12 @@ async function cancelMine() {
     toast.success(t("meetings.cancel.done"));
     await load();
   } catch (err) {
+    if (err?.statusCode === 401) {
+      cancelOpen.value = false;
+      declineInviteOpen.value = false;
+      sessionLost();
+      return;
+    }
     toast.error(meetingErrorText({ data: upstream(err) }, t));
   } finally {
     busy.value = null;
@@ -417,11 +500,22 @@ async function answer(choice) {
     await $fetch(`/api/meetings/${props.eventSlug}/mine/${myMeeting.value.ulid}/${choice}`, { method: "POST" });
     toast.success(choice === "accept" ? t("meetings.request.bookedTitle") : t("meetings.invite.declinedByYou"));
   } catch (err) {
+    if (err?.statusCode === 401) {
+      cancelOpen.value = false;
+      declineInviteOpen.value = false;
+      sessionLost();
+      return;
+    }
     toast.error(meetingErrorText({ data: upstream(err) }, t));
   } finally {
     busy.value = null;
     await load();
   }
+}
+
+async function confirmDeclineInvite() {
+  await answer("decline");
+  declineInviteOpen.value = false;
 }
 
 async function takeSuggestion(key) {
@@ -430,6 +524,12 @@ async function takeSuggestion(key) {
     await $fetch(`/api/meetings/${props.eventSlug}/mine/${myMeeting.value.ulid}/accept-suggestion`, { method: "POST", body: { key } });
     toast.success(t("meetings.request.bookedTitle"));
   } catch (err) {
+    if (err?.statusCode === 401) {
+      cancelOpen.value = false;
+      declineInviteOpen.value = false;
+      sessionLost();
+      return;
+    }
     toast.error(meetingErrorText({ data: upstream(err) }, t));
   } finally {
     busy.value = null;

@@ -166,11 +166,11 @@
               </div>
             </GridFill>
 
-            <!-- Meetings with this exhibitor, for ticket holders. Renders
-                 nothing when the event doesn't run meetings, and never for a
-                 previous edition's exhibitor. -->
+            <!-- Meetings with this exhibitor, for ticket holders. Only for an
+                 exhibitor the event's meeting config lists as taking requests,
+                 so the other exhibitors' pages never flash an empty section. -->
             <MeetingSection
-              v-if="brand.brand_event_id && meetingEventSlug"
+              v-if="brand.brand_event_id && meetingEventSlug && takesMeetings(brand.brand_event_id)"
               :event-slug="meetingEventSlug"
               :event-title="brand.event_title || eventInfo.title"
               :brand-slug="String(route.params.slug)"
@@ -401,6 +401,7 @@ import MeetingSection from "../../components/meetings/MeetingSection.vue";
 definePageMeta({ bottomNav: false });
 
 const route = useRoute();
+const { takesMeetings } = useMeetingBrands();
 
 const { $dayjs } = useNuxtApp();
 

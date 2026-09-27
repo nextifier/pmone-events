@@ -12,8 +12,8 @@
       <form class="space-y-4" @submit.prevent="submitEmail">
         <div class="space-y-2">
           <Label for="signin-email">{{ $t("meetings.signIn.emailLabel") }}</Label>
-          <Input id="signin-email" v-model="email" type="email" inputmode="email" autocomplete="email" required :placeholder="$t('meetings.signIn.emailPlaceholder')" />
-          <p class="text-muted-foreground text-xs tracking-tight sm:text-sm">{{ $t("meetings.signIn.emailHelp") }}</p>
+          <Input id="signin-email" v-model="email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" required :placeholder="$t('meetings.signIn.emailPlaceholder')" />
+          <p class="text-muted-foreground text-sm tracking-tight">{{ $t("meetings.signIn.emailHelp") }}</p>
         </div>
         <p v-if="error" class="text-destructive-foreground text-sm tracking-tight" role="alert">{{ error }}</p>
         <Button type="submit" :loading="busy" :disabled="!validEmail">{{ $t("meetings.signIn.continue") }}</Button>
@@ -43,7 +43,7 @@
         <Button v-if="resendIn <= 0" variant="link" size="sm" class="h-auto p-0" :disabled="busy" @click="submitEmail">
           {{ $t("meetings.signIn.resend") }}
         </Button>
-        <span v-else class="text-muted-foreground tabular-nums">{{ $t("meetings.signIn.resendIn", { time: `0:${String(resendIn).padStart(2, "0")}` }) }}</span>
+        <span v-else class="text-muted-foreground tabular-nums">{{ $t("meetings.signIn.resendIn", { time: `${Math.floor(resendIn / 60)}:${String(resendIn % 60).padStart(2, "0")}` }) }}</span>
       </div>
     </template>
 
@@ -100,7 +100,7 @@ onBeforeUnmount(() => clearInterval(timer));
 
 function explain(err) {
   const data = err?.data?.data ?? err?.data ?? {};
-  if (data.error_code === "CODE_INVALID") return t("meetings.signIn.codeInvalid", { count: data.context?.attempts_left ?? 0 });
+  if (data.error_code === "CODE_INVALID") return t("meetings.signIn.codeInvalid", { count: data.context?.attempts_left ?? 0 }, data.context?.attempts_left ?? 0);
   if (data.error_code === "CODE_EXPIRED") return t("meetings.signIn.codeExpired");
   if (data.error_code === "TOO_MANY_REQUESTS") return t("meetings.signIn.tooMany");
   return meetingErrorText({ data }, t);

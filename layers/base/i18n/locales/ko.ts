@@ -556,6 +556,8 @@ export default {
       "expired": "만료됨"
     },
     "actions": {
+      "message": "메시지",
+      "takeTime": "{time} 선택",
       "declineInvitation": "거절",
       "findMore": "다른 참가사 찾기",
       "acceptInvitation": "수락",
@@ -614,6 +616,8 @@ export default {
       "blockPast": ""
     },
     "outcome": {
+      "organizer": "주최 측",
+      "noteFrom": "{who}의 메시지:",
       "invited": "{brand}이(가) 미팅에 초대했습니다. {deadline}까지 답해 주세요.",
       "pending": "{brand}은(는) {deadline}까지 답합니다. 결과는 이메일로 알려 드립니다.",
       "pendingNoDeadline": "{brand}의 답변을 기다리는 중입니다. 결과는 이메일로 알려 드립니다.",
@@ -628,6 +632,12 @@ export default {
       "expired": "{brand}이(가) 기한 내에 답하지 않았습니다."
     },
     "panel": {
+      "declineInviteBody": "{brand}에 참석할 수 없다고 알려요.",
+      "declineInviteTitle": "이 초대를 거절할까요?",
+      "changeConfirmedNoteAuto": "미팅이 선택한 시간으로 옮겨져요. 기존 시간은 다른 방문객에게 열려요.",
+      "answerQuestions": "질문에 답하기",
+      "profileRequired": "이 이벤트는 미팅을 신청하기 전에 몇 가지 비즈니스 질문에 답해야 해요.",
+      "theyWrote": "{brand}의 메시지:",
       "title": "{brand}와(과) 미팅",
       "subtitle": "행사 기간 중 시간을 고르세요. {brand}이(가) 수락하거나 거절하며, 결과는 이메일로 보내 드립니다.",
       "subtitleAuto": "행사 기간 중 시간을 고르세요. 가능한 시간은 바로 확정됩니다.",
@@ -641,6 +651,7 @@ export default {
       "changePendingNote": "신청이 고른 시간으로 옮겨집니다."
     },
     "request": {
+      "sending": "{brand}에 신청을 보내는 중…",
       "title": "미팅 신청",
       "titleBook": "미팅 예약",
       "titleChange": "시간 변경",
@@ -652,7 +663,7 @@ export default {
       "atBooth": "참가업체 부스",
       "as": "예약자",
       "messageLabel": "어떤 이야기를 나누고 싶으세요?",
-      "messagePlaceholder": "예: 동자바 유통, 500개 견적",
+      "messagePlaceholder": "예: 동자바 유통, 500개 가격…",
       "messageHelp": "선택 사항. 주제가 분명하면 수락받기 쉽습니다.",
       "messageHelpRequired": "주최 측이 모든 방문객에게 작성을 요청합니다.",
       "addNote": "메모 추가",
@@ -712,6 +723,7 @@ export default {
       "group": "내 정보"
     },
     "signIn": {
+      "notEligibleNoTitle": "이 이메일의 티켓에는 비즈니스 미팅이 포함되지 않아요.",
       "forHolders": "티켓 소지자 전용입니다. 티켓의 이메일로 확인합니다.",
       "bookingAs": "{email}(으)로 예약 중.",
       "notYou": "본인이 아닌가요?",
@@ -729,7 +741,7 @@ export default {
       "wrongEmail": "이메일이 틀렸나요? 변경",
       "resend": "새 코드 보내기",
       "resendIn": "{time} 후 다시 보내기",
-      "codeInvalid": "코드가 맞지 않습니다. {count}번 남았습니다.",
+      "codeInvalid": "코드가 올바르지 않아요. {count}번 남았어요. | 코드가 올바르지 않아요. {count}번 남았어요.",
       "codeExpired": "코드가 만료되었습니다. 새 코드를 보내세요.",
       "tooMany": "시도가 너무 많습니다. 몇 분 후 다시 시도하세요.",
       "noTicketTitle": "티켓을 찾을 수 없습니다",
@@ -743,6 +755,8 @@ export default {
       "sessionEnded": "로그아웃되었습니다. 티켓 이메일을 다시 입력하세요."
     },
     "resume": {
+      "promoBodySignIn": "티켓으로 참가사에 미팅을 신청할 수 있어요. 아무 참가사 페이지에서나 티켓 이메일로 로그인하세요.",
+      "bodySignIn": "티켓 이메일로 로그인해 마무리하세요. 선택한 시간은 그대로 있어요.",
       "title": "{brand} 미팅 신청 이어서 하기",
       "body": "새 티켓으로 로그인했습니다. 고른 시간은 그대로 있습니다.",
       "cta": "계속",

@@ -119,3 +119,6 @@ export function meetingErrorText(err, t) {
   const first = data.errors ? Object.values(data.errors)[0]?.[0] : null;
   return first || data.message || t("meetings.errors.generic");
 }
+
+/** The exhibitor meetings page shares the Requests tab's live waiting count through this key. */
+export const MEETINGS_WAITING_KEY = Symbol("meetings-waiting");

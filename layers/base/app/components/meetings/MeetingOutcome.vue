@@ -3,7 +3,14 @@
   reason the API sends. Shared by the visitor's cards and the brand panel.
 -->
 <template>
-  <p v-if="text" class="text-muted-foreground text-sm tracking-tight">{{ text }}</p>
+  <div v-if="text || note" class="space-y-1.5">
+    <p v-if="text" class="text-muted-foreground text-sm tracking-tight">{{ text }}</p>
+    <!-- What the exhibitor or organizer wrote when they answered or cancelled. -->
+    <blockquote v-if="note" class="border-border border-l pl-3 text-sm tracking-tight">
+      <span class="text-muted-foreground">{{ $t("meetings.outcome.noteFrom", { who: noteFrom }) }}</span>
+      {{ note }}
+    </blockquote>
+  </div>
 </template>
 
 <script setup>
@@ -14,7 +21,20 @@ const props = defineProps({
   brandName: { type: String, default: "" },
 });
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+
+const note = computed(() => {
+  const m = props.meeting;
+  const fromOtherSide =
+    m.status === "accepted" ||
+    (m.status === "declined" && m.closed_reason === "declined") ||
+    ["cancelled_by_exhibitor", "cancelled_by_organizer"].includes(m.closed_reason);
+  return fromOtherSide ? m.response_note || "" : "";
+});
+
+const noteFrom = computed(() =>
+  props.meeting.closed_reason === "cancelled_by_organizer" ? t("meetings.outcome.organizer") : props.brandName || props.meeting.brand?.name || ""
+);
 
 const text = computed(() => {
   const m = props.meeting;
@@ -46,6 +66,6 @@ const text = computed(() => {
 });
 
 function meetingWhenShort(iso, tz) {
-  return `${meetingDay(iso, tz)} ${meetingClock(iso, tz)} ${meetingZone(tz)}`;
+  return `${meetingDay(iso, tz, locale.value)} ${meetingClock(iso, tz)} ${meetingZone(tz)}`;
 }
 </script>

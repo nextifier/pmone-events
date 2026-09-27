@@ -554,6 +554,8 @@ export default {
       "expired": "已过期"
     },
     "actions": {
+      "message": "发消息",
+      "takeTime": "选择 {time}",
       "declineInvitation": "拒绝",
       "findMore": "查找更多展商",
       "acceptInvitation": "接受",
@@ -612,6 +614,8 @@ export default {
       "blockPast": "{time} 已过申请截止时间。"
     },
     "outcome": {
+      "organizer": "主办方",
+      "noteFrom": "{who} 写道：",
       "invited": "{brand} 邀请你会面，请在 {deadline} 前回复。",
       "pending": "{brand} 需在 {deadline} 前回复，无论结果如何我们都会发邮件通知你。",
       "pendingNoDeadline": "等待 {brand} 回复，无论结果如何我们都会发邮件通知你。",
@@ -626,6 +630,12 @@ export default {
       "expired": "{brand} 未在截止前回复。"
     },
     "panel": {
+      "declineInviteBody": "{brand} 会收到你无法参加的通知。",
+      "declineInviteTitle": "拒绝此邀请？",
+      "changeConfirmedNoteAuto": "你的会面会改到新选的时间，原时间将开放给其他访客。",
+      "answerQuestions": "回答问题",
+      "profileRequired": "本活动要求访客先回答几个商务问题，才能申请会面。",
+      "theyWrote": "{brand} 写道：",
       "title": "与 {brand} 会面",
       "subtitle": "选择展会期间的时间。{brand} 会接受或拒绝，我们会通过邮件告诉你结果。",
       "subtitleAuto": "选择展会期间的时间。可预约的时间会立即确认。",
@@ -639,6 +649,7 @@ export default {
       "changePendingNote": "你的申请将改到所选时间。"
     },
     "request": {
+      "sending": "正在向 {brand} 发送申请…",
       "title": "申请会面",
       "titleBook": "预约会面",
       "titleChange": "更改时间",
@@ -649,7 +660,7 @@ export default {
       "where": "地点",
       "atBooth": "在对方展位",
       "messageLabel": "你想讨论什么？",
-      "messagePlaceholder": "例如：东爪哇的分销，500 件的报价",
+      "messagePlaceholder": "例如：华东地区分销、500 件的价格…",
       "messageHelp": "选填。话题清楚，展商更容易答应。",
       "messageHelpRequired": "主办方要求每位访客填写。",
       "addNote": "添加备注",
@@ -710,6 +721,7 @@ export default {
       "group": "我的"
     },
     "signIn": {
+      "notEligibleNoTitle": "该邮箱名下的门票不包含商务会面。",
       "forHolders": "仅限持票人，需用门票上的邮箱确认。",
       "bookingAs": "预约人：{email}。",
       "notYou": "不是你？",
@@ -727,7 +739,7 @@ export default {
       "wrongEmail": "邮箱错了？更改",
       "resend": "重新发送验证码",
       "resendIn": "{time} 后可重新发送",
-      "codeInvalid": "验证码不正确，还剩 {count} 次机会。",
+      "codeInvalid": "验证码不正确，还可尝试 {count} 次。 | 验证码不正确，还可尝试 {count} 次。",
       "codeExpired": "验证码已过期，请重新发送。",
       "tooMany": "尝试次数过多，请等几分钟再试。",
       "noTicketTitle": "未找到门票",
@@ -741,6 +753,8 @@ export default {
       "sessionEnded": "你已退出，请重新输入门票邮箱。"
     },
     "resume": {
+      "promoBodySignIn": "你的门票可以向展商申请会面。在任意展商页面用购票邮箱登录即可。",
+      "bodySignIn": "请用购票邮箱登录以完成申请，你选的时间仍然保留。",
       "title": "继续向 {brand} 申请会面",
       "body": "你已用新门票登录，之前选的时间仍然保留。",
       "cta": "继续",

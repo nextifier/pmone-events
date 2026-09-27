@@ -78,6 +78,23 @@
         </div>
       </div>
     </ResponsiveDialog>
+
+    <ResponsiveDialog v-model:open="declineOpen" :title="$t('meetings.panel.declineInviteTitle')">
+      <div v-if="declining" class="space-y-4 px-4 pt-5 pb-8 md:px-6 md:py-5">
+        <div class="space-y-1">
+          <h2 class="text-lg font-semibold tracking-tighter">{{ $t("meetings.panel.declineInviteTitle") }}</h2>
+          <p class="text-muted-foreground text-sm tracking-tight">
+            {{ $t("meetings.panel.declineInviteBody", { brand: declining.brand?.name }) }}
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-end gap-2">
+          <Button variant="outline" @click="declineOpen = false">{{ $t("meetings.cancel.keep") }}</Button>
+          <Button variant="destructive" :loading="busy === `decline:${declining.ulid}`" @click="confirmDecline">
+            {{ $t("meetings.actions.declineInvitation") }}
+          </Button>
+        </div>
+      </div>
+    </ResponsiveDialog>
   </div>
 </template>
 
@@ -98,7 +115,7 @@ const localePath = useLocalePath();
 const route = useRoute();
 const router = useRouter();
 const event = useEvent();
-const { visitor, load: loadVisitor, exchange, signOut: endSession } = useVisitorSession();
+const { visitor, load: loadVisitor, exchange, signOut: endSession, forget } = useVisitorSession();
 
 const state = ref("loading");
 const meetings = ref([]);
@@ -135,6 +152,7 @@ async function loadMeetings() {
     state.value = "ready";
     loadSuggestions();
   } catch (err) {
+    if (err?.statusCode === 401) forget();
     state.value = err?.statusCode === 401 ? "signed-out" : "error";
   }
 }
@@ -168,6 +186,12 @@ async function confirmCancel() {
     cancelOpen.value = false;
     toast.success(t("meetings.cancel.done"));
   } catch (err) {
+    if (err?.statusCode === 401) {
+      forget();
+      state.value = "signed-out";
+      cancelOpen.value = false;
+      return;
+    }
     toast.error(meetingErrorText({ data: err?.data?.data ?? err?.data }, t));
   } finally {
     busy.value = null;
@@ -175,12 +199,36 @@ async function confirmCancel() {
   }
 }
 
-async function answer(meeting, choice) {
+/** Declining an invitation tells the exhibitor, so it asks once first. */
+const declining = ref(null);
+const declineOpen = ref(false);
+
+function answer(meeting, choice) {
+  if (choice === "decline") {
+    declining.value = meeting;
+    declineOpen.value = true;
+    return;
+  }
+  return sendAnswer(meeting, choice);
+}
+
+async function confirmDecline() {
+  await sendAnswer(declining.value, "decline");
+  declineOpen.value = false;
+}
+
+async function sendAnswer(meeting, choice) {
   busy.value = `${choice}:${meeting.ulid}`;
   try {
     await $fetch(`/api/meetings/${eventSlug.value}/mine/${meeting.ulid}/${choice}`, { method: "POST" });
     toast.success(choice === "accept" ? t("meetings.request.bookedTitle") : t("meetings.invite.declinedByYou"));
   } catch (err) {
+    if (err?.statusCode === 401) {
+      forget();
+      state.value = "signed-out";
+      cancelOpen.value = false;
+      return;
+    }
     toast.error(meetingErrorText({ data: err?.data?.data ?? err?.data }, t));
   } finally {
     busy.value = null;
@@ -194,6 +242,12 @@ async function takeSuggestion(meeting, key) {
     await $fetch(`/api/meetings/${eventSlug.value}/mine/${meeting.ulid}/accept-suggestion`, { method: "POST", body: { key } });
     toast.success(t("meetings.request.bookedTitle"));
   } catch (err) {
+    if (err?.statusCode === 401) {
+      forget();
+      state.value = "signed-out";
+      cancelOpen.value = false;
+      return;
+    }
     toast.error(meetingErrorText({ data: err?.data?.data ?? err?.data }, t));
   } finally {
     busy.value = null;

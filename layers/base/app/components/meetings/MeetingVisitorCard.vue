@@ -19,7 +19,7 @@
     </div>
 
     <div class="space-y-1 text-sm tracking-tight">
-      <p class="font-medium tabular-nums">{{ meetingWhen(meeting) }}</p>
+      <p class="font-medium tabular-nums">{{ meetingWhen(meeting, locale) }}</p>
       <p v-if="meeting.where" class="text-muted-foreground">{{ meeting.where }}</p>
     </div>
 
@@ -36,14 +36,16 @@
           variant="outline"
           size="sm"
           :loading="busy === key"
+          :aria-label="$t('meetings.actions.takeTime', { time: `${meetingDay(key, meeting.timezone, locale)} ${suggestedRange(key)}` })"
           @click="$emit('take-suggestion', meeting, key)"
         >
-          {{ meetingDay(key, meeting.timezone) }} · {{ suggestedRange(key) }}
+          {{ meetingDay(key, meeting.timezone, locale) }} · {{ suggestedRange(key) }}
         </Button>
       </div>
     </div>
 
     <blockquote v-if="meeting.awaits_visitor && meeting.message" class="border-border border-l pl-3 text-sm tracking-tight">
+      <span class="text-muted-foreground">{{ $t("meetings.panel.theyWrote", { brand: meeting.brand?.name }) }}</span>
       {{ meeting.message }}
     </blockquote>
 
@@ -87,7 +89,7 @@ const props = defineProps({
 });
 defineEmits(["cancel", "take-suggestion", "message", "answer"]);
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const actions = computed(() => {
   const m = props.meeting;
@@ -95,7 +97,8 @@ const actions = computed(() => {
   const open = (m.status === "pending" && !m.awaits_visitor) || m.status === "accepted";
 
   if (open && m.can_change && props.brandPath) {
-    list.push({ key: "change", label: t("meetings.actions.changeTime"), icon: "hugeicons:calendar-03", to: props.brandPath });
+    // Lands on the exhibitor's page with the time picker already open.
+    list.push({ key: "change", label: t("meetings.actions.changeTime"), icon: "hugeicons:calendar-03", to: `${props.brandPath}?change=${m.ulid}` });
   }
   if (m.status === "accepted" && props.canMessage && m.contact_user_id && m.event?.organization_id) {
     list.push({ key: "message", label: t("meetings.actions.message"), icon: "hugeicons:bubble-chat", emit: "message" });

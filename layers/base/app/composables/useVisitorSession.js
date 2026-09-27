@@ -44,6 +44,12 @@ export function useVisitorSession() {
     return visitor.value;
   }
 
+  /** The server dropped the session (a 401): forget it here too. */
+  function forget() {
+    visitor.value = null;
+    loaded.value = true;
+  }
+
   async function signOut() {
     try {
       await $fetch("/api/visitor/session", { method: "DELETE" });
@@ -52,5 +58,5 @@ export function useVisitorSession() {
     }
   }
 
-  return { visitor, loaded, load, sendCode, verify, exchange, signOut };
+  return { visitor, loaded, load, sendCode, verify, exchange, signOut, forget };
 }

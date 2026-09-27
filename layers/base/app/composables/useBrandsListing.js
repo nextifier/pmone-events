@@ -49,6 +49,10 @@ export const useBrandsListing = (opts = {}) => {
   const meetingsOnly = ref(useRoute().query.meetings === "1");
   const { ids: meetingBrandIds, takesMeetings } = useMeetingBrands();
   const meetingsAvailable = computed(() => (meetingBrandIds.value ?? []).length > 0);
+  // The filter applies only once the list of exhibitors taking meetings has
+  // arrived and isn't empty: never an empty page while it loads, never a
+  // filter nobody can see or switch off when meetings are closed.
+  const meetingsFilterOn = computed(() => meetingsOnly.value && meetingsAvailable.value);
 
   const toggleCategoryFilter = (name, checked) => {
     if (checked) {
@@ -71,7 +75,7 @@ export const useBrandsListing = (opts = {}) => {
   };
 
   const totalActiveFilters = computed(
-    () => selectedCategories.value.length + selectedEvents.value.length + (meetingsOnly.value ? 1 : 0),
+    () => selectedCategories.value.length + selectedEvents.value.length + (meetingsFilterOn.value ? 1 : 0),
   );
 
   // Reads the debounced keyword, the one filterBrands() applies, so "Clear
@@ -299,7 +303,7 @@ export const useBrandsListing = (opts = {}) => {
     const normalizedSearch = search.replace(/[^\w\s]/gi, "").replace(/\s/g, "");
     const cats = selectedCategories.value;
     const events = selectedEvents.value;
-    const meetings = meetingsOnly.value;
+    const meetings = meetingsFilterOn.value;
     if (!search && cats.length === 0 && events.length === 0 && !meetings) return brands;
 
     return brands.filter((brand) => {

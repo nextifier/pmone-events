@@ -12,7 +12,7 @@
           {{ mode === "resume" ? $t("meetings.resume.title", { brand: intentBrand }) : $t("meetings.resume.promoTitle") }}
         </p>
         <p class="text-muted-foreground text-sm tracking-tight">
-          {{ mode === "resume" ? $t("meetings.resume.body") : $t("meetings.resume.promoBody") }}
+          {{ bodyText }}
         </p>
       </div>
       <Button :to="target" class="shrink-0">
@@ -38,6 +38,25 @@ const { exchange } = useVisitorSession();
 
 const mode = ref(null);
 const saved = ref(null);
+const signedIn = ref(false);
+const opensAt = ref(null);
+const zone = ref("Asia/Jakarta");
+const { t, locale } = useI18n();
+
+// What the banner promises matches what happened: signed in or not, and
+// whether requests are open yet.
+const bodyText = computed(() => {
+  if (opensAt.value) {
+    return t("meetings.panel.notOpen", { date: meetingWhenAt(opensAt.value) });
+  }
+  if (mode.value === "resume") return signedIn.value ? t("meetings.resume.body") : t("meetings.resume.bodySignIn");
+  return signedIn.value ? t("meetings.resume.promoBody") : t("meetings.resume.promoBodySignIn");
+});
+
+function meetingWhenAt(iso) {
+  const tz = zone.value;
+  return `${meetingDay(iso, tz, locale.value)} ${meetingClock(iso, tz)} ${meetingZone(tz)}`;
+}
 
 const intentBrand = computed(() => saved.value?.brand_name || "");
 const target = computed(() => {
@@ -45,7 +64,7 @@ const target = computed(() => {
     const slot = saved.value.slot ? `?slot=${encodeURIComponent(saved.value.slot)}` : "";
     return `${localePath(`/brands/${saved.value.brand_slug}`)}${slot}`;
   }
-  return localePath("/brands");
+  return `${localePath("/brands")}?meetings=1`;
 });
 
 onMounted(async () => {
@@ -62,12 +81,20 @@ onMounted(async () => {
   }
   if (!config || config.window === "closed") return;
 
+  let visitor = null;
   try {
-    await exchange(slug, { order_token: props.orderToken || null, order_ulid: props.orderUlid || null });
+    visitor = await exchange(slug, { order_token: props.orderToken || null, order_ulid: props.orderUlid || null });
   } catch {
     // Still useful without the session: the visitor signs in with their email.
   }
+  signedIn.value = !!visitor;
 
+  // A ticket that doesn't include meetings gets no invitation to book them.
+  const status = visitor?.eligibility?.status;
+  if (status && status !== "eligible") return;
+
+  zone.value = config.timezone || zone.value;
+  if (config.window === "not_open" && config.opens_at) opensAt.value = config.opens_at;
   mode.value = saved.value?.brand_slug ? "resume" : "promo";
 });
 </script>
