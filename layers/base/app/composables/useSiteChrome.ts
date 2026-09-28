@@ -1,5 +1,6 @@
 import { useEventListener, useMediaQuery } from "@vueuse/core";
 import type { MaybeRefOrGetter } from "vue";
+import { createScrollHideTracker, maxScrollY, scrollYOf } from "../components/ui/bottom-nav/scroll-hide";
 
 /**
  * The phone tab bar slides away while the reader scrolls down and comes back
@@ -8,14 +9,10 @@ import type { MaybeRefOrGetter } from "vue";
  * viewport's `interactive-widget=resizes-content` would otherwise stand the
  * bar on top of the keyboard.
  *
- * Phones only (below lg, where BottomNav hides itself anyway).
+ * Phones only (below lg, where BottomNav hides itself anyway). When it hides
+ * and shows is BottomNav's rule (components/ui/bottom-nav/scroll-hide.ts),
+ * shared with every other bar.
  */
-
-/** Near the top the bar always shows: there is nothing under it to reveal. */
-const TOP_ZONE_PX = 56;
-
-/** Distance travelled in one direction before the bar reacts, so a wobbling thumb does not flip it. */
-const TRAVEL_PX = 8;
 
 /**
  * Motion is transitions-dev 07 (panel reveal): slower in than out, the same
@@ -46,12 +43,11 @@ export function installSiteChromeScroll(enabled: MaybeRefOrGetter<boolean>): voi
   const active = computed(() => isPhone.value && toValue(enabled));
 
   const scrolledAway = ref(false);
-  let lastY = 0;
-  let travel = 0;
+  const scrollHide = createScrollHideTracker();
 
   function reveal(): void {
     scrolledAway.value = false;
-    travel = 0;
+    scrollHide.reset();
   }
 
   /** A menu open in the header (language, the drawer menu) holds the bar on screen too. */
@@ -69,23 +65,15 @@ export function installSiteChromeScroll(enabled: MaybeRefOrGetter<boolean>): voi
     import.meta.client ? window : null,
     "scroll",
     () => {
-      const y = Math.max(0, window.scrollY);
-      const delta = y - lastY;
-      lastY = y;
+      const next = scrollHide.update(scrollYOf(window), maxScrollY(window));
 
-      if (!active.value || y <= TOP_ZONE_PX) {
+      if (!active.value) {
         reveal();
         return;
       }
-      if (delta === 0) {
-        return;
-      }
-
-      travel = Math.sign(delta) === Math.sign(travel) ? travel + delta : delta;
-
-      if (travel >= TRAVEL_PX && !headerIsEngaged()) {
+      if (next === true && !headerIsEngaged()) {
         scrolledAway.value = true;
-      } else if (travel <= -TRAVEL_PX) {
+      } else if (next === false) {
         scrolledAway.value = false;
       }
     },

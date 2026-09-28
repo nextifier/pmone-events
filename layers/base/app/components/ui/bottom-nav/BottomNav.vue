@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils";
-import { useScroll } from "@vueuse/core";
+import { useEventListener } from "@vueuse/core";
 import {
   computed,
   nextTick,
@@ -25,6 +25,7 @@ import {
   type BottomNavSize,
   type BottomNavVariant,
 } from "./context";
+import { createScrollHideTracker, maxScrollY, scrollYOf } from "./scroll-hide";
 
 const props = withDefaults(
   defineProps<{
@@ -361,26 +362,35 @@ function resolveScrollSource(): HTMLElement | Window | null {
 }
 
 const isHidden = ref(false);
+const scrollHide = createScrollHideTracker();
 
-const { y: scrollY, directions } = useScroll(resolvedScrollSource, {
-  throttle: 50,
-});
+// Unthrottled on purpose: browsers already deliver scroll once per frame, and
+// a timer-based throttle drops the lone event a short flick produces.
+useEventListener(
+  resolvedScrollSource,
+  "scroll",
+  () => {
+    const source = resolvedScrollSource.value;
+    if (!source) {
+      return;
+    }
+    const next = scrollHide.update(scrollYOf(source), maxScrollY(source));
+    if (next !== null) {
+      isHidden.value = next;
+    }
+  },
+  { passive: true },
+);
 
-watch([() => directions.top, () => directions.bottom, scrollY], () => {
-  if (!props.hideOnScroll) {
-    isHidden.value = false;
-    return;
-  }
-  if (scrollY.value <= 8) {
-    isHidden.value = false;
-    return;
-  }
-  if (directions.bottom) {
-    isHidden.value = true;
-  } else if (directions.top) {
-    isHidden.value = false;
-  }
-});
+watch(
+  () => props.hideOnScroll,
+  (hideOnScroll) => {
+    if (!hideOnScroll) {
+      isHidden.value = false;
+      scrollHide.reset();
+    }
+  },
+);
 
 onMounted(() => {
   resolvedScrollSource.value = resolveScrollSource();
