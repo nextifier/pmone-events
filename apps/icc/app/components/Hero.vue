@@ -8,7 +8,8 @@
     >
       <div class="flex flex-col items-start gap-y-1.5">
         <span
-          v-if="eventStatus === 'upcoming'"
+          v-if="!eventStatus || eventStatus === 'upcoming'"
+          :class="{ invisible: !eventStatus }"
           class="font-semibold tracking-tighter"
           >{{ content.countdownLabel }}</span
         >

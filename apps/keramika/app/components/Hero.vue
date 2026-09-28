@@ -19,7 +19,11 @@
           class="relative z-20 order-first flex h-full flex-col justify-between gap-y-6 sm:gap-y-12 md:pt-6 lg:pb-10 2xl:pt-10 2xl:pb-16"
         >
           <div class="flex flex-col items-start gap-1">
-            <span v-if="eventStatus === 'upcoming'" class="tracking-tight">{{
+            <span
+              v-if="!eventStatus || eventStatus === 'upcoming'"
+              :class="{ invisible: !eventStatus }"
+              class="tracking-tight"
+              >{{
               content.countdownLabel
             }}</span>
 
