@@ -65,6 +65,8 @@ export default {
     latestUpdates: "最新情報",
   },
   brands: {
+    viewDetails: "詳細を見る",
+    moreOptions: "{name}のその他のオプション",
     conjunctionExplore:
       "同じチケットで{eventName}のブランドもお楽しみいただけます。",
     conjunctionVisit: "{eventName}のブランドページを開く",

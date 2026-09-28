@@ -65,6 +65,8 @@ export default {
     latestUpdates: "최신 소식",
   },
   brands: {
+    viewDetails: "자세히 보기",
+    moreOptions: "{name} 추가 옵션",
     conjunctionExplore: "같은 티켓으로 {eventName}의 브랜드까지 둘러보세요.",
     conjunctionVisit: "{eventName} 브랜드 페이지 열기",
     emptyTitle: "브랜드 리스트 곧 공개",

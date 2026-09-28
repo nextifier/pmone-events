@@ -1,9 +1,13 @@
 import { h } from "vue";
+import { TableRowActions, TableRowActionsItem } from "../components/ui/table-data";
 import { boothSortValue, findInstagram } from "./useBrandHelpers";
 
 export const useBrandTableColumns = (options = {}) => {
   const { $dayjs } = useNuxtApp();
-  const { showProjectColumn, nameCell } = options;
+  const { showProjectColumn, nameCell, brandPath } = options;
+  const { t } = useI18n();
+  // Same source the brand page and the grid cards use for "takes meetings".
+  const { takesMeetings } = useMeetingBrands();
 
   const isProjectColumnVisible = () =>
     typeof showProjectColumn === "boolean"
@@ -122,6 +126,29 @@ export const useBrandTableColumns = (options = {}) => {
         },
       },
     ];
+
+    // The row's menu, the table's counterpart of the card's ellipsis.
+    if (typeof brandPath === "function") {
+      base.push({
+        id: "actions",
+        header: () => h("span", { class: "sr-only" }, "Actions"),
+        size: 48,
+        enableSorting: false,
+        enableHiding: false,
+        cell: ({ row }) => {
+          const brand = row.original;
+          const path = brandPath(brand);
+          return h(TableRowActions, { label: t("brands.moreOptions", { name: brand.brand_name }) }, {
+            default: () => [
+              h(TableRowActionsItem, { to: path, icon: "hugeicons:view" }, () => t("brands.viewDetails")),
+              takesMeetings(brand.brand_event_id)
+                ? h(TableRowActionsItem, { to: { path, query: { meet: "1" } }, icon: "hugeicons:calendar-add-01" }, () => t("meetings.actions.request"))
+                : null,
+            ].filter(Boolean),
+          });
+        },
+      });
+    }
 
     if (!isProjectColumnVisible()) return base;
 

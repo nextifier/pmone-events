@@ -65,6 +65,8 @@ export default {
     "latestUpdates": "Latest updates"
   },
   "brands": {
+    "viewDetails": "View details",
+    "moreOptions": "More options for {name}",
     "conjunctionExplore": "Explore brands from {eventName} with your same ticket.",
     "conjunctionVisit": "Open the {eventName} brands page",
     "emptyTitle": "Brand list coming soon",

@@ -264,6 +264,8 @@ const props = defineProps({
   brandEventId: { type: [String, Number], default: null },
   /** A slot key to preselect, e.g. when finishing a request after checkout. */
   initialSlot: { type: String, default: null },
+  /** Open the dialog once loaded, for a "Request meeting" link from the brand list. */
+  autoOpen: { type: Boolean, default: false },
 });
 
 const { t, locale } = useI18n();
@@ -598,5 +600,6 @@ onMounted(async () => {
   await load();
   // Back from checkout with a time already chosen: straight to the picker.
   if (props.initialSlot && selectedKey.value && !myOpen.value) panelOpen.value = true;
+  else if (props.autoOpen && canOpen.value) panelOpen.value = true;
 });
 </script>

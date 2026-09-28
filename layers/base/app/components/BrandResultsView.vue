@@ -257,6 +257,7 @@ const brandNameCell = (ctx) => {
 const { columns: brandTableColumns } = useBrandTableColumns({
   showProjectColumn: computed(() => props.showProjectColumn),
   nameCell: brandNameCell,
+  brandPath: (brand) => localePath(`${props.brandBasePath}/${brand.slug}`),
 });
 
 const groupedBrandsAt = (idx) => props.groupedFilteredSorted.get(idx);

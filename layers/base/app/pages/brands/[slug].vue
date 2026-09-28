@@ -178,6 +178,7 @@
               :brand-name="brand.brand_name"
               :brand-event-id="brand.brand_event_id"
               :initial-slot="typeof route.query.slot === 'string' ? route.query.slot : null"
+              :auto-open="route.query.meet === '1'"
               class="mt-8"
             />
           </div>

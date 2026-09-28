@@ -62,25 +62,31 @@
             />
           </tr>
 
-          <tr
+          <!-- Each row is its own right-click (long press on touch) trigger,
+               as in TableData: the TableRowActions in the last column fills it,
+               and a row without one keeps the browser's menu. -->
+          <TableRowContextMenu
             v-for="vRow in virtualRows"
             :key="rows[vRow.index]?.id ?? vRow.index"
-            :data-index="vRow.index"
-            :ref="measureElement"
-            class="hover:bg-muted/50 group border-b tracking-tight"
           >
-            <td
-              v-for="cell in rows[vRow.index]?.getVisibleCells() || []"
-              :key="cell.id"
-              :style="{ width: `${cell.column.getSize()}px` }"
-              class="px-2 py-2.5 align-middle whitespace-nowrap"
+            <tr
+              :data-index="vRow.index"
+              :ref="measureElement"
+              class="hover:bg-muted/50 data-menu-open:bg-muted/50 group border-b tracking-tight"
             >
-              <FlexRender
-                :render="cell.column.columnDef.cell"
-                :props="cell.getContext()"
-              />
-            </td>
-          </tr>
+              <td
+                v-for="cell in rows[vRow.index]?.getVisibleCells() || []"
+                :key="cell.id"
+                :style="{ width: `${cell.column.getSize()}px` }"
+                class="px-2 py-2.5 align-middle whitespace-nowrap"
+              >
+                <FlexRender
+                  :render="cell.column.columnDef.cell"
+                  :props="cell.getContext()"
+                />
+              </td>
+            </tr>
+          </TableRowContextMenu>
 
           <tr v-if="paddingBottom > 0" aria-hidden="true">
             <td
@@ -114,6 +120,7 @@ import {
   useTable,
 } from "@tanstack/vue-table";
 import { useWindowVirtualizer } from "@tanstack/vue-virtual";
+import TableRowContextMenu from "./ui/table-data/TableRowContextMenu.vue";
 
 const props = defineProps({
   data: { type: Array, default: () => [] },

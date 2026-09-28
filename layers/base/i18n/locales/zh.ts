@@ -65,6 +65,8 @@ export default {
     latestUpdates: "最新动态",
   },
   brands: {
+    viewDetails: "查看详情",
+    moreOptions: "{name} 的更多选项",
     conjunctionExplore: "凭同一张门票，畅游 {eventName} 的精彩 Brand。",
     conjunctionVisit: "打开 {eventName} 的 Brand 页面",
     emptyTitle: "品牌名单即将公布",

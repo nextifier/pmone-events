@@ -65,6 +65,8 @@ export default {
     latestUpdates: "Update terbaru",
   },
   brands: {
+    viewDetails: "Lihat detail",
+    moreOptions: "Opsi lainnya untuk {name}",
     conjunctionExplore:
       "Jelajahi brand dari {eventName} dengan tiket yang sama.",
     conjunctionVisit: "Buka halaman brand {eventName}",
