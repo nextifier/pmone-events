@@ -379,7 +379,7 @@ const autoplayProgressVisible = computed(
     <div class="t-collapse" :data-open="dataOpen">
       <div>
         <div
-          class="t-panel-slide"
+          class="t-panel-slide pb-4 sm:pb-5"
           :data-open="dataOpen"
           :style="[overlayStyle, { '--panel-translate-y': '1rem' }]"
         >
@@ -401,7 +401,7 @@ const autoplayProgressVisible = computed(
             </slot>
           </div>
 
-          <div v-if="showThumbnails" class="px-2 pt-2 pb-3 sm:pb-4">
+          <div v-if="showThumbnails" class="px-2 pt-2">
             <slot name="thumbnails">
               <LightboxThumbnails />
             </slot>

@@ -5,9 +5,6 @@
       :show-thumbnails="lightboxItems.length > 1"
       :alt="''"
     >
-    <template #caption>
-      <AdCaption />
-    </template>
     <template #trigger="{ openAt }">
       <Carousel
         @init-api="setApi"
@@ -31,7 +28,7 @@
           <CarouselItem
             v-for="(item, index) in displayItems"
             :key="index"
-            class="basis-full pl-2"
+            class="grid basis-full items-center pl-2"
           >
             <component
               :is="item.cta?.link ? NuxtLink : 'div'"
@@ -81,52 +78,13 @@
               </div>
             </component>
 
-            <CardNotch
-              v-else-if="item.link"
-              size="2.5rem"
-              gap="5px"
-              radius="1rem"
-              border-color="var(--color-border)"
-              card-bg="var(--color-muted)"
-              body-class="overflow-hidden outline-inside"
-            >
-              <button
-                type="button"
-                :class="['block w-full cursor-zoom-in', aspectClass(item)]"
-                :aria-label="item.adImage.alt || 'Open banner'"
-                @click="openAt(adIndexFor(index))"
-              >
-                <img
-                  :src="item.adImage.src"
-                  :srcset="item.adImage.srcset"
-                  sizes="(min-width: 1280px) 33vw, 100vw"
-                  :alt="item.adImage.alt ?? ''"
-                  loading="lazy"
-                  decoding="async"
-                  class="size-full object-cover"
-                />
-              </button>
-              <template #notch>
-                <a
-                  :href="item.link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  :aria-label="`Open ${item.adImage.alt || 'banner'} link`"
-                  class="bg-muted text-foreground hover:bg-border border-border flex size-full items-center justify-center rounded-full border"
-                  @click="trackClick(item.id, item.adImage.alt || 'banner')"
-                >
-                  <Icon name="lucide:arrow-up-right" class="size-4" />
-                </a>
-              </template>
-            </CardNotch>
-
             <div
               v-else
-              class="outline-inside bg-muted/70 relative isolate overflow-hidden rounded-lg sm:rounded-2xl"
+              class="bg-muted after:outline-inside relative isolate overflow-hidden rounded-lg after:pointer-events-none after:absolute after:inset-0 after:z-10 after:rounded-[inherit] sm:rounded-2xl"
             >
               <button
                 type="button"
-                :class="['block w-full cursor-zoom-in', aspectClass(item)]"
+                :class="['relative block w-full cursor-zoom-in', aspectClass(item)]"
                 :aria-label="item.adImage.alt || 'Open banner'"
                 @click="openAt(adIndexFor(index))"
               >
@@ -144,8 +102,23 @@
           </CarouselItem>
         </CarouselContent>
 
-        <div class="mt-2.5 flex justify-end">
-          <ButtonGroup>
+        <div class="mt-2.5 flex items-center justify-between gap-2">
+          <Transition name="t-iswap" mode="out-in">
+            <Button
+              v-if="currentAdLink"
+              :key="currentItem.id"
+              variant="link"
+              size="sm"
+              :to="currentAdLink"
+              class="h-8 min-w-0 px-0"
+              @click="trackClick(currentItem.id, currentItem.adImage.alt || 'banner')"
+            >
+              <span class="truncate">Visit {{ currentAdHost }}</span>
+              <Icon name="lucide:arrow-up-right" class="size-4 shrink-0" aria-hidden="true" />
+            </Button>
+          </Transition>
+
+          <ButtonGroup class="ml-auto">
             <Button
               variant="outline"
               size="iconSm"
@@ -193,39 +166,24 @@
 </template>
 
 <script setup>
-import { defineComponent, h } from "vue";
 import Autoplay from "embla-carousel-autoplay";
-import { Lightbox, useLightbox } from "./ui/lightbox";
+import { Lightbox } from "./ui/lightbox";
 
 defineOptions({ inheritAttrs: false });
 
 const NuxtLink = resolveComponent("NuxtLink");
 const { trackImpression, trackClick } = useBannerTracking();
 
-const AdCaption = defineComponent({
-  name: "AdCaption",
-  setup() {
-    const { current } = useLightbox();
-    return () => {
-      const caption = current.value?.caption || "";
-      if (!caption) return null;
-      return h(
-        "p",
-        {
-          class:
-            "pointer-events-none mx-auto max-w-3xl px-4 text-center text-sm tracking-tight text-white/85 sm:text-base",
-        },
-        caption,
-      );
-    };
-  },
-});
-
 const emblaApi = ref(null);
 const isPlaying = ref(false);
 
+const selectedIndex = ref(0);
+
 const setApi = (api) => {
   emblaApi.value = api;
+  selectedIndex.value = api.selectedScrollSnap();
+  emblaApi.value.on("select", syncSelectedIndex);
+  emblaApi.value.on("reInit", syncSelectedIndex);
 
   // Impression tracking: count the banner shown on each slide (deduped per id).
   // The initial / post-rotation slide-0 impression is fired by the displayItems
@@ -346,6 +304,25 @@ const rotateAds = (list, offset) => {
 };
 
 const displayItems = computed(() => rotateAds(visibleItems.value, rotationOffset.value));
+
+function syncSelectedIndex() {
+  selectedIndex.value = emblaApi.value?.selectedScrollSnap() ?? 0;
+}
+
+// The ad on the current slide opens its advertiser link from the control row, so
+// the link never sits on top of the ad artwork.
+const currentItem = computed(() => displayItems.value[selectedIndex.value]);
+const currentAdLink = computed(() =>
+  currentItem.value?.adImage ? currentItem.value.link : null,
+);
+
+const currentAdHost = computed(() => {
+  try {
+    return new URL(currentAdLink.value).hostname.replace(/^www\./, "");
+  } catch {
+    return "website";
+  }
+});
 
 // Track an impression for the banner on the currently selected carousel slide.
 function trackCurrentImpression() {
