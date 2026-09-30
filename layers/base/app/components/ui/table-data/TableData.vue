@@ -1017,6 +1017,15 @@ const debouncedSearch = useDebounceFn((value) => {
   table.setPageIndex(0);
 }, 300);
 
+// "Clear filters" resets the table state, not the input: without this the box
+// kept the old term while the rows no longer matched it.
+watch(
+  () => columnFilters.value.find((f) => f.id === props.searchColumn)?.value,
+  (now, before) => {
+    if (before && !now) searchValue.value = "";
+  }
+);
+
 const handleSearchInput = (event) => {
   searchValue.value = event.target.value;
   debouncedSearch(event.target.value);
