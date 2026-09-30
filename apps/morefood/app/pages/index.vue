@@ -8,9 +8,9 @@
     <LazyPartnerships />
     <LazyVisitorCta />
     <LazyMediaCoveragesSlider />
-    <!-- <LazyCredits
-           class="container flex flex-col items-center text-center"
-         /> -->
+    <LazyCredits
+      class="container flex flex-col items-center text-center"
+    />
     <TextFit
       tag="span"
       text="Meet. Greet. Eat."

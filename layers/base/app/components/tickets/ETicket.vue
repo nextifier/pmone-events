@@ -58,7 +58,11 @@ const sessionLabel = computed(() => {
   if (!session?.label) return "";
 
   const time = formatSessionTime(session.starts_at, session.ends_at);
-  return time ? `${resolveLabel(session.label)} · ${time}` : resolveLabel(session.label);
+  // "Seminar" is usually the tier again, and the tier already has its own
+  // chip on this ticket; saying it twice pushed the date onto a second line.
+  const label = resolveLabel(session.label);
+  const named = label && label.toLowerCase() !== tierLabel.value.toLowerCase() ? label : "";
+  return [named, time].filter(Boolean).join(" · ");
 });
 
 // Room and host go on their own line rather than into the chip above: the
@@ -75,9 +79,22 @@ const sessionDetail = computed(() => {
 
 function formatSessionTime(start, end) {
   if (!start) return "";
+  // Jakarta times wherever the holder opens the ticket, like the listing.
   const fmt = (value) =>
-    new Date(value).toLocaleTimeString(locale.value, { hour: "2-digit", minute: "2-digit" });
-  return end ? `${fmt(start)}–${fmt(end)}` : fmt(start);
+    new Intl.DateTimeFormat(locale.value, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Jakarta",
+    }).format(new Date(value));
+  const date = new Intl.DateTimeFormat(locale.value, {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    timeZone: "Asia/Jakarta",
+  }).format(new Date(start));
+  // The date too: on a four-day event the time alone does not say which day.
+  return `${date} · ${fmt(start)} - ${end ? fmt(end) : t("rundown.finish")}`;
 }
 
 // The phase this seat was bought under ("Pre-registration"). The API already

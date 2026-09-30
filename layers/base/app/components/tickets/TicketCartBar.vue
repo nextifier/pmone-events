@@ -44,6 +44,20 @@ const ticketFor = (id) =>
     ? (props.ticketsById.get(id) ?? null)
     : (props.ticketsById[id] ?? null);
 
+// Every line with its ticket, so each add-on can be checked against the
+// entry tickets beside it.
+const linesWithTickets = computed(() =>
+  cart.mergedLines.map((l) => ({ item: l.item, ticket: ticketForLine(ticketFor(l.ticket_id), l) })),
+);
+
+function dayNoticeFor(ticket, item) {
+  const notice = addOnDayNotice(ticket, item, linesWithTickets.value);
+  if (!notice) return "";
+  return notice.kind === "uncovered"
+    ? t("tickets.addOnDayUncovered", { session: notice.sessionDay, entry: notice.entryDays })
+    : t("tickets.addOnNeedsEntry", { session: notice.sessionDay });
+}
+
 const lines = computed(() =>
   cart.mergedLines.map((l) => {
     const ticket = ticketForLine(ticketFor(l.ticket_id), l);
@@ -66,6 +80,7 @@ const lines = computed(() =>
         cartLineSubLabel(ticket, l.item) ||
         (lineMissingDay(ticket, l.item) ? t("tickets.dayMissing") : ""),
       missingDay: lineMissingDay(ticket, l.item),
+      dayNotice: dayNoticeFor(ticket, l.item),
       priceLabel: lineTotal > 0 ? fmtIdr(lineTotal) : t("tickets.free"),
     };
   }),
@@ -301,6 +316,18 @@ const visible = computed(
                       "
                     >
                       {{ line.subLabel }}
+                    </p>
+                    <!-- The order summary's day warning. The bar is the
+                         inverted surface, where the warning token (tuned for
+                         the page background) has too little contrast, so it
+                         takes a literal tone flipped per theme. Wraps: a
+                         truncated warning is one nobody finishes reading.
+                         No icon, so it keeps the title's left edge. -->
+                    <p
+                      v-if="line.dayNotice"
+                      class="text-sm tracking-tight text-yellow-400 dark:text-yellow-700"
+                    >
+                      {{ line.dayNotice }}
                     </p>
                     <!-- Same note as the order summary; the bar sits on the
                          inverted surface, so it takes that surface's text

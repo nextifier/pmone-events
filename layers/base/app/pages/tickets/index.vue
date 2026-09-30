@@ -291,6 +291,7 @@
 <script setup>
 import { useIntersectionObserver } from "@vueuse/core";
 import { useTicketCartStore } from "../../stores/ticketCart";
+import { scrollHashIntoPlace } from "../../utils/scrollToHash";
 
 const { title, description } = usePageMeta("ticket");
 defineOptions({
@@ -520,6 +521,16 @@ const tabTicketsRef = computed(() => tabContentRefs.value["tickets"]);
 
 const activatedTabs = ref({
   tickets: true,
+});
+
+// A rundown item's Register button, pressed while the rundown is open in its
+// tab here. The card lives in the Tickets tab, hidden until that tab opens.
+const { focus: ticketCardFocus } = useTicketCardLink();
+watch(ticketCardFocus, async (request) => {
+  if (!request?.slug) return;
+  activeTab.value = "tickets";
+  await nextTick();
+  scrollHashIntoPlace(`#${CSS.escape(request.slug)}`, "smooth");
 });
 
 watch(activeTab, (newTabValue) => {

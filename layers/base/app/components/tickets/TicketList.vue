@@ -135,15 +135,20 @@ const mergedTickets = computed(() => {
 
   if (!appliedAccessCode.value || !exclusiveDisplay.value) return all;
 
-  // Entry tickets and add-ons alike: an organizer who wants an add-on to stay
-  // visible ticks it under "Unlocks tickets". Anything already in the cart and
-  // now hidden is dropped by reconcileCart(), which watches this computed.
-  const only = all.filter((tk) => unlockedIds.value.includes(tk.id));
+  // Only the entry tickets are narrowed down. An invitation decides how a guest
+  // gets in, not which seminars they may attend, so every add-on the listing
+  // carries stays on the page. Ticking an add-on under "Unlocks tickets" instead
+  // would count it against the code's per-order limit, and an invitation for one
+  // free pass would then refuse the pass plus a seminar. Anything already in the
+  // cart and now hidden is dropped by reconcileCart(), which watches this computed.
+  const unlocked = all.filter((tk) => unlockedIds.value.includes(tk.id));
 
   // If the unlocked ticket has since been switched off there is nothing left to
   // show, and an exclusive code would turn the page into a bare "no tickets yet".
   // Fall back to the full listing rather than strand the guest on a dead end.
-  return only.length ? only : all;
+  if (!unlocked.length) return all;
+
+  return all.filter((tk) => tk.kind === "add_on" || unlockedIds.value.includes(tk.id));
 });
 
 const entryTickets = computed(() =>
@@ -1171,6 +1176,7 @@ const ticketsById = computed(() => {
             v-for="ticket in entryTickets"
             :id="ticket.slug"
             :key="ticket.id"
+            class="scroll-mt-[calc(var(--navbar-height-mobile)*2+1rem)] lg:scroll-mt-[calc(var(--navbar-height-desktop)*2+1rem)]"
           >
             <div
               class="flex grow flex-col px-4 pt-4 pb-4 sm:px-6 sm:pt-6 sm:pb-6"
@@ -1566,6 +1572,7 @@ const ticketsById = computed(() => {
             v-for="ticket in addOnTickets"
             :id="ticket.slug"
             :key="ticket.id"
+            class="scroll-mt-[calc(var(--navbar-height-mobile)*2+1rem)] lg:scroll-mt-[calc(var(--navbar-height-desktop)*2+1rem)]"
           >
             <div
               class="flex grow flex-col px-4 pt-4 pb-4 sm:px-6 sm:pt-6 sm:pb-6"

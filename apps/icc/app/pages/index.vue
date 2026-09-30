@@ -13,7 +13,7 @@
       </template>
     </LazyVisitorCta>
     <!-- <LazyMediaCoveragesSlider /> -->
-    <!-- <LazyCredits class="container flex flex-col items-center text-center" /> -->
+    <LazyCredits class="container flex flex-col items-center text-center" />
     <LazyBlogPostSlider
       :headline="useContentStore().components.postSlider.title.default"
     />

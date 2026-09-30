@@ -532,6 +532,27 @@
                           </template>
                         </div>
                       </component>
+
+                      <!-- Outside the row: the row is itself a button when it
+                           opens the dialog, and a link cannot sit inside one.
+                           Indented to line up with the row's body column. -->
+                      <div
+                        v-if="
+                          !activity.is_header &&
+                          activity.type !== 'field_trip' &&
+                          activity.ticket &&
+                          ticketCardLink.available.value
+                        "
+                        class="-mt-1 pb-2 pl-28 @xl:pl-29"
+                      >
+                        <Button
+                          size="sm"
+                          :to="ticketCardLink.hrefFor(activity.ticket.slug)"
+                          @click="ticketCardLink.open(activity.ticket.slug)"
+                        >
+                          {{ ticketCtaLabel(activity.ticket) }}
+                        </Button>
+                      </div>
                     </template>
                   </div>
 
@@ -795,6 +816,12 @@ function formatTimeRange(activity) {
   if (start) return `${start} - ${finishLabel.value}`;
   if (end) return end;
   return "";
+}
+
+const ticketCardLink = useTicketCardLink();
+
+function ticketCtaLabel(ticket) {
+  return ticket.is_free ? t("tickets.register") : t("tickets.getTicket");
 }
 
 function openDialog(activity) {

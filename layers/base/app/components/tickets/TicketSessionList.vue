@@ -64,8 +64,13 @@ function timeRange(session) {
   const start = toDate(session.starts_at);
   if (!start) return session.label || "";
   const end = toDate(session.ends_at);
-  const range = end ? `${fmtTime(start)} - ${fmtTime(end)}` : fmtTime(start);
+  // An open-ended session reads like the Rundown does: "13:00 - Finish".
+  const range = `${fmtTime(start)} - ${end ? fmtTime(end) : t("rundown.finish")}`;
   return sharedDate.value ? range : `${fmtDate(start)} · ${range}`;
+}
+
+function metaLine(session) {
+  return [session.host, session.location].filter(Boolean).join(" · ");
 }
 </script>
 
@@ -73,7 +78,7 @@ function timeRange(session) {
   <div class="space-y-1.5">
     <div class="flex items-baseline justify-between gap-x-3">
       <p class="text-foreground text-sm font-medium tracking-tight">
-        {{ t("tickets.availableSessions") }}
+        {{ sessions.length === 1 ? t("tickets.sessionHeading") : t("tickets.availableSessions") }}
       </p>
       <p
         v-if="sharedDate"
@@ -89,11 +94,19 @@ function timeRange(session) {
         :key="session.id"
         class="flex items-center justify-between gap-x-3 px-3 py-2"
       >
-        <span
-          class="text-foreground min-w-0 truncate text-sm font-medium tracking-tight tabular-nums"
-        >
-          {{ timeRange(session) }}
-        </span>
+        <div class="min-w-0">
+          <p
+            class="text-foreground truncate text-sm font-medium tracking-tight tabular-nums"
+          >
+            {{ timeRange(session) }}
+          </p>
+          <p
+            v-if="metaLine(session)"
+            class="text-muted-foreground truncate text-sm tracking-tight"
+          >
+            {{ metaLine(session) }}
+          </p>
+        </div>
         <Badge
           v-if="STATUS[session.status]"
           :variant="STATUS[session.status].variant"

@@ -8,9 +8,9 @@
     <LazyAboutEvent />
     <LazyPartnerships />
     <LazyVisitorCta />
-    <!-- <LazyCredits
-           class="container flex flex-col items-center text-center"
-         /> -->
+    <LazyCredits
+      class="container flex flex-col items-center text-center"
+    />
     <RollingText
       text="Global AI Expo"
       :lines="4"

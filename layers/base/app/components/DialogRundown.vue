@@ -153,6 +153,19 @@
             class="mt-3 text-base leading-relaxed tracking-tight"
             v-html="activity.description"
           />
+
+          <Button
+            v-if="activity.ticket && ticketCardLink.available.value"
+            class="mt-5 self-start"
+            :to="ticketCardLink.hrefFor(activity.ticket.slug)"
+            @click="openTicket"
+          >
+            {{
+              activity.ticket.is_free
+                ? $t("tickets.register")
+                : $t("tickets.getTicket")
+            }}
+          </Button>
         </div>
       </div>
     </div>
@@ -166,6 +179,15 @@ const { t, te, locale } = useI18n();
 const activity = computed(() => uiStore.dialogRundown.data ?? {});
 
 const hasPoster = computed(() => !!activity.value.poster_image?.lg);
+
+const ticketCardLink = useTicketCardLink();
+
+// The dialog closes first, so the card is not scrolled to behind it.
+function openTicket() {
+  const slug = activity.value.ticket?.slug;
+  isOpen.value = false;
+  if (slug) ticketCardLink.open(slug);
+}
 
 const finishLabel = computed(() => {
   if (te("rundown.finish")) return t("rundown.finish");

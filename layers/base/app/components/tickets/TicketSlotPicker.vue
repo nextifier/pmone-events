@@ -18,10 +18,23 @@ function toDate(value) {
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
+// Jakarta times wherever the visitor sits, the same rule as TicketSessionList.
+const TZ = "Asia/Jakarta";
+
 const fmtTime = (d) =>
-  new Intl.DateTimeFormat(locale.value, { hour: "2-digit", minute: "2-digit", hour12: false }).format(d);
+  new Intl.DateTimeFormat(locale.value, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: TZ,
+  }).format(d);
 const fmtDate = (d) =>
-  new Intl.DateTimeFormat(locale.value, { weekday: "short", day: "numeric", month: "short" }).format(d);
+  new Intl.DateTimeFormat(locale.value, {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    timeZone: TZ,
+  }).format(d);
 
 // Only show the date line when slots span more than one day; otherwise the time
 // range alone is enough and keeps each chip compact.
@@ -29,7 +42,7 @@ const showDate = computed(() => {
   const days = new Set();
   for (const s of props.sessions) {
     const d = toDate(s.starts_at);
-    if (d) days.add(d.toDateString());
+    if (d) days.add(fmtDate(d));
   }
   return days.size > 1;
 });
@@ -38,7 +51,7 @@ function timeRange(session) {
   const start = toDate(session.starts_at);
   const end = toDate(session.ends_at);
   if (!start) return session.label || "";
-  const range = end ? `${fmtTime(start)} - ${fmtTime(end)}` : fmtTime(start);
+  const range = `${fmtTime(start)} - ${end ? fmtTime(end) : t("rundown.finish")}`;
   return showDate.value ? `${fmtDate(start)} · ${range}` : range;
 }
 

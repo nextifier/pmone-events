@@ -64,6 +64,20 @@ const accessPreviewError = computed(() => {
  * day/session sub-label. When the preview has not landed yet the store cannot
  * know a price, so fall back to the ticket's own.
  */
+// Every line with its ticket, so each add-on can be checked against the
+// entry tickets beside it.
+const linesWithTickets = computed(() =>
+  cart.mergedLines.map((l) => ({ item: l.item, ticket: ticketForLine(ticketFor(l.ticket_id), l) })),
+);
+
+function dayNoticeFor(ticket, item) {
+  const notice = addOnDayNotice(ticket, item, linesWithTickets.value);
+  if (!notice) return "";
+  return notice.kind === "uncovered"
+    ? t("tickets.addOnDayUncovered", { session: notice.sessionDay, entry: notice.entryDays })
+    : t("tickets.addOnNeedsEntry", { session: notice.sessionDay });
+}
+
 const liveLines = computed(() =>
   cart.mergedLines.map((l) => {
     const ticket = ticketForLine(ticketFor(l.ticket_id), l);
@@ -78,6 +92,7 @@ const liveLines = computed(() =>
         cartLineSubLabel(ticket, l.item) ||
         (lineMissingDay(ticket, l.item) ? t("tickets.dayMissing") : ""),
       missingDay: lineMissingDay(ticket, l.item),
+      dayNotice: dayNoticeFor(ticket, l.item),
     };
   }),
 );
@@ -383,6 +398,15 @@ defineExpose({ appliedPromo, recheckPromo });
             image-class="object-cover"
           />
         </div>
+        <!-- Posterless rows keep the poster's footprint, as in the cart bar,
+             so every title starts on the same column. -->
+        <span
+          v-else
+          class="bg-muted text-muted-foreground inline-flex size-14 shrink-0 items-center justify-center rounded-lg"
+          aria-hidden="true"
+        >
+          <Icon name="hugeicons:ticket-02" class="size-5" />
+        </span>
 
         <div class="min-w-0 flex-1">
           <!-- Two columns, each keeping its own rhythm, centred against each
@@ -411,6 +435,17 @@ defineExpose({ appliedPromo, recheckPromo });
                 "
               >
                 {{ line.subLabel }}
+              </p>
+              <!-- A session on a day the entry tickets here do not cover.
+                   Advice, not a block: the buyer may hold that day's pass
+                   from an earlier order. No icon: it pushed the sentence off
+                   the column the title and date share, and the wording says
+                   what is wrong without it. -->
+              <p
+                v-if="line.dayNotice"
+                class="text-warning-foreground text-sm leading-snug tracking-tight"
+              >
+                {{ line.dayNotice }}
               </p>
               <!-- The free tickets the promo adds to this line. Their own line
                    under the title rather than a bigger number in the stepper:
@@ -451,7 +486,7 @@ defineExpose({ appliedPromo, recheckPromo });
                   :class="{ 'opacity-60': line.pending }"
                   :aria-busy="line.pending || undefined"
                 >
-                  {{ fmtIdr(line.subtotal) }}
+                  {{ line.subtotal > 0 ? fmtIdr(line.subtotal) : t("tickets.free") }}
                 </span>
               </div>
               <!-- Same control the sticky bar uses, so a line cannot behave one

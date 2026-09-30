@@ -204,11 +204,87 @@ export function cartLineSubLabel(ticket, item) {
   const session = (ticket.sessions ?? []).find(
     (s) => s.id === item.ticket_session_id,
   );
-  if (session?.label) {
+  if (session?.starts_at) {
+    // When it happens, not what staff named it: on a four-day event "Seminar"
+    // alone does not tell the buyer which day they are signing up for.
+    parts.push($dayjs(eventDate(session.starts_at)).format("ddd, D MMM"));
+    parts.push(sessionTimeRange(session));
+  } else if (session?.label) {
     parts.push(session.label);
   }
 
   return parts.join(" · ");
+}
+
+// Session times are Jakarta times wherever the buyer sits, like the listing.
+const EVENT_TZ = "Asia/Jakarta";
+
+/** `"2026-10-08T13:00:00+07:00"` -> `"2026-10-08"`, the calendar day at the venue. */
+export function eventDate(iso) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: EVENT_TZ }).format(new Date(iso));
+}
+
+/** `"13:00 - 15:00"`, or `"13:00 - Finish"` for a session with no end, as the Rundown shows it. */
+export function sessionTimeRange(session) {
+  const { $i18n } = useNuxtApp();
+  const fmt = (iso) =>
+    new Intl.DateTimeFormat($i18n.locale.value, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: EVENT_TZ,
+    }).format(new Date(iso));
+
+  return `${fmt(session.starts_at)} - ${session.ends_at ? fmt(session.ends_at) : $i18n.t("rundown.finish")}`;
+}
+
+/**
+ * Whether the entry tickets in this cart get the buyer in on the day an add-on
+ * session takes place. The order is not refused over it (a buyer may already
+ * hold a pass for that day from an earlier order), but a Thursday seminar next
+ * to a Sunday pass is almost always a mistake, and one that only surfaces at
+ * the gate.
+ *
+ * @param {object|null} ticket the add-on line's ticket
+ * @param {object} item the add-on line's cart item
+ * @param {Array<{ticket: object|null, item: object}>} lines every line in the cart
+ * @returns {{ kind: "uncovered"|"no_entry", sessionDay: string, entryDays: string } | null}
+ */
+export function addOnDayNotice(ticket, item, lines) {
+  if (ticket?.kind !== "add_on" || !item) return null;
+  const session = (ticket.sessions ?? []).find((s) => s.id === item.ticket_session_id);
+  if (!session?.starts_at) return null;
+
+  const { $dayjs } = useNuxtApp();
+  // Non-breaking inside each date, so "Thu, 8 Oct" never splits across lines.
+  const format = (date) => $dayjs(date).format("ddd, D MMM").replace(/ /g, "\u00a0");
+  const sessionDate = eventDate(session.starts_at);
+
+  const entryLines = lines.filter((l) => l.ticket?.kind === "entry");
+  if (!entryLines.length) {
+    return { kind: "no_entry", sessionDay: format(sessionDate), entryDays: "" };
+  }
+
+  const covered = new Set();
+  for (const line of entryLines) {
+    const days = line.ticket.valid_days ?? [];
+    const chosen = days.find((d) => d.id === line.item?.selected_event_day_id);
+    // A pass with no day list is valid on every day of the event. A day pass
+    // with no day picked yet already reads "Choose a day"; a second warning
+    // on top of it would be about a choice not made.
+    if (line.ticket.requires_day_selection ? !chosen : !days.length) return null;
+    for (const day of chosen ? [chosen] : days) {
+      if (day.date) covered.add(day.date.slice(0, 10));
+    }
+  }
+
+  if (covered.has(sessionDate)) return null;
+
+  return {
+    kind: "uncovered",
+    sessionDay: format(sessionDate),
+    entryDays: [...covered].sort().map(format).join(", "),
+  };
 }
 
 /**
@@ -238,5 +314,6 @@ export function useTicketLine() {
     soldOut,
     cartLineSubLabel,
     lineMissingDay,
+    addOnDayNotice,
   };
 }

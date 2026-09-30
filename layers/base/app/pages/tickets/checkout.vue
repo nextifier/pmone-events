@@ -216,6 +216,15 @@ const paymentChannels = computed(
 // of "continue to payment" (the final total after discount is what counts).
 const isFree = computed(() => {
   if (cart.isEmpty) return false;
+  // Until the first preview lands the cached subtotal is 0, which read as a
+  // free cart and flashed "Claim" over a Rp60.000 total. Estimate from the
+  // listing's own prices meanwhile, the way the cart bar prices its lines.
+  if (!cart.previewLines?.length) {
+    return cart.items.every((item) => {
+      const ticket = ticketsById.value[item.ticket_id];
+      return ticket && Number(ticket.on_sale ? ticket.price : ticket.display_price) === 0;
+    });
+  }
   const net =
     (Number(cart.cachedSubtotal) || 0) - (Number(cart.cachedDiscount) || 0);
   return Math.max(0, net) === 0;
