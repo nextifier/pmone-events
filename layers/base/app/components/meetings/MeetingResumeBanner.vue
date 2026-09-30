@@ -6,18 +6,24 @@
 -->
 <template>
   <div v-if="mode" class="frame">
-    <div class="frame-panel flex flex-col gap-y-3 sm:flex-row sm:items-center sm:justify-between sm:gap-x-4">
-      <div class="space-y-1">
-        <p class="text-base font-medium tracking-tight">
-          {{ mode === "resume" ? $t("meetings.resume.title", { brand: intentBrand }) : $t("meetings.resume.promoTitle") }}
-        </p>
-        <p class="text-muted-foreground text-sm tracking-tight">
-          {{ bodyText }}
-        </p>
+    <!-- The row layout lives on an inner div: `.frame .frame-panel` sets its
+         own flex column with two classes of specificity, which beat
+         `sm:flex-row` on the panel and left the copy centred above a centred
+         button on every desktop. -->
+    <div class="frame-panel">
+      <div class="flex flex-col items-start gap-y-3 sm:flex-row sm:items-center sm:justify-between sm:gap-x-4">
+        <div class="min-w-0 space-y-1">
+          <p class="text-base font-medium tracking-tight">
+            {{ mode === "resume" ? $t("meetings.resume.title", { brand: intentBrand }) : $t("meetings.resume.promoTitle") }}
+          </p>
+          <p class="text-muted-foreground text-sm tracking-tight">
+            {{ bodyText }}
+          </p>
+        </div>
+        <Button :to="target" class="shrink-0">
+          {{ mode === "resume" ? $t("meetings.resume.cta") : $t("meetings.actions.browseExhibitors") }}
+        </Button>
       </div>
-      <Button :to="target" class="shrink-0">
-        {{ mode === "resume" ? $t("meetings.resume.cta") : $t("meetings.actions.browseExhibitors") }}
-      </Button>
     </div>
   </div>
 </template>

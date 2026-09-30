@@ -11,7 +11,7 @@
        already has one with them. On the page it stays compact (a title, a
        line, one button) so the sticky rail keeps fitting the screen; the
        picker, the note and every answer live in the dialog. -->
-  <section v-if="state !== 'hidden' && !quietBrand" class="w-full space-y-3 text-left">
+  <section v-if="state !== 'hidden' && !quietBrand" class="w-full space-y-2 [&>:not(h2)]:mb-0! text-center lg:text-left">
     <h2 class="text-foreground text-xl font-semibold tracking-tighter">
       {{ $t("meetings.panel.title", { brand: brandName }) }}
     </h2>

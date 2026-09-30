@@ -17,6 +17,13 @@ const props = defineProps({
   orderNumber: { type: String, default: "" },
   // When false, hide the share/copy/download actions (e.g. on a summary list).
   showActions: { type: Boolean, default: true },
+  /**
+   * Sit on four rows of the parent grid (holder, code, session, stub) through
+   * subgrid, so tickets side by side line their codes and stubs up even when
+   * one title wraps to two lines. The parent must be a grid; a lone ticket
+   * leaves this off and stacks as a plain column.
+   */
+  aligned: { type: Boolean, default: false },
   // When true the order is not yet paid: show a locked placeholder instead of
   // the QR (the backend withholds qr_token until the order is confirmed).
   locked: { type: Boolean, default: false },
@@ -35,6 +42,12 @@ const shareUrl = computed(() => {
 
 const ticketTitle = computed(() => props.attendee?.ticket?.title || t("ui.getTicket"));
 const tierLabel = computed(() => props.attendee?.ticket?.tier || "");
+
+// An add-on is scanned at its own session, and the entrance scanner turns it
+// away, so "show this at the entrance" would send the holder to the wrong door.
+const scanHint = computed(() =>
+  t(props.attendee?.ticket?.kind === "add_on" ? "tickets.manage.scanAtSession" : "tickets.manage.scanAtEntrance")
+);
 
 function resolveLabel(label) {
   if (label && typeof label === "object") {
@@ -190,7 +203,7 @@ const whatsappUrl = computed(() => {
       sessionDetail.value,
       props.orderNumber,
     ],
-    [t("tickets.manage.scanAtEntrance"), shareUrl.value],
+    [scanHint.value, shareUrl.value],
   ];
 
   const text = blocks
@@ -221,7 +234,7 @@ async function downloadTicket() {
         sessionDetail: sessionDetail.value,
         phase: phaseLabel.value,
         orderNumber: props.orderNumber,
-        scanHint: t("tickets.manage.scanAtEntrance"),
+        scanHint: scanHint.value,
       },
       { fileName: ticketFileName(holder) }
     );
@@ -275,7 +288,15 @@ function slugifyFileName(value) {
 </script>
 
 <template>
-  <div ref="cardEl" class="relative print:break-inside-avoid">
+  <!-- A column all the way down, so when a grid stretches this card to its
+       taller neighbour the stub stays at the bottom. The notches are cut at
+       (card height - stub height); with the stub left mid-card the side
+       notches and the dashed perforation parted by the stretch. -->
+  <div
+    ref="cardEl"
+    class="relative print:break-inside-avoid"
+    :class="aligned ? 'row-span-4 grid grid-rows-subgrid gap-y-0' : 'flex flex-col'"
+  >
     <!-- Card surface + border drawn as an SVG so the hairline follows the notches. -->
     <svg
       v-if="pathD"
@@ -301,10 +322,20 @@ function slugifyFileName(value) {
 
     <div
       class="relative overflow-hidden"
-      :class="pathD ? '' : 'bg-card border-border rounded-[1.75rem] border'"
+      :class="[
+        aligned ? 'row-span-4 grid grid-rows-subgrid gap-y-0' : 'flex flex-1 flex-col',
+        pathD ? '' : 'bg-card border-border rounded-[1.75rem] border',
+      ]"
       :style="clipStyle"
     >
-      <div class="flex flex-col items-center gap-5 px-6 pt-7 pb-6">
+      <div
+        class="px-6 pt-7 pb-6"
+        :class="
+          aligned
+            ? 'row-span-3 grid grid-rows-subgrid justify-items-center gap-y-5'
+            : 'flex flex-1 flex-col items-center gap-5'
+        "
+      >
         <!-- Holder -->
         <div class="space-y-1.5 text-center">
           <p class="text-foreground text-2xl/tight font-semibold tracking-tighter text-balance">
@@ -382,23 +413,28 @@ function slugifyFileName(value) {
              card's gap on top of it left the chips floating away from the
              ticket they describe. The cancelled and locked panels have no such
              margin, so they keep the full gap. -->
+        <!-- One row for everything about when and where, so an aligned
+             ticket without a session keeps its stub on the shared line. -->
         <div
-          v-if="dayLabel || sessionLabel"
-          :class="[
-            'flex flex-wrap items-center justify-center gap-1.5',
-            !cancelled && attendee.qr_token && '-mt-4',
-          ]"
+          v-if="aligned || dayLabel || sessionLabel || sessionDetail"
+          class="flex flex-col items-center gap-2"
+          :class="!cancelled && attendee.qr_token && (dayLabel || sessionLabel) && '-mt-4'"
         >
-          <Badge v-if="dayLabel" variant="info" icon="hugeicons:calendar-03">{{ dayLabel }}</Badge>
-          <Badge v-if="sessionLabel" variant="muted" icon="hugeicons:clock-01">{{ sessionLabel }}</Badge>
-        </div>
+          <div
+            v-if="dayLabel || sessionLabel"
+            class="flex flex-wrap items-center justify-center gap-1.5"
+          >
+            <Badge v-if="dayLabel" variant="info" icon="hugeicons:calendar-03">{{ dayLabel }}</Badge>
+            <Badge v-if="sessionLabel" variant="muted" icon="hugeicons:clock-01">{{ sessionLabel }}</Badge>
+          </div>
 
-        <p
-          v-if="sessionDetail"
-          class="text-muted-foreground -mt-3 text-center text-sm tracking-tight text-balance"
-        >
-          {{ sessionDetail }}
-        </p>
+          <p
+            v-if="sessionDetail"
+            class="text-muted-foreground text-center text-sm tracking-tight text-balance"
+          >
+            {{ sessionDetail }}
+          </p>
+        </div>
       </div>
 
       <!-- Perforation + stub (side notches are carved by the SVG/clip path above) -->

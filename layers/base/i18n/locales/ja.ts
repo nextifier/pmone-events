@@ -308,6 +308,7 @@ export default {
     dayMissing: "日付を選択",
     addOnDayUncovered: "入場チケットは{entry}用ですが、このセッションは{session}です。",
     addOnNeedsEntry: "{session}の入場チケットも必要です。",
+    addOnDayShort: "入場チケットは{session}に対応していません。",
     selectSessionFirst: "先にセッションを選択してください。",
     selectOption: "オプションを選択",
     fieldRequired: "この項目は必須です。",
@@ -428,6 +429,7 @@ export default {
       copyTicketLink: "チケットリンクをコピー",
       viewETicket: "e-チケットを見る",
       scanAtEntrance: "入場時にこのQRコードを提示してチェックインしてください。",
+      scanAtSession: "セッション会場でこのQRコードを提示してチェックインしてください。",
       invalidLink: "このリンクは無効か、有効期限が切れています。",
     },
     attendee: {

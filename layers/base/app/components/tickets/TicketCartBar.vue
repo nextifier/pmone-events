@@ -58,6 +58,20 @@ function dayNoticeFor(ticket, item) {
     : t("tickets.addOnNeedsEntry", { session: notice.sessionDay });
 }
 
+// The collapsed bar is all most buyers ever see, so a session on a day their
+// entry ticket does not cover is summarised there too. Only that case: a cart
+// of add-ons alone is often a returning buyer who already holds a pass, and a
+// permanent line telling them otherwise would train them to ignore it.
+const collapsedNotice = computed(() => {
+  for (const line of linesWithTickets.value) {
+    const notice = addOnDayNotice(line.ticket, line.item, linesWithTickets.value);
+    if (notice?.kind === "uncovered") {
+      return t("tickets.addOnDayShort", { session: notice.sessionDay });
+    }
+  }
+  return "";
+});
+
 const lines = computed(() =>
   cart.mergedLines.map((l) => {
     const ticket = ticketForLine(ticketFor(l.ticket_id), l);
@@ -250,7 +264,9 @@ const visible = computed(
         :class="
           expanded
             ? 'rounded-3xl px-2.5 py-3 sm:p-4'
-            : 'rounded-4xl p-1 pl-2.5'
+            : collapsedNotice
+              ? 'rounded-3xl p-1 pl-2.5'
+              : 'rounded-4xl p-1 pl-2.5'
         "
         :data-open="expanded"
       >
@@ -389,6 +405,19 @@ const visible = computed(
             </div>
           </div>
         </div>
+
+        <!-- The day warning, for a closed bar. Tapping it opens the detail,
+             where the same warning sits under the line it is about. Wraps to
+             two lines on a phone rather than truncating the date away. -->
+        <button
+          v-if="!expanded && collapsedNotice"
+          type="button"
+          class="focus-visible:ring-background/40 line-clamp-2 w-full rounded-2xl px-2.5 pt-2 pb-1 text-left text-sm tracking-tight text-yellow-400 focus-visible:ring-2 focus-visible:outline-none sm:px-3 dark:text-yellow-700"
+          :aria-expanded="expanded"
+          @click="toggleDetail"
+        >
+          {{ collapsedNotice }}
+        </button>
 
         <!-- Action row (always visible). The toggle covers everything but the CTA.
              `items-stretch` so the CTA's top and bottom margin is exactly the

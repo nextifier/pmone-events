@@ -298,6 +298,7 @@ export default {
     "dayMissing": "Choose a day",
     "addOnDayUncovered": "Your entry ticket is for {entry}. This session is on {session}.",
     "addOnNeedsEntry": "You also need an entry ticket for {session}.",
+    "addOnDayShort": "Your entry ticket doesn't cover {session}.",
     "selectSessionFirst": "Please choose a session first.",
     "selectOption": "Select an option",
     "fieldRequired": "This field is required.",
@@ -418,6 +419,7 @@ export default {
       "copyTicketLink": "Copy ticket link",
       "viewETicket": "View e-ticket",
       "scanAtEntrance": "Show this QR code at the entrance to check in.",
+      "scanAtSession": "Show this QR code at the session to check in.",
       "invalidLink": "This link is invalid or has expired."
     },
     "attendee": {

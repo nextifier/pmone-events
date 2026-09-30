@@ -188,7 +188,12 @@ const PAGE_PAD = 20;
  * "Pre-registration" across two lines to save four pixels reads worse than a
  * short second line.
  *
- * Returns an array of lines, each an array of segments.
+ * A segment wider than the card on its own (a seminar's full title) is the one
+ * exception: it wraps by word, or it ran straight off both edges of the card.
+ *
+ * Returns an array of lines, each an array of `{ text, primary }` parts, where
+ * `primary` marks the ticket title - painted in ink wherever it lands, so the
+ * tier that happens to open a second line does not take the title's colour.
  */
 function layoutSegments(ctx, segments, maxWidth, size) {
   ctx.font = font(size);
@@ -197,18 +202,31 @@ function layoutSegments(ctx, segments, maxWidth, size) {
   let line = [];
 
   const widthOf = (parts) =>
-    parts.reduce((sum, part) => sum + ctx.measureText(part).width, 0) +
+    parts.reduce((sum, part) => sum + ctx.measureText(part.text).width, 0) +
     Math.max(0, parts.length - 1) * SEGMENT_GAP;
 
-  for (const segment of segments) {
-    const next = [...line, segment];
+  segments.forEach((text, index) => {
+    const primary = index === 0;
+
+    if (ctx.measureText(text).width > maxWidth) {
+      if (line.length) lines.push(line);
+      // The segments after it start a line of their own, as on the page:
+      // tucking "Seminar" onto the title's last line left "Registration"
+      // alone on a third.
+      wrap(ctx, text, maxWidth).forEach((piece) => lines.push([{ text: piece, primary }]));
+      line = [];
+      return;
+    }
+
+    const part = { text, primary };
+    const next = [...line, part];
     if (line.length && widthOf(next) > maxWidth) {
       lines.push(line);
-      line = [segment];
+      line = [part];
     } else {
       line = next;
     }
-  }
+  });
   if (line.length) lines.push(line);
 
   return lines;
@@ -227,7 +245,7 @@ function paintSegments(ctx, lines, centerX, top, size) {
   let cursor = top;
 
   for (const parts of lines) {
-    const widths = parts.map((part) => ctx.measureText(part).width);
+    const widths = parts.map((part) => ctx.measureText(part.text).width);
     const total =
       widths.reduce((a, b) => a + b, 0) + Math.max(0, parts.length - 1) * SEGMENT_GAP;
 
@@ -242,8 +260,8 @@ function paintSegments(ctx, lines, centerX, top, size) {
         ctx.fill();
         x += SEGMENT_GAP;
       }
-      ctx.fillStyle = index === 0 ? INK : MUTED;
-      ctx.fillText(part, x, baseline);
+      ctx.fillStyle = part.primary ? INK : MUTED;
+      ctx.fillText(part.text, x, baseline);
       x += widths[index];
     });
 
@@ -472,12 +490,9 @@ export function useTicketImage() {
       }
     }
 
-    // Last on the card, because it is an instruction rather than ticket data -
-    // and because the page puts the day badge directly under the QR, which is
-    // the order a holder already knows.
-    if (hintLines.length) {
-      cy += 14;
-      cy = paintLines(ctx, hintLines, midX, cy, {
+    if (detailLines.length) {
+      cy += 10;
+      cy = paintLines(ctx, detailLines, midX, cy, {
         size: 14,
         color: MUTED,
         lineHeight: 20,
@@ -485,9 +500,12 @@ export function useTicketImage() {
       });
     }
 
-    if (detailLines.length) {
-      cy += 10;
-      cy = paintLines(ctx, detailLines, midX, cy, {
+    // Last on the card, because it is an instruction rather than ticket data -
+    // and because the page puts the day badge directly under the QR, which is
+    // the order a holder already knows.
+    if (hintLines.length) {
+      cy += 14;
+      cy = paintLines(ctx, hintLines, midX, cy, {
         size: 14,
         color: MUTED,
         lineHeight: 20,

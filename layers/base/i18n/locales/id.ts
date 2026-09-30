@@ -307,6 +307,7 @@ export default {
     dayMissing: "Pilih hari",
     addOnDayUncovered: "Tiket masukmu untuk {entry}, sedangkan sesi ini hari {session}.",
     addOnNeedsEntry: "Kamu juga perlu tiket masuk untuk {session}.",
+    addOnDayShort: "Tiket masukmu tidak berlaku untuk {session}.",
     selectSessionFirst: "Pilih sesi terlebih dahulu.",
     selectOption: "Pilih opsi",
     fieldRequired: "Bidang ini wajib diisi.",
@@ -427,6 +428,7 @@ export default {
       copyTicketLink: "Salin tautan tiket",
       viewETicket: "Lihat e-tiket",
       scanAtEntrance: "Tunjukkan QR ini di pintu masuk untuk check-in.",
+      scanAtSession: "Tunjukkan QR ini di lokasi sesi untuk check-in.",
       invalidLink: "Tautan ini tidak valid atau sudah kedaluwarsa.",
     },
     attendee: {

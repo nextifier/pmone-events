@@ -47,16 +47,6 @@
         </ResultReference>
       </Result>
 
-      <!-- Meetings: finish a request started before buying, or find exhibitors. -->
-      <ClientOnly>
-        <MeetingResumeBanner
-          v-if="isConfirmed"
-          :order-token="magicToken || null"
-          :order-ulid="orderUlid || null"
-          class="mt-6"
-        />
-      </ClientOnly>
-
       <!-- Pending payment CTA -->
       <div
         v-if="isPending && order.payment_url"
@@ -165,6 +155,15 @@
                 image-class="object-cover"
               />
             </div>
+            <!-- A posterless line keeps the poster's footprint, as in the cart,
+                 so every title on the receipt starts on one column. -->
+            <span
+              v-else
+              class="bg-muted text-muted-foreground inline-flex size-11 shrink-0 items-center justify-center rounded-lg"
+              aria-hidden="true"
+            >
+              <Icon name="hugeicons:ticket-02" class="size-5" />
+            </span>
             <div class="min-w-0 flex-1">
               <p class="font-medium">{{ ticketTitle(item.ticket_id) }} × {{ item.quantity }}</p>
               <p
@@ -174,7 +173,9 @@
                 {{ itemSubLabel(item) }}
               </p>
             </div>
-            <p class="shrink-0 font-medium tabular-nums">Rp{{ formatRupiah(item.subtotal) }}</p>
+            <p class="shrink-0 font-medium tabular-nums">
+              {{ Number(item.subtotal) > 0 ? `Rp${formatRupiah(item.subtotal)}` : t("tickets.free") }}
+            </p>
           </div>
 
           <div class="space-y-1.5 border-t pt-3 text-sm tracking-tight">
@@ -245,13 +246,22 @@
 
       <div
         v-else-if="isConfirmed && (order.attendees || []).length"
-        class="space-y-3"
+        class="space-y-4"
       >
-        <h2 class="text-foreground text-lg font-semibold tracking-tight">{{ t("tickets.result.yourETickets", ticketCount) }}</h2>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <h2 class="text-foreground text-center text-lg font-semibold tracking-tighter">{{ t("tickets.result.yourETickets", ticketCount) }}</h2>
+        <!-- One ticket sits alone in the middle at the width it has inside the
+             pair, rather than pinned to the left half with an empty column. -->
+        <!-- Each ticket spans four rows of this grid through subgrid, so the
+             names, codes, session lines and stubs of neighbouring tickets sit
+             on shared lines. -->
+        <div
+          class="grid grid-cols-1 gap-x-4 gap-y-4"
+          :class="order.attendees.length > 1 ? 'sm:grid-cols-2' : 'mx-auto w-full sm:max-w-[calc(50%-0.5rem)]'"
+        >
           <ETicket
             v-for="att in order.attendees"
             :key="att.ulid"
+            aligned
             :attendee="att"
             :event-title="event?.title"
             :event-date="eventDateLabel"
@@ -302,6 +312,18 @@
           </a>
         </Button>
       </div>
+
+      <!-- Meetings: finish a request started before buying, or find exhibitors.
+           Last on the page: the buyer came here for their tickets, and the
+           order and e-tickets are what this page owes them first. -->
+      <ClientOnly>
+        <MeetingResumeBanner
+          v-if="isConfirmed"
+          :order-token="magicToken || null"
+          :order-ulid="orderUlid || null"
+          class="mt-6 print:hidden"
+        />
+      </ClientOnly>
     </template>
   </div>
 </template>
@@ -412,11 +434,23 @@ const posterSrc = (item) => item.poster?.sm || item.poster?.url || null;
  * read as two identical lines; the phase stays because on a receipt it is what
  * explains the price.
  */
+function eventDayLabel(iso) {
+  const { $dayjs } = useNuxtApp();
+  return $dayjs(eventDate(iso)).format("ddd, D MMM");
+}
+
 function itemSubLabel(item) {
   const { $dayjs } = useNuxtApp();
   const parts = [];
   if (item.event_day_date) parts.push($dayjs(item.event_day_date).format("ddd, D MMM"));
-  if (item.session_label) parts.push(item.session_label);
+  // A timed session reads as its day and time, like the cart line did; its
+  // label ("Seminar") is usually the tier again and says less.
+  if (item.session_starts_at) {
+    parts.push(eventDayLabel(item.session_starts_at));
+    parts.push(sessionTimeRange({ starts_at: item.session_starts_at, ends_at: item.session_ends_at }));
+  } else if (item.session_label) {
+    parts.push(item.session_label);
+  }
   if (item.phase_label) parts.push(item.phase_label);
   return parts.join(" · ");
 }
@@ -689,6 +723,17 @@ function resolveLabel(label) {
 }
 
 // Map an attendee row to the shape the PDF renderer expects (mirror ETicket.vue).
+// The saved image's session chip reads like the one on the page: day and time,
+// with the label only when it says more than the tier chip beside it.
+function sessionChip(att) {
+  const session = att.session;
+  if (!session) return "";
+  const label = resolveLabel(session.label) || "";
+  const named = label && label.toLowerCase() !== (att.ticket?.tier || "").toLowerCase() ? label : "";
+  if (!session.starts_at) return named;
+  return [named, eventDayLabel(session.starts_at), sessionTimeRange(session)].filter(Boolean).join(" · ");
+}
+
 function toTicketData(att) {
   return {
     qrToken: att.qr_token,
@@ -703,7 +748,8 @@ function toTicketData(att) {
           locale.value
         )
       : "",
-    session: att.session?.label || "",
+    session: sessionChip(att),
+    scanHint: t(att.ticket?.kind === "add_on" ? "tickets.manage.scanAtSession" : "tickets.manage.scanAtEntrance"),
     sessionDetail: [
       att.session?.location,
       att.session?.host ? t("tickets.eticket.sessionHost", { host: att.session.host }) : null,
@@ -745,7 +791,6 @@ async function downloadAllTickets() {
       eventDate: eventDateLabel.value,
       eventVenue: event?.location || "",
       orderNumber: t("tickets.attendee.order", { number: order.value?.order_number }),
-      scanHint: t("tickets.manage.scanAtEntrance"),
     };
 
     await saveTickets(

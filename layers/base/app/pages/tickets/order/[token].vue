@@ -141,7 +141,7 @@
                 />
               </div>
               <p class="text-muted-foreground text-center text-xs tracking-tight text-balance">
-                {{ t("tickets.manage.scanAtEntrance") }}
+                {{ t(att.ticket?.kind === "add_on" ? "tickets.manage.scanAtSession" : "tickets.manage.scanAtEntrance") }}
               </p>
             </div>
 

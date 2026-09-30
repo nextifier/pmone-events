@@ -305,6 +305,7 @@ export default {
     dayMissing: "날짜 선택",
     addOnDayUncovered: "입장권은 {entry}용이지만 이 세션은 {session}에 열립니다.",
     addOnNeedsEntry: "{session} 입장권도 필요합니다.",
+    addOnDayShort: "입장권이 {session}에는 유효하지 않습니다.",
     selectSessionFirst: "먼저 세션을 선택하세요.",
     selectOption: "옵션 선택",
     fieldRequired: "필수 입력 항목입니다.",
@@ -425,6 +426,7 @@ export default {
       copyTicketLink: "티켓 링크 복사",
       viewETicket: "e-티켓 보기",
       scanAtEntrance: "입장 시 이 QR 코드를 보여주고 체크인하세요.",
+      scanAtSession: "세션 장소에서 이 QR 코드를 보여주고 체크인하세요.",
       invalidLink: "이 링크는 유효하지 않거나 만료되었습니다.",
     },
     attendee: {

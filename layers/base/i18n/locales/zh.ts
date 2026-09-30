@@ -303,6 +303,7 @@ export default {
     dayMissing: "选择日期",
     addOnDayUncovered: "您的入场券适用于{entry}，但本场次在{session}。",
     addOnNeedsEntry: "您还需要{session}的入场券。",
+    addOnDayShort: "您的入场券不适用于{session}。",
     selectSessionFirst: "请先选择场次。",
     selectOption: "选择选项",
     fieldRequired: "此字段为必填项。",
@@ -423,6 +424,7 @@ export default {
       copyTicketLink: "复制门票链接",
       viewETicket: "查看电子门票",
       scanAtEntrance: "在入口处出示此二维码即可签到。",
+      scanAtSession: "在场次入口出示此二维码即可签到。",
       invalidLink: "此链接无效或已过期。",
     },
     attendee: {

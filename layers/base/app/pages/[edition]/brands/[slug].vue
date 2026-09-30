@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-4 pt-4 pb-20">
     <!-- Top bar: back + share (matching icon buttons) -->
-    <div class="container flex items-center justify-between">
+    <div class="pointer-events-none relative z-10 container flex items-center justify-between *:pointer-events-auto">
       <ButtonBack destination="/brands" v-slot="{ goBack }">
         <button
           type="button"
@@ -34,11 +34,13 @@
     </div>
 
     <template v-else-if="brand">
-      <div class="container">
+      <div class="container -mt-[58px] lg:mt-0">
         <div class="grid grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-12">
           <!-- Left rail: identity + facts (centered on mobile, top-left on desktop) -->
           <div
-            class="lg:no-scrollbar flex flex-col items-center py-0 text-center *:shrink-0 lg:sticky lg:top-24 lg:col-span-6 lg:max-h-[calc(100dvh-6rem)] lg:items-start lg:self-start lg:overflow-y-auto lg:text-left"
+            ref="rail"
+            :style="{ top: railTop }"
+            class="flex flex-col items-center py-0 text-center *:shrink-0 lg:sticky lg:col-span-6 lg:items-start lg:self-start lg:text-left"
           >
             <!-- Avatar (opens the profile image; Instagram gradient frame when present) -->
             <Lightbox
@@ -51,7 +53,7 @@
               <template #trigger="{ open }">
                 <button
                   type="button"
-                  class="focus-visible:ring-ring block w-fit rounded-full p-2 transition focus-visible:ring-2 focus-visible:outline-none active:scale-[0.98]"
+                  class="focus-visible:ring-ring -mt-2 block w-fit rounded-full p-2 lg:mt-0 transition focus-visible:ring-2 focus-visible:outline-none active:scale-[0.98]"
                   @click="open"
                 >
                   <Avatar
@@ -84,7 +86,7 @@
 
             <!-- Name -->
             <h1
-              class="text-foreground mt-6 text-4xl leading-[0.95] font-semibold tracking-tighter text-balance sm:text-5xl"
+              class="text-foreground mt-4 text-4xl leading-[0.95] font-semibold tracking-tighter text-balance sm:text-5xl"
             >
               {{ brand.brand_name }}
             </h1>
@@ -92,7 +94,7 @@
             <!-- Company -->
             <p
               v-if="brand.company_name"
-              class="text-muted-foreground mt-2 text-base tracking-tight lg:text-lg"
+              class="text-muted-foreground mt-1 text-base tracking-tight lg:text-lg"
             >
               {{ brand.company_name }}
             </p>
@@ -100,7 +102,7 @@
             <!-- Links -->
             <div
               v-if="brand.links?.length"
-              class="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 lg:justify-start"
+              class="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 lg:justify-start"
             >
               <SocialLink
                 v-for="link in brand.links"
@@ -118,13 +120,13 @@
               v-if="factCount > 0"
               :count="factCount"
               :cols="2"
-              min-col-width="150px"
+              :min-col-width="false"
               rounded="xl"
-              class="mt-8 w-full text-left"
+              class="mt-5 w-full text-left sm:grid-cols-3 2xl:grid-cols-4"
             >
               <div
                 v-if="brand.booth_number"
-                class="flex flex-col gap-1 px-4 py-4"
+                class="flex flex-col gap-1 px-4 py-3"
               >
                 <span class="text-muted-foreground text-sm tracking-tight">
                   {{ $t("ui.booth") }}
@@ -138,7 +140,7 @@
 
               <div
                 v-if="brand.business_categories?.length"
-                class="flex flex-col gap-1 px-4 py-4"
+                class="flex flex-col gap-1 px-4 py-3"
               >
                 <span class="text-muted-foreground text-sm tracking-tight">
                   {{ $t("ui.categories") }}
@@ -153,7 +155,7 @@
               <div
                 v-for="field in customFields"
                 :key="field.key"
-                class="flex flex-col gap-1 px-4 py-4"
+                class="flex flex-col gap-1 px-4 py-3"
               >
                 <span class="text-muted-foreground text-sm tracking-tight">
                   {{ field.label }}
@@ -316,6 +318,21 @@
 </template>
 
 <script setup>
+import { useElementSize, useWindowSize } from "@vueuse/core";
+
+// The left rail is sticky but never scrolls on its own, so wheel input always
+// reaches the page. When it is taller than the viewport, the sticky offset goes
+// negative and the rail pins by its bottom edge once the page has scrolled far
+// enough to reveal it, instead of clipping what does not fit.
+const rail = ref(null);
+const { height: railHeight } = useElementSize(rail);
+const { height: viewportHeight } = useWindowSize();
+const railTop = computed(() =>
+  railHeight.value && viewportHeight.value
+    ? `${Math.min(96, viewportHeight.value - railHeight.value - 24)}px`
+    : "6rem",
+);
+
 // A detail page is read on its own, without the site's tab bar.
 definePageMeta({ bottomNav: false });
 
@@ -445,6 +462,10 @@ const formatCurrencyValue = (value, key) => {
   return `${prefix}${formatRupiahToken(body, keyIsCurrency)}`;
 };
 
+// Keeps "Rp" on the same line as its amount when a long range wraps.
+const keepRupiahTogether = (value) =>
+  typeof value === "string" ? value.replace(/Rp\s+(?=\d)/g, "Rp\u00A0") : value;
+
 const customFields = computed(() => {
   const fields = brand.value?.custom_fields;
   if (!fields) return [];
@@ -457,7 +478,7 @@ const customFields = computed(() => {
         key: f.key,
         label: f.label || humanizeKey(f.key),
         // Compact rupiah for currency-shaped values; everything else stays as-is.
-        value: formatCurrencyValue(f.value, f.key),
+        value: keepRupiahTogether(formatCurrencyValue(f.value, f.key)),
       }));
   }
 
@@ -470,7 +491,7 @@ const customFields = computed(() => {
     .map(([key, value]) => ({
       key,
       label: humanizeKey(key),
-      value: formatCurrencyValue(value, key),
+      value: keepRupiahTogether(formatCurrencyValue(value, key)),
     }));
 });
 
