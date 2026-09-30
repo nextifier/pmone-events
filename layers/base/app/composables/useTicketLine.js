@@ -140,6 +140,13 @@ export function ticketForLine(ticket, line) {
 export function lineCapFor(ticket, items = [], sessionId = null, dayId = null) {
   const total = maxFor(ticket);
   if (!ticket?.id) return total;
+
+  // A session has seats of its own. With the ticket's stock unlimited they are
+  // the only limit there is, and the stepper used to climb past a full room
+  // until checkout refused it.
+  const session = sessionId ? (ticket.sessions ?? []).find((s) => s.id === sessionId) : null;
+  const seatsLeft = session?.available != null ? Math.max(0, Number(session.available) || 0) : Infinity;
+
   const heldElsewhere = (items ?? [])
     .filter(
       (i) =>
@@ -150,7 +157,7 @@ export function lineCapFor(ticket, items = [], sessionId = null, dayId = null) {
         ),
     )
     .reduce((sum, i) => sum + (Number(i.qty) || 0), 0);
-  return Math.max(0, total - heldElsewhere);
+  return Math.max(0, Math.min(total - heldElsewhere, seatsLeft));
 }
 
 /**
@@ -178,7 +185,18 @@ export function minFor(ticket) {
  */
 export function soldOut(ticket) {
   if (ticket?.is_sold_out === true) return true;
-  return ticket?.available != null && ticket.available <= 0;
+  if (ticket?.available != null && ticket.available <= 0) return true;
+
+  // An add-on whose every session is full is sold out even while its own stock
+  // is unlimited: the session badges said "Sold out" while the Add button
+  // stayed live and checkout refused the order.
+  const sessions = ticket?.kind === "add_on" ? (ticket.sessions ?? []) : [];
+  return (
+    sessions.length > 0 &&
+    sessions.every(
+      (s) => s.status === "sold_out" || (s.available != null && Number(s.available) <= 0),
+    )
+  );
 }
 
 /**
