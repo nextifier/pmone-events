@@ -368,6 +368,8 @@
                       data-drag-row
                       :data-state="row.getIsSelected() && 'selected'"
                       class="group data-menu-open:bg-muted/50 tracking-tight"
+                      :class="rowClickable && 'cursor-pointer'"
+                      @click="onRowClick(row, $event)"
                     >
                       <TableCell
                         v-for="(cell, index) in row.getVisibleCells()"
@@ -766,7 +768,24 @@ const emit = defineEmits([
   // alone - persist `items`, and the table keeps showing it until the parent
   // hands back data of its own.
   "reorder",
+  // (row.original, event): a click anywhere on a row that did not land on a
+  // control inside it. Rows only look clickable when the parent listens.
+  "row-click",
 ]);
+
+const instance = getCurrentInstance();
+const rowClickable = computed(() => !!instance?.vnode.props?.onRowClick);
+
+// Controls inside a row keep their own click: a link, a checkbox, the actions
+// menu. So does a drag that selected text, so copying an email is not a click.
+const ROW_CLICK_IGNORE = "a, button, input, label, select, textarea, [role='checkbox'], [role='menuitem'], [data-row-click-ignore]";
+
+function onRowClick(row, event) {
+  if (!rowClickable.value) return;
+  if (event.target instanceof Element && event.target.closest(ROW_CLICK_IGNORE)) return;
+  if (window.getSelection()?.toString()) return;
+  emit("row-click", row.original, event);
+}
 
 // Determine if we should use client-side processing
 const isClientSideMode = computed(() => props.displayOnly || props.clientOnly);
