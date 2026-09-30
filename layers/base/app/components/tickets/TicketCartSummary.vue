@@ -42,6 +42,9 @@ const props = defineProps({
    * re-checked against it, so "already used" shows here instead of at Pay.
    */
   buyerEmail: { type: String, default: "" },
+  // The add-on checkout refused for want of an entry ticket, so its line reads
+  // red next to the explanation beside the pay button.
+  blockedTicketId: { type: Number, default: null },
 });
 
 const emit = defineEmits(["promo-applied", "promo-cleared"]);
@@ -71,11 +74,7 @@ const linesWithTickets = computed(() =>
 );
 
 function dayNoticeFor(ticket, item) {
-  const notice = addOnDayNotice(ticket, item, linesWithTickets.value);
-  if (!notice) return "";
-  return notice.kind === "uncovered"
-    ? t("tickets.addOnDayUncovered", { session: notice.sessionDay, entry: notice.entryDays })
-    : t("tickets.addOnNeedsEntry", { session: notice.sessionDay });
+  return addOnDayNoticeText(addOnDayNotice(ticket, item, linesWithTickets.value), t);
 }
 
 const liveLines = computed(() =>
@@ -92,6 +91,7 @@ const liveLines = computed(() =>
         cartLineSubLabel(ticket, l.item) ||
         (lineMissingDay(ticket, l.item) ? t("tickets.dayMissing") : ""),
       missingDay: lineMissingDay(ticket, l.item),
+      blocked: props.blockedTicketId !== null && l.ticket_id === props.blockedTicketId,
       dayNotice: dayNoticeFor(ticket, l.item),
     };
   }),
@@ -429,7 +429,7 @@ defineExpose({ appliedPromo, recheckPromo });
                 v-if="line.subLabel"
                 class="text-sm leading-snug tracking-tight"
                 :class="
-                  line.missingDay
+                  line.missingDay || line.blocked
                     ? 'text-destructive-foreground'
                     : 'text-muted-foreground'
                 "
@@ -437,13 +437,14 @@ defineExpose({ appliedPromo, recheckPromo });
                 {{ line.subLabel }}
               </p>
               <!-- A session on a day the entry tickets here do not cover.
-                   Advice, not a block: the buyer may hold that day's pass
-                   from an earlier order. No icon: it pushed the sentence off
-                   the column the title and date share, and the wording says
-                   what is wrong without it. -->
+                   Advice until checkout refuses it: the buyer may hold that
+                   day's pass from an earlier order. No icon: it pushed the
+                   sentence off the column the title and date share, and the
+                   wording says what is wrong without it. -->
               <p
                 v-if="line.dayNotice"
-                class="text-warning-foreground text-sm leading-snug tracking-tight"
+                class="text-sm leading-snug tracking-tight"
+                :class="line.blocked ? 'text-destructive-foreground' : 'text-warning-foreground'"
               >
                 {{ line.dayNotice }}
               </p>

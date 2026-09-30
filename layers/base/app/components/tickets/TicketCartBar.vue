@@ -51,11 +51,7 @@ const linesWithTickets = computed(() =>
 );
 
 function dayNoticeFor(ticket, item) {
-  const notice = addOnDayNotice(ticket, item, linesWithTickets.value);
-  if (!notice) return "";
-  return notice.kind === "uncovered"
-    ? t("tickets.addOnDayUncovered", { session: notice.sessionDay, entry: notice.entryDays })
-    : t("tickets.addOnNeedsEntry", { session: notice.sessionDay });
+  return addOnDayNoticeText(addOnDayNotice(ticket, item, linesWithTickets.value), t);
 }
 
 // The collapsed bar is all most buyers ever see, so a session on a day their

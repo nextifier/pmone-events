@@ -258,18 +258,22 @@ export function sessionTimeRange(session) {
 
 /**
  * Whether the entry tickets in this cart get the buyer in on the day an add-on
- * session takes place. The order is not refused over it (a buyer may already
- * hold a pass for that day from an earlier order), but a Thursday seminar next
- * to a Sunday pass is almost always a mistake, and one that only surfaces at
- * the gate.
+ * session takes place, one entry ticket per seat. Advice only: the order
+ * endpoint counts entry tickets bought earlier with the same email too, and
+ * refuses the order with its own explanation when they still fall short. A
+ * Thursday seminar next to a Sunday pass is almost always a mistake, though,
+ * and one that is cheaper to catch in the cart than at checkout.
+ *
+ * Skipped for an add-on the organizer sells on its own (merchandise, parking).
  *
  * @param {object|null} ticket the add-on line's ticket
  * @param {object} item the add-on line's cart item
  * @param {Array<{ticket: object|null, item: object}>} lines every line in the cart
- * @returns {{ kind: "uncovered"|"no_entry", sessionDay: string, entryDays: string } | null}
+ * @returns {{ kind: "uncovered"|"no_entry"|"short", sessionDay: string, entryDays: string } | null}
  */
 export function addOnDayNotice(ticket, item, lines) {
   if (ticket?.kind !== "add_on" || !item) return null;
+  if (ticket.requires_entry_ticket === false) return null;
   const session = (ticket.sessions ?? []).find((s) => s.id === item.ticket_session_id);
   if (!session?.starts_at) return null;
 
@@ -284,25 +288,63 @@ export function addOnDayNotice(ticket, item, lines) {
   }
 
   const covered = new Set();
+  let coveringQty = 0;
   for (const line of entryLines) {
     const days = line.ticket.valid_days ?? [];
     const chosen = days.find((d) => d.id === line.item?.selected_event_day_id);
     // A pass with no day list is valid on every day of the event. A day pass
     // with no day picked yet already reads "Choose a day"; a second warning
     // on top of it would be about a choice not made.
-    if (line.ticket.requires_day_selection ? !chosen : !days.length) return null;
-    for (const day of chosen ? [chosen] : days) {
-      if (day.date) covered.add(day.date.slice(0, 10));
+    if (line.ticket.requires_day_selection ? !chosen : !days.length) {
+      if (line.ticket.requires_day_selection) return null;
+      coveringQty += Number(line.item?.qty) || 0;
+      covered.add(sessionDate);
+      continue;
     }
+    const lineDates = (chosen ? [chosen] : days).map((d) => d.date?.slice(0, 10)).filter(Boolean);
+    for (const date of lineDates) covered.add(date);
+    if (lineDates.includes(sessionDate)) coveringQty += Number(line.item?.qty) || 0;
   }
 
-  if (covered.has(sessionDate)) return null;
+  if (!covered.has(sessionDate)) {
+    return {
+      kind: "uncovered",
+      sessionDay: format(sessionDate),
+      entryDays: [...covered].sort().map(format).join(", "),
+    };
+  }
 
-  return {
-    kind: "uncovered",
-    sessionDay: format(sessionDate),
-    entryDays: [...covered].sort().map(format).join(", "),
-  };
+  // Seats of this add-on on the session's day, across every session that day.
+  const seats = lines
+    .filter((l) => l.ticket?.id === ticket.id)
+    .filter((l) => {
+      const s = (ticket.sessions ?? []).find((x) => x.id === l.item?.ticket_session_id);
+      return s?.starts_at && eventDate(s.starts_at) === sessionDate;
+    })
+    .reduce((sum, l) => sum + (Number(l.item?.qty) || 0), 0);
+
+  if (seats > coveringQty) {
+    return { kind: "short", sessionDay: format(sessionDate), entryDays: "" };
+  }
+
+  return null;
+}
+
+/**
+ * The sentence for an add-on's entry-ticket notice, or "" when there is none.
+ *
+ * @param {ReturnType<typeof addOnDayNotice>} notice
+ * @param {Function} t vue-i18n's t
+ */
+export function addOnDayNoticeText(notice, t) {
+  if (!notice) return "";
+  if (notice.kind === "uncovered") {
+    return t("tickets.addOnDayUncovered", { session: notice.sessionDay, entry: notice.entryDays });
+  }
+  if (notice.kind === "short") {
+    return t("tickets.addOnEntryPerSeat", { session: notice.sessionDay });
+  }
+  return t("tickets.addOnNeedsEntry", { session: notice.sessionDay });
 }
 
 /**
@@ -333,5 +375,6 @@ export function useTicketLine() {
     cartLineSubLabel,
     lineMissingDay,
     addOnDayNotice,
+    addOnDayNoticeText,
   };
 }

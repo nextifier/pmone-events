@@ -1,4 +1,5 @@
 <script setup>
+import { Alert, AlertDescription, AlertTitle } from "../../components/ui/alert";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Checkbox } from "../../components/ui/checkbox";
@@ -604,6 +605,53 @@ function buildBusinessMatchingPayload() {
 const summaryRef = ref(null);
 const pageRef = ref(null);
 
+// The order endpoint refuses an add-on the buyer has no entry ticket for, on
+// the session's day, counting entry tickets bought earlier with the same email.
+// Its reason sits beside the pay button, where the buyer is looking, instead
+// of in a toast that is gone before it is read.
+const ENTRY_ERROR_CODES = ["ADD_ON_NEEDS_ENTRY", "ADD_ON_EXCEEDS_ENTRY", "ADD_ON_ENTRY_UNPAID"];
+const entryError = ref(null);
+const entryAlertRef = ref(null);
+
+const entryErrorText = computed(() => {
+  const error = entryError.value;
+  if (!error) return "";
+  const meta = error.meta ?? {};
+  const params = {
+    event: event.title,
+    addOn: meta.ticket_title,
+    date: meta.date
+      ? new Intl.DateTimeFormat(locale.value, {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          timeZone: "UTC",
+        }).format(new Date(`${meta.date}T00:00:00Z`))
+      : "",
+    entries: meta.entry_count,
+    addOns: meta.add_on_count,
+  };
+  const suffix = meta.date ? "" : "AnyDay";
+  if (error.code === "ADD_ON_ENTRY_UNPAID") return t(`tickets.entryUnpaid${suffix}`, params);
+  if (error.code === "ADD_ON_EXCEEDS_ENTRY") {
+    return t(`tickets.entryShort${suffix}`, params, Number(meta.entry_count));
+  }
+  return t(`tickets.entryRequired${suffix}`, params);
+});
+
+// Stale the moment the buyer changes what would decide it.
+watch(
+  () =>
+    [
+      form.value.buyer_email,
+      ...cart.items.map(
+        (i) => `${i.ticket_id}:${i.qty}:${i.ticket_session_id}:${i.selected_event_day_id}`,
+      ),
+    ].join("|"),
+  () => (entryError.value = null),
+);
+
 /**
  * Put the first problem on screen. A toast on an 1800px page tells the buyer
  * something is wrong but not where, and the submit button is `aria-disabled`
@@ -643,6 +691,7 @@ async function submit() {
     return;
   }
   submitting.value = true;
+  entryError.value = null;
   errors.value = {};
 
   const payload = {
@@ -759,6 +808,12 @@ async function submit() {
     // because there the fix really is the email. A used-up per-person share
     // stays off the field: highlighting it would read as "try another address".
     const accessErrorCode = body.data?.error_code ?? body.error_code ?? null;
+    if (ENTRY_ERROR_CODES.includes(accessErrorCode)) {
+      entryError.value = { code: accessErrorCode, meta: body.data?.meta ?? body.meta ?? {} };
+      await nextTick();
+      entryAlertRef.value?.$el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     let message = body.message || body.data?.message || t("tickets.submitError");
     if (accessErrorCode) {
       message = accessErrorMessage(accessErrorCode, body.data?.message);
@@ -1111,6 +1166,7 @@ onBeforeUnmount(clearTicketCheckoutBar);
                   editable
                   :frozen="handingOff"
                   :buyer-email="form.buyer_email"
+                  :blocked-ticket-id="entryError?.meta?.ticket_id ?? null"
                 />
               </div>
             </div>
@@ -1221,6 +1277,32 @@ onBeforeUnmount(clearTicketCheckoutBar);
                waiting on the gateway link: that wait can run to 15s, and a bare
                spinner for that long tells the buyer nothing. So the preparing
                state renders its own inline spinner and keeps its label. -->
+          <Alert
+            v-if="entryError"
+            ref="entryAlertRef"
+            variant="destructive"
+            class="scroll-mt-(--navbar-height-desktop)"
+          >
+            <Icon name="hugeicons:alert-circle" />
+            <AlertTitle>{{ t("tickets.entryRequiredTitle") }}</AlertTitle>
+            <!-- The button sits under the sentence, not in AlertAction: that
+                 slot is pinned to the corner and runs over a message this long. -->
+            <AlertDescription>
+              <p>{{ entryErrorText }}</p>
+              <p v-if="entryError.code !== 'ADD_ON_ENTRY_UNPAID'">
+                {{ t("tickets.entryOtherEmail") }}
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                class="mt-1 no-underline!"
+                :to="`${localePath('/tickets')}#entry-tickets`"
+              >
+                {{ t("tickets.addEntryTicket") }}
+              </Button>
+            </AlertDescription>
+          </Alert>
+
           <Button
             type="submit"
             class="w-full aria-disabled:cursor-not-allowed aria-disabled:opacity-60"
