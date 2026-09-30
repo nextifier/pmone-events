@@ -478,8 +478,12 @@ export default defineNuxtConfig({
     sources: ["/api/sitemap-urls"],
   },
 
+  // `enable` is not a nuxt-schema-org option; nuxt-seo-utils (8.6+) reads that
+  // spelling to decide whether to alias `#schema-org/...`, and aliasing it while
+  // the module is off breaks the client build. Both keys are needed.
   schemaOrg: {
     enabled: false,
+    enable: false,
   },
 
   linkChecker: {

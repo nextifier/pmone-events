@@ -130,6 +130,12 @@ export default defineNuxtConfig({
       theme_color: "#0A0A0B",
       background_color: "#F4F1E8",
     },
+    workbox: {
+      // The hero shaders (WebGPU engine from `shaders` 3.x) ship as one 2.5 MB
+      // chunk. Workbox's default precache ceiling is 2 MiB and vite-plugin-pwa
+      // fails the whole build for anything above it.
+      maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+    },
   },
 
   nitro: {
@@ -150,7 +156,7 @@ export default defineNuxtConfig({
 
   vite: {
     optimizeDeps: {
-      exclude: ["shaders", "shaders/vue", "three"],
+      exclude: ["three"],
     },
   },
 });

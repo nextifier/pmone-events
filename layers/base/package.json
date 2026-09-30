@@ -20,7 +20,7 @@
     "@nuxt/image": "^2.1.0",
     "@nuxtjs/color-mode": "^4.0.1",
     "@nuxtjs/i18n": "^10.6.0",
-    "@nuxtjs/seo": "5.3.1",
+    "@nuxtjs/seo": "^5.3.16",
     "@pinia/nuxt": "^1.0.2",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/vite": "^4.3.3",
@@ -68,9 +68,22 @@
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^5.2.0",
+    "@internationalized/date": "^3.12.4",
+    "@tiptap/core": "^3.31.4",
+    "@tiptap/extension-code-block": "^3.31.4",
+    "@tiptap/extension-image": "^3.31.4",
+    "@tiptap/extension-link": "^3.31.4",
+    "@tiptap/extension-placeholder": "^3.31.4",
     "@tiptap/extension-text-align": "^3.31.4",
+    "@tiptap/pm": "^3.31.4",
+    "@tiptap/starter-kit": "^3.31.4",
+    "@tiptap/vue-3": "^3.31.4",
+    "@vueuse/shared": "^15.0.0",
+    "embla-carousel": "^8.6.0",
     "laravel-echo": "^2.5.0",
     "pusher-js": "^8.6.0",
+    "shiki": "^4.4.3",
+    "tippy.js": "^6.3.7",
     "vue-input-otp": "^0.4.0"
   }
 }
