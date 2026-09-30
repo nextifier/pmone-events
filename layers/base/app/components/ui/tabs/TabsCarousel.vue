@@ -12,6 +12,12 @@ let rootEl: HTMLElement | null = null;
 let observer: MutationObserver | null = null;
 let scrollTimeout: ReturnType<typeof setTimeout> | undefined;
 let settleTimeout: ReturnType<typeof setTimeout> | undefined;
+let scrollFrame = 0;
+
+// A tap on a tab glides for this long. Native `behavior: "smooth"` picks its
+// own duration (350-470ms on desktop, longer on Android with snap on), and the
+// pill follows the scroll, so a tap feels late.
+const TAB_SCROLL_MS = 220;
 
 // Guards to avoid a scroll <-> activate feedback loop.
 let isProgrammaticScroll = false;
@@ -32,6 +38,9 @@ function getActiveIndex(triggers: HTMLElement[]): number {
 function onScrollEnd(): void {
   const el = carouselRef.value;
   if (!el) return;
+
+  // Toggling scroll-snap-type can fire a stray scrollend mid-glide.
+  if (scrollFrame) return;
 
   if (isProgrammaticScroll) {
     isProgrammaticScroll = false;
@@ -56,6 +65,44 @@ function onScrollEnd(): void {
   next.click();
 }
 
+function cancelScrollAnimation(): void {
+  if (!scrollFrame) return;
+  cancelAnimationFrame(scrollFrame);
+  scrollFrame = 0;
+  carouselRef.value?.style.removeProperty("scroll-snap-type");
+}
+
+// Snap is off while we drive scrollLeft, otherwise it fights every frame.
+function animateScrollTo(el: HTMLElement, left: number): void {
+  cancelScrollAnimation();
+
+  const from = el.scrollLeft;
+  const distance = left - from;
+  // A hidden document runs no animation frames, so the glide would never end.
+  if (
+    document.hidden ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    el.scrollLeft = left;
+    return;
+  }
+
+  const start = performance.now();
+  el.style.scrollSnapType = "none";
+
+  const step = (now: number): void => {
+    const progress = Math.min(1, (now - start) / TAB_SCROLL_MS);
+    el.scrollLeft = from + distance * (1 - Math.pow(1 - progress, 3));
+    if (progress < 1) {
+      scrollFrame = requestAnimationFrame(step);
+      return;
+    }
+    scrollFrame = 0;
+    el.style.removeProperty("scroll-snap-type");
+  };
+  scrollFrame = requestAnimationFrame(step);
+}
+
 // active -> scroll the matching panel into view.
 function onActiveChange(): void {
   if (isProgrammaticActivate) {
@@ -77,7 +124,7 @@ function onActiveChange(): void {
   if (Math.abs(el.scrollLeft - panel.offsetLeft) <= 1) return;
 
   isProgrammaticScroll = true;
-  el.scrollTo({ left: panel.offsetLeft, behavior: "smooth" });
+  animateScrollTo(el, panel.offsetLeft);
 
   // Safety net: clear the guard if scrollend never fires (e.g. no movement).
   clearTimeout(settleTimeout);
@@ -94,6 +141,8 @@ function onScroll(): void {
 onMounted(() => {
   const el = carouselRef.value;
   if (!el || !ctx?.swipeable.value) return;
+  el.addEventListener("touchstart", cancelScrollAnimation, { passive: true });
+  el.addEventListener("wheel", cancelScrollAnimation, { passive: true });
   rootEl = el.closest<HTMLElement>("[data-slot='tabs']");
 
   if ("onscrollend" in window) {
@@ -115,6 +164,9 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   const el = carouselRef.value;
+  cancelScrollAnimation();
+  el?.removeEventListener("touchstart", cancelScrollAnimation);
+  el?.removeEventListener("wheel", cancelScrollAnimation);
   el?.removeEventListener("scrollend", onScrollEnd);
   el?.removeEventListener("scroll", onScroll);
   observer?.disconnect();

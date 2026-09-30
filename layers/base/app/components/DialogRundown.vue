@@ -9,7 +9,7 @@
   >
     <div
       v-if="hasPoster"
-      class="bg-muted w-full overflow-hidden"
+      class="bg-muted w-full shrink-0 overflow-hidden"
       :style="{ aspectRatio: mediaAspectRatio(activity.poster_image, '4 / 5') }"
     >
       <BlurImage
@@ -20,7 +20,7 @@
       />
     </div>
     <div
-      class="text-foreground px-4 pb-16 sm:px-8 sm:pb-12"
+      class="text-foreground shrink-0 px-4 pb-16 sm:px-8 sm:pb-12"
       :class="hasPoster ? 'pt-4 sm:pt-6' : 'pt-5 sm:pt-12'"
     >
       <div class="flex flex-col gap-y-4">
@@ -59,7 +59,7 @@
           </div>
 
           <div
-            class="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl"
+            class="mt-3 text-2xl leading-tight font-semibold tracking-[-0.04em] text-balance sm:text-3xl"
           >
             {{ activity.title }}
           </div>

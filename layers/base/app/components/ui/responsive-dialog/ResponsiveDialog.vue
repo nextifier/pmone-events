@@ -19,19 +19,11 @@
             <DialogDescription class="sr-only">{{ description }}</DialogDescription>
             <slot name="sticky-header" />
             <ScrollArea
-              v-if="!flushContent"
-              class="flex flex-col"
-              :scrollHideDelay="0"
+              class="flex flex-col [&_[data-slot=scroll-area-thumb]]:bg-foreground/25"
+              type="auto"
             >
               <slot :data="dialogData" />
             </ScrollArea>
-            <div
-              v-else
-              class="flex flex-col overflow-y-auto [&::-webkit-scrollbar]:hidden"
-              style="scrollbar-width: none"
-            >
-              <slot :data="dialogData" />
-            </div>
             <slot name="sticky-footer" />
             <button
               v-if="preventClose"

@@ -16,7 +16,17 @@
       {{ $t("meetings.panel.title", { brand: brandName }) }}
     </h2>
 
-    <Skeleton v-if="state === 'loading'" class="h-10 w-44 rounded-lg" />
+    <!-- A real (inert) lg Button wearing the skeleton fill, so height, radius
+         and centering match the button that replaces it in every style. -->
+    <Button
+      v-if="state === 'loading'"
+      variant="ghost"
+      size="lg"
+      disabled
+      aria-hidden="true"
+      tabindex="-1"
+      class="animate-skeleton pointer-events-none w-44 opacity-100 [--skeleton-highlight:--alpha(var(--color-white)/64%)] [background:linear-gradient(120deg,transparent_40%,var(--skeleton-highlight),transparent_60%)_var(--color-muted)_0_0/200%_100%_fixed] dark:[--skeleton-highlight:--alpha(var(--color-white)/4%)]"
+    />
 
     <p v-else-if="state === 'error'" class="text-muted-foreground text-sm tracking-tight">
       {{ $t("meetings.panel.loadFailed") }}
@@ -247,7 +257,6 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import ResponsiveDialog from "../ui/responsive-dialog/ResponsiveDialog.vue";
-import { Skeleton } from "../ui/skeleton";
 import MeetingOutcome from "./MeetingOutcome.vue";
 import MeetingRequestDialog from "./MeetingRequestDialog.vue";
 import MeetingSlotGrid from "./MeetingSlotGrid.vue";

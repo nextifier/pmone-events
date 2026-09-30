@@ -18,17 +18,27 @@
     </div>
 
     <!-- Loading skeleton -->
-    <div v-if="pending && !brand" class="container">
-      <div class="lg:grid lg:grid-cols-12 lg:gap-12">
-        <div class="flex flex-col items-center lg:col-span-5 lg:items-start">
-          <Skeleton class="size-28 rounded-full sm:size-32 lg:size-36" />
-          <Skeleton class="mt-6 h-12 w-3/4 rounded-2xl lg:h-14" />
-          <Skeleton class="mt-3 h-5 w-1/3" />
+    <div v-if="pending && !brand" class="container -mt-[58px] lg:mt-0" aria-busy="true">
+      <div class="grid grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-12">
+        <!-- Mirrors the rail: avatar frame (p-2), name, company, facts -->
+        <div class="flex flex-col items-center lg:col-span-6 lg:items-start">
+          <div class="-mt-2 lg:mt-0 rounded-full p-2">
+            <Skeleton class="size-28 rounded-full sm:size-32 lg:size-36" />
+          </div>
+          <Skeleton class="mt-4 h-[34px] w-3/4 rounded-lg sm:h-[46px]" />
+          <Skeleton class="mt-1 h-6 w-1/3 lg:h-7" />
+          <div class="mt-5 grid w-full grid-cols-2 gap-2 sm:grid-cols-3">
+            <Skeleton class="h-[70px] rounded-xl" />
+            <Skeleton class="h-[70px] rounded-xl" />
+          </div>
         </div>
-        <div class="mt-10 space-y-3 lg:col-span-7 lg:mt-0">
-          <Skeleton class="h-5 w-full" />
-          <Skeleton class="h-5 w-11/12" />
-          <Skeleton class="h-5 w-4/5" />
+        <!-- Mirrors the description: 28px line boxes, max-w-2xl -->
+        <div class="lg:col-span-6">
+          <div class="max-w-2xl">
+            <div v-for="width in ['w-full', 'w-full', 'w-11/12', 'w-4/5']" :key="width" class="flex h-7 items-center">
+              <Skeleton class="h-4" :class="width" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
