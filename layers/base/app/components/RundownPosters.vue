@@ -6,7 +6,7 @@
          column, 4 in two, 6 in three. -->
     <div
       v-if="loading"
-      class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 2xl:grid-cols-3"
+      class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3"
     >
       <Skeleton
         v-for="i in 6"
@@ -24,14 +24,19 @@
     <Lightbox
       v-else
       :items="lightboxItems"
-      :show-thumbnails="false"
       full-key="xl"
       :alt="t('rundown.posterAlt', { n: 1 })"
     >
+      <!-- Posters are portrait, so the default 4:3 thumbnail would crop them:
+           keep the strip's height and let the width follow each poster. -->
+      <template #thumbnails>
+        <LightboxThumbnails
+          item-class="w-auto sm:w-auto [&>img]:w-auto [&>img]:object-contain"
+        />
+      </template>
+
       <template #trigger="{ openAt }">
-        <div
-          class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 2xl:grid-cols-3"
-        >
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           <TiltCard
             v-for="(poster, index) in posters"
             :key="poster.id"
