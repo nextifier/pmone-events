@@ -557,6 +557,12 @@ export default {
     tryAgain: "重试"
   },
   "meetings": {
+    "itinerary": {
+      "download": "下载日程表",
+      "preparing": "正在准备日程表…",
+      "done": "日程表已下载",
+      "failed": "无法准备日程表，请重试。",
+    },
     "common": {
       "retry": "重试",
       "back": "返回",

@@ -28,7 +28,7 @@ export function clearVisitorToken(event: H3Event): void {
   deleteCookie(event, COOKIE, { path: "/" });
 }
 
-function clientHeaders(event: H3Event): Record<string, string> {
+export function clientHeaders(event: H3Event): Record<string, string> {
   const ip =
     getRequestHeader(event, "cf-connecting-ip") ||
     getRequestHeader(event, "x-forwarded-for")?.split(",")[0]?.trim() ||

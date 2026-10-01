@@ -1,7 +1,21 @@
 <template>
   <div class="container mx-auto max-w-3xl space-y-8 px-4 pt-6 pb-20">
     <div class="space-y-2">
-      <h1 class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl">{{ $t("meetings.mine.title") }}</h1>
+      <div class="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
+        <h1 class="text-foreground text-3xl font-semibold tracking-tighter sm:text-4xl">{{ $t("meetings.mine.title") }}</h1>
+        <!-- Confirmed meetings and open requests on one page, to print or keep
+             on the phone for the show floor. -->
+        <Button
+          v-if="state === 'ready' && hasOpenMeetings"
+          variant="outline"
+          size="sm"
+          :loading="downloading"
+          @click="downloadItinerary"
+        >
+          <Icon v-if="!downloading" name="hugeicons:download-01" class="size-4 shrink-0" aria-hidden="true" />
+          <span>{{ $t("meetings.itinerary.download") }}</span>
+        </Button>
+      </div>
       <p v-if="visitor" class="text-muted-foreground text-sm tracking-tight">
         {{ $t("meetings.signIn.signedInAs", { email: visitor.email }) }}
         <Button variant="link" size="sm" class="h-auto p-0 align-baseline" @click="signOut">{{ $t("meetings.signIn.signOut") }}</Button>
@@ -126,6 +140,38 @@ const cancelOpen = ref(false);
 const toCancel = ref(null);
 
 const eventSlug = computed(() => event.slug);
+
+const hasOpenMeetings = computed(() => meetings.value.some((m) => ["pending", "accepted"].includes(m.status)));
+const downloading = ref(false);
+
+/**
+ * The PDF comes through this site's own server route, which holds the API key
+ * and the visitor session; the browser only ever talks to this domain.
+ */
+async function downloadItinerary() {
+  if (downloading.value) return;
+  downloading.value = true;
+  const id = toast.loading(t("meetings.itinerary.preparing"));
+  try {
+    const blob = await $fetch(`/api/meetings/${encodeURIComponent(eventSlug.value)}/mine/itinerary.pdf`, {
+      query: { locale: locale.value },
+      responseType: "blob",
+    });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `itinerary-${eventSlug.value}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+    toast.success(t("meetings.itinerary.done"), { id });
+  } catch {
+    toast.error(t("meetings.itinerary.failed"), { id });
+  } finally {
+    downloading.value = false;
+  }
+}
 
 const groups = computed(() => {
   const now = Date.now();

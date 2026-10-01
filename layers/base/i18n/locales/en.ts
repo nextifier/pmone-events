@@ -553,6 +553,12 @@ export default {
     "tryAgain": "Try again"
   },
   "meetings": {
+    "itinerary": {
+      "download": "Download itinerary",
+      "preparing": "Preparing your itinerary…",
+      "done": "Itinerary downloaded",
+      "failed": "Couldn't prepare the itinerary. Try again.",
+    },
     "common": {
       "retry": "Try again",
       "back": "Back",

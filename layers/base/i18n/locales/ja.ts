@@ -562,6 +562,12 @@ export default {
     tryAgain: "もう一度試す"
   },
   "meetings": {
+    "itinerary": {
+      "download": "日程表をダウンロード",
+      "preparing": "日程表を準備しています…",
+      "done": "日程表をダウンロードしました",
+      "failed": "日程表を準備できませんでした。もう一度お試しください。",
+    },
     "common": {
       "retry": "再試行",
       "back": "戻る",

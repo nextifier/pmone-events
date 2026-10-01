@@ -559,6 +559,12 @@ export default {
     tryAgain: "다시 시도"
   },
   "meetings": {
+    "itinerary": {
+      "download": "일정표 다운로드",
+      "preparing": "일정표를 준비하는 중…",
+      "done": "일정표를 다운로드했습니다",
+      "failed": "일정표를 준비하지 못했습니다. 다시 시도해 주세요.",
+    },
     "common": {
       "retry": "다시 시도",
       "back": "뒤로",

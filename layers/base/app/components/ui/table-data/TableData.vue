@@ -217,37 +217,46 @@
           >
             <div
               v-if="floatingActions && selectedRowsCount > 0 && $slots.actions"
-              class="fixed bottom-[calc(1rem+var(--app-bottom-inset,0px))] left-1/2 z-40 w-fit max-w-[calc(100vw-1.5rem)] -translate-x-1/2 sm:bottom-[calc(1.5rem+var(--app-bottom-inset,0px))]"
+              class="fixed bottom-[calc(var(--app-bottom-inset,0px)+max(1rem,env(safe-area-inset-bottom)))] left-1/2 z-40 w-fit max-w-[calc(100vw-1.5rem)] -translate-x-1/2 in-data-bottom-nav:max-lg:bottom-[calc(var(--app-bottom-inset,0px)+1rem)] sm:bottom-[calc(var(--app-bottom-inset,0px)+1.5rem)]"
             >
-              <!-- Static circle; only the value animates on change (NumberFlow),
-                   so the circle itself never re-pops. -->
-              <span
-                class="bg-foreground text-background border-background absolute -top-2 -right-1 z-10 inline-flex size-6 items-center justify-center rounded-full border-2 text-xs font-medium tracking-tight tabular-nums shadow-sm"
-              >
-                <NumberFlow :value="selectedRowsCount" />
-              </span>
-
+              <!-- Same rule as the ticket cart bar: the pill stands on top of the
+                   tab bar (--app-bottom-inset) and, while the bar is scrolled
+                   away (body[data-chrome-hidden]), drops by the bar's 3.5rem so
+                   it does not hang over an empty strip. The drop lives on this
+                   wrapper so it never fights the enter/leave classes above. -->
               <div
-                ref="pillEl"
-                class="t-resize bg-foreground text-background flex items-center rounded-full p-1 shadow-lg"
+                class="transition-[translate] duration-[250ms] ease-(--panel-ease) in-data-chrome-hidden:translate-y-14 motion-reduce:transition-none"
               >
-                <div class="no-scrollbar scroll-fade-x overflow-x-auto">
-                  <div class="flex w-max items-center gap-x-0.5">
-                    <TableBulkAction
-                      icon="lucide:x"
-                      label="Clear selection"
-                      @click="resetRowSelection"
-                    />
-                    <div
-                      v-if="$slots.actions"
-                      class="bg-background/20 mx-0.5 h-5 w-px shrink-0"
-                      aria-hidden="true"
-                    />
-                    <slot
-                      name="actions"
-                      :table="table"
-                      :selected-rows="table.getSelectedRowModel().rows"
-                    />
+                <!-- Static circle; only the value animates on change (NumberFlow),
+                     so the circle itself never re-pops. -->
+                <span
+                  class="bg-foreground text-background border-background absolute -top-2 -right-1 z-10 inline-flex size-6 items-center justify-center rounded-full border-2 text-xs font-medium tracking-tight tabular-nums shadow-sm"
+                >
+                  <NumberFlow :value="selectedRowsCount" />
+                </span>
+
+                <div
+                  ref="pillEl"
+                  class="t-resize bg-foreground text-background flex items-center rounded-full p-1 shadow-lg"
+                >
+                  <div class="no-scrollbar scroll-fade-x overflow-x-auto">
+                    <div class="flex w-max items-center gap-x-0.5">
+                      <TableBulkAction
+                        icon="lucide:x"
+                        label="Clear selection"
+                        @click="resetRowSelection"
+                      />
+                      <div
+                        v-if="$slots.actions"
+                        class="bg-background/20 mx-0.5 h-5 w-px shrink-0"
+                        aria-hidden="true"
+                      />
+                      <slot
+                        name="actions"
+                        :table="table"
+                        :selected-rows="table.getSelectedRowModel().rows"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

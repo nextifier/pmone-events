@@ -561,6 +561,12 @@ export default {
     tryAgain: "Coba lagi"
   },
   "meetings": {
+    "itinerary": {
+      "download": "Unduh jadwal",
+      "preparing": "Menyiapkan jadwal…",
+      "done": "Jadwal sudah diunduh",
+      "failed": "Jadwal belum bisa disiapkan. Coba lagi.",
+    },
     "common": {
       "retry": "Coba lagi",
       "back": "Kembali",
