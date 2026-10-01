@@ -37,14 +37,24 @@
 // Gallery photos are managed in PM One and fetched per active event. PM One
 // resolves the active event (is_active) and falls back to a previous event's
 // gallery when the active one has no photos yet.
-const { data: galleryData, error: galleryError } = await useFetch("/api/event/gallery", {
+const {
+  data: galleryData,
+  error: galleryError,
+  refresh: refreshGallery,
+} = await useFetch("/api/event/gallery", {
   default: () => ({ data: [] }),
 });
 
 const items = computed(() => galleryData.value?.data ?? []);
 
-// Prerendered with its photos; see usePrerenderRecovery for why a reload recovers it.
+// Prerendered with its photos: a reload recovers it when PM One is unreachable,
+// and the list is refreshed once the page is interactive. See usePrerenderRecovery.
 useReloadWhenEmpty(galleryError, () => items.value.length > 0, "gallery");
+useRefreshAfterPrerender({
+  data: galleryData,
+  error: galleryError,
+  refresh: refreshGallery,
+});
 
 // Event name for descriptive image alt text when a photo has no per-image alt.
 const event = useEvent();

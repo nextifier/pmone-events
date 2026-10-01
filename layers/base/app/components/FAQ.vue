@@ -103,7 +103,11 @@ const content = computed(() => useContentStore().components.faq);
 // FAQ items are managed in PM One and fetched per active event + locale, with
 // {{tokens}} resolved server-side from the event/project context. The section
 // heading (title/description/contactTitle) still comes from i18n.
-const { data: faqData, error: faqError } = await useFetch("/api/event/faq", {
+const {
+  data: faqData,
+  error: faqError,
+  refresh: refreshFaq,
+} = await useFetch("/api/event/faq", {
   query: { locale },
   watch: [locale],
   default: () => ({ data: [] }),
@@ -111,8 +115,10 @@ const { data: faqData, error: faqError } = await useFetch("/api/event/faq", {
 
 const list = computed(() => faqData.value?.data ?? []);
 
-// Prerendered with its list; see usePrerenderRecovery for why a reload recovers it.
+// Prerendered with its list: a reload recovers it when PM One is unreachable,
+// and the list is refreshed once the page is interactive. See usePrerenderRecovery.
 useReloadWhenEmpty(faqError, () => list.value.length > 0, "faq");
+useRefreshAfterPrerender({ data: faqData, error: faqError, refresh: refreshFaq });
 
 // No FallbackNotice here on purpose. FaqTemplate resolves {{event_title}},
 // {{event_date}}, {{event_time}} and {{event_location}} against the ACTIVE
