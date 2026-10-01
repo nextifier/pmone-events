@@ -29,6 +29,18 @@ export const useBrandsListing = (opts = {}) => {
 
   const editionValue = computed(() => unref(edition));
 
+  // Apps that opt in (`settings.brandsInHtml`) bake the exhibitor list into the
+  // prerendered /brands HTML instead of leaving it to the browser, so the page
+  // survives PM One being unreachable (see usePrerenderRecovery). The payload
+  // is large (185 brands is ~450 KB), which is why this is off by default and
+  // why the dedicated page is the only place it applies: past editions are
+  // rendered by the Worker and everywhere else stays client-only.
+  const route = useRoute();
+  const brandsInHtml =
+    !!appConfig.settings?.brandsInHtml &&
+    !editionValue.value &&
+    (route.name?.toString() ?? "").split("___")[0] === "brands";
+
   // ----- Search & filter state -----
   // The debounced copy is a ref this composable owns, not refDebounced():
   // that one is read-only, and clearFilters() has to empty it on the spot
@@ -197,7 +209,8 @@ export const useBrandsListing = (opts = {}) => {
     error,
   } = useFetch(brandsUrl, {
     lazy: true,
-    server: false, // client-only: keeps SSR HTML/payload small; SEO via sitemap
+    // Client-only by default: keeps SSR HTML/payload small; SEO via sitemap.
+    server: brandsInHtml,
     query: computed(() =>
       forceShowBrands.value ? { force_show_brands: 1 } : {},
     ),
@@ -211,9 +224,22 @@ export const useBrandsListing = (opts = {}) => {
   // only on the client, so during SSR + the initial client tick rawData is null
   // while fetchPending may be false — treat that as loading (show skeleton, not
   // the empty state). A genuine empty result sets rawData to [] (truthy).
+  //
+  // `pending` only counts while there is nothing to show: the refresh that runs
+  // after a prerendered page becomes interactive must not put a skeleton over
+  // a list that is already on screen.
   const isLoading = computed(
-    () => fetchPending.value || (rawData.value == null && !error.value),
+    () => rawData.value == null && (fetchPending.value || !error.value),
   );
+
+  if (brandsInHtml) {
+    useReloadWhenEmpty(
+      error,
+      () => !!(rawData.value?.length || rawData.value?.groups?.length),
+      "brands",
+    );
+    useRefreshAfterPrerender({ data: rawData, error, refresh });
+  }
 
   // ----- Brand groups (metadata injected once at fetch level) -----
   const allBrandGroups = computed(() => {

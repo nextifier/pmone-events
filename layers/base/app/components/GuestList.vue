@@ -148,7 +148,17 @@ const event = useEvent();
 const routeBaseName = (route.name?.toString() ?? "").split("___")[0];
 const isGuestsPage = routeBaseName === "guests" || routeBaseName === "speakers";
 
-const { data, pending, error } = await useGuests({ ssr: isGuestsPage });
+const guests = await useGuests({ ssr: isGuestsPage });
+const { data, pending, error } = guests;
+
+// The dedicated page is prerendered (the app opts in with staticPages.allow):
+// its HTML carries the lineup, a full load recovers it when PM One is
+// unreachable, and the lineup is refreshed once the page is interactive. See
+// usePrerenderRecovery. Embedded copies are client-only and need neither.
+if (isGuestsPage) {
+  useReloadWhenEmpty(error, () => !!data.value?.data?.length, "guests");
+  useRefreshAfterPrerender(guests);
+}
 
 // With `server: false` the fetch has not run during SSR/prerender, so its status
 // is `idle` and `pending` is FALSE (experimental.pendingWhenIdle defaults to

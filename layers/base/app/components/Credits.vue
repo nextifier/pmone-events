@@ -99,13 +99,22 @@ const route = useRoute();
 const isPartnersPage =
   (route.name?.toString() ?? "").split("___")[0] === "partners";
 
-const { data: partnersData } = await useFetch("/api/event/partners", {
+const partnersFetch = await useFetch("/api/event/partners", {
   key: "event-partners",
   server: isPartnersPage,
   lazy: !isPartnersPage,
   default: () => ({ data: [] }),
 });
+const { data: partnersData } = partnersFetch;
 const partners = computed(() => partnersData.value?.data ?? []);
+
+// The dedicated page is prerendered (the app opts in with staticPages.allow):
+// a full load recovers its list when PM One is unreachable, and the list is
+// refreshed once the page is interactive. See usePrerenderRecovery.
+if (isPartnersPage) {
+  useReloadWhenEmpty(partnersFetch.error, () => partners.value.length > 0, "partners");
+  useRefreshAfterPrerender(partnersFetch);
+}
 
 // When the active event has no partners, PM One borrows a previous edition and
 // flags it via meta.fallback so we can show a "from a previous edition" notice.

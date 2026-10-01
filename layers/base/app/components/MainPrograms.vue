@@ -51,13 +51,16 @@ const content = computed(() => useContentStore().components.mainPrograms ?? null
 
 // Program items are managed in PM One and fetched per active event + locale.
 // The section heading (title/description) still comes from i18n.
-const { data: programsData } = await useFetch("/api/event/programs", {
+const { data: programsData, error: programsError } = await useFetch("/api/event/programs", {
   query: { locale },
   watch: [locale],
   default: () => ({ data: [] }),
 });
 
 const list = computed(() => programsData.value?.data ?? []);
+
+// Prerendered with its list; see usePrerenderRecovery for why a reload recovers it.
+useReloadWhenEmpty(programsError, () => list.value.length > 0, "programs");
 
 // Source edition when the programs were borrowed from a previous event.
 const fallbackSource = computed(() => {

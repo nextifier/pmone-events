@@ -99,6 +99,13 @@ export default defineNuxtConfig({
     tags: [{ id: "G-JCGZGZQZ56" }],
   },
 
+  // Prerendered on top of the shared defaults: each carries its data in its HTML
+  // and refreshes it once interactive, so the pages hold up when PM One is
+  // unreachable. See layers/base/app/composables/usePrerenderRecovery.ts.
+  staticPages: {
+    allow: ["/guests", "/rundown", "/partners"],
+  },
+
   routeRules: {
     "/raya": {
       redirect: {

@@ -671,6 +671,7 @@ const {
   pending,
   error,
   execute: executeRundown,
+  refresh: refreshRundown,
 } = await useFetch(rundownUrl, {
   key: () =>
     `rundown-${props.edition ?? "active"}-${locale.value}${forceShowRundown.value ? "-forced" : ""}`,
@@ -692,6 +693,25 @@ if (!isRundownPage && import.meta.client) {
   });
 }
 
+// The dedicated /rundown page is prerendered (the app opts in with
+// staticPages.allow): its HTML carries the schedule, a full load recovers it
+// when PM One is unreachable, and the schedule is refreshed once the page is
+// interactive so a change made after the build still shows. The past-edition
+// page is not prerendered and ignores both. See usePrerenderRecovery.
+if (isRundownPage) {
+  useReloadWhenEmpty(
+    error,
+    () => !!rundownData.value?.data,
+    "rundown",
+    () => !!forceShowRundown.value,
+  );
+  useRefreshAfterPrerender({
+    data: rundownData,
+    error,
+    refresh: refreshRundown,
+  });
+}
+
 // Off its own page this fetch never runs on the server, and Nuxt 4 leaves such
 // a request at status "idle" rather than "pending" (experimental
 // .pendingWhenIdle defaults false). Raw `pending` is therefore FALSE during
@@ -705,8 +725,10 @@ onMounted(() => {
   mounted.value = true;
 });
 
+// `pending` alone would put the skeleton over a schedule that is already on
+// screen every time the post-prerender refresh runs.
 const loading = computed(
-  () => pending.value || (!isRundownPage && !mounted.value),
+  () => (pending.value && !rundownData.value) || (!isRundownPage && !mounted.value),
 );
 
 // Posters mode (PM One's "Website shows: Posters"): the rundown is a set of

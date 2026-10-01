@@ -12,6 +12,9 @@ const app = {
 };
 
 const settings = {
+  // Exhibitor list baked into the prerendered /brands HTML, so the page holds up
+  // when PM One is unreachable on the event days.
+  brandsInHtml: true,
   // Phone tab bar below lg, with Guests in place of Rundown.
   bottomNav: true,
   // bottomNavTabs: ["home", "guests", "brands", "exhibit", "tickets"],

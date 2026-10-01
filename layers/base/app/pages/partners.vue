@@ -24,8 +24,13 @@
 
 <script setup>
 usePageMeta("partners");
-const { data: mediaCoverageData } = await useMediaCoverages();
+const mediaCoverage = await useMediaCoverages();
+const { data: mediaCoverageData } = mediaCoverage;
 const news = computed(() => mediaCoverageData.value?.data ?? []);
+
+// Same recovery as the partner list above; see usePrerenderRecovery.
+useReloadWhenEmpty(mediaCoverage.error, () => news.value.length > 0, "partners-media");
+useRefreshAfterPrerender(mediaCoverage);
 const content = computed(() => useContentStore().components.mediaCoverage);
 
 // Source edition when the press items were borrowed from a previous event.

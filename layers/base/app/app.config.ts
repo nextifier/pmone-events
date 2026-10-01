@@ -27,6 +27,11 @@ export default defineAppConfig({
       logoClass: "h-8 text-foreground",
     },
 
+    // Bake the exhibitor list into the prerendered /brands HTML so the page
+    // survives PM One being unreachable. Costs payload (185 brands is ~450 KB per
+    // locale), so an app turns it on deliberately. See useBrandsListing.
+    brandsInHtml: false,
+
     // The phone tab bar (Home, Brands, Rundown, Exhibit, Tickets), below lg.
     // Off unless the app turns it on: it links to /brands, /rundown,
     // /book-space and /tickets, which an app with its own page set (campx,
