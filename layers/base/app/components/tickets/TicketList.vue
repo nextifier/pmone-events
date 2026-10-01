@@ -117,6 +117,45 @@ const ticketsDisabled = computed(() => {
   );
 });
 
+// Last resort for a first-time visitor who arrives by client-side navigation
+// while PM One is unreachable: nothing in memory, nothing in storage, and the
+// fetch failed. /tickets itself is prerendered and served by Cloudflare Static
+// Assets without touching the Worker or PM One, and its HTML carries the
+// listing, so asking the browser for the PAGE (a full load) recovers the
+// tickets where the fetch cannot. Reproduced 1 Oct 2026 on production with
+// /api/* blocked: Home -> Tickets showed "Couldn't load tickets" while a hard
+// load of the same URL shows them.
+//
+// At most once per five minutes per tab, so a page that fails the same way on
+// a full load (not prerendered, or PM One down at build time) ends on the
+// ordinary retry box instead of reloading in a loop.
+const RELOAD_GUARD_KEY = "tickets-recovery-reload";
+const RELOAD_GUARD_MS = 5 * 60 * 1000;
+
+function recoverWithFullLoad() {
+  if (!import.meta.client) return;
+
+  try {
+    const last = Number(sessionStorage.getItem(RELOAD_GUARD_KEY) || 0);
+    if (Date.now() - last < RELOAD_GUARD_MS) return;
+    sessionStorage.setItem(RELOAD_GUARD_KEY, String(Date.now()));
+  } catch {
+    return;
+  }
+
+  window.location.reload();
+}
+
+watch(
+  error,
+  (failure) => {
+    if (!failure || tickets.value.length || ticketsDisabled.value) return;
+    if (staffPreview.value) return;
+    recoverWithFullLoad();
+  },
+  { immediate: true },
+);
+
 // Tickets revealed by a valid access code (may include `hidden` ones absent from
 // the public listing). Merged over the listing, deduped by id. They live in the
 // cart store, because checkout and the cart bar need them too: a hidden ticket
