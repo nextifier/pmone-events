@@ -10,8 +10,11 @@ export function useMeetingBrands() {
 
   if (import.meta.client && !requested.value) {
     requested.value = true;
+    // Called here, not inside the callback: useFetch has to run during setup,
+    // and awaiting the handle later still shares the one asyncData entry.
+    const eventData = useEventData();
     onNuxtReady(async () => {
-      await useEventData();
+      await eventData;
       if (!event.slug) return;
       try {
         const res = await $fetch(`/api/meetings/${event.slug}/config`);

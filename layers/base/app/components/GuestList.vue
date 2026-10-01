@@ -1,5 +1,5 @@
 <template>
-  <section id="guests">
+  <section v-if="!failedOnHome" id="guests">
     <div class="container mx-auto">
       <div class="flex flex-col items-center text-center">
         <!-- h1 only on /guests and /speakers. Embedded on /tickets or the home
@@ -150,6 +150,14 @@ const isGuestsPage = routeBaseName === "guests" || routeBaseName === "speakers";
 
 const guests = await useGuests({ ssr: isGuestsPage });
 const { data, pending, error } = guests;
+
+// On the home page a lineup that failed to load leaves nothing worth a section:
+// the heading and an error line above the next section read as a broken page,
+// while a missing section reads as a shorter one. Rundown already does the same
+// there. The dedicated page and the /tickets tab keep their error state.
+const failedOnHome = computed(
+  () => routeBaseName === "index" && !!error.value && !data.value?.data?.length,
+);
 
 // The dedicated page is prerendered (the app opts in with staticPages.allow):
 // its HTML carries the lineup, a full load recovers it when PM One is
