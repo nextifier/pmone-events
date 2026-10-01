@@ -40,6 +40,16 @@ export function reloadOnceToRecover(scope: string): void {
 }
 
 /**
+ * Errors whose data is about to be put back by useRefreshAfterPrerender.
+ *
+ * `useFetch` empties `data` and sets `error` in the same tick a refresh fails,
+ * and the restore only runs when `refresh()` resolves a moment later. Without
+ * this the reload below sees "error and nothing on screen" in that gap and
+ * reloads a page that is about to be fine.
+ */
+const restoring = new WeakSet<object>();
+
+/**
  * Reload once when the request failed AND there is nothing on screen to keep.
  * `skip` lets a caller rule out failures that are not outages (staff preview,
  * "ticketing is not enabled").
@@ -53,7 +63,7 @@ export function useReloadWhenEmpty(
   watch(
     error,
     (failure) => {
-      if (!failure || hasData() || skip()) return;
+      if (!failure || hasData() || skip() || restoring.has(error)) return;
       reloadOnceToRecover(scope);
     },
     { immediate: true },
@@ -89,11 +99,17 @@ export function useRefreshAfterPrerender<T>(source: RefreshableData<T>): void {
 
   onNuxtReady(async () => {
     const kept = source.data.value;
-    await source.refresh();
+    if (kept != null) restoring.add(source.error);
 
-    if (source.error.value && kept != null) {
-      source.data.value = kept;
-      source.error.value = undefined;
+    try {
+      await source.refresh();
+
+      if (source.error.value && kept != null) {
+        source.data.value = kept;
+        source.error.value = undefined;
+      }
+    } finally {
+      restoring.delete(source.error);
     }
   });
 }
