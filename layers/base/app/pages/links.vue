@@ -21,14 +21,16 @@
         </p>
       </div>
       <Button to="/" variant="secondary" size="lg">
-        <Icon name="hugeicons:home-01" class="size-4 shrink-0" />
+        <Icon name="solar:home-smile-linear" class="size-5 shrink-0" />
         <span>Back to home</span>
       </Button>
     </div>
 
+    <!-- Same profile layout as the PM One user profile: cover, avatar notched
+         into it, left-aligned name, contact buttons, social icons, then links. -->
     <div
       v-else-if="profile"
-      class="min-h-screen-offset mx-auto flex max-w-xl flex-col px-4 pb-12 sm:pt-2"
+      class="min-h-screen-offset mx-auto flex max-w-xl flex-col px-4 pb-16 sm:pt-4"
     >
       <Lightbox
         :items="profileImageItems"
@@ -40,58 +42,41 @@
         :alt="profile.name"
       >
         <template #trigger="{ openAt }">
-          <CardNotch
-            v-if="hasCoverImage"
-            position="bottom-center"
-            size="5rem"
-            gap="0.3rem"
-            radius="1rem"
-            card-bg="var(--color-background)"
-            border-color="var(--color-border)"
-            body-class="aspect-[3/1] @container overflow-hidden"
-            class="-mx-3"
-          >
-            <div class="absolute inset-0 flex items-center justify-center">
+          <div class="relative -mx-4">
+            <div
+              class="bg-muted outline-foreground/5 relative aspect-[3/1] overflow-hidden outline -outline-offset-1 sm:rounded-xl"
+            >
               <img
+                v-if="hasCoverImage"
                 :src="profile.cover_image.md"
                 :alt="`${profile.name} cover`"
                 class="size-full object-cover"
                 width="1500"
                 height="500"
-                loading="lazy"
+                fetchpriority="high"
+              />
+              <img
+                v-else-if="profile.profile_image?.sm"
+                :src="profile.profile_image.sm"
+                alt=""
+                class="size-full scale-110 object-cover blur-2xl"
+                width="200"
+                height="200"
               />
             </div>
+          </div>
 
-            <template #notch>
-              <component
-                :is="hasProfileImage ? 'button' : 'div'"
-                :type="hasProfileImage ? 'button' : undefined"
-                :aria-label="
-                  hasProfileImage ? `View ${profile.name} logo` : undefined
-                "
-                class="size-full rounded-full"
-                :class="hasProfileImage ? 'cursor-zoom-in' : ''"
-                @click="hasProfileImage && openAt(0)"
-              >
-                <Avatar
-                  :model="profile"
-                  size="md"
-                  rounded="rounded-full"
-                  :no-tooltip="true"
-                  class="size-full"
-                />
-              </component>
-            </template>
-          </CardNotch>
-
-          <div v-else class="flex justify-center pt-2 lg:pt-8">
+          <div class="relative isolate -mt-12 ml-[5px] w-fit lg:-mt-16">
             <component
               :is="hasProfileImage ? 'button' : 'div'"
               :type="hasProfileImage ? 'button' : undefined"
               :aria-label="
                 hasProfileImage ? `View ${profile.name} logo` : undefined
               "
-              :class="hasProfileImage ? 'cursor-zoom-in' : ''"
+              class="ring-background block rounded-full ring-[9px]"
+              :class="
+                hasProfileImage ? 'cursor-zoom-in transition active:scale-98' : ''
+              "
               @click="hasProfileImage && openAt(0)"
             >
               <Avatar
@@ -100,90 +85,143 @@
                 rounded="rounded-full"
                 :gradient-frame="true"
                 :no-tooltip="true"
-                class="size-20 before:-inset-[5px]!"
+                class="size-24 lg:size-32 before:-inset-[5px]!"
               />
             </component>
+
+            <span
+              class="absolute top-1/2 right-0 z-[-1] size-8 translate-x-[calc(100%+9px)] -translate-y-full rounded-bl-[16px] bg-transparent shadow-[-16px_16px_0_var(--color-background)]"
+              aria-hidden="true"
+            />
           </div>
         </template>
       </Lightbox>
 
-      <div
-        class="mt-4 flex grow flex-col justify-between gap-y-8 sm:justify-start"
-      >
-        <div class="flex flex-col gap-y-6">
-          <div class="flex flex-col items-center gap-y-2 text-center">
-            <div class="space-y-0.5">
-              <h1
-                class="text-foreground line-clamp-2 text-xl font-semibold tracking-tighter"
-              >
-                {{ profile.name }}
-              </h1>
-            </div>
-
-            <div
-              v-if="hasContactMethods"
-              class="mt-1.5 flex flex-wrap justify-center gap-x-2 gap-y-3"
-            >
-              <Button
-                variant="default"
-                size="default"
-                v-for="phone in phoneNumbers"
-                :key="phone.number"
-                :to="`https://wa.me/${phone.number.replace(/\D/g, '')}`"
-                @click="trackClick(phone.label || 'WhatsApp')"
-                @contextmenu.prevent
-              >
-                <Icon name="hugeicons:whatsapp" class="size-4.5 shrink-0" />
-                <span>{{ phone.label || "WhatsApp" }}</span>
-              </Button>
-
-              <Button
-                variant="secondary"
-                size="default"
-                v-if="profile.email"
-                :to="`mailto:${profile.email}`"
-                @click="trackClick('Email')"
-                @contextmenu.prevent
-              >
-                <Icon name="hugeicons:mail-02" class="size-4.5 shrink-0" />
-                <span>Email</span>
-              </Button>
-            </div>
-          </div>
+      <div class="mt-3 flex grow flex-col gap-y-6">
+        <div class="flex flex-col items-start gap-y-2">
+          <h1
+            class="text-foreground line-clamp-2 text-xl font-semibold tracking-tighter"
+          >
+            {{ profile.name }}
+          </h1>
 
           <div
-            v-if="linkGroups.social.length > 0"
-            class="flex flex-wrap justify-center gap-2"
+            v-if="hasContactMethods"
+            class="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-2.5"
           >
             <Button
-              variant="secondary"
-              size="iconLg"
-              class="size-11 rounded-full"
-              v-for="link in linkGroups.social"
-              :key="link.url || link.id"
-              :to="link.url || '#'"
-              :aria-label="link.label"
-              @click="trackClick(link.label)"
+              v-if="phoneNumbers.length === 1"
+              :to="`https://wa.me/${phoneNumbers[0].number.replace(/\D/g, '')}`"
+              @click="trackClick(phoneNumbers[0].label || 'WhatsApp')"
               @contextmenu.prevent
-              v-tippy="link.label"
             >
-              <Icon :name="getSocialIcon(link.label)" class="size-5" />
+              <Icon
+                name="hugeicons:whatsapp"
+                class="size-5 shrink-0"
+                aria-hidden="true"
+              />
+              <span>{{ phoneNumbers[0].label || "WhatsApp" }}</span>
+            </Button>
+
+            <DropdownMenu v-else-if="phoneNumbers.length > 1" :modal="false">
+              <DropdownMenuTrigger as-child>
+                <Button>
+                  <Icon
+                    name="hugeicons:whatsapp"
+                    class="size-5 shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span>WhatsApp</span>
+                  <Icon
+                    name="solar:alt-arrow-down-linear"
+                    class="size-4 shrink-0"
+                    aria-hidden="true"
+                  />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align="start" class="w-auto min-w-48">
+                <DropdownMenuItem
+                  v-for="phone in phoneNumbers"
+                  :key="phone.number"
+                  as-child
+                  class="gap-x-2"
+                >
+                  <NuxtLink
+                    :to="`https://wa.me/${phone.number.replace(/\D/g, '')}`"
+                    target="_blank"
+                    rel="noopener"
+                    @click="trackClick(phone.label || 'WhatsApp')"
+                  >
+                    <Icon
+                      name="hugeicons:whatsapp"
+                      class="size-5 shrink-0"
+                      aria-hidden="true"
+                    />
+                    <span class="truncate">{{
+                      phone.label || phone.number
+                    }}</span>
+                  </NuxtLink>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button
+              v-if="profile.email"
+              variant="secondary"
+              :to="`mailto:${profile.email}`"
+              @click="trackClick('Email')"
+              @contextmenu.prevent
+            >
+              <Icon
+                name="solar:letter-linear"
+                class="size-5 shrink-0"
+                aria-hidden="true"
+              />
+              <span>Email</span>
             </Button>
           </div>
         </div>
 
-        <div class="mx-auto flex w-full max-w-[400px] flex-col gap-y-3">
+        <div
+          v-if="linkGroups.social.length > 0"
+          class="flex flex-wrap items-center gap-x-1.5 gap-y-2.5"
+        >
           <Button
+            v-for="link in linkGroups.social"
+            :key="link.url || link.id"
             variant="secondary"
-            size="xl"
+            size="icon"
+            :to="link.url || '#'"
+            :aria-label="link.label"
+            v-tippy="link.label"
+            @click="trackClick(link.label)"
+            @contextmenu.prevent
+          >
+            <Icon
+              :name="getSocialIcon(link.label)"
+              class="size-5 shrink-0"
+              aria-hidden="true"
+            />
+          </Button>
+        </div>
+
+        <div class="flex flex-col gap-y-2">
+          <Button
             v-for="link in stackedLinks"
             :key="link.key"
+            variant="secondary"
+            class="w-full"
             :to="link.url || '#'"
             @click="trackClick(link.label)"
             @contextmenu.prevent
             v-ripple
           >
-            <Icon :name="link.iconName" class="size-4.5 shrink-0" />
+            <Icon
+              :name="link.iconName"
+              class="size-5 shrink-0"
+              aria-hidden="true"
+            />
             <span>{{ link.label }}</span>
           </Button>
         </div>
@@ -207,7 +245,7 @@ const SOCIAL_LABELS = [
 ];
 
 const SOCIAL_ICON_MAP = {
-  website: "hugeicons:globe-02",
+  website: "solar:global-linear",
   instagram: "hugeicons:instagram",
   facebook: "hugeicons:facebook-01",
   x: "hugeicons:new-twitter-rectangle",
@@ -218,11 +256,36 @@ const SOCIAL_ICON_MAP = {
 
 const route = useRoute();
 
-const [{ data: projectData, error: profileError }, { data: activeEvent }] =
-  await Promise.all([
-    useFetch("/api/project/profile", { key: "links-project-profile" }),
-    useFetch("/api/event/active", { key: "active-event" }),
-  ]);
+const {
+  data: projectData,
+  error: profileError,
+  refresh: refreshProfile,
+} = await useFetch("/api/project/profile", { key: "links-project-profile" });
+
+// The shared handle (same key and options as the header and footer), so the
+// page reads the one `active-event` entry instead of registering a second one.
+const { data: activeEvent, error: activeEventError } = await useEventData();
+
+// Prerendered with both payloads: refresh them once the page is interactive so
+// an edit made after the build (a new E-Guide, say) shows without a rebuild.
+// The shared handle serves its cached copy on every refresh, so the event is
+// fetched directly and a failure keeps the build-time copy.
+useRefreshAfterPrerender({
+  data: projectData,
+  error: profileError,
+  refresh: refreshProfile,
+});
+useRefreshAfterPrerender({
+  data: activeEvent,
+  error: activeEventError,
+  refresh: async () => {
+    try {
+      activeEvent.value = await $fetch("/api/event/active");
+    } catch {
+      /* keep the build-time copy */
+    }
+  },
+});
 
 const loading = computed(() => !projectData.value && !profileError.value);
 const profile = computed(() => projectData.value?.data || null);
@@ -293,19 +356,19 @@ const stackedLinks = computed(() => {
       key: "tickets",
       label: "Tickets",
       url: "/tickets",
-      iconName: "hugeicons:ticket-01",
+      iconName: "solar:ticket-linear",
     },
     {
       key: "brands",
       label: "Brands",
       url: "/brands",
-      iconName: "hugeicons:grid-view",
+      iconName: "solar:shop-2-linear",
     },
     {
       key: "rundown",
       label: "Rundown",
       url: "/rundown",
-      iconName: "hugeicons:check-list",
+      iconName: "solar:clipboard-list-linear",
     },
   ];
 
@@ -313,9 +376,9 @@ const stackedLinks = computed(() => {
   if (eguideUrl) {
     items.push({
       key: "eguide",
-      label: "Download Visitor E-Guide",
+      label: "Visitor E-Guide",
       url: eguideUrl,
-      iconName: "hugeicons:download-01",
+      iconName: "solar:download-minimalistic-linear",
     });
   }
 
@@ -339,16 +402,16 @@ const getCustomLinkIcon = (label) => {
     lower.includes("brochure") ||
     lower.includes("catalog")
   )
-    return "hugeicons:download-01";
+    return "solar:download-minimalistic-linear";
   if (
     lower.includes("map") ||
     lower.includes("location") ||
     lower.includes("venue")
   )
-    return "hugeicons:location-01";
+    return "solar:map-point-linear";
   if (lower.includes("register") || lower.includes("sign up"))
-    return "hugeicons:user-add-01";
-  return "hugeicons:link-04";
+    return "solar:user-plus-linear";
+  return "solar:link-round-linear";
 };
 
 const qrCodeUrl = computed(() => {
@@ -368,7 +431,7 @@ const qrCodeText = computed(() => {
 });
 
 const getSocialIcon = (label) =>
-  SOCIAL_ICON_MAP[label?.toLowerCase()] || "hugeicons:link-02";
+  SOCIAL_ICON_MAP[label?.toLowerCase()] || "solar:link-round-linear";
 
 const { trackVisit, trackClick } = useProfileTracking(() => profile.value?.id);
 
