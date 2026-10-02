@@ -33,7 +33,7 @@
       class="min-h-screen-offset mx-auto flex max-w-xl flex-col px-4 pb-16 sm:pt-4"
     >
       <Lightbox
-        :items="profileImageItems"
+        :items="lightboxItems"
         :show-thumbnails="false"
         :show-counter="false"
         :show-download="false"
@@ -42,57 +42,71 @@
         :alt="profile.name"
       >
         <template #trigger="{ openAt }">
-          <div class="relative -mx-4">
-            <div
-              class="bg-muted outline-foreground/5 relative aspect-[3/1] overflow-hidden outline -outline-offset-1 sm:rounded-xl"
-            >
-              <img
-                v-if="hasCoverImage"
-                :src="profile.cover_image.md"
-                :alt="`${profile.name} cover`"
-                class="size-full object-cover"
-                width="1500"
-                height="500"
-                fetchpriority="high"
-              />
-              <img
-                v-else-if="profile.profile_image?.sm"
-                :src="profile.profile_image.sm"
-                alt=""
-                class="size-full scale-110 object-cover blur-2xl"
-                width="200"
-                height="200"
-              />
+          <!-- --d is the avatar's diameter. The avatar is centred on the
+               cover's bottom edge, and the cover is cut by a circle around it
+               (the avatar, its 5px gradient frame and a 4px gap), so the notch
+               follows the avatar exactly at every size. -->
+          <div class="relative [--d:6rem] lg:[--d:8rem]">
+            <div class="-mx-4">
+              <div
+                class="bg-muted outline-foreground/5 relative overflow-hidden outline -outline-offset-1 sm:rounded-xl"
+                :class="hasCoverImage ? '' : 'aspect-[3/1]'"
+                :style="coverNotchStyle"
+              >
+                <button
+                  v-if="hasCoverImage"
+                  type="button"
+                  class="block w-full cursor-zoom-in"
+                  :aria-label="`View ${profile.name} cover`"
+                  @click="openAt(0)"
+                >
+                  <img
+                    :src="profile.cover_image.md"
+                    :srcset="coverSrcset"
+                    sizes="(min-width: 36rem) 36rem, 100vw"
+                    alt=""
+                    class="block h-auto w-full"
+                    :width="profile.cover_image.width || undefined"
+                    :height="profile.cover_image.height || undefined"
+                    fetchpriority="high"
+                  />
+                </button>
+                <img
+                  v-else-if="profile.profile_image?.sm"
+                  :src="profile.profile_image.sm"
+                  alt=""
+                  class="size-full scale-110 object-cover blur-2xl"
+                  width="200"
+                  height="200"
+                />
+              </div>
             </div>
-          </div>
 
-          <div class="relative isolate -mt-12 ml-[5px] w-fit lg:-mt-16">
-            <component
-              :is="hasProfileImage ? 'button' : 'div'"
-              :type="hasProfileImage ? 'button' : undefined"
-              :aria-label="
-                hasProfileImage ? `View ${profile.name} logo` : undefined
-              "
-              class="ring-background block rounded-full ring-[9px]"
-              :class="
-                hasProfileImage ? 'cursor-zoom-in transition active:scale-98' : ''
-              "
-              @click="hasProfileImage && openAt(0)"
-            >
-              <Avatar
-                :model="profile"
-                size="md"
-                rounded="rounded-full"
-                :gradient-frame="true"
-                :no-tooltip="true"
-                class="size-24 lg:size-32 before:-inset-[5px]!"
-              />
-            </component>
-
-            <span
-              class="absolute top-1/2 right-0 z-[-1] size-8 translate-x-[calc(100%+9px)] -translate-y-full rounded-bl-[16px] bg-transparent shadow-[-16px_16px_0_var(--color-background)]"
-              aria-hidden="true"
-            />
+            <div class="relative isolate ml-[5px] mt-[calc(var(--d)/-2)] w-fit">
+              <component
+                :is="hasProfileImage ? 'button' : 'div'"
+                :type="hasProfileImage ? 'button' : undefined"
+                :aria-label="
+                  hasProfileImage ? `View ${profile.name} logo` : undefined
+                "
+                class="block rounded-full"
+                :class="
+                  hasProfileImage
+                    ? 'cursor-zoom-in transition active:scale-98'
+                    : ''
+                "
+                @click="hasProfileImage && openAt(hasCoverImage ? 1 : 0)"
+              >
+                <Avatar
+                  :model="profile"
+                  size="md"
+                  rounded="rounded-full"
+                  :gradient-frame="true"
+                  :no-tooltip="true"
+                  class="size-(--d) before:-inset-[5px]!"
+                />
+              </component>
+            </div>
           </div>
         </template>
       </Lightbox>
@@ -300,22 +314,49 @@ const profileErrorMessage = computed(() => {
 });
 
 const hasCoverImage = computed(() => Boolean(profile.value?.cover_image?.md));
+
+// The avatar sits 21px in from the cover's left edge (16px page padding plus its
+// 5px margin) and is centred on the cover's bottom edge. 9px = 5px frame + 4px gap.
+const coverNotchStyle = {
+  maskImage:
+    "radial-gradient(circle at calc(21px + var(--d) / 2) 100%, transparent calc(var(--d) / 2 + 8.5px), #000 calc(var(--d) / 2 + 9px))",
+  WebkitMaskImage:
+    "radial-gradient(circle at calc(21px + var(--d) / 2) 100%, transparent calc(var(--d) / 2 + 8.5px), #000 calc(var(--d) / 2 + 9px))",
+};
+
+const coverSrcset = computed(() => {
+  const cover = profile.value?.cover_image;
+  if (!cover?.md) return undefined;
+  return [
+    cover.sm && `${cover.sm} 450w`,
+    `${cover.md} 900w`,
+    cover.lg && `${cover.lg} 1200w`,
+    cover.xl && `${cover.xl} 1500w`,
+  ]
+    .filter(Boolean)
+    .join(", ");
+});
 const hasProfileImage = computed(() => Boolean(profile.value?.profile_image));
 
-const profileImageItems = computed(() => {
-  const img = profile.value?.profile_image;
-  if (!img) return [];
-  return [
-    {
-      sm: img.sm,
-      md: img.md,
-      lg: img.lg,
-      xl: img.xl,
-      url: img.url,
-      name: profile.value?.name,
-      alt: profile.value?.name,
-    },
-  ];
+// Cover first, then the logo: the cover opens at 0 and the logo after it.
+const lightboxItems = computed(() => {
+  const name = profile.value?.name;
+  const toItem = (img, alt) => ({
+    sm: img.sm || img.md,
+    md: img.md,
+    lg: img.lg || img.md,
+    xl: img.xl || img.lg || img.md,
+    url: img.url,
+    name,
+    alt,
+  });
+
+  const items = [];
+  const cover = profile.value?.cover_image;
+  const logo = profile.value?.profile_image;
+  if (cover?.md) items.push(toItem(cover, `${name} cover`));
+  if (logo) items.push(toItem(logo, name));
+  return items;
 });
 
 const phoneNumbers = computed(() => {
