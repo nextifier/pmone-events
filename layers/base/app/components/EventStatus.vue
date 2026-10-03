@@ -23,7 +23,7 @@
           color-to="var(--color-red-600)"
         />
         <span
-          class="text-muted-foreground text-base font-semibold tracking-tight uppercase"
+          class="text-foreground text-base font-semibold tracking-tight uppercase"
           >{{ $t("eventStatus.live") }}</span
         >
       </div>
