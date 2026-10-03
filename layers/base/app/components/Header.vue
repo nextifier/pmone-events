@@ -92,7 +92,7 @@
           </Tippy>
 
           <Tippy v-else>
-            <HeaderMenu v-model:open="isMenuOpen" />
+            <SiteHeaderMenu v-model:open="isMenuOpen" />
             <template #content>
               <span class="inline-flex items-center gap-x-1.5 tracking-tight">
                 <span>Open Menu</span>

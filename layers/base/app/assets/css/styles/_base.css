@@ -214,4 +214,10 @@
   .cn-menu-translucent {
     @apply animate-none! relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-separator]:bg-foreground/5;
   }
+  /* The same glass surface for a panel that brings its own enter/exit animation
+     (the mega menu viewport): `.cn-menu-translucent` without `animate-none!`,
+     which would switch that animation off. */
+  .cn-menu-surface {
+    @apply relative bg-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-separator]:bg-foreground/5;
+  }
 }

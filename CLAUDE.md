@@ -339,6 +339,10 @@ experimental: {
 },
 ```
 
+### 12. HeaderMenu (ui) vs SiteHeaderMenu (situs)
+
+`shadcn-nuxt` mendaftarkan semua export folder `components/ui` sebagai komponen global TANPA prefix. `HeaderMenu` (+ `HeaderMenuTrigger`, `HeaderMenuPanel`, ...) di `components/ui/header-menu/` adalah komponen reusable yang sama di levenium, pmone, dan pmone-events. Menu situs ini (route, profil, meetings, tombol) ada di `components/SiteHeaderMenu.vue`, dibangun di atasnya; jangan beri file di `components/` nama yang sama dengan export folder ui (akan bentrok). `apps/iicc/app/components/SiteHeaderMenu.vue` adalah fork lama berbasis Dialog dan sengaja belum dimigrasi.
+
 ## Menambah Event Baru
 
 1. Copy template dari event yang mirip di `apps/`

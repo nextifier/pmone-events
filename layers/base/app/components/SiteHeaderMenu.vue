@@ -1,61 +1,14 @@
 <template>
-  <Drawer v-model:open="isOpen" side="right">
-    <!--
-      `toggle` because this button is the close control too: the bars morph into
-      a cross while the menu is open. `pointer-events-auto` because the scroll
-      lock sets `pointer-events: none` on the body, and the header sits outside
-      the drawer — without it the cross was purely decorative and the only ways
-      out were Escape, the backdrop, a swipe, or a link.
-    -->
-    <DrawerTrigger toggle as-child>
-      <button
-        type="button"
-        class="pointer-events-auto relative flex size-8 items-center justify-center rounded-lg"
-        aria-label="Menu"
-      >
-        <!--
-          Icon swap (transitions-dev 09) tokens: the two bars are one slot
-          swapping between a hamburger and a cross, rotated rather than
-          cross-faded, so the swap clock applies. `transition-all` is deliberate
-          — translate, rotate and scale all change.
+  <HeaderMenu v-model:open="isOpen" offset="var(--navbar-height)">
+    <HeaderMenuTrigger />
 
-          1.5px is the icons beside this button: 24-unit glyphs drawn at 18px
-          with a 2-unit stroke. On a 1x monitor it reads thin, because a
-          hard-edged CSS box looks lighter than an antialiased SVG stroke of the
-          same width — that is a low-DPI rasterisation artefact, and thickening
-          the bar to answer it throws the weight off on every retina screen and
-          phone, where 1.5px is already right. Leave it.
-
-          The cross is the part that does need answering. Rotated 45° the bar can
-          no longer sit on the pixel grid, picks up a soft edge on both sides,
-          and comes out heavier than the bars it morphs from; 6/7 evens the two
-          states out.
-        -->
-        <span
-          v-for="(_, index) in 2"
-          :key="index"
-          class="bg-primary absolute h-[1.5px] w-5 transition-all duration-(--icon-swap-dur) ease-(--icon-swap-ease) motion-reduce:transition-none"
-          :class="{
-            '-translate-y-1 scale-y-100': index === 0 && !isOpen,
-            'translate-y-1 scale-y-100': index === 1 && !isOpen,
-            'translate-y-0! scale-y-[.857] rotate-45': index === 0 && isOpen,
-            'translate-y-0! scale-y-[.857] -rotate-45': index === 1 && isOpen,
-          }"
-        ></span>
-      </button>
-    </DrawerTrigger>
-
-    <DrawerPopup
+    <HeaderMenuPanel
       id="header-menu"
-      variant="straight"
-      viewport-class="top-(--navbar-height-mobile) bottom-0 lg:top-(--navbar-height-desktop)"
-      overlay-class="z-40 ease-(--panel-ease) duration-(--panel-open-dur) data-ending-style:duration-(--panel-close-dur) motion-reduce:transition-none!"
-      class="bg-background text-primary ease-(--panel-ease) duration-(--panel-open-dur) data-ending-style:duration-(--panel-close-dur) motion-reduce:transition-none! w-full max-w-2xl border-s-0 shadow-none dark:sm:border dark:sm:border-gray-900"
-      tabindex="-1"
+      size="2xl"
+      overlay-class="bg-black/80"
+      class="text-primary dark:sm:border-gray-900"
+      body-class="overflow-visible"
     >
-      <DrawerTitle class="sr-only">Menu</DrawerTitle>
-      <DrawerDescription class="sr-only">Navigation menu</DrawerDescription>
-
       <!--
         `touch-auto` hands vertical scrolling back to the browser: the popup is
         `touch-none` so the horizontal drag belongs to JS, and without this the
@@ -182,28 +135,20 @@
           >
         </DrawerClose>
       </div>
-    </DrawerPopup>
-  </Drawer>
+    </HeaderMenuPanel>
+  </HeaderMenu>
 </template>
 
 <script setup>
-// Built on the Drawer rather than reka's Dialog primitives, so the panel follows
-// the finger instead of snapping shut on a direction guess. The old `useSwipe`
-// watcher only ever reported which way you moved; there was no drag, no rubber
-// band, and no way to change your mind halfway.
-//
-// The back-button handling that used to live here went with it. `Drawer` calls
-// `usePanelHistory`, which keeps one stack shared with Dialog and Lightbox, and
-// only rewinds while the current history entry is still the one it pushed — the
-// same thing the local `closingViaLink` flag was for, minus the bookkeeping.
+// The site's menu: the groups and links of this event, in the reusable header
+// menu (drawer, swipe, back button, the two-bar button and its tokens all live
+// there). Named SiteHeaderMenu because HeaderMenu is the reusable one.
+import { DrawerClose } from "@/components/ui/drawer";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerDescription,
-  DrawerPopup,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  HeaderMenu,
+  HeaderMenuPanel,
+  HeaderMenuTrigger,
+} from "@/components/ui/header-menu";
 
 const localePath = useLocalePath();
 const { t, te } = useI18n();

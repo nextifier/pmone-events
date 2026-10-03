@@ -1585,6 +1585,10 @@
   --muted: color-mix(in oklab, var(--foreground) 10%, transparent);
   @apply ring-background/70 dark:ring-foreground/10 bg-popover/70 **:data-[slot$=-separator]:bg-foreground/5 relative animate-none! before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
 }
+.style-mono .cn-menu-surface {
+  --muted: color-mix(in oklab, var(--foreground) 10%, transparent);
+  @apply ring-background/70 dark:ring-foreground/10 bg-popover/70 **:data-[slot$=-separator]:bg-foreground/5 relative before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
+}
 
 /* MARK: Logical-side slide-in — from _base.css. Needed for RTL/logical placement
    on every popover-ish surface. */

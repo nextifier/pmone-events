@@ -19,6 +19,10 @@ const props = defineProps({
   defaultValue: { type: Number, default: undefined },
   /** Optional presets for the chevron menu: [{ label, value }] */
   tokens: { type: Array, default: () => [] },
+  /** Suffix shown after the value, e.g. "px" or "°/s" */
+  unit: { type: String, default: "" },
+  /** Dims the field and blocks pointer and keyboard input */
+  disabled: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -30,7 +34,7 @@ const editing = ref(false);
 const menuOpen = ref(false);
 const draft = ref("");
 
-// 9 evenly-spaced tick marks (10%…90%), matching reactbits.dev/animations/strands
+// 9 evenly-spaced tick marks (10%…90%), matching the original
 const tickPositions = Array.from({ length: 9 }, (_, i) => (i + 1) * 10);
 
 const value = computed(() => Number(props.modelValue) || 0);
@@ -162,7 +166,11 @@ function pickToken(tk) {
 </script>
 
 <template>
-  <div class="tl-field-wrap">
+  <div
+    class="tl-field-wrap"
+    :class="{ 'is-disabled': disabled }"
+    :inert="disabled || undefined"
+  >
     <div
       class="tl-field"
       :class="{ 'is-dragging': dragging, 'is-editing': editing }"
@@ -192,7 +200,7 @@ function pickToken(tk) {
         :aria-valuemin="min"
         :aria-valuemax="max"
         :aria-valuenow="value"
-        :aria-valuetext="String(display)"
+        :aria-valuetext="`${display}${unit}`"
         @pointerdown="startDrag"
         @keydown="onKeydown"
       />
@@ -212,7 +220,7 @@ function pickToken(tk) {
         class="tl-field-value"
         @pointerdown.stop
         @click="beginEdit"
-        >{{ display }}</span
+        >{{ display }}{{ unit }}</span
       >
     </div>
 
@@ -254,6 +262,9 @@ function pickToken(tk) {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+.tl-field-wrap.is-disabled {
+  opacity: 0.4;
 }
 .tl-field {
   position: relative;
@@ -313,7 +324,7 @@ function pickToken(tk) {
 .tl-field.is-editing .tl-field-fill {
   opacity: 0;
 }
-/* tick marks — reactbits.dev/animations/strands (.scrubber-tick): 1×8px pills,
+/* tick marks — the original (.scrubber-tick): 1×8px pills,
    evenly spaced, faint border color; sit above the fill, below label/value. */
 .scrubber-ticks {
   position: absolute;

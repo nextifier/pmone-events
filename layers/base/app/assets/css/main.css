@@ -512,6 +512,19 @@ html.appearance-switching *::after {
   }
 }
 
+/* The navbar's height at the current width: one token for what sits under it (the
+   header menu's sheet), so it follows the header from phone to lg without a lg:
+   variant of its own. */
+:root {
+  --navbar-height: var(--navbar-height-mobile);
+}
+
+@media (width >= 64rem) {
+  :root {
+    --navbar-height: var(--navbar-height-desktop);
+  }
+}
+
 body {
   /* viewport-fit=cover lets the page run under a landscape notch; content stays clear of it. */
   padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);

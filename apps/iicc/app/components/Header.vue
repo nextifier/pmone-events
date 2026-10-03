@@ -62,7 +62,7 @@
 
           <ColorModeToggle />
 
-          <HeaderMenu v-model:open="isMenuOpen" />
+          <SiteHeaderMenu v-model:open="isMenuOpen" />
         </div>
       </div>
     </nav>

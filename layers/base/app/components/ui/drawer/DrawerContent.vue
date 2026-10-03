@@ -50,6 +50,16 @@ const props = withDefaults(
        * e.g. a menu that hangs below a sticky header.
        */
       viewportClass?: HTMLAttributes["class"];
+      /** Inline style for the viewport, e.g. to set a CSS variable the classes read. */
+      viewportStyle?: HTMLAttributes["style"];
+      /** Inline style for the backdrop. */
+      overlayStyle?: HTMLAttributes["style"];
+      /**
+       * Where to mount the drawer instead of the body: a selector or an element.
+       * Pair it with an `absolute` viewport and backdrop to keep the drawer inside
+       * a box, such as a preview frame.
+       */
+      portalTo?: string | HTMLElement;
       /** Arbitrate drag against cross-axis scrolling. Turn off only to debug. */
       swipeArbitration?: boolean;
       /** Lift the drawer clear of the software keyboard. */
@@ -81,6 +91,9 @@ const delegatedProps = reactiveOmit(
   "showOverlay",
   "overlayClass",
   "viewportClass",
+  "viewportStyle",
+  "overlayStyle",
+  "portalTo",
   "swipeArbitration",
   "virtualKeyboard"
 );
@@ -325,12 +338,13 @@ defineExpose({ contentElement, overlayElement });
     Structure and classes copied from coss `apps/ui/registry/default/ui/drawer.tsx`
     (DrawerPopup / DrawerViewport): Portal > Backdrop > Viewport > Popup.
   -->
-  <DrawerPortal v-if="mounted">
+  <DrawerPortal v-if="mounted" :to="portalTo">
     <DrawerOverlay
       v-if="showOverlay"
       :data-drawer-overlay="overlayId"
       force-mount
       :class="overlayClass"
+      :style="overlayStyle"
       :data-starting-style="startingStyle"
       :data-ending-style="endingStyle"
     />
@@ -338,7 +352,7 @@ defineExpose({ contentElement, overlayElement });
       data-slot="drawer-viewport"
       :data-side="position"
       :data-keyboard-visible="keyboardVisible ? '' : undefined"
-      :style="{ '--drawer-keyboard-inset': `${keyboardInset}px` }"
+      :style="[{ '--drawer-keyboard-inset': `${keyboardInset}px` }, viewportStyle]"
       :class="
         cn(
           'fixed inset-x-0 top-0 z-50 [--bleed:--spacing(12)] [--inset:0px] [--drawer-keyboard-inset:0px]',
