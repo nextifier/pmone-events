@@ -148,7 +148,7 @@ export default defineAppConfig({
         links: [
           routes.gallery,
           routes.faq,
-          // routes.partners,
+          routes.partners,
           routes.links,
         ],
       },

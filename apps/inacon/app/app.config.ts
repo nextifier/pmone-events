@@ -194,6 +194,7 @@ export default defineAppConfig({
         links: [
           routes.gallery,
           routes.faq,
+          routes.partners,
           routes.eventGuidelines,
           routes.safetyAndWeaponPolicy,
           routes.antiHarassmentPolicy,
@@ -227,6 +228,7 @@ export default defineAppConfig({
         links: [
           routes.gallery,
           routes.faq,
+          routes.partners,
           routes.eventGuidelines,
           routes.safetyAndWeaponPolicy,
           routes.antiHarassmentPolicy,

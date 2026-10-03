@@ -137,7 +137,7 @@ export default defineAppConfig({
       routes.programs,
       {
         label: "Resources",
-        links: [routes.gallery, routes.faq, routes.links],
+        links: [routes.gallery, routes.faq, routes.partners, routes.links],
       },
       // routes.partners,
       routes.contact,
@@ -161,7 +161,7 @@ export default defineAppConfig({
       },
       {
         label: "Resources",
-        links: [routes.gallery, routes.faq, routes.links],
+        links: [routes.gallery, routes.faq, routes.partners, routes.links],
       },
     ],
 

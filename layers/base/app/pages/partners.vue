@@ -2,6 +2,9 @@
   <div class="min-h-screen-offset space-y-10 pt-6 pb-16 lg:space-y-16">
     <Credits class="container-wider flex flex-col items-center text-center" />
 
+    <!-- Media coverage is hidden for now. To bring it back, restore this section
+         and the useMediaCoverages block in the script below.
+
     <section id="media" v-if="news?.length" class="container-wider">
       <div class="flex flex-col items-center text-center">
         <h1 class="section-title">{{ content?.title }}</h1>
@@ -19,23 +22,25 @@
         <MediaCard v-for="(item, index) in news" :key="index" :item="item" />
       </div>
     </section>
+    -->
   </div>
 </template>
 
 <script setup>
 usePageMeta("partners");
-const mediaCoverage = await useMediaCoverages();
-const { data: mediaCoverageData } = mediaCoverage;
-const news = computed(() => mediaCoverageData.value?.data ?? []);
 
-// Same recovery as the partner list above; see usePrerenderRecovery.
-useReloadWhenEmpty(mediaCoverage.error, () => news.value.length > 0, "partners-media");
-useRefreshAfterPrerender(mediaCoverage);
-const content = computed(() => useContentStore().components.mediaCoverage);
-
-// Source edition when the press items were borrowed from a previous event.
-const fallbackSource = computed(() => {
-  const fb = mediaCoverageData.value?.meta?.fallback;
-  return fb?.is_fallback ? fb.source_event : null;
-});
+// const mediaCoverage = await useMediaCoverages();
+// const { data: mediaCoverageData } = mediaCoverage;
+// const news = computed(() => mediaCoverageData.value?.data ?? []);
+//
+// // Same recovery as the partner list above; see usePrerenderRecovery.
+// useReloadWhenEmpty(mediaCoverage.error, () => news.value.length > 0, "partners-media");
+// useRefreshAfterPrerender(mediaCoverage);
+// const content = computed(() => useContentStore().components.mediaCoverage);
+//
+// // Source edition when the press items were borrowed from a previous event.
+// const fallbackSource = computed(() => {
+//   const fb = mediaCoverageData.value?.meta?.fallback;
+//   return fb?.is_fallback ? fb.source_event : null;
+// });
 </script>
